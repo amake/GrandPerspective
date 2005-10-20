@@ -1,22 +1,3 @@
-/* GrandPerspective, Version 0.91 
- *   A utility for Mac OS X that graphically shows disk usage. 
- * Copyright (C) 2005, Eriban Software 
- * 
- * This program is free software; you can redistribute it and/or modify it 
- * under the terms of the GNU General Public License as published by the Free 
- * Software Foundation; either version 2 of the License, or (at your option) 
- * any later version. 
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT 
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for 
- * more details. 
- * 
- * You should have received a copy of the GNU General Public License along 
- * with this program; if not, write to the Free Software Foundation, Inc., 
- * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
- */
-
 #import "DirectoryView.h"
 
 #import "math.h"
@@ -26,6 +7,8 @@
 #import "DirectoryViewDrawer.h"
 #import "TreeNavigator.h"
 #import "ColorPalette.h"
+#import "TreeLayoutTraverser.h"
+
 
 @interface DirectoryView (PrivateMethods)
 
@@ -34,37 +17,17 @@
 - (void) itemTreeImageReady:(NSNotification*)notification;
 - (void) visibleItemPathChanged:(NSNotification*)notification;
 - (void) visibleItemTreeChanged:(NSNotification*)notification;
+
 @end  
 
 
-@implementation DirectoryView
-
-- (id) initWithFrame:(NSRect)frame {
-  if (self = [super initWithFrame:frame]) {
-    treeLayoutBuilder = [[TreeLayoutBuilder alloc] init];
-
-    // TEMP
-    [treeLayoutBuilder setLayoutLimits:self];
-    
-    treeDrawer = [[DirectoryViewDrawer alloc] init];
-          
-    [[NSNotificationCenter defaultCenter]
-      addObserver:self selector:@selector(itemTreeImageReady:)
-      name:@"itemTreeImageReady" object:treeDrawer];  
-  }
-  return self;
+@interface LayoutLimits : NSObject <TreeLayoutTraverser> {
 }
-
-- (void) dealloc {
-  [treeLayoutBuilder release];
-  [treeDrawer release];
-  [treeNavigator release];
-
-  [super dealloc];
-}
+@end // @interface LayoutLimits
 
 
-// TEMP: used for layout limits.
+@implementation LayoutLimits
+
 - (BOOL) descendIntoItem:(Item*)item atRect:(NSRect)rect depth:(int)depth {
   // Rectangle must enclose one or more pixel "centers", i.e. it must enclose
   // a point (x+0.5, y+0.5) where x, y are integer values. This means that the
@@ -73,6 +36,40 @@
           (int)(rect.origin.x + 0.5f) > 0 && 
           (int)(rect.origin.y + rect.size.height + 0.5f) -
           (int)(rect.origin.y + 0.5f) > 0);
+}
+
+@end // @implementation LayoutLimits
+
+
+@implementation DirectoryView
+
+- (id) initWithFrame:(NSRect)frame {
+  if (self = [super initWithFrame:frame]) {
+    treeLayoutBuilder = [[TreeLayoutBuilder alloc] init];
+
+    [treeLayoutBuilder setLayoutLimits:
+      [[[LayoutLimits alloc] init] autorelease]];
+    
+    treeDrawer = [[DirectoryViewDrawer alloc] init];
+
+    [[NSNotificationCenter defaultCenter]
+      addObserver:self selector:@selector(itemTreeImageReady:)
+      name:@"itemTreeImageReady" object:treeDrawer];  
+  }
+  return self;
+}
+
+
+- (void) dealloc {
+  NSLog(@"DirectoryView-dealloc");
+  
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+  
+  [treeLayoutBuilder release];
+  [treeDrawer release];
+  [treeNavigator release];
+
+  [super dealloc];
 }
 
 
@@ -113,13 +110,13 @@
     NSAssert([self bounds].origin.x == 0 &&
              [self bounds].origin.y == 0, @"Bounds not at (0, 0)");
 
+    [[NSColor blackColor] set];
+    NSRectFill([self bounds]);
+    
     // Create image in background thread.
     [treeDrawer drawItemTree:[treeNavigator visibleItemTree]
                   usingLayoutBuilder:treeLayoutBuilder
                   inRect:[self bounds]];
-                  
-    [[NSColor blackColor] set];
-    NSRectFill([self bounds]);
   }
   else {
     [image compositeToPoint:NSZeroPoint operation:NSCompositeCopy];
@@ -202,10 +199,11 @@
   }
 }
 
-
 - (void) itemTreeImageReady:(NSNotification*)notification {
-  NSLog(@"itemTreeImageReady. -> setNeedsDisplay:YES");
-  [self setNeedsDisplay:YES];  
+  // Note: This method is called from the main thread (even though it has been
+  // triggered by the drawer's background thread). So calling setNeedsDisplay
+  // directly is okay.
+  [self setNeedsDisplay:YES];
 }
 
 - (void) visibleItemPathChanged:(NSNotification*)notification {

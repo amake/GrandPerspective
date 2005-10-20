@@ -15,6 +15,7 @@
             }; 
             SUPERCLASS = NSWindowController; 
         }, 
+        {CLASS = DummyView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
             ACTIONS = {abort = id; }; 

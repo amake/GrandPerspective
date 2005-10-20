@@ -1,22 +1,3 @@
-/* GrandPerspective, Version 0.91 
- *   A utility for Mac OS X that graphically shows disk usage. 
- * Copyright (C) 2005, Eriban Software 
- * 
- * This program is free software; you can redistribute it and/or modify it 
- * under the terms of the GNU General Public License as published by the Free 
- * Software Foundation; either version 2 of the License, or (at your option) 
- * any later version. 
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT 
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for 
- * more details. 
- * 
- * You should have received a copy of the GNU General Public License along 
- * with this program; if not, write to the Free Software Foundation, Inc., 
- * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
- */
-
 #import "DirectoryViewControl.h"
 
 #import "FileItem.h"
@@ -66,19 +47,27 @@ id makeSizeString(ITEM_SIZE size) {
 // Special case: should not cover (override) super's designated initialiser in
 // NSWindowController's case
 - (id) initWithItemTree:(FileItem*)root {
-  if (self = [super initWithWindowNibName:@"DirectoryViewWindow"]) {
+  id  oldself = self;
+  if (self = [super initWithWindowNibName:@"DirectoryViewWindow" owner:self]) {
     itemTreeRoot = [root retain];
     invisiblePathName = [[NSString alloc] init];
+  }
+  if (oldself != self) {
+    NSLog(@"self changed.");
   }
   return self;
 }
 
 - (void) dealloc {
-  [itemTreeRoot release];
+  NSLog(@"DirectoryViewControl-dealloc");
+
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+  [itemTreeRoot release]; 
+  
   [treeNavigator release];
   [invisiblePathName release];
-
-  // TODO: release more??
+  [hashingOptions release];
   
   [super dealloc];
 }
@@ -90,13 +79,6 @@ id makeSizeString(ITEM_SIZE size) {
 
 
 - (void) windowDidLoad {
-  //[[self window] setInitialFirstResponder:mainView];
-  
-  [super windowDidLoad];
-
-  treeNavigator = [[TreeNavigator alloc] initWithTree:itemTreeRoot];
-  [mainView setTreeNavigator:treeNavigator];
-
   hashingOptions = 
      [[FileItemHashingOptions defaultFileItemHashingOptions] retain];
   [colorMappingChoice addItemsWithObjectValues:
@@ -106,6 +88,11 @@ id makeSizeString(ITEM_SIZE size) {
      [hashingOptions keyForDefaultHashing]];
   [self colorMappingChanged:nil];
   
+  treeNavigator = [[TreeNavigator alloc] initWithTree:itemTreeRoot];
+  [mainView setTreeNavigator:treeNavigator];
+
+  [super windowDidLoad];
+
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(updateButtonState:)
       name:@"visibleItemPathChanged" object:treeNavigator];
@@ -115,10 +102,18 @@ id makeSizeString(ITEM_SIZE size) {
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(visibleItemTreeChanged:)
       name:@"visibleItemTreeChanged" object:treeNavigator];
+  [[NSNotificationCenter defaultCenter]
+      addObserver:self selector:@selector(windowWillClose:)
+      name:@"NSWindowWillCloseNotification" object:[self window]];
 
   [self updateButtonState:nil];
 
   [[self window] makeFirstResponder:mainView];
+  [[self window] makeKeyAndOrderFront:self];
+}
+
+- (void) windowWillClose:(NSNotification*)notification {
+  [self autorelease];
 }
 
 - (IBAction) upAction:(id)sender {

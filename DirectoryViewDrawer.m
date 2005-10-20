@@ -1,22 +1,3 @@
-/* GrandPerspective, Version 0.91 
- *   A utility for Mac OS X that graphically shows disk usage. 
- * Copyright (C) 2005, Eriban Software 
- * 
- * This program is free software; you can redistribute it and/or modify it 
- * under the terms of the GNU General Public License as published by the Free 
- * Software Foundation; either version 2 of the License, or (at your option) 
- * any later version. 
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT 
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for 
- * more details. 
- * 
- * You should have received a copy of the GNU General Public License along 
- * with this program; if not, write to the Free Software Foundation, Inc., 
- * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
- */
-
 #import "DirectoryViewDrawer.h"
 
 #import "FileItem.h"
@@ -31,6 +12,7 @@ enum {
 
 @interface DirectoryViewDrawer (PrivateMethods)
 
+- (void) defaultPostNotificationName:(NSString*)notificationName;
 - (void) imageDrawLoop;
 - (void) backgroundDrawItemTree:(Item*)itemTreeRoot 
            usingLayoutBuilder:(TreeLayoutBuilder*)layoutBuilder 
@@ -92,9 +74,9 @@ enum {
 
 - (void) setFileItemHashing:(FileItemHashing*)fileItemHashingVal {
   if (fileItemHashingVal != fileItemHashing) {
-    [fileItemHashingVal retain];
     [fileItemHashing release];
-    fileItemHashing = fileItemHashingVal;
+    fileItemHashing = [fileItemHashingVal retain];
+    
     [self resetImage];
   }
 }
@@ -174,6 +156,11 @@ enum {
 
 @implementation DirectoryViewDrawer (PrivateMethods)
 
+- (void) defaultPostNotificationName:(NSString*)notificationName {
+  [[NSNotificationCenter defaultCenter]
+      postNotificationName:notificationName object:self];
+}
+
 - (void) imageDrawLoop {
   while (YES) {
     NSAutoreleasePool  *pool = [[NSAutoreleasePool alloc] init];
@@ -204,8 +191,11 @@ enum {
     
     [settingsLock lock];
     if (!abort) {
-      [[NSNotificationCenter defaultCenter]
-        postNotificationName:@"itemTreeImageReady" object:self];
+      [self performSelectorOnMainThread:@selector(defaultPostNotificationName:)
+              withObject:@"itemTreeImageReady" waitUntilDone:NO];
+      
+      //[[NSNotificationCenter defaultCenter]
+      //  postNotificationName:@"itemTreeImageReady" object:self];
       [workLock unlockWithCondition:NO_IMAGE_TASK];
       
       NSLog(@"Done drawing. Time taken=%f", -[startTime timeIntervalSinceNow]);
@@ -249,7 +239,7 @@ enum {
   [settingsLock unlock];
 
   [drawBitmap release];
-  drawBitmap = NULL;
+  drawBitmap = nil;
 }
 
 
