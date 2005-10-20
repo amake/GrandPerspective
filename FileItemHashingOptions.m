@@ -1,4 +1,4 @@
-/* GrandPerspective, Version 0.90 
+/* GrandPerspective, Version 0.91 
  *   A utility for Mac OS X that graphically shows disk usage. 
  * Copyright (C) 2005, Eriban Software 
  * 
@@ -17,23 +17,74 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
  */
 
-#import "FileItemColoringOptions.h"
+#import "FileItemHashingOptions.h"
 
-#import "ColoringByDepth.h"
-#import "ColoringByDirectoryName.h"
-#import "ColoringByExtension.h"
-#import "ColoringByFileName.h"
+#import "DirectoryItem.h" // Imports FileItem.h
+#import "FileItemHashing.h"
 
-@implementation FileItemColoringOptions
+@interface HashingByDepth : FileItemHashing {
+}
+@end
 
-FileItemColoringOptions  *defaultFileItemColoringOptions = nil;
+@interface HashingByExtension : FileItemHashing {
+}
+@end
 
-+ (FileItemColoringOptions*) defaultFileItemColoringOptions {
-  if (defaultFileItemColoringOptions==nil) {
-    defaultFileItemColoringOptions = [[FileItemColoringOptions alloc] init];
+@interface HashingByFilename : FileItemHashing {
+}
+@end
+
+@interface HashingByDirectoryName : FileItemHashing {
+}
+@end
+
+
+@implementation HashingByDepth
+
+- (int) hashForFileItem:(FileItem*)item depth:(int)depth {
+  return depth;
+}
+
+@end // HashingByDepth
+
+
+@implementation HashingByExtension
+
+- (int) hashForFileItem:(FileItem*)item depth:(int)depth {
+  return [[[item name] pathExtension] hash];
+}
+
+@end // HashingByExtension
+
+
+@implementation HashingByFilename
+
+- (int) hashForFileItem:(FileItem*)item depth:(int)depth {
+  return [[item name] hash];
+}
+
+@end //HashingByFilename
+
+
+@implementation HashingByDirectoryName
+
+- (int) hashForFileItem:(FileItem*)item depth:(int)depth {
+  return [[[item parentDirectory] name] hash];
+}
+
+@end // HashingByDirectoryName 
+
+
+@implementation FileItemHashingOptions
+
+FileItemHashingOptions  *defaultFileItemHashingOptions = nil;
+
++ (FileItemHashingOptions*) defaultFileItemHashingOptions {
+  if (defaultFileItemHashingOptions==nil) {
+    defaultFileItemHashingOptions = [[FileItemHashingOptions alloc] init];
   }
   
-  return defaultFileItemColoringOptions;
+  return defaultFileItemHashingOptions;
 }
 
 // Uses a default set of five coloring options.
@@ -42,15 +93,15 @@ FileItemColoringOptions  *defaultFileItemColoringOptions = nil;
   NSMutableDictionary  *colorings = 
     [NSMutableDictionary dictionaryWithCapacity:5];
 
-  [colorings setObject:[[[ColoringByDirectoryName alloc] init] autorelease]
+  [colorings setObject:[[[HashingByDirectoryName alloc] init] autorelease]
                forKey:@"directory"];
-  [colorings setObject:[[[ColoringByExtension alloc] init] autorelease]
+  [colorings setObject:[[[HashingByExtension alloc] init] autorelease]
                forKey:@"extension"];
-  [colorings setObject:[[[ColoringByFileName alloc] init] autorelease]
+  [colorings setObject:[[[HashingByFilename alloc] init] autorelease]
                forKey:@"name"];
-  [colorings setObject:[[[ColoringByDepth alloc] init] autorelease]
+  [colorings setObject:[[[HashingByDepth alloc] init] autorelease]
                forKey:@"depth"];
-  [colorings setObject:[[[BasicColoring alloc] init] autorelease]
+  [colorings setObject:[[[FileItemHashing alloc] init] autorelease]
                forKey:@"nothing"];
 
   return [self initWithDictionary:colorings defaultKey:@"directory"];
@@ -81,11 +132,11 @@ FileItemColoringOptions  *defaultFileItemColoringOptions = nil;
   return [optionsDictionary allKeys];
 }
 
-- (NSString*) keyForDefaultColoring {
+- (NSString*) keyForDefaultHashing {
   return defaultKey;
 }
 
-- (FileItemColoring*) fileItemColoringForKey:(NSString*)key {
+- (FileItemHashing*) fileItemHashingForKey:(NSString*)key {
   return [optionsDictionary objectForKey:key];
 }
 

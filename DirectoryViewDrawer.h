@@ -1,4 +1,4 @@
-/* GrandPerspective, Version 0.90 
+/* GrandPerspective, Version 0.91 
  *   A utility for Mac OS X that graphically shows disk usage. 
  * Copyright (C) 2005, Eriban Software 
  * 
@@ -22,14 +22,20 @@
 #import "TreeLayoutTraverser.h"
 
 @class TreeLayoutBuilder;
-@protocol FileItemColoring;
+@class FileItemHashing;
+@class ColorPalette;
 
 @interface DirectoryViewDrawer : NSObject <TreeLayoutTraverser> {
 
-  // TODO: Why not id <FileItemColoring>?
-  id  fileItemColoring;
+  FileItemHashing  *fileItemHashing;
+
+  // Only set when it has not yet been loaded into the gradient array.
+  ColorPalette  *colorPalette;
+  UInt32  *gradientColors;
+  int  numGradientColors;
 
   NSImage  *image;
+  NSBitmapImageRep  *drawBitmap;
 
   NSConditionLock  *workLock;
   NSLock           *settingsLock;  
@@ -41,10 +47,15 @@
   NSRect             drawInRect;
 }
 
-- (id) initWithFileItemColoring:(id <FileItemColoring>)fileItemColoring;
+- (id) initWithFileItemHashing:(FileItemHashing*)fileItemHashing;
 
-- (void) setFileItemColoring:(id <FileItemColoring>)fileItemColoring;
-- (id <FileItemColoring>) fileItemColoring;
+- (id) initWithFileItemHashing:(FileItemHashing*)fileItemHashing
+                  colorPalette:(ColorPalette*)colorPalette;
+
+- (void) setFileItemHashing:(FileItemHashing*)fileItemHashing;
+- (FileItemHashing*) fileItemHashing;
+
+- (void) setColorPalette:(ColorPalette*)colorPalette;
 
 // Both "itemTreeRoot" and "layoutBuilder" should be immutable.
 - (void) drawItemTree:(Item*)itemTreeRoot 

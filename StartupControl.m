@@ -1,4 +1,4 @@
-/* GrandPerspective, Version 0.90 
+/* GrandPerspective, Version 0.91 
  *   A utility for Mac OS X that graphically shows disk usage. 
  * Copyright (C) 2005, Eriban Software 
  * 
@@ -98,8 +98,6 @@
   NSAutoreleasePool *pool;
   pool = [[NSAutoreleasePool alloc] init];
   
-  NSLog(@"Starting.");
-  
   NSDate  *startTime = [NSDate date];
   
   [progressText setStringValue:@"Scanning directory..."];
@@ -117,8 +115,8 @@
   [dirName release];
   
   [progressIndicator stopAnimation:nil];
-  NSLog(@"Done. Total size=%qu, Time taken=%f", [itemTreeRoot itemSize], 
-        -[startTime timeIntervalSinceNow]);
+  NSLog(@"Done scanning. Total size=%qu, Time taken=%f", 
+        [itemTreeRoot itemSize], -[startTime timeIntervalSinceNow]);
   
   [progressPanel close];
   

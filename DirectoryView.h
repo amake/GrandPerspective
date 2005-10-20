@@ -1,4 +1,4 @@
-/* GrandPerspective, Version 0.90 
+/* GrandPerspective, Version 0.91 
  *   A utility for Mac OS X that graphically shows disk usage. 
  * Copyright (C) 2005, Eriban Software 
  * 
@@ -22,8 +22,7 @@
 @class TreeLayoutBuilder;
 @class DirectoryViewDrawer;
 @class TreeNavigator;
-
-@protocol FileItemColoring;
+@class FileItemHashing;
 
 // TEMP implements TreeLayoutTraverser
 #import "TreeLayoutTraverser.h"
@@ -38,7 +37,7 @@
 
 - (void) setTreeNavigator:(TreeNavigator*)navigator;
 
-- (void) setFileItemColoring:(id <FileItemColoring>)fileItemColoring;
-- (id <FileItemColoring>) fileItemColoring;
+- (void) setFileItemHashing:(FileItemHashing*)fileItemHashing;
+- (FileItemHashing*) fileItemHashing;
 
 @end

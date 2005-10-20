@@ -1,4 +1,4 @@
-/* GrandPerspective, Version 0.90 
+/* GrandPerspective, Version 0.91 
  *   A utility for Mac OS X that graphically shows disk usage. 
  * Copyright (C) 2005, Eriban Software 
  * 
@@ -20,8 +20,9 @@
 #import "DirectoryViewDrawer.h"
 
 #import "FileItem.h"
+#import "FileItemHashing.h"
+#import "ColorPalette.h"
 #import "TreeLayoutBuilder.h"
-#import "BasicColoring.h"
 
 enum {
   IMAGE_TASK_PENDING = 345,
@@ -34,10 +35,9 @@ enum {
 - (void) backgroundDrawItemTree:(Item*)itemTreeRoot 
            usingLayoutBuilder:(TreeLayoutBuilder*)layoutBuilder 
            inRect:(NSRect)bounds;
-- (void) drawBasicFilledRect:(NSRect)rect color:(NSColor*)color;
-- (void) drawGradientFilledRect:(NSRect)rect color:(NSColor*)color;
-- (NSColor*) darkenColor:(NSColor*)color by:(float)adjust;
-- (NSColor*) lightenColor:(NSColor*)color by:(float)adjust;
+- (void) drawBasicFilledRect:(NSRect)rect colorHash:(int)hash;
+- (void) drawGradientFilledRect:(NSRect)rect colorHash:(int)hash;
+- (void) calculateGradientColors;
 
 @end
 
@@ -45,14 +45,23 @@ enum {
 @implementation DirectoryViewDrawer
 
 - (id) init {
-  return [self initWithFileItemColoring:
-           [[[BasicColoring alloc] init] autorelease]];
+  return [self initWithFileItemHashing:
+           [[[FileItemHashing alloc] init] autorelease]];
 }
 
-- (id) initWithFileItemColoring:(id <FileItemColoring>)fileItemColoringVal {
+- (id) initWithFileItemHashing:(FileItemHashing*)fileItemHashingVal {
+  return [self initWithFileItemHashing:fileItemHashingVal
+                 colorPalette:[ColorPalette defaultColorPalette]];
+}
+
+- (id) initWithFileItemHashing:(FileItemHashing*)fileItemHashingVal
+         colorPalette:(ColorPalette*)colorPaletteVal {
   if (self = [super init]) {
-    fileItemColoring = fileItemColoringVal;
-    [fileItemColoring retain];
+    fileItemHashing = fileItemHashingVal;
+    [fileItemHashing retain];
+    
+    colorPalette = colorPaletteVal;
+    [colorPalette retain];
   
     workLock = [[NSConditionLock alloc] initWithCondition:NO_IMAGE_TASK];
     settingsLock = [[NSLock alloc] init];
@@ -65,7 +74,10 @@ enum {
 }
 
 - (void) dealloc {
-  [fileItemColoring release];
+  [fileItemHashing release];
+  [colorPalette release];
+  
+  free(gradientColors);
   
   [image release];
   
@@ -78,18 +90,30 @@ enum {
   [super dealloc];
 }
 
-- (void) setFileItemColoring:(id <FileItemColoring>)fileItemColoringVal {
-  if (fileItemColoringVal != fileItemColoring) {
-    [fileItemColoring release];
-    fileItemColoring = fileItemColoringVal;
-    [fileItemColoring retain];
+- (void) setFileItemHashing:(FileItemHashing*)fileItemHashingVal {
+  if (fileItemHashingVal != fileItemHashing) {
+    [fileItemHashingVal retain];
+    [fileItemHashing release];
+    fileItemHashing = fileItemHashingVal;
     [self resetImage];
   }
 }
 
-- (id <FileItemColoring>) fileItemColoring {
-  return fileItemColoring;
+- (FileItemHashing*) fileItemHashing {
+  return fileItemHashing;
 }
+
+
+- (void) setColorPalette:(ColorPalette*)colorPaletteVal {
+  [settingsLock lock];
+  [colorPaletteVal retain];
+  [colorPalette release];
+  colorPalette = colorPaletteVal;
+  [settingsLock unlock];
+
+  [self resetImage];
+}
+
 
 
 - (NSImage*) getImage {
@@ -114,17 +138,8 @@ enum {
 
     if ([file isPlainFile]) {
       [self drawGradientFilledRect:rect 
-              color:[fileItemColoring colorForFileItem:file depth:depth]];
+              colorHash:[fileItemHashing hashForFileItem:file depth:depth]];
     }
-    /*
-    // nice, but slow
-    else {
-      [self drawGradientFilledRect:rect color:
-        [self darkenColor:[[NSColor darkGrayColor] 
-                              colorUsingColorSpaceName:NSDeviceRGBColorSpace] 
-                       by:0.2f]];
-    }
-    */
   }
 
   // Only descend/continue when the current drawing task has not been aborted.
@@ -174,16 +189,26 @@ enum {
     drawItemTree = nil;
     drawLayoutBuilder = nil;
     abort = NO;
+    
+    NSDate  *startTime = [NSDate date];
+    
+    if (colorPalette!=nil) {
+      [self calculateGradientColors];
+      [colorPalette release];
+      colorPalette = nil;
+    }
+    
     [settingsLock unlock];
 
-    [self backgroundDrawItemTree:tree usingLayoutBuilder:builder
-            inRect:rect];
+    [self backgroundDrawItemTree:tree usingLayoutBuilder:builder inRect:rect];
     
     [settingsLock lock];
     if (!abort) {
       [[NSNotificationCenter defaultCenter]
         postNotificationName:@"itemTreeImageReady" object:self];
       [workLock unlockWithCondition:NO_IMAGE_TASK];
+      
+      NSLog(@"Done drawing. Time taken=%f", -[startTime timeIntervalSinceNow]);
     }
     else {
       [workLock unlockWithCondition:IMAGE_TASK_PENDING];
@@ -199,153 +224,193 @@ enum {
            usingLayoutBuilder:(TreeLayoutBuilder*)layoutBuilder
            inRect:(NSRect)bounds {
   [self resetImage];
-
-  NSImage  *drawImage = [[NSImage alloc] initWithSize:bounds.size];
-
-  [drawImage lockFocus];
+  
+  drawBitmap = [[NSBitmapImageRep alloc] 
+                 initWithBitmapDataPlanes:NULL
+                 pixelsWide:(int)bounds.size.width
+                 pixelsHigh:(int)bounds.size.height
+                 bitsPerSample:8
+                 samplesPerPixel:3
+                 hasAlpha:NO
+                 isPlanar:NO
+                 colorSpaceName:NSDeviceRGBColorSpace
+                 bytesPerRow:0
+                 bitsPerPixel:32];
   
   // TODO: cope with fact when bounds not start at (0, 0)? Would this every be
   // useful/occur?
-  [[NSColor blackColor] set];
-  NSRectFill(bounds);
-
   [layoutBuilder layoutItemTree:itemTreeRoot inRect:bounds traverser:self];
 
-  [drawImage unlockFocus];
-  
   [settingsLock lock];
   if (!abort) {
-    image = drawImage;
-  }
-  else {
-    [drawImage release];
+    image = [[NSImage alloc] initWithSize:bounds.size];
+    [image addRepresentation:drawBitmap];
   }
   [settingsLock unlock];
+
+  [drawBitmap release];
+  drawBitmap = NULL;
 }
 
 
-- (void)drawBasicFilledRect:(NSRect)rect color:(NSColor*)color {
-  NSBezierPath  *path = [NSBezierPath bezierPathWithRect:rect];
+- (void)drawBasicFilledRect:(NSRect)rect colorHash:(int)colorHash {
+  UInt32  intColor = 
+    gradientColors[(abs(colorHash) % numGradientColors) * 256 + 128];
 
-  [[NSColor blackColor] set];
-  [path stroke];
+  UInt32  *data = (UInt32*)[drawBitmap bitmapData];
   
-  [color set];
-  [path fill];
+  int  x, y;
+  int  x0 = (int)(rect.origin.x + 0.5f);
+  int  y0 = (int)(rect.origin.y + 0.5f);  
+  int  height = (int)(rect.origin.y + rect.size.height + 0.5f) - y0;
+  int  width = (int)(rect.origin.x + rect.size.width + 0.5f) - x0;
+  int  bitmapWidth = [drawBitmap pixelsWide];
+  int  bitmapHeight = [drawBitmap pixelsHigh];
+  
+  for (y=0; y<height; y++) {
+    int  pos = x0 + (bitmapHeight - y0 - y - 1) * bitmapWidth;
+    for (x=0; x<width; x++) {
+      data[pos] = intColor;
+      pos++;
+    }
+  }
 }
 
-- (void)drawGradientFilledRect:(NSRect)rect color:(NSColor*)color {
-  NSBezierPath  *bPath = [NSBezierPath bezierPath];
-  NSPoint  p1, p2;
-  float  r;
+
+- (void)drawGradientFilledRect:(NSRect)rect colorHash:(int)colorHash {
+  UInt32  *intColors = 
+    &gradientColors[(abs(colorHash) % numGradientColors) * 256];
+  UInt32  intColor;
+  int  colorIndex;
   
-  // TODO: Make c a configurable parameter.
-  float  c = 1.0f;
+  UInt32  *data = (UInt32*)[drawBitmap bitmapData];
+  UInt32  *pos;
+  UInt32  *poslim;
   
-  [bPath setLineCapStyle:NSButtLineCapStyle];
-  [bPath setLineWidth:2];
-
-  color = [color colorUsingColorSpaceName:NSDeviceRGBColorSpace];
-
-  p1 = rect.origin;
-  p1.y += 1;
-  [bPath moveToPoint:p1];
-  p1.x += rect.size.width-1;
-  [bPath lineToPoint:p1];
-  p1.y += rect.size.height-2;
-  [bPath lineToPoint:p1];
-  [[self darkenColor:color by:0.5f*c] set];
-  [bPath stroke];
-  
-  int  x;
-  int  xmin = (int)(rect.origin.x + 1);
-  int  xmax = (int)(rect.origin.x + rect.size.width);
-
-  p1.y = rect.origin.y + rect.size.height - 0.5f;
-  p2.y = rect.origin.y;// + 0.5f;
-  for (x=xmin; x<=xmax; x++) {
-    [bPath removeAllPoints];
-
-    r = (xmax > xmin) ? (x-xmin)/(float)(xmax-xmin) : 0.5f;
-
-    p1.x = x;
-    p2.x = x;
-
-    [bPath moveToPoint:p1];
-    [bPath lineToPoint:p2];
-    
-    // TODO: use caching of colors? Now very many colors/objects created during
-    // drawing (only freed when drawing is finished).
-    if (r < 0.5f) {
-      [[self lightenColor:color by:(0.5f-r)*c] set];
-    }
-    else {
-      [[self darkenColor:color by:(r-0.5f)*c] set];
-    }
-    
-    [bPath stroke];
-  } 
-
-  int  y;
-  int  ymin = (int)(rect.origin.y+1);
-  int  ymax = (int)(rect.origin.y + rect.size.height);
-
-  p1.x = rect.origin.x - 0.5f;
-  for (y=ymin; y<=ymax; y++) {
-    [bPath removeAllPoints];
-
-    r = (ymax > ymin) ? (y-ymin)/(float)(ymax-ymin) : 0.5f;
+  int  x, y;
+  int  x0 = (int)(rect.origin.x + 0.5f);
+  int  y0 = (int)(rect.origin.y + 0.5f);
+  int  width = (int)(rect.origin.x + rect.size.width + 0.5f) - x0;
+  int  height = (int)(rect.origin.y + rect.size.height + 0.5f) - y0;
+  int  bitmapWidth = [drawBitmap pixelsWide];
+  int  bitmapHeight = [drawBitmap pixelsHigh];
  
-    p1.y = y;
-    p2.y = y;
-    p2.x = p1.x + (1-r)*rect.size.width;
-
-    [bPath moveToPoint:p1];
-    [bPath lineToPoint:p2];
-
-    if (r < 0.5f) {
-      [[self darkenColor:color by:(0.5f-r)*c] set];
+  if (height <= 0 || width <= 0) {
+    NSLog(@"Height and width should both be positive: x=%f, y=%f, w=%f, h=%f",
+          rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+    return;
+  }
+ 
+  // Horizontal lines
+  for (y=0; y<height; y++) {
+    colorIndex = 256 * (y0 + y + 0.5f - rect.origin.y) / rect.size.height;
+    // Check for out of bounds, rarely happens but can due to rounding errors.
+    if (colorIndex < 0) {
+      colorIndex = 0;
     }
-    else {
-      [[self lightenColor:color by:(r-0.5f)*c] set];
+    else if (colorIndex > 255) {
+      colorIndex = 255;
+    }
+    intColor = intColors[colorIndex];
+    
+    x = (height - y - 1) * width / height; // Maximum x. 
+    pos = &data[ (bitmapHeight - y0 - y - 1) * bitmapWidth + x0 ];
+    poslim = pos + x;
+    while (pos < poslim) {
+      *pos = intColor;
+      pos++;
+    }
+  }
+  
+  // Vertical lines
+  for (x=0; x<width; x++) {
+    colorIndex = 256 * (1 - (x0 + x + 0.5f - rect.origin.x) / rect.size.width);
+    // Check for out of bounds, rarely happens but can due to rounding errors.
+    if (colorIndex < 0) {
+      colorIndex = 0;
+    }
+    else if (colorIndex > 255) {
+      colorIndex = 255;
+    }
+    intColor = intColors[colorIndex];
+    
+    y = (width - x - 1) * height / width; // Minimum y.
+    pos = &data[ (bitmapHeight - y0 - height) * bitmapWidth + x + x0 ];
+    poslim = pos + bitmapWidth * (height - y);
+    while (pos < poslim) {
+      *pos = intColor;
+      pos += bitmapWidth;
+    }
+  }
+}
+
+
+- (void) calculateGradientColors {
+  NSAssert(colorPalette != nil, @"Color palette must be set.");
+  free(gradientColors);
+
+  numGradientColors = [colorPalette numColors];
+  gradientColors = malloc(sizeof(UInt32) * numGradientColors * 256);
+  NSAssert(gradientColors != NULL, @"Failed to malloc gradientColors."); 
+  
+  NSAutoreleasePool  *localAutoreleasePool = [[NSAutoreleasePool alloc] init];
+  
+  int  i, j;
+  UInt32  *pos = gradientColors;
+  
+  for (i=0; i<[colorPalette numColors]; i++) {    
+    NSColor  *color = [colorPalette getColorForInt:i];
+    
+    // TODO: needed?
+    // color = [color colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+    
+    NSColor  *modColor;
+    float  hue = [color hueComponent];
+    float  saturation = [color saturationComponent];
+    float  brightness = [color brightnessComponent];
+    float  alpha = [color alphaComponent];
+
+    // Darker colors
+    for (j=0; j<128; j++) {
+      float  adjust = 0.5f * (float)(128-j) / 128;
+      modColor = [NSColor colorWithDeviceHue:hue
+                            saturation:saturation
+                            brightness:brightness * ( 1 - adjust)
+                            alpha:alpha];
+                   
+      *pos++ = ((UInt32)([modColor redComponent] * 255) & 0xFF) << 24 |
+               ((UInt32)([modColor greenComponent] * 255) & 0xFF) << 16 |
+               ((UInt32)([modColor blueComponent] * 255) & 0xFF) << 8;
     }
     
-    [bPath stroke];
+    // Lighter colors
+    for (j=0; j<128; j++) {
+      float  adjust = 0.5f * (float)j / 128;
+      
+      // First ramp up brightness, then decrease saturation  
+      float dif = 1 - brightness;
+      float absAdjust = (dif + saturation) * adjust;
+
+      if (absAdjust < dif) {
+        modColor = [NSColor colorWithDeviceHue:hue
+                              saturation:saturation
+                              brightness:brightness + absAdjust
+                              alpha:alpha];
+      }
+      else {
+        modColor = [NSColor colorWithDeviceHue:hue
+                              saturation:saturation + dif - absAdjust
+                              brightness:1.0f
+                              alpha:alpha];
+      }
+      
+      *pos++ = ((UInt32)([modColor redComponent] * 255) & 0xFF) << 24 |
+               ((UInt32)([modColor greenComponent] * 255) & 0xFF) << 16 |
+               ((UInt32)([modColor blueComponent] * 255) & 0xFF) << 8;
+    }
   }
-}
-
-
-- (NSColor*) darkenColor:(NSColor*)color by:(float)adjust {
-  NSAssert(adjust >= 0.0f && adjust <= 1.0f, @"adjust amount outside range");
-
-  // Descrease brightness
-  return 
-    [NSColor colorWithDeviceHue:[color hueComponent] 
-                     saturation:[color saturationComponent]
-                     brightness:[color brightnessComponent]*(1-adjust)
-                          alpha:[color alphaComponent]];
-}
-
-- (NSColor*) lightenColor:(NSColor*)color by:(float)adjust {
-  NSAssert(adjust >= 0.0f && adjust <= 1.0f, @"adjust amount outside range");
-
-  // First ramp up brightness, then decrease saturation  
-  float dif = 1 - [color brightnessComponent];
-  float absAdjust = (dif + [color saturationComponent]) * adjust;
-  if (absAdjust < dif) {
-    return 
-      [NSColor colorWithDeviceHue:[color hueComponent] 
-                       saturation:[color saturationComponent]
-                       brightness:[color brightnessComponent] + absAdjust
-                            alpha:[color alphaComponent]];
-  }
-  else {
-    return 
-      [NSColor colorWithDeviceHue:[color hueComponent] 
-                       saturation:[color saturationComponent] - absAdjust + dif
-                       brightness:1.0f
-                            alpha:[color alphaComponent]];
-  }
+  
+  [localAutoreleasePool release];
 }
 
 @end // @implementation DirectoryViewDrawer (PrivateMethods)

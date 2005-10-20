@@ -1,4 +1,4 @@
-/* GrandPerspective, Version 0.90 
+/* GrandPerspective, Version 0.91 
  *   A utility for Mac OS X that graphically shows disk usage. 
  * Copyright (C) 2005, Eriban Software 
  * 
@@ -17,12 +17,12 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
  */
 
-#import <Cocoa/Cocoa.h>
+#import "FileItemHashing.h"
 
-#import "BasicColoring.h"
+@implementation FileItemHashing
 
-@interface ColoringByDirectoryName : BasicColoring {
-
+- (int) hashForFileItem:(FileItem*)item depth:(int)depth {
+  return 0;
 }
 
 @end

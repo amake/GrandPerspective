@@ -1,4 +1,4 @@
-/* GrandPerspective, Version 0.90 
+/* GrandPerspective, Version 0.91 
  *   A utility for Mac OS X that graphically shows disk usage. 
  * Copyright (C) 2005, Eriban Software 
  * 
@@ -23,7 +23,7 @@
 #import "DirectoryView.h"
 #import "StartupControl.h"
 #import "TreeNavigator.h"
-#import "FileItemColoringOptions.h"
+#import "FileItemHashingOptions.h"
 
 char BYTE_SIZE_ORDER[4] = { 'k', 'M', 'G', 'T'};
 
@@ -97,13 +97,13 @@ id makeSizeString(ITEM_SIZE size) {
   treeNavigator = [[TreeNavigator alloc] initWithTree:itemTreeRoot];
   [mainView setTreeNavigator:treeNavigator];
 
-  coloringOptions = 
-     [[FileItemColoringOptions defaultFileItemColoringOptions] retain];
+  hashingOptions = 
+     [[FileItemHashingOptions defaultFileItemHashingOptions] retain];
   [colorMappingChoice addItemsWithObjectValues:
-     [[coloringOptions allKeys] 
+     [[hashingOptions allKeys] 
          sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)]];
   [colorMappingChoice selectItemWithObjectValue:
-     [coloringOptions keyForDefaultColoring]];
+     [hashingOptions keyForDefaultHashing]];
   [self colorMappingChanged:nil];
   
   [[NSNotificationCenter defaultCenter]
@@ -118,9 +118,6 @@ id makeSizeString(ITEM_SIZE size) {
 
   [self updateButtonState:nil];
 
-  // TEMP: should not really be here, but in mainView  
-  //[[self window] setAcceptsMouseMovedEvents:YES];
-
   [[self window] makeFirstResponder:mainView];
 }
 
@@ -133,11 +130,11 @@ id makeSizeString(ITEM_SIZE size) {
 }
 
 - (IBAction) colorMappingChanged:(id)sender {
-  id <FileItemColoring>  fileItemColoring =
-    [coloringOptions fileItemColoringForKey:
+  FileItemHashing*  fileItemHashing =
+    [hashingOptions fileItemHashingForKey:
       [colorMappingChoice objectValueOfSelectedItem]];
       
-  [mainView setFileItemColoring:fileItemColoring];
+  [mainView setFileItemHashing:fileItemHashing];
 }
 
 @end // @implementation DirectoryViewControl

@@ -1,4 +1,4 @@
-/* GrandPerspective, Version 0.90 
+/* GrandPerspective, Version 0.91 
  *   A utility for Mac OS X that graphically shows disk usage. 
  * Copyright (C) 2005, Eriban Software 
  * 
@@ -67,6 +67,10 @@ ColorPalette  *defaultPalette = nil;
   // Note: not retaining-autoreleasing it for efficiency. Should be okay as
   // the color palette should be longer lived than the stack whenever this
   // method is called
+}
+
+- (int) numColors {
+  return [colorArray count];
 }
 
 @end

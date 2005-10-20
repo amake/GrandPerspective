@@ -1,4 +1,4 @@
-/* GrandPerspective, Version 0.90 
+/* GrandPerspective, Version 0.91 
  *   A utility for Mac OS X that graphically shows disk usage. 
  * Copyright (C) 2005, Eriban Software 
  * 
@@ -17,15 +17,22 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA. 
  */
 
-#import "ColoringByFileName.h"
+#import <Cocoa/Cocoa.h>
 
-#import "FileItem.h"
-#import "ColorPalette.h"
+@class FileItemHashing;
 
-@implementation ColoringByFileName
-
-- (NSColor*) colorForFileItem:(FileItem*)item depth:(int)depth {
-  return [colorPalette getColorForInt:[[item name] hash]];
+@interface FileItemHashingOptions : NSObject {
+  NSDictionary  *optionsDictionary;
+  NSString      *defaultKey;
 }
+
++ (FileItemHashingOptions*) defaultFileItemHashingOptions;
+
+- (id) initWithDictionary:(NSDictionary*)dictionary;
+- (id) initWithDictionary:(NSDictionary*)dictionary defaultKey:defaultKeyVal;
+
+- (NSArray*) allKeys;
+- (NSString*) keyForDefaultHashing;
+- (FileItemHashing*) fileItemHashingForKey:(NSString*)key;
 
 @end

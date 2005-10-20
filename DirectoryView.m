@@ -1,4 +1,4 @@
-/* GrandPerspective, Version 0.90 
+/* GrandPerspective, Version 0.91 
  *   A utility for Mac OS X that graphically shows disk usage. 
  * Copyright (C) 2005, Eriban Software 
  * 
@@ -18,6 +18,8 @@
  */
 
 #import "DirectoryView.h"
+
+#import "math.h"
 
 #import "FileItem.h"
 #import "TreeLayoutBuilder.h"
@@ -61,9 +63,16 @@
   [super dealloc];
 }
 
+
 // TEMP: used for layout limits.
 - (BOOL) descendIntoItem:(Item*)item atRect:(NSRect)rect depth:(int)depth {
-  return (rect.size.width >= 1 && rect.size.height >= 1);
+  // Rectangle must enclose one or more pixel "centers", i.e. it must enclose
+  // a point (x+0.5, y+0.5) where x, y are integer values. This means that the
+  // rectangle will be visible.
+  return ((int)(rect.origin.x + rect.size.width + 0.5f) - 
+          (int)(rect.origin.x + 0.5f) > 0 && 
+          (int)(rect.origin.y + rect.size.height + 0.5f) -
+          (int)(rect.origin.y + 0.5f) > 0);
 }
 
 
@@ -83,15 +92,15 @@
   [self setNeedsDisplay:YES];
 }
 
-- (void) setFileItemColoring:(id <FileItemColoring>)fileItemColoring {
-  if (fileItemColoring != [self fileItemColoring]) {
-    [treeDrawer setFileItemColoring:fileItemColoring];
+- (void) setFileItemHashing:(FileItemHashing*)fileItemHashing {
+  if (fileItemHashing != [self fileItemHashing]) {
+    [treeDrawer setFileItemHashing:fileItemHashing];
     [self setNeedsDisplay:YES];
   }
 }
 
-- (id <FileItemColoring>) fileItemColoring {
-  return [treeDrawer fileItemColoring];
+- (FileItemHashing*) fileItemHashing {
+  return [treeDrawer fileItemHashing];
 }
 
 - (void) drawRect:(NSRect)rect {
@@ -195,6 +204,7 @@
 
 
 - (void) itemTreeImageReady:(NSNotification*)notification {
+  NSLog(@"itemTreeImageReady. -> setNeedsDisplay:YES");
   [self setNeedsDisplay:YES];  
 }
 
