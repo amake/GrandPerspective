@@ -1,4 +1,4 @@
-#import "DirectoryViewDrawer.h"
+#import "DirectoryTreeDrawer.h"
 
 #import "FileItem.h"
 #import "FileItemHashing.h"
@@ -10,7 +10,7 @@ enum {
   NO_IMAGE_TASK
 };
 
-@interface DirectoryViewDrawer (PrivateMethods)
+@interface DirectoryTreeDrawer (PrivateMethods)
 
 - (void) defaultPostNotificationName:(NSString*)notificationName;
 - (void) imageDrawLoop;
@@ -24,7 +24,7 @@ enum {
 @end
 
 
-@implementation DirectoryViewDrawer
+@implementation DirectoryTreeDrawer
 
 - (id) init {
   return [self initWithFileItemHashing:
@@ -151,10 +151,10 @@ enum {
   [settingsLock unlock];
 }
 
-@end // @implementation DirectoryViewDrawer
+@end // @implementation DirectoryTreeDrawer
 
 
-@implementation DirectoryViewDrawer (PrivateMethods)
+@implementation DirectoryTreeDrawer (PrivateMethods)
 
 - (void) defaultPostNotificationName:(NSString*)notificationName {
   [[NSNotificationCenter defaultCenter]
@@ -403,4 +403,4 @@ enum {
   [localAutoreleasePool release];
 }
 
-@end // @implementation DirectoryViewDrawer (PrivateMethods)
+@end // @implementation DirectoryTreeDrawer (PrivateMethods)

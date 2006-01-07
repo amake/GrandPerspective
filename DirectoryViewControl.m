@@ -3,8 +3,11 @@
 #import "FileItem.h"
 #import "DirectoryView.h"
 #import "StartupControl.h"
-#import "TreeNavigator.h"
+#import "ItemPathModel.h"
 #import "FileItemHashingOptions.h"
+
+// TODO: actually change path by following mouse.
+
 
 char BYTE_SIZE_ORDER[4] = { 'k', 'M', 'G', 'T'};
 
@@ -63,9 +66,9 @@ id makeSizeString(ITEM_SIZE size) {
 
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-  [itemTreeRoot release]; 
+  [itemTreeRoot release];
+  [itemPathModel release];
   
-  [treeNavigator release];
   [invisiblePathName release];
   [hashingOptions release];
   
@@ -88,20 +91,20 @@ id makeSizeString(ITEM_SIZE size) {
      [hashingOptions keyForDefaultHashing]];
   [self colorMappingChanged:nil];
   
-  treeNavigator = [[TreeNavigator alloc] initWithTree:itemTreeRoot];
-  [mainView setTreeNavigator:treeNavigator];
-
+  itemPathModel = [[ItemPathModel alloc] initWithTree:itemTreeRoot];
+  [mainView setItemPathModel:itemPathModel];
+  
   [super windowDidLoad];
 
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(updateButtonState:)
-      name:@"visibleItemPathChanged" object:treeNavigator];
-  [[NSNotificationCenter defaultCenter]
-      addObserver:self selector:@selector(updateButtonState:)
-      name:@"visibleItemPathLockingChanged" object:treeNavigator];
+      name:@"visibleItemPathChanged" object:itemPathModel];
+  //[[NSNotificationCenter defaultCenter]
+  //    addObserver:self selector:@selector(updateButtonState:)
+  //    name:@"visibleItemPathLockingChanged" object:treeNavigator];
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(visibleItemTreeChanged:)
-      name:@"visibleItemTreeChanged" object:treeNavigator];
+      name:@"visibleItemTreeChanged" object:itemPathModel];
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(windowWillClose:)
       name:@"NSWindowWillCloseNotification" object:[self window]];
@@ -117,11 +120,11 @@ id makeSizeString(ITEM_SIZE size) {
 }
 
 - (IBAction) upAction:(id)sender {
-  [treeNavigator moveTreeViewUp];
+  [itemPathModel moveTreeViewUp];
 }
 
 - (IBAction) downAction:(id)sender {
-  [treeNavigator moveTreeViewDown];
+  [itemPathModel moveTreeViewDown];
 }
 
 - (IBAction) colorMappingChanged:(id)sender {
@@ -145,7 +148,7 @@ id makeSizeString(ITEM_SIZE size) {
   NSEnumerator  *items;
   FileItem  *item;
 
-  items = [[treeNavigator invisibleItemPath] objectEnumerator];
+  items = [[itemPathModel invisibleFileItemPath] objectEnumerator];
   [items nextObject]; // Skip first item
   while (item = [items nextObject]) {
     if ([invisiblePathName length] > 0) {
@@ -161,16 +164,15 @@ id makeSizeString(ITEM_SIZE size) {
 
 
 - (void) updateButtonState:(NSNotification*)notification {
-  [upButton setEnabled:[treeNavigator canMoveTreeViewUp]];
-  [downButton setEnabled:
-     ([treeNavigator isVisibleItemPathLocked] &&
-      [treeNavigator canMoveTreeViewDown])];
+  [upButton setEnabled:[itemPathModel canMoveTreeViewUp]];
+  [downButton setEnabled: ![mainView isVisibleItemPathLocked] &&
+                          [itemPathModel canMoveTreeViewDown] ];
 
   [itemSizeLabel setStringValue:
-     makeSizeString([[treeNavigator itemPathEndPoint] itemSize])];
+     makeSizeString([[itemPathModel fileItemPathEndPoint] itemSize])];
 
   NSMutableString  *visiblePathName = [NSMutableString stringWithCapacity:128];  
-  NSEnumerator  *items = [[treeNavigator visibleItemPath] objectEnumerator];
+  NSEnumerator  *items = [[itemPathModel visibleFileItemPath] objectEnumerator];
   FileItem  *item;
 
   while (item = [items nextObject]) {

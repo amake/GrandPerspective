@@ -3,7 +3,7 @@
 @class FileItem;
 @class DirectoryView;
 @class StartupControl;
-@class TreeNavigator;
+@class ItemPathModel;
 @class FileItemHashingOptions;
 
 @interface DirectoryViewControl : NSWindowController {
@@ -16,7 +16,7 @@
   IBOutlet NSButton *downButton;
 
   FileItem  *itemTreeRoot;
-  TreeNavigator  *treeNavigator;
+  ItemPathModel  *itemPathModel;
   FileItemHashingOptions  *hashingOptions;
   NSMutableString  *invisiblePathName;
 }

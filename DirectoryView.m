@@ -4,15 +4,16 @@
 
 #import "FileItem.h"
 #import "TreeLayoutBuilder.h"
-#import "DirectoryViewDrawer.h"
-#import "TreeNavigator.h"
+#import "DirectoryTreeDrawer.h"
+#import "ItemPathDrawer.h"
+#import "ItemPathModel.h"
 #import "ColorPalette.h"
 #import "TreeLayoutTraverser.h"
 
 
 @interface DirectoryView (PrivateMethods)
 
-- (void) selectItemAtMouseLoc:(NSPoint)point;
+//- (void) selectItemAtMouseLoc:(NSPoint)point;
 
 - (void) itemTreeImageReady:(NSNotification*)notification;
 - (void) visibleItemPathChanged:(NSNotification*)notification;
@@ -50,7 +51,10 @@
     [treeLayoutBuilder setLayoutLimits:
       [[[LayoutLimits alloc] init] autorelease]];
     
-    treeDrawer = [[DirectoryViewDrawer alloc] init];
+    treeDrawer = [[DirectoryTreeDrawer alloc] init];
+    pathDrawer = [[ItemPathDrawer alloc] init];
+    
+    trackingRectEnabled = NO;
 
     [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(itemTreeImageReady:)
@@ -67,25 +71,26 @@
   
   [treeLayoutBuilder release];
   [treeDrawer release];
-  [treeNavigator release];
+  [pathDrawer release];
+  [itemPathModel release];
 
   [super dealloc];
 }
 
 
-- (void) setTreeNavigator:(TreeNavigator*)treeNavigatorVal {
-  NSAssert(treeNavigator==nil, @"tree navigator should only be set once.");
+- (void) setItemPathModel:(ItemPathModel*)itemPathModelVal {
+  NSAssert(itemPathModel==nil, @"The item path model should only be set once.");
 
-  treeNavigator = [treeNavigatorVal retain];
+  itemPathModel = [itemPathModelVal retain];
 
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(visibleItemPathChanged:)
-      name:@"visibleItemPathChanged" object:treeNavigator];
+      name:@"visibleItemPathChanged" object:itemPathModel];
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(visibleItemTreeChanged:)
-      name:@"visibleItemTreeChanged" object:treeNavigator];
-      
-  [[self window] setAcceptsMouseMovedEvents:YES];
+      name:@"visibleItemTreeChanged" object:itemPathModel];
+  
+  //[[self window] setAcceptsMouseMovedEvents:YES];
   [self setNeedsDisplay:YES];
 }
 
@@ -100,8 +105,12 @@
   return [treeDrawer fileItemHashing];
 }
 
+- (BOOL) isVisibleItemPathLocked {
+  return visibleItemPathLocked;
+}
+
 - (void) drawRect:(NSRect)rect {
-  if (treeNavigator==nil) {
+  if (itemPathModel==nil) {
     return;
   }
 
@@ -110,39 +119,47 @@
     NSAssert([self bounds].origin.x == 0 &&
              [self bounds].origin.y == 0, @"Bounds not at (0, 0)");
 
+    if (trackingRectEnabled) {
+      NSLog(@"Removing tracker %d", trackingRectTag);
+      [self removeTrackingRect:trackingRectTag];
+      trackingRectEnabled = NO;
+    }
+    
     [[NSColor blackColor] set];
     NSRectFill([self bounds]);
     
     // Create image in background thread.
-    [treeDrawer drawItemTree:[treeNavigator visibleItemTree]
+    [treeDrawer drawItemTree:[itemPathModel visibleItemTree]
                   usingLayoutBuilder:treeLayoutBuilder
                   inRect:[self bounds]];
   }
   else {
     [image compositeToPoint:NSZeroPoint operation:NSCompositeCopy];
   
-    [treeNavigator drawVisibleItemPathUsingLayoutBuilder:treeLayoutBuilder
-                     bounds:[self bounds]];
+    [pathDrawer drawItemPath:[itemPathModel itemPath] 
+         tree:[itemPathModel visibleItemTree] 
+         usingLayoutBuilder:treeLayoutBuilder bounds:[self bounds]];
   }
 }
 
-- (BOOL) acceptsFirstResponder {
-  return YES;
-}
+//- (BOOL) acceptsFirstResponder {
+//  return YES;
+//}
 
-- (BOOL) becomeFirstResponder {
+//- (BOOL) becomeFirstResponder {
   //NSLog(@"becomeFirstResponder");
   //[[self window] setAcceptsMouseMovedEvents:NO];
-  return YES;
-}
+//  return YES;
+//}
 
-- (BOOL) resignFirstResponder {
+//- (BOOL) resignFirstResponder {
   //NSLog(@"resignFirstResponder");
-  [[self window] setAcceptsMouseMovedEvents:NO];
-  return YES;
-}
+//  [[self window] setAcceptsMouseMovedEvents:NO];
+//  return YES;
+//}
 
 
+/*
 - (void) mouseDown:(NSEvent*)theEvent {
   //NSLog(@"mouseDown");
 
@@ -162,27 +179,28 @@
   [self selectItemAtMouseLoc:
           [self convertPoint:[theEvent locationInWindow] fromView:nil]];
 }
+*/
 
 // TODO: doesn't works yet, why?
 - (void) mouseEntered:(NSEvent*)theEvent {
-  if ([treeNavigator isVisibleItemPathLocked]) {
-    return;
-  }
+  //if ([treeNavigator isVisibleItemPathLocked]) {
+  //  return;
+  //}
   NSLog(@"mouseEntered");
-  [self selectItemAtMouseLoc:
-          [self convertPoint:[theEvent locationInWindow] fromView:nil]];
+  //[self selectItemAtMouseLoc:
+  //        [self convertPoint:[theEvent locationInWindow] fromView:nil]];
 }
 
 // TODO: doesn't works yet, why?
 - (void) mouseExited:(NSEvent*)theEvent {
-  if ([treeNavigator isVisibleItemPathLocked]) {
-    return;
-  }
+  //if ([treeNavigator isVisibleItemPathLocked]) {
+  //  return;
+  //}
   NSLog(@"mouseExited");
 
-  if ([treeNavigator clearVisibleItemPath]) {
-    [self setNeedsDisplay:YES];
-  }
+  //if ([treeNavigator clearVisibleItemPath]) {
+  //  [self setNeedsDisplay:YES];
+  //}
 }
 
 @end // @implementation DirectoryView
@@ -190,6 +208,7 @@
 
 @implementation DirectoryView (PrivateMethods)
 
+/*
 - (void) selectItemAtMouseLoc:(NSPoint)mouseLoc {
   if ([treeNavigator buildVisibleItemPathToPoint:mouseLoc
                        usingLayoutBuilder:treeLayoutBuilder
@@ -198,12 +217,20 @@
     [self setNeedsDisplay:YES];
   }
 }
+*/
 
 - (void) itemTreeImageReady:(NSNotification*)notification {
   // Note: This method is called from the main thread (even though it has been
   // triggered by the drawer's background thread). So calling setNeedsDisplay
   // directly is okay.
   [self setNeedsDisplay:YES];
+  
+  if (!trackingRectEnabled) {
+    trackingRectTag = [self addTrackingRect:[self bounds] owner:self 
+                              userData:nil assumeInside:NO];
+    trackingRectEnabled = YES;
+    NSLog(@"Added tracker %d", trackingRectTag);
+  }
 }
 
 - (void) visibleItemPathChanged:(NSNotification*)notification {

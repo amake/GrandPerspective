@@ -6,7 +6,8 @@
 @class FileItemHashing;
 @class ColorPalette;
 
-@interface DirectoryViewDrawer : NSObject <TreeLayoutTraverser> {
+// TODO: Rename to ItemTreeDrawer
+@interface DirectoryTreeDrawer : NSObject <TreeLayoutTraverser> {
 
   FileItemHashing  *fileItemHashing;
 
