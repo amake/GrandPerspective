@@ -14,7 +14,12 @@
         }, 
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
-            ACTIONS = {abort = id; duplicateDirectoryView = id; openDirectoryView = id; }; 
+            ACTIONS = {
+                abort = id; 
+                duplicateDirectoryView = id; 
+                openDirectoryView = id; 
+                twinDirectoryView = id; 
+            }; 
             CLASS = StartupControl; 
             LANGUAGE = ObjC; 
             OUTLETS = {

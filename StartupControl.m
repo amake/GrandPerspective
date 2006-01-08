@@ -9,6 +9,7 @@
 @interface StartupControl (PrivateMethods)
 - (void)readDirectories:(NSString*)dirName;
 - (void)createWindowForTree:(FileItem*)itemTree;
+- (void)createWindowByCopying:(BOOL)shareModel;
 @end
 
 
@@ -52,7 +53,8 @@
 
 
 - (BOOL) validateMenuItem:(NSMenuItem *)anItem {
-  if ([anItem action]==@selector(duplicateDirectoryView:)) {
+  if ( [anItem action]==@selector(duplicateDirectoryView:) ||
+       [anItem action]==@selector(twinDirectoryView:) ) {
     return ([[NSApplication sharedApplication] mainWindow] != nil);
   }
   
@@ -61,27 +63,11 @@
 
 
 - (IBAction) duplicateDirectoryView:(id)sender {
-  DirectoryViewControl  *oldControl = 
-    [[[NSApplication sharedApplication] mainWindow] windowController];
-  FileItem  *itemTree = [oldControl itemTree];
-  
-  if (itemTree!=nil) {
-    // Note: sharing reference is okay, as hashing schemes are immutable.
-    FileItemHashing  *fileItemHashing = [oldControl fileItemHashing];
+  [self createWindowByCopying:NO];
+}
 
-    // Create copy of the path model.
-    ItemPathModel  *itemPathModel = [[oldControl itemPathModel] copy];
-    
-    DirectoryViewControl  *newControl = 
-      [[DirectoryViewControl alloc] 
-          initWithItemTree:itemTree 
-          itemPathModel:itemPathModel
-          fileItemHashing:fileItemHashing];          
-    // Note: The control should auto-release itself when its window closes
-      
-    // Force loading (and showing) of the window.
-    [[newControl window] setTitle:[itemTree name]];
-  }
+- (IBAction) twinDirectoryView:(id)sender {
+  [self createWindowByCopying:YES];
 }
 
 @end // @implementation StartupControl
@@ -130,6 +116,34 @@
       
   // Force loading (and showing) of the window.
   [[dirViewControl window] setTitle:[itemTree name]];
+}
+
+
+- (void)createWindowByCopying:(BOOL)shareModel {
+  DirectoryViewControl  *oldControl = 
+    [[[NSApplication sharedApplication] mainWindow] windowController];
+  FileItem  *itemTree = [oldControl itemTree];
+  
+  if (itemTree!=nil) {
+    // Note: sharing reference is okay, as hashing schemes are immutable.
+    FileItemHashing  *fileItemHashing = [oldControl fileItemHashing];
+
+    // Share or clone the path model.
+    ItemPathModel  *itemPathModel = [oldControl itemPathModel];
+    if (!shareModel) {
+      itemPathModel = [itemPathModel copy];
+    }
+    
+    DirectoryViewControl  *newControl = 
+      [[DirectoryViewControl alloc] 
+          initWithItemTree:itemTree 
+          itemPathModel:itemPathModel
+          fileItemHashing:fileItemHashing];          
+    // Note: The control should auto-release itself when its window closes
+      
+    // Force loading (and showing) of the window.
+    [[newControl window] setTitle:[itemTree name]];
+  }
 }
 
 @end // @implementation StartupControl (PrivateMethods)

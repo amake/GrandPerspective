@@ -18,6 +18,7 @@
 - (void) visibleItemPathChanged:(NSNotification*)notification;
 - (void) visibleItemTreeChanged:(NSNotification*)notification;
 - (void) visibleItemPathLockingChanged:(NSNotification*)notification;
+- (void) windowMainStatusChangedNotification:(NSNotification*)notification;
 
 - (void) buildPathToMouseLoc:(NSPoint)point;
 
@@ -93,11 +94,18 @@
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(visibleItemPathLockingChanged:)
       name:@"visibleItemPathLockingChanged" object:pathModel];
-      
+          
   pathBuilder = [[ItemPathBuilder alloc] initWithPathModel:pathModel];
 
   [[self window] setAcceptsMouseMovedEvents: 
                    ![pathModel isVisibleItemPathLocked]];
+  
+  [[NSNotificationCenter defaultCenter]
+    addObserver:self selector:@selector(windowMainStatusChangedNotification:)
+    name:NSWindowDidBecomeMainNotification object:[self window]];
+  [[NSNotificationCenter defaultCenter]
+    addObserver:self selector:@selector(windowMainStatusChangedNotification:)
+    name:NSWindowDidResignMainNotification object:[self window]];
   
   [self setNeedsDisplay:YES];
 }
@@ -222,10 +230,24 @@
   // the item path drawer more general, and as the item path drawer is tightly
   // integrated with this view, there is no harm in updating it directly.
   [pathDrawer setHighlightPathEndPoint:locked];
-  
-  [[self window] setAcceptsMouseMovedEvents: !locked];
+ 
+  [[self window] setAcceptsMouseMovedEvents: 
+                   !locked && [[self window] isMainWindow]];
   
   [self setNeedsDisplay:YES];
+}
+
+
+- (void) windowMainStatusChangedNotification:(NSNotification*)notification {
+  if ([[self window] isMainWindow]) {
+    NSLog(@"becameMain: w=%p ", [self window]);
+  }
+  else {
+    NSLog(@"resignedMain: w=%p ", [self window]);
+  }
+  [[self window] setAcceptsMouseMovedEvents: 
+                   ![pathModel isVisibleItemPathLocked] && 
+                   [[self window] isMainWindow]];
 }
 
 

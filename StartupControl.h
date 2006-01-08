@@ -15,5 +15,6 @@
 - (IBAction) abort:(id)sender;
 - (IBAction) openDirectoryView:(id)sender;
 - (IBAction) duplicateDirectoryView:(id)sender;
+- (IBAction) twinDirectoryView:(id)sender;
 
 @end
