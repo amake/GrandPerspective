@@ -21,7 +21,7 @@
   // not part of the tree.
   drawPathIndex = 0;
   while ([path objectAtIndex:drawPathIndex] != tree) {
-    drawPathIndex;
+    drawPathIndex++;
   }
   
   lastBezierPath = nil;

@@ -4,8 +4,9 @@
 
 #import "FileItem.h"
 #import "TreeLayoutBuilder.h"
-#import "DirectoryTreeDrawer.h"
+#import "ItemTreeDrawer.h"
 #import "ItemPathDrawer.h"
+#import "ItemPathBuilder.h"
 #import "ItemPathModel.h"
 #import "ColorPalette.h"
 #import "TreeLayoutTraverser.h"
@@ -13,11 +14,16 @@
 
 @interface DirectoryView (PrivateMethods)
 
-//- (void) selectItemAtMouseLoc:(NSPoint)point;
-
 - (void) itemTreeImageReady:(NSNotification*)notification;
 - (void) visibleItemPathChanged:(NSNotification*)notification;
 - (void) visibleItemTreeChanged:(NSNotification*)notification;
+
+- (void) postVisibleItemPathLockingChanged;
+
+- (void) buildPathToMouseLoc:(NSPoint)point;
+
+- (void) enableTrackingRect;
+- (void) disableTrackingRect;
 
 @end  
 
@@ -51,7 +57,7 @@
     [treeLayoutBuilder setLayoutLimits:
       [[[LayoutLimits alloc] init] autorelease]];
     
-    treeDrawer = [[DirectoryTreeDrawer alloc] init];
+    treeDrawer = [[ItemTreeDrawer alloc] init];
     pathDrawer = [[ItemPathDrawer alloc] init];
     
     trackingRectEnabled = NO;
@@ -72,23 +78,26 @@
   [treeLayoutBuilder release];
   [treeDrawer release];
   [pathDrawer release];
-  [itemPathModel release];
+  [pathBuilder release];
+  [pathModel release];
 
   [super dealloc];
 }
 
 
-- (void) setItemPathModel:(ItemPathModel*)itemPathModelVal {
-  NSAssert(itemPathModel==nil, @"The item path model should only be set once.");
+- (void) setItemPathModel:(ItemPathModel*)pathModelVal {
+  NSAssert(pathModel==nil, @"The item path model should only be set once.");
 
-  itemPathModel = [itemPathModelVal retain];
+  pathModel = [pathModelVal retain];
 
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(visibleItemPathChanged:)
-      name:@"visibleItemPathChanged" object:itemPathModel];
+      name:@"visibleItemPathChanged" object:pathModel];
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(visibleItemTreeChanged:)
-      name:@"visibleItemTreeChanged" object:itemPathModel];
+      name:@"visibleItemTreeChanged" object:pathModel];
+      
+  pathBuilder = [[ItemPathBuilder alloc] initWithPathModel:pathModel];
   
   //[[self window] setAcceptsMouseMovedEvents:YES];
   [self setNeedsDisplay:YES];
@@ -105,12 +114,31 @@
   return [treeDrawer fileItemHashing];
 }
 
+
 - (BOOL) isVisibleItemPathLocked {
   return visibleItemPathLocked;
 }
 
+- (void) setVisibleItemPathLocking:(BOOL)value {
+  if (value == visibleItemPathLocked) {
+    return; // No change: Ignore.
+  }
+  
+  visibleItemPathLocked = value;
+  [self postVisibleItemPathLockingChanged];
+  
+  // Update the item path drawer directly. Although the drawer could also
+  // listen to the notification, it seems better to do it like this. It keeps
+  // the item path drawer more general, and as the item path drawer is tightly
+  // integrated with this view, there is no harm in updating it directly.
+  [pathDrawer setHighlightPathEndPoint:visibleItemPathLocked];
+  
+  [self setNeedsDisplay:YES]; // Always needs redraw, as locking status changed
+}
+
+
 - (void) drawRect:(NSRect)rect {
-  if (itemPathModel==nil) {
+  if (pathModel==nil) {
     return;
   }
 
@@ -119,88 +147,91 @@
     NSAssert([self bounds].origin.x == 0 &&
              [self bounds].origin.y == 0, @"Bounds not at (0, 0)");
 
-    if (trackingRectEnabled) {
-      NSLog(@"Removing tracker %d", trackingRectTag);
-      [self removeTrackingRect:trackingRectTag];
-      trackingRectEnabled = NO;
-    }
+    [self disableTrackingRect];
     
     [[NSColor blackColor] set];
     NSRectFill([self bounds]);
     
     // Create image in background thread.
-    [treeDrawer drawItemTree:[itemPathModel visibleItemTree]
+    [treeDrawer drawItemTree:[pathModel visibleItemTree]
                   usingLayoutBuilder:treeLayoutBuilder
                   inRect:[self bounds]];
   }
   else {
     [image compositeToPoint:NSZeroPoint operation:NSCompositeCopy];
   
-    [pathDrawer drawItemPath:[itemPathModel itemPath] 
-         tree:[itemPathModel visibleItemTree] 
+    [pathDrawer drawItemPath:[pathModel itemPath] 
+         tree:[pathModel visibleItemTree] 
          usingLayoutBuilder:treeLayoutBuilder bounds:[self bounds]];
   }
 }
 
-//- (BOOL) acceptsFirstResponder {
-//  return YES;
-//}
 
-//- (BOOL) becomeFirstResponder {
-  //NSLog(@"becomeFirstResponder");
-  //[[self window] setAcceptsMouseMovedEvents:NO];
-//  return YES;
-//}
+- (BOOL) acceptsFirstResponder {
+  return YES;
+}
 
-//- (BOOL) resignFirstResponder {
-  //NSLog(@"resignFirstResponder");
-//  [[self window] setAcceptsMouseMovedEvents:NO];
-//  return YES;
-//}
+- (BOOL) becomeFirstResponder {
+  NSLog(@"becomeFirstResponder");
+  return YES;
+}
+
+- (BOOL) resignFirstResponder {
+  NSLog(@"resignFirstResponder");
+  return YES;
+}
 
 
-/*
 - (void) mouseDown:(NSEvent*)theEvent {
-  //NSLog(@"mouseDown");
+  NSLog(@"mouseDown");
 
-  [self selectItemAtMouseLoc:
+  [self buildPathToMouseLoc:
           [self convertPoint:[theEvent locationInWindow] fromView:nil]];
 
-  [[self window] 
-      setAcceptsMouseMovedEvents: ![treeNavigator toggleVisibleItemPathLock]];
-  [self setNeedsDisplay:YES]; // Always needs redraw, as locking status changed
+  // Toggle the path locking.
+  [self setVisibleItemPathLocking:!visibleItemPathLocked];
+
+  [[self window] setAcceptsMouseMovedEvents:!visibleItemPathLocked];
+  if (visibleItemPathLocked) {
+    [self disableTrackingRect];
+    // Note: This should not really be needed, as there should not be a 
+    // tracking rectangle anymore when the user clicks in the view. However,
+    // this is not always the case. For example, when a small window is
+    // maximsed, a new tracking rectangle is set that correctly tracks the 
+    // bounds of the larger view. However, if the mouse now happens to be 
+    // inside this rectangle, which is likely as the view now fills most of 
+    // the screen, no "mouse entered" event is fired and thus the tracking
+    // rectangle remains in place. 
+  }
 }
+
+
+- (void) mouseEntered:(NSEvent*)theEvent {
+  NSLog(@"mouseEntered");
+  
+  NSAssert(!visibleItemPathLocked, @"mouseEntered while path locked.");
+  
+  // Remove tracker (it has done its job).
+  [self disableTrackingRect];
+  
+  [[self window] setAcceptsMouseMovedEvents:YES];
+}
+
 
 - (void) mouseMoved:(NSEvent*)theEvent {
-  if ([treeNavigator isVisibleItemPathLocked]) {
-    NSLog(@"Error? mouseMoved event while locked.");
-    return;
+  NSPoint  mouseLoc = 
+                  [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    
+  BOOL isInside = [self mouse:mouseLoc inRect:[self bounds]];
+  if (isInside) {
+    [self buildPathToMouseLoc:mouseLoc];
   }
-  [self selectItemAtMouseLoc:
-          [self convertPoint:[theEvent locationInWindow] fromView:nil]];
-}
-*/
+  else {
+    [pathModel clearVisibleItemPath];
 
-// TODO: doesn't works yet, why?
-- (void) mouseEntered:(NSEvent*)theEvent {
-  //if ([treeNavigator isVisibleItemPathLocked]) {
-  //  return;
-  //}
-  NSLog(@"mouseEntered");
-  //[self selectItemAtMouseLoc:
-  //        [self convertPoint:[theEvent locationInWindow] fromView:nil]];
-}
-
-// TODO: doesn't works yet, why?
-- (void) mouseExited:(NSEvent*)theEvent {
-  //if ([treeNavigator isVisibleItemPathLocked]) {
-  //  return;
-  //}
-  NSLog(@"mouseExited");
-
-  //if ([treeNavigator clearVisibleItemPath]) {
-  //  [self setNeedsDisplay:YES];
-  //}
+    [[self window] setAcceptsMouseMovedEvents:NO];
+    [self enableTrackingRect];
+  }
 }
 
 @end // @implementation DirectoryView
@@ -208,16 +239,6 @@
 
 @implementation DirectoryView (PrivateMethods)
 
-/*
-- (void) selectItemAtMouseLoc:(NSPoint)mouseLoc {
-  if ([treeNavigator buildVisibleItemPathToPoint:mouseLoc
-                       usingLayoutBuilder:treeLayoutBuilder
-                       bounds:[self bounds]]) {
-    // Note: not strictly necessary, as notification should follow as well.
-    [self setNeedsDisplay:YES];
-  }
-}
-*/
 
 - (void) itemTreeImageReady:(NSNotification*)notification {
   // Note: This method is called from the main thread (even though it has been
@@ -225,11 +246,10 @@
   // directly is okay.
   [self setNeedsDisplay:YES];
   
-  if (!trackingRectEnabled) {
-    trackingRectTag = [self addTrackingRect:[self bounds] owner:self 
-                              userData:nil assumeInside:NO];
-    trackingRectEnabled = YES;
-    NSLog(@"Added tracker %d", trackingRectTag);
+  if (!trackingRectEnabled && !visibleItemPathLocked) {
+    // The tracking rectangle was temporarily removed, so enable it again.
+    
+    [self enableTrackingRect];
   }
 }
 
@@ -242,5 +262,39 @@
   
   [self setNeedsDisplay:YES];
 }
+
+
+- (void) postVisibleItemPathLockingChanged {
+  [[NSNotificationCenter defaultCenter]
+      postNotificationName:@"visibleItemPathLockingChanged" object:self];
+}
+
+
+- (void) buildPathToMouseLoc:(NSPoint)point {
+  [pathBuilder buildVisibleItemPathToPoint:point
+                       usingLayoutBuilder:treeLayoutBuilder
+                       bounds:[self bounds]];
+}
+
+
+- (void) enableTrackingRect {
+  NSAssert(!trackingRectEnabled, @"Tracking rectangle already enabled.");
+  
+  trackingRectTag = [self addTrackingRect:[self bounds] owner:self 
+                              userData:nil assumeInside:NO];
+  trackingRectEnabled = YES;
+
+  NSLog(@"Added tracker %d", trackingRectTag);
+}
+
+- (void) disableTrackingRect {
+  if (trackingRectEnabled) {    
+    [self removeTrackingRect:trackingRectTag];
+    trackingRectEnabled = NO;
+
+    NSLog(@"Removed tracker %d", trackingRectTag);
+  }
+}
+
 
 @end // @implementation DirectoryView (PrivateMethods)

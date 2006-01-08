@@ -7,6 +7,8 @@
 @class TreeLayoutBuilder;
 
 
+// TODO: Move TreeLayoutTraverser protocol out of interface, as it's
+// only an implementation detail.
 @interface ItemPathDrawer : NSObject<TreeLayoutTraverser> {
   BOOL          highlightPathEndPoint;
 
