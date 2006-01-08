@@ -194,11 +194,9 @@ enum {
       [self performSelectorOnMainThread:@selector(defaultPostNotificationName:)
               withObject:@"itemTreeImageReady" waitUntilDone:NO];
       
-      //[[NSNotificationCenter defaultCenter]
-      //  postNotificationName:@"itemTreeImageReady" object:self];
       [workLock unlockWithCondition:NO_IMAGE_TASK];
       
-      NSLog(@"Done drawing. Time taken=%f", -[startTime timeIntervalSinceNow]);
+      //NSLog(@"Done drawing. Time taken=%f", -[startTime timeIntervalSinceNow]);
     }
     else {
       [workLock unlockWithCondition:IMAGE_TASK_PENDING];

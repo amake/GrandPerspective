@@ -82,7 +82,7 @@ id makeSizeString(ITEM_SIZE size) {
 }
 
 - (void) dealloc {
-  NSLog(@"DirectoryViewControl-dealloc");
+  //NSLog(@"DirectoryViewControl-dealloc");
 
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 

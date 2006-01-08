@@ -66,7 +66,7 @@
 
 
 - (void) dealloc {
-  NSLog(@"DirectoryView-dealloc");
+  //NSLog(@"DirectoryView-dealloc");
   
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   
@@ -155,18 +155,18 @@
 }
 
 - (BOOL) becomeFirstResponder {
-  NSLog(@"becomeFirstResponder");
+  //NSLog(@"becomeFirstResponder");
   return YES;
 }
 
 - (BOOL) resignFirstResponder {
-  NSLog(@"resignFirstResponder");
+  //NSLog(@"resignFirstResponder");
   return YES;
 }
 
 
 - (void) mouseDown:(NSEvent*)theEvent {
-  NSLog(@"mouseDown");
+  //NSLog(@"mouseDown");
 
   // Toggle the path locking.
 
@@ -239,12 +239,6 @@
 
 
 - (void) windowMainStatusChangedNotification:(NSNotification*)notification {
-  if ([[self window] isMainWindow]) {
-    NSLog(@"becameMain: w=%p ", [self window]);
-  }
-  else {
-    NSLog(@"resignedMain: w=%p ", [self window]);
-  }
   [[self window] setAcceptsMouseMovedEvents: 
                    ![pathModel isVisibleItemPathLocked] && 
                    [[self window] isMainWindow]];
