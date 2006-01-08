@@ -3,7 +3,7 @@
 @class Item;
 @class FileItem;
 
-@interface ItemPathModel : NSObject {
+@interface ItemPathModel : NSObject<NSCopying> {
   // Contains the FileItems from the root until the end of the path. It may
   // also be used to store the intermediate virtual items. This can be
   // useful, for instance, when the path needs to be drawn in the tree view.
@@ -29,7 +29,7 @@
   Item*  lastNotifiedPathEndPoint;
 }
 
-- (id) initWithTree:(Item*)itemTreeRoot;
+- (id) initWithTree:(FileItem*)itemTreeRoot;
 
 // Returns the file items in the invisble part of the path until (inclusive)
 // root in view
@@ -58,14 +58,12 @@
 - (BOOL) clearVisibleItemPath;
 - (void) extendVisibleItemPath:(Item*)nextItem;
 
-
+- (FileItem*) itemTree;
 - (FileItem*) visibleItemTree;
 
 - (BOOL) canMoveTreeViewUp;
 - (BOOL) canMoveTreeViewDown;
 - (void) moveTreeViewUp;
 - (void) moveTreeViewDown;
-
-// TODO: Add a clone method
 
 @end

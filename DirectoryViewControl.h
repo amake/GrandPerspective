@@ -5,6 +5,7 @@
 @class StartupControl;
 @class ItemPathModel;
 @class FileItemHashingOptions;
+@class FileItemHashing;
 
 @interface DirectoryViewControl : NSWindowController {
 
@@ -17,7 +18,10 @@
 
   FileItem  *itemTreeRoot;
   ItemPathModel  *itemPathModel;
+
   FileItemHashingOptions  *hashingOptions;
+  FileItemHashing  *hashingOption;
+
   NSMutableString  *invisiblePathName;
 }
 
@@ -26,6 +30,15 @@
 - (IBAction) downAction:(id)sender;
 
 - (id) initWithItemTree:(FileItem*)itemTreeRoot;
+- (id) initWithItemTree:(FileItem*)itemTreeRoot 
+         itemPathModel:(ItemPathModel*)itemPathModel
+         fileItemHashing:(FileItemHashing*)fileItemHashing;
+
 - (FileItem*) itemTree;
+
+- (FileItemHashing*) fileItemHashing;
+
+- (ItemPathModel*) itemPathModel;
+
 
 @end

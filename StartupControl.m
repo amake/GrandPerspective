@@ -4,6 +4,7 @@
 
 #import "BalancedTreeBuilder.h"
 #import "DirectoryViewControl.h"
+#import "ItemPathModel.h"
 
 @interface StartupControl (PrivateMethods)
 - (void)readDirectories:(NSString*)dirName;
@@ -60,11 +61,26 @@
 
 
 - (IBAction) duplicateDirectoryView:(id)sender {
-  DirectoryViewControl  *controller = 
+  DirectoryViewControl  *oldControl = 
     [[[NSApplication sharedApplication] mainWindow] windowController];
+  FileItem  *itemTree = [oldControl itemTree];
   
-  if ([controller itemTree]!=nil) {
-    [self createWindowForTree:[controller itemTree]];
+  if (itemTree!=nil) {
+    // Note: sharing reference is okay, as hashing schemes are immutable.
+    FileItemHashing  *fileItemHashing = [oldControl fileItemHashing];
+
+    // Create copy of the path model.
+    ItemPathModel  *itemPathModel = [[oldControl itemPathModel] copy];
+    
+    DirectoryViewControl  *newControl = 
+      [[DirectoryViewControl alloc] 
+          initWithItemTree:itemTree 
+          itemPathModel:itemPathModel
+          fileItemHashing:fileItemHashing];          
+    // Note: The control should auto-release itself when its window closes
+      
+    // Force loading (and showing) of the window.
+    [[newControl window] setTitle:[itemTree name]];
   }
 }
 

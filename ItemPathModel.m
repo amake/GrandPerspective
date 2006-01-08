@@ -19,12 +19,10 @@
   NSAssert(NO, @"Use -initWithTree instead.");
 }
 
-- (id) initWithTree:(Item*)itemTreeRoot {
+- (id) initWithTree:(FileItem*)itemTreeRoot {
   if (self = [super init]) {
     path = [[NSMutableArray alloc] initWithCapacity:64];
 
-    NSAssert(![itemTreeRoot isVirtual], @"Tree root must not be virtual");
-    
     [path addObject:itemTreeRoot];
 
     visibleTreeRootIndex = 0;
@@ -38,6 +36,19 @@
   [path release];
   
   [super dealloc];
+}
+
+- (id) copyWithZone:(NSZone*) zone {
+  ItemPathModel  *copy = 
+    [[[self class] allocWithZone:zone] initWithTree:[self itemTree]];
+    
+  [copy->path removeAllObjects];
+  [copy->path addObjectsFromArray:path];
+
+  copy->visibleTreeRootIndex = visibleTreeRootIndex;
+  copy->lastFileItemIndex = lastFileItemIndex;
+  
+  return copy;
 }
 
 
@@ -145,6 +156,9 @@
 }
 
 
+- (FileItem*) itemTree {
+  return [path objectAtIndex:0];
+}
 
 - (FileItem*) visibleItemTree {
   return [path objectAtIndex:visibleTreeRootIndex];
