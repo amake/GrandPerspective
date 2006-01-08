@@ -8,6 +8,7 @@
 
 - (void) postVisibleItemPathChanged;
 - (void) postVisibleItemTreeChanged;
+- (void) postVisibleItemPathLockingChanged;
 
 @end
 
@@ -47,6 +48,7 @@
 
   copy->visibleTreeRootIndex = visibleTreeRootIndex;
   copy->lastFileItemIndex = lastFileItemIndex;
+  copy->visibleItemPathLocked = visibleItemPathLocked;
   
   return copy;
 }
@@ -106,6 +108,20 @@
 }
 
 
+- (BOOL) isVisibleItemPathLocked {
+  return visibleItemPathLocked;
+}
+
+- (void) setVisibleItemPathLocking:(BOOL)value {
+  if (value == visibleItemPathLocked) {
+    return; // No change: Ignore.
+  }
+  
+  visibleItemPathLocked = value;
+  [self postVisibleItemPathLockingChanged];
+}
+
+
 - (void) suppressItemPathChangedNotifications:(BOOL)option {
   if (option) {
     if (lastNotifiedPathEndPoint != nil) {
@@ -126,6 +142,8 @@
 }
 
 - (BOOL) clearVisibleItemPath {
+  NSAssert(!visibleItemPathLocked, @"Cannot change path when locked.");
+  
   int  num = [path count] - visibleTreeRootIndex - 1;
 
   if (num > 0) {
@@ -144,6 +162,8 @@
 
 
 - (void) extendVisibleItemPath:(Item*)nextItem {
+  NSAssert(!visibleItemPathLocked, @"Cannot change path when locked.");
+  
   if (! [nextItem isVirtual]) {
     lastFileItemIndex = [path count];
   }
@@ -206,6 +226,11 @@
 - (void) postVisibleItemTreeChanged {
   [[NSNotificationCenter defaultCenter]
       postNotificationName:@"visibleItemTreeChanged" object:self];
+}
+
+- (void) postVisibleItemPathLockingChanged {
+  [[NSNotificationCenter defaultCenter]
+      postNotificationName:@"visibleItemPathLockingChanged" object:self];
 }
 
 @end

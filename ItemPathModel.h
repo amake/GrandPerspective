@@ -27,6 +27,13 @@
   // it is switched back to nil, it will check if the path has indeed changed,
   // and if so, fire a notification. 
   Item*  lastNotifiedPathEndPoint;
+  
+  // If it is set to "false", the visible item path cannot be changed.
+  // (Note: the invisible part can never be changed directly. Only by first
+  // making it visible can it be changed). 
+  BOOL  visibleItemPathLocked;
+  
+
 }
 
 - (id) initWithTree:(FileItem*)itemTreeRoot;
@@ -52,6 +59,9 @@
 // Returns the last file item in the path
 - (FileItem*) fileItemPathEndPoint;
 
+
+- (BOOL) isVisibleItemPathLocked;
+- (void) setVisibleItemPathLocking:(BOOL)value;
 
 - (void) suppressItemPathChangedNotifications:(BOOL)option;
 

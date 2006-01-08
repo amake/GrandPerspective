@@ -17,13 +17,9 @@
 - (void) itemTreeImageReady:(NSNotification*)notification;
 - (void) visibleItemPathChanged:(NSNotification*)notification;
 - (void) visibleItemTreeChanged:(NSNotification*)notification;
-
-- (void) postVisibleItemPathLockingChanged;
+- (void) visibleItemPathLockingChanged:(NSNotification*)notification;
 
 - (void) buildPathToMouseLoc:(NSPoint)point;
-
-- (void) enableTrackingRect;
-- (void) disableTrackingRect;
 
 @end  
 
@@ -60,8 +56,6 @@
     treeDrawer = [[ItemTreeDrawer alloc] init];
     pathDrawer = [[ItemPathDrawer alloc] init];
     
-    trackingRectEnabled = NO;
-
     [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(itemTreeImageReady:)
       name:@"itemTreeImageReady" object:treeDrawer];  
@@ -96,10 +90,15 @@
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(visibleItemTreeChanged:)
       name:@"visibleItemTreeChanged" object:pathModel];
+  [[NSNotificationCenter defaultCenter]
+      addObserver:self selector:@selector(visibleItemPathLockingChanged:)
+      name:@"visibleItemPathLockingChanged" object:pathModel];
       
   pathBuilder = [[ItemPathBuilder alloc] initWithPathModel:pathModel];
+
+  [[self window] setAcceptsMouseMovedEvents: 
+                   ![pathModel isVisibleItemPathLocked]];
   
-  //[[self window] setAcceptsMouseMovedEvents:YES];
   [self setNeedsDisplay:YES];
 }
 
@@ -115,28 +114,6 @@
 }
 
 
-- (BOOL) isVisibleItemPathLocked {
-  return visibleItemPathLocked;
-}
-
-- (void) setVisibleItemPathLocking:(BOOL)value {
-  if (value == visibleItemPathLocked) {
-    return; // No change: Ignore.
-  }
-  
-  visibleItemPathLocked = value;
-  [self postVisibleItemPathLockingChanged];
-  
-  // Update the item path drawer directly. Although the drawer could also
-  // listen to the notification, it seems better to do it like this. It keeps
-  // the item path drawer more general, and as the item path drawer is tightly
-  // integrated with this view, there is no harm in updating it directly.
-  [pathDrawer setHighlightPathEndPoint:visibleItemPathLocked];
-  
-  [self setNeedsDisplay:YES]; // Always needs redraw, as locking status changed
-}
-
-
 - (void) drawRect:(NSRect)rect {
   if (pathModel==nil) {
     return;
@@ -147,8 +124,6 @@
     NSAssert([self bounds].origin.x == 0 &&
              [self bounds].origin.y == 0, @"Bounds not at (0, 0)");
 
-    [self disableTrackingRect];
-    
     [[NSColor blackColor] set];
     NSRectFill([self bounds]);
     
@@ -185,36 +160,21 @@
 - (void) mouseDown:(NSEvent*)theEvent {
   NSLog(@"mouseDown");
 
+  // Toggle the path locking.
+
+  BOOL  wasLocked = [pathModel isVisibleItemPathLocked];
+  if (wasLocked) {
+    // Unlock first, then build new path.
+    [pathModel setVisibleItemPathLocking:NO];
+  }
+
   [self buildPathToMouseLoc:
           [self convertPoint:[theEvent locationInWindow] fromView:nil]];
 
-  // Toggle the path locking.
-  [self setVisibleItemPathLocking:!visibleItemPathLocked];
-
-  [[self window] setAcceptsMouseMovedEvents:!visibleItemPathLocked];
-  if (visibleItemPathLocked) {
-    [self disableTrackingRect];
-    // Note: This should not really be needed, as there should not be a 
-    // tracking rectangle anymore when the user clicks in the view. However,
-    // this is not always the case. For example, when a small window is
-    // maximsed, a new tracking rectangle is set that correctly tracks the 
-    // bounds of the larger view. However, if the mouse now happens to be 
-    // inside this rectangle, which is likely as the view now fills most of 
-    // the screen, no "mouse entered" event is fired and thus the tracking
-    // rectangle remains in place. 
+  if (!wasLocked) {
+    // Now lock, after having updated path.
+    [pathModel setVisibleItemPathLocking:YES];
   }
-}
-
-
-- (void) mouseEntered:(NSEvent*)theEvent {
-  NSLog(@"mouseEntered");
-  
-  NSAssert(!visibleItemPathLocked, @"mouseEntered while path locked.");
-  
-  // Remove tracker (it has done its job).
-  [self disableTrackingRect];
-  
-  [[self window] setAcceptsMouseMovedEvents:YES];
 }
 
 
@@ -228,9 +188,6 @@
   }
   else {
     [pathModel clearVisibleItemPath];
-
-    [[self window] setAcceptsMouseMovedEvents:NO];
-    [self enableTrackingRect];
   }
 }
 
@@ -244,13 +201,7 @@
   // Note: This method is called from the main thread (even though it has been
   // triggered by the drawer's background thread). So calling setNeedsDisplay
   // directly is okay.
-  [self setNeedsDisplay:YES];
-  
-  if (!trackingRectEnabled && !visibleItemPathLocked) {
-    // The tracking rectangle was temporarily removed, so enable it again.
-    
-    [self enableTrackingRect];
-  }
+  [self setNeedsDisplay:YES];  
 }
 
 - (void) visibleItemPathChanged:(NSNotification*)notification {
@@ -263,10 +214,18 @@
   [self setNeedsDisplay:YES];
 }
 
-
-- (void) postVisibleItemPathLockingChanged {
-  [[NSNotificationCenter defaultCenter]
-      postNotificationName:@"visibleItemPathLockingChanged" object:self];
+- (void) visibleItemPathLockingChanged:(NSNotification*)notification {
+  BOOL  locked = [pathModel isVisibleItemPathLocked];
+  
+  // Update the item path drawer directly. Although the drawer could also
+  // listen to the notification, it seems better to do it like this. It keeps
+  // the item path drawer more general, and as the item path drawer is tightly
+  // integrated with this view, there is no harm in updating it directly.
+  [pathDrawer setHighlightPathEndPoint:locked];
+  
+  [[self window] setAcceptsMouseMovedEvents: !locked];
+  
+  [self setNeedsDisplay:YES];
 }
 
 
@@ -275,26 +234,5 @@
                        usingLayoutBuilder:treeLayoutBuilder
                        bounds:[self bounds]];
 }
-
-
-- (void) enableTrackingRect {
-  NSAssert(!trackingRectEnabled, @"Tracking rectangle already enabled.");
-  
-  trackingRectTag = [self addTrackingRect:[self bounds] owner:self 
-                              userData:nil assumeInside:NO];
-  trackingRectEnabled = YES;
-
-  NSLog(@"Added tracker %d", trackingRectTag);
-}
-
-- (void) disableTrackingRect {
-  if (trackingRectEnabled) {    
-    [self removeTrackingRect:trackingRectTag];
-    trackingRectEnabled = NO;
-
-    NSLog(@"Removed tracker %d", trackingRectTag);
-  }
-}
-
 
 @end // @implementation DirectoryView (PrivateMethods)

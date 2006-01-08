@@ -128,7 +128,7 @@ id makeSizeString(ITEM_SIZE size) {
       name:@"visibleItemPathChanged" object:itemPathModel];
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(updateButtonState:)
-      name:@"visibleItemPathLockingChanged" object:mainView];
+      name:@"visibleItemPathLockingChanged" object:itemPathModel];
   [[NSNotificationCenter defaultCenter]
       addObserver:self selector:@selector(visibleItemTreeChanged:)
       name:@"visibleItemTreeChanged" object:itemPathModel];
@@ -150,7 +150,7 @@ id makeSizeString(ITEM_SIZE size) {
   [itemPathModel moveTreeViewUp];
   
   // Automatically lock path as well.
-  [mainView setVisibleItemPathLocking:YES];
+  [itemPathModel setVisibleItemPathLocking:YES];
 }
 
 - (IBAction) downAction:(id)sender {
@@ -194,7 +194,7 @@ id makeSizeString(ITEM_SIZE size) {
 
 - (void) updateButtonState:(NSNotification*)notification {
   [upButton setEnabled:[itemPathModel canMoveTreeViewUp]];
-  [downButton setEnabled: [mainView isVisibleItemPathLocked] &&
+  [downButton setEnabled: [itemPathModel isVisibleItemPathLocked] &&
                           [itemPathModel canMoveTreeViewDown] ];
 
   [itemSizeLabel setStringValue:
