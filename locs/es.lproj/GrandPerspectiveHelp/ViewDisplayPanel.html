@@ -1,0 +1,60 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>El Panel de visualizaci&oacute;n de la vista</title>
+<link href="HelpStyle.css" rel="stylesheet" media="all">
+<meta name="description" content="Describe el Panel de visualizaci&oacute;n y explica como cambiar la aparencia de la vista.">
+<meta name="keywords" content="GrandPerspective, vista, caj&oacute;n, visualizaci&oacute;n, panel, color, paleta, mapeo, extensi&oacute;n, nivel, m&aacute;scara, volumen" >
+</head>
+<body>
+
+<div id="caticon">
+<img src="images/GrandPerspectiveIcon32.png" alt="GrandPerspective icon" height="32" width="32">
+</div>
+<div id="pagetitle">
+<h1>El Panel de visualizaci&oacute;n</h1>
+</div>
+
+<p>
+El Panel de visualizaci&oacute;n dentro del <a href="ViewDrawer.html">caj&oacute;n de la vista</a> te permite cambiar como es dibujada la <a href="Views.html">vista</a>.
+Puedes cambiar entre varios mapas de colores:
+<ul>
+
+<li>
+<b>Nivel</b>: 
+El n&uacute;mero de sub-carpetas en la ruta de cada archivo, relativo a la carpeta que es mostrada actualmente en la vista, determina el color. Todos los archivos en el mismo &quot;nivel&quot; de la jerarqu&iacute;a tienen el mismo color.</li>
+
+<li>
+<b>Extensi&oacute;n</b>: 
+Todos los archivos con la misma extensi&oacute;n tienen el mismo color.</li> 
+
+<li>
+<b>Carpeta</b>: 
+Todos los archivos en la misma carpeta tienen el mismo color.</li> 
+
+<li>
+<b>Nombre</b>: 
+Los archivos con el mismo nombre tendr&aacute;n el mismo color.</li>
+
+<li>
+<b>Nada</b>:
+Todos los archivos tendr&aacute;n el mismo color.</li>
+
+<li>
+<b>Carpeta superior</b>:
+La primera sub-carpeta en la ruta de cada archivo, relativa a la carpeta que es mostrada actualmente en la vista, determina el color.
+Todos los archivos que aparezcan en la misma &quot;carpeta superior&quot; tendr&aacute;n el mismo color.</li>
+
+<li>
+<b>Tipo de archivo</b>:
+El <a href="FileTypes.html">tipo de archivo</a> de cada archivo determina su color.
+Puedes  <a href="EditingFileTypeColorMapping.html">editar el orden de la lista de tipos de archivo</a> para controlar que tipos de archivo son mapeados a un &uacute;nico color.</li>
+</ul>
+</p>
+<p>Tambi&eacute;n puedes seleccionar una de las varias paletas de color que vienen con la aplicaci&oacute;n. Puedes escoger la que m&aacute;s te agrade. Ten encuenta, de todas maneras, que el n&uacute;mero de colores por paleta cambia, lo cual tiene efecto en el mapa de color. Los colores en la paleta son mostrados debajo de ella. Cuando un mapa de color es usado donde los colores tienen una interpretaci&oacute;n (actualmente, los mapas &quot;Nivel&quot; y &quot;Tipo de archivo&quot;), una descripci&oacute;n es mostrada al lado de cada color.</p>
+<p>Puedes configurar una <a href="MasksAndFilters.html">m&aacute;scara</a>. Cuando uses una m&aacute;scara, solo ciertos archivos son mostrados. Los archivos que son enmascarados, por otro lado, toman espacio pero no son dibujados. Enmascarar puede ser &uacute;til para identificar rapidamente ciertos (tipos de) archivos, y puede ser un paso &uacute;til antes de aplicar un <a href="MasksAndFilters.html">filtro</a>. Presiona el bot&oacute;n <strong>Editar</strong> para empezar a <a href="EditingMasksAndFilters.html">editar la m&aacute;scara</a>.</p>
+<p>Por defecto, la vista solo muestra los archivos que han sido escaneados (o un subconjunto del mismo). Sin embargo, puedes elegir mostrar el volumen entero. Activando esta configuraci&oacute;n, la vista tambi&eacute;n muestra el espacio libre y espacio variado usado. Nota, si el total del tama&ntilde;o de los archivos escaneados es peque&ntilde;o comparado con el tama&ntilde;o total del volumen, entonces la vista no mostrar&aacute; nada interesante. En este caso, es mejor que desactive el &quot;Mostrar el volumen entero&quot; otra vez. Alternativamente, puedes escanear la carpeta ra&iacute;z del volumen, si no lo has hecho todav&iacute;a.</p>
+<p>Puedes configurar si los contenidos de los paquetes deben ser mostrados. Si los contenidos son ocultados, cada paquete aparece como un archivo &uacute;nico en la vista. Despu&eacute;s de activar &quot;Mostrar el contenido de los paquetes&quot;, todos los archivos dentro del paquete ser&aacute;n mostrados.</p>
+</body>
+</html>
+
