@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>The view's Info panel</title>
+<link href="HelpStyle.css" rel="stylesheet" media="all">
+<meta name="description" content="Describes the view's Info panel.">
+<meta name="keywords" content="GrandPerspective, view, drawer, info, panel, scanning, folder, volume" >
+</head>
+<body>
+
+<div id="caticon">
+<img src="images/GrandPerspectiveIcon32.png" alt="GrandPerspective icon" height="32" width="32">
+</div>
+<div id="pagetitle">
+<h1>The view's Info panel</h1>
+</div>
+
+<p>
+The Info panel in the <a href="ViewDrawer.html">view's drawer</a> gives information about the folder that has been scanned.
+It shows the volume on which the folder resides, the name of the folder, and the time when it was scanned.
+The <a href="FileSizeMeasures.html">file size measure</a> that has been used is shown as well.
+When a <a href="MasksAndFilters.html">filter</a> has been applied, it will also show details of this.
+</p>
+
+<p>
+The panel also shows the following five sizes:
+
+<ul>
+<li><b>Volume size</b>: The total size of the volume.
+</li>
+<li><b>Size of scanned files</b>: The total size of the scanned files, using the specified file size measure and after having applied the filter (if any).
+</li>
+<li><b>Initial free space</b>: The available space on the volume, as reported by the Operating System at the time of the scan.
+</li>
+<li><b>Miscellaneous used space</b>: All used space that is not accounted for by the size of the scanned files. This includes the following:
+  <ul>
+  <li>Files that were not scanned, either because the scanned folder was not at the root of the volume, or the user did not have permissions to access all subfolders.
+  </li>
+  <li>Files that are excluded by the filter (if any).
+  </li>
+  <li>Disk space that is not accounted for because the Logical <a href="FileSizeMeasures.html">file size measure</a> is used, which underestimates the space that files actually take up.
+  </li>
+  <li>Low-level file system data, needed to store amongst others the folder hierarchy.
+  </li>
+  </ul>  
+</li>
+<li><b>Freed space</b>: The total size of files that have been deleted from the scanned folder since the scan was made. 
+It includes only files that have been deleted using the view's <b>Delete</b> button (or the Delete button of a <a href="CreatingViews.html">twinned or duplicated</a> view).
+</li>
+</ul>
+</p>
+
+</body>
+</html>
+
