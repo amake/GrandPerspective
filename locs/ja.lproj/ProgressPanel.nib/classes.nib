@@ -1,0 +1,23 @@
+{
+    IBClasses =     (
+                {
+            CLASS = FirstResponder;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSObject;
+        },
+                {
+            ACTIONS =             {
+                abort = id;
+            };
+            CLASS = ProgressPanelControl;
+            LANGUAGE = ObjC;
+            OUTLETS =             {
+                progressDetails = NSTextField;
+                progressIndicator = NSProgressIndicator;
+                progressSummary = NSTextField;
+            };
+            SUPERCLASS = NSWindowController;
+        }
+    );
+    IBVersion = 1;
+}

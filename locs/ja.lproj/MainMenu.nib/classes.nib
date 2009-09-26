@@ -1,0 +1,27 @@
+{
+    IBClasses =     (
+                {
+            CLASS = FirstResponder;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSObject;
+        },
+                {
+            ACTIONS =             {
+                duplicateDirectoryView = id;
+                editPreferences = id;
+                filterDirectoryView = id;
+                loadScanData = id;
+                rescanDirectoryView = id;
+                saveDirectoryViewImage = id;
+                saveScanData = id;
+                scanDirectoryView = id;
+                scanFilteredDirectoryView = id;
+                twinDirectoryView = id;
+            };
+            CLASS = MainMenuControl;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSObject;
+        }
+    );
+    IBVersion = 1;
+}

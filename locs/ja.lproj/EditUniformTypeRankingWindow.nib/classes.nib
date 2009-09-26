@@ -1,0 +1,39 @@
+{
+    IBClasses =     (
+                {
+            ACTIONS =             {
+                cancelAction = id;
+                moveDownAction = id;
+                moveToBottomAction = id;
+                moveToHideAction = id;
+                moveToRevealAction = id;
+                moveToTopAction = id;
+                moveUpAction = id;
+                okAction = id;
+                showTypeDescriptionChanged = id;
+            };
+            CLASS = EditUniformTypeRankingWindowControl;
+            LANGUAGE = ObjC;
+            OUTLETS =             {
+                hideButton = NSButton;
+                moveDownButton = NSButton;
+                moveToBottomButton = NSButton;
+                moveToTopButton = NSButton;
+                moveUpButton = NSButton;
+                revealButton = NSButton;
+                typeConformsToField = NSTextField;
+                typeDescriptionDrawer = NSDrawer;
+                typeDescriptionField = NSTextField;
+                typeIdentifierField = NSTextField;
+                typesTable = NSTableView;
+            };
+            SUPERCLASS = NSWindowController;
+        },
+                {
+            CLASS = FirstResponder;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSObject;
+        }
+    );
+    IBVersion = 1;
+}
