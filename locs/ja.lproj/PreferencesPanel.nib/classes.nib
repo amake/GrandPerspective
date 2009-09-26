@@ -1,0 +1,28 @@
+{
+    IBClasses =     (
+                {
+            CLASS = FirstResponder;
+            LANGUAGE = ObjC;
+            SUPERCLASS = NSObject;
+        },
+                {
+            ACTIONS =             {
+                editUniformTypeRanking = id;
+                popUpValueChanged = id;
+                valueChanged = id;
+            };
+            CLASS = PreferencesPanelControl;
+            LANGUAGE = ObjC;
+            OUTLETS =             {
+                defaultColorMappingPopUp = NSPopUpButton;
+                defaultColorPalettePopUp = NSPopUpButton;
+                fileDeletionConfirmationCheckBox = NSButton;
+                fileDeletionPopUp = NSPopUpButton;
+                fileSizeMeasurePopUp = NSPopUpButton;
+                showPackageContentsByDefaultCheckBox = NSButton;
+            };
+            SUPERCLASS = NSWindowController;
+        }
+    );
+    IBVersion = 1;
+}
