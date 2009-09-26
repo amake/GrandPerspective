@@ -1,0 +1,100 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Interface de l'onglet Affichage</title>
+<link href="HelpStyle.css" rel="stylesheet" media="all">
+<meta name="description" content="D&eacute;crit l'interface du panneau Affichage et explique comment changer l'apparence de l'interface.">
+<meta name="keywords" content="GrandPerspective, interface, tiroir, affichage, panneau, couleur, palette, extension, masque" >
+</head>
+<body>
+
+<div id="caticon">
+<img src="images/GrandPerspectiveIcon32.png" alt="GrandPerspective icon" height="32" width="32">
+</div>
+<div id="pagetitle">
+<h1>Interface de l'onglet Affichage</h1>
+</div>
+
+<p>
+L'onglet Affichage dans le <a href="ViewDrawer.html">tiroir</a> vous permets de modifier le rendu de l'affichage de <a href="Views.html"> l'interface</a>.
+
+Vous pouvez choisir depuis de nombreuses options de coloration:
+
+<ul>
+
+<li>
+<b>Niveau</b>: 
+Le nombre de sous dossiers dans le chemin de chaque fichier détermine la couleur, relativement au dossier qui est actuellement visible.
+Tous les fichiers qui ont le même "niveau" ont la même couleur.
+</li>
+
+<li>
+<b>Extension</b>: 
+Tous les fichiers qui ont la même extention ont la même couleur.
+</li> 
+
+<li>
+<b>Dossier</b>: 
+Tous les fichiers dans le même dossier ont la même couleur.
+</li> 
+
+<li>
+<b>Nom</b>: 
+Les fichiers avec le même nom auront la même couleur.
+</li>
+
+<li>
+<b>Rien</b>:
+Tous les fichiers auront la même couleur.
+</li>
+
+<li>
+<b>Top Dossier</b>:
+Le premier sous dossier dans le chemin de chaque fichier détermine la couleur, relativement au dossier qui est actuellement visible.
+Tout les fichiers qui appartiennent au même "top dossier" ont la même couleur.
+</li>
+
+
+<li>
+<b>type de fichier</b>:
+le <a href="FileTypes.html">type de fichier</a> de chaque fichier détermine sa couleur.
+Vous pouvez <a href="EditingFileTypeColorMapping.html">éditer l'ordre de la liste des types de fichiers</a> pour controler quels types de fichiers sont associés à chaque couleur.
+</li>
+
+</ul>
+</p>
+
+<p>
+A côté de cela, vous pouvez choisir l'une des nombreuses palettes de couleurs qui sont fournies avec l'application.
+Choisissez en une qui convient à vos goûts.
+Il faut toutefois noter que le nombre de couleurs par palettes est variable. Ce qui a un effet sur la disposition des couleurs.
+Les couleurs dans une palette sont indiquées en dessous de cette dernière.
+Quand la disposition des couleurs utilisée possède des couleurs qui ont un sens significatif (actuellement, les schémas "Niveau" et "Type de fichiers"), une description est affichée à côté de chaque couleur.
+</p>
+
+<p>
+Vous pouvez également configurer un <a href="MasksAndFilters.html">masque</a>.
+Quand vous utilisez un masque, seulement certains fichiers sont affichés.
+Les fichiers qui sont masqués continuent de prendre de la place dans la vue même si ces derniers ne sont pas affichés.
+Le masquage peut être utile pour identifier rapidement certain types de fichiers, également utile avant d'appliquer un <a href="MasksAndFilters.html">filtre</a>.
+Cliquez sur le bouton <b>Edition</b> pour <a href="EditingMasksAndFilters.html">éditer le masque</a>.
+</p> 
+
+<p>
+Par défaut, la vue montre seulement les fichiers qui ont été analysés (ou un sous-ensemble).
+Toutefois, vous pouvez voir le volume en entier.
+En activant ce paramètre, la vue montrera également l'espace libre et l'espace utilisé de manière diverse.
+Notez que si la taille totale des fichiers analysés est petite par rapport à la taille totale du volume alors la vue ne sera pas très intéressante.
+Dans ce cas, vous devriez désactiver le paramètre "Montrer le volume en entier".
+Vous pouvez également analyser le dossier à la racine du volume, si vous ne l'avez pas déjà fait.
+</p>
+
+<p>
+Vous pouvez configurer si le contenu des paquets doit être visibles ou non.
+Si le contenu est caché, chaque paquet apparaîtra alors dans la vue comme un seul fichier.
+Après avoir activé "Montrer le contenu des paquets", tous les fichiers dans les paquets seront visibles.
+</p>
+
+</body>
+</html>
+
