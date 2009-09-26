@@ -1,0 +1,120 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Comment analyser les sauvegardes de Time Machine</title>
+<link href="HelpStyle.css" rel="stylesheet" media="all">
+<meta name="description" content="Comment analyser les sauvegardes de Time Machine">
+<meta name="keywords" content="Time Machine, sauvegarde, analyser, comment, lien matériel">
+</head>
+<body>
+
+<div id="caticon">
+<img src="images/GrandPerspectiveIcon32.png" alt="GrandPerspective icon" height="32" width="32">
+</div>
+<div id="pagetitle">
+<h1>Comment analyser les sauvegardes de Time Machine</h1>
+</div>
+
+<p>
+GrandPerspective peut être utilisé pour analyser les sauvegardes faites par Time Machine.
+Cela peut vous aider à optimiser vos méthodes de sauvegardes Time Machine, par exemple, en identifiant les fichiers et les dossiers qui ne devraient pas être sauvegardés.
+</p>
+
+<p>
+Premièrement, il est très important de comprendre comment sont stockées les sauvegardes Time Machine.
+Time Machine fait un usage intensif des <a href="HardLinks.html">liens matériels</a>.
+Chaque sauvegarde semble stocker une copie entière du disque qui est sauvegardé.
+Pourtant la quantité d'espace disque nécéssaire à une sauvegarde est limitée par les fichiers qui ont changé depuis la dernière sauvegarde.
+Tous les fichiers et dossiers qui n'ont pas changé sont representés par un lien matériel vers ces mêmes objets dans la précédente sauvegarde.
+</p>
+
+<p>
+Ci-dessous, quelques exemples d'utilisation de GrandPerspective pour analyser vos sauvegardes Time Machine.
+Ces exemples sont juste là pour vous donner une idée de tout ce que vous pouvez faire.
+Vous êtes bien sûr libres d'expérimenter avec d'autres approches.
+</p>
+
+<h2>Comparaisons de sauvegardes</h2>
+
+<p>
+Vous souhaitez comparer deux sauvegardes pour voir ce qui a changé sur votre disque dur.
+C'est très simple.
+Premièrement, vous exécutez <b>Analyse dossier...</b> sur une ancienne sauvegarde, e.g. "<em>Backup Volume</em>/Backups.backupdb/<em>My Computer</em>/<em>2008-08-08-888888</em>".
+Ensuite, vous pouvez analyser le contenu de la dernière sauvegarde, i.e. "<em>Backup Volume</em>/Backups.backupdb/<em>My Computer</em>/Latest".
+En ayant les deux vues ouvertes l'une à côté de l'autre, vous devriez pouvoir repérer rapidement les grandes différences.
+</p>
+
+<p>
+Note: Au lieu d'analyser la dernière sauvegarde, vous pouvez analyser le contenu actuel de votre disque dur.
+L'inconvénient de cette approche est que vos résultats contiendront les fichiers qui sont exclus de vos sauvegardes Time Machine, ce qui vous rendra la tâche plus difficile pour trouver des changements éventuels.
+</p>
+
+<h2>Analyser toutes les sauvegardes</h2>
+
+<p>
+Executez <b>Analyse dossier...</b> sur le dossier "<em>Backup Volume</em>/Backups.backupdb/<em>My Computer</em>".
+Cela peut prendre du temps.
+Quand l'analyse est terminée, une <a href="Views.html">vue</a> apparaît avec toutes les sauvegardes.
+Dans <a href="ViewDisplayPanel.html">l'onglet Affichage</a>, choisissez la coloration par "Top dossier".
+Tous les fichiers appartenant à la même sauvegarde auront alors la même couleur.
+</p>
+
+<p>
+Vous allez sûrement voir qu'une sauvegarde est plus importante que les autres.
+C'est la sauvegarde qui a été analysée en premier (ce n'est pas nécéssairement la sauvegarde la plus récente).
+Tous les fichiers dans ce dossier n'avaient pas encore été rencontrés durant l'analyse et ont de ce fait été inclus.
+Quand l'analyse des autres dossiers de sauvegarde a été faites, la plupart des liens matériels auront déjà été rencontrés dans le premier dossier qui a été analysé et sont de ce fait, exclus.
+</p>
+
+<p>
+Le dossier qui a été analysé en premier est actuellement le moins intéréssant.
+Il montre simplement le contenu de votre disque dur au moment de l'analyse (moins les fichiers que vous avez choisi d'exclure de vos sauvegardes Time Machine).
+Excluons le alors de notre vue.
+Commencez par éditer les <a href="MasksAndFilters.html">masques</a> de la vue.
+Vous devez <a href="EditingMaskAndFilterRules.html">créer une nouvelle règle</a>.
+Nommez la "Sauvegarde principale", appliquez là à "fichiers et dossers" et rajoutez-y le chemin à tester, les chemins qui nous intéréssent sont ceux qui commencent par "/Volumes/<em>Backup Volume</em>/Backups.backupdb/<em>My Computer</em>/<em>2008-08-08-888888</em>". 
+La partie en italique sera différente selon votre cas.
+Vous pouvez avoir les chemins dont vous avez besoin depuis <a href="ViewFocusPanel.html">l'onglet Focus</a>.
+D'abord, dans la vue choisissez n'importe quel fichier à partir du plus grand dossier de sauvegarde, <a href="NavigatingViews.html">zoomé en avant</a> d'un niveau, copier le chemin depuis la boîte de texte "Dossier en vue" et zoomé en arrière.
+</p>
+
+<p>
+Après avoir créé la règle "Sauvegarde principale", marquez comme suit : "Ne pas montrer: Sauvegarde principale".
+Vous devriez alors voir que la sauvegarde principale est désormais masquée.
+Si ce n'est pas le cas, vous n'avez pas spécifié le masque correctement.
+Editez le encore jusqu'à ce que cela marche.
+</p>
+
+<p>
+Quand le masque marche correctement, vous pouvez filtrer la vue.
+Utilisez la commande <b>Filtre</b>.
+Il devrait être configuré par défaut comme le masque, donc cliquez simplement sur "OK".
+Une nouvelle fenêtre est créée, contenant seulement les autres sauvegardes.
+Cette nouvelle vue donne une bien meilleure idée de la taille requise par chaque sauvegarde incrémentale.
+<a href="NavigatingViews.html">Naviguer et explorer</a> cette vue pour avoir une meilleure idée de ce qui est sauvegardé.
+Si vous repérez des fichiers qui ne devraient pas être sauvegardés, mettez à jour vos préférences Time Machine.
+</p>
+
+
+<h2>Contrôler quels fichiers ont été sauvegardés durant la dernière sauvegarde</h2>
+
+<p>
+Executez <b>Filtrez l'analyse...</b>.
+Le dossier à scanner sera "<em>Backup Volume</em>/Backups.backupdb/<em>My Computer</em>/Latest".
+Appliquez les filtres suivants : "Ne pas montrer: les objets liens matériels".
+Le résultat de cette vue montre les fichiers qui sont nouveaux dans la dernière sauvegarde.
+Cette vue exclut tous les fichiers qui apparaissent dans la dernière sauvegarde.
+</p>
+
+<p>
+Note: Vous pouvez appliquez le même filtre à d'autres dossiers de sauvegardes.
+Toutefois, vous devez alors interpréter les données de la vue différement.
+Dans ce cas, chaque fichier qui est visible n'apparaît pas dans la dernière sauvegarde <em>et le contenu du dossier qui contient le fichier n'a pas changé dans les sauvegardes suivantes aussi longtemps que le fichier a existé (sans changement)</em>.
+En effet, c'est un peu plus dur à comprendre et légèrement moins utile en tant que résultat.
+<p>
+
+</body>
+</html>
+
+
+ 	  	 

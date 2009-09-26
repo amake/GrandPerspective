@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Edition des règles des masques et filtres</title>
+<link href="HelpStyle.css" rel="stylesheet" media="all">
+<meta name="description" content="Explique comment &eacute;diter les r&eagrave;gles des filtres et des masques.">
+<meta name="keywords" content="masque, filtre, &eacute;diter, r&eagrave;gles">
+</head>
+<body>
+
+<div id="caticon">
+<img src="images/GrandPerspectiveIcon32.png" alt="GrandPerspective icon" height="32" width="32">
+</div>
+<div id="pagetitle">
+<h1>Edition des règles des masques et filtres</h1>
+</div>
+
+<p>
+Quand vous <a href="EditingMasksAndFilters.html">éditez un masque ou un filtre</a>, vous pouvez créer de nouvelles règles ou modifiez les règles existantes.
+Vous pouvez effectuer ces actions depuis la fenêtre "Editez les filtres".
+Pour les règles que vous créez à partir de zéro, vous pouvez spécifier un nom qui vous aidera à la distinguer des nombreuses autres règles.
+</p>
+
+<p>
+Vous pouvez choisir si la règle doit s'appliquer aux fichiers, aux dossiers ou aux deux.
+Quand une règle s'applique à des dossiers, vous ne pourrez pas ajouter à cette règle les tests qui ne s'appliquent qu'aux fichiers.
+</p>
+
+<p>
+Une règle peut consister en un ou plusieurs tests, vous pouvez les activer avec les cases à cocher sur la gauche et bien évidemment les configurer comme bon vous semble.
+Quand une règle contient des tests multiple, tous doivent avoir un fichier ou un dossier qui correspond à cette règle.
+Vous pouvez choisir parmi les tests suivants : 
+
+<ul>
+<li><b>Nom</b>: 
+Teste si le nom d'un fichier ou d'un dossiers rencontre l'une des cibles.
+i.e. si le nom a seulement besoin de rencontrer une seule cible pour que le test réussisse.
+</li>
+
+<li><b>Chemin</b>: 
+Teste si le chemin d'un fichier ou dossier rencontre l'une des cibles.
+Les chemins sont absolus.
+Il débute à la racine du système de fichiers et inclus le nom de l'objet.
+Pour les dossiers, le chemin doit toujours terminer par un séparateur de dossiers, i.e. un slash ("/").
+</li>
+
+<li><b>Type</b>: 
+Teste si le type d'un fichier est égal ou conforme à l'une des cibles.
+</li>
+
+<li><b>Lien matériel</b>:
+Teste si le fichier ou dossier est stocké en tant que <a href="HardLinks.html">lien matériel</a> dans le système de fichiers.
+</li>
+
+<li><b>Paquet</b>:
+Teste si le fichier ou dossier est un paquet.
+(Selon le fait que le contenu des paquets est visible ou non, un paquet sera traité comme un fichier ou un dossier.)
+</li>
+
+<li><b>Taille</b>:
+Teste si la taille d'un fichier est supérieure ou inférieure à une limite donnée.
+</li>
+
+</ul>
+</p>
+
+</body>
+</html>
