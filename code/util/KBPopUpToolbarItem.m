@@ -8,6 +8,11 @@
 
 #import "KBPopUpToolbarItem.h"
 
+@protocol KBItemValidator
+- (BOOL) validateToolbarItem: (id)item;
+- (BOOL) validateUserInterfaceItem: (id)item;
+@end
+
 @interface KBDelayedPopUpButtonCell : NSButtonCell
 @end
 
@@ -256,11 +261,15 @@
 		BOOL enabled = YES;
 		
 		if ([[[self toolbar] delegate] respondsToSelector:@selector(validateToolbarItem:)])
-			enabled = [[[self toolbar] delegate] validateToolbarItem:self];
-		
+			enabled = [
+                ((NSObject <KBItemValidator>*) [[self toolbar] delegate])
+                validateToolbarItem:self
+            ];
 		else if ([[[self toolbar] delegate] respondsToSelector:@selector(validateUserInterfaceItem:)])
-			enabled = [[[self toolbar] delegate] validateUserInterfaceItem:self];
-		
+			enabled = [
+                ((NSObject <KBItemValidator>*) [[self toolbar] delegate])
+                validateUserInterfaceItem:self
+            ];
 		[self setEnabled:enabled];
 	}
 	

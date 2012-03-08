@@ -4,7 +4,7 @@
 
 @class TreeWriter;
 
-@interface WriteTaskExecutor : NSObject {
+@interface WriteTaskExecutor : NSObject <TaskExecutor> {
   TreeWriter  *treeWriter;
   
   NSLock  *taskLock;

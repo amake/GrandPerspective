@@ -15,7 +15,8 @@
  * normally (e.g. when used to set/change a mask for a specific directory
  * view window).
  */
-@interface FilterWindowControl : NSWindowController {
+@interface FilterWindowControl 
+  : NSWindowController <NSTableViewDataSource, NSTableViewDelegate> {
 
   IBOutlet NSTextField  *filterNameField;
 

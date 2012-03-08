@@ -4,7 +4,7 @@
 /**
  * Panel which notifies its delegate when its first responder changed.
  */
-@interface NotifyingPanel : NSPanel {
+@interface NotifyingPanel : NSPanel <NSWindowDelegate> {
 
 }
 

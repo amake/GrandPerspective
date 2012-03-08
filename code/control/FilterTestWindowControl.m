@@ -89,7 +89,8 @@
 @end // @interface FilterTestWindowControl (PrivateMethods)
 
 
-@interface MultiMatchControls : NSObject {
+@interface MultiMatchControls 
+  : NSObject <NSTableViewDataSource, NSTableViewDelegate> {
   NSPopUpButton  *matchPopUpButton;
   NSTableView  *targetsView;
   NSButton  *addTargetButton;
@@ -855,7 +856,7 @@
   BOOL  nameFieldIsFirstResponder =
     ( [[window firstResponder] isKindOfClass: [NSTextView class]] &&
       [window fieldEditor: NO forObject: nil] != nil &&
-      [((NSTextView *)[window firstResponder]) delegate] == testNameField );
+      [((NSTextView *)[window firstResponder]) delegate] == (id)testNameField );
 
   if (nameFieldIsFirstResponder) { 
     // Disable Return key equivalent for OK button while editing is in 

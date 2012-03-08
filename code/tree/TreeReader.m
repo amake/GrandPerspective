@@ -81,7 +81,7 @@ NSString  *AttributeNameKey = @"name";
 @end
 
 
-@interface ElementHandler : NSObject {
+@interface ElementHandler : NSObject <NSXMLParserDelegate> {
   NSString  *elementName;
   TreeReader  *reader;
 

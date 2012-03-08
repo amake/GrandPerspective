@@ -1,5 +1,6 @@
 #import "DirectoryView.h"
 
+#import "DirectoryViewControl.h"
 #import "DirectoryItem.h"
 
 #import "TreeLayoutBuilder.h"
@@ -496,7 +497,8 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
  * case when the target is DirectoryViewControl.
  */
 - (BOOL) validateAction:(SEL) action {
-  id  target = [[NSApplication sharedApplication] targetForAction: action];
+  DirectoryViewControl*  target = (DirectoryViewControl*)
+    [[NSApplication sharedApplication] targetForAction: action];
   return [target validateAction: action];
 }
 

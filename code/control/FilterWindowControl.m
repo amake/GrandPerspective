@@ -742,7 +742,7 @@ NSString  *MatchColumn = @"match";
   BOOL  nameFieldIsFirstResponder =
     ( [[window firstResponder] isKindOfClass: [NSTextView class]] &&
       [window fieldEditor: NO forObject: nil] != nil &&
-      [((NSTextView *)[window firstResponder]) delegate] == filterNameField );
+      [((NSTextView *)[window firstResponder]) delegate] == (id)filterNameField );
 
   if (nameFieldIsFirstResponder) { 
     // Disable Return key equivalent for OK button while editing is in 
