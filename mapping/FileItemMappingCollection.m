@@ -190,7 +190,7 @@
                    [NSMutableDictionary dictionaryWithCapacity: 8]];
 }
 
-- (id) initWithDictionary: (NSDictionary *)dictionary {
+- (id) initWithDictionary: (NSMutableDictionary *)dictionary {
   if (self = [super init]) {
     schemesDictionary = [dictionary retain];
   }

@@ -328,14 +328,14 @@ static MainMenuControl  *singletonInstance = nil;
   if (path == nil) {
     *error = NSLocalizedString( @"Failed to get path from pasteboard.",
                                 @"Error message" );
-    NSLog(*error); // Also logging. Setting *error does not seem to work?
+    NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
   
   if (! [TreeBuilder pathIsDirectory: path]) {
     *error = NSLocalizedString( @"Expected a folder.",
                                 @"Error message" );
-    NSLog(*error); // Also logging. Setting *error does not seem to work?
+    NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
   
@@ -353,14 +353,14 @@ static MainMenuControl  *singletonInstance = nil;
   if (path == nil) {
     *error = NSLocalizedString( @"Failed to get path from pasteboard.",
                                 @"Error message" );
-    NSLog(*error); // Also logging. Setting *error does not seem to work?
+    NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
   
   if (! [[[path pathExtension] lowercaseString] isEqualToString: @"gpscan"]) {
     *error = NSLocalizedString( @"Expected scandata file.",
                                 @"Error message" );
-    NSLog(*error); // Also logging. Setting *error does not seem to work?
+    NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
   

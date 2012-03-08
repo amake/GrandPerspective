@@ -5,7 +5,8 @@
 @class TypeMatchControls;
 @protocol NameValidator;
 
-@interface FilterTestWindowControl : NSWindowController {
+@interface FilterTestWindowControl 
+  : NSWindowController <NSTableViewDataSource, NSTableViewDelegate> {
 
   IBOutlet NSTextField  *testNameField;
   IBOutlet NSPopUpButton  *testTargetPopUp;

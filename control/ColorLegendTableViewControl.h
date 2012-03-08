@@ -3,7 +3,7 @@
 
 @class DirectoryView;
 
-@interface ColorLegendTableViewControl : NSObject {
+@interface ColorLegendTableViewControl : NSObject <NSTableViewDataSource> {
 
   DirectoryView  *dirView;
   NSTableView  *tableView;

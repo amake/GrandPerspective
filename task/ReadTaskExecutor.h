@@ -4,7 +4,7 @@
 
 @class TreeReader;
 
-@interface ReadTaskExecutor : NSObject {
+@interface ReadTaskExecutor : NSObject <TaskExecutor> {
   TreeReader  *treeReader;
   
   NSLock  *taskLock;

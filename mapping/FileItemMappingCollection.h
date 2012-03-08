@@ -12,7 +12,7 @@
 
 + (FileItemMappingCollection*) defaultFileItemMappingCollection;
 
-- (id) initWithDictionary: (NSDictionary *)dictionary;
+- (id) initWithDictionary: (NSMutableDictionary *)dictionary;
 
 - (void) addFileItemMappingScheme: (NSObject <FileItemMappingScheme> *)scheme 
            key: (NSString *)key;

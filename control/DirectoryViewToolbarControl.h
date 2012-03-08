@@ -3,7 +3,7 @@
 
 @class DirectoryViewControl;
 
-@interface DirectoryViewToolbarControl : NSObject {
+@interface DirectoryViewToolbarControl : NSObject <NSToolbarDelegate> {
 
   IBOutlet NSWindow  *dirViewWindow;
 

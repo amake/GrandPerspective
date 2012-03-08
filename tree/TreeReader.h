@@ -6,7 +6,7 @@
 @class ProgressTracker;
 @class ObjectPool;
 
-@interface TreeReader : NSObject {
+@interface TreeReader : NSObject <NSXMLParserDelegate> {
 
   FilterTestRepository  *testRepository;
 
