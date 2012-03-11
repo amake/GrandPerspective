@@ -1,4 +1,4 @@
-#import "FileItemPathStringCache.h"
+ #import "FileItemPathStringCache.h"
 
 #import "DirectoryItem.h"
 
@@ -19,7 +19,7 @@
     addTrailingSlashToDirectoryPaths = NO;
     
     cachedPathStrings = [[NSMutableArray alloc] initWithCapacity: 8];
-    lastFileItem = nil;
+    cachedFileItems = [[NSMutableArray alloc] initWithCapacity: 8];
   }
   
   return self;
@@ -27,7 +27,7 @@
 
 - (void) dealloc {
   [cachedPathStrings release];
-  [lastFileItem release];
+  [cachedFileItems release];
   
   [super dealloc];
 }
@@ -45,20 +45,19 @@
 - (NSString*) pathStringForFileItem: (FileItem *)item {
   DirectoryItem  *parentDirectory = [item parentDirectory];
 
-  while (lastFileItem != item && 
-         lastFileItem != parentDirectory &&
-         lastFileItem != nil) {
-    // Fetch before releasing "lastFileItem"
-    DirectoryItem  *newLastFileItem = [lastFileItem parentDirectory];
-
+  while ([cachedFileItems count]) {
+    DirectoryItem  *lastFileItem = [cachedFileItems lastObject];
+    
+    if (lastFileItem == item) {
+      // Found it
+      return [cachedPathStrings lastObject];
+    }
+    if (lastFileItem == parentDirectory) {
+      break;
+    }
+    
     [cachedPathStrings removeLastObject];
-    [lastFileItem release];
-    lastFileItem = [newLastFileItem retain];
-  }
-
-  if (lastFileItem == item) {
-    // Found it
-    return [cachedPathStrings lastObject];
+    [cachedFileItems removeLastObject];
   }
 
   NSString  *pathString;
@@ -68,7 +67,7 @@
     pathString = (comp != nil) ? comp : @"";
   }
   else {
-    if (lastFileItem == nil) {
+    if ([cachedFileItems count] == 0) {
       // Exhausted the cache. Fill it recursively all the way from the root.
       // This way, the condition "lastFileItem==nil" signals that the array
       // is empty.
@@ -87,8 +86,7 @@
     
     // Only cache path names for directories.
     [cachedPathStrings addObject: pathString];
-    [lastFileItem release];
-    lastFileItem = [item retain];
+    [cachedFileItems addObject: item];
   }
   
   return pathString;
@@ -96,8 +94,7 @@
 
 - (void) clearCache {
   [cachedPathStrings removeAllObjects];
-  [lastFileItem release];
-  lastFileItem = nil;
+  [cachedFileItems removeAllObjects];
 }
 
 @end
@@ -143,8 +140,7 @@
   pathString = [self finishDirectoryPath: pathString pathComponent: comp];
   
   [cachedPathStrings addObject: pathString];
-  [lastFileItem release];
-  lastFileItem = [item retain];
+  [cachedFileItems addObject: item];
 }
 
 @end
