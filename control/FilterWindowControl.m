@@ -384,6 +384,7 @@ NSString  *MatchColumn = @"match";
     NSString  *name = [availableTests objectAtIndex: row]; 
     return [mainBundle localizedStringForKey: name value: nil table: @"Names"];
   }
+  NSAssert(NO, @"Unknown tableView.");
 }
 
 

@@ -296,6 +296,8 @@ static MainMenuControl  *singletonInstance = nil;
     [self loadScanDataFromFile: filename];
     scanAfterLaunch = NO;
   }
+  // Loading is done asynchronously, so always assume it succeeds here
+  return YES;
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
@@ -828,6 +830,7 @@ static MainMenuControl  *singletonInstance = nil;
   else if ([bestType isEqualToString: NSStringPboardType]) {
     return [pboard stringForType: NSStringPboardType];
   }
+  return nil;
 }
 
 

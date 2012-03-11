@@ -530,6 +530,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   }
   else {
     NSLog(@"Unrecognized action %@", NSStringFromSelector(action));
+    return NO;
   }
 }
 
