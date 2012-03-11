@@ -153,6 +153,7 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
     
     i++;
   }
+  NSAssert(NO, @"Unexpected termination");
 }
 
 - (NSArray *) undominatedRankedUniformTypes {
