@@ -117,11 +117,11 @@
 }
 
 - (NSString *)path {
-  [self constructPath: NO];
+  return [self constructPath: NO];
 }
 
 - (NSString *)systemPath {
-  [self constructPath: YES];
+  return [self constructPath: YES];
 }
 
 
