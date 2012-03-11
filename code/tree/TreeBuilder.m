@@ -552,16 +552,8 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
       
       // Temporarily boost retain count to ensure that the implicit release of
       // the tmpDirInfo object does not trigger deallocation of dirChildItem.
-      [dirChildItem retain]; 
+      [dirChildItem retain];
       
-      // TEMP: Add checks and logging to help track cause of bug #2989277
-      if ([dirChildItem retainCount] != 2 || [tmpDirInfo retainCount] != 1) {
-        NSLog(@"Unexpected retainCounts (%d and %d) at %@", 
-          [dirChildItem retainCount], [tmpDirInfo retainCount], path);
-        NSLog(@"dirChildItem=%@", [dirChildItem name]);
-        // Abort execution
-        NSAssert(NO, @"Unexpected retainCounts"); 
-      }
       // Replace the tmpDirInfo object with the actual DirectoryItem object.
       [dirs replaceObjectAtIndex: i withObject: dirChildItem];
 
