@@ -7,7 +7,7 @@
 
   BOOL  addTrailingSlashToDirectoryPaths;
   NSMutableArray  *cachedPathStrings;
-  FileItem  *lastFileItem;
+  NSMutableArray  *cachedFileItems;
 
 }
 
