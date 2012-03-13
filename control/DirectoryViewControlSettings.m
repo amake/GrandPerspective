@@ -14,10 +14,10 @@
               [userDefaults stringForKey: DefaultColorPaletteKey] 
             maskName: [userDefaults stringForKey: DefaultFilterName]
             maskEnabled: NO 
-            showEntireVolume: NO 
+            showEntireVolume: 
+              [[userDefaults objectForKey: ShowEntireVolumeByDefaultKey] boolValue] 
             showPackageContents: 
-              [[userDefaults objectForKey: ShowPackageContentsByDefaultKey] 
-                  boolValue] 
+              [[userDefaults objectForKey: ShowPackageContentsByDefaultKey] boolValue] 
             unzoomedViewSize:
               NSMakeSize([userDefaults floatForKey: DefaultViewWindowWidth],
                          [userDefaults floatForKey: DefaultViewWindowHeight]) 
