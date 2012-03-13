@@ -107,6 +107,7 @@ NSString  *RescanVisible = @"rescan visible";
 
 @interface MainMenuControl (PrivateMethods)
 
+- (void) autoScanTimeoutPassed;
 - (void) scanFolderUsingFilter:(BOOL) useFilter;
 - (void) scanFolder:(NSString *)path namedFilter:(NamedFilter *)filter;
 - (void) scanFolder:(NSString *)path filterSet:(FilterSet *)filterSet;
@@ -304,9 +305,19 @@ static MainMenuControl  *singletonInstance = nil;
   [NSApp setServicesProvider: self];
   
   if (scanAfterLaunch) {
-    // TODO: Figure out how to enable this only when user invokes application
-    // directly and not when it is started up in response to a service request.
-    // [self scanDirectoryView: self];
+    NSTimeInterval delay = [[NSUserDefaults standardUserDefaults] 
+                              doubleForKey: DelayBeforeAutomaticScanAfterStartupKey];
+    if (delay == 0) {
+      [self scanDirectoryView: self];
+    } else if (delay > 0) {
+      // Set a watchdog. If it times out before service activity is detected, pop-up scan dialog.
+      [NSTimer 
+         scheduledTimerWithTimeInterval: delay
+         target: self 
+         selector: @selector(autoScanTimeoutPassed) 
+         userInfo: nil 
+         repeats: NO];
+    }
   }
 }
 
@@ -325,6 +336,7 @@ static MainMenuControl  *singletonInstance = nil;
           userData:(NSString *)userData
           error:(NSString **)error {
   NSLog(@"scanFolder:userData:error:");
+  scanAfterLaunch = NO; // Do not automatically pop-up scan dialog
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
@@ -350,6 +362,7 @@ static MainMenuControl  *singletonInstance = nil;
           userData:(NSString *)userData
           error:(NSString **)error {
   NSLog(@"loadScanData:userData:error:");
+  scanAfterLaunch = NO; // Do not automatically pop-up scan dialog
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
@@ -642,6 +655,16 @@ static MainMenuControl  *singletonInstance = nil;
 
 @implementation MainMenuControl (PrivateMethods)
 
+- (void) autoScanTimeoutPassed {
+  if (scanAfterLaunch) {
+    // During initial delay after start-up no service invocation was received. Assume that 
+    // application was started normally and pop-up scan dialog. This works okay as long as the
+    // time-out is long enough that service invocations happen before it, but short enough for
+    // user to have initiated any interaction.
+    [self scanDirectoryView: self];
+  }
+}
+       
 - (void) scanFolderUsingFilter:(BOOL) useFilter {
   NSOpenPanel  *openPanel = [NSOpenPanel openPanel];
   [openPanel setCanChooseFiles: NO];
