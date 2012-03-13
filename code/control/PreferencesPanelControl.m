@@ -20,6 +20,7 @@ NSString  *DefaultColorMappingKey = @"defaultColorMapping";
 NSString  *DefaultColorPaletteKey = @"defaultColorPalette";
 NSString  *DefaultFilterName = @"defaultFilter";
 NSString  *ShowPackageContentsByDefaultKey = @"showPackageContentsByDefault";
+NSString  *ShowEntireVolumeByDefaultKey = @"showEntireVolumeByDefault";
 
 
 /* Note: The preferences below cannot currently be changed from the 
@@ -102,6 +103,9 @@ NSString  *TreeMemoryZoneKey = @"treeMemoryZone";
   [showPackageContentsByDefaultCheckBox setState: 
      ([userDefaults boolForKey: ShowPackageContentsByDefaultKey]
         ? NSOnState : NSOffState)];
+  [showEntireVolumeByDefaultCheckBox setState: 
+     ([userDefaults boolForKey: ShowEntireVolumeByDefaultKey]
+        ? NSOnState : NSOffState)];
 
   [self updateButtonState];
   
@@ -137,6 +141,11 @@ NSString  *TreeMemoryZoneKey = @"treeMemoryZone";
     BOOL  enabled = [sender state] == NSOnState;
     
     [userDefaults setBool: enabled forKey: ShowPackageContentsByDefaultKey];
+  }
+  else if (sender == showEntireVolumeByDefaultCheckBox) {
+    BOOL  enabled = [sender state] == NSOnState;
+    
+    [userDefaults setBool: enabled forKey: ShowEntireVolumeByDefaultKey];
   }
   else {
     NSAssert(NO, @"Unexpected sender for -valueChanged.");

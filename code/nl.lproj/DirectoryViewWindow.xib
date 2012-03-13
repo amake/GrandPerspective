@@ -67,7 +67,6 @@
 						<string key="NSFrame">{{13, 10}, {306, 425}}</string>
 						<reference key="NSSuperview" ref="96752835"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="41528514"/>
 						<object class="NSMutableArray" key="NSTabViewItems">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="NSTabViewItem" id="358307727">
@@ -110,7 +109,7 @@
 															<string key="NSFrameSize">{209, 42}</string>
 															<reference key="NSSuperview" ref="87661908"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="494445769"/>
+															<reference key="NSNextKeyView" ref="917991880"/>
 															<object class="NSTextContainer" key="NSTextContainer" id="121624120">
 																<object class="NSLayoutManager" key="NSLayoutManager">
 																	<object class="NSTextStorage" key="NSTextStorage">
@@ -242,9 +241,7 @@
 																	<integer value="5"/>
 																	<object class="NSURL">
 																		<nil key="NS.base"/>
-																		<object class="NSMutableString" key="NS.relative">
-																			<characters key="NS.bytes">file://localhost/Applications/Xcode.app/Contents/SharedFrameworks/DVTKit.framework/Resources/DVTIbeamCursor.tiff</characters>
-																		</object>
+																		<string key="NS.relative">file://localhost/Applications/Xcode.app/Contents/SharedFrameworks/DVTKit.framework/Resources/DVTIbeamCursor.tiff</string>
 																	</object>
 																</object>
 															</object>
@@ -258,7 +255,7 @@
 												</object>
 												<object class="NSScroller" id="917991880">
 													<reference key="NSNextResponder" ref="937571494"/>
-													<int key="NSvFlags">256</int>
+													<int key="NSvFlags">-2147483392</int>
 													<string key="NSFrame">{{-100, -100}, {15, 65}}</string>
 													<reference key="NSSuperview" ref="937571494"/>
 													<reference key="NSWindow"/>
@@ -269,7 +266,7 @@
 												</object>
 												<object class="NSScroller" id="292092546">
 													<reference key="NSNextResponder" ref="937571494"/>
-													<int key="NSvFlags">256</int>
+													<int key="NSvFlags">-2147483392</int>
 													<string key="NSFrame">{{-100, -100}, {87, 18}}</string>
 													<reference key="NSSuperview" ref="937571494"/>
 													<reference key="NSWindow"/>
@@ -284,7 +281,7 @@
 											<string key="NSFrame">{{60, 309}, {209, 42}}</string>
 											<reference key="NSSuperview" ref="41528514"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="917991880"/>
+											<reference key="NSNextKeyView" ref="87661908"/>
 											<int key="NSsFlags">133120</int>
 											<reference key="NSVScroller" ref="917991880"/>
 											<reference key="NSHScroller" ref="292092546"/>
@@ -329,7 +326,7 @@
 															<string key="NSFrameSize">{250, 42}</string>
 															<reference key="NSSuperview" ref="434546473"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="920191411"/>
+															<reference key="NSNextKeyView" ref="286178216"/>
 															<object class="NSTextContainer" key="NSTextContainer" id="1041963101">
 																<object class="NSLayoutManager" key="NSLayoutManager">
 																	<object class="NSTextStorage" key="NSTextStorage">
@@ -408,7 +405,7 @@
 												</object>
 												<object class="NSScroller" id="286178216">
 													<reference key="NSNextResponder" ref="707061621"/>
-													<int key="NSvFlags">256</int>
+													<int key="NSvFlags">-2147483392</int>
 													<string key="NSFrame">{{-100, -100}, {15, 65}}</string>
 													<reference key="NSSuperview" ref="707061621"/>
 													<reference key="NSWindow"/>
@@ -419,7 +416,7 @@
 												</object>
 												<object class="NSScroller" id="257775094">
 													<reference key="NSNextResponder" ref="707061621"/>
-													<int key="NSvFlags">256</int>
+													<int key="NSvFlags">-2147483392</int>
 													<string key="NSFrame">{{-100, -100}, {87, 18}}</string>
 													<reference key="NSSuperview" ref="707061621"/>
 													<reference key="NSWindow"/>
@@ -434,7 +431,7 @@
 											<string key="NSFrame">{{17, 187}, {252, 47}}</string>
 											<reference key="NSSuperview" ref="41528514"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="286178216"/>
+											<reference key="NSNextKeyView" ref="434546473"/>
 											<int key="NSsFlags">133122</int>
 											<reference key="NSVScroller" ref="286178216"/>
 											<reference key="NSHScroller" ref="257775094"/>
