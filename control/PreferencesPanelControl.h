@@ -20,6 +20,7 @@ extern NSString  *CustomFileOpenApplication;
 extern NSString  *CustomFileRevealApplication;
 extern NSString  *UpdateFiltersBeforeUse;
 extern NSString  *TreeMemoryZoneKey;
+extern NSString  *DelayBeforeAutomaticScanAfterStartupKey;
 
 @class FilterPopUpControl;
 

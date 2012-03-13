@@ -36,7 +36,7 @@ NSString  *CustomFileOpenApplication = @"customFileOpenApplication";
 NSString  *CustomFileRevealApplication = @"customFileRevealApplication";
 NSString  *UpdateFiltersBeforeUse = @"updateFiltersBeforeUse";
 NSString  *TreeMemoryZoneKey = @"treeMemoryZone";
-
+NSString  *DelayBeforeAutomaticScanAfterStartupKey = @"delayBeforeAutomaticScanAfterStartup";
 
 @interface PreferencesPanelControl (PrivateMethods)
 

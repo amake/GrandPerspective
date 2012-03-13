@@ -181,6 +181,8 @@
 		<real>480</real>
 		<key>treeMemoryZone</key>
 		<string>default</string>
+		<key>delayBeforeAutomaticScanAfterStartup</key>
+		<integer>1</integer>
 	</dict>
 	<key>GPDefaultFilters</key>
 	<dict>
