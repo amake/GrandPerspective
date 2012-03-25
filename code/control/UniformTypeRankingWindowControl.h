@@ -1,5 +1,5 @@
 #import <Cocoa/Cocoa.h>
-
+#import "Compatibility.h"
 
 @class UniformTypeRanking;
 

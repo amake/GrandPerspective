@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 44;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AA007AEF106AC38900C3B395 /* GrandPerspectiveScan.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA007AEE106AC38900C3B395 /* GrandPerspectiveScan.icns */; };
@@ -59,6 +60,7 @@
 		AA61786F0A38B8D500B8AB16 /* NotifyingDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = AA61786D0A38B8D500B8AB16 /* NotifyingDictionary.m */; };
 		AA63515A0972E1F70024C9D0 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AAD6855008D9FE600096C6C1 /* Credits.rtf */; };
 		AA63515B0972E2070024C9D0 /* GrandPerspective.icns in Resources */ = {isa = PBXBuildFile; fileRef = AA6351350972DDC40024C9D0 /* GrandPerspective.icns */; };
+		AA63516C0972E2CC0024C9D0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* Info.plist */; };
 		AA6E27A40D7AE95E00D5FBBA /* ColorLegendTableViewControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6E27A20D7AE95E00D5FBBA /* ColorLegendTableViewControl.m */; };
 		AA7A7E0D0E4EE29D00EB366E /* WriteTaskInput.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7A7E0C0E4EE29D00EB366E /* WriteTaskInput.m */; };
 		AA7A7E110E4EE3DA00EB366E /* WriteTaskExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7A7E100E4EE3DA00EB366E /* WriteTaskExecutor.m */; };
@@ -161,6 +163,7 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* GrandPerspective.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrandPerspective.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA007AEE106AC38900C3B395 /* GrandPerspectiveScan.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = GrandPerspectiveScan.icns; sourceTree = "<group>"; };
+		AA1049BF1511582C003C041C /* Compatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Compatibility.h; path = util/Compatibility.h; sourceTree = "<group>"; };
 		AA1115C10A84CA320023C5CD /* DirectoryViewControlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectoryViewControlSettings.h; path = control/DirectoryViewControlSettings.h; sourceTree = "<group>"; };
 		AA1115C20A84CA320023C5CD /* DirectoryViewControlSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DirectoryViewControlSettings.m; path = control/DirectoryViewControlSettings.m; sourceTree = "<group>"; };
 		AA12217F0EF17A41002A178F /* ToggleDrawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToggleDrawer.png; path = Images/ToggleDrawer.png; sourceTree = "<group>"; };
@@ -176,7 +179,7 @@
 		AA1A92641170579600217CF6 /* KBPopUpToolbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KBPopUpToolbarItem.m; path = util/KBPopUpToolbarItem.m; sourceTree = "<group>"; };
 		AA2B48B510495BDB00B10262 /* Rescan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Rescan.png; path = Images/Rescan.png; sourceTree = "<group>"; };
 		AA2B49B7104AEF9B00B10262 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/PopUpMenu.strings; sourceTree = "<group>"; };
-		AA2B49B9104AEFB100B10262 /* nl */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/PopUpMenu.strings; sourceTree = "<group>"; };
+		AA2B49B9104AEFB100B10262 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/PopUpMenu.strings; sourceTree = "<group>"; };
 		AA2B4A08104B122900B10262 /* AnnotatedTreeContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AnnotatedTreeContext.h; path = tree/AnnotatedTreeContext.h; sourceTree = "<group>"; };
 		AA2B4A09104B122900B10262 /* AnnotatedTreeContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AnnotatedTreeContext.m; path = tree/AnnotatedTreeContext.m; sourceTree = "<group>"; };
 		AA2B4B9310EF820D0088EA1C /* ControlConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ControlConstants.m; path = control/ControlConstants.m; sourceTree = "<group>"; };
@@ -652,6 +655,7 @@
 		AA6178720A38B8E600B8AB16 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				AA1049BF1511582C003C041C /* Compatibility.h */,
 				AA3B40DE0D1AF2B70070E889 /* UniqueTagsTransformer.h */,
 				AA3B40DF0D1AF2B70070E889 /* UniqueTagsTransformer.m */,
 				AA7DEA070D6718ED0057F5F8 /* UniformType.h */,
@@ -889,12 +893,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 0430;
-			};
 			buildConfigurationList = AA9788D40DCAFB8A0086E480 /* Build configuration list for PBXProject "GrandPerspective" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -918,8 +918,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				AA63515A0972E1F70024C9D0 /* Credits.rtf in Resources */,
 				AA63515B0972E2070024C9D0 /* GrandPerspective.icns in Resources */,
+				AA63516C0972E2CC0024C9D0 /* Info.plist in Resources */,
 				AA7C64D60AFE71DC007B8CD2 /* Localizable.strings in Resources */,
 				AA8FEB2B0B6CC2D90049FF42 /* Names.strings in Resources */,
 				AAC9B6490B7FA94A002B3ECE /* GrandPerspectiveHelp in Resources */,
@@ -1264,19 +1266,15 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GrandPerspective_Prefix.pch;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
 				GENERATE_PKGINFO_FILE = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = GrandPerspective;
-				SDKROOT = macosx;
-				VALID_ARCHS = "i386 x86_64";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
 			};
@@ -1285,18 +1283,14 @@
 		AA97889E0DCAFB880086E480 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GrandPerspective_Prefix.pch;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PRODUCT_NAME = GrandPerspective;
-				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -1308,13 +1302,9 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = GrandPerspective_Prefix.pch;
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
-				GCC_WARN_ABOUT_RETURN_TYPE = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = GrandPerspective;
-				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
