@@ -1,5 +1,5 @@
 #import <Cocoa/Cocoa.h>
-
+#import "Compatibility.h"
 
 /**
  * Panel which notifies its delegate when its first responder changed.

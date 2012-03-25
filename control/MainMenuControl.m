@@ -306,7 +306,7 @@ static MainMenuControl  *singletonInstance = nil;
   
   if (scanAfterLaunch) {
     NSTimeInterval delay = [[NSUserDefaults standardUserDefaults] 
-                              doubleForKey: DelayBeforeAutomaticScanAfterStartupKey];
+                              floatForKey: DelayBeforeAutomaticScanAfterStartupKey];
     if (delay == 0) {
       [self scanDirectoryView: self];
     } else if (delay > 0) {
