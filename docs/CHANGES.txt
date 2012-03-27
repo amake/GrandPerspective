@@ -19,6 +19,8 @@ Bug fixes:
   #2989277.
 - Fixed bug: Using path-based tests in filters or masks in combination
   with zero sized directories could prematuraly free memory.
+- Fixed bug: Mask settings were not carried over when twinning or
+  duplicating windows.
 
 
 ----------------------------------------------------------------------
