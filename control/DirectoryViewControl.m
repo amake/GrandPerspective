@@ -299,6 +299,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   maskPopUpControl = 
     [[FilterPopUpControl alloc] initWithPopUpButton: maskPopUp
                                   filterRepository: filterRepository];
+  [maskPopUpControl selectFilterNamed: [initialSettings maskName]];
   NSNotificationCenter  *nc = [maskPopUpControl notificationCenter];
   [nc addObserver: self selector: @selector(maskRemoved:) 
           name: SelectedFilterRemoved object: maskPopUpControl];
