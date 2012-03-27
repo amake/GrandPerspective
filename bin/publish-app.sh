@@ -45,6 +45,7 @@ tar cf - -C ${APP_PATH} --exclude "classes.nib" --exclude "info.nib" --exclude "
 
 # Create application DMG file.
 #
+echo "Creating disk image"
 pushd $DEST_PATH > /dev/null
 $BIN_DIR/buildDMG.pl -dmgName ${OUT_DMG_FILE%.dmg} -volName "${VOLUME_NAME}" -volSize 2 -compressionLevel 9 $OUTER_DIR_PATH/*.txt $OUTER_DIR_PATH/GrandPerspective.app
 popd > /dev/null
