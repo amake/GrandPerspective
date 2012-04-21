@@ -8,6 +8,8 @@
 + (NSString *)filesizeUnitString:(int) order;
 + (NSString *)decimalSeparator;
 
++ (CFDateFormatterRef) timeFormatter;
+
 - (NSString *)constructPath:(BOOL) useFileSystemRepresentation;
 
 @end
@@ -17,30 +19,29 @@
 
 // Overrides super's designated initialiser.
 - (id) initWithItemSize:(ITEM_SIZE) sizeVal {
-  return [self initWithName: @"" parent: nil size: sizeVal];
+  return [self initWithName: @"" 
+                     parent: nil 
+                       size: sizeVal
+                      flags: 0 
+               creationTime: 0 
+           modificationTime: 0];
 }
 
-- (id) initWithName:(NSString *)nameVal parent:(DirectoryItem *)parentVal {
-  return [self initWithName: nameVal parent: parentVal size: 0 flags: 0];
-}
 
-- (id) initWithName:(NSString *)nameVal parent:(DirectoryItem *)parentVal
-         flags:(UInt8) flagsVal {
-  return [self initWithName: nameVal parent: parentVal size: 0 flags: flagsVal];
-}
-
-- (id) initWithName:(NSString *)nameVal parent:(DirectoryItem *)parentVal 
-         size:(ITEM_SIZE) sizeVal {
-  return [self initWithName: nameVal parent: parentVal size: sizeVal flags: 0];
-}
-
-- (id) initWithName:(NSString *)nameVal parent:(DirectoryItem *)parentVal
-         size:(ITEM_SIZE)sizeVal flags:(UInt8) flagsVal {
+- (id) initWithName: (NSString *)nameVal 
+             parent: (DirectoryItem *)parentVal
+               size: (ITEM_SIZE) sizeVal 
+              flags: (UInt8) flagsVal
+       creationTime: (CFAbsoluteTime) creationTimeVal
+   modificationTime: (CFAbsoluteTime) modificationTimeVal {
   if (self = [super initWithItemSize: sizeVal]) {
     name = [nameVal retain];
 
     parent = parentVal; // not retaining it, as it is not owned.
     flags = flagsVal;
+    
+    creationTime = creationTimeVal;
+    modificationTime = modificationTimeVal;
   }
   return self;
 }
@@ -91,6 +92,15 @@
 
 - (BOOL) isDirectory {
   return NO;
+}
+
+
+- (CFAbsoluteTime) creationTime {
+  return creationTime;
+}
+
+- (CFAbsoluteTime) modificationTime {
+  return modificationTime;
 }
 
 
@@ -186,6 +196,17 @@
 }
 
 
++ (NSString *)stringForTime:(CFAbsoluteTime) absTime {
+  if (absTime == 0) {
+    return @"";
+  } else {
+    return [(NSString *)CFDateFormatterCreateStringWithAbsoluteTime(NULL,
+                                                                   [self timeFormatter],
+                                                                   absTime)
+            autorelease];
+  }
+}
+
 @end // @implementation FileItem
 
 
@@ -219,7 +240,7 @@
 
 
 + (NSString *)decimalSeparator {
-  static  NSString  *decimalSeparator = nil;
+  static NSString  *decimalSeparator = nil;
 
   if (decimalSeparator == nil) {
     NSNumberFormatter  *numFormat = 
@@ -229,6 +250,20 @@
   }
 
   return decimalSeparator;
+}
+
+
++ (CFDateFormatterRef) timeFormatter {
+  static CFDateFormatterRef dateFormatter = NULL;
+  
+  if (dateFormatter == NULL) {
+    // Lazily create formatter
+    dateFormatter = CFDateFormatterCreate(NULL, NULL, 
+                                          kCFDateFormatterShortStyle, 
+                                          kCFDateFormatterShortStyle);    
+  }
+  
+  return dateFormatter;
 }
 
 

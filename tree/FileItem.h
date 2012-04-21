@@ -20,16 +20,20 @@
 
   // Bitmask for storing boolean properties of the file
   UInt8  flags;
+  
+  CFAbsoluteTime  creationTime;
+  CFAbsoluteTime  modificationTime;
 }
 
-- (id) initWithName:(NSString *)name parent:(DirectoryItem *)parent;
-- (id) initWithName:(NSString *)name parent:(DirectoryItem *)parent
-         flags:(UInt8) flags;
-- (id) initWithName:(NSString *)name parent:(DirectoryItem *)parent 
-         size:(ITEM_SIZE) size;
-- (id) initWithName:(NSString *)name parent:(DirectoryItem *)parent 
-         size:(ITEM_SIZE) size flags:(UInt8) flags;
-         
+
+- (id) initWithName: (NSString *)name
+             parent: (DirectoryItem *)parent 
+               size: (ITEM_SIZE) size 
+              flags: (UInt8) flags
+       creationTime: (CFAbsoluteTime) creationTime 
+   modificationTime: (CFAbsoluteTime) modificationTime;
+
+
 /* Creates a duplicate item, for use in a new tree (so with a new parent).
  *
  * Note: If the item is a directory, its contents still need to be set, as
@@ -47,6 +51,15 @@
 /* Returns YES iff the file item is a directory.
  */
 - (BOOL) isDirectory;
+
+
+/* Time when the file item was created.
+ */
+- (CFAbsoluteTime) creationTime;
+
+/* Time when the file item was modified.
+ */
+- (CFAbsoluteTime) modificationTime;
 
 
 /* Bit-mask flags. Lower-level representation for the file's physical, 
@@ -101,6 +114,10 @@
 /* Returns a string, specifying the file size exactly. E.g. "12345678 bytes"
  */
 + (NSString *)exactStringForFileItemSize:(ITEM_SIZE) size;
+
+/* Returns a string for the provided time.
+ */
++ (NSString *)stringForTime:(CFAbsoluteTime) absTime;
 
 @end // @interface FileItem
 

@@ -18,7 +18,7 @@
 
 #define  BUFFER_SIZE  4096
 
-NSString  *TreeWriterFormatVersion = @"3";
+NSString  *TreeWriterFormatVersion = @"4";
 
 // XML elements
 NSString  *ScanDumpElem = @"GrandPerspectiveScanDump";
@@ -48,6 +48,8 @@ NSString  *InvertedAttr = @"inverted";
 NSString  *NameAttr = @"name";
 NSString  *FlagsAttr = @"flags";
 NSString  *SizeAttr = @"size";
+NSString  *CreatedAttr = @"created";
+NSString  *ModifiedAttr = @"modified";
 
 // XML attribute values
 NSString  *TrueValue = @"true";
@@ -143,6 +145,8 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
 - (void) appendString: (NSString *)s;
 
++ (NSString *)stringForTime: (CFAbsoluteTime) time;
+
 @end
 
 
@@ -221,6 +225,26 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
 - (NSDictionary *) progressInfo {
   return [progressTracker progressInfo];
+}
+
+
++ (CFDateFormatterRef) timeFormatter {
+  static CFDateFormatterRef dateFormatter = NULL;
+  
+  if (dateFormatter == NULL) {
+    // Fix the locale so that output is locale independent.
+    CFLocaleRef locale = CFLocaleCreate(kCFAllocatorDefault, CFSTR("en_GB"));
+    
+    // Lazily create formatter
+    dateFormatter = CFDateFormatterCreate(kCFAllocatorDefault,
+                                          locale, 
+                                          kCFDateFormatterShortStyle, 
+                                          kCFDateFormatterShortStyle);
+    
+    CFRelease(locale);
+  }
+  
+  return dateFormatter;
 }
 
 @end
@@ -337,17 +361,25 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   [progressTracker processingFolder: dirItem];
 
   NSString  *nameVal = escapedXML([dirItem name], ATTRIBUTE_ESCAPE_CHARS);
+  UInt8  flags = [dirItem fileItemFlags];
+  NSString  *createdVal = [TreeWriter stringForTime: [dirItem creationTime]];
+  NSString  *modifiedVal = [TreeWriter stringForTime: [dirItem modificationTime]];
   [self appendString: 
-          ( ([dirItem fileItemFlags] != 0) 
-            ? [NSString stringWithFormat:
-                          @"<%@ %@=\"%@\" %@=\"%d\">\n", 
-                          FolderElem,
-                          NameAttr, nameVal, 
-                          FlagsAttr, [dirItem fileItemFlags]]
-            : [NSString stringWithFormat:
-                          @"<%@ %@=\"%@\">\n", 
-                          FolderElem,
-                          NameAttr, nameVal] )];
+   [NSString stringWithFormat: 
+               @"<%@ %@=\"%@\"", 
+               FolderElem,
+               NameAttr, nameVal
+    ]];
+  if (flags != 0) {
+    [self appendString: [NSString stringWithFormat: @" %@=\"%d\"", FlagsAttr, flags]];
+  }
+  if (createdVal != nil) {
+    [self appendString: [NSString stringWithFormat: @" %@=\"%@\"", CreatedAttr, createdVal]];
+  }
+  if (modifiedVal != nil) {
+    [self appendString: [NSString stringWithFormat: @" %@=\"%@\"", ModifiedAttr, modifiedVal]];
+  }
+  [self appendString: @">\n"];  
   
   [self dumpItemContents: [dirItem getContents]];
   
@@ -359,19 +391,27 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
 - (void) appendFileElement: (FileItem *)fileItem {
   NSString  *nameVal = escapedXML([fileItem name], ATTRIBUTE_ESCAPE_CHARS);
+  UInt8  flags = [fileItem fileItemFlags];
+  NSString  *createdVal = [TreeWriter stringForTime: [fileItem creationTime]];
+  NSString  *modifiedVal = [TreeWriter stringForTime: [fileItem modificationTime]];
+  
   [self appendString: 
-          ( ([fileItem fileItemFlags] != 0) 
-            ? [NSString stringWithFormat:
-                          @"<%@ %@=\"%@\" %@=\"%qu\" %@=\"%d\" />\n", 
-                          FileElem,
-                          NameAttr, nameVal, 
-                          SizeAttr, [fileItem itemSize],
-                          FlagsAttr, [fileItem fileItemFlags]]
-            : [NSString stringWithFormat:
-                          @"<%@ %@=\"%@\" %@=\"%qu\" />\n", 
-                          FileElem,
-                          NameAttr, nameVal, 
-                          SizeAttr, [fileItem itemSize]] )];
+   [NSString stringWithFormat:
+               @"<%@ %@=\"%@\" %@=\"%qu\"", 
+               FileElem,
+               NameAttr, nameVal, 
+               SizeAttr, [fileItem itemSize]
+    ]];
+  if (flags != 0) {
+    [self appendString: [NSString stringWithFormat: @" %@=\"%d\"", FlagsAttr, flags]];
+  }
+  if (createdVal != nil) {
+    [self appendString: [NSString stringWithFormat: @" %@=\"%@\"", CreatedAttr, createdVal]];
+  }
+  if (modifiedVal != nil) {
+    [self appendString: [NSString stringWithFormat: @" %@=\"%@\"", ModifiedAttr, modifiedVal]];
+  }
+  [self appendString: @"/>\n"];
 }
 
 
@@ -441,6 +481,19 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
       dataBufferPos = 0;
     }
   }
+}
+
+
++ (NSString *)stringForTime: (CFAbsoluteTime) time {
+  if (time == 0) {
+    return nil;
+  } else {
+    return 
+    [(NSString *)CFDateFormatterCreateStringWithAbsoluteTime(NULL,
+                                                            [self timeFormatter],
+                                                            time)
+     autorelease];
+  }  
 }
 
 @end // @implementation TreeWriter (PrivateMethods) 

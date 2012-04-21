@@ -59,6 +59,8 @@ NSString  *AttributeNameKey = @"name";
   NSLocalizedString(@"Expected boolean value.", @"Parse error")
 #define EXPECTED_DATE_VALUE_MSG \
   NSLocalizedString(@"Expected date value.", @"Parse error")
+#define EXPECTED_TIME_VALUE_MSG \
+  NSLocalizedString(@"Expected time value.", @"Parse error")
 
 #define UNRECOGNIZED_VALUE_MSG \
   NSLocalizedString(@"Unrecognized value.", @"Parse error")
@@ -163,7 +165,13 @@ NSString  *AttributeNameKey = @"name";
            from: (NSDictionary *)attribs;
 - (BOOL) getBooleanAttributeValue: (NSString *)name 
            from: (NSDictionary *)attribs defaultValue: (BOOL) defVal;
-                 
+
+- (CFAbsoluteTime) getTimeAttributeValue: (NSString *)name 
+                                    from: (NSDictionary *)attribs;
+- (CFAbsoluteTime) getTimeAttributeValue: (NSString *)name 
+                                    from: (NSDictionary *)attribs
+                            defaultValue: (CFAbsoluteTime) defVal;
+
 @end // @interface ElementHandler
 
 
@@ -173,6 +181,7 @@ NSString  *AttributeNameKey = @"name";
 - (NSDate *) parseDateAttribute: (NSString *)name value: (NSString *)value;
 - (int) parseIntegerAttribute: (NSString *)name value: (NSString *)value;
 - (BOOL) parseBooleanAttribute: (NSString *)name value: (NSString *)value;
+- (CFAbsoluteTime) parseTimeAttribute: (NSString *)name value: (NSString *)value;
 
 @end // @interface ElementHandler (PrivateMethods) 
 
@@ -737,6 +746,22 @@ NSString  *AttributeNameKey = @"name";
            ? [self parseBooleanAttribute: name value: stringValue] : defVal );
 }
 
+- (CFAbsoluteTime) getTimeAttributeValue: (NSString *)name 
+                                    from: (NSDictionary *)attribs {
+  return [self getTimeAttributeValue: name 
+                                from: attribs 
+                        defaultValue: 0];
+}
+
+- (CFAbsoluteTime) getTimeAttributeValue: (NSString *)name 
+                                    from: (NSDictionary *)attribs
+                            defaultValue: (CFAbsoluteTime) defVal {
+  NSString  *stringValue = [attribs objectForKey: name];
+  
+  return ( (stringValue != nil)
+          ? [self parseTimeAttribute: name value: stringValue] : defVal );
+}
+
 @end // @implementation ElementHandler
 
 
@@ -817,6 +842,22 @@ NSString  *AttributeNameKey = @"name";
                         exceptionWithAttributeName: name 
                         reason: EXPECTED_BOOL_VALUE_MSG];
   @throw ex;
+}
+          
+- (CFAbsoluteTime) parseTimeAttribute: (NSString *)name value: (NSString *)stringValue {
+  CFAbsoluteTime timeValue;
+  Boolean ok = CFDateFormatterGetAbsoluteTimeFromString([TreeWriter timeFormatter],
+                                                        (CFStringRef) stringValue,
+                                                        NULL,
+                                                        &timeValue);
+  if (! ok) {
+    NSException  *ex = [AttributeParseException 
+                        exceptionWithAttributeName: name 
+                                            reason: EXPECTED_TIME_VALUE_MSG];
+    @throw ex;
+  }
+  
+  return timeValue;
 }
 
 @end // @implementation ElementHandler (PrivateMethods) 
@@ -1268,8 +1309,18 @@ NSString  *AttributeNameKey = @"name";
     int  flags = [self getIntegerAttributeValue: FlagsAttr
                          from: attribs defaultValue: 0];
 
+    CFAbsoluteTime  creationTime = 
+    [self getTimeAttributeValue: CreatedAttr from: attribs];
+    CFAbsoluteTime  modificationTime = 
+    [self getTimeAttributeValue: ModifiedAttr from: attribs];
+    
     dirItem = [[DirectoryItem allocWithZone: [parentItem zone]]
-                  initWithName: name parent: parentItem flags: flags];
+                  initWithName: name 
+                        parent: parentItem 
+                         flags: flags
+                  creationTime: creationTime 
+              modificationTime: modificationTime];
+    
     [[reader progressTracker] processingFolder: dirItem];
   }
   @catch (AttributeParseException *ex) {
@@ -1372,9 +1423,19 @@ NSString  *AttributeNameKey = @"name";
     UniformType  *fileType = 
       [typeInventory uniformTypeForExtension: [name pathExtension]];
 
+    CFAbsoluteTime  creationTime = 
+      [self getTimeAttributeValue: CreatedAttr from: attribs];
+    CFAbsoluteTime  modificationTime = 
+      [self getTimeAttributeValue: ModifiedAttr from: attribs];
+
     fileItem = [[PlainFileItem allocWithZone: [parentItem zone]]
-                   initWithName: name parent: parentItem size: size
-                     type: fileType flags: flags];
+                   initWithName: name 
+                         parent: parentItem
+                           size: size
+                           type: fileType
+                          flags: flags
+                   creationTime: creationTime 
+               modificationTime: modificationTime];
   }
   @catch (AttributeParseException *ex) {
     [self handlerAttributeParseError: ex];

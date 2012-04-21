@@ -11,11 +11,16 @@
 @implementation ScanTreeRoot
 
 // Overrides the designated initialiser
-- (id) initWithName:(NSString *)systemNameVal parent:(DirectoryItem *)parentVal
-         size:(ITEM_SIZE) sizeVal flags:(UInt8) flagsVal {
-  if (self = [super initWithName: 
-                        [ScanTreeRoot makeNameFriendly: systemNameVal]
-                      parent: parentVal size: sizeVal flags: flagsVal]) {
+- (id) initWithName: (NSString *)systemNameVal 
+             parent: (DirectoryItem *)parentVal
+              flags: (UInt8) flagsVal
+       creationTime: (CFAbsoluteTime) creationTimeVal
+   modificationTime: (CFAbsoluteTime) modificationTimeVal {
+  if (self = [super initWithName: [ScanTreeRoot makeNameFriendly: systemNameVal]
+                          parent: parentVal  
+                           flags: flagsVal
+                    creationTime: creationTimeVal 
+                modificationTime: modificationTimeVal]) {
     systemName = [systemNameVal retain];
   }
   return self;

@@ -6,6 +6,35 @@
 
 @implementation DirectoryItem
 
+// Overrides designated initialiser
+- (id) initWithName:(NSString *)name
+             parent:(DirectoryItem *)parent 
+               size:(ITEM_SIZE) size 
+              flags:(UInt8) flags
+       creationTime:(CFAbsoluteTime) creationTime 
+   modificationTime:(CFAbsoluteTime) modificationTime {
+  NSAssert(NO, @"Initialize without size.");
+}
+
+
+- (id) initWithName: (NSString *)nameVal 
+             parent: (DirectoryItem *)parentVal
+              flags: (UInt8) flagsVal
+       creationTime: (CFAbsoluteTime) creationTimeVal
+   modificationTime: (CFAbsoluteTime) modificationTimeVal {
+  
+  if (self = [super initWithName: nameVal
+                          parent: parentVal
+                            size: 0
+                           flags: flagsVal
+                    creationTime: creationTimeVal
+                modificationTime: modificationTimeVal]) {
+    contents = nil;
+  }
+  return self;
+}
+
+
 - (void) dealloc {
   [contents release];
 
@@ -15,7 +44,12 @@
 
 - (FileItem *)duplicateFileItem:(DirectoryItem *)newParent {
   return [[[DirectoryItem allocWithZone: [newParent zone]] 
-              initWithName: name parent: newParent flags: flags] autorelease];
+              initWithName: name 
+                    parent: newParent 
+                     flags: flags
+              creationTime: creationTime 
+          modificationTime: modificationTime
+           ] autorelease];
 }
 
 
@@ -46,11 +80,15 @@
          uniformTypeForExtension: [name pathExtension]];
   
     // Note: This item is short-lived, so it is allocated in the default zone.
-    return [[[PlainFileItem alloc] initWithName: name
-                                     parent: parent
-                                     size: size
-                                     type: fileType
-                                     flags: flags] autorelease];
+    return [[[PlainFileItem alloc]
+             initWithName: name
+                   parent: parent
+                     size: size
+                     type: fileType
+                    flags: flags
+             creationTime: creationTime 
+         modificationTime: modificationTime
+             ] autorelease];
   }
   else {
     return self;
