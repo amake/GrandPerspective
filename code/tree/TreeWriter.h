@@ -29,7 +29,8 @@ extern NSString  *InvertedAttr;
 extern NSString  *NameAttr;
 extern NSString  *FlagsAttr;
 extern NSString  *SizeAttr;
-
+extern NSString  *CreatedAttr;
+extern NSString  *ModifiedAttr;
 
 @class AnnotatedTreeContext;
 @class ProgressTracker;
@@ -74,5 +75,9 @@ extern NSString  *SizeAttr;
  * -writeTree:toFile: (and not doing so would actually be quite silly).
  */
 - (NSDictionary *) progressInfo;
+
+/* Formatter used to create (locale-independent) string reprentations for time values.
+ */
++ (CFDateFormatterRef) timeFormatter;
 
 @end

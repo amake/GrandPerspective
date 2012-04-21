@@ -34,7 +34,8 @@ NSString  *CouldNotEstablishSystemPath = @"CouldNotEstablishSystemPath";
 #define CATALOG_INFO_BITMAP  ( kFSCatInfoNodeFlags | \
                                kFSCatInfoDataSizes | \
                                kFSCatInfoRsrcSizes | \
-                               kFSCatInfoCreateDate )
+                               kFSCatInfoCreateDate | \
+                               kFSCatInfoContentMod)
 
 typedef struct  {
   FSCatalogInfo  catalogInfoArray[BULK_CATALOG_REQUEST_SIZE];
@@ -331,11 +332,26 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
                             volumeSize: volumeSize 
                             freeSpace: freeSpace
                             filterSet: filterSet] autorelease];
+  
+  // Get the creation and modification times
+  FSCatalogInfo  catalogInfo;
+  FSGetCatalogInfo(&pathRef,
+                   kFSCatInfoCreateDate | kFSCatInfoContentMod,
+                   &catalogInfo,
+                   NULL, NULL, NULL);
+  CFAbsoluteTime  creationTime;
+  CFAbsoluteTime  modificationTime;
+  UCConvertUTCDateTimeToCFAbsoluteTime(&(catalogInfo.createDate), &creationTime);
+  UCConvertUTCDateTimeToCFAbsoluteTime(&(catalogInfo.contentModDate), &modificationTime);
+    
   DirectoryItem  *scanTree = 
     [[[ScanTreeRoot allocWithZone: [Item zoneForTree]] 
          initWithName: relativePath 
-         parent: [scanResult scanTreeParent]
-         flags: [self flagsForFileRef: &pathRef]] autorelease];
+               parent: [scanResult scanTreeParent]
+                flags: [self flagsForFileRef: &pathRef]
+         creationTime: creationTime 
+     modificationTime: modificationTime
+      ] autorelease];
 
   [progressTracker startingTask];
         
@@ -458,6 +474,11 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
           flags |= FILE_IS_HARDLINKED;
         }
       
+        CFAbsoluteTime  creationTime;
+        CFAbsoluteTime  modificationTime;
+        UCConvertUTCDateTimeToCFAbsoluteTime(&(catalogInfo->createDate), &creationTime);
+        UCConvertUTCDateTimeToCFAbsoluteTime(&(catalogInfo->contentModDate), &modificationTime);
+
         if (catalogInfo->nodeFlags & kFSNodeIsDirectoryMask) {
           // A directory node.
           
@@ -478,7 +499,11 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
 
           DirectoryItem  *dirChildItem = 
             [[DirectoryItem allocWithZone: [dirItem zone]] 
-                initWithName: childName parent: dirItem flags: flags];
+                   initWithName: childName 
+                         parent: dirItem
+                          flags: flags
+                   creationTime: creationTime 
+               modificationTime: modificationTime];
           
           // Only add directories that should be scanned (this does not
           // necessarily mean that it has passed the filter test already) 
@@ -504,8 +529,13 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
       
           PlainFileItem  *fileChildItem =
             [[PlainFileItem allocWithZone: [dirItem zone]] 
-                initWithName: childName parent: dirItem size: childSize 
-                  type: fileType flags: flags];
+                initWithName: childName 
+                      parent: dirItem 
+                        size: childSize 
+                        type: fileType
+                       flags: flags 
+                creationTime: creationTime 
+            modificationTime: modificationTime];
 
           // Only add file items that pass the filter test.
           if ( [treeGuide includeFileItem: fileChildItem] ) {

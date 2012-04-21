@@ -81,10 +81,10 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   NSTextField  *sizeField;
 }
 
-- (id) initWithPathTextView:(NSTextView *)textView 
-         titleField:(NSTextField *)titleField
-         exactSizeField:(NSTextField *)exactSizeField
-         sizeField:(NSTextField *)sizeField;
+- (id) initWithPathTextView: (NSTextView *)textView 
+                 titleField: (NSTextField *)titleField
+             exactSizeField: (NSTextField *)exactSizeField
+                  sizeField: (NSTextField *)sizeField;
 
 
 /* Clears the controls.
@@ -121,7 +121,17 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 /* Manages the "Selected item" controls in the Focus panel.
  */
 @interface  SelectedItemFocusControls : ItemInFocusControls {
+  NSTextField  *creationTimeField;
+  NSTextField  *modificationTimeField;
 }
+
+- (id) initWithPathTextView: (NSTextView *)textView 
+                 titleField: (NSTextField *)titleField
+             exactSizeField: (NSTextField *)exactSizeField
+                  sizeField: (NSTextField *)sizeField
+          creationTimeField: (NSTextField *)creationTimeField
+      modificationTimeField: (NSTextField *)modificationTimeField;
+
 @end
 
 
@@ -380,17 +390,18 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   visibleFolderFocusControls = 
     [[FolderInViewFocusControls alloc]
         initWithPathTextView: visibleFolderPathTextView 
-          titleField: visibleFolderTitleField
-          exactSizeField: visibleFolderExactSizeField
-          sizeField: visibleFolderSizeField];
+                  titleField: visibleFolderTitleField
+              exactSizeField: visibleFolderExactSizeField
+                   sizeField: visibleFolderSizeField];
 
   selectedItemFocusControls = 
     [[SelectedItemFocusControls alloc]
         initWithPathTextView: selectedItemPathTextView 
-          titleField: selectedItemTitleField
-          exactSizeField: selectedItemExactSizeField
-          sizeField: selectedItemSizeField];
-
+                  titleField: selectedItemTitleField
+              exactSizeField: selectedItemExactSizeField
+                   sizeField: selectedItemSizeField
+           creationTimeField: selectedItemCreationTimeField
+       modificationTimeField: selectedItemModificationTimeField];
 
   //---------------------------------------------------------------- 
   // Miscellaneous initialisation
@@ -1113,10 +1124,10 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 @implementation ItemInFocusControls
 
-- (id) initWithPathTextView:(NSTextView *)pathTextViewVal
-         titleField:(NSTextField *)titleFieldVal
-         exactSizeField:(NSTextField *)exactSizeFieldVal
-         sizeField:(NSTextField *)sizeFieldVal {
+- (id) initWithPathTextView: (NSTextView *)pathTextViewVal
+                 titleField: (NSTextField *)titleFieldVal
+             exactSizeField: (NSTextField *)exactSizeFieldVal
+                  sizeField: (NSTextField *)sizeFieldVal {
   if (self = [super init]) {
     pathTextView = [pathTextViewVal retain];
     titleField = [titleFieldVal retain];
@@ -1157,8 +1168,9 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 }
 
 
-- (void) showFileItem:(FileItem *)item itemPath:(NSString *)pathString
-           sizeString:(NSString *)sizeString {
+- (void) showFileItem: (FileItem *)item 
+             itemPath: (NSString *)pathString
+           sizeString: (NSString *)sizeString {
   [titleField setStringValue: [self titleForFileItem: item]];
   
   [pathTextView setString: pathString];
@@ -1203,6 +1215,43 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 
 @implementation SelectedItemFocusControls
+
+- (id) initWithPathTextView: (NSTextView *)textViewVal 
+                 titleField: (NSTextField *)titleFieldVal
+             exactSizeField: (NSTextField *)exactSizeFieldVal
+                  sizeField: (NSTextField *)sizeFieldVal
+          creationTimeField: (NSTextField *)creationTimeFieldVal
+      modificationTimeField: (NSTextField *)modificationTimeFieldVal {
+  if (self = [super initWithPathTextView: textViewVal 
+                              titleField: titleFieldVal
+                          exactSizeField: exactSizeFieldVal
+                               sizeField: sizeFieldVal]) {
+    creationTimeField = [creationTimeFieldVal retain];
+    modificationTimeField = [modificationTimeFieldVal retain];
+  }
+  return self;
+}
+
+- (void) dealloc {
+  [creationTimeField release];
+  [modificationTimeField release];
+  
+  [super dealloc];
+}
+
+
+- (void) showFileItem: (FileItem *)item 
+             itemPath: (NSString *)pathString
+           sizeString: (NSString *)sizeString {
+  [super showFileItem: item
+             itemPath: pathString
+           sizeString: sizeString];
+  [creationTimeField setStringValue: 
+   [FileItem stringForTime: [item creationTime]]];
+  [modificationTimeField setStringValue: 
+   [FileItem stringForTime: [item modificationTime]]];
+}
+
 
 - (NSString *)titleForFileItem:(FileItem *)item {
   if ( ! [item isPhysical] ) {

@@ -8,6 +8,14 @@
 }
 
 
+/* A directory item is initialized without a size. It will be set when its contents are set.
+ */
+- (id) initWithName: (NSString *)name
+             parent: (DirectoryItem *)parent 
+              flags: (UInt8) flags
+       creationTime: (CFAbsoluteTime) creationTime 
+   modificationTime: (CFAbsoluteTime) modificationTime;
+
 - (void) setDirectoryContents:(Item *)contents;
 
 /* Replaces the directory contents. The item must have the same size as the 
