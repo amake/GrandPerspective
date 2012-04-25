@@ -3,8 +3,7 @@
 
 @implementation StatefulFileItemMapping
 
-- (id) initWithFileItemMappingScheme: 
-                                (NSObject <FileItemMappingScheme> *)schemeVal {
+- (id) initWithFileItemMappingScheme: (NSObject <FileItemMappingScheme> *)schemeVal {
   if (self = [super init]) {
     scheme = [schemeVal retain];
   } 

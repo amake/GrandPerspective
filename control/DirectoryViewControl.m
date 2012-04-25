@@ -713,7 +713,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
     [colorMappings fileItemMappingSchemeForKey: name];
 
   if (mapping != nil) {
-    NSObject <FileItemMapping>  *mapper = [mapping fileItemMapping];
+    NSObject <FileItemMapping>  *mapper = [mapping fileItemMappingForTree: [treeContext scanTree]];
   
     [mainView setTreeDrawerSettings: 
       [[mainView treeDrawerSettings] copyWithColorMapper: mapper]];

@@ -11,6 +11,7 @@ extern NSString  *DefaultColorMappingKey;
 extern NSString  *DefaultColorPaletteKey;
 extern NSString  *DefaultFilterName;
 extern NSString  *DefaultColorGradient;
+extern NSString  *MinimumTimeBoundForColorMappingKey;
 extern NSString  *ShowPackageContentsByDefaultKey;
 extern NSString  *ShowEntireVolumeByDefaultKey;
 extern NSString  *ProgressPanelRefreshRateKey;

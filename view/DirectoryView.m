@@ -617,9 +617,11 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
 - (void) colorMappingChanged: (NSNotification *) notification {
   // Replace the mapper that is used by a new one (still from the same scheme)
-  [self setTreeDrawerSettings: 
-         [[self treeDrawerSettings] copyWithColorMapper: 
-                                      [observedColorMapping fileItemMapping]]];
+  NSObject <FileItemMapping>  *newMapping =
+    [observedColorMapping fileItemMappingForTree: [pathModelView scanTree]];
+
+  [self setTreeDrawerSettings:
+    [[self treeDrawerSettings] copyWithColorMapper: newMapping]];
 
   [self postColorMappingChanged]; 
 }

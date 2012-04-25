@@ -2,7 +2,7 @@
 
 @implementation StatelessFileItemMapping
 
-- (NSObject <FileItemMapping> *) fileItemMapping {
+- (NSObject <FileItemMapping> *) fileItemMappingForTree: (DirectoryItem *)tree {
   return self;
 }
 

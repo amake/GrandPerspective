@@ -5,6 +5,8 @@
 
 #import "StatelessFileItemMapping.h"
 #import "UniformTypeMappingScheme.h"
+#import "CreationMappingScheme.h"
+#import "ModificationMappingScheme.h"
 
 @interface MappingByLevel : StatelessFileItemMapping {
 }
@@ -177,7 +179,12 @@
     [instance addFileItemMappingScheme:
                   [[[UniformTypeMappingScheme alloc] init] autorelease]
                 key: @"uniform type"];
-
+    [instance addFileItemMappingScheme:
+                  [[[CreationMappingScheme alloc] init] autorelease]
+                key: @"creation"];
+    [instance addFileItemMappingScheme:
+                  [[[ModificationMappingScheme alloc] init] autorelease]
+                key: @"modification"];
     defaultFileItemMappingCollectionInstance = [instance retain];
   }
   

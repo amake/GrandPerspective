@@ -838,7 +838,7 @@
 											<string key="NSFrame">{{190, 32}, {79, 14}}</string>
 											<reference key="NSSuperview" ref="41528514"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView"/>
+											<reference key="NSNextKeyView" ref="981317044"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="702587796">
 												<int key="NSCellFlags">69336577</int>
@@ -1816,7 +1816,7 @@
 											<int key="NSvFlags">266</int>
 											<string key="NSFrame">{{96, 30}, {176, 17}}</string>
 											<reference key="NSSuperview" ref="340791989"/>
-											<reference key="NSNextKeyView"/>
+											<reference key="NSNextKeyView" ref="981317044"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="782756191">
 												<int key="NSCellFlags">69336641</int>
