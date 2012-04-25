@@ -139,6 +139,8 @@
 		<real>0.5</real>
 		<key>defaultColorMapping</key>
 		<string>folder</string>
+		<key>minimumTimeBoundForColorMapping</key>
+		<string>01/01/2001 00:00</string>
 		<key>defaultFilter</key>
 		<string>No hard-links</string>
 		<key>fileSizeMeasure</key>

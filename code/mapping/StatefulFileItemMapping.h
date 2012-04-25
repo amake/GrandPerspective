@@ -14,7 +14,6 @@
 
 }
 
-- (id) initWithFileItemMappingScheme: 
-                                  (NSObject <FileItemMappingScheme> *)scheme;
+- (id) initWithFileItemMappingScheme: (NSObject <FileItemMappingScheme> *)scheme;
 
 @end

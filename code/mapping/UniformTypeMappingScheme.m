@@ -62,7 +62,7 @@
 //----------------------------------------------------------------------------
 // Implementation of FileItemMappingScheme protocol
 
-- (NSObject <FileItemMapping> *) fileItemMapping {
+- (NSObject <FileItemMapping> *) fileItemMappingForTree: (DirectoryItem *)tree {
   return [[[MappingByUniformType alloc] initWithFileItemMappingScheme: self]
               autorelease];
 }

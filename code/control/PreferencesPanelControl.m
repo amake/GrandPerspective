@@ -29,6 +29,7 @@ NSString  *ShowEntireVolumeByDefaultKey = @"showEntireVolumeByDefault";
  */
 NSString  *ConfirmFolderDeletionKey = @"confirmFolderDeletion";
 NSString  *DefaultColorGradient = @"defaultColorGradient";
+NSString  *MinimumTimeBoundForColorMappingKey = @"minimumTimeBoundForColorMapping";
 NSString  *ProgressPanelRefreshRateKey = @"progressPanelRefreshRate";
 NSString  *DefaultViewWindowWidth = @"defaultViewWindowWidth";
 NSString  *DefaultViewWindowHeight = @"defaultViewWindowHeight";
