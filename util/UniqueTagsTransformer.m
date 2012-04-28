@@ -93,11 +93,23 @@
     [mainBundle localizedStringForKey: name value: nil table: tableName];
 
   int  tag = [[self transformedValue: name] intValue];
-  [popUp addItemWithTitle: localizedName];
-  [[popUp lastItem] setTag: tag];
+  
+  // Find location where to insert item so that list remains sorted by localized name
+  // Note: Using lineair search, which is OK as long as list is relatively small.
+  int  index = 0;
+  while (index < [popUp numberOfItems]) {
+    NSString  *otherName = [[popUp itemAtIndex: index] title];
+    if ([localizedName compare: otherName] == NSOrderedAscending) {
+      break;
+    }
+    index++;
+  }
+  
+  [popUp insertItemWithTitle: localizedName atIndex: index];
+  [[popUp itemAtIndex: index] setTag: tag];
   
   if (select) {
-    [popUp selectItemAtIndex: [popUp numberOfItems] - 1];
+    [popUp selectItemAtIndex: index];
   }
 }
 
