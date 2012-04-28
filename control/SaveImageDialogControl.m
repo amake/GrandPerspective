@@ -89,12 +89,12 @@
 
   // Get a filename for the image.
   NSSavePanel  *savePanel = [NSSavePanel savePanel]; 
-  [savePanel setRequiredFileType: @"tiff"];
+  [savePanel setAllowedFileTypes: [NSArray arrayWithObject: @"tiff"]];
   [savePanel setTitle: 
      NSLocalizedString( @"Save image", @"Title of save panel") ];
   
   if ([savePanel runModal] == NSOKButton) {
-    NSString  *filename = [savePanel filename];
+    NSURL  *destURL = [savePanel URL];
     
     // Draw the image.
     DirectoryView  *dirView = [dirViewControl directoryView];
@@ -116,7 +116,7 @@
                             representationUsingType: NSTIFFFileType
                             properties: nil];
   
-    if (! [imageData  writeToFile: filename atomically: NO] ) {
+    if (! [imageData  writeToURL: destURL atomically: NO] ) {
       NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 
       [alert addButtonWithTitle: OK_BUTTON_TITLE];

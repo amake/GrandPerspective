@@ -176,7 +176,8 @@
 - (void) selectFilterNamed:(NSString *)name {
   int  row = [filterNames indexOfObject: name];
   if (row >= 0) {
-    [filterView selectRow: row byExtendingSelection: NO];
+    [filterView selectRowIndexes: [NSIndexSet indexSetWithIndex: row]
+            byExtendingSelection: NO];
   }
   else {
     [filterView deselectAll: self];
