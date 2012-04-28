@@ -225,7 +225,8 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
                             inTree: [dirView treeInView]];
       int  row = MIN(colorIndex, [tableView numberOfRows] - 1);
       
-      [tableView selectRow: row byExtendingSelection: NO];
+      [tableView selectRowIndexes: [NSIndexSet indexSetWithIndex: row]
+             byExtendingSelection: NO];
       rowSelected = YES;
     }
   }

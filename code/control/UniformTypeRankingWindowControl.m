@@ -301,7 +301,8 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
   }
   
   [typesTable reloadData]; 
-  [typesTable selectRow: 0 byExtendingSelection: NO];
+  [typesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: 0]
+          byExtendingSelection: NO];
 }
 
 // Commits changes made in the window to the uniform type ranking.
@@ -420,7 +421,8 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 /* Update the window after a cell has been moved.
  */
 - (void) movedCellToIndex: (int) index { 
-  [typesTable selectRow: index byExtendingSelection: NO];
+  [typesTable selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
+          byExtendingSelection: NO];
   [typesTable reloadData];
   [self updateWindowState];
 }

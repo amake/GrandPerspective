@@ -952,7 +952,8 @@
   [matchTargets removeObjectAtIndex: selectedRow];
 
   if (selectedRow == [matchTargets count] && selectedRow > 0) {
-    [targetsView selectRow: selectedRow - 1 byExtendingSelection: NO];
+    [targetsView selectRowIndexes: [NSIndexSet indexSetWithIndex: selectedRow - 1] 
+             byExtendingSelection: NO];
   }
 
   [targetsView reloadData];
@@ -1065,7 +1066,8 @@
      NSLocalizedString( @"New match", 
                         @"Initial match value in FilterTestWindow" ) ];
   [targetsView reloadData];
-  [targetsView selectRow: newRow byExtendingSelection: NO];
+  [targetsView selectRowIndexes: [NSIndexSet indexSetWithIndex: newRow]
+           byExtendingSelection: NO];
   
   editInProgress = YES;
   [self updateEnabledState];
@@ -1265,7 +1267,8 @@
 
   [matchTargets addObject: type];
   [targetsView reloadData];
-  [targetsView selectRow: newRow byExtendingSelection: NO];
+  [targetsView selectRowIndexes: [NSIndexSet indexSetWithIndex: newRow]
+           byExtendingSelection: NO];
   
   [self updateEnabledState];
 }

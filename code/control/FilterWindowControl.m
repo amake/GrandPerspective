@@ -262,8 +262,9 @@ NSString  *MatchColumn = @"match";
 - (IBAction) addTestToRepository:(id) sender {
   FilterTest  *newTest = [testEditor newFilterTest];
   
-  [availableTestsView selectRow: [availableTests indexOfObject: [newTest name]]
-                        byExtendingSelection: NO];
+  int  index = [availableTests indexOfObject: [newTest name]];
+  [availableTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
+                  byExtendingSelection: NO];
   [[self window] makeFirstResponder: availableTestsView];
   [self updateWindowState: nil];
 }
@@ -288,8 +289,9 @@ NSString  *MatchColumn = @"match";
     [availableTestsView reloadData];
     
     // Select the newly added test.
-    [filterTestsView selectRow: [filterTests indexOfObject: filterTest]
-                       byExtendingSelection: NO];
+    int  index = [filterTests indexOfObject: filterTest];
+    [filterTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
+                 byExtendingSelection: NO];
     [[self window] makeFirstResponder: filterTestsView];
 
     [self updateWindowState: nil];
@@ -310,7 +312,8 @@ NSString  *MatchColumn = @"match";
     // Select the test in the repository (if it still exists there)
     int  index = [availableTests indexOfObject: testName];
     if (index != NSNotFound) {
-      [availableTestsView selectRow: index byExtendingSelection: NO];
+      [availableTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
+                      byExtendingSelection: NO];
       [[self window] makeFirstResponder: availableTestsView];
     }
     
@@ -567,8 +570,9 @@ NSString  *MatchColumn = @"match";
         
   if (selectedName != nil) {
     // Make sure that the same test is still selected.
-    [availableTestsView selectRow: [availableTests indexOfObject: selectedName]
-                          byExtendingSelection: NO];
+    int  index = [availableTests indexOfObject: selectedName];
+    [availableTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
+                    byExtendingSelection: NO];
   }
                 
   [self updateWindowState: nil];
@@ -591,8 +595,9 @@ NSString  *MatchColumn = @"match";
   }
   else if (selectedName != nil) {
     // Make sure that the same test is still selected. 
-    [availableTestsView selectRow: [availableTests indexOfObject: selectedName]
-                          byExtendingSelection: NO];
+    index = [availableTests indexOfObject: selectedName];
+    [availableTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
+                    byExtendingSelection: NO];
   }
 
   [self updateWindowState:nil];
@@ -631,9 +636,10 @@ NSString  *MatchColumn = @"match";
     selectedName = newTestName;
   }
   if (selectedName != nil) {
-    // Make sure that the same test is still selected. 
-    [availableTestsView selectRow: [availableTests indexOfObject: selectedName]
-                          byExtendingSelection: NO];
+    // Make sure that the same test is still selected.
+    index = [availableTests indexOfObject: selectedName];
+    [availableTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index] 
+                    byExtendingSelection: NO];
   }
 }
 
@@ -660,7 +666,8 @@ NSString  *MatchColumn = @"match";
       //    not available and thus disabled.
     
       // Select the disabled test in the other view. 
-      [filterTestsView selectRow: index byExtendingSelection: NO];
+      [filterTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
+                   byExtendingSelection: NO];
 
       [availableTestsView deselectAll: nil];
       selectedAvailableTestName = nil;

@@ -546,25 +546,29 @@ static MainMenuControl  *singletonInstance = nil;
     [[[NSApplication sharedApplication] mainWindow] windowController];
     
   NSSavePanel  *savePanel = [NSSavePanel savePanel]; 
-  [savePanel setRequiredFileType: @"gpscan"];
+  [savePanel setAllowedFileTypes: [NSArray arrayWithObject: @"gpscan"]];
   [savePanel setTitle: 
      NSLocalizedString( @"Save scan data", @"Title of save panel") ];
   
   if ([savePanel runModal] == NSOKButton) {
-    NSString  *filename = [savePanel filename];
+    NSURL  *destURL = [savePanel URL];
     
-    WriteTaskInput  *input = 
-      [[[WriteTaskInput alloc] 
-           initWithAnnotatedTreeContext: [dirViewControl annotatedTreeContext] 
-             path: filename] 
-           autorelease];
+    if ([destURL isFileURL]) {
+      WriteTaskInput  *input = 
+        [[[WriteTaskInput alloc] 
+             initWithAnnotatedTreeContext: [dirViewControl annotatedTreeContext] 
+                                     path: [destURL path]] 
+         autorelease];
            
-    WriteTaskCallback  *callback = 
-      [[[WriteTaskCallback alloc] initWithWriteTaskInput: input] autorelease];
+      WriteTaskCallback  *callback = 
+        [[[WriteTaskCallback alloc] initWithWriteTaskInput: input] autorelease];
     
-    [writeTaskManager asynchronouslyRunTaskWithInput: input
-                        callback: callback
-                        selector: @selector(writeTaskCompleted:)];
+      [writeTaskManager asynchronouslyRunTaskWithInput: input
+                                              callback: callback
+                                              selector: @selector(writeTaskCompleted:)];
+    } else {
+      NSLog(@"Destination '%@' is not a file?", destURL);
+    }
   }
 }
 
@@ -581,7 +585,12 @@ static MainMenuControl  *singletonInstance = nil;
      NSLocalizedString( @"Load scan data", @"Title of load panel") ];
   
   if ([openPanel runModal] == NSOKButton) {
-    [self loadScanDataFromFile: [openPanel filename]];
+    NSURL  *sourceURL = [openPanel URL];
+    if ([sourceURL isFileURL]) {
+      [self loadScanDataFromFile: [sourceURL path]];
+    } else {
+      NSLog(@"Source '%@' is not a file?", sourceURL); 
+    }
   }
 }
 
@@ -679,11 +688,15 @@ static MainMenuControl  *singletonInstance = nil;
                                          @"Title of open panel") ];
   [openPanel setPrompt: NSLocalizedString(@"Scan", @"Prompt in open panel") ];
 
-  if ([openPanel runModalForTypes:nil] != NSOKButton) {
+  if ([openPanel runModal] != NSOKButton) {
     return; // Abort
   } 
 
-  NSString  *pathToScan = [[openPanel filenames] objectAtIndex: 0];
+  NSURL  *targetURL = [openPanel URL];
+  if (! [targetURL isFileURL]) {
+    NSLog(@"URL '%@' is not a file?", targetURL);
+    return;
+  }
   NamedFilter  *namedFilter = nil;
   if (useFilter) {
     namedFilter = [self getNamedFilter: nil];
@@ -700,7 +713,7 @@ static MainMenuControl  *singletonInstance = nil;
     namedFilter = [NamedFilter namedFilter: filter name: [namedFilter name]];
   }
 
-  [self scanFolder: pathToScan namedFilter: namedFilter];
+  [self scanFolder: [targetURL path] namedFilter: namedFilter];
 }
 
 - (void) scanFolder:(NSString *)path namedFilter:(NamedFilter *)namedFilter {
