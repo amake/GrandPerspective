@@ -7,6 +7,7 @@
 #import "DirectoryItem.h"
 #import "PlainFileItem.h"
 #import "CompoundItem.h"
+#import "ScanTreeRoot.h"
 
 #import "Filter.h"
 #import "NamedFilter.h"
@@ -264,7 +265,16 @@ NSString  *AttributeNameKey = @"name";
 - (void) handler: (ElementHandler *)handler 
            finishedParsingFileElement: (PlainFileItem *) fileItem;
 
+// Returns an allocated but uninitialised directory item. This extension method 
+// is provided so that ScanTreeRootElementHandler can override it.
+- (DirectoryItem *) allocDirectoryItemWithZone:(NSZone *)zone;
+
 @end // @interface FolderElementHandler
+
+
+@interface ScanTreeRootElementHandler : FolderElementHandler {
+}
+@end // @interface ScanTreeRootElementHandler
 
 
 @interface FileElementHandler : ElementHandler {
@@ -1021,7 +1031,7 @@ NSString  *AttributeNameKey = @"name";
       [self handlerError: MULTIPLE_ROOT_FOLDER_MSG];
     }
     else {
-      [[[FolderElementHandler alloc] 
+      [[[ScanTreeRootElementHandler alloc] 
            initWithElement: childElement reader: reader callback: self 
              onSuccess: @selector(handler:finishedParsingFolderElement:) 
              parent: [tree scanTreeParent]]
@@ -1316,7 +1326,7 @@ NSString  *AttributeNameKey = @"name";
     CFAbsoluteTime  accessTime = 
     [self getTimeAttributeValue: AccessedAttr from: attribs];
     
-    dirItem = [[DirectoryItem allocWithZone: [parentItem zone]]
+    dirItem = [[self allocDirectoryItemWithZone: [parentItem zone]]
                   initWithName: name 
                         parent: parentItem 
                          flags: flags
@@ -1380,8 +1390,21 @@ NSString  *AttributeNameKey = @"name";
   [self handler: handler finishedParsingElement: childItem];
 }
 
-@end // @implementationFolderElementHandler 
 
+- (DirectoryItem *) allocDirectoryItemWithZone:(NSZone *)zone {
+  return [DirectoryItem allocWithZone: zone];
+}
+
+@end // @implementation FolderElementHandler 
+
+
+@implementation ScanTreeRootElementHandler
+
+- (DirectoryItem *) allocDirectoryItemWithZone:(NSZone *)zone {
+  return [ScanTreeRoot allocWithZone: zone];
+}
+
+@end // @implementation ScanTreeRootElementHandler 
 
 @implementation FileElementHandler 
 
