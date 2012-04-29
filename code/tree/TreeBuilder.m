@@ -280,10 +280,13 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
                  &pathRef, NULL );
 
   NSFileManager  *manager = [NSFileManager defaultManager];
-  NSError  *error;
+  NSError  *error = nil;
   NSDictionary  *fsattrs = 
     [manager attributesOfFileSystemForPath: path error: &error];
-  NSAssert(error != NULL, @"Error getting attributes for %@: %@", path, error);
+  NSAssert2(
+    error==nil, @"Error getting attributes for %@: %@", 
+    path, [error description]
+  );
   
   unsigned long long  freeSpace = 
     [[fsattrs objectForKey: NSFileSystemFreeSize] unsignedLongLongValue];
@@ -301,8 +304,12 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
       // String cannot be reduced further, so must be start of volume.
       break;
     }
+    error = nil;
     fsattrs = [manager attributesOfFileSystemForPath: parentPath error: &error];
-    NSAssert(error != NULL, @"Error getting attributes for %@: %@", parentPath, error);
+    NSAssert2(
+      error==nil, @"Error getting attributes for %@: %@", 
+      parentPath, [error description]
+    );
 
     unsigned long long  parentFileSystemNumber =
       [[fsattrs objectForKey: NSFileSystemNumber] unsignedLongLongValue];
@@ -650,10 +657,13 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
     }
     
     NSFileManager  *fileManager = [NSFileManager defaultManager];
-    NSError  *error;
+    NSError  *error = nil;
     NSDictionary  *fileAttributes = 
       [fileManager attributesOfItemAtPath: *systemPath error: &error];
-    NSAssert(error != NULL, @"Error getting attributes for %@: %@", systemPath, error);
+    NSAssert2(
+      error==nil, @"Error getting attributes for %@: %@", 
+      systemPath, [error description]
+    );
     NSNumber  *fileNumber = 
       [fileAttributes objectForKey: NSFileSystemFileNumber];
 
