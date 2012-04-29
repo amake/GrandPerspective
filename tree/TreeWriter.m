@@ -63,14 +63,18 @@ NSString  *FalseValue = @"false";
    NSLocalizedString(@"Failed to write entire buffer.", @"Error message")
 
 
-#define  CHAR_AMPERSAND    0x01
-#define  CHAR_LESSTHAN     0x02
-#define  CHAR_DOUBLEQUOTE  0x04
-#define  CHAR_WHITESPACE   0x08
+#define  CHAR_AMPERSAND     0x01
+#define  CHAR_LESSTHAN      0x02
+#define  CHAR_DOUBLEQUOTE   0x04
+#define  CHAR_WHITESPACE    0x08
+// All non-printing ASCII characters (this excludes whitespace)
+#define  CHAR_NON_PRINTING  0x10
 
 #define  ATTRIBUTE_ESCAPE_CHARS  (CHAR_AMPERSAND | CHAR_LESSTHAN \
-                                  | CHAR_DOUBLEQUOTE | CHAR_WHITESPACE)
-#define  CHARDATA_ESCAPE_CHARS   (CHAR_AMPERSAND | CHAR_LESSTHAN)
+                                  | CHAR_DOUBLEQUOTE | CHAR_WHITESPACE \
+                                  | CHAR_NON_PRINTING)
+#define  CHARDATA_ESCAPE_CHARS   (CHAR_AMPERSAND | CHAR_LESSTHAN \
+                                  | CHAR_NON_PRINTING)
 
 
 /* Escapes the string so that it can be used a valid XML attribute value or
@@ -97,11 +101,21 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
     else if (c == '"' && (escapeCharMask & CHAR_DOUBLEQUOTE)!=0) {
       r = @"&quot;";
     }
-    else if (
-      (c == 0x0d || c == 0x20 || c == 0x0a || c == 0x09) && 
-      (escapeCharMask & CHAR_WHITESPACE) != 0
-    ) {
-      r = @" ";
+    else if (c < 0x20) {
+      if (c == 0x09 || c == 0x0a || c == 0x0d) {
+        // White space
+        if ((escapeCharMask & CHAR_WHITESPACE) != 0) {
+          r = @" ";
+        }
+      } else {
+        if ((escapeCharMask & CHAR_NON_PRINTING) != 0) {
+          // Some files can have names with non-printing characters. Just do 
+          // something to ensure that the XML data can be loaded correctly. 
+          // However, no attempt is made to enable a reversible transformation.
+          // If anything, such names should be discouraged, not supported.
+          r = @"?";
+        }
+      }
     }
     if (r != nil) {
       if (buf == nil) {
