@@ -66,9 +66,10 @@ NSString  *FalseValue = @"false";
 #define  CHAR_AMPERSAND    0x01
 #define  CHAR_LESSTHAN     0x02
 #define  CHAR_DOUBLEQUOTE  0x04
+#define  CHAR_WHITESPACE   0x08
 
 #define  ATTRIBUTE_ESCAPE_CHARS  (CHAR_AMPERSAND | CHAR_LESSTHAN \
-                                  | CHAR_DOUBLEQUOTE)
+                                  | CHAR_DOUBLEQUOTE | CHAR_WHITESPACE)
 #define  CHARDATA_ESCAPE_CHARS   (CHAR_AMPERSAND | CHAR_LESSTHAN)
 
 
@@ -93,8 +94,14 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
     else if (c == '<' && (escapeCharMask & CHAR_LESSTHAN)!=0 ) {
       r = @"&lt;";
     }
-    else if (c== '"' && (escapeCharMask & CHAR_DOUBLEQUOTE)!=0) {
+    else if (c == '"' && (escapeCharMask & CHAR_DOUBLEQUOTE)!=0) {
       r = @"&quot;";
+    }
+    else if (
+      (c == 0x0d || c == 0x20 || c == 0x0a || c == 0x09) && 
+      (escapeCharMask & CHAR_WHITESPACE) != 0
+    ) {
+      r = @" ";
     }
     if (r != nil) {
       if (buf == nil) {
