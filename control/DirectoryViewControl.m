@@ -123,6 +123,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 @interface  SelectedItemFocusControls : ItemInFocusControls {
   NSTextField  *creationTimeField;
   NSTextField  *modificationTimeField;
+  NSTextField  *accessTimeField;
 }
 
 - (id) initWithPathTextView: (NSTextView *)textView 
@@ -130,7 +131,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
              exactSizeField: (NSTextField *)exactSizeField
                   sizeField: (NSTextField *)sizeField
           creationTimeField: (NSTextField *)creationTimeField
-      modificationTimeField: (NSTextField *)modificationTimeField;
+      modificationTimeField: (NSTextField *)modificationTimeField
+            accessTimeField: (NSTextField *)accessTimeField;
 
 @end
 
@@ -401,7 +403,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
               exactSizeField: selectedItemExactSizeField
                    sizeField: selectedItemSizeField
            creationTimeField: selectedItemCreationTimeField
-       modificationTimeField: selectedItemModificationTimeField];
+       modificationTimeField: selectedItemModificationTimeField
+             accessTimeField: selectedItemAccessTimeField];
 
   //---------------------------------------------------------------- 
   // Miscellaneous initialisation
@@ -1221,13 +1224,15 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
              exactSizeField: (NSTextField *)exactSizeFieldVal
                   sizeField: (NSTextField *)sizeFieldVal
           creationTimeField: (NSTextField *)creationTimeFieldVal
-      modificationTimeField: (NSTextField *)modificationTimeFieldVal {
+      modificationTimeField: (NSTextField *)modificationTimeFieldVal
+            accessTimeField: (NSTextField *)accessTimeFieldVal {
   if (self = [super initWithPathTextView: textViewVal 
                               titleField: titleFieldVal
                           exactSizeField: exactSizeFieldVal
                                sizeField: sizeFieldVal]) {
     creationTimeField = [creationTimeFieldVal retain];
     modificationTimeField = [modificationTimeFieldVal retain];
+    accessTimeField = [accessTimeFieldVal retain];
   }
   return self;
 }
@@ -1235,6 +1240,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 - (void) dealloc {
   [creationTimeField release];
   [modificationTimeField release];
+  [accessTimeField release];
   
   [super dealloc];
 }
@@ -1250,6 +1256,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
    [FileItem stringForTime: [item creationTime]]];
   [modificationTimeField setStringValue: 
    [FileItem stringForTime: [item modificationTime]]];
+  [accessTimeField setStringValue: 
+   [FileItem stringForTime: [item accessTime]]];
 }
 
 

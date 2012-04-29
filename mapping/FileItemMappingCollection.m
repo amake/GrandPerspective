@@ -5,6 +5,7 @@
 
 #import "StatelessFileItemMapping.h"
 #import "UniformTypeMappingScheme.h"
+#import "AccessMappingScheme.h"
 #import "CreationMappingScheme.h"
 #import "ModificationMappingScheme.h"
 
@@ -185,6 +186,9 @@
     [instance addFileItemMappingScheme:
                   [[[ModificationMappingScheme alloc] init] autorelease]
                 key: @"modification"];
+    [instance addFileItemMappingScheme:
+                  [[[AccessMappingScheme alloc] init] autorelease]
+                key: @"access"];
     defaultFileItemMappingCollectionInstance = [instance retain];
   }
   

@@ -78,7 +78,8 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
                   parent: nil
                    flags: 0
             creationTime: 0 
-        modificationTime: 0];
+        modificationTime: 0
+              accessTime: 0];
     
     usedSpaceItem = 
       [[DirectoryItem alloc] 
@@ -86,7 +87,8 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
                   parent: volumeTree
                    flags: FILE_IS_NOT_PHYSICAL
             creationTime: 0 
-        modificationTime: 0];
+        modificationTime: 0
+              accessTime: 0];
     
     fileSizeMeasure = [fileSizeMeasureVal retain];
     volumeSize = volumeSizeVal;
@@ -153,6 +155,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
              flags: FILE_IS_NOT_PHYSICAL
       creationTime: 0
   modificationTime: 0
+        accessTime: 0
       ] autorelease];
                  
   ITEM_SIZE  miscUnusedSize = volumeSize;
@@ -180,6 +183,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
              flags: FILE_IS_NOT_PHYSICAL
       creationTime: 0
   modificationTime: 0
+        accessTime: 0
       ] autorelease];
 
   [usedSpaceItem setDirectoryContents: 
@@ -267,7 +271,8 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
              size: [replacedItem itemSize]
             flags: FILE_IS_NOT_PHYSICAL     
      creationTime: 0
- modificationTime: 0];
+ modificationTime: 0
+       accessTime: 0];
                                       
   Item  *containingItem = [self itemContainingSelectedFileItem: pathModelView];
   

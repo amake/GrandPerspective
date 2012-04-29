@@ -23,6 +23,7 @@
   
   CFAbsoluteTime  creationTime;
   CFAbsoluteTime  modificationTime;
+  CFAbsoluteTime  accessTime;
 }
 
 
@@ -31,7 +32,8 @@
                size: (ITEM_SIZE) size 
               flags: (UInt8) flags
        creationTime: (CFAbsoluteTime) creationTime 
-   modificationTime: (CFAbsoluteTime) modificationTime;
+   modificationTime: (CFAbsoluteTime) modificationTime
+         accessTime: (CFAbsoluteTime) accessTime;
 
 
 /* Creates a duplicate item, for use in a new tree (so with a new parent).
@@ -57,9 +59,13 @@
  */
 - (CFAbsoluteTime) creationTime;
 
-/* Time when the file item was modified.
+/* Time when the file item was last modified.
  */
 - (CFAbsoluteTime) modificationTime;
+
+/* Time when the file item was last accessed.
+ */
+- (CFAbsoluteTime) accessTime;
 
 
 /* Bit-mask flags. Lower-level representation for the file's physical, 

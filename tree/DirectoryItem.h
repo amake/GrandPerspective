@@ -14,7 +14,8 @@
              parent: (DirectoryItem *)parent 
               flags: (UInt8) flags
        creationTime: (CFAbsoluteTime) creationTime 
-   modificationTime: (CFAbsoluteTime) modificationTime;
+   modificationTime: (CFAbsoluteTime) modificationTime
+         accessTime: (CFAbsoluteTime) accessTime;
 
 - (void) setDirectoryContents:(Item *)contents;
 
