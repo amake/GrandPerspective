@@ -9,7 +9,7 @@
 
 @interface TimeBasedMapping (PrivateMethods)
 
-- (void) initTimeBounds: (FileItem *)fileItem;
+- (void) initTimeBounds: (DirectoryItem *)treeRoot;
 - (void) visitItemToDetermineTimeBounds: (Item *)item;
 
 @end // @interface TimeBasedMapping (PrivateMethods)
@@ -19,8 +19,8 @@
 
 const int  secondsPerDay = 60 * 60 * 24;
 
-// Set minimum time granularity to a day 
-const int  minTimeDelta = secondsPerDay;
+// Set minimum time granularity to a minute 
+const int  minTimeDelta = 60;
 
 
 - (id) initWithFileItemMappingScheme: (NSObject <FileItemMappingScheme> *)schemeVal 
