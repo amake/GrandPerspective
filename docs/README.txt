@@ -19,7 +19,7 @@ rectangles as square as possible.
 
 * SYSTEM REQUIREMENTS
 
-  - Mac OS X, 10.3 or higher
+  - Mac OS X, 10.5 or higher
   - PowerPC or Intel processor
 
 
