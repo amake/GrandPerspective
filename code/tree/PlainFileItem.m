@@ -10,14 +10,16 @@
                size: (ITEM_SIZE) sizeVal 
               flags: (UInt8) flagsVal
        creationTime: (CFAbsoluteTime) creationTimeVal 
-   modificationTime: (CFAbsoluteTime) modificationTimeVal {
+   modificationTime: (CFAbsoluteTime) modificationTimeVal
+         accessTime: (CFAbsoluteTime) accessTimeVal {
   return [self initWithName: nameVal 
                      parent: parentVal 
                        size: sizeVal 
                        type: nil 
                       flags: flagsVal
                creationTime: creationTimeVal 
-           modificationTime: modificationTimeVal];
+           modificationTime: modificationTimeVal
+                 accessTime: accessTimeVal];
 }
 
 - (id) initWithName: (NSString *)nameVal 
@@ -26,13 +28,15 @@
                type: (UniformType *)typeVal 
               flags: (UInt8) flagsVal 
        creationTime: (CFAbsoluteTime) creationTimeVal 
-   modificationTime: (CFAbsoluteTime) modificationTimeVal {
+   modificationTime: (CFAbsoluteTime) modificationTimeVal
+         accessTime: (CFAbsoluteTime) accessTimeVal {
   if (self = [super initWithName: nameVal 
                           parent: parentVal 
                             size: sizeVal
                            flags: flagsVal
                     creationTime: creationTimeVal
-                modificationTime: modificationTimeVal]) {
+                modificationTime: modificationTimeVal
+                      accessTime: accessTimeVal]) {
     type = [typeVal retain];
   }
   
@@ -54,7 +58,8 @@
                       type: type 
                      flags: flags
               creationTime: creationTime 
-          modificationTime: modificationTime] autorelease];
+          modificationTime: modificationTime
+                accessTime: accessTime] autorelease];
 }
 
 

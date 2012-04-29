@@ -24,7 +24,8 @@
                        size: sizeVal
                       flags: 0 
                creationTime: 0 
-           modificationTime: 0];
+           modificationTime: 0
+                 accessTime: 0];
 }
 
 
@@ -33,7 +34,8 @@
                size: (ITEM_SIZE) sizeVal 
               flags: (UInt8) flagsVal
        creationTime: (CFAbsoluteTime) creationTimeVal
-   modificationTime: (CFAbsoluteTime) modificationTimeVal {
+   modificationTime: (CFAbsoluteTime) modificationTimeVal
+         accessTime: (CFAbsoluteTime) accessTimeVal {
   if (self = [super initWithItemSize: sizeVal]) {
     name = [nameVal retain];
 
@@ -42,6 +44,7 @@
     
     creationTime = creationTimeVal;
     modificationTime = modificationTimeVal;
+    accessTime = accessTimeVal;
   }
   return self;
 }
@@ -101,6 +104,10 @@
 
 - (CFAbsoluteTime) modificationTime {
   return modificationTime;
+}
+
+- (CFAbsoluteTime) accessTime {
+  return accessTime;
 }
 
 

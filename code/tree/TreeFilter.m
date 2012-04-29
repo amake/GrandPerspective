@@ -83,6 +83,7 @@
                 flags: [oldScanTree fileItemFlags]
          creationTime: [oldScanTree creationTime]
      modificationTime: [oldScanTree modificationTime]
+           accessTime: [oldScanTree accessTime]
       ] autorelease];
 
   [progressTracker startingTask];

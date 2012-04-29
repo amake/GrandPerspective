@@ -71,6 +71,7 @@ extern NSString  *DeleteFilesAndFolders;
 
   IBOutlet NSTextField  *selectedItemCreationTimeField;
   IBOutlet NSTextField  *selectedItemModificationTimeField;
+  IBOutlet NSTextField  *selectedItemAccessTimeField;
   
   ItemInFocusControls  *visibleFolderFocusControls;
   ItemInFocusControls  *selectedItemFocusControls;

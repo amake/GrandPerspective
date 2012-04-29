@@ -15,12 +15,14 @@
              parent: (DirectoryItem *)parentVal
               flags: (UInt8) flagsVal
        creationTime: (CFAbsoluteTime) creationTimeVal
-   modificationTime: (CFAbsoluteTime) modificationTimeVal {
+   modificationTime: (CFAbsoluteTime) modificationTimeVal
+         accessTime: (CFAbsoluteTime) accessTimeVal {
   if (self = [super initWithName: [ScanTreeRoot makeNameFriendly: systemNameVal]
                           parent: parentVal  
                            flags: flagsVal
                     creationTime: creationTimeVal 
-                modificationTime: modificationTimeVal]) {
+                modificationTime: modificationTimeVal
+                      accessTime: accessTimeVal]) {
     systemName = [systemNameVal retain];
   }
   return self;

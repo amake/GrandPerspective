@@ -22,7 +22,8 @@
                type: (UniformType *)type 
               flags: (UInt8) flags
        creationTime: (CFAbsoluteTime) creationTime 
-   modificationTime: (CFAbsoluteTime) modificationTime;
+   modificationTime: (CFAbsoluteTime) modificationTime
+         accessTime: (CFAbsoluteTime) accessTime;
 
 - (UniformType *)uniformType;
 

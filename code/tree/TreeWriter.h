@@ -31,6 +31,7 @@ extern NSString  *FlagsAttr;
 extern NSString  *SizeAttr;
 extern NSString  *CreatedAttr;
 extern NSString  *ModifiedAttr;
+extern NSString  *AccessedAttr;
 
 @class AnnotatedTreeContext;
 @class ProgressTracker;

@@ -50,6 +50,7 @@ NSString  *FlagsAttr = @"flags";
 NSString  *SizeAttr = @"size";
 NSString  *CreatedAttr = @"created";
 NSString  *ModifiedAttr = @"modified";
+NSString  *AccessedAttr = @"accessed";
 
 // XML attribute values
 NSString  *TrueValue = @"true";
@@ -364,6 +365,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   UInt8  flags = [dirItem fileItemFlags];
   NSString  *createdVal = [TreeWriter stringForTime: [dirItem creationTime]];
   NSString  *modifiedVal = [TreeWriter stringForTime: [dirItem modificationTime]];
+  NSString  *accessedVal = [TreeWriter stringForTime: [dirItem accessTime]];
   [self appendString: 
    [NSString stringWithFormat: 
                @"<%@ %@=\"%@\"", 
@@ -378,6 +380,9 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   }
   if (modifiedVal != nil) {
     [self appendString: [NSString stringWithFormat: @" %@=\"%@\"", ModifiedAttr, modifiedVal]];
+  }
+  if (accessedVal != nil) {
+    [self appendString: [NSString stringWithFormat: @" %@=\"%@\"", AccessedAttr, accessedVal]];
   }
   [self appendString: @">\n"];  
   
@@ -394,6 +399,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   UInt8  flags = [fileItem fileItemFlags];
   NSString  *createdVal = [TreeWriter stringForTime: [fileItem creationTime]];
   NSString  *modifiedVal = [TreeWriter stringForTime: [fileItem modificationTime]];
+  NSString  *accessedVal = [TreeWriter stringForTime: [fileItem accessTime]];
   
   [self appendString: 
    [NSString stringWithFormat:
@@ -410,6 +416,9 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   }
   if (modifiedVal != nil) {
     [self appendString: [NSString stringWithFormat: @" %@=\"%@\"", ModifiedAttr, modifiedVal]];
+  }
+  if (accessedVal != nil) {
+    [self appendString: [NSString stringWithFormat: @" %@=\"%@\"", AccessedAttr, accessedVal]];
   }
   [self appendString: @"/>\n"];
 }

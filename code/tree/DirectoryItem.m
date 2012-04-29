@@ -12,7 +12,8 @@
                size:(ITEM_SIZE) size 
               flags:(UInt8) flags
        creationTime:(CFAbsoluteTime) creationTime 
-   modificationTime:(CFAbsoluteTime) modificationTime {
+   modificationTime:(CFAbsoluteTime) modificationTime
+         accessTime:(CFAbsoluteTime) accessTime {
   NSAssert(NO, @"Initialize without size.");
 }
 
@@ -21,14 +22,16 @@
              parent: (DirectoryItem *)parentVal
               flags: (UInt8) flagsVal
        creationTime: (CFAbsoluteTime) creationTimeVal
-   modificationTime: (CFAbsoluteTime) modificationTimeVal {
+   modificationTime: (CFAbsoluteTime) modificationTimeVal
+         accessTime: (CFAbsoluteTime) accessTimeVal {
   
   if (self = [super initWithName: nameVal
                           parent: parentVal
                             size: 0
                            flags: flagsVal
                     creationTime: creationTimeVal
-                modificationTime: modificationTimeVal]) {
+                modificationTime: modificationTimeVal
+                      accessTime: accessTimeVal]) {
     contents = nil;
   }
   return self;
@@ -49,6 +52,7 @@
                      flags: flags
               creationTime: creationTime 
           modificationTime: modificationTime
+                accessTime: accessTime
            ] autorelease];
 }
 
@@ -88,6 +92,7 @@
                     flags: flags
              creationTime: creationTime 
          modificationTime: modificationTime
+               accessTime: accessTime
              ] autorelease];
   }
   else {

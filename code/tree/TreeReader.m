@@ -1313,13 +1313,16 @@ NSString  *AttributeNameKey = @"name";
     [self getTimeAttributeValue: CreatedAttr from: attribs];
     CFAbsoluteTime  modificationTime = 
     [self getTimeAttributeValue: ModifiedAttr from: attribs];
+    CFAbsoluteTime  accessTime = 
+    [self getTimeAttributeValue: AccessedAttr from: attribs];
     
     dirItem = [[DirectoryItem allocWithZone: [parentItem zone]]
                   initWithName: name 
                         parent: parentItem 
                          flags: flags
                   creationTime: creationTime 
-              modificationTime: modificationTime];
+              modificationTime: modificationTime
+                    accessTime: accessTime];
     
     [[reader progressTracker] processingFolder: dirItem];
   }
@@ -1426,7 +1429,9 @@ NSString  *AttributeNameKey = @"name";
     CFAbsoluteTime  creationTime = 
       [self getTimeAttributeValue: CreatedAttr from: attribs];
     CFAbsoluteTime  modificationTime = 
-      [self getTimeAttributeValue: ModifiedAttr from: attribs];
+    [self getTimeAttributeValue: ModifiedAttr from: attribs];
+    CFAbsoluteTime  accessTime = 
+    [self getTimeAttributeValue: AccessedAttr from: attribs];
 
     fileItem = [[PlainFileItem allocWithZone: [parentItem zone]]
                    initWithName: name 
@@ -1435,7 +1440,8 @@ NSString  *AttributeNameKey = @"name";
                            type: fileType
                           flags: flags
                    creationTime: creationTime 
-               modificationTime: modificationTime];
+               modificationTime: modificationTime
+                     accessTime: accessTime];
   }
   @catch (AttributeParseException *ex) {
     [self handlerAttributeParseError: ex];

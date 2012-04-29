@@ -51,6 +51,7 @@
 		AA524628110203070018897B /* FilterWindowControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA524626110203070018897B /* FilterWindowControl.m */; };
 		AA52462F1102031D0018897B /* UniformTypeRankingWindowControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA52462E1102031D0018897B /* UniformTypeRankingWindowControl.m */; };
 		AA5974CA0B31687600EF3248 /* FileItemPathStringCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5974C80B31687600EF3248 /* FileItemPathStringCache.m */; };
+		AA5FE4D8154D56DC0050856C /* AccessMappingScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5FE4D7154D56DC0050856C /* AccessMappingScheme.m */; };
 		AA6012570A5AF55400DEBCB8 /* AsynchronousTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6012550A5AF55400DEBCB8 /* AsynchronousTaskManager.m */; };
 		AA6012690A5AF5A600DEBCB8 /* PeekingEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6012670A5AF5A600DEBCB8 /* PeekingEnumerator.m */; };
 		AA6012EC0A5AFB7F00DEBCB8 /* DirectoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6012EA0A5AFB7F00DEBCB8 /* DirectoryView.m */; };
@@ -244,6 +245,8 @@
 		AA52462E1102031D0018897B /* UniformTypeRankingWindowControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UniformTypeRankingWindowControl.m; path = control/UniformTypeRankingWindowControl.m; sourceTree = "<group>"; };
 		AA5974C70B31687600EF3248 /* FileItemPathStringCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileItemPathStringCache.h; path = util/FileItemPathStringCache.h; sourceTree = "<group>"; };
 		AA5974C80B31687600EF3248 /* FileItemPathStringCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileItemPathStringCache.m; path = util/FileItemPathStringCache.m; sourceTree = "<group>"; };
+		AA5FE4D6154D56DC0050856C /* AccessMappingScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessMappingScheme.h; sourceTree = "<group>"; };
+		AA5FE4D7154D56DC0050856C /* AccessMappingScheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccessMappingScheme.m; sourceTree = "<group>"; };
 		AA6012540A5AF55400DEBCB8 /* AsynchronousTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsynchronousTaskManager.h; path = util/AsynchronousTaskManager.h; sourceTree = "<group>"; };
 		AA6012550A5AF55400DEBCB8 /* AsynchronousTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsynchronousTaskManager.m; path = util/AsynchronousTaskManager.m; sourceTree = "<group>"; };
 		AA6012660A5AF5A600DEBCB8 /* PeekingEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PeekingEnumerator.h; path = util/PeekingEnumerator.h; sourceTree = "<group>"; };
@@ -735,6 +738,8 @@
 				AA0CDE7315487FF60018D583 /* CreationMappingScheme.m */,
 				AA0CDE75154882BE0018D583 /* ModificationMappingScheme.h */,
 				AA0CDE76154882BE0018D583 /* ModificationMappingScheme.m */,
+				AA5FE4D6154D56DC0050856C /* AccessMappingScheme.h */,
+				AA5FE4D7154D56DC0050856C /* AccessMappingScheme.m */,
 			);
 			path = mapping;
 			sourceTree = "<group>";
@@ -1092,6 +1097,7 @@
 				AA0CDE711544995C0018D583 /* TimeBasedMapping.m in Sources */,
 				AA0CDE7415487FF60018D583 /* CreationMappingScheme.m in Sources */,
 				AA0CDE77154882BF0018D583 /* ModificationMappingScheme.m in Sources */,
+				AA5FE4D8154D56DC0050856C /* AccessMappingScheme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
