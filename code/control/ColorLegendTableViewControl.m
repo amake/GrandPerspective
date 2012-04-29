@@ -83,6 +83,8 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 }
 
 - (void) dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver: self];
+  
   [dirView release];
   [tableView release];
   [colorImages release];
