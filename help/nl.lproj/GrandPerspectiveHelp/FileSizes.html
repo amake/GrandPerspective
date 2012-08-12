@@ -4,7 +4,7 @@
 <title>Bestandsgrootte maten</title>
 <link href="HelpStyle.css" rel="stylesheet" media="all">
 <meta name="description" content="Beschrijft de bestandsgrootte maten die ondersteund worden en legt uit hoe deze gekozen kunnen worden.">
-<meta name="keywords" content="bestand, grootte, maat, intrinsiek, fysisch">
+<meta name="keywords" content="bestand, grootte, maat, intrinsiek, fysisch, eenheid, binair, decimaal">
 </head>
 <body>
 
@@ -12,29 +12,45 @@
 <img src="images/GrandPerspectiveIcon32.png" alt="GrandPerspective icoon" height="32" width="32">
 </div>
 <div id="pagetitle">
-<h1>Bestandsgrootte maten</h1>
+<h1>Bestandsgroottes</h1>
 </div>
 
 <p>
 De grootte van elke rechthoek in een <a href="Views.html">overzichts venster</a> is evenredig met de grootte van het bestand dat het vertegenwoordigd.
-Er is echter meer dan ŽŽn manier om een bestandsgrootte te meten.
-GrandPerspective ondersteunt daarom twee verschillende bestandsgrootte maten:
+U kunt de bestandsgrootte maat en het eenheidssysteem dat gebruikt wordt veranderen via de GrandPerspective <a href="Preferences.html">Voorkeuren</a>.
+</p>
+
+<h2>Bestandsgrootte maten</h2>
+
+<p>
+GrandPerspective ondersteunt twee verschillende bestandsgrootte maten:
 
 <ul>
-<li><b>Intrinsiek</b>;
+<li><b>Intrinsiek</b>,
 deze maat is gebaseerd op de grootte van de inhoud van een bestand. 
 De intrinsieke grootte van een tekstbestand is bijvoorbeeld gelijk aan het aantal tekens (inclusief spaties en regelonderbrekingen) die het bevat.</li>
 
-<li><b>Fysisch</b>;
+<li><b>Fysisch</b>,
 deze maat is gebaseerd op de ruimte die een bestand inneemt op schijf. 
 De fysische grootte van een bestand kan hetzelfde zijn als de intrinsieke grootte, maar is typisch iets groter. Dit wordt veroorzaakt door de manier waarop een schijf ingericht is.
 Een bestand met een intrinsieke grootte van tien bytes kan bijvoorbeeld, afhankelijk van het soort bestandsysteem, een fysische grootte hebben van 1024 bytes.</li>
 </ul>
 </p>
 
+<h2>Bestandsgrootte eenheidssystemen</h2>
+
 <p>
-GrandPerspective gebruikt standaard de intrinsieke bestandsmaat.
-U kunt de maat die gebruikt wordt veranderen via de GrandPerspective <a href="Preferences.html">Voorkeuren</a>.
+Voor het rapporteren van bestandsgroottes gebruikt GrandPerspective een van de volgende eenheidssystemen:
+
+<ul>
+<li><b>Binair</b>,
+in dit geval bevat een kilobyte 2<sup>10</sup>=1024 bytes.
+Een megabyte bevat vervolgens 2<sup>20</sup> bytes, enzovoort.</li>
+
+<li><b>Decimaal</b>,
+in dit geval bevat een kilobyte 10<sup>3</sup>=1000 bytes.
+Een megabyte bevat vervolgens een miljoen bytes, enzovoort.</li>
+</ul>
 </p>
 
 </body>
