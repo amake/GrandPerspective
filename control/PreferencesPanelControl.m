@@ -16,7 +16,7 @@ NSString  *ConfirmFileDeletionKey = @"confirmFileDeletion";
 NSString  *DefaultRescanActionKey = @"defaultRescanAction";
 NSString  *RescanBehaviourKey = @"rescanBehaviour";
 NSString  *FileSizeMeasureKey = @"fileSizeMeasure";
-NSString  *FileSizeMeasureBaseKey = @"fileSizeMeasureBase";
+NSString  *FileSizeUnitSystemKey = @"fileSizeUnitSystem";
 NSString  *DefaultColorMappingKey = @"defaultColorMapping";
 NSString  *DefaultColorPaletteKey = @"defaultColorPalette";
 NSString  *DefaultFilterName = @"defaultFilter";
@@ -81,8 +81,8 @@ NSString  *DelayBeforeAutomaticScanAfterStartupKey = @"delayBeforeAutomaticScanA
            content: [MainMenuControl rescanBehaviourNames]];
   [self setupPopUp: fileSizeMeasurePopUp key: FileSizeMeasureKey
            content: [TreeBuilder fileSizeMeasureNames]];
-  [self setupPopUp: fileSizeMeasureBasePopUp key: FileSizeMeasureBaseKey
-           content: [FileItem fileSizeMeasureBaseNames]];
+  [self setupPopUp: fileSizeUnitSystemPopUp key: FileSizeUnitSystemKey
+           content: [FileItem fileSizeUnitSystemNames]];
   [self setupPopUp: defaultColorMappingPopUp key: DefaultColorMappingKey
            content:  [[FileItemMappingCollection 
                         defaultFileItemMappingCollection] allKeys]];

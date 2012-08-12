@@ -69,7 +69,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 - (void) updateFileDeletionSupport;
 
-- (void) fileSizeMeasureBaseChanged;
+- (void) fileSizeUnitSystemChanged;
 - (void) updateInfoPanelValues;
 
 @end
@@ -203,6 +203,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   [userDefaults removeObserver: self forKeyPath: FileDeletionTargetsKey];
   [userDefaults removeObserver: self forKeyPath: ConfirmFileDeletionKey];
+  [userDefaults removeObserver: self forKeyPath: FileSizeUnitSystemKey];
   
   [visibleFolderFocusControls release];
   [selectedItemFocusControls release];
@@ -409,7 +410,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
                     options: 0 
                     context: nil];
   [userDefaults addObserver: self 
-                 forKeyPath: FileSizeMeasureBaseKey
+                 forKeyPath: FileSizeUnitSystemKey
                     options: 0 
                     context: nil];
 
@@ -474,8 +475,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
     if ([keyPath isEqualToString: FileDeletionTargetsKey] ||
         [keyPath isEqualToString: ConfirmFileDeletionKey]) {
       [self updateFileDeletionSupport];
-    } else if ([keyPath isEqualToString: FileSizeMeasureBaseKey]) {
-      [self fileSizeMeasureBaseChanged];
+    } else if ([keyPath isEqualToString: FileSizeUnitSystemKey]) {
+      [self fileSizeUnitSystemChanged];
     }
   }
 }
@@ -1105,7 +1106,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 /* Update all fields that report file size values.
  */
-- (void) fileSizeMeasureBaseChanged {
+- (void) fileSizeUnitSystemChanged {
   [self updateInfoPanelValues];
   
   NSString  *selectedItemSize = [self updateSelectionInStatusbar];
@@ -1117,6 +1118,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 - (void) updateInfoPanelValues {
   NSBundle  *mainBundle = [NSBundle mainBundle];
+  NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
   FileItem  *volumeTree = [pathModelView volumeTree];
   FileItem  *scanTree = [pathModelView scanTree];
@@ -1141,9 +1143,13 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   
   [scanTimeField setStringValue: [treeContext stringForScanTime]];
   [fileSizeMeasureField setStringValue: 
+   [NSString stringWithFormat: @"%@ (%@)",
     [mainBundle localizedStringForKey: [treeContext fileSizeMeasure] 
                                 value: nil
-                                table: @"Names"]];
+                                table: @"Names"],
+    [mainBundle localizedStringForKey: [userDefaults stringForKey: FileSizeUnitSystemKey]
+                                value: nil
+                                table: @"Names"]]];
   
   unsigned long long  scanTreeSize = [scanTree itemSize];
   unsigned long long  freeSpace = [treeContext freeSpace];
