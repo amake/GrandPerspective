@@ -4,8 +4,8 @@
 #import "PreferencesPanelControl.h"
 
 
-NSString*  FileSizeBase2 = @"base-2";
-NSString*  FileSizeBase10 = @"base-10";
+NSString*  FileSizeUnitSystemBase2 = @"base-2";
+NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
 @interface FileItem (PrivateMethods)
 
@@ -21,12 +21,12 @@ NSString*  FileSizeBase10 = @"base-10";
 
 @implementation FileItem
 
-+ (NSArray *) fileSizeMeasureBaseNames {
++ (NSArray *) fileSizeUnitSystemNames {
   static NSArray  *fileSizeMeasureBaseNames = nil;
   
   if (fileSizeMeasureBaseNames == nil) {
     fileSizeMeasureBaseNames = 
-    [[NSArray arrayWithObjects: FileSizeBase2, FileSizeBase10, nil] 
+    [[NSArray arrayWithObjects: FileSizeUnitSystemBase2, FileSizeUnitSystemBase10, nil] 
      retain];
   }
   
@@ -35,9 +35,9 @@ NSString*  FileSizeBase10 = @"base-10";
 
 + (int) bytesPerKilobyte {
   NSString*  fileSizeMeasureBase =
-    [[NSUserDefaults standardUserDefaults] stringForKey: FileSizeMeasureBaseKey];
+    [[NSUserDefaults standardUserDefaults] stringForKey: FileSizeUnitSystemKey];
 
-  if ([fileSizeMeasureBase isEqualToString: FileSizeBase10]) {
+  if ([fileSizeMeasureBase isEqualToString: FileSizeUnitSystemBase10]) {
     return 1000;
   } else {
     // Assume binary (also when value is unrecognized/invalid)
