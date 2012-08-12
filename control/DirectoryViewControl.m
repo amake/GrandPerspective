@@ -69,6 +69,9 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 - (void) updateFileDeletionSupport;
 
+- (void) fileSizeMeasureBaseChanged;
+- (void) updateInfoPanelValues;
+
 @end
 
 
@@ -313,10 +316,14 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
                                   filterRepository: filterRepository];
   [maskPopUpControl selectFilterNamed: [initialSettings maskName]];
   NSNotificationCenter  *nc = [maskPopUpControl notificationCenter];
-  [nc addObserver: self selector: @selector(maskRemoved:) 
-          name: SelectedFilterRemoved object: maskPopUpControl];
-  [nc addObserver: self selector: @selector(maskUpdated:) 
-          name: SelectedFilterUpdated object: maskPopUpControl];  
+  [nc addObserver: self 
+         selector: @selector(maskRemoved:) 
+             name: SelectedFilterRemoved 
+           object: maskPopUpControl];
+  [nc addObserver: self 
+         selector: @selector(maskUpdated:) 
+             name: SelectedFilterUpdated
+           object: maskPopUpControl];  
   [maskCheckBox setState: ( [initialSettings fileItemMaskEnabled]
                               ? NSOnState : NSOffState ) ];
   [self updateMask];
@@ -334,58 +341,13 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   
   //---------------------------------------------------------------- 
   // Configure the "Info" panel
-
-  FileItem  *volumeTree = [pathModelView volumeTree];
-  FileItem  *scanTree = [pathModelView scanTree];
-  FileItem  *visibleTree = [pathModelView visibleTree];
-
-  NSString  *volumeName = [volumeTree name];
-  NSImage  *volumeIcon = 
-    [[NSWorkspace sharedWorkspace] iconForFile: volumeName];
-  [volumeIconView setImage: volumeIcon];
-
-  [volumeNameField setStringValue: 
-    [[NSFileManager defaultManager] displayNameAtPath: volumeName]];
-
-  [scanPathTextView setString: [scanTree name]];
+  
   [scanPathTextView setDrawsBackground: NO];
   [[scanPathTextView enclosingScrollView] setDrawsBackground: NO];
-
-  FilterSet  *filterSet = [treeContext filterSet];
-  [filterNameField setStringValue: 
-    ( ([filterSet fileItemTest] != nil)
-      ? [filterSet description]
-      : NSLocalizedString( @"None", 
-                           @"The filter name when there is no filter." ) ) ];
-
   [commentsTextView setString: initialComments];
-  
-  [scanTimeField setStringValue: [treeContext stringForScanTime]];
-  [fileSizeMeasureField setStringValue: 
-    [mainBundle localizedStringForKey: [treeContext fileSizeMeasure] value: nil
-                  table: @"Names"]];
 
-  unsigned long long  scanTreeSize = [scanTree itemSize];
-  unsigned long long  freeSpace = [treeContext freeSpace];
-  unsigned long long  volumeSize = [volumeTree itemSize];
-  unsigned long long  miscUsedSpace = volumeSize - freeSpace - scanTreeSize;
+  [self updateInfoPanelValues];
 
-  [volumeSizeField setStringValue: 
-       [FileItem stringForFileItemSize: volumeSize]]; 
-  [treeSizeField setStringValue: 
-       [FileItem stringForFileItemSize: scanTreeSize]];
-  [miscUsedSpaceField setStringValue: 
-       [FileItem stringForFileItemSize: miscUsedSpace]];
-  [freeSpaceField setStringValue: 
-       [FileItem stringForFileItemSize: freeSpace]];
-  [freedSpaceField setStringValue: 
-       [FileItem stringForFileItemSize: [treeContext freedSpace]]];
-  [numScannedFilesField setStringValue: 
-       [NSString stringWithFormat: @"%qu", [scanTree numFiles]]];
-  [numDeletedFilesField setStringValue:
-       [NSString stringWithFormat: @"%qu", [treeContext freedFiles]]];
-
-                   
   //---------------------------------------------------------------- 
   // Configure the "Focus" panel
   
@@ -408,7 +370,9 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
   //---------------------------------------------------------------- 
   // Miscellaneous initialisation
-
+  
+  FileItem  *visibleTree = [pathModelView visibleTree];
+  
   [super windowDidLoad];
   
   NSAssert(invisiblePathName == nil, @"invisiblePathName unexpectedly set.");
@@ -419,20 +383,35 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
   nc = [NSNotificationCenter defaultCenter];
 
-  [nc addObserver:self selector: @selector(selectedItemChanged:)
-        name: SelectedItemChangedEvent object: pathModelView];
-  [nc addObserver:self selector: @selector(visibleTreeChanged:)
-        name: VisibleTreeChangedEvent object: pathModelView];
-  [nc addObserver:self selector: @selector(visiblePathLockingChanged:)
-        name: VisiblePathLockingChangedEvent object: [pathModelView pathModel]];
-        
-  [userDefaults addObserver: self forKeyPath: FileDeletionTargetsKey
-                  options: 0 context: nil];
-  [userDefaults addObserver: self forKeyPath: ConfirmFileDeletionKey
-                  options: 0 context: nil];
+  [nc addObserver: self 
+         selector: @selector(selectedItemChanged:)
+             name: SelectedItemChangedEvent 
+           object: pathModelView];
+  [nc addObserver: self 
+         selector: @selector(visibleTreeChanged:)
+             name: VisibleTreeChangedEvent
+           object: pathModelView];
+  [nc addObserver: self
+         selector: @selector(visiblePathLockingChanged:)
+             name: VisiblePathLockingChangedEvent 
+           object: [pathModelView pathModel]];
+  [nc addObserver: self 
+         selector: @selector(fileItemDeleted:)
+             name: FileItemDeletedEvent
+           object: treeContext];
 
-  [nc addObserver:self selector: @selector(fileItemDeleted:)
-        name: FileItemDeletedEvent object: treeContext];
+  [userDefaults addObserver: self 
+                 forKeyPath: FileDeletionTargetsKey
+                    options: 0 
+                    context: nil];
+  [userDefaults addObserver: self 
+                 forKeyPath: ConfirmFileDeletionKey
+                    options: 0 
+                    context: nil];
+  [userDefaults addObserver: self 
+                 forKeyPath: FileSizeMeasureBaseKey
+                    options: 0 
+                    context: nil];
 
   [self visibleTreeChanged: nil];
   
@@ -495,6 +474,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
     if ([keyPath isEqualToString: FileDeletionTargetsKey] ||
         [keyPath isEqualToString: ConfirmFileDeletionKey]) {
       [self updateFileDeletionSupport];
+    } else if ([keyPath isEqualToString: FileSizeMeasureBaseKey]) {
+      [self fileSizeMeasureBaseChanged];
     }
   }
 }
@@ -1122,6 +1103,70 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   [self validateControls];
 }
 
+/* Update all fields that report file size values.
+ */
+- (void) fileSizeMeasureBaseChanged {
+  [self updateInfoPanelValues];
+  
+  NSString  *selectedItemSize = [self updateSelectionInStatusbar];
+  [self updateSelectionInFocusPanel:selectedItemSize];
+    
+  FileItem  *visibleTree = [pathModelView visibleTree];
+  [visibleFolderFocusControls showFileItem: visibleTree];  
+}
+
+- (void) updateInfoPanelValues {
+  NSBundle  *mainBundle = [NSBundle mainBundle];
+  
+  FileItem  *volumeTree = [pathModelView volumeTree];
+  FileItem  *scanTree = [pathModelView scanTree];
+  FileItem  *visibleTree = [pathModelView visibleTree];
+  
+  NSString  *volumeName = [volumeTree name];
+  NSImage  *volumeIcon = 
+    [[NSWorkspace sharedWorkspace] iconForFile: volumeName];
+  [volumeIconView setImage: volumeIcon];
+  
+  [volumeNameField setStringValue: 
+    [[NSFileManager defaultManager] displayNameAtPath: volumeName]];
+  
+  [scanPathTextView setString: [scanTree name]];
+  
+  FilterSet  *filterSet = [treeContext filterSet];
+  [filterNameField setStringValue: 
+   ( ([filterSet fileItemTest] != nil)
+    ? [filterSet description]
+    : NSLocalizedString( @"None", 
+                        @"The filter name when there is no filter." ) ) ];
+  
+  [scanTimeField setStringValue: [treeContext stringForScanTime]];
+  [fileSizeMeasureField setStringValue: 
+    [mainBundle localizedStringForKey: [treeContext fileSizeMeasure] 
+                                value: nil
+                                table: @"Names"]];
+  
+  unsigned long long  scanTreeSize = [scanTree itemSize];
+  unsigned long long  freeSpace = [treeContext freeSpace];
+  unsigned long long  volumeSize = [volumeTree itemSize];
+  unsigned long long  miscUsedSpace = volumeSize - freeSpace - scanTreeSize;
+  
+  [volumeSizeField setStringValue: 
+    [FileItem stringForFileItemSize: volumeSize]]; 
+  [treeSizeField setStringValue: 
+    [FileItem stringForFileItemSize: scanTreeSize]];
+  [miscUsedSpaceField setStringValue: 
+    [FileItem stringForFileItemSize: miscUsedSpace]];
+  [freeSpaceField setStringValue: 
+    [FileItem stringForFileItemSize: freeSpace]];
+  [freedSpaceField setStringValue: 
+    [FileItem stringForFileItemSize: [treeContext freedSpace]]];
+  [numScannedFilesField setStringValue: 
+    [NSString stringWithFormat: @"%qu", [scanTree numFiles]]];
+  [numDeletedFilesField setStringValue:
+    [NSString stringWithFormat: @"%qu", [treeContext freedFiles]]];
+}
+
+
 @end // @implementation DirectoryViewControl (PrivateMethods)
 
 
@@ -1252,12 +1297,9 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   [super showFileItem: item
              itemPath: pathString
            sizeString: sizeString];
-  [creationTimeField setStringValue: 
-   [FileItem stringForTime: [item creationTime]]];
-  [modificationTimeField setStringValue: 
-   [FileItem stringForTime: [item modificationTime]]];
-  [accessTimeField setStringValue: 
-   [FileItem stringForTime: [item accessTime]]];
+  [creationTimeField setStringValue: [FileItem stringForTime: [item creationTime]]];
+  [modificationTimeField setStringValue: [FileItem stringForTime: [item modificationTime]]];
+  [accessTimeField setStringValue: [FileItem stringForTime: [item accessTime]]];
 }
 
 

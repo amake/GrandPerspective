@@ -7,6 +7,7 @@ extern NSString  *ConfirmFolderDeletionKey;
 extern NSString  *DefaultRescanActionKey;
 extern NSString  *RescanBehaviourKey;
 extern NSString  *FileSizeMeasureKey;
+extern NSString  *FileSizeMeasureBaseKey;
 extern NSString  *DefaultColorMappingKey;
 extern NSString  *DefaultColorPaletteKey;
 extern NSString  *DefaultFilterName;
@@ -34,6 +35,7 @@ extern NSString  *DelayBeforeAutomaticScanAfterStartupKey;
   IBOutlet NSPopUpButton  *rescanBehaviourPopUp;
   
   IBOutlet NSPopUpButton  *fileSizeMeasurePopUp;
+  IBOutlet NSPopUpButton  *fileSizeMeasureBasePopUp;
 
   IBOutlet NSPopUpButton  *defaultColorMappingPopUp;
   IBOutlet NSPopUpButton  *defaultColorPalettePopUp;
