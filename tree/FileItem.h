@@ -31,6 +31,11 @@
  */
 + (NSArray *) fileSizeMeasureBaseNames;
 
+/* Returns the number of bytes per kilobyte. It can be either 1024 or 1000 based on the 
+ * fileSizeMeasurePreference.
+ */
++ (int) bytesPerKilobyte;
+
 - (id) initWithName: (NSString *)name
              parent: (DirectoryItem *)parent 
                size: (ITEM_SIZE) size 

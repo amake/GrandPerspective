@@ -33,6 +33,18 @@ NSString*  FileSizeBase10 = @"base-10";
   return fileSizeMeasureBaseNames;
 }
 
++ (int) bytesPerKilobyte {
+  NSString*  fileSizeMeasureBase =
+    [[NSUserDefaults standardUserDefaults] stringForKey: FileSizeMeasureBaseKey];
+
+  if ([fileSizeMeasureBase isEqualToString: FileSizeBase10]) {
+    return 1000;
+  } else {
+    // Assume binary (also when value is unrecognized/invalid)
+    return 1024;
+  }
+}
+
 // Overrides super's designated initialiser.
 - (id) initWithItemSize:(ITEM_SIZE) sizeVal {
   return [self initWithName: @"" 
@@ -159,27 +171,22 @@ NSString*  FileSizeBase10 = @"base-10";
 
 
 + (NSString *)stringForFileItemSize:(ITEM_SIZE) filesize {
-  NSString*  fileSizeMeasureBase =
-    [[NSUserDefaults standardUserDefaults] stringForKey: FileSizeMeasureBaseKey];
-  int  bytesLimit = 1024;
-  if ([fileSizeMeasureBase isEqualToString: FileSizeBase10]) {
-    bytesLimit = 1000;
-  }
+  int  bytesUnit = [FileItem bytesPerKilobyte];
   
-  if (filesize < bytesLimit) {
+  if (filesize < bytesUnit) {
     // Definitely don't want a decimal point here
     NSString  *byteSizeUnit = NSLocalizedString( @"B", 
                                                  @"File size unit for bytes." );
     return [NSString stringWithFormat:@"%qu %@", filesize, byteSizeUnit];
   }
 
-  double  n = (double)filesize / bytesLimit;
+  double  n = (double)filesize / bytesUnit;
   int  m = 0;
   // Note: The threshold for "n" is chosen to cope with rounding, ensuring
   // that the string for n = 1024^3 becomes "1.00 GB" instead of "1024 MB"
-  while (n > (bytesLimit - 0.001) && m < 3) {
+  while (n > (bytesUnit - 0.001) && m < 3) {
     m++;
-    n /= bytesLimit; 
+    n /= bytesUnit; 
   }
 
   NSMutableString*  s = 
