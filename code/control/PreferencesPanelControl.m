@@ -16,6 +16,7 @@ NSString  *ConfirmFileDeletionKey = @"confirmFileDeletion";
 NSString  *DefaultRescanActionKey = @"defaultRescanAction";
 NSString  *RescanBehaviourKey = @"rescanBehaviour";
 NSString  *FileSizeMeasureKey = @"fileSizeMeasure";
+NSString  *FileSizeMeasureBaseKey = @"fileSizeMeasureBase";
 NSString  *DefaultColorMappingKey = @"defaultColorMapping";
 NSString  *DefaultColorPaletteKey = @"defaultColorPalette";
 NSString  *DefaultFilterName = @"defaultFilter";
@@ -73,18 +74,20 @@ NSString  *DelayBeforeAutomaticScanAfterStartupKey = @"delayBeforeAutomaticScanA
 
   // Configure all pop-up buttons.
   [self setupPopUp: fileDeletionPopUp key: FileDeletionTargetsKey
-          content: [DirectoryViewControl fileDeletionTargetNames]];
+           content: [DirectoryViewControl fileDeletionTargetNames]];
   [self setupPopUp: rescanActionPopUp key: DefaultRescanActionKey
-          content: [MainMenuControl rescanActionNames]];
+           content: [MainMenuControl rescanActionNames]];
   [self setupPopUp: rescanBehaviourPopUp key: RescanBehaviourKey
-          content: [MainMenuControl rescanBehaviourNames]];
+           content: [MainMenuControl rescanBehaviourNames]];
   [self setupPopUp: fileSizeMeasurePopUp key: FileSizeMeasureKey
-          content: [TreeBuilder fileSizeMeasureNames]];
+           content: [TreeBuilder fileSizeMeasureNames]];
+  [self setupPopUp: fileSizeMeasureBasePopUp key: FileSizeMeasureBaseKey
+           content: [FileItem fileSizeMeasureBaseNames]];
   [self setupPopUp: defaultColorMappingPopUp key: DefaultColorMappingKey
-          content:  [[FileItemMappingCollection 
+           content:  [[FileItemMappingCollection 
                         defaultFileItemMappingCollection] allKeys]];
   [self setupPopUp: defaultColorPalettePopUp key: DefaultColorPaletteKey
-          content: [[ColorListCollection defaultColorListCollection] allKeys]];
+           content: [[ColorListCollection defaultColorListCollection] allKeys]];
 
   // The filter pop-up uses its own control that keeps it up to date. Its
   // entries can change when filters are added/removed.

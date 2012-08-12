@@ -1,7 +1,11 @@
 #import "FileItem.h"
 
 #import "DirectoryItem.h"
+#import "PreferencesPanelControl.h"
 
+
+NSString*  FileSizeBase2 = @"base-2";
+NSString*  FileSizeBase10 = @"base-10";
 
 @interface FileItem (PrivateMethods)
 
@@ -16,6 +20,18 @@
 
 
 @implementation FileItem
+
++ (NSArray *) fileSizeMeasureBaseNames {
+  static NSArray  *fileSizeMeasureBaseNames = nil;
+  
+  if (fileSizeMeasureBaseNames == nil) {
+    fileSizeMeasureBaseNames = 
+    [[NSArray arrayWithObjects: FileSizeBase2, FileSizeBase10, nil] 
+     retain];
+  }
+  
+  return fileSizeMeasureBaseNames;
+}
 
 // Overrides super's designated initialiser.
 - (id) initWithItemSize:(ITEM_SIZE) sizeVal {
@@ -143,20 +159,27 @@
 
 
 + (NSString *)stringForFileItemSize:(ITEM_SIZE) filesize {
-  if (filesize < 1024) {
+  NSString*  fileSizeMeasureBase =
+    [[NSUserDefaults standardUserDefaults] stringForKey: FileSizeMeasureBaseKey];
+  int  bytesLimit = 1024;
+  if ([fileSizeMeasureBase isEqualToString: FileSizeBase10]) {
+    bytesLimit = 1000;
+  }
+  
+  if (filesize < bytesLimit) {
     // Definitely don't want a decimal point here
     NSString  *byteSizeUnit = NSLocalizedString( @"B", 
                                                  @"File size unit for bytes." );
     return [NSString stringWithFormat:@"%qu %@", filesize, byteSizeUnit];
   }
 
-  double  n = (double)filesize / 1024;
+  double  n = (double)filesize / bytesLimit;
   int  m = 0;
   // Note: The threshold for "n" is chosen to cope with rounding, ensuring
   // that the string for n = 1024^3 becomes "1.00 GB" instead of "1024 MB"
-  while (n > 1023.999 && m < 3) {
+  while (n > (bytesLimit - 0.001) && m < 3) {
     m++;
-    n /= 1024; 
+    n /= bytesLimit; 
   }
 
   NSMutableString*  s = 

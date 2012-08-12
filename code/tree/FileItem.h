@@ -26,6 +26,10 @@
   CFAbsoluteTime  accessTime;
 }
 
+/* The supported values for the fileSizeMeasureBase preference. These affect how the file size
+ * strings are constructed.
+ */
++ (NSArray *) fileSizeMeasureBaseNames;
 
 - (id) initWithName: (NSString *)name
              parent: (DirectoryItem *)parent 
