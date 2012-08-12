@@ -605,14 +605,16 @@
 
 
 - (void) updateStateBasedOnItemSizeTest:(ItemSizeTest *)test {
+  int  bytesUnit = [FileItem bytesPerKilobyte];
+  
   if ([test hasLowerBound]) {
     ITEM_SIZE  bound = [test lowerBound];
     int  i = POPUP_BYTES;
     
     if (bound > 0) {
-      while (i < POPUP_GB && (bound % 1024)==0) {
+      while (i < POPUP_GB && (bound % bytesUnit)==0) {
         i++;
-        bound /= 1024;
+        bound /= bytesUnit;
       }
     }
     
@@ -626,9 +628,9 @@
     int  i = POPUP_BYTES;
           
     if (bound > 0) {
-      while (i < POPUP_GB && (bound % 1024)==0) {
+      while (i < POPUP_GB && (bound % bytesUnit)==0) {
         i++;
-        bound /= 1024;
+        bound /= bytesUnit;
       }
     }
     
@@ -703,16 +705,18 @@
 
 
 - (ItemSizeTest *)itemSizeTestBasedOnState {
+  int  bytesUnit = [FileItem bytesPerKilobyte];
+
   ITEM_SIZE  lowerBound = MAX(0, [sizeLowerBoundField intValue]);
   int  i = [sizeLowerBoundUnits indexOfSelectedItem];
   while (i-- > 0) {
-    lowerBound *= 1024;
+    lowerBound *= bytesUnit;
   }
 
   ITEM_SIZE  upperBound = MAX(0, [sizeUpperBoundField intValue]);
   i = [sizeUpperBoundUnits indexOfSelectedItem];
   while (i-- > 0) {
-    upperBound *= 1024;
+    upperBound *= bytesUnit;
   }
   
   if ([sizeLowerBoundCheckBox state]==NSOnState && lowerBound>0) {
