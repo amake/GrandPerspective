@@ -453,34 +453,42 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
   if ( [self validateAction: @selector(revealFileInFinder:)] ) {
     [popUpMenu insertItemWithTitle: 
-                   NSLocalizedStringFromTable( @"Reveal in Finder", 
-                                               @"PopUpMenu", @"Menu item" )
-                 action: @selector(revealFileInFinder:) 
-                 keyEquivalent: @"" atIndex: itemCount++];
+     NSLocalizedStringFromTable( @"Reveal in Finder", @"PopUpMenu", @"Menu item" )
+                            action: @selector(revealFileInFinder:) 
+                     keyEquivalent: @""
+                           atIndex: itemCount++];
   }
   
   if ( [self validateAction: @selector(openFile:)] ) {
     [popUpMenu insertItemWithTitle: 
-                   NSLocalizedStringFromTable( @"Open with Finder", 
-                                               @"PopUpMenu", @"Menu item" )
-                 action: @selector(openFile:) 
-                 keyEquivalent: @"" atIndex: itemCount++];
+     NSLocalizedStringFromTable( @"Open with Finder", @"PopUpMenu", @"Menu item" )
+                            action: @selector(openFile:) 
+                     keyEquivalent: @"" 
+                           atIndex: itemCount++];
+  }
+  
+  if ( [self validateAction: @selector(copy:)] ) {
+    [popUpMenu insertItemWithTitle:
+     NSLocalizedStringFromTable(@"Copy path", @"PopUpMenu", @"Menu item" )
+                            action: @selector(copy:) 
+                     keyEquivalent: @"" 
+                           atIndex: itemCount++];
   }
   
   if ( [self validateAction: @selector(deleteFile:)] ) {
     [popUpMenu insertItemWithTitle: 
-                   NSLocalizedStringFromTable( @"Delete file", 
-                                               @"PopUpMenu", @"Menu item" )
-                 action: @selector(deleteFile:) 
-                 keyEquivalent: @"" atIndex: itemCount++];
+     NSLocalizedStringFromTable( @"Delete file", @"PopUpMenu", @"Menu item" )
+                            action: @selector(deleteFile:) 
+                     keyEquivalent: @""
+                           atIndex: itemCount++];
   }
   
   if ( [self validateAction: @selector(rescanFile:)] ) {
     [popUpMenu insertItemWithTitle: 
-                   NSLocalizedStringFromTable( @"Rescan", 
-                                               @"PopUpMenu", @"Menu item" )
-                 action: @selector(rescanFile:) 
-                 keyEquivalent: @"" atIndex: itemCount++];
+     NSLocalizedStringFromTable( @"Rescan", @"PopUpMenu", @"Menu item" )
+                            action: @selector(rescanFile:) 
+                     keyEquivalent: @""
+                           atIndex: itemCount++];
   }
   
   return (itemCount > 0) ? popUpMenu : nil;

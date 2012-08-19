@@ -45,6 +45,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 - (BOOL) canRevealSelectedFile;
 - (BOOL) canDeleteSelectedFile;
 - (BOOL) canRescanSelectedFile;
+- (BOOL) canCopySelectedPathToPasteboard;
 
 - (void) informativeAlertDidEnd:(NSAlert *)alert 
            returnCode:(int) returnCode contextInfo:(void *)contextInfo;
@@ -683,6 +684,19 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 }
 
 
+// Copies the path of selected file item to the pasteboard.
+// Invoked via first responder.
+- (IBAction) copy: (id)sender {
+  FileItem  *selectedFile = [pathModelView selectedFileItem];
+  NSPasteboard *pb = [NSPasteboard generalPasteboard];
+  
+  NSArray *pbTypes = [NSArray arrayWithObjects: NSStringPboardType, nil];
+  [pb declareTypes: pbTypes owner: nil];
+  
+  [pb setString: [selectedFile path] forType: NSStringPboardType];
+}
+
+
 - (IBAction) toggleDrawer:(id) sender {
   [drawer toggle: sender];
 }
@@ -760,6 +774,9 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   else if ( action == @selector(rescanFile:) ) {
     return [self canRescanSelectedFile];
   }
+  else if ( action == @selector(copy:) ) {
+    return [self canCopySelectedPathToPasteboard];
+  }
   
   NSLog(@"Unsupported action");
   return NO;
@@ -829,6 +846,10 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 - (BOOL) canRescanSelectedFile {
   return [[pathModelView selectedFileItem] isPhysical];
+}
+
+- (BOOL) canCopySelectedPathToPasteboard {
+  return YES;
 }
 
 
