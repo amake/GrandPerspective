@@ -44,7 +44,6 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 - (BOOL) canOpenSelectedFile;
 - (BOOL) canRevealSelectedFile;
 - (BOOL) canDeleteSelectedFile;
-- (BOOL) canRescanSelectedFile;
 - (BOOL) canCopySelectedPathToPasteboard;
 
 - (void) informativeAlertDidEnd:(NSAlert *)alert 
@@ -679,11 +678,6 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 }
 
 
-- (IBAction) rescanFile:(id) sender {
-  [[MainMenuControl singletonInstance] rescanSelectedFile: sender];
-}
-
-
 // Copies the path of selected file item to the pasteboard.
 // Invoked via first responder.
 - (IBAction) copy: (id)sender {
@@ -842,10 +836,6 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
       // active for the file deletion controls to be enabled.
       && [[self window] isKeyWindow]
     );
-}
-
-- (BOOL) canRescanSelectedFile {
-  return [[pathModelView selectedFileItem] isPhysical];
 }
 
 - (BOOL) canCopySelectedPathToPasteboard {

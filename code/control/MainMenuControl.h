@@ -38,13 +38,13 @@
 - (IBAction) rescan:(id) sender;
 
 // Rescan entire scan tree
-- (IBAction) rescanDirectoryView:(id) sender;
+- (IBAction) rescanAll:(id) sender;
 
 // Rescan visible tree
-- (IBAction) rescanDirectoryInView:(id) sender;
+- (IBAction) rescanVisible:(id) sender;
 
 // Rescan selected item (file or directory)
-- (IBAction) rescanSelectedFile:(id) sender;
+- (IBAction) rescanSelected:(id) sender;
 
 - (IBAction) filterDirectoryView:(id) sender;
 - (IBAction) duplicateDirectoryView:(id) sender;

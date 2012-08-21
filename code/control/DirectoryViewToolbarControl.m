@@ -55,15 +55,16 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
 - (void) moveFocusUp: (id) sender;
 - (void) moveFocusDown: (id) sender;
 
-// Methods corresponding to methods in DirectoryView
+// Methods corresponding to methods in DirectoryViewControl
 - (void) openFile: (id) sender;
 - (void) revealFileInFinder: (id) sender;
 - (void) deleteFile: (id) sender;
-- (void) rescanFile: (id) sender;
 
+// Methods corresponding to methods in MainMenuControl
 - (void) rescan: (id) sender;
 - (void) rescanAll: (id) sender;
 - (void) rescanVisible: (id) sender;
+- (void) rescanSelected: (id) sender;
 
 @end
 
@@ -441,7 +442,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 
   NSMenuItem  *rescanSelectedItem =
     [menu insertItemWithTitle: rescanSelectedTitle 
-            action: @selector(rescanFile:) 
+            action: @selector(rescanSelected:) 
             keyEquivalent: @"" atIndex: itemCount++];
   [rescanSelectedItem setTarget: self];
 
@@ -514,19 +515,23 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   }
   else if ( action == @selector(openFile:) || 
             action == @selector(revealFileInFinder:) || 
-            action == @selector(deleteFile:) ||
-            action == @selector(rescanFile:) ) {
+            action == @selector(deleteFile:) ) {
     return ( [dirViewControl validateAction: action] &&
     
              // Selection must be locked, as it would otherwise change when the
              // mouse is moved in order to click on the toolbar button.
              [dirViewControl isSelectedFileLocked] );
   }
+  else if ( action == @selector(rescanSelected:) ) {
+    return ( [[[NSApplication sharedApplication] mainWindow] windowController] == dirViewControl &&
+    
+             // Selection must be locked (see above)
+             [dirViewControl isSelectedFileLocked] );
+  }
   else if ( action == @selector(rescan:) ||
             action == @selector(rescanAll:) ||
             action == @selector(rescanVisible:) ) {
-    return ( [[[NSApplication sharedApplication] mainWindow] windowController]
-             == dirViewControl );
+    return [[[NSApplication sharedApplication] mainWindow] windowController] == dirViewControl;
   }
   else {
     NSLog(@"Unrecognized action %@", NSStringFromSelector(action));
@@ -595,20 +600,20 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   [dirViewControl deleteFile: sender];
 }
 
-- (void) rescanFile: (id) sender {
-  [dirViewControl rescanFile: sender];
-}
-
 - (void) rescan: (id) sender {
   [[MainMenuControl singletonInstance] rescan: sender];
 }
 
 - (void) rescanAll: (id) sender {
-  [[MainMenuControl singletonInstance] rescanDirectoryView: sender];
+  [[MainMenuControl singletonInstance] rescanAll: sender];
 }
 
 - (void) rescanVisible: (id) sender {
-  [[MainMenuControl singletonInstance] rescanDirectoryInView: sender];
+  [[MainMenuControl singletonInstance] rescanVisible: sender];
+}
+
+- (void) rescanSelected: (id) sender {
+  [[MainMenuControl singletonInstance] rescanSelected: sender];
 }
 
 @end // @implementation DirectoryViewToolbarControl (PrivateMethods)
