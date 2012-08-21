@@ -273,20 +273,25 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
 
 
 - (TreeContext *)buildTreeForPath: (NSString *)path {
-  NSAssert([TreeBuilder pathIsDirectory: path], @"Path is not a directory.");
+  if (! [TreeBuilder pathIsDirectory: path]) {
+    // This may happen when the directory has been deleted (which can happen when rescanning)
+    NSLog(@"Path to scan %@ is not a directory.", path);
+    return nil;
+  }
 
   FSRef  pathRef;
-  FSPathMakeRef( (const UInt8 *) [path fileSystemRepresentation], 
-                 &pathRef, NULL );
+  FSPathMakeRef( (const UInt8 *) [path fileSystemRepresentation], &pathRef, NULL );
 
   NSFileManager  *manager = [NSFileManager defaultManager];
   NSError  *error = nil;
   NSDictionary  *fsattrs = 
     [manager attributesOfFileSystemForPath: path error: &error];
-  NSAssert2(
-    error==nil, @"Error getting attributes for %@: %@", 
-    path, [error description]
-  );
+  if (error != nil) {
+    // This may happen when the directory to scan has been deleted. The above pathIsDirectory check
+    // does not always fail (immediately).
+    NSLog(@"Error getting attributes for path to scan %@: %@", path, [error description]);
+    return nil;
+  }
   
   unsigned long long  freeSpace = 
     [[fsattrs objectForKey: NSFileSystemFreeSize] unsignedLongLongValue];
@@ -306,16 +311,15 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
     }
     error = nil;
     fsattrs = [manager attributesOfFileSystemForPath: parentPath error: &error];
-    NSAssert2(
-      error==nil, @"Error getting attributes for %@: %@", 
-      parentPath, [error description]
-    );
+    if (error != nil) {
+      NSLog(@"Error getting attributes for ancestor path %@: %@", parentPath, [error description]);
+      return nil;
+    }
 
     unsigned long long  parentFileSystemNumber =
       [[fsattrs objectForKey: NSFileSystemNumber] unsignedLongLongValue];
     if (parentFileSystemNumber != fileSystemNumber) {
-      // There was a change of filesystem, so the start of the volume has been
-      // found.
+      // There was a change of filesystem, so the start of the volume has been found.
       break;
     }
     volumePath = parentPath;
