@@ -110,7 +110,6 @@ extern NSString  *DeleteFilesAndFolders;
 - (IBAction) openFile:(id) sender;
 - (IBAction) revealFileInFinder:(id) sender;
 - (IBAction) deleteFile:(id) sender;
-- (IBAction) rescanFile:(id) sender;
 - (IBAction) toggleDrawer:(id) sender;
 
 - (IBAction) maskCheckBoxChanged:(id) sender;

@@ -429,17 +429,17 @@ static MainMenuControl  *singletonInstance = nil;
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   NSString  *rescanAction = [userDefaults stringForKey: DefaultRescanActionKey];
   if ([rescanAction isEqualToString: RescanAll]) {
-    [self rescanDirectoryView: sender];
+    [self rescanAll: sender];
   }
   else if ([rescanAction isEqualToString: RescanVisible]) {
-    [self rescanDirectoryInView: sender];
+    [self rescanVisible: sender];
   }
   else {
     NSLog(@"Unrecognized rescan action: %@", rescanAction);
   }
 }
 
-- (IBAction) rescanDirectoryView:(id) sender {
+- (IBAction) rescanAll:(id) sender {
   DirectoryViewControl  *oldControl = 
     [[[NSApplication sharedApplication] mainWindow] windowController];
   if (oldControl == nil) {
@@ -456,7 +456,7 @@ static MainMenuControl  *singletonInstance = nil;
   [self rescanItem: [oldContext scanTree] deriveFrom: oldControl];
 }
 
-- (IBAction) rescanDirectoryInView:(id) sender {
+- (IBAction) rescanVisible:(id) sender {
   DirectoryViewControl  *oldControl = 
     [[[NSApplication sharedApplication] mainWindow] windowController];
   if (oldControl == nil) {
@@ -467,7 +467,7 @@ static MainMenuControl  *singletonInstance = nil;
   [self rescanItem: [pathModelView visibleTree] deriveFrom: oldControl];
 }
 
-- (IBAction) rescanSelectedFile:(id) sender {
+- (IBAction) rescanSelected:(id) sender {
   DirectoryViewControl  *oldControl = 
     [[[NSApplication sharedApplication] mainWindow] windowController];
   if (oldControl == nil) {
