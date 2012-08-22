@@ -471,7 +471,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
     [popUpMenu insertItemWithTitle:
      NSLocalizedStringFromTable(@"Copy path", @"PopUpMenu", @"Menu item" )
                             action: @selector(copy:) 
-                     keyEquivalent: @"" 
+                     keyEquivalent: @"c" 
                            atIndex: itemCount++];
   }
   
