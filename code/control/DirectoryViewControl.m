@@ -765,9 +765,6 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   else if ( action == @selector(deleteFile:) ) {
     return [self canDeleteSelectedFile];
   }
-  else if ( action == @selector(rescanFile:) ) {
-    return [self canRescanSelectedFile];
-  }
   else if ( action == @selector(copy:) ) {
     return [self canCopySelectedPathToPasteboard];
   }
