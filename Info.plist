@@ -358,6 +358,9 @@
 					<array>
 						<string>CVS</string>
 						<string>.svn</string>
+						<string>.hg</string>
+						<string>.git</string>
+						<string>.bzr</string>
 					</array>
 				</dict>
 			</dict>
