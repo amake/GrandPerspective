@@ -4,7 +4,7 @@
 #import "CompoundItem.h"
 #import "PeekingEnumerator.h"
 
-int compareBySize(id item1, id item2, void* context) {
+NSInteger compareBySize(id item1, id item2, void* context) {
   ITEM_SIZE  size1 = [(Item*)item1 itemSize];
   ITEM_SIZE  size2 = [(Item*)item2 itemSize];
   
