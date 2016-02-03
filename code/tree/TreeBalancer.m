@@ -5,8 +5,8 @@
 #import "PeekingEnumerator.h"
 
 int compareBySize(id item1, id item2, void* context) {
-  ITEM_SIZE  size1 = [item1 itemSize];
-  ITEM_SIZE  size2 = [item2 itemSize];
+  ITEM_SIZE  size1 = [(Item*)item1 itemSize];
+  ITEM_SIZE  size2 = [(Item*)item2 itemSize];
   
   if (size1 < size2) {
     return NSOrderedAscending;
@@ -63,7 +63,7 @@ int compareBySize(id item1, id item2, void* context) {
 
   if (excludeZeroSizedItems) {
     while ([sortedItems peekObject] != nil &&
-           [[sortedItems peekObject] itemSize] == 0) {
+           [(Item*)[sortedItems peekObject] itemSize] == 0) {
       [sortedItems nextObject];
     }
   }
