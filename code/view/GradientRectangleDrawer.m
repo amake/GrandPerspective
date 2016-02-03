@@ -228,7 +228,7 @@
     // getHue:saturation:brightness:alpha can be invoked.
     color = [color colorUsingColorSpaceName:NSDeviceRGBColorSpace];
     
-    float  hue, saturation, brightness, alpha;
+    CGFloat  hue, saturation, brightness, alpha;
     [color getHue: &hue saturation: &saturation brightness: &brightness 
              alpha: &alpha];
 
