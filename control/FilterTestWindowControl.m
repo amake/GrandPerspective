@@ -975,12 +975,12 @@
 //----------------------------------------------------------------------------
 // NSTableSource
 
-- (int) numberOfRowsInTableView:(NSTableView *)tableView {
+- (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
   return [matchTargets count];
 }
 
 - (id) tableView:(NSTableView *)tableView 
-         objectValueForTableColumn:(NSTableColumn *)column row:(int) row {
+         objectValueForTableColumn:(NSTableColumn *)column row:(NSInteger) row {
   return [matchTargets objectAtIndex: row];
 }
 
@@ -1157,12 +1157,12 @@
 // NSTableSource
 
 - (void) tableView:(NSTableView *)tableView setObjectValue:(id) object 
-           forTableColumn:(NSTableColumn *)column row:(int) row {
+           forTableColumn:(NSTableColumn *)column row:(NSInteger) row {
   [matchTargets replaceObjectAtIndex: row withObject: object];
 }
 
 - (BOOL) tableView:(NSTableView *)tableView 
-           shouldEditTableColumn:(NSTableColumn *)column row:(int) row {
+           shouldEditTableColumn:(NSTableColumn *)column row:(NSInteger) row {
   if (![tableView isEnabled] || 
       ![windowControl tryStopFieldEditor]) {
     return NO;
@@ -1304,7 +1304,7 @@
 // NSTableSource
 
 - (id) tableView:(NSTableView *)tableView 
-         objectValueForTableColumn:(NSTableColumn *)column row:(int) row {
+         objectValueForTableColumn:(NSTableColumn *)column row:(NSInteger) row {
   return [[matchTargets objectAtIndex: row] uniformTypeIdentifier];
 }
 

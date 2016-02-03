@@ -440,7 +440,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 }
 
 - (void) windowDidResignMain:(NSNotification *)notification {
-  float  h, s, b, a;
+  CGFloat  h, s, b, a;
   
   [[[[self window] backgroundColor] 
         colorUsingColorSpaceName: NSDeviceRGBColorSpace]
@@ -868,7 +868,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
     // volume tree cannot be deleted so there is always a valid parent
     // directory.
 
-  int  tag;
+  NSInteger  tag;
   if ([workspace performFileOperation: NSWorkspaceRecycleOperation
                    source: sourceDir
                    destination: @""
