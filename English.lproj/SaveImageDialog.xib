@@ -20,7 +20,7 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="471" y="137" width="209" height="168"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
-            <value key="minSize" type="size" width="213" height="107"/>
+            <value key="minSize" type="size" width="209" height="107"/>
             <view key="contentView" id="5">
                 <rect key="frame" x="0.0" y="0.0" width="209" height="168"/>
                 <autoresizingMask key="autoresizingMask"/>
