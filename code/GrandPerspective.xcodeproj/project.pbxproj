@@ -1246,6 +1246,7 @@
 				AA311D380B88B48900BD4132 /* nl */,
 			);
 			name = GrandPerspectiveHelp;
+			path = ../help;
 			sourceTree = "<group>";
 		};
 		AADD34910B8B902000AC2C97 /* Tests.strings */ = {
