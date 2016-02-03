@@ -93,7 +93,7 @@
   [savePanel setTitle: 
      NSLocalizedString( @"Save image", @"Title of save panel") ];
   
-  if ([savePanel runModal] == NSOKButton) {
+  if ([savePanel runModal] == NSModalResponseOK) {
     NSURL  *destURL = [savePanel URL];
     
     // Draw the image.
@@ -111,10 +111,10 @@
                     inRect: bounds];
     
     // Save the image.
-    NSBitmapImageRep  *imageBitmap = [[image representations] objectAtIndex:0];
+    NSBitmapImageRep  *imageBitmap = (NSBitmapImageRep*)[[image representations] objectAtIndex:0];
     NSData  *imageData = [imageBitmap 
                             representationUsingType: NSTIFFFileType
-                            properties: nil];
+                            properties: @{}];
   
     if (! [imageData  writeToURL: destURL atomically: NO] ) {
       NSAlert *alert = [[[NSAlert alloc] init] autorelease];

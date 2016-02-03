@@ -410,7 +410,7 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
   { 
     OSStatus  result = FSOpenIterator(parentFileRef, kFSIterateFlat, &iterator);
     if (result != noErr) {
-      NSLog( @"Couldn't create FSIterator for '%@': Error %ld", path, result);
+      NSLog( @"Couldn't create FSIterator for '%@': Error %d", path, (int)result);
     
       return NO;
     }
@@ -452,7 +452,7 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
         // change this, at least not for now.
       }
       else {
-        NSLog(@"Failed to get bulk catalog info for '%@': %ld", path, result);
+        NSLog(@"Failed to get bulk catalog info for '%@': %d", path, (int)result);
       }
       break;
     }
@@ -756,7 +756,7 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
     }
     else {
       // Failed to create path.
-      NSLog(@"FSRefMakePath failed (code=%ld)", status);
+      NSLog(@"FSRefMakePath failed (code=%d)", (int)status);
       return CouldNotEstablishSystemPath; 
     }
   }

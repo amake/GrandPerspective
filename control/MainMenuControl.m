@@ -550,7 +550,7 @@ static MainMenuControl  *singletonInstance = nil;
   [savePanel setTitle: 
      NSLocalizedString( @"Save scan data", @"Title of save panel") ];
   
-  if ([savePanel runModal] == NSOKButton) {
+  if ([savePanel runModal] == NSModalResponseOK) {
     NSURL  *destURL = [savePanel URL];
     
     if ([destURL isFileURL]) {
@@ -584,7 +584,7 @@ static MainMenuControl  *singletonInstance = nil;
   [openPanel setTitle: 
      NSLocalizedString( @"Load scan data", @"Title of load panel") ];
   
-  if ([openPanel runModal] == NSOKButton) {
+  if ([openPanel runModal] == NSModalResponseOK) {
     NSURL  *sourceURL = [openPanel URL];
     if ([sourceURL isFileURL]) {
       [self loadScanDataFromFile: [sourceURL path]];
@@ -688,7 +688,7 @@ static MainMenuControl  *singletonInstance = nil;
                                          @"Title of open panel") ];
   [openPanel setPrompt: NSLocalizedString(@"Scan", @"Prompt in open panel") ];
 
-  if ([openPanel runModal] != NSOKButton) {
+  if ([openPanel runModal] != NSModalResponseOK) {
     return; // Abort
   } 
 
@@ -840,7 +840,7 @@ static MainMenuControl  *singletonInstance = nil;
   int  status = [NSApp runModalForWindow: selectFilterWindow];
   [selectFilterWindow close];
   
-  if (status == NSRunStoppedResponse) {
+  if (status == NSModalResponseStop) {
     return [filterSelectionPanelControl selectedNamedFilter];
   }
   return nil;
