@@ -352,7 +352,7 @@ NSString  *MatchColumn = @"match";
 //----------------------------------------------------------------------------
 // NSTableSource
 
-- (int) numberOfRowsInTableView:(NSTableView *)tableView {
+- (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
   if (tableView == filterTestsView) {
     return [filterTests count];
   }
@@ -365,7 +365,7 @@ NSString  *MatchColumn = @"match";
 }
 
 - (id) tableView:(NSTableView *)tableView 
-         objectValueForTableColumn:(NSTableColumn *)column row:(int) row {
+         objectValueForTableColumn:(NSTableColumn *)column row:(NSInteger) row {
   NSBundle  *mainBundle = [NSBundle mainBundle];
   
   if (tableView == filterTestsView) {
@@ -395,7 +395,7 @@ NSString  *MatchColumn = @"match";
 // Delegate methods for NSTableView
 
 - (void) tableView:(NSTableView *)tableView willDisplayCell:(id) cell 
-           forTableColumn:(NSTableColumn *)column row:(int) row {
+           forTableColumn:(NSTableColumn *)column row:(NSInteger) row {
   NSBundle  *mainBundle = [NSBundle mainBundle];
   
   if (tableView == availableTestsView) {

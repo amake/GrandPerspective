@@ -141,12 +141,12 @@
 //----------------------------------------------------------------------------
 // NSTableSource
 
-- (int) numberOfRowsInTableView: (NSTableView *)tableView {
+- (NSInteger) numberOfRowsInTableView: (NSTableView *)tableView {
   return [filterNames count];
 }
 
 - (id) tableView: (NSTableView *)tableView 
-         objectValueForTableColumn: (NSTableColumn *)column row: (int)row {
+         objectValueForTableColumn: (NSTableColumn *)column row: (NSInteger)row {
   NSString  *filterName = [filterNames objectAtIndex: row];
   NSBundle  *mainBundle = [NSBundle mainBundle];
   return 

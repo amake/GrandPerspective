@@ -182,12 +182,12 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 //----------------------------------------------------------------------------
 // NSTableSource
 
-- (int) numberOfRowsInTableView: (NSTableView *)tableView {
+- (NSInteger) numberOfRowsInTableView: (NSTableView *)tableView {
   return [typeCells count];
 }
 
 - (id) tableView: (NSTableView *)tableView 
-         objectValueForTableColumn: (NSTableColumn *)column row: (int)row {
+         objectValueForTableColumn: (NSTableColumn *)column row: (NSInteger)row {
   return [[[typeCells objectAtIndex: row] uniformType] uniformTypeIdentifier];
 }
 
@@ -211,7 +211,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
 - (NSDragOperation) tableView: (NSTableView *)tableView
                       validateDrop: (id <NSDraggingInfo>) info
-                      proposedRow: (int) row
+                      proposedRow: (NSInteger) row
                       proposedDropOperation: (NSTableViewDropOperation) op {
   if (op == NSTableViewDropAbove) {
     // Only allow drops in between two existing rows as otherwise it is not
@@ -229,7 +229,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 }
 
 - (BOOL) tableView: (NSTableView *)tableView
-           acceptDrop: (id <NSDraggingInfo>) info row: (int) row
+           acceptDrop: (id <NSDraggingInfo>) info row: (NSInteger) row
            dropOperation: (NSTableViewDropOperation) op {
 
   int  i = [self getRowNumberFromDraggingInfo: info];
@@ -258,7 +258,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 // Delegate methods for NSTable
 
 - (void) tableView: (NSTableView *)tableView willDisplayCell: (id) cell 
-           forTableColumn: (NSTableColumn *)aTableColumn row: (int) row {
+           forTableColumn: (NSTableColumn *)aTableColumn row: (NSInteger) row {
   TypeCell  *typeCell = [typeCells objectAtIndex: row];
   NSString  *uti = [[typeCell uniformType] uniformTypeIdentifier];
 

@@ -218,7 +218,6 @@
 	
 	regularImage = [anImage retain];
 	smallImage = [anImage copy];
-	[smallImage setScalesWhenResized:YES];
 	[smallImage setSize:NSMakeSize(24,24)];
 
 	if ([[self toolbar] sizeMode] == NSToolbarSizeModeSmall) anImage = smallImage;
