@@ -33,6 +33,9 @@ extern NSString  *CreatedAttr;
 extern NSString  *ModifiedAttr;
 extern NSString  *AccessedAttr;
 
+// Formatting string used in XML
+extern NSString  *DateTimeFormat;
+
 @class AnnotatedTreeContext;
 @class ProgressTracker;
 
@@ -80,5 +83,10 @@ extern NSString  *AccessedAttr;
 /* Formatter used to create (locale-independent) string reprentations for time values.
  */
 + (CFDateFormatterRef) timeFormatter;
+
+/* Formatter used to create (locale-independent) string reprentations for time values.
+ * Has same format as timeFormatter.
+ */
++ (NSDateFormatter *) nsTimeFormatter;
 
 @end
