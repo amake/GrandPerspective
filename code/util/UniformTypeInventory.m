@@ -237,12 +237,12 @@ NSString  *UnknownTypeUTI = @"unknown";
   NSString  *descr = [dict objectForKey: (NSString*)kUTTypeDescriptionKey];
     
   NSObject  *conforms = [dict objectForKey: (NSString*)kUTTypeConformsToKey];
-  NSMutableArray  *parents;
+  NSArray  *parents;
   if ([conforms isKindOfClass: [NSArray class]]) {
     NSArray  *utiArray = (NSArray *)conforms;
 
     // Create the corresponding array of type objects.
-    parents = [NSMutableArray arrayWithCapacity: [utiArray count]];
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity: [utiArray count]];
 
     NSEnumerator  *utiEnum = [utiArray objectEnumerator];
     NSString  *parentUti;
@@ -251,9 +251,10 @@ NSString  *UnknownTypeUTI = @"unknown";
          [self uniformTypeForIdentifier: (NSString *)parentUti];
          
       if (parentType != nil) {
-        [parents addObject: parentType];
+        [temp addObject: parentType];
       }
     }
+    parents = temp;
   }
   else if ([conforms isKindOfClass: [NSString class]]) {
     UniformType  *parentType = 

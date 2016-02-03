@@ -4,7 +4,7 @@
 @implementation ApplicationError
 
 // Overrides designated initialiser
-- (id) initWithDomain:(NSString *)domain code: (int)code 
+- (id) initWithDomain:(NSString *)domain code: (NSInteger)code
          userInfo: (NSDictionary *)userInfo {
   NSAssert(NO, @"Use initWithCode:userInfo instead.");
 }
