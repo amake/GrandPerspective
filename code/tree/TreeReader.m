@@ -806,7 +806,19 @@ NSString  *AttributeNameKey = @"name";
 
 - (NSDate *) parseDateAttribute: (NSString *)name 
                value: (NSString *)stringValue {
-  NSDate  *dateValue = [NSDate dateWithString: stringValue];
+  // Try to parse format used by writer
+  NSDate  *dateValue = [[TreeWriter nsTimeFormatter] dateFromString:stringValue];
+
+  // Try to parse format formerly used for <ScanInfo>: -(NSString*)description
+  if (dateValue == nil) {
+    static NSDateFormatter *descriptionFormat = nil;
+    if (descriptionFormat == nil) {
+        descriptionFormat = [[NSDateFormatter alloc] init];
+        [descriptionFormat setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [descriptionFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss X"];
+    }
+    dateValue = [descriptionFormat dateFromString:stringValue];
+  }
   
   if (dateValue == nil) {
     NSException  *ex = [AttributeParseException 
@@ -855,19 +867,39 @@ NSString  *AttributeNameKey = @"name";
 }
           
 - (CFAbsoluteTime) parseTimeAttribute: (NSString *)name value: (NSString *)stringValue {
-  CFAbsoluteTime timeValue;
-  Boolean ok = CFDateFormatterGetAbsoluteTimeFromString([TreeWriter timeFormatter],
-                                                        (CFStringRef) stringValue,
-                                                        NULL,
-                                                        &timeValue);
-  if (! ok) {
+  // Try to parse format used by writer
+  NSDate  *timeValue = [[TreeWriter nsTimeFormatter] dateFromString:stringValue];
+
+  // Try to parse format formerly used for <File>s and <Folder>s: en_GB
+  if (timeValue == nil) {
+    static NSDateFormatter *enGBFormat = nil;
+    if (enGBFormat == nil) {
+        enGBFormat = [[NSDateFormatter alloc] init];
+        [enGBFormat setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [enGBFormat setDateFormat:@"dd/MM/yyyy HH:mm"];
+    }
+    timeValue = [enGBFormat dateFromString:stringValue];
+  }
+    
+  // en_GB format changed in OS X 10.11 to add a comma for some reason
+  if (timeValue == nil) {
+    static NSDateFormatter *enGBCommaFormat = nil;
+    if (enGBCommaFormat == nil) {
+        enGBCommaFormat = [[NSDateFormatter alloc] init];
+        [enGBCommaFormat setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [enGBCommaFormat setDateFormat:@"dd/MM/yyyy, HH:mm"];
+    }
+    timeValue = [enGBCommaFormat dateFromString:stringValue];
+  }
+
+  if (timeValue == nil) {
     NSException  *ex = [AttributeParseException 
                         exceptionWithAttributeName: name 
                                             reason: EXPECTED_TIME_VALUE_MSG];
     @throw ex;
   }
   
-  return timeValue;
+  return CFDateGetAbsoluteTime((CFDateRef)timeValue);
 }
 
 @end // @implementation ElementHandler (PrivateMethods) 

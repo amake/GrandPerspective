@@ -18,7 +18,7 @@
 
 #define  BUFFER_SIZE  4096
 
-NSString  *TreeWriterFormatVersion = @"4";
+NSString  *TreeWriterFormatVersion = @"5";
 
 // XML elements
 NSString  *ScanDumpElem = @"GrandPerspectiveScanDump";
@@ -55,6 +55,9 @@ NSString  *AccessedAttr = @"accessed";
 // XML attribute values
 NSString  *TrueValue = @"true";
 NSString  *FalseValue = @"false";
+
+// Formatting string used in XML (RFC 3339)
+NSString  *DateTimeFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
 
 // Localized error messages
 #define WRITING_LAST_DATA_FAILED \
@@ -254,19 +257,33 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   static CFDateFormatterRef dateFormatter = NULL;
   
   if (dateFormatter == NULL) {
-    // Fix the locale so that output is locale independent.
-    CFLocaleRef locale = CFLocaleCreate(kCFAllocatorDefault, CFSTR("en_GB"));
-    
     // Lazily create formatter
     dateFormatter = CFDateFormatterCreate(kCFAllocatorDefault,
-                                          locale, 
-                                          kCFDateFormatterShortStyle, 
-                                          kCFDateFormatterShortStyle);
-    
-    CFRelease(locale);
+                                          NULL,
+                                          kCFDateFormatterNoStyle,
+                                          kCFDateFormatterNoStyle);
+    // Fix the locale so that output is locale independent.
+    // Was originally "en_GB" locale, but in OS X 10.11 this went from
+    //   dd/MM/yyyy HH:mm
+    // to
+    //   dd/MM/yyyy, HH:mm
+    // which broke parsing saved scans in some situations and also left out
+    // timezone information. We now use a safer representation.
+    CFDateFormatterSetFormat(dateFormatter, (CFStringRef)DateTimeFormat);
   }
   
   return dateFormatter;
+}
+
++ (NSDateFormatter *) nsTimeFormatter {
+    static NSDateFormatter *timeFmt = nil;
+    if (timeFmt == nil) {
+        timeFmt = [[NSDateFormatter alloc] init];
+        [timeFmt setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+        [timeFmt setDateFormat:DateTimeFormat];
+        [timeFmt setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    }
+    return timeFmt;
 }
 
 @end
@@ -302,7 +319,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
                                     ATTRIBUTE_ESCAPE_CHARS ),
         VolumeSizeAttr, [tree volumeSize],
         FreeSpaceAttr, ([tree freeSpace] + [tree freedSpace]),
-        ScanTimeAttr, [[tree scanTime] description],
+        ScanTimeAttr, [[TreeWriter nsTimeFormatter] stringFromDate:[tree scanTime]],
         FileSizeMeasureAttr, [tree fileSizeMeasure]]];
   
   [self appendScanCommentsElement: [annotatedTree comments]];
