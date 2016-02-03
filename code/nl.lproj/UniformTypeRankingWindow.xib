@@ -23,13 +23,13 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="8" userLabel="DrawContentView">
-            <rect key="frame" x="0.0" y="0.0" width="258" height="112"/>
+            <rect key="frame" x="0.0" y="0.0" width="277" height="95"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="74">
-                    <rect key="frame" x="98" y="20" width="140" height="30"/>
+                    <rect key="frame" x="98" y="3" width="172" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="type.foo, type.bar, type.foobar" id="89">
                         <font key="font" metaFont="systemBold" size="10"/>
@@ -38,7 +38,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="73">
-                    <rect key="frame" x="98" y="58" width="140" height="13"/>
+                    <rect key="frame" x="98" y="41" width="181" height="13"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="Beschrijving van bestandstype" id="88">
                         <font key="font" metaFont="systemBold" size="10"/>
@@ -47,7 +47,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="72">
-                    <rect key="frame" x="98" y="79" width="140" height="13"/>
+                    <rect key="frame" x="98" y="62" width="172" height="13"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" title="bestandstype.identiteit" id="87">
                         <font key="font" metaFont="systemBold" size="10"/>
@@ -56,7 +56,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="71">
-                    <rect key="frame" x="17" y="79" width="73" height="13"/>
+                    <rect key="frame" x="17" y="62" width="77" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Bestandstype:" id="86">
                         <font key="font" metaFont="label"/>
@@ -65,7 +65,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="66">
-                    <rect key="frame" x="17" y="37" width="73" height="13"/>
+                    <rect key="frame" x="17" y="20" width="77" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Voldoet aan:" id="85">
                         <font key="font" metaFont="label"/>
@@ -74,7 +74,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" id="63">
-                    <rect key="frame" x="17" y="58" width="73" height="13"/>
+                    <rect key="frame" x="17" y="41" width="77" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Beschrijving:" id="84">
                         <font key="font" metaFont="label"/>
@@ -83,6 +83,7 @@
                     </textFieldCell>
                 </textField>
             </subviews>
+            <point key="canvasLocation" x="297.5" y="366.5"/>
         </customView>
         <window title="Bestandstype rankschikking" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="9" userLabel="Parent Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
@@ -211,7 +212,7 @@ Gw
                                         <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" id="79">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="267"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="19"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>

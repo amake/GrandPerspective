@@ -213,7 +213,7 @@ Bla</string>
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="259">
-                                        <rect key="frame" x="212" y="99" width="57" height="14"/>
+                                        <rect key="frame" x="190" y="99" width="79" height="14"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" alignment="right" title="888.8 MB" id="917">
                                             <font key="font" metaFont="smallSystemBold"/>
@@ -231,7 +231,7 @@ Bla</string>
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="261">
-                                        <rect key="frame" x="212" y="165" width="57" height="14"/>
+                                        <rect key="frame" x="190" y="165" width="79" height="14"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" alignment="right" title="888.8 MB" id="919">
                                             <font key="font" metaFont="smallSystemBold"/>
@@ -240,7 +240,7 @@ Bla</string>
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="262">
-                                        <rect key="frame" x="212" y="143" width="57" height="14"/>
+                                        <rect key="frame" x="190" y="143" width="79" height="14"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" alignment="right" title="888.8 MB" id="920">
                                             <font key="font" metaFont="smallSystemBold"/>
@@ -258,7 +258,7 @@ Bla</string>
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="264">
-                                        <rect key="frame" x="212" y="121" width="57" height="14"/>
+                                        <rect key="frame" x="190" y="121" width="79" height="14"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" alignment="right" title="888.8 MB" id="922">
                                             <font key="font" metaFont="smallSystemBold"/>
@@ -276,7 +276,7 @@ Bla</string>
                                         </textFieldCell>
                                     </textField>
                                     <textField verticalHuggingPriority="750" id="277">
-                                        <rect key="frame" x="212" y="77" width="57" height="14"/>
+                                        <rect key="frame" x="190" y="77" width="79" height="14"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" selectable="YES" sendsActionOnEndEditing="YES" alignment="right" title="888.8 MB" id="924">
                                             <font key="font" metaFont="smallSystemBold"/>
