@@ -666,7 +666,7 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
       [fileManager attributesOfItemAtPath: *systemPath error: &error];
     NSAssert2(
       error==nil, @"Error getting attributes for %@: %@", 
-      systemPath, [error description]
+      *systemPath, [error description]
     );
     NSNumber  *fileNumber = 
       [fileAttributes objectForKey: NSFileSystemFileNumber];
