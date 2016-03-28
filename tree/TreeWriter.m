@@ -262,7 +262,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
                                           NULL,
                                           kCFDateFormatterNoStyle,
                                           kCFDateFormatterNoStyle);
-    // Fix the locale so that output is locale independent.
+    // Fix the format so that output is locale independent.
     // Was originally "en_GB" locale, but in OS X 10.11 this went from
     //   dd/MM/yyyy HH:mm
     // to
