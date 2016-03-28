@@ -117,7 +117,17 @@ const int  minTimeDelta = 60;
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   NSString  *minTimeBoundString = [userDefaults stringForKey: MinimumTimeBoundForColorMappingKey];
   CFAbsoluteTime minTimeBound;
-  Boolean ok = CFDateFormatterGetAbsoluteTimeFromString([TreeWriter timeFormatter],
+    
+  static CFDateFormatterRef dateFormatter = NULL;
+  if (dateFormatter == NULL) {
+    // Lazily create formatter
+    dateFormatter = CFDateFormatterCreate(kCFAllocatorDefault,
+                                          NULL,
+                                          kCFDateFormatterNoStyle,
+                                          kCFDateFormatterNoStyle);
+    CFDateFormatterSetFormat(dateFormatter, (CFStringRef)@"dd/MM/yyyy HH:mm");
+  }
+  Boolean ok = CFDateFormatterGetAbsoluteTimeFromString(dateFormatter,
                                                         (CFStringRef) minTimeBoundString,
                                                         NULL,
                                                         &minTimeBound);
