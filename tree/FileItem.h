@@ -109,7 +109,7 @@
 
 /* Returns the path to the file item. It is the path as shown to the user. The
  * system representation of the path can be different. This is for example the
- * case when a path component contain slash characters.
+ * case when a path component contains slash characters.
  *
  * See also: -systemPath
  */
