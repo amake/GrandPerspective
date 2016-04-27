@@ -290,17 +290,36 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (BOOL) application:(NSApplication *)theApplication 
            openFile:(NSString *)filename {
-  if ([TreeBuilder pathIsDirectory:filename]) {
-    [self scanFolder: filename namedFilter: nil];
-    scanAfterLaunch = NO;
+  BOOL isDirectory;
+  BOOL targetExists = [[NSFileManager defaultManager]
+                       fileExistsAtPath: filename isDirectory: &isDirectory];
+  
+  if (targetExists) {
+    if (isDirectory) {
+      [self scanFolder: filename namedFilter: nil];
+      scanAfterLaunch = NO;
+      // Loading is done asynchronously, so starting a scan is assumed a successful action
+      return YES;
+    }
+    else if ([[[filename pathExtension] lowercaseString] isEqualToString: @"gpscan"]) {
+      [self loadScanDataFromFile: filename];
+      scanAfterLaunch = NO;
+      // Loading is done asynchronously, so starting a load is assumed a successful action
+      return YES;
+    }
   }
-  else if ([[[filename pathExtension] lowercaseString] 
-                isEqualToString: @"gpscan"]) {
-    [self loadScanDataFromFile: filename];
-    scanAfterLaunch = NO;
-  }
-  // Loading is done asynchronously, so always assume it succeeds here
-  return YES;
+  return NO;
+}
+
+- (void) applicationWillFinishLaunching:(NSNotification *)notification {
+  NSMenu  *mainMenu = [NSApp mainMenu];
+  NSMenu  *fileMenu = [[mainMenu itemWithTag: 100] submenu];
+  NSMenu  *recentMenu = [[fileMenu itemWithTag: 102] submenu];
+
+  // Let Cocoa automatically manage the contents of the Recent Documents sub-menu. This relies on
+  // an undocumented interface, as discovered by Jeff Johnson and shared on his blog:
+  // http://lapcatsoftware.com/blog/2007/07/10/working-without-a-nib-part-5-open-recent-menu/
+  [recentMenu performSelector:@selector(_setMenuName:) withObject:@"NSRecentDocumentsMenu"];
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
@@ -416,7 +435,6 @@ static MainMenuControl  *singletonInstance = nil;
   
   return YES;
 }
-
 
 - (IBAction) scanDirectoryView:(id) sender {
   [self scanFolderUsingFilter: NO];
@@ -1078,8 +1096,8 @@ static MainMenuControl  *singletonInstance = nil;
   }
   
   if (self.addToRecentScans) {
+    // The scan was successful, so add it to the "Recent Scans" list
     NSString  *scanPath = [[[annTreeContext treeContext] scanTree] systemPath];
-    NSLog(@"Adding to recent scans: %@", scanPath);
     [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:
      [NSURL fileURLWithPath: scanPath]];
   }

@@ -77,13 +77,23 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Archief" id="83">
+                <menuItem title="Archief" tag="100" id="83">
                     <menu key="submenu" title="Archief" id="81">
                         <items>
                             <menuItem title="Map inlezen..." keyEquivalent="n" id="72">
                                 <connections>
                                     <action selector="scanDirectoryView:" target="222" id="336"/>
                                 </connections>
+                            </menuItem>
+                            <menuItem title="Recente map inlezen" tag="102" id="R8h-wK-YaD">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Recente map inlezen" id="YoB-Qa-2Es">
+                                    <items>
+                                        <menuItem title="Item" id="SYw-Ct-CkM">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                             <menuItem title="Map inlezen met filter..." keyEquivalent="n" id="335">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>

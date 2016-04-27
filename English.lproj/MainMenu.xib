@@ -77,13 +77,23 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="File" id="83">
+                <menuItem title="File" tag="100" id="83">
                     <menu key="submenu" title="File" id="81">
                         <items>
                             <menuItem title="Scan Folder..." keyEquivalent="n" id="72">
                                 <connections>
-                                    <action selector="scanDirectoryView:" target="222" id="336"/>
+                                    <action selector="scanDirectoryView:" target="222" id="9j8-ZE-lB6"/>
                                 </connections>
+                            </menuItem>
+                            <menuItem title="Scan Recent" tag="102" id="hUr-J9-FbH">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Scan Recent" id="HXb-90-KwJ">
+                                    <items>
+                                        <menuItem title="Item" id="3LR-fJ-0Ck">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                             <menuItem title="Filtered Scan..." keyEquivalent="n" id="335">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
