@@ -36,8 +36,6 @@
 	<string>GrandPerspectiveHelp</string>
 	<key>CFBundleHelpBookName</key>
 	<string>GrandPerspective Help</string>
-	<key>CFBundleIconFile</key>
-	<string>GrandPerspective.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
