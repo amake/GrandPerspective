@@ -82,6 +82,8 @@ NSString  *RescanVisible = @"rescan visible";
   WindowManager  *windowManager;
 }
 
+@property BOOL  addToRecentScans;
+
 - (id) initWithWindowManager:(WindowManager *)windowManager;
 
 - (void) createWindowForTree:(TreeContext *)treeContext;
@@ -505,7 +507,7 @@ static MainMenuControl  *singletonInstance = nil;
   DirectoryViewControlSettings  *settings = 
     [oldControl directoryViewControlSettings];
   if ([[namedFilter name] isEqualToString: [settings maskName]]) {
-    // Don't retain the mask if it has the filter has the same name. It is
+    // Don't retain the mask if the filter has the same name. It is
     // likely that the filter is the same as the mask, or if not, is at least
     // a modified version of it. It therefore does not make sense to retain
     // the mask. This is only confusing.
@@ -738,7 +740,8 @@ static MainMenuControl  *singletonInstance = nil;
                               fileSizeMeasure: fileSizeMeasure 
                               filterSet: filterSet] 
          autorelease];
-    
+
+  windowCreator.addToRecentScans = YES;
   [scanTaskManager asynchronouslyRunTaskWithInput: input
                      callback: windowCreator
                      selector: @selector(createWindowForTree:)];
@@ -1051,6 +1054,7 @@ static MainMenuControl  *singletonInstance = nil;
 - (id) initWithWindowManager:(WindowManager *)windowManagerVal {
   if (self = [super init]) {
     windowManager = [windowManagerVal retain];
+    self.addToRecentScans = NO;
   }
   return self;
 }
@@ -1071,6 +1075,13 @@ static MainMenuControl  *singletonInstance = nil;
   if (annTreeContext == nil) {
     // Reading failed or cancelled. Don't create a window.
     return;
+  }
+  
+  if (self.addToRecentScans) {
+    NSString  *scanPath = [[[annTreeContext treeContext] scanTree] systemPath];
+    NSLog(@"Adding to recent scans: %@", scanPath);
+    [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:
+     [NSURL fileURLWithPath: scanPath]];
   }
 
   // Note: The control should auto-release itself when its window closes 
