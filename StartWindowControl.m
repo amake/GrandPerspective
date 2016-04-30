@@ -60,10 +60,9 @@ NSString*  TaglineFormat = @"tagline-%d";
   RecentDocumentTableCellView *cellView =
     [tableView makeViewWithIdentifier: @"RecentScanView" owner: self];
 
-  cellView.textField.stringValue = [[docUrl path] lastPathComponent];
-  
-  NSString  *fileType = [[NSWorkspace sharedWorkspace] typeOfFile:[docUrl path] error: nil];
-  cellView.imageView.image = [[NSWorkspace sharedWorkspace] iconForFileType:fileType];
+  cellView.textField.stringValue =
+    [[NSFileManager defaultManager] displayNameAtPath: [docUrl path]];
+  cellView.imageView.image = [[NSWorkspace sharedWorkspace] iconForFile: [docUrl path]];
   cellView.secondTextField.stringValue = [docUrl path];
   
   return cellView;
