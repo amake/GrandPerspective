@@ -34,6 +34,7 @@
 		AA3B38E40D17EEF60070E889 /* FileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B38DC0D17EEF60070E889 /* FileItem.m */; };
 		AA3B38E60D17EEF60070E889 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B38DE0D17EEF60070E889 /* Item.m */; };
 		AA3B40E10D1AF2B70070E889 /* UniqueTagsTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B40DF0D1AF2B70070E889 /* UniqueTagsTransformer.m */; };
+		AA3E390B1CD51EA100685BAF /* Taglines.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA3E390A1CD51EA100685BAF /* Taglines.strings */; };
 		AA402FFC0A5B01A6004EAAF3 /* SaveImageDialogControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA402FEC0A5B01A6004EAAF3 /* SaveImageDialogControl.m */; };
 		AA4030000A5B01A6004EAAF3 /* WindowManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA402FF00A5B01A6004EAAF3 /* WindowManager.m */; };
 		AA4030010A5B01A6004EAAF3 /* DirectoryViewControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA402FF10A5B01A6004EAAF3 /* DirectoryViewControl.m */; };
@@ -210,6 +211,7 @@
 		AA3B38DE0D17EEF60070E889 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = tree/Item.m; sourceTree = "<group>"; };
 		AA3B40DE0D1AF2B70070E889 /* UniqueTagsTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UniqueTagsTransformer.h; path = util/UniqueTagsTransformer.h; sourceTree = "<group>"; };
 		AA3B40DF0D1AF2B70070E889 /* UniqueTagsTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UniqueTagsTransformer.m; path = util/UniqueTagsTransformer.m; sourceTree = "<group>"; };
+		AA3E390A1CD51EA100685BAF /* Taglines.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Taglines.strings; sourceTree = "<group>"; };
 		AA402FEA0A5B01A6004EAAF3 /* SaveImageDialogControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SaveImageDialogControl.h; path = control/SaveImageDialogControl.h; sourceTree = "<group>"; };
 		AA402FEC0A5B01A6004EAAF3 /* SaveImageDialogControl.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = SaveImageDialogControl.m; path = control/SaveImageDialogControl.m; sourceTree = "<group>"; };
 		AA402FED0A5B01A6004EAAF3 /* MainMenuControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MainMenuControl.h; path = control/MainMenuControl.h; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 				AA2B49B6104AEF9B00B10262 /* PopUpMenu.strings */,
 				AADD34910B8B902000AC2C97 /* Tests.strings */,
 				AA1222580EF2A822002A178F /* Toolbar.strings */,
+				AA3E390A1CD51EA100685BAF /* Taglines.strings */,
 				AA83A76210F91791002542E4 /* MainMenu.xib */,
 				AA83A54C10F3D061002542E4 /* DirectoryViewWindow.xib */,
 				AA524605110201520018897B /* FiltersWindow.xib */,
@@ -985,6 +988,7 @@
 				AA83A8E010FA639B002542E4 /* SaveImageDialog.xib in Resources */,
 				AA83A8E310FA63A9002542E4 /* ProgressPanel.xib in Resources */,
 				AA524607110201520018897B /* FiltersWindow.xib in Resources */,
+				AA3E390B1CD51EA100685BAF /* Taglines.strings in Resources */,
 				AA52460B110201780018897B /* FilterWindow.xib in Resources */,
 				AA52460F110201990018897B /* FilterTestWindow.xib in Resources */,
 				AA524613110201BA0018897B /* UniformTypeRankingWindow.xib in Resources */,

@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="StartWindowControl">
             <connections>
                 <outlet property="recentScansView" destination="H1C-Ro-5cg" id="TPa-zZ-Lj0"/>
+                <outlet property="tagLine" destination="qlT-To-E7S" id="IwN-jr-NZQ"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="KaZ-Cu-CMq"/>
             </connections>
         </customObject>

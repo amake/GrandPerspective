@@ -2,6 +2,10 @@
 
 #import "RecentDocumentTableCellView.h"
 
+NSString*  TaglineTable = @"Taglines";
+NSString*  NumTaglines = @"num-taglines";
+NSString*  TaglineFormat = @"tagline-%d";
+
 @implementation StartWindowControl
 
 - (id) initWithMainMenuControl:(MainMenuControl *)mainMenuControlVal {
@@ -22,7 +26,16 @@
 - (void)windowDidLoad {
   [super windowDidLoad];
   
-  NSLog(@"windowDidLoad");
+  // Show a random tagline
+  NSBundle  *mainBundle = [NSBundle mainBundle];
+  int  numTaglines =
+    [[mainBundle localizedStringForKey: NumTaglines value: nil table: TaglineTable] intValue];
+  int  taglineIndex = 1 + arc4random_uniform(numTaglines);
+  NSString  *localizedTagLine =
+    [mainBundle localizedStringForKey: [NSString stringWithFormat: TaglineFormat, taglineIndex]
+                                value: nil
+                                table: TaglineTable];
+  [tagLine setStringValue: localizedTagLine];
   
   [recentScansView setDelegate: self];
   [recentScansView setDataSource: self];

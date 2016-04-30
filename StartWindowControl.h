@@ -5,6 +5,7 @@
 @interface StartWindowControl : NSWindowController <NSTableViewDataSource, NSTableViewDelegate> {
 
   IBOutlet NSTableView  *recentScansView;
+  IBOutlet NSTextField  *tagLine;
 
   MainMenuControl  *mainMenuControl;
 
