@@ -20,7 +20,7 @@
   FiltersWindowControl  *filtersWindowControl;
   UniformTypeRankingWindowControl  *uniformTypeWindowControl;
   
-  BOOL  scanAfterLaunch;
+  BOOL  showWelcomeWindowAfterLaunch;
 }
 
 + (MainMenuControl *)singletonInstance;

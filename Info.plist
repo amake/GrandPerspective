@@ -68,7 +68,7 @@
 		<real>480</real>
 		<key>defaultViewWindowWidth</key>
 		<real>640</real>
-		<key>delayBeforeAutomaticScanAfterStartup</key>
+		<key>delayBeforeWelcomeWindowAfterStartup</key>
 		<integer>1</integer>
 		<key>fileDeletionTargets</key>
 		<string>delete nothing</string>

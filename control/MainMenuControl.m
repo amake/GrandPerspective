@@ -110,7 +110,7 @@ NSString  *RescanVisible = @"rescan visible";
 
 @interface MainMenuControl (PrivateMethods)
 
-- (void) autoScanTimeoutPassed;
+- (void) showWelcomeWindow;
 - (void) scanFolderUsingFilter:(BOOL) useFilter;
 - (void) scanFolder:(NSString *)path namedFilter:(NamedFilter *)filter;
 - (void) scanFolder:(NSString *)path filterSet:(FilterSet *)filterSet;
@@ -256,7 +256,7 @@ static MainMenuControl  *singletonInstance = nil;
     filtersWindowControl = nil;
     uniformTypeWindowControl = nil;
     
-    scanAfterLaunch = YES; // Default
+    showWelcomeWindowAfterLaunch = YES; // Default
   }
   
   singletonInstance = self;
@@ -298,13 +298,13 @@ static MainMenuControl  *singletonInstance = nil;
   if (targetExists) {
     if (isDirectory) {
       [self scanFolder: filename namedFilter: nil];
-      scanAfterLaunch = NO;
+      showWelcomeWindowAfterLaunch = NO;
       // Loading is done asynchronously, so starting a scan is assumed a successful action
       return YES;
     }
     else if ([[[filename pathExtension] lowercaseString] isEqualToString: @"gpscan"]) {
       [self loadScanDataFromFile: filename];
-      scanAfterLaunch = NO;
+      showWelcomeWindowAfterLaunch = NO;
       // Loading is done asynchronously, so starting a load is assumed a successful action
       return YES;
     }
@@ -326,17 +326,18 @@ static MainMenuControl  *singletonInstance = nil;
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
   [NSApp setServicesProvider: self];
   
-  if (scanAfterLaunch) {
+  if (showWelcomeWindowAfterLaunch) {
     NSTimeInterval delay = [[NSUserDefaults standardUserDefaults] 
-                              floatForKey: DelayBeforeAutomaticScanAfterStartupKey];
+                              floatForKey: DelayBeforeWelcomeWindowAfterStartupKey];
+
     if (delay == 0) {
-      [self autoScanTimeoutPassed];
+      [self showWelcomeWindow];
     } else if (delay > 0) {
       // Set a watchdog. If it times out before service activity is detected, show welcome window
       [NSTimer 
          scheduledTimerWithTimeInterval: delay
          target: self 
-         selector: @selector(autoScanTimeoutPassed) 
+         selector: @selector(showWelcomeWindow)
          userInfo: nil 
          repeats: NO];
     }
@@ -358,7 +359,7 @@ static MainMenuControl  *singletonInstance = nil;
           userData:(NSString *)userData
           error:(NSString **)error {
   NSLog(@"scanFolder:userData:error:");
-  scanAfterLaunch = NO; // Do not automatically pop-up scan dialog
+  showWelcomeWindowAfterLaunch = NO; // Do not automatically pop-up scan dialog
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
@@ -384,7 +385,7 @@ static MainMenuControl  *singletonInstance = nil;
           userData:(NSString *)userData
           error:(NSString **)error {
   NSLog(@"loadScanData:userData:error:");
-  scanAfterLaunch = NO; // Do not automatically pop-up scan dialog
+  showWelcomeWindowAfterLaunch = NO; // Do not automatically pop-up scan dialog
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
@@ -689,20 +690,18 @@ static MainMenuControl  *singletonInstance = nil;
 
 @implementation MainMenuControl (PrivateMethods)
 
-- (void) autoScanTimeoutPassed {
-  if (scanAfterLaunch) {
-    // During initial delay after start-up no service invocation was received. Assume that 
+- (void) showWelcomeWindow {
+  // Check flag again. It may have changed after the watchdog was started.
+  if (showWelcomeWindowAfterLaunch) {
+    // During initial delay after start-up no service invocation was received. Assume that
     // application was started normally and pop-up welcome window. This works okay as long as the
     // time-out is long enough that service invocations happen before it, but short enough for
     // user to have initiated any interaction.
     StartWindowControl  *startWindowControl =
       [[[StartWindowControl alloc] initWithMainMenuControl: self] autorelease];
 
-    NSWindow  *startWindow = [startWindowControl window];
-    NSLog(@"startWindow = %@", startWindow);
-    int  status = [NSApp runModalForWindow: startWindow];
-
-    return nil;
+    // Show modal window. The controller will close it and end the modal session.
+    [NSApp runModalForWindow: [startWindowControl window]];
   }
 }
        
