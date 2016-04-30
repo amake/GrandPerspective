@@ -64,4 +64,6 @@
 
 - (IBAction) openWebsite:(id) sender;
 
+- (void) scanFolder:(NSString *)path;
+
 @end

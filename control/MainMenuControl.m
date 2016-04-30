@@ -11,6 +11,7 @@
 #import "FiltersWindowControl.h"
 #import "UniformTypeRankingWindowControl.h"
 #import "FilterSelectionPanelControl.h"
+#import "StartWindowControl.h"
 
 #import "ItemPathModel.h"
 #import "ItemPathModelView.h"
@@ -329,9 +330,9 @@ static MainMenuControl  *singletonInstance = nil;
     NSTimeInterval delay = [[NSUserDefaults standardUserDefaults] 
                               floatForKey: DelayBeforeAutomaticScanAfterStartupKey];
     if (delay == 0) {
-      [self scanDirectoryView: self];
+      [self autoScanTimeoutPassed];
     } else if (delay > 0) {
-      // Set a watchdog. If it times out before service activity is detected, pop-up scan dialog.
+      // Set a watchdog. If it times out before service activity is detected, show welcome window
       [NSTimer 
          scheduledTimerWithTimeInterval: delay
          target: self 
@@ -679,6 +680,10 @@ static MainMenuControl  *singletonInstance = nil;
   [[NSWorkspace sharedWorkspace] openURL: url];
 }
 
+- (void) scanFolder:(NSString *)path {
+  [self scanFolder: path filterSet: nil];
+}
+
 @end // @implementation MainMenuControl
 
 
@@ -687,10 +692,17 @@ static MainMenuControl  *singletonInstance = nil;
 - (void) autoScanTimeoutPassed {
   if (scanAfterLaunch) {
     // During initial delay after start-up no service invocation was received. Assume that 
-    // application was started normally and pop-up scan dialog. This works okay as long as the
+    // application was started normally and pop-up welcome window. This works okay as long as the
     // time-out is long enough that service invocations happen before it, but short enough for
     // user to have initiated any interaction.
-    [self scanDirectoryView: self];
+    StartWindowControl  *startWindowControl =
+      [[[StartWindowControl alloc] initWithMainMenuControl: self] autorelease];
+
+    NSWindow  *startWindow = [startWindowControl window];
+    NSLog(@"startWindow = %@", startWindow);
+    int  status = [NSApp runModalForWindow: startWindow];
+
+    return nil;
   }
 }
        
