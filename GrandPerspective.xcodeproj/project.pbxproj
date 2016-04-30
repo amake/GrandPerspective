@@ -1304,6 +1304,7 @@
 				GENERATE_PKGINFO_FILE = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_BUNDLE_IDENTIFIER = net.sourceforge.grandperspectiv;
 				PRODUCT_NAME = GrandPerspective;
 				SDKROOT = macosx;
@@ -1323,6 +1324,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_BUNDLE_IDENTIFIER = net.sourceforge.grandperspectiv;
 				PRODUCT_NAME = GrandPerspective;
 				SDKROOT = macosx;
@@ -1341,6 +1343,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_BUNDLE_IDENTIFIER = net.sourceforge.grandperspectiv;
 				PRODUCT_NAME = GrandPerspective;
 				SDKROOT = macosx;
