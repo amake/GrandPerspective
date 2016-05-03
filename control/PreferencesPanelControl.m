@@ -10,7 +10,6 @@
 
 #import "UniqueTagsTransformer.h"
 
-
 NSString  *FileDeletionTargetsKey = @"fileDeletionTargets";
 NSString  *ConfirmFileDeletionKey = @"confirmFileDeletion";
 NSString  *DefaultRescanActionKey = @"defaultRescanAction";
@@ -47,6 +46,8 @@ NSString  *DelayBeforeWelcomeWindowAfterStartupKey = @"delayBeforeWelcomeWindowA
 
 - (void) updateButtonState;
 
+- (BOOL) doesAppHaveFileDeletePermission;
+
 @end
 
 @implementation PreferencesPanelControl
@@ -55,6 +56,8 @@ NSString  *DelayBeforeWelcomeWindowAfterStartupKey = @"delayBeforeWelcomeWindowA
 // NSWindowController's case
 - (id) init {
   if (self = [super initWithWindowNibName: @"PreferencesPanel" owner: self]) {
+    [self doesAppHaveFileDeletePermission];
+
     // Trigger loading of the window
     [self window];
   }
@@ -184,6 +187,47 @@ NSString  *DelayBeforeWelcomeWindowAfterStartupKey = @"delayBeforeWelcomeWindowA
 
   [fileDeletionConfirmationCheckBox setEnabled:
     ! [name isEqualToString: DeleteNothing]];
+}
+
+/* Check if the application has permission to delete files. The assumption is that the application
+ * has this permission unless it is established that it is sandboxed and that it lacks the needed
+ * read-write permissions for files selected by the user.
+ */
+- (BOOL) doesAppHaveFileDeletePermission {
+  // By default assume the app has delete permission. In that case, when there is a failure
+  // establishing the correct permission, the worst that can happen is that delete fails (which
+  // may happen anyway, e.g. when a file has read-only settings). The alternative is that the app
+  // would unnecessarily prevent the user from deleting files, after the user has indicated he
+  // want to be able to do this.
+  BOOL  canDelete = true;
+  OSStatus  err;
+  SecCodeRef  me;
+  CFDictionaryRef  dynamicInfo;
+
+  err = SecCodeCopySelf(kSecCSDefaultFlags, &me);
+
+  if (err != errSecSuccess) {
+    NSLog(@"Failed to successfully invoke SecCodeCopySelf -> %d", err);
+    return canDelete;
+  }
+
+  err = SecCodeCopySigningInformation(me, (SecCSFlags) kSecCSDynamicInformation, &dynamicInfo);
+  if (err != errSecSuccess) {
+    NSLog(@"Failed to successfully invoke SecCodeCopySigningInformation -> %d", err);
+  }
+  else {
+    NSDictionary  *entitlements = CFDictionaryGetValue(dynamicInfo, kSecCodeInfoEntitlementsDict);
+    NSLog(@"entitlements = %@", entitlements);
+
+    canDelete = (
+      ![entitlements objectForKey: @"com.apple.security.app-sandbox"] ||
+      [entitlements objectForKey: @"com.apple.security.files.user-selected.read-write"]
+    );
+  }
+
+  CFRelease(dynamicInfo);
+  NSLog(@"doesAppHaveFileDeletePermission = %d", canDelete);
+  return canDelete;
 }
 
 @end // @implementation PreferencesPanelControl (PrivateMethods)
