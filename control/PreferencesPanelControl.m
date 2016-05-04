@@ -41,23 +41,34 @@ NSString  *DelayBeforeWelcomeWindowAfterStartupKey = @"delayBeforeWelcomeWindowA
 
 @interface PreferencesPanelControl (PrivateMethods)
 
++ (BOOL) doesAppHaveFileDeletePermission;
+
 - (void) setupPopUp: (NSPopUpButton *)popUp key: (NSString *)key
            content: (NSArray *)names;
 
-- (void) updateButtonState;
+- (void) setPopUp: (NSPopUpButton *)popUp toValue: (NSString *)value;
 
-- (BOOL) doesAppHaveFileDeletePermission;
+- (void) updateButtonState;
 
 @end
 
 @implementation PreferencesPanelControl
 
+static BOOL appHasDeletePermission;
+
+// Thread-safe initialisation
++ (void)initialize {
+  appHasDeletePermission = [PreferencesPanelControl doesAppHaveFileDeletePermission];
+}
+
++ (BOOL) appHasDeletePermission {
+  return appHasDeletePermission;
+}
+
 // Special case: should not cover (override) super's designated initialiser in
 // NSWindowController's case
 - (id) init {
   if (self = [super initWithWindowNibName: @"PreferencesPanel" owner: self]) {
-    [self doesAppHaveFileDeletePermission];
-
     // Trigger loading of the window
     [self window];
   }
@@ -91,6 +102,12 @@ NSString  *DelayBeforeWelcomeWindowAfterStartupKey = @"delayBeforeWelcomeWindowA
                         defaultFileItemMappingCollection] allKeys]];
   [self setupPopUp: defaultColorPalettePopUp key: DefaultColorPaletteKey
            content: [[ColorListCollection defaultColorListCollection] allKeys]];
+
+  if (! appHasDeletePermission) {
+    // Cannot delete, so fix visible setting to "DeleteNothing" and prevent changes
+    [fileDeletionPopUp setEnabled: false];
+    [self setPopUp: fileDeletionPopUp toValue: DeleteNothing];
+  }
 
   // The filter pop-up uses its own control that keeps it up to date. Its
   // entries can change when filters are added/removed.
@@ -179,6 +196,14 @@ NSString  *DelayBeforeWelcomeWindowAfterStartupKey = @"delayBeforeWelcomeWindowA
               select: [userDefaults stringForKey: key] table: @"Names"];
 }
 
+- (void) setPopUp: (NSPopUpButton *)popUp toValue: (NSString *)value {
+  UniqueTagsTransformer  *tagMaker =
+    [UniqueTagsTransformer defaultUniqueTagsTransformer];
+
+  int  tag = [tagMaker tagForName: value];
+  [popUp selectItemAtIndex: [popUp indexOfItemWithTag: tag]];
+}
+
 - (void) updateButtonState {
   UniqueTagsTransformer  *tagMaker = 
     [UniqueTagsTransformer defaultUniqueTagsTransformer];
@@ -193,7 +218,7 @@ NSString  *DelayBeforeWelcomeWindowAfterStartupKey = @"delayBeforeWelcomeWindowA
  * has this permission unless it is established that it is sandboxed and that it lacks the needed
  * read-write permissions for files selected by the user.
  */
-- (BOOL) doesAppHaveFileDeletePermission {
++ (BOOL) doesAppHaveFileDeletePermission {
   // By default assume the app has delete permission. In that case, when there is a failure
   // establishing the correct permission, the worst that can happen is that delete fails (which
   // may happen anyway, e.g. when a file has read-only settings). The alternative is that the app
