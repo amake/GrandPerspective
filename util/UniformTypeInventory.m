@@ -228,6 +228,7 @@ NSString  *UnknownTypeUTI = @"unknown";
 
   NSDictionary  *dict = 
     (NSDictionary*) UTTypeCopyDeclaration( (CFStringRef)uti );
+  [dict autorelease];
     
   if (dict == nil) {
     // The UTI is not recognized. 
@@ -266,7 +267,7 @@ NSString  *UnknownTypeUTI = @"unknown";
     parents = [NSArray array];
   }
 
-  return [[UniformType alloc] initWithUniformTypeIdentifier: uti 
+  return [[UniformType alloc] initWithUniformTypeIdentifier: uti
                                 description: descr parents: parents];
 }
 

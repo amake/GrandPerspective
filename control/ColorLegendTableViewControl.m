@@ -177,8 +177,8 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
   // sizeWithAttributes: to always return the right width. So far, it appears
   // as if the font is all that is needed.
   NSDictionary  *attribs = 
-    [[NSDictionary alloc] initWithObjectsAndKeys:
-        [dataCell font], NSFontAttributeName, nil];
+    [[[NSDictionary alloc] initWithObjectsAndKeys:
+        [dataCell font], NSFontAttributeName, nil] autorelease];
 
   int  numColors = [colorImages count];
   int  i = 0;

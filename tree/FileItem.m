@@ -281,7 +281,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
   if (decimalSeparator == nil) {
     NSNumberFormatter  *numFormat = 
-      [[NSNumberFormatter alloc] init];
+      [[[NSNumberFormatter alloc] init] autorelease];
     [numFormat setLocalizesFormat: YES];
     decimalSeparator = [[numFormat decimalSeparator] retain];
   }
