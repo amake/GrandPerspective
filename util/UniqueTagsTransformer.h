@@ -8,7 +8,7 @@
  * This may all sound very abstract, but is in fact tremendously useful. It can
  * be used for localizing controls, in particular PopUpButtons. Each option
  * is represented by a locale-independent base name. These base 
- * names are used internally by the the application, for example to store
+ * names are used internally by the application, for example to store
  * preference values in a locale-independent, human-readable format.
  *
  * Localized pop-up buttons can be created as follows. It is populated by
