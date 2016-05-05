@@ -141,6 +141,7 @@
 		AAC26BC70A8CAF4800F2DA33 /* FilterTaskInput.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BB90A8CAF4800F2DA33 /* FilterTaskInput.m */; };
 		AAC26BCD0A8CAF4800F2DA33 /* ScanTaskExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BBF0A8CAF4800F2DA33 /* ScanTaskExecutor.m */; };
 		AAC9B6490B7FA94A002B3ECE /* GrandPerspectiveHelp in Resources */ = {isa = PBXBuildFile; fileRef = AAC9B6340B7FA94A002B3ECE /* GrandPerspectiveHelp */; };
+		AAD85B9D1CD92FD300B3AF28 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD85B9C1CD92FD300B3AF28 /* Security.framework */; };
 		AAD8DFB30B077ED20060DADA /* PreferencesPanelControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD8DFB20B077ED20060DADA /* PreferencesPanelControl.m */; };
 		AADD34930B8B902000AC2C97 /* Tests.strings in Resources */ = {isa = PBXBuildFile; fileRef = AADD34910B8B902000AC2C97 /* Tests.strings */; };
 		AAE4982E1CD158C6003F0A29 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAE4982D1CD158C6003F0A29 /* Images.xcassets */; };
@@ -211,6 +212,7 @@
 		AA3B38DE0D17EEF60070E889 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = Item.m; path = tree/Item.m; sourceTree = "<group>"; };
 		AA3B40DE0D1AF2B70070E889 /* UniqueTagsTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UniqueTagsTransformer.h; path = util/UniqueTagsTransformer.h; sourceTree = "<group>"; };
 		AA3B40DF0D1AF2B70070E889 /* UniqueTagsTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UniqueTagsTransformer.m; path = util/UniqueTagsTransformer.m; sourceTree = "<group>"; };
+		AA3E28DF1CCD0BBC00225B71 /* GrandPerspective.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = GrandPerspective.entitlements; sourceTree = "<group>"; };
 		AA402FEA0A5B01A6004EAAF3 /* SaveImageDialogControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SaveImageDialogControl.h; path = control/SaveImageDialogControl.h; sourceTree = "<group>"; };
 		AA402FEC0A5B01A6004EAAF3 /* SaveImageDialogControl.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = SaveImageDialogControl.m; path = control/SaveImageDialogControl.m; sourceTree = "<group>"; };
 		AA402FED0A5B01A6004EAAF3 /* MainMenuControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MainMenuControl.h; path = control/MainMenuControl.h; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 		AAC9B6350B7FA94A002B3ECE /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = English.lproj/GrandPerspectiveHelp; sourceTree = "<group>"; };
 		AAD6855008D9FE600096C6C1 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		AAD6ACAE0B8A43D400624F9F /* nl */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AAD85B9C1CD92FD300B3AF28 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		AAD8DFB00B077EB90060DADA /* PreferencesPanelControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PreferencesPanelControl.h; path = control/PreferencesPanelControl.h; sourceTree = "<group>"; };
 		AAD8DFB20B077ED20060DADA /* PreferencesPanelControl.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = PreferencesPanelControl.m; path = control/PreferencesPanelControl.m; sourceTree = "<group>"; };
 		AADD34920B8B902000AC2C97 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Tests.strings; sourceTree = "<group>"; };
@@ -467,6 +470,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAD85B9D1CD92FD300B3AF28 /* Security.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -517,6 +521,7 @@
 		29B97314FDCFA39411CA2CEA /* DirectoryView */ = {
 			isa = PBXGroup;
 			children = (
+				AA3E28DF1CCD0BBC00225B71 /* GrandPerspective.entitlements */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -571,6 +576,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAD85B9C1CD92FD300B3AF28 /* Security.framework */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
@@ -934,6 +940,15 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0720;
+				TargetAttributes = {
+					8D1107260486CEB800E47090 = {
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = AA9788D40DCAFB8A0086E480 /* Build configuration list for PBXProject "GrandPerspective" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1334,6 +1349,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = GrandPerspective;
+				CODE_SIGN_ENTITLEMENTS = GrandPerspective.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1358,6 +1375,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = GrandPerspective;
+				CODE_SIGN_ENTITLEMENTS = GrandPerspective.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -1379,6 +1398,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = GrandPerspective;
+				CODE_SIGN_ENTITLEMENTS = GrandPerspective.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

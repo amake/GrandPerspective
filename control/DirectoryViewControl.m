@@ -1099,11 +1099,17 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   NSString  *fileDeletionTargets = 
     [userDefaults stringForKey: FileDeletionTargetsKey];
 
-  canDeleteFiles = 
-    ([fileDeletionTargets isEqualToString: OnlyDeleteFiles] ||
-     [fileDeletionTargets isEqualToString: DeleteFilesAndFolders]);
-  canDeleteFolders =
-     [fileDeletionTargets isEqualToString: DeleteFilesAndFolders];
+  canDeleteFiles = (
+    (
+      [fileDeletionTargets isEqualToString: OnlyDeleteFiles] ||
+      [fileDeletionTargets isEqualToString: DeleteFilesAndFolders]
+    ) &&
+    [PreferencesPanelControl appHasDeletePermission]
+  );
+  canDeleteFolders = (
+    [fileDeletionTargets isEqualToString: DeleteFilesAndFolders] &&
+    [PreferencesPanelControl appHasDeletePermission]
+  );
   confirmFileDeletion = 
     [[userDefaults objectForKey: ConfirmFileDeletionKey] boolValue];
   confirmFolderDeletion = 

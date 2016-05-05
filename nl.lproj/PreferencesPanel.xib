@@ -13,7 +13,6 @@
                 <outlet property="defaultFilterPopUp" destination="182" id="187"/>
                 <outlet property="fileDeletionConfirmationCheckBox" destination="80" id="82"/>
                 <outlet property="fileDeletionPopUp" destination="77" id="81"/>
-                <outlet property="fileSizeMeasureBasePopUp" destination="206" id="211"/>
                 <outlet property="fileSizeMeasurePopUp" destination="59" id="71"/>
                 <outlet property="fileSizeUnitSystemPopUp" destination="206" id="213"/>
                 <outlet property="rescanActionPopUp" destination="188" id="197"/>

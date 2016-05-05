@@ -51,4 +51,6 @@ extern NSString  *DelayBeforeWelcomeWindowAfterStartupKey;
 
 - (IBAction) valueChanged:(id) sender;
 
++ (BOOL) appHasDeletePermission;
+
 @end
