@@ -303,6 +303,8 @@
 	</dict>
 	<key>GPWebsiteURL</key>
 	<string>http://grandperspectiv.sourceforge.net</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>NSMainNibFile</key>
