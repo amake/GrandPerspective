@@ -7,27 +7,20 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>gpscan</string>
-			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>GrandPerspectiveScan.icns</string>
+			<key>CFBundleTypeName</key>
+			<string>GrandPerspective scan results</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>net.sourceforge.grandperspectiv.scandump</string>
 			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeOSTypes</key>
+			<key>NSExportableTypes</key>
 			<array>
-				<string>fold</string>
-				<string>disk</string>
+				<string>net.sourceforge.grandperspectiv.scandump</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
