@@ -228,15 +228,10 @@
 		AA5245FF1101D40D0018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/PreferencesPanel.xib; sourceTree = "<group>"; };
 		AA5246011101D4200018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/SaveImageDialog.xib; sourceTree = "<group>"; };
 		AA5246021101D42C0018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/ProgressPanel.xib; sourceTree = "<group>"; };
-		AA524606110201520018897B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FiltersWindow.xib; sourceTree = "<group>"; };
 		AA524608110201650018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/FiltersWindow.xib; sourceTree = "<group>"; };
-		AA52460A110201780018897B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FilterWindow.xib; sourceTree = "<group>"; };
 		AA52460C110201870018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/FilterWindow.xib; sourceTree = "<group>"; };
-		AA52460E110201990018897B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FilterTestWindow.xib; sourceTree = "<group>"; };
 		AA524610110201A30018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/FilterTestWindow.xib; sourceTree = "<group>"; };
-		AA524612110201BA0018897B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/UniformTypeRankingWindow.xib; sourceTree = "<group>"; };
 		AA524614110201C60018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/UniformTypeRankingWindow.xib; sourceTree = "<group>"; };
-		AA524616110202080018897B /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FilterSelectionPanel.xib; sourceTree = "<group>"; };
 		AA524618110202110018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/FilterSelectionPanel.xib; sourceTree = "<group>"; };
 		AA524619110202F50018897B /* FilterSelectionPanelControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilterSelectionPanelControl.h; path = control/FilterSelectionPanelControl.h; sourceTree = "<group>"; };
 		AA52461A110202F50018897B /* FilterSelectionPanelControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilterSelectionPanelControl.m; path = control/FilterSelectionPanelControl.m; sourceTree = "<group>"; };
@@ -328,17 +323,12 @@
 		AA83A33F10F0D329002542E4 /* MutableFilterTestRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MutableFilterTestRef.m; path = filter/MutableFilterTestRef.m; sourceTree = "<group>"; };
 		AA83A46D10F14280002542E4 /* NamedFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NamedFilter.h; path = filter/NamedFilter.h; sourceTree = "<group>"; };
 		AA83A46E10F14280002542E4 /* NamedFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NamedFilter.m; path = filter/NamedFilter.m; sourceTree = "<group>"; };
-		AA83A54D10F3D061002542E4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/DirectoryViewWindow.xib; sourceTree = "<group>"; };
 		AA83A5D510F52716002542E4 /* FilterEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilterEditor.h; path = control/FilterEditor.h; sourceTree = "<group>"; };
 		AA83A5D610F52716002542E4 /* FilterEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilterEditor.m; path = control/FilterEditor.m; sourceTree = "<group>"; };
 		AA83A65210F67A2E002542E4 /* FilterPopUpControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilterPopUpControl.h; path = control/FilterPopUpControl.h; sourceTree = "<group>"; };
 		AA83A65310F67A2E002542E4 /* FilterPopUpControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilterPopUpControl.m; path = control/FilterPopUpControl.m; sourceTree = "<group>"; };
 		AA83A70D10F8AE5E002542E4 /* FilterTestEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilterTestEditor.h; path = control/FilterTestEditor.h; sourceTree = "<group>"; };
 		AA83A70E10F8AE5E002542E4 /* FilterTestEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilterTestEditor.m; path = control/FilterTestEditor.m; sourceTree = "<group>"; };
-		AA83A76310F91791002542E4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		AA83A79810F922B8002542E4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PreferencesPanel.xib; sourceTree = "<group>"; };
-		AA83A8DF10FA639B002542E4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SaveImageDialog.xib; sourceTree = "<group>"; };
-		AA83A8E210FA63A9002542E4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ProgressPanel.xib; sourceTree = "<group>"; };
 		AA85C3F81CD143BA00952C57 /* GrandPerspectiveScan.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = GrandPerspectiveScan.iconset; path = Images/GrandPerspectiveScan.iconset; sourceTree = "<group>"; };
 		AA8877E80D0C0E3500F52571 /* TreeContext.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = TreeContext.h; path = tree/TreeContext.h; sourceTree = "<group>"; };
 		AA8877E90D0C0E3500F52571 /* TreeContext.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = TreeContext.m; path = tree/TreeContext.m; sourceTree = "<group>"; };
@@ -430,13 +420,23 @@
 		AAC9B6350B7FA94A002B3ECE /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = English.lproj/GrandPerspectiveHelp; sourceTree = "<group>"; };
 		AAD6855008D9FE600096C6C1 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		AAD6ACAE0B8A43D400624F9F /* nl */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AAD702B51CE9C305005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		AAD702B61CE9C305005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DirectoryViewWindow.xib; sourceTree = "<group>"; };
+		AAD702B71CE9C305005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FiltersWindow.xib; sourceTree = "<group>"; };
+		AAD702B81CE9C305005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FilterWindow.xib; sourceTree = "<group>"; };
+		AAD702B91CE9C306005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FilterSelectionPanel.xib; sourceTree = "<group>"; };
+		AAD702BA1CE9C306005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/FilterTestWindow.xib; sourceTree = "<group>"; };
+		AAD702BB1CE9C306005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesPanel.xib; sourceTree = "<group>"; };
+		AAD702BC1CE9C306005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UniformTypeRankingWindow.xib; sourceTree = "<group>"; };
+		AAD702BD1CE9C306005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SaveImageDialog.xib; sourceTree = "<group>"; };
+		AAD702BE1CE9C306005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/StartWindow.xib; sourceTree = "<group>"; };
+		AAD702BF1CE9C306005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProgressPanel.xib; sourceTree = "<group>"; };
 		AAD85B9C1CD92FD300B3AF28 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		AAD8DFB00B077EB90060DADA /* PreferencesPanelControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = PreferencesPanelControl.h; path = control/PreferencesPanelControl.h; sourceTree = "<group>"; };
 		AAD8DFB20B077ED20060DADA /* PreferencesPanelControl.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = PreferencesPanelControl.m; path = control/PreferencesPanelControl.m; sourceTree = "<group>"; };
 		AADD34920B8B902000AC2C97 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Tests.strings; sourceTree = "<group>"; };
 		AADD349A0B8B905900AC2C97 /* nl */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Tests.strings; sourceTree = "<group>"; };
 		AAE4982D1CD158C6003F0A29 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		AAE498301CD15BAF003F0A29 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/StartWindow.xib; sourceTree = "<group>"; };
 		AAE498321CD2A3B7003F0A29 /* RecentDocumentTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentDocumentTableCellView.h; sourceTree = "<group>"; };
 		AAE498331CD2A3B7003F0A29 /* RecentDocumentTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentDocumentTableCellView.m; sourceTree = "<group>"; };
 		AAE498351CD2A57E003F0A29 /* StartWindowControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartWindowControl.h; sourceTree = "<group>"; };
@@ -961,6 +961,7 @@
 				German,
 				nl,
 				fy,
+				Base,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* DirectoryView */;
 			projectDirPath = "";
@@ -1173,8 +1174,8 @@
 		AA524605110201520018897B /* FiltersWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA524606110201520018897B /* English */,
 				AA524608110201650018897B /* nl */,
+				AAD702B71CE9C305005AA800 /* Base */,
 			);
 			name = FiltersWindow.xib;
 			sourceTree = "<group>";
@@ -1182,8 +1183,8 @@
 		AA524609110201780018897B /* FilterWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA52460A110201780018897B /* English */,
 				AA52460C110201870018897B /* nl */,
+				AAD702B81CE9C305005AA800 /* Base */,
 			);
 			name = FilterWindow.xib;
 			sourceTree = "<group>";
@@ -1191,8 +1192,8 @@
 		AA52460D110201990018897B /* FilterTestWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA52460E110201990018897B /* English */,
 				AA524610110201A30018897B /* nl */,
+				AAD702BA1CE9C306005AA800 /* Base */,
 			);
 			name = FilterTestWindow.xib;
 			sourceTree = "<group>";
@@ -1200,8 +1201,8 @@
 		AA524611110201BA0018897B /* UniformTypeRankingWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA524612110201BA0018897B /* English */,
 				AA524614110201C60018897B /* nl */,
+				AAD702BC1CE9C306005AA800 /* Base */,
 			);
 			name = UniformTypeRankingWindow.xib;
 			sourceTree = "<group>";
@@ -1209,8 +1210,8 @@
 		AA524615110202080018897B /* FilterSelectionPanel.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA524616110202080018897B /* English */,
 				AA524618110202110018897B /* nl */,
+				AAD702B91CE9C306005AA800 /* Base */,
 			);
 			name = FilterSelectionPanel.xib;
 			sourceTree = "<group>";
@@ -1236,8 +1237,8 @@
 		AA83A54C10F3D061002542E4 /* DirectoryViewWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA83A54D10F3D061002542E4 /* English */,
 				AA5245F91101D3BA0018897B /* nl */,
+				AAD702B61CE9C305005AA800 /* Base */,
 			);
 			name = DirectoryViewWindow.xib;
 			sourceTree = "<group>";
@@ -1245,8 +1246,8 @@
 		AA83A76210F91791002542E4 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA83A76310F91791002542E4 /* English */,
 				AA5245F11101D3090018897B /* nl */,
+				AAD702B51CE9C305005AA800 /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1254,8 +1255,8 @@
 		AA83A79710F922B8002542E4 /* PreferencesPanel.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA83A79810F922B8002542E4 /* English */,
 				AA5245FF1101D40D0018897B /* nl */,
+				AAD702BB1CE9C306005AA800 /* Base */,
 			);
 			name = PreferencesPanel.xib;
 			sourceTree = "<group>";
@@ -1263,8 +1264,8 @@
 		AA83A8DE10FA639B002542E4 /* SaveImageDialog.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA83A8DF10FA639B002542E4 /* English */,
 				AA5246011101D4200018897B /* nl */,
+				AAD702BD1CE9C306005AA800 /* Base */,
 			);
 			name = SaveImageDialog.xib;
 			sourceTree = "<group>";
@@ -1272,8 +1273,8 @@
 		AA83A8E110FA63A9002542E4 /* ProgressPanel.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA83A8E210FA63A9002542E4 /* English */,
 				AA5246021101D42C0018897B /* nl */,
+				AAD702BF1CE9C306005AA800 /* Base */,
 			);
 			name = ProgressPanel.xib;
 			sourceTree = "<group>";
@@ -1308,8 +1309,8 @@
 		AAE4982F1CD15BAF003F0A29 /* StartWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AAE498301CD15BAF003F0A29 /* English */,
 				AA6FE2961CD63BA000675955 /* nl */,
+				AAD702BE1CE9C306005AA800 /* Base */,
 			);
 			name = StartWindow.xib;
 			sourceTree = "<group>";
