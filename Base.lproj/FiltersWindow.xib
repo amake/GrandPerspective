@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
@@ -19,35 +19,32 @@
         <window title="Filters" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="1">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="107" width="395" height="403"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
-            <value key="minSize" type="size" width="395" height="403"/>
+            <rect key="contentRect" x="196" y="107" width="395" height="333"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1001"/>
             <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="395" height="403"/>
+                <rect key="frame" x="0.0" y="0.0" width="395" height="333"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" title="Available filters" borderType="line" id="3">
-                        <rect key="frame" x="17" y="56" width="361" height="333"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <box autoresizesSubviews="NO" title="Available filters" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                        <rect key="frame" x="17" y="57" width="361" height="256"/>
                         <view key="contentView" id="iSo-Jl-dFP">
-                            <rect key="frame" x="1" y="1" width="359" height="317"/>
+                            <rect key="frame" x="1" y="1" width="359" height="240"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <scrollView horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="4">
-                                    <rect key="frame" x="18" y="14" width="231" height="293"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <scrollView horizontalHuggingPriority="249" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4" userLabel="Bordered Filter View">
+                                    <rect key="frame" x="20" y="20" width="234" height="200"/>
                                     <clipView key="contentView" id="whQ-Ec-EOr">
-                                        <rect key="frame" x="1" y="1" width="229" height="291"/>
+                                        <rect key="frame" x="1" y="1" width="217" height="183"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="7">
-                                                <rect key="frame" x="0.0" y="0.0" width="229" height="19"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="217" height="19"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                 <tableColumns>
-                                                    <tableColumn editable="NO" width="211" minWidth="40" maxWidth="1000" id="9">
+                                                    <tableColumn editable="NO" width="214" minWidth="40" maxWidth="1000" id="9">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -66,28 +63,16 @@
                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </clipView>
                                     <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="6">
-                                        <rect key="frame" x="1" y="277" width="214" height="15"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                        <rect key="frame" x="1" y="184" width="217" height="15"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                     </scroller>
                                     <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="5">
-                                        <rect key="frame" x="215" y="1" width="15" height="276"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                        <rect key="frame" x="218" y="1" width="15" height="183"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                     </scroller>
                                 </scrollView>
-                                <button verticalHuggingPriority="750" id="15">
-                                    <rect key="frame" x="251" y="247" width="96" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="push" title="Edit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="16">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="editFilterInRepository:" target="-2" id="22"/>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" id="17">
-                                    <rect key="frame" x="251" y="215" width="96" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="17">
+                                    <rect key="frame" x="256" y="126" width="89" height="32"/>
                                     <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="18">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -96,9 +81,8 @@
                                         <action selector="removeFilterFromRepository:" target="-2" id="23"/>
                                     </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" id="19">
-                                    <rect key="frame" x="251" y="279" width="96" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="19">
+                                    <rect key="frame" x="256" y="159" width="89" height="32"/>
                                     <buttonCell key="cell" type="push" title="New" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="20">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -107,14 +91,37 @@
                                         <action selector="addFilterToRepository:" target="-2" id="21"/>
                                     </connections>
                                 </button>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="15">
+                                    <rect key="frame" x="256" y="192" width="89" height="32"/>
+                                    <buttonCell key="cell" type="push" title="Edit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="16">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="editFilterInRepository:" target="-2" id="22"/>
+                                    </connections>
+                                </button>
                             </subviews>
+                            <constraints>
+                                <constraint firstItem="15" firstAttribute="top" secondItem="iSo-Jl-dFP" secondAttribute="top" constant="20" id="1Fi-bE-kCt"/>
+                                <constraint firstItem="4" firstAttribute="leading" secondItem="iSo-Jl-dFP" secondAttribute="leading" constant="20" id="2X0-dp-VFE"/>
+                                <constraint firstAttribute="trailing" secondItem="17" secondAttribute="trailing" constant="20" symbolic="YES" id="5cs-cV-ujB"/>
+                                <constraint firstItem="15" firstAttribute="leading" secondItem="4" secondAttribute="trailing" constant="8" symbolic="YES" id="Cjg-uz-PdU"/>
+                                <constraint firstAttribute="trailing" secondItem="19" secondAttribute="trailing" constant="20" symbolic="YES" id="L4G-2g-ghO"/>
+                                <constraint firstItem="19" firstAttribute="top" secondItem="15" secondAttribute="bottom" constant="12" id="OLa-z2-Ge0"/>
+                                <constraint firstItem="19" firstAttribute="width" secondItem="17" secondAttribute="width" id="Q2C-zz-3xB"/>
+                                <constraint firstItem="17" firstAttribute="top" secondItem="19" secondAttribute="bottom" constant="12" id="awC-FB-IO2"/>
+                                <constraint firstAttribute="trailing" secondItem="15" secondAttribute="trailing" constant="20" symbolic="YES" id="b7a-ZU-F8f"/>
+                                <constraint firstItem="4" firstAttribute="top" secondItem="iSo-Jl-dFP" secondAttribute="top" constant="20" id="dxu-6c-HSW"/>
+                                <constraint firstItem="15" firstAttribute="width" secondItem="19" secondAttribute="width" id="sEP-AI-KDh"/>
+                                <constraint firstAttribute="bottom" secondItem="4" secondAttribute="bottom" constant="20" symbolic="YES" id="zac-ip-PpV"/>
+                            </constraints>
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <button verticalHuggingPriority="750" id="13">
-                        <rect key="frame" x="285" y="12" width="96" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="13">
+                        <rect key="frame" x="322" y="13" width="59" height="32"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="14">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -124,7 +131,16 @@
                         </connections>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="13" firstAttribute="top" secondItem="3" secondAttribute="bottom" constant="20" id="2eL-1A-sKh"/>
+                    <constraint firstAttribute="trailing" secondItem="3" secondAttribute="trailing" constant="20" id="2f7-6e-Nuh"/>
+                    <constraint firstItem="3" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" id="JEL-GY-c9d"/>
+                    <constraint firstAttribute="trailing" secondItem="13" secondAttribute="trailing" constant="20" id="WjZ-Od-iuY"/>
+                    <constraint firstItem="3" firstAttribute="top" secondItem="2" secondAttribute="top" constant="20" id="gcP-bv-3QD"/>
+                    <constraint firstAttribute="bottom" secondItem="13" secondAttribute="bottom" constant="20" id="nXW-hl-0MJ"/>
+                </constraints>
             </view>
+            <point key="canvasLocation" x="221.5" y="164.5"/>
         </window>
     </objects>
 </document>
