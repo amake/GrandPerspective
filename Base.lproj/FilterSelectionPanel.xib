@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
@@ -18,21 +18,20 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="349" width="303" height="161"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1002"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1001"/>
+            <value key="minSize" type="size" width="303" height="161"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="303" height="161"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" title="Filter" borderType="line" id="11">
+                    <box autoresizesSubviews="NO" title="Filter" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="11">
                         <rect key="frame" x="17" y="56" width="269" height="100"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <view key="contentView" id="dlB-ey-yJS">
                             <rect key="frame" x="1" y="1" width="267" height="84"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <popUpButton verticalHuggingPriority="750" id="12">
+                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="12">
                                     <rect key="frame" x="15" y="50" width="237" height="26"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="15" id="13">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="menu"/>
@@ -45,9 +44,8 @@
                                         </menu>
                                     </popUpButtonCell>
                                 </popUpButton>
-                                <button verticalHuggingPriority="750" id="18">
-                                    <rect key="frame" x="159" y="6" width="96" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="18">
+                                    <rect key="frame" x="188" y="6" width="67" height="32"/>
                                     <buttonCell key="cell" type="push" title="New" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="19">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -56,9 +54,8 @@
                                         <action selector="addFilter:" target="-2" id="27"/>
                                     </connections>
                                 </button>
-                                <button verticalHuggingPriority="750" id="24">
-                                    <rect key="frame" x="63" y="6" width="96" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="24">
+                                    <rect key="frame" x="121" y="6" width="67" height="32"/>
                                     <buttonCell key="cell" type="push" title="Edit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="25">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -68,13 +65,22 @@
                                     </connections>
                                 </button>
                             </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="18" secondAttribute="bottom" constant="13" id="7e1-qV-PpQ"/>
+                                <constraint firstItem="18" firstAttribute="leading" secondItem="24" secondAttribute="trailing" constant="12" id="9eE-a2-LcH"/>
+                                <constraint firstAttribute="bottom" secondItem="24" secondAttribute="bottom" constant="13" id="GC0-IR-IIe"/>
+                                <constraint firstItem="18" firstAttribute="width" secondItem="24" secondAttribute="width" id="ITQ-W7-FnG"/>
+                                <constraint firstItem="12" firstAttribute="top" secondItem="dlB-ey-yJS" secondAttribute="top" constant="10" id="Kz4-bq-Vg7"/>
+                                <constraint firstAttribute="trailing" secondItem="12" secondAttribute="trailing" constant="18" id="Lni-KF-UUm"/>
+                                <constraint firstAttribute="trailing" secondItem="18" secondAttribute="trailing" constant="18" id="f65-Gc-E5z"/>
+                                <constraint firstItem="12" firstAttribute="leading" secondItem="dlB-ey-yJS" secondAttribute="leading" constant="17" id="lD4-Do-i9m"/>
+                            </constraints>
                         </view>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <button verticalHuggingPriority="750" id="20">
-                        <rect key="frame" x="193" y="12" width="96" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="20">
+                        <rect key="frame" x="207" y="12" width="82" height="32"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="21">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -83,9 +89,8 @@
                             <action selector="okAction:" target="-2" id="29"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" id="22">
-                        <rect key="frame" x="97" y="12" width="96" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="22">
+                        <rect key="frame" x="125" y="12" width="82" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="23">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -95,6 +100,17 @@
                         </connections>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="20" secondAttribute="trailing" constant="20" id="22E-jR-Zld"/>
+                    <constraint firstItem="20" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="12" id="9dW-m7-r9D"/>
+                    <constraint firstAttribute="bottom" secondItem="22" secondAttribute="bottom" constant="19" id="CsJ-hj-pJr"/>
+                    <constraint firstAttribute="bottom" secondItem="20" secondAttribute="bottom" constant="19" id="Hqe-a2-kxz"/>
+                    <constraint firstItem="22" firstAttribute="top" secondItem="11" secondAttribute="bottom" constant="20" id="RM6-Oc-Q7E"/>
+                    <constraint firstItem="11" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" id="Yho-PE-P5E"/>
+                    <constraint firstItem="11" firstAttribute="top" secondItem="2" secondAttribute="top" constant="5" id="jxC-a9-p77"/>
+                    <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" constant="20" id="uKo-by-0r4"/>
+                    <constraint firstItem="22" firstAttribute="width" secondItem="20" secondAttribute="width" id="wMj-ZE-UyE"/>
+                </constraints>
             </view>
         </window>
     </objects>
