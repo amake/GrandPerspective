@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1070" identifier="macosx"/>
+        <deployment version="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
@@ -196,14 +196,14 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                 </button>
-                                <scrollView horizontalHuggingPriority="248" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="249" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="127">
+                                <scrollView verticalHuggingPriority="249" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="249" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="127">
                                     <rect key="frame" x="80" y="409" width="174" height="79"/>
-                                    <clipView key="contentView" horizontalHuggingPriority="249" id="c9n-n3-sKV">
+                                    <clipView key="contentView" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" id="c9n-n3-sKV">
                                         <rect key="frame" x="1" y="1" width="172" height="77"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView horizontalHuggingPriority="249" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="130">
-                                                <rect key="frame" x="0.0" y="0.0" width="172" height="77"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="172" height="19"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -236,30 +236,20 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                 </scrollView>
-                                <button horizontalHuggingPriority="252" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="157">
-                                    <rect key="frame" x="256" y="332" width="89" height="32"/>
-                                    <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="501">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="addPathTarget:" target="-2" id="266"/>
-                                    </connections>
-                                </button>
-                                <scrollView horizontalHuggingPriority="248" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="249" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="158">
-                                    <rect key="frame" x="80" y="280" width="174" height="80"/>
-                                    <clipView key="contentView" horizontalHuggingPriority="249" ambiguous="YES" id="ij3-Xq-Dlp">
-                                        <rect key="frame" x="1" y="1" width="172" height="78"/>
+                                <scrollView verticalHuggingPriority="249" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="249" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="158">
+                                    <rect key="frame" x="79" y="280" width="175" height="80"/>
+                                    <clipView key="contentView" horizontalHuggingPriority="249" id="ij3-Xq-Dlp">
+                                        <rect key="frame" x="1" y="1" width="173" height="78"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView horizontalHuggingPriority="249" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="159">
-                                                <rect key="frame" x="0.0" y="0.0" width="172" height="78"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="173" height="19"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                 <tableColumns>
-                                                    <tableColumn width="169" minWidth="40" maxWidth="1000" id="162">
+                                                    <tableColumn width="170" minWidth="40" maxWidth="1000" id="162">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -278,7 +268,7 @@
                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </clipView>
                                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="521">
-                                        <rect key="frame" x="1" y="-14" width="26" height="15"/>
+                                        <rect key="frame" x="1" y="64" width="0.0" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="520">
@@ -287,7 +277,7 @@
                                     </scroller>
                                 </scrollView>
                                 <button horizontalHuggingPriority="251" verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="166">
-                                    <rect key="frame" x="18" y="113" width="56" height="18"/>
+                                    <rect key="frame" x="18" y="113" width="55" height="18"/>
                                     <buttonCell key="cell" type="check" title="item" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="502">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -296,8 +286,8 @@
                                         <action selector="hardLinkCheckBoxChanged:" target="-2" id="222"/>
                                     </connections>
                                 </button>
-                                <popUpButton verticalHuggingPriority="754" verticalCompressionResistancePriority="754" translatesAutoresizingMaskIntoConstraints="NO" id="170">
-                                    <rect key="frame" x="78" y="108" width="71" height="26"/>
+                                <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="754" verticalCompressionResistancePriority="754" translatesAutoresizingMaskIntoConstraints="NO" id="170">
+                                    <rect key="frame" x="77" y="108" width="71" height="26"/>
                                     <popUpButtonCell key="cell" type="push" title="is" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="173" id="503">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="menu"/>
@@ -309,8 +299,8 @@
                                         </menu>
                                     </popUpButtonCell>
                                 </popUpButton>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="176">
-                                    <rect key="frame" x="151" y="113" width="74" height="17"/>
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="176">
+                                    <rect key="frame" x="150" y="113" width="191" height="17"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="hard-linked" id="504">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -318,7 +308,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="178">
-                                    <rect key="frame" x="18" y="82" width="56" height="18"/>
+                                    <rect key="frame" x="18" y="82" width="55" height="18"/>
                                     <buttonCell key="cell" type="check" title="item" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="505">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -327,16 +317,16 @@
                                         <action selector="packageCheckBoxChanged:" target="-2" id="221"/>
                                     </connections>
                                 </button>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="179">
-                                    <rect key="frame" x="151" y="82" width="66" height="17"/>
+                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="500" translatesAutoresizingMaskIntoConstraints="NO" id="179">
+                                    <rect key="frame" x="150" y="82" width="191" height="17"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="a package" id="506">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <popUpButton verticalHuggingPriority="755" verticalCompressionResistancePriority="755" translatesAutoresizingMaskIntoConstraints="NO" id="180">
-                                    <rect key="frame" x="78" y="77" width="71" height="26"/>
+                                <popUpButton horizontalHuggingPriority="750" verticalHuggingPriority="755" verticalCompressionResistancePriority="755" translatesAutoresizingMaskIntoConstraints="NO" id="180">
+                                    <rect key="frame" x="77" y="77" width="71" height="26"/>
                                     <popUpButtonCell key="cell" type="push" title="is" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="184" id="507">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="menu"/>
@@ -349,7 +339,7 @@
                                     </popUpButtonCell>
                                 </popUpButton>
                                 <button horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="187">
-                                    <rect key="frame" x="18" y="241" width="56" height="18"/>
+                                    <rect key="frame" x="18" y="241" width="49" height="18"/>
                                     <buttonCell key="cell" type="check" title="type" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="508">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -358,7 +348,7 @@
                                         <action selector="typeCheckBoxChanged:" target="-2" id="223"/>
                                     </connections>
                                 </button>
-                                <button horizontalHuggingPriority="252" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="189">
+                                <button horizontalHuggingPriority="500" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="189">
                                     <rect key="frame" x="256" y="168" width="89" height="32"/>
                                     <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="509">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -368,20 +358,88 @@
                                         <action selector="removeTypeTarget:" target="-2" id="392"/>
                                     </connections>
                                 </button>
-                                <scrollView horizontalHuggingPriority="248" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="249" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="190">
-                                    <rect key="frame" x="80" y="152" width="174" height="79"/>
+                                <button horizontalHuggingPriority="500" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="199">
+                                    <rect key="frame" x="256" y="427" width="89" height="32"/>
+                                    <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="510">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="removeNameTarget:" target="-2" id="265"/>
+                                    </connections>
+                                </button>
+                                <button horizontalHuggingPriority="500" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="200">
+                                    <rect key="frame" x="256" y="460" width="89" height="32"/>
+                                    <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="511">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="addNameTarget:" target="-2" id="264"/>
+                                    </connections>
+                                </button>
+                                <popUpButton verticalHuggingPriority="753" verticalCompressionResistancePriority="753" translatesAutoresizingMaskIntoConstraints="NO" id="384">
+                                    <rect key="frame" x="77" y="236" width="110" height="26"/>
+                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" inset="2" id="512">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="menu"/>
+                                        <menu key="menu" title="OtherViews" id="386">
+                                            <items>
+                                                <menuItem title="conforms to" id="387"/>
+                                                <menuItem title="equals" id="388"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                </popUpButton>
+                                <popUpButton horizontalHuggingPriority="500" verticalHuggingPriority="750" horizontalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="393">
+                                    <rect key="frame" x="260" y="207" width="82" height="26"/>
+                                    <popUpButtonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="396" id="513">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="menu"/>
+                                        <menu key="menu" title="OtherViews" id="395">
+                                            <items>
+                                                <menuItem title="Add" state="on" id="396"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                    <connections>
+                                        <action selector="addTypeTarget:" target="-2" id="400"/>
+                                    </connections>
+                                </popUpButton>
+                                <button horizontalHuggingPriority="500" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="156">
+                                    <rect key="frame" x="256" y="299" width="89" height="32"/>
+                                    <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="500">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="removePathTarget:" target="-2" id="267"/>
+                                    </connections>
+                                </button>
+                                <button horizontalHuggingPriority="500" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="157">
+                                    <rect key="frame" x="256" y="332" width="89" height="32"/>
+                                    <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="501">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="addPathTarget:" target="-2" id="266"/>
+                                    </connections>
+                                </button>
+                                <scrollView verticalHuggingPriority="249" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="249" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="190">
+                                    <rect key="frame" x="79" y="152" width="175" height="79"/>
                                     <clipView key="contentView" horizontalHuggingPriority="249" id="UoG-VR-Waz">
-                                        <rect key="frame" x="1" y="1" width="172" height="77"/>
+                                        <rect key="frame" x="1" y="1" width="173" height="77"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView horizontalHuggingPriority="249" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="195">
-                                                <rect key="frame" x="0.0" y="0.0" width="172" height="77"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="173" height="19"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                 <tableColumns>
-                                                    <tableColumn editable="NO" width="169" minWidth="40" maxWidth="1000" id="196">
+                                                    <tableColumn editable="NO" width="170" minWidth="40" maxWidth="1000" id="196">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -400,7 +458,7 @@
                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </clipView>
                                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="523">
-                                        <rect key="frame" x="-7" y="-14" width="0.0" height="15"/>
+                                        <rect key="frame" x="1" y="63" width="0.0" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="522">
@@ -408,80 +466,21 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                 </scrollView>
-                                <button horizontalHuggingPriority="252" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="199">
-                                    <rect key="frame" x="256" y="427" width="89" height="32"/>
-                                    <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="510">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="removeNameTarget:" target="-2" id="265"/>
-                                    </connections>
-                                </button>
-                                <button horizontalHuggingPriority="252" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="200">
-                                    <rect key="frame" x="256" y="460" width="89" height="32"/>
-                                    <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="511">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="addNameTarget:" target="-2" id="264"/>
-                                    </connections>
-                                </button>
-                                <popUpButton verticalHuggingPriority="753" verticalCompressionResistancePriority="753" translatesAutoresizingMaskIntoConstraints="NO" id="384">
-                                    <rect key="frame" x="78" y="236" width="110" height="26"/>
-                                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" inset="2" id="512">
-                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="menu"/>
-                                        <menu key="menu" title="OtherViews" id="386">
-                                            <items>
-                                                <menuItem title="conforms to" id="387"/>
-                                                <menuItem title="equals" id="388"/>
-                                            </items>
-                                        </menu>
-                                    </popUpButtonCell>
-                                </popUpButton>
-                                <popUpButton horizontalHuggingPriority="252" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="393">
-                                    <rect key="frame" x="260" y="207" width="82" height="26"/>
-                                    <popUpButtonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="396" id="513">
-                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="menu"/>
-                                        <menu key="menu" title="OtherViews" id="395">
-                                            <items>
-                                                <menuItem title="Add" state="on" id="396"/>
-                                            </items>
-                                        </menu>
-                                    </popUpButtonCell>
-                                    <connections>
-                                        <action selector="addTypeTarget:" target="-2" id="400"/>
-                                    </connections>
-                                </popUpButton>
-                                <button horizontalHuggingPriority="252" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="156">
-                                    <rect key="frame" x="256" y="299" width="89" height="32"/>
-                                    <buttonCell key="cell" type="push" title="Remove" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="500">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="removePathTarget:" target="-2" id="267"/>
-                                    </connections>
-                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="166" firstAttribute="leading" secondItem="J1E-JW-09K" secondAttribute="leading" constant="20" symbolic="YES" id="0Dj-Hs-fZ9"/>
-                                <constraint firstItem="166" firstAttribute="width" secondItem="178" secondAttribute="width" id="0fE-ix-qrq"/>
                                 <constraint firstItem="36" firstAttribute="leading" secondItem="J1E-JW-09K" secondAttribute="leading" constant="20" symbolic="YES" id="0r1-GM-9RJ"/>
                                 <constraint firstItem="384" firstAttribute="centerY" secondItem="187" secondAttribute="centerY" id="10m-m1-8gu"/>
                                 <constraint firstItem="49" firstAttribute="width" secondItem="55" secondAttribute="width" id="16a-ah-Laf"/>
                                 <constraint firstItem="158" firstAttribute="top" secondItem="38" secondAttribute="bottom" constant="8" symbolic="YES" id="1Bv-Wl-NEO"/>
                                 <constraint firstItem="55" firstAttribute="leading" secondItem="54" secondAttribute="trailing" constant="8" symbolic="YES" id="2av-XO-WqT"/>
-                                <constraint firstItem="157" firstAttribute="width" secondItem="156" secondAttribute="width" id="2dL-8L-mdb"/>
                                 <constraint firstItem="38" firstAttribute="height" secondItem="384" secondAttribute="height" id="2p7-AH-cUm"/>
                                 <constraint firstItem="43" firstAttribute="leading" secondItem="J1E-JW-09K" secondAttribute="leading" constant="20" symbolic="YES" id="2t5-di-lMw"/>
                                 <constraint firstAttribute="trailing" secondItem="49" secondAttribute="trailing" constant="20" symbolic="YES" id="3Lo-BJ-g5N"/>
                                 <constraint firstItem="180" firstAttribute="centerY" secondItem="179" secondAttribute="centerY" id="47L-S8-Rl8"/>
                                 <constraint firstItem="44" firstAttribute="centerY" secondItem="49" secondAttribute="centerY" id="5fr-kg-Tw8"/>
                                 <constraint firstItem="38" firstAttribute="leading" secondItem="37" secondAttribute="trailing" constant="8" symbolic="YES" id="5yh-yo-5KH"/>
+                                <constraint firstItem="157" firstAttribute="leading" secondItem="158" secondAttribute="trailing" constant="8" symbolic="YES" id="86l-ha-vnv"/>
                                 <constraint firstItem="20" firstAttribute="leading" secondItem="36" secondAttribute="trailing" constant="8" symbolic="YES" id="8hG-vd-Lmu"/>
                                 <constraint firstItem="52" firstAttribute="centerY" secondItem="54" secondAttribute="centerY" id="8vy-Yx-YaI"/>
                                 <constraint firstItem="170" firstAttribute="leading" secondItem="166" secondAttribute="trailing" constant="8" symbolic="YES" id="9QO-Te-tOJ"/>
@@ -497,14 +496,13 @@
                                 <constraint firstItem="199" firstAttribute="top" secondItem="200" secondAttribute="bottom" constant="12" symbolic="YES" id="DL6-LR-2kg"/>
                                 <constraint firstItem="176" firstAttribute="leading" secondItem="170" secondAttribute="trailing" constant="7" id="DfB-tx-JE7"/>
                                 <constraint firstItem="189" firstAttribute="top" secondItem="393" secondAttribute="bottom" constant="14" id="DfS-nE-HfD"/>
-                                <constraint firstItem="187" firstAttribute="width" secondItem="166" secondAttribute="width" id="Ecg-JF-RZh"/>
+                                <constraint firstItem="156" firstAttribute="leading" secondItem="393" secondAttribute="leading" id="ElZ-tr-8w2"/>
+                                <constraint firstItem="170" firstAttribute="leading" secondItem="180" secondAttribute="leading" id="ExL-MM-p9L"/>
                                 <constraint firstItem="49" firstAttribute="leading" secondItem="44" secondAttribute="trailing" constant="8" symbolic="YES" id="GMW-9P-3Pe"/>
                                 <constraint firstItem="127" firstAttribute="top" secondItem="20" secondAttribute="bottom" constant="8" symbolic="YES" id="GjK-QH-c5z"/>
                                 <constraint firstItem="170" firstAttribute="height" secondItem="180" secondAttribute="height" id="HWq-Pi-BsH"/>
                                 <constraint firstItem="180" firstAttribute="leading" secondItem="178" secondAttribute="trailing" constant="8" symbolic="YES" id="Huz-G8-Wvc"/>
-                                <constraint firstItem="200" firstAttribute="width" secondItem="199" secondAttribute="width" id="IM4-VU-35f"/>
                                 <constraint firstItem="36" firstAttribute="centerY" secondItem="20" secondAttribute="centerY" id="IQu-SS-8Sx"/>
-                                <constraint firstItem="37" firstAttribute="width" secondItem="187" secondAttribute="width" id="Jgk-Hq-s4f"/>
                                 <constraint firstItem="52" firstAttribute="height" secondItem="54" secondAttribute="height" id="Jmy-N9-8om"/>
                                 <constraint firstAttribute="bottom" secondItem="52" secondAttribute="bottom" constant="20" symbolic="YES" id="KEO-7Y-ysb"/>
                                 <constraint firstItem="20" firstAttribute="height" secondItem="38" secondAttribute="height" id="KUn-eI-TMH"/>
@@ -514,46 +512,45 @@
                                 <constraint firstItem="98" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="38" secondAttribute="trailing" constant="8" symbolic="YES" id="OaM-Uc-KWf"/>
                                 <constraint firstItem="97" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="20" secondAttribute="trailing" constant="8" symbolic="YES" id="OcY-Hc-ZiB"/>
                                 <constraint firstAttribute="trailing" secondItem="97" secondAttribute="trailing" constant="20" symbolic="YES" id="Pg4-0t-1zj"/>
-                                <constraint firstItem="158" firstAttribute="width" secondItem="127" secondAttribute="width" id="QGH-YG-lDk"/>
                                 <constraint firstItem="187" firstAttribute="leading" secondItem="J1E-JW-09K" secondAttribute="leading" constant="20" symbolic="YES" id="QyN-9R-jXb"/>
-                                <constraint firstItem="156" firstAttribute="width" secondItem="393" secondAttribute="width" id="R8T-Ry-WDh"/>
                                 <constraint firstAttribute="trailing" secondItem="199" secondAttribute="trailing" constant="20" symbolic="YES" id="SH1-Kx-Rjc"/>
                                 <constraint firstItem="393" firstAttribute="top" secondItem="190" secondAttribute="top" id="Sei-Jw-HLZ"/>
                                 <constraint firstItem="157" firstAttribute="top" secondItem="158" secondAttribute="top" id="VYW-kY-6Fz"/>
                                 <constraint firstAttribute="trailing" secondItem="156" secondAttribute="trailing" constant="20" symbolic="YES" id="XMz-HG-0YA"/>
+                                <constraint firstItem="200" firstAttribute="leading" secondItem="199" secondAttribute="leading" id="Xc9-kW-iEb"/>
                                 <constraint firstItem="43" firstAttribute="width" secondItem="52" secondAttribute="width" id="Z2F-h7-ODU"/>
                                 <constraint firstItem="200" firstAttribute="top" secondItem="127" secondAttribute="top" id="ZIp-d7-nP2"/>
                                 <constraint firstItem="44" firstAttribute="top" secondItem="180" secondAttribute="bottom" constant="8" symbolic="YES" id="aC5-I9-yCC"/>
-                                <constraint firstItem="36" firstAttribute="width" secondItem="37" secondAttribute="width" id="aZd-9P-X5Y"/>
                                 <constraint firstAttribute="trailing" secondItem="157" secondAttribute="trailing" constant="20" symbolic="YES" id="alc-43-Vgs"/>
                                 <constraint firstItem="158" firstAttribute="height" secondItem="127" secondAttribute="height" id="b17-uc-1jD"/>
                                 <constraint firstAttribute="trailing" secondItem="200" secondAttribute="trailing" constant="20" symbolic="YES" id="bte-jY-vuI"/>
                                 <constraint firstItem="384" firstAttribute="height" secondItem="170" secondAttribute="height" id="cE8-YN-PgC"/>
-                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="179" secondAttribute="trailing" constant="20" symbolic="YES" id="cIa-LI-sAW"/>
-                                <constraint firstItem="158" firstAttribute="width" secondItem="190" secondAttribute="width" id="coK-fH-aIL"/>
                                 <constraint firstItem="54" firstAttribute="leading" secondItem="52" secondAttribute="trailing" constant="8" symbolic="YES" id="ctp-C7-pmI"/>
                                 <constraint firstItem="200" firstAttribute="leading" secondItem="127" secondAttribute="trailing" constant="8" symbolic="YES" id="fyj-Xp-1Ji"/>
                                 <constraint firstItem="20" firstAttribute="leading" secondItem="127" secondAttribute="leading" id="g5Q-jJ-kcD"/>
                                 <constraint firstAttribute="trailing" secondItem="189" secondAttribute="trailing" constant="20" symbolic="YES" id="gLs-L8-Yiu"/>
-                                <constraint firstItem="157" firstAttribute="width" secondItem="199" secondAttribute="width" id="haq-lq-bP7"/>
-                                <constraint firstItem="393" firstAttribute="width" secondItem="189" secondAttribute="width" id="iR5-lb-2BI"/>
+                                <constraint firstItem="127" firstAttribute="leading" secondItem="38" secondAttribute="leading" id="htJ-hz-AaY"/>
                                 <constraint firstItem="158" firstAttribute="leading" secondItem="384" secondAttribute="leading" id="kDa-9Y-AvR"/>
                                 <constraint firstItem="170" firstAttribute="top" secondItem="190" secondAttribute="bottom" constant="20" symbolic="YES" id="ltg-bj-ZOn"/>
                                 <constraint firstItem="52" firstAttribute="leading" secondItem="J1E-JW-09K" secondAttribute="leading" constant="20" symbolic="YES" id="mWj-Sm-rR0"/>
                                 <constraint firstItem="54" firstAttribute="centerY" secondItem="55" secondAttribute="centerY" id="nGI-Ka-bAe"/>
                                 <constraint firstItem="38" firstAttribute="leading" secondItem="159" secondAttribute="leading" id="nPd-Jz-H90"/>
                                 <constraint firstItem="179" firstAttribute="leading" secondItem="180" secondAttribute="trailing" constant="7" id="o1p-zi-djC"/>
+                                <constraint firstItem="393" firstAttribute="leading" secondItem="189" secondAttribute="leading" id="oFc-Wd-AyI"/>
                                 <constraint firstItem="54" firstAttribute="top" secondItem="44" secondAttribute="bottom" constant="8" id="qmc-gS-EUh"/>
                                 <constraint firstItem="170" firstAttribute="centerY" secondItem="166" secondAttribute="centerY" id="r1p-cx-Y40"/>
                                 <constraint firstItem="180" firstAttribute="width" secondItem="170" secondAttribute="width" id="rYs-aa-aL4"/>
+                                <constraint firstAttribute="trailing" secondItem="179" secondAttribute="trailing" constant="20" symbolic="YES" id="sAi-Iq-Og1"/>
                                 <constraint firstAttribute="trailing" secondItem="55" secondAttribute="trailing" constant="20" symbolic="YES" id="tcI-NB-g9K"/>
                                 <constraint firstItem="384" firstAttribute="leading" secondItem="190" secondAttribute="leading" id="uOI-HY-brB"/>
+                                <constraint firstItem="393" firstAttribute="leading" secondItem="190" secondAttribute="trailing" constant="8" symbolic="YES" id="v5x-dP-Nf3"/>
                                 <constraint firstItem="37" firstAttribute="leading" secondItem="J1E-JW-09K" secondAttribute="leading" constant="20" symbolic="YES" id="vMx-Cv-NL6"/>
                                 <constraint firstItem="20" firstAttribute="top" secondItem="J1E-JW-09K" secondAttribute="top" constant="20" symbolic="YES" id="vR0-hd-t3n"/>
                                 <constraint firstItem="178" firstAttribute="leading" secondItem="J1E-JW-09K" secondAttribute="leading" constant="20" symbolic="YES" id="wUL-tl-2Qv"/>
                                 <constraint firstAttribute="trailing" secondItem="98" secondAttribute="trailing" constant="20" symbolic="YES" id="wZ2-L9-obv"/>
                                 <constraint firstItem="97" firstAttribute="centerY" secondItem="20" secondAttribute="centerY" id="wkb-ET-XL3"/>
-                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="176" secondAttribute="trailing" constant="20" symbolic="YES" id="ws7-cI-1gc"/>
+                                <constraint firstAttribute="trailing" secondItem="176" secondAttribute="trailing" constant="20" symbolic="YES" id="ws7-cI-1gc"/>
+                                <constraint firstItem="157" firstAttribute="centerX" secondItem="156" secondAttribute="centerX" id="x94-Ea-ief"/>
                                 <constraint firstItem="156" firstAttribute="top" secondItem="157" secondAttribute="bottom" constant="12" symbolic="YES" id="xd3-1b-l1z"/>
                                 <constraint firstItem="384" firstAttribute="top" secondItem="158" secondAttribute="bottom" constant="20" id="ywV-Cc-NMp"/>
                                 <constraint firstItem="44" firstAttribute="width" secondItem="54" secondAttribute="width" id="zGu-fa-ZvH"/>
@@ -650,7 +647,6 @@ Gw
                     <constraint firstItem="148" firstAttribute="width" secondItem="7" secondAttribute="width" id="fAL-sJ-HrZ"/>
                     <constraint firstItem="7" firstAttribute="centerY" secondItem="8DW-Mt-Mm2" secondAttribute="centerY" id="heZ-35-9Mq"/>
                     <constraint firstItem="12" firstAttribute="centerY" secondItem="11" secondAttribute="centerY" id="jEU-Gl-lgV"/>
-                    <constraint firstItem="11" firstAttribute="height" secondItem="12" secondAttribute="height" id="mDC-pF-mQm"/>
                     <constraint firstItem="11" firstAttribute="top" secondItem="J1E-JW-09K" secondAttribute="bottom" constant="20" id="o2p-Ab-kpv"/>
                     <constraint firstItem="148" firstAttribute="top" secondItem="7" secondAttribute="bottom" constant="10" id="rfD-1d-bQi"/>
                     <constraint firstAttribute="trailing" secondItem="7" secondAttribute="trailing" constant="20" symbolic="YES" id="sz3-UE-BbE"/>
