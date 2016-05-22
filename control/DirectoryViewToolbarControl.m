@@ -135,6 +135,11 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
      [[[ToolbarSegmentedCell alloc] 
           initWithSegmentedCell: [focusControls cell]] autorelease]];
 
+  // Disable auto-layout for toolbar controls. This is apparantly needed for the
+  // toolbar to be layed out correctly.
+  [zoomControls setTranslatesAutoresizingMaskIntoConstraints: YES];
+  [focusControls setTranslatesAutoresizingMaskIntoConstraints: YES];
+
   // Set the actions for the controls. This is not done in Interface Builder 
   // as changing the cells resets it again. Furthermore, might as well do it
   // here once, as opposed to in all (localized) versions of the NIB file.
