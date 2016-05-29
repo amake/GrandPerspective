@@ -30,6 +30,7 @@
             <rect key="contentRect" x="225" y="399" width="386" height="474"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1001"/>
             <value key="minSize" type="size" width="386" height="431"/>
+            <value key="maxSize" type="size" width="480" height="474"/>
             <view key="contentView" id="5">
                 <rect key="frame" x="0.0" y="0.0" width="386" height="474"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -70,7 +71,7 @@
                                         <action selector="popUpValueChanged:" target="-2" id="87"/>
                                     </connections>
                                 </popUpButton>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="55">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="55">
                                     <rect key="frame" x="18" y="109" width="117" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Palette:" id="167">
                                         <font key="font" metaFont="smallSystem"/>
@@ -96,7 +97,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="180">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="180">
                                     <rect key="frame" x="18" y="78" width="117" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Filter:" id="181">
                                         <font key="font" metaFont="smallSystem"/>
@@ -201,7 +202,7 @@
                                         <action selector="popUpValueChanged:" target="-2" id="212"/>
                                     </connections>
                                 </popUpButton>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="64">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="64">
                                     <rect key="frame" x="18" y="54" width="117" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="File size measure:" id="174">
                                         <font key="font" metaFont="smallSystem"/>
@@ -209,7 +210,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="213">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="213">
                                     <rect key="frame" x="18" y="24" width="117" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="File size unit system:" id="214">
                                         <font key="font" metaFont="smallSystem"/>
@@ -269,7 +270,7 @@
                                         <action selector="valueChanged:" target="-2" id="84"/>
                                     </connections>
                                 </button>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="85">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
                                     <rect key="frame" x="18" y="116" width="117" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Enable deletion of:" id="177">
                                         <font key="font" metaFont="smallSystem"/>
@@ -277,7 +278,7 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="148">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="148">
                                     <rect key="frame" x="18" y="24" width="117" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="After full rescan:" id="178">
                                         <font key="font" metaFont="smallSystem"/>
@@ -300,7 +301,7 @@
                                         <action selector="popUpValueChanged:" target="-2" id="158"/>
                                     </connections>
                                 </popUpButton>
-                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="188">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="188">
                                     <rect key="frame" x="18" y="54" width="117" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Rescan action:" id="189">
                                         <font key="font" metaFont="smallSystem"/>

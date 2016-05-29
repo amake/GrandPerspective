@@ -199,7 +199,7 @@
                                 <scrollView verticalHuggingPriority="249" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="249" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="127">
                                     <rect key="frame" x="80" y="409" width="174" height="79"/>
                                     <clipView key="contentView" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" id="c9n-n3-sKV">
-                                        <rect key="frame" x="1" y="1" width="172" height="77"/>
+                                        <rect key="frame" x="1.5" y="1" width="172" height="77"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView horizontalHuggingPriority="249" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="130">
@@ -239,7 +239,7 @@
                                 <scrollView verticalHuggingPriority="249" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="249" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="158">
                                     <rect key="frame" x="79" y="280" width="175" height="80"/>
                                     <clipView key="contentView" horizontalHuggingPriority="249" id="ij3-Xq-Dlp">
-                                        <rect key="frame" x="1" y="1" width="173" height="78"/>
+                                        <rect key="frame" x="1.5" y="1" width="173" height="78"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView horizontalHuggingPriority="249" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="159">
@@ -339,7 +339,7 @@
                                     </popUpButtonCell>
                                 </popUpButton>
                                 <button horizontalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="187">
-                                    <rect key="frame" x="18" y="241" width="49" height="18"/>
+                                    <rect key="frame" x="18" y="241" width="55" height="18"/>
                                     <buttonCell key="cell" type="check" title="type" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="508">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -429,7 +429,7 @@
                                 <scrollView verticalHuggingPriority="249" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="249" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="190">
                                     <rect key="frame" x="79" y="152" width="175" height="79"/>
                                     <clipView key="contentView" horizontalHuggingPriority="249" id="UoG-VR-Waz">
-                                        <rect key="frame" x="1" y="1" width="173" height="77"/>
+                                        <rect key="frame" x="1.5" y="1" width="173" height="77"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView horizontalHuggingPriority="249" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="195">
@@ -473,6 +473,7 @@
                                 <constraint firstItem="384" firstAttribute="centerY" secondItem="187" secondAttribute="centerY" id="10m-m1-8gu"/>
                                 <constraint firstItem="49" firstAttribute="width" secondItem="55" secondAttribute="width" id="16a-ah-Laf"/>
                                 <constraint firstItem="158" firstAttribute="top" secondItem="38" secondAttribute="bottom" constant="8" symbolic="YES" id="1Bv-Wl-NEO"/>
+                                <constraint firstItem="384" firstAttribute="leading" secondItem="187" secondAttribute="trailing" constant="8" symbolic="YES" id="2AD-gH-hRp"/>
                                 <constraint firstItem="55" firstAttribute="leading" secondItem="54" secondAttribute="trailing" constant="8" symbolic="YES" id="2av-XO-WqT"/>
                                 <constraint firstItem="38" firstAttribute="height" secondItem="384" secondAttribute="height" id="2p7-AH-cUm"/>
                                 <constraint firstItem="43" firstAttribute="leading" secondItem="J1E-JW-09K" secondAttribute="leading" constant="20" symbolic="YES" id="2t5-di-lMw"/>

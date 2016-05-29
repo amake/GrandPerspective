@@ -71,7 +71,7 @@
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                                         </tableHeaderCell>
-                                                        <imageCell key="dataCell" controlSize="small" refusesFirstResponder="YES" alignment="left" image="0F606AA2-BE00-4634-BA73-06C276F46459" id="135"/>
+                                                        <imageCell key="dataCell" controlSize="small" refusesFirstResponder="YES" alignment="left" image="70C29141-ABA7-4C77-AEDC-EF66505F933D" id="135"/>
                                                     </tableColumn>
                                                     <tableColumn identifier="name" editable="NO" width="177" minWidth="10" maxWidth="3.4028229999999999e+38" id="133">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
@@ -384,7 +384,7 @@ Gw
         </drawer>
     </objects>
     <resources>
-        <image name="0F606AA2-BE00-4634-BA73-06C276F46459" width="17" height="17">
+        <image name="70C29141-ABA7-4C77-AEDC-EF66505F933D" width="17" height="17">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
