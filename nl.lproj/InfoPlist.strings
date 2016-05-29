@@ -1,6 +1,15 @@
-﻿/* Localized versions of Info.plist keys */
+/* (No Commment) */
+"CFBundleDisplayName" = "GrandPerspective";
 
-CFBundleName = "GrandPerspective";
-CFBundleDisplayName = "GrandPerspective";
-NSHumanReadableCopyright = "Copyright © Eriban Software, 2005-2016";
-CFBundleGetInfoString = "5 Mei 2016";
+/* (No Commment) */
+"CFBundleGetInfoString" = "5 Mei 2016";
+
+/* (No Commment) */
+"CFBundleName" = "GrandPerspective";
+
+/* (No Commment) */
+"CFBundleShortVersionString" = "1.7.0";
+
+/* (No Commment) */
+"NSHumanReadableCopyright" = "Copyright © Eriban Software, 2005-2016";
+

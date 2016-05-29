@@ -170,6 +170,17 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* GrandPerspective.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrandPerspective.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0490351CFB3A4200ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/FilterSelectionPanel.strings; sourceTree = "<group>"; };
+		AA0490361CFB3A4200ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/PreferencesPanel.strings; sourceTree = "<group>"; };
+		AA0490371CFB3A4300ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/UniformTypeRankingWindow.strings; sourceTree = "<group>"; };
+		AA0490381CFB3A4300ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/FilterTestWindow.strings; sourceTree = "<group>"; };
+		AA0490391CFB3A4300ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/DirectoryViewWindow.strings; sourceTree = "<group>"; };
+		AA04903A1CFB3A4400ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/FiltersWindow.strings; sourceTree = "<group>"; };
+		AA04903B1CFB3A4400ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/ProgressPanel.strings; sourceTree = "<group>"; };
+		AA04903C1CFB3A4400ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/FilterWindow.strings; sourceTree = "<group>"; };
+		AA04903D1CFB3A4400ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/StartWindow.strings; sourceTree = "<group>"; };
+		AA04903E1CFB3A4500ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		AA04903F1CFB3A4500ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/SaveImageDialog.strings; sourceTree = "<group>"; };
 		AA0CDE6F1544995C0018D583 /* TimeBasedMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeBasedMapping.h; sourceTree = "<group>"; };
 		AA0CDE701544995C0018D583 /* TimeBasedMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeBasedMapping.m; sourceTree = "<group>"; };
 		AA0CDE7215487FF60018D583 /* CreationMappingScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreationMappingScheme.h; sourceTree = "<group>"; };
@@ -1164,6 +1175,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAD702B71CE9C305005AA800 /* Base */,
+				AA04903A1CFB3A4400ADAA76 /* nl */,
 			);
 			name = FiltersWindow.xib;
 			sourceTree = "<group>";
@@ -1172,6 +1184,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAD702B81CE9C305005AA800 /* Base */,
+				AA04903C1CFB3A4400ADAA76 /* nl */,
 			);
 			name = FilterWindow.xib;
 			sourceTree = "<group>";
@@ -1180,6 +1193,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAD702BA1CE9C306005AA800 /* Base */,
+				AA0490381CFB3A4300ADAA76 /* nl */,
 			);
 			name = FilterTestWindow.xib;
 			sourceTree = "<group>";
@@ -1188,6 +1202,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAD702BC1CE9C306005AA800 /* Base */,
+				AA0490371CFB3A4300ADAA76 /* nl */,
 			);
 			name = UniformTypeRankingWindow.xib;
 			sourceTree = "<group>";
@@ -1196,6 +1211,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAD702B91CE9C306005AA800 /* Base */,
+				AA0490351CFB3A4200ADAA76 /* nl */,
 			);
 			name = FilterSelectionPanel.xib;
 			sourceTree = "<group>";
@@ -1222,6 +1238,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAD702B61CE9C305005AA800 /* Base */,
+				AA0490391CFB3A4300ADAA76 /* nl */,
 			);
 			name = DirectoryViewWindow.xib;
 			sourceTree = "<group>";
@@ -1230,6 +1247,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAD702B51CE9C305005AA800 /* Base */,
+				AA04903E1CFB3A4500ADAA76 /* nl */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1238,6 +1256,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAD702BB1CE9C306005AA800 /* Base */,
+				AA0490361CFB3A4200ADAA76 /* nl */,
 			);
 			name = PreferencesPanel.xib;
 			sourceTree = "<group>";
@@ -1246,6 +1265,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAD702BD1CE9C306005AA800 /* Base */,
+				AA04903F1CFB3A4500ADAA76 /* nl */,
 			);
 			name = SaveImageDialog.xib;
 			sourceTree = "<group>";
@@ -1254,6 +1274,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAD702BF1CE9C306005AA800 /* Base */,
+				AA04903B1CFB3A4400ADAA76 /* nl */,
 			);
 			name = ProgressPanel.xib;
 			sourceTree = "<group>";
@@ -1289,6 +1310,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AAD702BE1CE9C306005AA800 /* Base */,
+				AA04903D1CFB3A4400ADAA76 /* nl */,
 			);
 			name = StartWindow.xib;
 			sourceTree = "<group>";

@@ -1,4 +1,4 @@
-﻿/* Enumeration of two items */
+/* Enumeration of two items */
 "%@ and %@" = "%1$@ en %2$@";
 
 /* Enumeration of two items */
@@ -40,7 +40,7 @@
 /* Alert message */
 "A filter named \"%@\" already exists." = "Een filter met naam \"%@\" bestaat al.";
 
-/* Alert message (Note: the item can refer to a file or a folder) */
+/* Alert message (Note: 'it' can refer to a file or a folder) */
 "A possible reason is that it does not exist anymore." = "Het kan zijn dat het niet meer bestaat.";
 
 /* Alert message */
@@ -58,10 +58,10 @@
 /* File size unit for bytes. */
 "B" = "B";
 
-/* Alert panel button */
+/* (No Commment) */
 "Cancel" = "Annuleer";
 
-/* Alert panel button */
+/* (No Commment) */
 "Delete" = "Verwijder";
 
 /* Alert message */
@@ -89,6 +89,12 @@
 "Error parsing \"%@\" attribute: %@" = "Ongeldige waarde van attribuut \"%1$@\": %2$@";
 
 /* Parse error */
+"Expected %@ element." = "%@ element verwacht.";
+
+/* Error message */
+"Expected a folder." = "Map verwacht.";
+
+/* Parse error */
 "Expected boolean value." = "Booleaanse waarde verwacht.";
 
 /* Parse error */
@@ -98,28 +104,18 @@
 "Expected integer value." = "Geheel getal verwacht.";
 
 /* Error message */
-"Expected scandata file." = "Scandata bestand verwacht.";
+"Expected scandata file." = "Data bestand verwacht.";
 
 /* Parse error */
 "Expected time value." = "Tijd verwacht.";
 
 /* Parse error */
-"Expected %@ element." = "%@ element verwacht.";
-
-/* Error message */
-"Expected a folder." = "Map verwacht.";
-
-/* Parse error */
-"Expected integer value." = "Geheel getal verwacht.";
-
-/* Error message */
-"Expected scandata file." = "Data bestand verwacht.";
-
-/* Parse error */
 "Expected unsigned integer value." = "Positief geheel getal verwacht.";
 
 /* Alert message */
-"Failed to bind one or more filter tests:\n%@" = "Het is niet gelukt de volgende filtertesten te initialiseren:\n%@";
+"Failed to bind one or more filter tests:
+%@" = "Het is niet gelukt de volgende filtertesten te initialiseren:
+%@";
 
 /* Alert message */
 "Failed to delete the file \"%@\"" = "Het verwijderen van het bestand \"%@\" is mislukt";
@@ -158,7 +154,9 @@
 "Failed to save the scan data to \"%@\"" = "Het opslaan van de data naar \"%@\" is mislukt";
 
 /* Alert message */
-"Failed to update one or more filters:\n%@" = "Het bijwerken van een één of meer filters is mislukt:\n%@";
+"Failed to update one or more filters:
+%@" = "Het bijwerken van een één of meer filters is mislukt:
+%@";
 
 /* Error message */
 "Failed to write entire buffer." = "Het wegschrijven van de gehele buffer inhoud is mislukt.";
@@ -186,9 +184,6 @@
 
 /* File size unit for gigabytes. */
 "GB" = "GB";
-
-/* File size unit for kilobytes. */
-"kB" = "kB";
 
 /* Legend for Level mapping scheme. */
 "Level %d" = "Nivo %d";
@@ -223,11 +218,8 @@
 /* Alert additional informative text */
 "Note: The package is hard-linked. It will take up space until all links to it are deleted." = "Het pakket is een harde link. Het zal ruimte innemen totdat alle links verwijderd zijn.";
 
-/* Alert panel button */
+/* (No Commment) */
 "OK" = "OK";
-
-/* Misc. description for File type mapping scheme. */
-"other file types" = "overige bestandstypes";
 
 /* Legend for Level mapping scheme. */
 "Outermost level" = "Buitenste nivo";
@@ -247,7 +239,7 @@
 /* Message in progress panel while loading data */
 "Reading %@" = "Laden van %@";
 
-/* Alert panel button */
+/* (No Commment) */
 "Remove" = "Verwijder";
 
 /* Alert message */
@@ -334,9 +326,6 @@
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "Deze filters bestaan niet meer. Hun oorspronkelijke definitie zal daarom gebruikt worden.";
 
-/* Description for 'unknown' UTI. */
-"unknown file type" = "onbekend bestandstype";
-
 /* Window title */
 "Unnamed filter" = "Filter - ?";
 
@@ -345,3 +334,13 @@
 
 /* Parse error */
 "Unrecognized value." = "Waarde onbekend.";
+
+/* File size unit for kilobytes. */
+"kB" = "kB";
+
+/* Misc. description for File type mapping scheme. */
+"other file types" = "overige bestandstypes";
+
+/* Description for 'unknown' UTI. */
+"unknown file type" = "onbekend bestandstype";
+

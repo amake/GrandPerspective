@@ -1,88 +1,153 @@
-﻿/* The names of the various filters. */
-
-"No hard-links" = "Geen harde links";
-"No version control" = "Geen versie beheer";
-
-
-/* The names of the various file-item tests. */
-
-"Tiny files" = "Minuscule bestanden";
-"Small files" = "Kleine bestanden";
-"Medium files" = "Middelgrote bestanden";
-"Large files" = "Grote bestanden";
-"Huge files" = "Kolossale bestanden";
-"Images" = "Plaatjes";
+/* (No Commment) */
 "Audio" = "Geluid";
-"Version control" = "Versie beheer";
-"Packages" = "Pakketten";
+
+/* (No Commment) */
+"BlueSkyTulips" = "Tulpen veld";
+
+/* (No Commment) */
+"Bujumbura" = "Bujumbura";
+
+/* (No Commment) */
+"CoffeeBeans" = "Koffie bonen";
+
+/* (No Commment) */
+"Daytona" = "Daytona Beach";
+
+/* (No Commment) */
+"FengShui" = "Feng Shui";
+
+/* (No Commment) */
+"FlyingGeese" = "Magenta magie";
+
+/* (No Commment) */
+"GreenEggs" = "Groene eieren";
+
+/* (No Commment) */
 "Hard-linked items" = "Harde links";
 
-
-/* The names of the various color palettes. */
-
-"OliveSunset" = "Olijven in de zon";
-"MossAndLichen" = "Mos en korstmos";
-"Monaco" = "Monaco";
-"Bujumbura" = "Bujumbura";
-"CoffeeBeans" = "Koffie bonen";
-"BlueSkyTulips" = "Tulpen veld";
-"OrigamiMice" = "Origami muizen";
-"GreenEggs" = "Groene eieren";
-"FengShui" = "Feng Shui";
-"Daytona" = "Daytona Beach";
-"FlyingGeese" = "Magenta magie";
-"Rainbow" = "Regenboog";
-"LagoonNebula" = "Lagune nevel";
-"Heatmap-23" = "Temperatuur 23";
+/* (No Commment) */
 "Heatmap-12" = "Temperatuur 12";
 
-/* The names of the various color mapping schemes. */
+/* (No Commment) */
+"Heatmap-23" = "Temperatuur 23";
 
-"level" = "Nivo";
-"extension" = "Extensie";
-"folder" = "Map";
-"name" = "Naam";
-"nothing" = "Niets";
-"top folder" = "Buitenste map";
-"uniform type" = "Bestandstype";
-"creation" = "Aanmaak";
-"modification" = "Laatste wijziging";
+/* (No Commment) */
+"Huge files" = "Kolossale bestanden";
+
+/* (No Commment) */
+"Images" = "Plaatjes";
+
+/* (No Commment) */
+"LagoonNebula" = "Lagune nevel";
+
+/* (No Commment) */
+"Large files" = "Grote bestanden";
+
+/* (No Commment) */
+"Medium files" = "Middelgrote bestanden";
+
+/* (No Commment) */
+"Monaco" = "Monaco";
+
+/* (No Commment) */
+"MossAndLichen" = "Mos en korstmos";
+
+/* (No Commment) */
+"No hard-links" = "Geen harde links";
+
+/* (No Commment) */
+"No version control" = "Geen versie beheer";
+
+/* (No Commment) */
+"OliveSunset" = "Olijven in de zon";
+
+/* (No Commment) */
+"OrigamiMice" = "Origami muizen";
+
+/* (No Commment) */
+"Packages" = "Pakketten";
+
+/* (No Commment) */
+"Rainbow" = "Regenboog";
+
+/* (No Commment) */
+"Small files" = "Kleine bestanden";
+
+/* (No Commment) */
+"Tiny files" = "Minuscule bestanden";
+
+/* (No Commment) */
+"Version control" = "Versie beheer";
+
+/* (No Commment) */
 "access" = "Laatste gebruik";
 
-
-/* The names of the file size types. */
-
-"logical" = "Intrinsiek";
-"physical" = "Fysisch";
-
-
-/* The names of the file size base types. */
-
+/* (No Commment) */
 "base-2" = "Binair";
+
+/* (No Commment) */
 "base-10" = "Decimaal";
 
+/* (No Commment) */
+"close old window" = "Oude venster sluiten";
 
-/* The names of the "special" files in the viewer. */
+/* (No Commment) */
+"creation" = "Aanmaak";
 
-"free" = "Beschikbare ruimte";
-"freed" = "Vrijgekomen ruimte";
-"misc used" = "Overige gebruikte ruimte";
-
-
-/* The names of the supported file-deletion targets. */
-
-"delete nothing" = "Niets";
-"only delete files" = "Bestanden";
+/* (No Commment) */
 "delete files and folders" = "Bestanden en mappen";
 
+/* (No Commment) */
+"delete nothing" = "Niets";
 
-/* The names of the supported rescan actions. */
+/* (No Commment) */
+"extension" = "Extensie";
 
+/* (No Commment) */
+"folder" = "Map";
+
+/* (No Commment) */
+"free" = "Beschikbare ruimte";
+
+/* (No Commment) */
+"freed" = "Vrijgekomen ruimte";
+
+/* (No Commment) */
+"keep old window" = "Oude venster bewaren";
+
+/* (No Commment) */
+"level" = "Nivo";
+
+/* (No Commment) */
+"logical" = "Intrinsiek";
+
+/* (No Commment) */
+"misc used" = "Overige gebruikte ruimte";
+
+/* (No Commment) */
+"modification" = "Laatste wijziging";
+
+/* (No Commment) */
+"name" = "Naam";
+
+/* (No Commment) */
+"nothing" = "Niets";
+
+/* (No Commment) */
+"only delete files" = "Bestanden";
+
+/* (No Commment) */
+"physical" = "Fysisch";
+
+/* (No Commment) */
 "rescan all" = "Alles herlezen";
+
+/* (No Commment) */
 "rescan visible" = "Map in venster herlezen";
 
+/* (No Commment) */
+"top folder" = "Buitenste map";
 
-/* The names of the supported rescan behaviours. */
+/* (No Commment) */
+"uniform type" = "Bestandstype";
 
-"close old window" = "Oude venster sluiten";
-"keep old window" = "Oude venster bewaren";
