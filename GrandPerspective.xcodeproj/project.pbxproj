@@ -223,16 +223,6 @@
 		AA402FF60A5B01A6004EAAF3 /* DirectoryViewControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DirectoryViewControl.h; path = control/DirectoryViewControl.h; sourceTree = "<group>"; };
 		AA4030310A5B02F1004EAAF3 /* ItemPathModel.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ItemPathModel.m; path = tree/ItemPathModel.m; sourceTree = "<group>"; };
 		AA4030320A5B02F1004EAAF3 /* ItemPathModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ItemPathModel.h; path = tree/ItemPathModel.h; sourceTree = "<group>"; };
-		AA5245F11101D3090018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		AA5245F91101D3BA0018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/DirectoryViewWindow.xib; sourceTree = "<group>"; };
-		AA5245FF1101D40D0018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/PreferencesPanel.xib; sourceTree = "<group>"; };
-		AA5246011101D4200018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/SaveImageDialog.xib; sourceTree = "<group>"; };
-		AA5246021101D42C0018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/ProgressPanel.xib; sourceTree = "<group>"; };
-		AA524608110201650018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/FiltersWindow.xib; sourceTree = "<group>"; };
-		AA52460C110201870018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/FilterWindow.xib; sourceTree = "<group>"; };
-		AA524610110201A30018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/FilterTestWindow.xib; sourceTree = "<group>"; };
-		AA524614110201C60018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/UniformTypeRankingWindow.xib; sourceTree = "<group>"; };
-		AA524618110202110018897B /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/FilterSelectionPanel.xib; sourceTree = "<group>"; };
 		AA524619110202F50018897B /* FilterSelectionPanelControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilterSelectionPanelControl.h; path = control/FilterSelectionPanelControl.h; sourceTree = "<group>"; };
 		AA52461A110202F50018897B /* FilterSelectionPanelControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilterSelectionPanelControl.m; path = control/FilterSelectionPanelControl.m; sourceTree = "<group>"; };
 		AA52461B110202F50018897B /* FiltersWindowControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FiltersWindowControl.h; path = control/FiltersWindowControl.h; sourceTree = "<group>"; };
@@ -272,7 +262,6 @@
 		AA6E27A20D7AE95E00D5FBBA /* ColorLegendTableViewControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColorLegendTableViewControl.m; path = control/ColorLegendTableViewControl.m; sourceTree = "<group>"; };
 		AA6FE2931CD6396500675955 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Taglines.strings; sourceTree = "<group>"; };
 		AA6FE2951CD6397100675955 /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Taglines.strings; sourceTree = "<group>"; };
-		AA6FE2961CD63BA000675955 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/StartWindow.xib; sourceTree = "<group>"; };
 		AA7A7E0B0E4EE29D00EB366E /* WriteTaskInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WriteTaskInput.h; path = task/WriteTaskInput.h; sourceTree = "<group>"; };
 		AA7A7E0C0E4EE29D00EB366E /* WriteTaskInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WriteTaskInput.m; path = task/WriteTaskInput.m; sourceTree = "<group>"; };
 		AA7A7E0F0E4EE3DA00EB366E /* WriteTaskExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WriteTaskExecutor.h; path = task/WriteTaskExecutor.h; sourceTree = "<group>"; };
@@ -1174,7 +1163,6 @@
 		AA524605110201520018897B /* FiltersWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA524608110201650018897B /* nl */,
 				AAD702B71CE9C305005AA800 /* Base */,
 			);
 			name = FiltersWindow.xib;
@@ -1183,7 +1171,6 @@
 		AA524609110201780018897B /* FilterWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA52460C110201870018897B /* nl */,
 				AAD702B81CE9C305005AA800 /* Base */,
 			);
 			name = FilterWindow.xib;
@@ -1192,7 +1179,6 @@
 		AA52460D110201990018897B /* FilterTestWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA524610110201A30018897B /* nl */,
 				AAD702BA1CE9C306005AA800 /* Base */,
 			);
 			name = FilterTestWindow.xib;
@@ -1201,7 +1187,6 @@
 		AA524611110201BA0018897B /* UniformTypeRankingWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA524614110201C60018897B /* nl */,
 				AAD702BC1CE9C306005AA800 /* Base */,
 			);
 			name = UniformTypeRankingWindow.xib;
@@ -1210,7 +1195,6 @@
 		AA524615110202080018897B /* FilterSelectionPanel.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA524618110202110018897B /* nl */,
 				AAD702B91CE9C306005AA800 /* Base */,
 			);
 			name = FilterSelectionPanel.xib;
@@ -1237,7 +1221,6 @@
 		AA83A54C10F3D061002542E4 /* DirectoryViewWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA5245F91101D3BA0018897B /* nl */,
 				AAD702B61CE9C305005AA800 /* Base */,
 			);
 			name = DirectoryViewWindow.xib;
@@ -1246,7 +1229,6 @@
 		AA83A76210F91791002542E4 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA5245F11101D3090018897B /* nl */,
 				AAD702B51CE9C305005AA800 /* Base */,
 			);
 			name = MainMenu.xib;
@@ -1255,7 +1237,6 @@
 		AA83A79710F922B8002542E4 /* PreferencesPanel.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA5245FF1101D40D0018897B /* nl */,
 				AAD702BB1CE9C306005AA800 /* Base */,
 			);
 			name = PreferencesPanel.xib;
@@ -1264,7 +1245,6 @@
 		AA83A8DE10FA639B002542E4 /* SaveImageDialog.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA5246011101D4200018897B /* nl */,
 				AAD702BD1CE9C306005AA800 /* Base */,
 			);
 			name = SaveImageDialog.xib;
@@ -1273,7 +1253,6 @@
 		AA83A8E110FA63A9002542E4 /* ProgressPanel.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA5246021101D42C0018897B /* nl */,
 				AAD702BF1CE9C306005AA800 /* Base */,
 			);
 			name = ProgressPanel.xib;
@@ -1309,7 +1288,6 @@
 		AAE4982F1CD15BAF003F0A29 /* StartWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				AA6FE2961CD63BA000675955 /* nl */,
 				AAD702BE1CE9C306005AA800 /* Base */,
 			);
 			name = StartWindow.xib;
