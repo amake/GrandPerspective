@@ -5,8 +5,8 @@
 
 // A one-shot image saving device. It disposes after having done its job.
 @interface SaveImageDialogControl : NSWindowController {
-  IBOutlet NSFormCell  *widthCell;
-  IBOutlet NSFormCell  *heightCell;
+  IBOutlet NSTextField  *widthField;
+  IBOutlet NSTextField  *heightField;
 
   DirectoryViewControl  *dirViewControl;
 }

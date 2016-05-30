@@ -4,18 +4,15 @@
 /* Class = "NSBox"; title = "Image size"; ObjectID = "25"; */
 "25.title" = "Beeldgrootte";
 
-/* Class = "NSFormCell"; title = "Width:"; ObjectID = "38"; */
-"38.title" = "Breedte:";
-
-/* Class = "NSFormCell"; title = "Height:"; ObjectID = "39"; */
-"39.title" = "Hoogte:";
-
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "45"; */
 "45.title" = "OK";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "46"; */
 "46.title" = "Annuleer";
 
-/* Class = "NSFormCell"; title = "Field:"; ObjectID = "47"; */
-"47.title" = "Field:";
+/* Class = "NSTextFieldCell"; title = "Height:"; ObjectID = "77K-Uw-OFb"; */
+"77K-Uw-OFb.title" = "Hoogte:";
+
+/* Class = "NSTextFieldCell"; title = "Width:"; ObjectID = "QVl-ub-0Uz"; */
+"QVl-ub-0Uz.title" = "Breedte:";
 

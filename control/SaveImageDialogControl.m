@@ -49,8 +49,8 @@
   [[self window] makeKeyAndOrderFront: self];
 
   NSRect  bounds = [[dirViewControl directoryView] bounds];
-  [widthCell setIntValue: (int)bounds.size.width];
-  [heightCell setIntValue: (int)bounds.size.height];
+  [widthField setIntValue: (int)bounds.size.width];
+  [heightField setIntValue: (int)bounds.size.height];
 }
 
 
@@ -84,8 +84,8 @@
   //   and directly clicks OK. Therefore using MAX to ensure that both 
   //   dimensions are positive.
   NSRect  bounds = 
-            NSMakeRect(0, 0, MAX(MINIMUM_SIZE, [widthCell intValue]),
-                             MAX(MINIMUM_SIZE, [heightCell intValue]));
+            NSMakeRect(0, 0, MAX(MINIMUM_SIZE, [widthField intValue]),
+                             MAX(MINIMUM_SIZE, [heightField intValue]));
 
   // Get a filename for the image.
   NSSavePanel  *savePanel = [NSSavePanel savePanel]; 
