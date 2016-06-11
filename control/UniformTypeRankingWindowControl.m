@@ -54,6 +54,8 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
     typeRanking = [typeRankingVal retain];
     typeCells = [[NSMutableArray arrayWithCapacity: 
                     [[typeRanking rankedUniformTypes] count]] retain];
+
+    updateTypeList = YES;
   }
   
   return self;
@@ -171,11 +173,17 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 // Delegate methods for NSWindow
 
 - (void) windowDidBecomeKey: (NSNotification *)notification { 
-  if ([typeCells count] == 0) {
-    // The window has just been opened. Fetch the latest type list.
+  if (updateTypeList) {
+    // The window has just been opened. Fetch the latest type list. This resets
+    // any uncommitted changes made the last time the window was shown.
     
     [self fetchCurrentTypeList];
     [self updateWindowState];
+
+    // Reset because the NSWindowDidBecomeKeyNotification is also fired when
+    // the window is already open (but lost and subsequently regained its key
+    // status). In this case, the state should not be reset.
+    updateTypeList = NO;
   }
 }
 
@@ -259,6 +267,9 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
 - (void) tableView: (NSTableView *)tableView willDisplayCell: (id) cell 
            forTableColumn: (NSTableColumn *)aTableColumn row: (NSInteger) row {
+  NSAssert2(row < [typeCells count],
+            @"%ld >= %ld", row, [typeCells count]);
+
   TypeCell  *typeCell = [typeCells objectAtIndex: row];
   NSString  *uti = [[typeCell uniformType] uniformTypeIdentifier];
 
@@ -323,13 +334,10 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 - (void) closeWindow {
   [[self window] close];
   
-  // Clear the array. This signals that it should be reloaded when the window
-  // appears again. This is needed because there is (apparently) no good way to
-  // find out when a window has just been opened. The
-  // NSWindowDidBecomeKeyNotification is used here, but this is also fired when
-  // the window is already open (but lost and subsequently regained its key
-  // status).
-  [typeCells removeAllObjects];
+  // Force update of the type list again when the window appears again. This
+  // ensures that any changes are undone if the user closed the window by
+  // pressing "Cancel".
+  updateTypeList = YES;
 }
 
 
