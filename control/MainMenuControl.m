@@ -732,6 +732,11 @@ static MainMenuControl  *singletonInstance = nil;
   if (useFilter) {
     namedFilter = [self getNamedFilter: nil];
 
+    if (namedFilter == nil) {
+      // User cancelled filter selection. Abort scanning.
+      return;
+    }
+
     // Copy the filter, so that its test can be reinstantiated (it may already
     // have been instantiated)
     Filter  *filter = [Filter filterWithFilter: [namedFilter filter]];
