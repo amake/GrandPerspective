@@ -88,6 +88,9 @@
   [[self window] close];
 }
 
+- (void)cancelOperation:(id) sender {
+  [[self window] close];
+}
 
 - (IBAction) addFilterToRepository:(id) sender {
   NamedFilter  *newFilter = [filterEditor newNamedFilter];
