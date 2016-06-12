@@ -24,6 +24,7 @@
 
   UniformTypeRanking  *typeRanking;
   NSMutableArray  *typeCells;
+  BOOL  updateTypeList;
 }
 
 - (IBAction) cancelAction: (id) sender;
