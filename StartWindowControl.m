@@ -92,6 +92,10 @@ NSString*  TaglineFormat = @"tagline-%d";
   [[NSApplication sharedApplication] showHelp: sender];
 }
 
+- (void)cancelOperation:(id) sender {
+  [[self window] close];
+}
+
 // Invoked because the controller is the delegate for the window.
 - (void) windowWillClose:(NSNotification *)notification {
   [NSApp stopModal];
