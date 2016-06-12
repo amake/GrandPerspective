@@ -144,10 +144,10 @@
 		AAD85B9D1CD92FD300B3AF28 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD85B9C1CD92FD300B3AF28 /* Security.framework */; };
 		AAD8DFB30B077ED20060DADA /* PreferencesPanelControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD8DFB20B077ED20060DADA /* PreferencesPanelControl.m */; };
 		AADD34930B8B902000AC2C97 /* Tests.strings in Resources */ = {isa = PBXBuildFile; fileRef = AADD34910B8B902000AC2C97 /* Tests.strings */; };
+		AAE476C21D0D945E007CF42F /* RecentDocumentTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE476C11D0D945E007CF42F /* RecentDocumentTableCellView.m */; };
+		AAE476C51D0D947E007CF42F /* StartWindowControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE476C41D0D947E007CF42F /* StartWindowControl.m */; };
 		AAE4982E1CD158C6003F0A29 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAE4982D1CD158C6003F0A29 /* Images.xcassets */; };
 		AAE498311CD15BAF003F0A29 /* StartWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE4982F1CD15BAF003F0A29 /* StartWindow.xib */; };
-		AAE498341CD2A3B7003F0A29 /* RecentDocumentTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE498331CD2A3B7003F0A29 /* RecentDocumentTableCellView.m */; };
-		AAE498371CD2A57E003F0A29 /* StartWindowControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE498361CD2A57E003F0A29 /* StartWindowControl.m */; };
 		AAE87FDA0CE10B9B00A99883 /* UniformTypeInventory.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE87FD80CE10B9B00A99883 /* UniformTypeInventory.m */; };
 		AAEF42831081136100468832 /* LocalizableStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEF42821081136100468832 /* LocalizableStrings.m */; };
 		AAEF43771081E0EE00468832 /* FilterTestRef.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEF43761081E0EE00468832 /* FilterTestRef.m */; };
@@ -436,11 +436,11 @@
 		AAD8DFB20B077ED20060DADA /* PreferencesPanelControl.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = PreferencesPanelControl.m; path = control/PreferencesPanelControl.m; sourceTree = "<group>"; };
 		AADD34920B8B902000AC2C97 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Tests.strings; sourceTree = "<group>"; };
 		AADD349A0B8B905900AC2C97 /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Tests.strings; sourceTree = "<group>"; };
+		AAE476C01D0D943E007CF42F /* RecentDocumentTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecentDocumentTableCellView.h; path = control/RecentDocumentTableCellView.h; sourceTree = "<group>"; };
+		AAE476C11D0D945E007CF42F /* RecentDocumentTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecentDocumentTableCellView.m; path = control/RecentDocumentTableCellView.m; sourceTree = "<group>"; };
+		AAE476C31D0D946E007CF42F /* StartWindowControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StartWindowControl.h; path = control/StartWindowControl.h; sourceTree = "<group>"; };
+		AAE476C41D0D947E007CF42F /* StartWindowControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StartWindowControl.m; path = control/StartWindowControl.m; sourceTree = "<group>"; };
 		AAE4982D1CD158C6003F0A29 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		AAE498321CD2A3B7003F0A29 /* RecentDocumentTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentDocumentTableCellView.h; sourceTree = "<group>"; };
-		AAE498331CD2A3B7003F0A29 /* RecentDocumentTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentDocumentTableCellView.m; sourceTree = "<group>"; };
-		AAE498351CD2A57E003F0A29 /* StartWindowControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartWindowControl.h; sourceTree = "<group>"; };
-		AAE498361CD2A57E003F0A29 /* StartWindowControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartWindowControl.m; sourceTree = "<group>"; };
 		AAE87FD80CE10B9B00A99883 /* UniformTypeInventory.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = UniformTypeInventory.m; path = util/UniformTypeInventory.m; sourceTree = "<group>"; };
 		AAE87FD90CE10B9B00A99883 /* UniformTypeInventory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = UniformTypeInventory.h; path = util/UniformTypeInventory.h; sourceTree = "<group>"; };
 		AAEF42811081136100468832 /* LocalizableStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocalizableStrings.h; path = util/LocalizableStrings.h; sourceTree = "<group>"; };
@@ -829,10 +829,10 @@
 				AA83A70E10F8AE5E002542E4 /* FilterTestEditor.m */,
 				AA83A65210F67A2E002542E4 /* FilterPopUpControl.h */,
 				AA83A65310F67A2E002542E4 /* FilterPopUpControl.m */,
-				AAE498321CD2A3B7003F0A29 /* RecentDocumentTableCellView.h */,
-				AAE498331CD2A3B7003F0A29 /* RecentDocumentTableCellView.m */,
-				AAE498351CD2A57E003F0A29 /* StartWindowControl.h */,
-				AAE498361CD2A57E003F0A29 /* StartWindowControl.m */,
+				AAE476C01D0D943E007CF42F /* RecentDocumentTableCellView.h */,
+				AAE476C11D0D945E007CF42F /* RecentDocumentTableCellView.m */,
+				AAE476C31D0D946E007CF42F /* StartWindowControl.h */,
+				AAE476C41D0D947E007CF42F /* StartWindowControl.m */,
 			);
 			name = control;
 			sourceTree = "<group>";
@@ -1104,8 +1104,9 @@
 				AA7A7F110E4F342100EB366E /* ReadTaskExecutor.m in Sources */,
 				AA7A7F170E4F3C2800EB366E /* ProgressTracker.m in Sources */,
 				AA7A7FE40E4F724300EB366E /* AutoreleaseProgressTracker.m in Sources */,
+				AAE476C21D0D945E007CF42F /* RecentDocumentTableCellView.m in Sources */,
+				AAE476C51D0D947E007CF42F /* StartWindowControl.m in Sources */,
 				AAB52EBB0E4F8DFE00BF7B20 /* ObjectPool.m in Sources */,
-				AAE498371CD2A57E003F0A29 /* StartWindowControl.m in Sources */,
 				AAB52EC30E520E7A00BF7B20 /* MutableArrayPool.m in Sources */,
 				AAF951B10EDEE2E100844FD5 /* DirectoryViewToolbarControl.m in Sources */,
 				AAA6E72D0EFD29CB00B4E71E /* ToolbarSegmentedCell.m in Sources */,
@@ -1113,7 +1114,6 @@
 				AAEF42831081136100468832 /* LocalizableStrings.m in Sources */,
 				AAEF43771081E0EE00468832 /* FilterTestRef.m in Sources */,
 				AAEF43A71081FC2E00468832 /* FilterTest.m in Sources */,
-				AAE498341CD2A3B7003F0A29 /* RecentDocumentTableCellView.m in Sources */,
 				AAEF440C10821A3800468832 /* FilterTestRepository.m in Sources */,
 				AAEF442510821EC800468832 /* FileItemTest.m in Sources */,
 				AAA2800310822DB000229112 /* StringTest.m in Sources */,
