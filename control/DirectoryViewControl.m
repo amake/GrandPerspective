@@ -1168,7 +1168,26 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   unsigned long long  scanTreeSize = [scanTree itemSize];
   unsigned long long  freeSpace = [treeContext freeSpace];
   unsigned long long  volumeSize = [volumeTree itemSize];
-  unsigned long long  miscUsedSpace = volumeSize - freeSpace - scanTreeSize;
+  unsigned long long  miscUsedSpace = volumeSize;
+
+  // Miscellaneous Used Space is used space that is not accounted for by the
+  // size of the scanned items (which can happen because not everything is
+  // necessarily scanned). It is calculated as follows:
+  //   Misc Used Space = Volume Size - Scan Tree Size - Free Space
+  //
+  // It is calculated defensively to avoid underflows. See Bug #41 where the
+  // Miscellaneous Used Space was 2^24 TB = 2^64 / (2^10 * 2^10 * 2^10 * 2^10),
+  // apparently because Scan Tree Size + Free Space > Volume Size.
+  if (miscUsedSpace >= scanTreeSize) {
+    miscUsedSpace -= scanTreeSize;
+  } else {
+    miscUsedSpace = 0;
+  }
+  if (miscUsedSpace >= freeSpace) {
+    miscUsedSpace -= freeSpace;
+  } else {
+    miscUsedSpace = 0;
+  }
   
   [volumeSizeField setStringValue: 
     [FileItem stringForFileItemSize: volumeSize]]; 
