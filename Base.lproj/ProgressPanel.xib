@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ProgressPanelControl">
             <connections>
+                <outlet property="progressIndicator" destination="V9L-65-XVy" id="fBj-5G-tl2"/>
                 <outlet property="progressSummary" destination="22" id="32"/>
                 <outlet property="window" destination="6" id="18"/>
             </connections>

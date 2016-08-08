@@ -25,6 +25,9 @@ extern NSString  *EstimatedProgressKey;
 
   // The number of folders that have been skipped so far.
   int  numFoldersSkipped;
+  
+  // The recursion level.
+  int  level;
    
   // The stack of directories that are being processed.
   NSMutableArray  *directoryStack;
@@ -61,7 +64,26 @@ extern NSString  *EstimatedProgressKey;
 
 @interface ProgressTracker (ProtectedMethods)
 
+/* Invoked by processingFolder. Can be overridden. It can be assumed that the
+ * caller will have obtained the mutex lock.
+ */
+- (void) _processingFolder: (DirectoryItem *)dirItem;
+
+/* Invoked by processedFolder. Can be overridden. It can be assumed that the
+ * caller will have obtained the mutex lock.
+ */
+- (void) _processedFolder: (DirectoryItem *)dirItem;
+
+/* Invoked by skippedFolder. Can be overridden. It can be assumed that the
+ * caller will have obtained the mutex lock.
+ */
+- (void) _skippedFolder: (DirectoryItem *)dirItem;
+
 /* The estimated progress. It ranges from 0 (no progress yet) to 100 (done).
+ *
+ * It is meant to be overridden and should only be used by the base class in
+ * response to a call to progressInfo:. It can be assumed that the caller will
+ * have obtained the mutex lock, so this does not need to be obtained here.
  */
 - (float) estimatedProgress;
 

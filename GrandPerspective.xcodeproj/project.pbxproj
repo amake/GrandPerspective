@@ -85,6 +85,7 @@
 		AA7DEC1B0D6CD38E0057F5F8 /* PlainFileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7DEC190D6CD38E0057F5F8 /* PlainFileItem.m */; };
 		AA7DEC8E0D6EDE820057F5F8 /* UniformTypeRanking.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7DEC8C0D6EDE820057F5F8 /* UniformTypeRanking.m */; };
 		AA7DF3240D79BEA80057F5F8 /* GradientRectangleDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7DF3220D79BEA80057F5F8 /* GradientRectangleDrawer.m */; };
+		AA819B3A1D5920FD003C7139 /* ScanProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA819B391D5920FD003C7139 /* ScanProgressTracker.m */; };
 		AA837DBF0E29ECE5005384E0 /* TreeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = AA837DBE0E29ECE5005384E0 /* TreeWriter.m */; };
 		AA837E740E2D171D005384E0 /* TreeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = AA837E730E2D171D005384E0 /* TreeReader.m */; };
 		AA83A34010F0D329002542E4 /* MutableFilterTestRef.m in Sources */ = {isa = PBXBuildFile; fileRef = AA83A33F10F0D329002542E4 /* MutableFilterTestRef.m */; };
@@ -315,6 +316,8 @@
 		AA7DEC8C0D6EDE820057F5F8 /* UniformTypeRanking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UniformTypeRanking.m; path = control/UniformTypeRanking.m; sourceTree = "<group>"; };
 		AA7DF3210D79BEA80057F5F8 /* GradientRectangleDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientRectangleDrawer.h; path = view/GradientRectangleDrawer.h; sourceTree = "<group>"; };
 		AA7DF3220D79BEA80057F5F8 /* GradientRectangleDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradientRectangleDrawer.m; path = view/GradientRectangleDrawer.m; sourceTree = "<group>"; };
+		AA819B381D5920FD003C7139 /* ScanProgressTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanProgressTracker.h; sourceTree = "<group>"; };
+		AA819B391D5920FD003C7139 /* ScanProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanProgressTracker.m; sourceTree = "<group>"; };
 		AA837DBD0E29ECE5005384E0 /* TreeWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeWriter.h; path = tree/TreeWriter.h; sourceTree = "<group>"; };
 		AA837DBE0E29ECE5005384E0 /* TreeWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TreeWriter.m; path = tree/TreeWriter.m; sourceTree = "<group>"; };
 		AA837E720E2D171D005384E0 /* TreeReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeReader.h; path = tree/TreeReader.h; sourceTree = "<group>"; };
@@ -908,6 +911,8 @@
 				AA7A7F160E4F3C2800EB366E /* ProgressTracker.m */,
 				AA7A7FE20E4F724300EB366E /* AutoreleaseProgressTracker.h */,
 				AA7A7FE30E4F724300EB366E /* AutoreleaseProgressTracker.m */,
+				AA819B381D5920FD003C7139 /* ScanProgressTracker.h */,
+				AA819B391D5920FD003C7139 /* ScanProgressTracker.m */,
 			);
 			name = task;
 			sourceTree = "<group>";
@@ -1049,6 +1054,7 @@
 				AAD8DFB30B077ED20060DADA /* PreferencesPanelControl.m in Sources */,
 				AA5974CA0B31687600EF3248 /* FileItemPathStringCache.m in Sources */,
 				AA8FEB510B6CD0810049FF42 /* ScanTaskInput.m in Sources */,
+				AA819B3A1D5920FD003C7139 /* ScanProgressTracker.m in Sources */,
 				AAE87FDA0CE10B9B00A99883 /* UniformTypeInventory.m in Sources */,
 				AA8877EB0D0C0E3500F52571 /* TreeContext.m in Sources */,
 				AA3B38E00D17EEF60070E889 /* CompoundItem.m in Sources */,

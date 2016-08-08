@@ -13,7 +13,7 @@ extern NSString  *PhysicalFileSize;
 @class FilterSet;
 @class DirectoryItem;
 @class TreeContext;
-@class ProgressTracker;
+@class ScanProgressTracker;
 
 
 /* Constructs trees for folders by (recursively) scanning the folder's 
@@ -36,7 +36,7 @@ extern NSString  *PhysicalFileSize;
   // more, it is ignored. 
   NSMutableSet  *hardLinkedFileNumbers;
   
-  ProgressTracker  *progressTracker;
+  ScanProgressTracker  *progressTracker;
   
   // Temporary buffer for constructing path names
   UInt8  *pathBuffer;
