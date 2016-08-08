@@ -6,6 +6,7 @@
 NSString  *NumFoldersProcessedKey = @"numFoldersProcessed";
 NSString  *NumFoldersSkippedKey = @"numFoldersSkipped";
 NSString  *CurrentFolderPathKey = @"currentFolderPath";
+NSString  *EstimatedProgressKey = @"estimatedProgress";
 
 
 @implementation ProgressTracker
@@ -92,6 +93,8 @@ NSString  *CurrentFolderPathKey = @"currentFolderPath";
             NumFoldersSkippedKey,
             [[directoryStack lastObject] path],
             CurrentFolderPathKey,
+            [NSNumber numberWithFloat: [self estimatedProgress]],
+            EstimatedProgressKey,
             nil];
   [mutex unlock];
 
@@ -100,3 +103,14 @@ NSString  *CurrentFolderPathKey = @"currentFolderPath";
 
 @end // @implementation ProgressTracker
 
+
+@implementation ProgressTracker (ProtectedMethods)
+
+/* Default implementation, fixed to zero. Without more detailed knowledge about
+ * the task, it is not feasible to estimate progress accurately.
+ */
+- (float) estimatedProgress {
+  return 0.0;
+}
+
+@end

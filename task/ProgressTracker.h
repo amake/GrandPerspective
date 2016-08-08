@@ -4,6 +4,7 @@
 extern NSString  *NumFoldersProcessedKey;
 extern NSString  *NumFoldersSkippedKey;
 extern NSString  *CurrentFolderPathKey;
+extern NSString  *EstimatedProgressKey;
 
 
 @class DirectoryItem;
@@ -55,5 +56,13 @@ extern NSString  *CurrentFolderPathKey;
 /* Returns a dictionary with progress statistics.
  */
 - (NSDictionary *)progressInfo;
+
+@end
+
+@interface ProgressTracker (ProtectedMethods)
+
+/* The estimated progress. It ranges from 0 (no progress yet) to 100 (done).
+ */
+- (float) estimatedProgress;
 
 @end

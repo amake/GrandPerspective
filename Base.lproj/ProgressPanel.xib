@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
@@ -7,8 +7,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ProgressPanelControl">
             <connections>
-                <outlet property="progressDetails" destination="5" id="31"/>
-                <outlet property="progressIndicator" destination="9" id="33"/>
                 <outlet property="progressSummary" destination="22" id="32"/>
                 <outlet property="window" destination="6" id="18"/>
             </connections>
@@ -18,37 +16,15 @@
         <window title="Task in progress" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="6" userLabel="Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="81" y="557" width="371" height="120"/>
+            <rect key="contentRect" x="81" y="557" width="350" height="95"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1001"/>
-            <value key="minSize" type="size" width="213" height="120"/>
+            <value key="minSize" type="size" width="250" height="89"/>
             <view key="contentView" id="8">
-                <rect key="frame" x="0.0" y="0.0" width="371" height="120"/>
+                <rect key="frame" x="0.0" y="0.0" width="350" height="95"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="248" verticalHuggingPriority="748" horizontalCompressionResistancePriority="248" verticalCompressionResistancePriority="748" preferredMaxLayoutWidth="307" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                        <rect key="frame" x="42" y="49" width="311" height="51"/>
-                        <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="999" constant="51" id="vmX-7v-8ym"/>
-                        </constraints>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Execution details" id="28">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="9">
-                        <rect key="frame" x="20" y="84" width="16" height="16"/>
-                    </progressIndicator>
-                    <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="22">
-                        <rect key="frame" x="42" y="22" width="233" height="17"/>
-                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Execution summary" id="30">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                        <rect key="frame" x="275" y="13" width="82" height="32"/>
+                        <rect key="frame" x="254" y="13" width="82" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="29">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -57,21 +33,31 @@
                             <action selector="abort:" target="-2" id="34"/>
                         </connections>
                     </button>
+                    <progressIndicator wantsLayer="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="V9L-65-XVy">
+                        <rect key="frame" x="20" y="56" width="310" height="20"/>
+                    </progressIndicator>
+                    <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="22">
+                        <rect key="frame" x="18" y="22" width="236" height="17"/>
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Execution summary" id="30">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="5" firstAttribute="top" secondItem="9" secondAttribute="top" id="BaX-SB-1d7"/>
-                    <constraint firstItem="5" firstAttribute="leading" secondItem="22" secondAttribute="leading" id="FOT-B9-HEP"/>
-                    <constraint firstItem="9" firstAttribute="leading" secondItem="8" secondAttribute="leading" constant="20" symbolic="YES" id="RHs-we-txZ"/>
+                    <constraint firstItem="V9L-65-XVy" firstAttribute="leading" secondItem="8" secondAttribute="leading" constant="20" id="IlV-bN-b2C"/>
+                    <constraint firstAttribute="trailing" secondItem="V9L-65-XVy" secondAttribute="trailing" constant="20" id="MSM-W8-Zys"/>
                     <constraint firstItem="7" firstAttribute="centerY" secondItem="22" secondAttribute="centerY" id="Vb5-vt-yTa"/>
-                    <constraint firstItem="5" firstAttribute="top" secondItem="8" secondAttribute="top" constant="20" symbolic="YES" id="ZbZ-Le-AdT"/>
                     <constraint firstItem="7" firstAttribute="leading" secondItem="22" secondAttribute="trailing" constant="8" symbolic="YES" id="btT-uD-KOU"/>
-                    <constraint firstItem="5" firstAttribute="leading" secondItem="9" secondAttribute="trailing" constant="8" symbolic="YES" id="fQD-jO-9ay"/>
-                    <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="20" symbolic="YES" id="liJ-sh-YEQ"/>
+                    <constraint firstItem="7" firstAttribute="top" secondItem="V9L-65-XVy" secondAttribute="bottom" constant="16" id="e1u-2f-2YM"/>
                     <constraint firstAttribute="trailing" secondItem="7" secondAttribute="trailing" constant="20" symbolic="YES" id="nK2-SN-SgX"/>
                     <constraint firstAttribute="bottom" secondItem="7" secondAttribute="bottom" constant="20" symbolic="YES" id="r4t-7A-CD0"/>
-                    <constraint firstItem="7" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="8" symbolic="YES" id="yjt-n5-pDX"/>
+                    <constraint firstItem="V9L-65-XVy" firstAttribute="top" secondItem="8" secondAttribute="top" constant="20" id="tk1-EL-Loz"/>
+                    <constraint firstItem="22" firstAttribute="leading" secondItem="8" secondAttribute="leading" constant="20" id="vk4-Aq-Oha"/>
                 </constraints>
             </view>
+            <point key="canvasLocation" x="282" y="257.5"/>
         </window>
     </objects>
 </document>

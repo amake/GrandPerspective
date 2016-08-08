@@ -5,6 +5,7 @@
 
 extern NSString  *NumFoldersProcessedKey;
 extern NSString  *CurrentFolderPathKey;
+extern NSString  *EstimatedProgressKey;
 
 
 @interface ProgressPanelControl (PrivateMethods)
@@ -13,6 +14,7 @@ extern NSString  *CurrentFolderPathKey;
 
 - (void) updateProgressDetails: (NSString *)currentPath;
 - (void) updateProgressSummary: (int) numProcessed;
+- (void) updateProgressEstimate: (float) progressEstimate;
 
 @end
 
@@ -79,9 +81,8 @@ extern NSString  *CurrentFolderPathKey;
 
   [self updateProgressDetails: [self pathFromTaskInput: taskInput]];
   [self updateProgressSummary: 0];
+  [self updateProgressEstimate: 0];
   
-  [progressIndicator startAnimation: self];
-
   taskRunning = YES;
   [self updatePanel];
 }
@@ -92,8 +93,6 @@ extern NSString  *CurrentFolderPathKey;
   [cancelCallback release];
   cancelCallback = nil;
   
-  [progressIndicator stopAnimation: self]; 
-
   [[self window] close];
 
   taskRunning = NO; 
@@ -121,7 +120,9 @@ extern NSString  *CurrentFolderPathKey;
   if (dict != nil) {
     [self updateProgressDetails: [dict objectForKey: CurrentFolderPathKey]];
     [self updateProgressSummary: 
-            [[dict objectForKey: NumFoldersProcessedKey] intValue]];
+     [[dict objectForKey: NumFoldersProcessedKey] intValue]];
+    [self updateProgressEstimate:
+     [[dict objectForKey: EstimatedProgressKey] floatValue]];
   }
 
   // Schedule another update 
@@ -140,6 +141,10 @@ extern NSString  *CurrentFolderPathKey;
 - (void) updateProgressSummary: (int) numProcessed {
   [progressSummary setStringValue: 
                      [NSString stringWithFormat: summaryFormat, numProcessed]];
+}
+
+- (void) updateProgressEstimate: (float) progressEstimate {
+  progressIndicator.doubleValue = progressEstimate;
 }
 
 @end // @implementation ProgressPanelControl (PrivateMethods)
