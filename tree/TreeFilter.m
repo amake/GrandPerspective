@@ -9,7 +9,7 @@
 #import "FilteredTreeGuide.h"
 #import "TreeBalancer.h"
 
-#import "ProgressTracker.h"
+#import "FilterProgressTracker.h"
 
 
 @interface TreeFilter (PrivateMethods)
@@ -38,7 +38,7 @@
     
     abort = NO;
     
-    progressTracker = [[ProgressTracker alloc] init];
+    progressTracker = [[FilterProgressTracker alloc] init];
 
     tmpDirItems = nil;
     tmpFileItems = nil;
@@ -119,7 +119,7 @@
     [[NSMutableArray alloc] initWithCapacity: INITIAL_FILES_CAPACITY];
   
   [treeGuide descendIntoDirectory: newDir];
-  [progressTracker processingFolder: newDir];
+  [progressTracker processingFolder: oldDir];
 
   [self flattenAndFilterSiblings: [oldDir getContents] 
           directoryItems: dirs fileItems: files];
@@ -158,7 +158,7 @@
   }
   
   [treeGuide emergedFromDirectory: newDir];
-  [progressTracker processedFolder: newDir];
+  [progressTracker processedFolder: oldDir];
   
   [dirs release];
   [files release];
