@@ -147,39 +147,59 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
 
   scanTree = [scanTreeVal retain];
 
-  FileItem*  freeSpaceItem = 
-    [[[FileItem alloc] 
-      initWithName: FreeSpace 
-            parent: volumeTree 
-              size: freeSpace
-             flags: FILE_IS_NOT_PHYSICAL
-      creationTime: 0
-  modificationTime: 0
-        accessTime: 0
-      ] autorelease];
-                 
-  ITEM_SIZE  miscUnusedSize = volumeSize;
+  ITEM_SIZE  miscUsedSize = volumeSize;
+  ITEM_SIZE  actualFreeSpace = freeSpace;
+  BOOL  miscUsedSizeAnomaly = FALSE;
   if ([scanTree itemSize] <= volumeSize) {
-    miscUnusedSize -= [scanTree itemSize];
-    
-    if (freeSpace <= volumeSize) {
-      miscUnusedSize -= freeSpace;
+    miscUsedSize -= [scanTree itemSize];
+
+    if (freeSpace <= miscUsedSize) {
+      miscUsedSize -= freeSpace;
     }
     else {
       NSLog(@"Scanned tree size plus free space is larger than volume size.");
-      miscUnusedSize = 0;
+      miscUsedSizeAnomaly = TRUE;
+
+      // Adapt actual free space, so that size of volumeTree still adds up to
+      // volume size.
+      actualFreeSpace = miscUsedSize;
+      miscUsedSize = 0;
     }
   } 
   else {
     NSLog(@"Scanned tree size is larger than volume size.");
-    miscUnusedSize = 0;
+    miscUsedSizeAnomaly = TRUE;
+
+    // Set actual free space and misc used size both to zero to minimize
+    // difference between claimed volume size and size of scanned items, which
+    // appears to be larger.
+    actualFreeSpace = 0;
+    miscUsedSize = 0;
   }
 
-  FileItem*  miscUnusedSpaceItem = 
-    [[[FileItem alloc] 
+  if (miscUsedSizeAnomaly) {
+    NSLog(@"Volume size=%qu (%@), Free space=%qu (%@), Scanned size=%qu (%@)",
+          volumeSize, [FileItem stringForFileItemSize: volumeSize],
+          freeSpace, [FileItem stringForFileItemSize: freeSpace],
+          [scanTree itemSize], [FileItem stringForFileItemSize: [scanTree itemSize]]);
+  }
+
+  FileItem*  freeSpaceItem =
+  [[[FileItem alloc]
+    initWithName: FreeSpace
+    parent: volumeTree
+    size: actualFreeSpace
+    flags: FILE_IS_NOT_PHYSICAL
+    creationTime: 0
+    modificationTime: 0
+    accessTime: 0
+    ] autorelease];
+
+  miscUsedSpaceItem =
+    [[[FileItem alloc]
       initWithName: MiscUsedSpace 
             parent: usedSpaceItem
-              size: miscUnusedSize
+              size: miscUsedSize
              flags: FILE_IS_NOT_PHYSICAL
       creationTime: 0
   modificationTime: 0
@@ -187,7 +207,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
       ] autorelease];
 
   [usedSpaceItem setDirectoryContents: 
-                   [CompoundItem compoundItemWithFirst: miscUnusedSpaceItem
+                   [CompoundItem compoundItemWithFirst: miscUsedSpaceItem
                                    second: scanTree]];
     
   [volumeTree setDirectoryContents: 
@@ -212,8 +232,17 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   return volumeSize;
 }
 
+/* The free space of the volume at the time of the scan (as claimed by the
+ * system). The free space in the volume tree may be less. The latter is
+ * reduced if not doing so would cause the size of scanned files plus the free
+ * space to be more than the volume size.
+ */
 - (unsigned long long) freeSpace {
   return freeSpace;
+}
+
+- (unsigned long long) miscUsedSpace {
+  return [miscUsedSpaceItem itemSize];
 }
 
 - (unsigned long long) freedSpace {
