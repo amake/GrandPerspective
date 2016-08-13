@@ -85,8 +85,8 @@
 		AA7DEC1B0D6CD38E0057F5F8 /* PlainFileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7DEC190D6CD38E0057F5F8 /* PlainFileItem.m */; };
 		AA7DEC8E0D6EDE820057F5F8 /* UniformTypeRanking.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7DEC8C0D6EDE820057F5F8 /* UniformTypeRanking.m */; };
 		AA7DF3240D79BEA80057F5F8 /* GradientRectangleDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7DF3220D79BEA80057F5F8 /* GradientRectangleDrawer.m */; };
-		AA819B3A1D5920FD003C7139 /* ScanProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA819B391D5920FD003C7139 /* ScanProgressTracker.m */; };
-		AA819B3D1D5A6352003C7139 /* TreeVisitingProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA819B3C1D5A6352003C7139 /* TreeVisitingProgressTracker.m */; };
+		AA819B421D5F9A7D003C7139 /* ScanProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA819B3F1D5F9A7D003C7139 /* ScanProgressTracker.m */; };
+		AA819B431D5F9A7D003C7139 /* TreeVisitingProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA819B411D5F9A7D003C7139 /* TreeVisitingProgressTracker.m */; };
 		AA837DBF0E29ECE5005384E0 /* TreeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = AA837DBE0E29ECE5005384E0 /* TreeWriter.m */; };
 		AA837E740E2D171D005384E0 /* TreeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = AA837E730E2D171D005384E0 /* TreeReader.m */; };
 		AA83A34010F0D329002542E4 /* MutableFilterTestRef.m in Sources */ = {isa = PBXBuildFile; fileRef = AA83A33F10F0D329002542E4 /* MutableFilterTestRef.m */; };
@@ -317,10 +317,10 @@
 		AA7DEC8C0D6EDE820057F5F8 /* UniformTypeRanking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UniformTypeRanking.m; path = control/UniformTypeRanking.m; sourceTree = "<group>"; };
 		AA7DF3210D79BEA80057F5F8 /* GradientRectangleDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GradientRectangleDrawer.h; path = view/GradientRectangleDrawer.h; sourceTree = "<group>"; };
 		AA7DF3220D79BEA80057F5F8 /* GradientRectangleDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GradientRectangleDrawer.m; path = view/GradientRectangleDrawer.m; sourceTree = "<group>"; };
-		AA819B381D5920FD003C7139 /* ScanProgressTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanProgressTracker.h; sourceTree = "<group>"; };
-		AA819B391D5920FD003C7139 /* ScanProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanProgressTracker.m; sourceTree = "<group>"; };
-		AA819B3B1D5A6352003C7139 /* TreeVisitingProgressTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeVisitingProgressTracker.h; sourceTree = "<group>"; };
-		AA819B3C1D5A6352003C7139 /* TreeVisitingProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TreeVisitingProgressTracker.m; sourceTree = "<group>"; };
+		AA819B3E1D5F9A7D003C7139 /* ScanProgressTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScanProgressTracker.h; path = task/ScanProgressTracker.h; sourceTree = "<group>"; };
+		AA819B3F1D5F9A7D003C7139 /* ScanProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScanProgressTracker.m; path = task/ScanProgressTracker.m; sourceTree = "<group>"; };
+		AA819B401D5F9A7D003C7139 /* TreeVisitingProgressTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeVisitingProgressTracker.h; path = task/TreeVisitingProgressTracker.h; sourceTree = "<group>"; };
+		AA819B411D5F9A7D003C7139 /* TreeVisitingProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TreeVisitingProgressTracker.m; path = task/TreeVisitingProgressTracker.m; sourceTree = "<group>"; };
 		AA837DBD0E29ECE5005384E0 /* TreeWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeWriter.h; path = tree/TreeWriter.h; sourceTree = "<group>"; };
 		AA837DBE0E29ECE5005384E0 /* TreeWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TreeWriter.m; path = tree/TreeWriter.m; sourceTree = "<group>"; };
 		AA837E720E2D171D005384E0 /* TreeReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeReader.h; path = tree/TreeReader.h; sourceTree = "<group>"; };
@@ -914,10 +914,10 @@
 				AA7A7F160E4F3C2800EB366E /* ProgressTracker.m */,
 				AA7A7FE20E4F724300EB366E /* AutoreleaseProgressTracker.h */,
 				AA7A7FE30E4F724300EB366E /* AutoreleaseProgressTracker.m */,
-				AA819B381D5920FD003C7139 /* ScanProgressTracker.h */,
-				AA819B391D5920FD003C7139 /* ScanProgressTracker.m */,
-				AA819B3B1D5A6352003C7139 /* TreeVisitingProgressTracker.h */,
-				AA819B3C1D5A6352003C7139 /* TreeVisitingProgressTracker.m */,
+				AA819B3E1D5F9A7D003C7139 /* ScanProgressTracker.h */,
+				AA819B3F1D5F9A7D003C7139 /* ScanProgressTracker.m */,
+				AA819B401D5F9A7D003C7139 /* TreeVisitingProgressTracker.h */,
+				AA819B411D5F9A7D003C7139 /* TreeVisitingProgressTracker.m */,
 			);
 			name = task;
 			sourceTree = "<group>";
@@ -1059,7 +1059,7 @@
 				AAD8DFB30B077ED20060DADA /* PreferencesPanelControl.m in Sources */,
 				AA5974CA0B31687600EF3248 /* FileItemPathStringCache.m in Sources */,
 				AA8FEB510B6CD0810049FF42 /* ScanTaskInput.m in Sources */,
-				AA819B3A1D5920FD003C7139 /* ScanProgressTracker.m in Sources */,
+				AA819B421D5F9A7D003C7139 /* ScanProgressTracker.m in Sources */,
 				AAE87FDA0CE10B9B00A99883 /* UniformTypeInventory.m in Sources */,
 				AA8877EB0D0C0E3500F52571 /* TreeContext.m in Sources */,
 				AA3B38E00D17EEF60070E889 /* CompoundItem.m in Sources */,
@@ -1080,7 +1080,6 @@
 				AA7B906A0DD707F000488CAA /* ItemPathModelView.m in Sources */,
 				AA987F610DF16D0300A6EA33 /* FilteredTreeGuide.m in Sources */,
 				AA9881900DF57B2F00A6EA33 /* BasicFileItemTestVisitor.m in Sources */,
-				AA819B3D1D5A6352003C7139 /* TreeVisitingProgressTracker.m in Sources */,
 				AA9881910DF57B2F00A6EA33 /* CompoundAndItemTest.m in Sources */,
 				AA9881920DF57B2F00A6EA33 /* CompoundItemTest.m in Sources */,
 				AA9881930DF57B2F00A6EA33 /* CompoundOrItemTest.m in Sources */,
@@ -1121,6 +1120,7 @@
 				AAB52EBB0E4F8DFE00BF7B20 /* ObjectPool.m in Sources */,
 				AAB52EC30E520E7A00BF7B20 /* MutableArrayPool.m in Sources */,
 				AAF951B10EDEE2E100844FD5 /* DirectoryViewToolbarControl.m in Sources */,
+				AA819B431D5F9A7D003C7139 /* TreeVisitingProgressTracker.m in Sources */,
 				AAA6E72D0EFD29CB00B4E71E /* ToolbarSegmentedCell.m in Sources */,
 				AA2B4A0A104B122900B10262 /* AnnotatedTreeContext.m in Sources */,
 				AAEF42831081136100468832 /* LocalizableStrings.m in Sources */,
