@@ -11,7 +11,7 @@
 #import "NamedFilter.h"
 #import "FilterSet.h"
 
-#import "ProgressTracker.h"
+#import "TreeVisitingProgressTracker.h"
 
 #import "ApplicationError.h"
 
@@ -184,7 +184,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
     abort = NO;
     error = nil;
     
-    progressTracker = [[ProgressTracker alloc] init];
+    progressTracker = [[TreeVisitingProgressTracker alloc] init];
   }
   return self;
 }

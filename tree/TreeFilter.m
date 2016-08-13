@@ -9,7 +9,7 @@
 #import "FilteredTreeGuide.h"
 #import "TreeBalancer.h"
 
-#import "FilterProgressTracker.h"
+#import "TreeVisitingProgressTracker.h"
 
 
 @interface TreeFilter (PrivateMethods)
@@ -38,7 +38,7 @@
     
     abort = NO;
     
-    progressTracker = [[FilterProgressTracker alloc] init];
+    progressTracker = [[TreeVisitingProgressTracker alloc] init];
 
     tmpDirItems = nil;
     tmpFileItems = nil;

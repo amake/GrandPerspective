@@ -1,12 +1,12 @@
-#import "FilterProgressTracker.h"
+#import "TreeVisitingProgressTracker.h"
 
-@interface FilterProgressTracker (PrivateMethods)
+@interface TreeVisitingProgressTracker (PrivateMethods)
 
 - (void) processedOrSkippedFolder: (DirectoryItem *)dirItem;
 
 @end
 
-@implementation FilterProgressTracker
+@implementation TreeVisitingProgressTracker
 
 - (void) _processingFolder: (DirectoryItem *)dirItem {
   [super _processingFolder: dirItem];
@@ -50,7 +50,7 @@
 @end
 
 
-@implementation FilterProgressTracker (PrivateMethods)
+@implementation TreeVisitingProgressTracker (PrivateMethods)
 
 - (void) processedOrSkippedFolder: (DirectoryItem *)dirItem {
   if (level > 0 && level <= NUM_PROGRESS_ESTIMATE_LEVELS) {

@@ -6,7 +6,7 @@
 @class TreeBalancer;
 @class TreeContext;
 @class DirectoryItem;
-@class FilterProgressTracker;
+@class ProgressTracker;
 
 
 @interface TreeFilter : NSObject {
@@ -18,7 +18,7 @@
 
   BOOL  abort;
   
-  FilterProgressTracker  *progressTracker;
+  ProgressTracker  *progressTracker;
   
 @private
   NSMutableArray*  tmpDirItems;
