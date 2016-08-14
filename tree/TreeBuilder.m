@@ -10,7 +10,7 @@
 #import "FilteredTreeGuide.h"
 #import "TreeBalancer.h"
 
-#import "ProgressTracker.h"
+#import "ScanProgressTracker.h"
 #import "UniformTypeInventory.h"
 
 
@@ -192,7 +192,7 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
     hardLinkedFileNumbers = [[NSMutableSet alloc] initWithCapacity: 32];
     abort = NO;
     
-    progressTracker = [[ProgressTracker alloc] init];
+    progressTracker = [[ScanProgressTracker alloc] init];
     
     pathBuffer = NULL;
     pathBufferLen = 0;
@@ -583,6 +583,8 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
     }
   }
   
+  [progressTracker setNumSubFolders: [dirs count]];
+
   // Sort the child directories by creation date, so that the oldest 
   // directories are scanned first. This affects the folder in which a 
   // hard-linked item will appear. This scanning order is particularly useful 

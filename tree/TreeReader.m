@@ -19,7 +19,7 @@
 #import "TreeBalancer.h"
 #import "TreeWriter.h"
 
-#import "AutoreleaseProgressTracker.h"
+#import "ReadProgressTracker.h"
 
 #import "UniformTypeInventory.h"
 #import "ApplicationError.h"
@@ -71,7 +71,7 @@ NSString  *AttributeNameKey = @"name";
 
 - (BOOL) isAborted;
 - (NSXMLParser *)parser;
-- (ProgressTracker *)progressTracker;
+- (ReadProgressTracker *)progressTracker;
 - (TreeBalancer *)treeBalancer;
 - (ObjectPool *)dirsArrayPool;
 - (ObjectPool *)filesArrayPool;
@@ -321,13 +321,7 @@ NSString  *AttributeNameKey = @"name";
     
     unboundTests = [[NSMutableArray alloc] initWithCapacity: 8];
     
-    // Either ProgressTracker can be used, or AutoreleaseProgressTracker. Using
-    // the latter means that temporary objects using autorelease will be 
-    // released while a tree is being read, thus reducing the total amount of
-    // memory needed. However, execution is slower (by approximately 10%),
-    // presumably because it fragments the memory, which slows allocation of
-    // new objects. 
-    progressTracker = [[ProgressTracker alloc] init];
+    progressTracker = [[ReadProgressTracker alloc] init];
 
     treeBalancer = [[TreeBalancer alloc] init];
 
@@ -362,10 +356,9 @@ NSString  *AttributeNameKey = @"name";
 - (AnnotatedTreeContext *)readTreeFromFile:(NSString *)path {
   NSAssert(parser == nil, @"Invalid state. Already reading?");
 
-  // TODO: Using NSData loads the entire file into memory. It would be nice to
-  // avoid this. This should be do-able, given that an event-streaming XML 
-  // parser is used. Unfortunately, NSXMLParser does not (yet) support this.
-  NSData  *data = [NSData dataWithContentsOfFile: path];
+  NSData  *data = [NSData dataWithContentsOfFile: path
+                                         options: NSDataReadingMappedIfSafe
+                                           error: &error];
   if (data == nil) {
     return nil;
   }
@@ -382,7 +375,7 @@ NSString  *AttributeNameKey = @"name";
   
   [unboundTests removeAllObjects];
   
-  [progressTracker startingTask];
+  [progressTracker startingTaskOnInputData: data];
   
   [parser parse];
   
@@ -1366,7 +1359,8 @@ NSString  *AttributeNameKey = @"name";
               modificationTime: modificationTime
                     accessTime: accessTime];
     
-    [[reader progressTracker] processingFolder: dirItem];
+    [[reader progressTracker] processingFolder: dirItem
+                                processedLines: [[reader parser] lineNumber]];
   }
   @catch (AttributeParseException *ex) {
     [self handlerAttributeParseError: ex];

@@ -4,7 +4,7 @@
 @class FilterTestRepository;
 @class AnnotatedTreeContext;
 @class TreeBalancer;
-@class ProgressTracker;
+@class ReadProgressTracker;
 @class ObjectPool;
 
 @interface TreeReader : NSObject <NSXMLParserDelegate> {
@@ -19,7 +19,7 @@
   
   NSMutableArray  *unboundTests;
   
-  ProgressTracker  *progressTracker;
+  ReadProgressTracker  *progressTracker;
   TreeBalancer  *treeBalancer;
   ObjectPool  *dirsArrayPool;
   ObjectPool  *filesArrayPool;
