@@ -1000,8 +1000,20 @@ static MainMenuControl  *singletonInstance = nil;
   else {
     AnnotatedTreeContext  *tree = [treeReader annotatedTreeContext];
     NSAssert(tree != nil, @"Unexpected state.");
-    
-    [MainMenuControl reportUnboundTests: [treeReader unboundFilterTests]];
+
+    // Do not report unbound tests as there is no direct impact. Firstly, the
+    // state of the read scan tree does not depend on the restored filter.
+    // Secondly, the filter description as reported in the comments is also
+    // restored from file and therefore also not impacted.
+    //
+    // There is an impact when rescanning the resulting view, but this will
+    // then be reported at that moment.
+    //
+    // There is no impact when filtering the resulting view. Although the filter
+    // is less specific than it was (because it is missing one or more filter
+    // tests), there are no nodes anymore in the scan tree that are impacted, as
+    // these have all been filtered out already.
+    //[MainMenuControl reportUnboundTests: [treeReader unboundFilterTests]];
     
     FreshDirViewWindowCreator  *windowCreator =
       [[[FreshDirViewWindowCreator alloc] 
