@@ -2,7 +2,7 @@
 
 #import "TreeConstants.h"
 #import "PlainFileItem.h"
-#import "DirectoryItem.h"
+#import "ScanTreeRoot.h"
 #import "CompoundItem.h"
 #import "TreeContext.h"
 #import "FilterSet.h"
@@ -77,7 +77,7 @@
 
   DirectoryItem  *oldScanTree = [oldTree scanTree];
   DirectoryItem  *scanTree = 
-    [[[DirectoryItem allocWithZone: [Item zoneForTree]] 
+    [[[ScanTreeRoot allocWithZone: [Item zoneForTree]]
          initWithName: [oldScanTree name]
                parent: [filterResult scanTreeParent]
                 flags: [oldScanTree fileItemFlags]
