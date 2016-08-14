@@ -74,8 +74,13 @@
 
 - (NamedFilter *)selectedNamedFilter {
   NSString  *name = [filterPopUpControl selectedFilterName];
+
   Filter  *filter = [[filterRepository filtersByName] objectForKey: name];
-  return [NamedFilter namedFilter: filter name: name];                        
+  // Filter should always exist, as pop-up control is observing the filter
+  // repository.
+  NSAssert(filter != nil, @"Unexpected nil filter");
+
+  return [NamedFilter namedFilter: filter name: name];
 }
 
 @end // @implementation FilterSelectionPanelControl

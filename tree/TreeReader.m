@@ -220,7 +220,7 @@ NSString  *AttributeNameKey = @"name";
 
 
 @interface FilterSetElementHandler : ElementHandler {
-  FilterSet  *filterSet;
+  NSMutableArray  *namedFilters;
 }
 
 - (void) handler: (ElementHandler *)handler 
@@ -1147,15 +1147,16 @@ NSString  *AttributeNameKey = @"name";
          callback: (id) callbackVal
          onSuccess: (SEL) successSelectorVal {
   if (self = [super initWithElement: elementNameVal reader: readerVal 
-                      callback: callbackVal onSuccess: successSelectorVal]) {
-    filterSet = [[FilterSet alloc] init];
+                           callback: callbackVal onSuccess: successSelectorVal])
+  {
+    namedFilters = [[NSMutableArray alloc] initWithCapacity: 8];
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [filterSet release];
+  [namedFilters release];
   
   [super dealloc];
 }
@@ -1175,21 +1176,22 @@ NSString  *AttributeNameKey = @"name";
 }
 
 - (id) objectForElement {
-  return filterSet;
+  NSMutableArray  *unboundTests = [reader mutableUnboundFilterTests];
+
+  // Note: Setting "nil" filterRepository to ensure that filter definition as
+  // read is retained.
+  return [FilterSet filterSetWithNamedFilters: namedFilters
+                             filterRepository: nil
+                               testRepository: [reader filterTestRepository]
+                               unboundFilters: nil
+                                 unboundTests: unboundTests];
 }
 
 - (void) handler:(ElementHandler *)handler 
            finishedParsingFilterElement:(NamedFilter *)namedFilter {
-  Filter  *filter = [namedFilter filter];
-  if ( [filter createFileItemTestFromRepository: [reader filterTestRepository]
-                 unboundTests: [reader mutableUnboundFilterTests]] != nil) {
-    FilterSet  *oldFilterSet = filterSet;
-    filterSet = 
-      [[oldFilterSet filterSetWithAddedNamedFilter: namedFilter] retain];
-    [oldFilterSet release];
-  }
-  
-  [self handler: handler finishedParsingElement: filter];
+  [namedFilters addObject: namedFilter];
+
+  [self handler: handler finishedParsingElement: namedFilter];
 }
 
 @end // @implementation FilterSetElementHandler
@@ -1203,7 +1205,7 @@ NSString  *AttributeNameKey = @"name";
          onSuccess: (SEL) successSelectorVal {
   if (self = [super initWithElement: elementNameVal reader: readerVal 
                       callback: callbackVal onSuccess: successSelectorVal]) {
-    filterTests = [[NSMutableArray alloc] initWithCapacity: 8];;
+    filterTests = [[NSMutableArray alloc] initWithCapacity: 8];
     name = nil;
   }
   
@@ -1230,7 +1232,7 @@ NSString  *AttributeNameKey = @"name";
 
 - (void) handleChildElement: (NSString *)childElement 
            attributes: (NSDictionary *)attribs {
- if ([childElement isEqualToString: FilterTestElem]) {
+  if ([childElement isEqualToString: FilterTestElem]) {
     [[[FilterTestElementHandler alloc] 
          initWithElement: childElement reader: reader callback: self 
            onSuccess: @selector(handler:finishedParsingFilterTestElement:)]

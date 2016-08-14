@@ -50,8 +50,7 @@
 
 - (id) initWithFilterTests:(NSArray *)filterTestsVal {
   if (self = [super init]) {
-    filterTests = [[NSArray alloc] initWithArray: filterTestsVal];    
-    fileItemTest = nil;
+    filterTests = [[NSArray alloc] initWithArray: filterTestsVal];
   }
 
   return self;
@@ -60,8 +59,7 @@
 
 - (void) dealloc {
   [filterTests release];
-  [fileItemTest release];
-  
+
   [super dealloc];
 }
 
@@ -95,17 +93,17 @@
 }
 
 
-- (FileItemTest *)createFileItemTestFromRepository: 
-                    (FilterTestRepository *)repository {
-  return [self createFileItemTestFromRepository: repository unboundTests: nil];
+- (FileItemTest *)createFileItemTestUnboundTests:(NSMutableArray *)unboundTests
+{
+  FilterTestRepository  *testRepo = [FilterTestRepository defaultInstance];
+  return [self createFileItemTestFromRepository: testRepo
+                                   unboundTests: unboundTests];
 }
 
-- (FileItemTest *)createFileItemTestFromRepository: 
+- (FileItemTest *)createFileItemTestFromRepository:
                     (FilterTestRepository *)repository
                     unboundTests:(NSMutableArray *)unboundTests {
-  NSAssert(fileItemTest == nil, @"File item test already set.");
-
-  NSMutableArray  *subTests = 
+  NSMutableArray  *subTests =
     [NSMutableArray arrayWithCapacity: [filterTests count]];
 
   NSEnumerator  *filterTestEnum = [filterTests objectEnumerator];
@@ -127,22 +125,17 @@
       [unboundTests addObject: [filterTest name]];
     }
   }
-  
+
   if ([subTests count] == 0) {
-    fileItemTest = nil;
+    return nil;
   }
   else if ([subTests count] == 1) {
-    fileItemTest = [[subTests objectAtIndex: 0] retain];
+    return [subTests objectAtIndex: 0];
   }
   else {
-    fileItemTest = [[CompoundOrItemTest alloc] initWithSubItemTests: subTests];
+    return [[[CompoundOrItemTest alloc] initWithSubItemTests: subTests]
+            autorelease];
   }
-  
-  return fileItemTest;
-}
-
-- (FileItemTest *)fileItemTest {
-  return fileItemTest;
 }
 
 - (NSDictionary *)dictionaryForObject {

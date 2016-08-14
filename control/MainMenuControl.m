@@ -121,14 +121,18 @@ NSString  *RescanVisible = @"rescan visible";
 
 - (void) duplicateCurrentWindowSharingPath:(BOOL) sharePathModel;
 
-- (NamedFilter *)getNamedFilter:(NamedFilter *)initialFilter;
+/* Prompts the user to select a filter. The initialFilter, when set, specifies
+ * the initial/default selection.
+ */
+- (NamedFilter *)getSelectedNamedFilter:(NamedFilter *)initialFilter;
 
 + (NSString *)getPathFromPasteboard:(NSPasteboard *)pboard;
 
 /* Helper method for reporting the names of unbound filters or filter tests.
  */
-+ (void) reportUnbound:(NSArray *)unboundNames messageFormat:(NSString *)format
-           infoText:(NSString *)infoText;
++ (void) reportUnbound:(NSArray *)unboundNames
+         messageFormat:(NSString *)format
+              infoText:(NSString *)infoText;
 
 /* Creates window title based on scan location, scan time and filter (if any).
  */
@@ -505,24 +509,20 @@ static MainMenuControl  *singletonInstance = nil;
   DirectoryViewControl  *oldControl = 
     [[[NSApplication sharedApplication] mainWindow] windowController];
 
-  NamedFilter  *namedFilter = [self getNamedFilter: [oldControl namedMask]];
+  NamedFilter  *namedFilter =
+    [self getSelectedNamedFilter: [oldControl namedMask]];
   if (namedFilter == nil) {
+    // User cancelled selection, so abort
     return;
   }
-  
-  Filter  *filter = [namedFilter filter];
-  FileItemTest  *filterTest =
-    [filter createFileItemTestFromRepository:
-              [FilterTestRepository defaultInstance]];
-  if (filterTest == nil) {
-    NSLog(@"Filter test of new filter is nil.");
-    return;
-  }
-  
-  FilterSet  *filterSet = 
+
+  NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
+  FilterSet  *filterSet =
     [[[oldControl treeContext] filterSet]
-         filterSetWithAddedNamedFilter: namedFilter];
-      
+         filterSetWithAddedNamedFilter: namedFilter
+                          unboundTests: unboundTests];
+  [MainMenuControl reportUnboundTests: unboundTests];
+
   ItemPathModel  *pathModel = [[oldControl pathModelView] pathModel];
   DirectoryViewControlSettings  *settings = 
     [oldControl directoryViewControlSettings];
@@ -730,34 +730,29 @@ static MainMenuControl  *singletonInstance = nil;
   }
   NamedFilter  *namedFilter = nil;
   if (useFilter) {
-    namedFilter = [self getNamedFilter: nil];
+    namedFilter = [self getSelectedNamedFilter: nil];
 
     if (namedFilter == nil) {
       // User cancelled filter selection. Abort scanning.
       return;
     }
-
-    // Copy the filter, so that its test can be reinstantiated (it may already
-    // have been instantiated)
-    Filter  *filter = [Filter filterWithFilter: [namedFilter filter]];
-    
-    // Instantiate the test
-    [filter createFileItemTestFromRepository: 
-              [FilterTestRepository defaultInstance]];
-
-    // Use the updated filter instead
-    namedFilter = [NamedFilter namedFilter: filter name: [namedFilter name]];
   }
 
   [self scanFolder: [targetURL path] namedFilter: namedFilter];
 }
 
 - (void) scanFolder:(NSString *)path namedFilter:(NamedFilter *)namedFilter {
-  NSAssert(namedFilter==nil || [[namedFilter filter] fileItemTest] != nil, 
-           @"Filter must be nil or instantiated.");
-  FilterSet  *filterSet =
-    (namedFilter != nil) 
-       ? [FilterSet filterSetWithNamedFilter: namedFilter] : nil;
+  FilterSet  *filterSet = nil;
+
+  if (namedFilter != nil) {
+    NSMutableArray  *unboundFilters = [NSMutableArray arrayWithCapacity: 8];
+    NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
+    filterSet = [FilterSet filterSetWithNamedFilter: namedFilter
+                                     unboundFilters: unboundFilters
+                                       unboundTests: unboundTests];
+    [MainMenuControl reportUnboundFilters: unboundFilters];
+    [MainMenuControl reportUnboundTests: unboundTests];
+  }
 
   [self scanFolder: path filterSet: filterSet];
 }
@@ -864,7 +859,7 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-- (NamedFilter *)getNamedFilter:(NamedFilter *)initialFilter {
+- (NamedFilter *)getSelectedNamedFilter:(NamedFilter *)initialFilter {
   if (filterSelectionPanelControl == nil) {
     filterSelectionPanelControl = [[FilterSelectionPanelControl alloc] init];
   }

@@ -9,20 +9,15 @@
  * succeeds when any of its subtest succeed (i.e. the subtests are combined 
  * using the OR operator). Each filter subtest can optionally be inverted.
  *
- * The subtests are referenced by name, which means that changes to their
- * implementation after they have been added to the filter will affect the
- * implementation of the filter's overall test returned by 
+ * The subtests are referenced by name, which means that the FileItemTest that
+ * represents this filter is affected by any changes to used filter tests. The
+ * current file item test can be obtained using
  * -createFileItemTestFromRepository:.
  */
 @interface Filter : NSObject {
   // Array containing FilterTestRefs
   NSArray  *filterTests;
- 
-  /* The filter test. Only valid after -createFileItemTestFromRepository: has
-   * been called.
-   */
-  FileItemTest  *fileItemTest;
-}
+ }
 
 + (id) filter;
 + (id) filterWithFilterTests:(NSArray *)filterTests;
@@ -54,32 +49,23 @@
 - (FilterTestRef *)filterTestWithName:(NSString *)name;
 - (int) indexOfFilterTest:(FilterTestRef *)test;
 
-/* Creates the test object that represents the filter given the tests 
- * currently in the test repository. Returns the test that has been created,
- * which if it was non-nil can also be retrieved using -fileItemTest.
- *
- * Once a file item test has been created, it does not change anymore. To 
- * update the test invoke this method on a copy of this filter, which can be 
- * obtained using +filterWithFilter:.
- */
-- (FileItemTest *)createFileItemTestFromRepository: 
-                    (FilterTestRepository *)repository;
 
-/* Creates the test object that represents the filter given the tests 
- * currently in the test repository. Returns the test that has been created,
- * which if it was non-nil can also be retrieved using -fileItemTest.
+/* Creates and returns the test object that represents the filter given the
+ * tests currently in the default test repository.
  *
  * If any test cannot be found in the repository its name will be added to
  * "unboundTests".
  */
-- (FileItemTest *) createFileItemTestFromRepository: 
-                    (FilterTestRepository *)repository
-                    unboundTests:(NSMutableArray *)unboundTests;
+- (FileItemTest *)createFileItemTestUnboundTests:(NSMutableArray *)unboundTests;
 
-/* Can only be used after -createFileItemTestFromRepository: has been invoked
- * successfully.
+/* Creates and returns the test object that represents the filter given the
+ * tests currently in the test repository.
+ *
+ * If any test cannot be found in the repository its name will be added to
+ * "unboundTests".
  */
-- (FileItemTest *)fileItemTest;
+- (FileItemTest *)createFileItemTestFromRepository:(FilterTestRepository *)repository
+                                      unboundTests:(NSMutableArray *)unboundTests;
 
 /* Returns a dictionary that represents the object. It can be used for storing 
  * the object to preferences.

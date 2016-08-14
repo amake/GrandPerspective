@@ -11,6 +11,7 @@
 #import "DirectoryViewControlSettings.h"
 #import "NamedFilter.h"
 #import "Filter.h"
+#import "FilterSet.h"
 #import "FilterRepository.h"
 #import "FilterTestRepository.h"
 #import "FilterPopUpControl.h"
@@ -1072,19 +1073,10 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 - (void) updateMask {
   Filter  *mask = [self mask];
   
-  NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
-  if ( mask != nil 
-       && [userDefaults boolForKey: UpdateFiltersBeforeUse] ) {
-    // Create a new filter (so that the file item test can be updated)
-    mask = [Filter filterWithFilter: mask];
-  }
-
-  FileItemTest  *maskTest = [mask fileItemTest]; 
-  if ( mask != nil && maskTest == nil ) {
+  FileItemTest  *maskTest = nil;
+  if (mask != nil) {
     NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
-    maskTest = [mask createFileItemTestFromRepository: 
-                         [FilterTestRepository defaultInstance]
-                       unboundTests: unboundTests];
+    maskTest = [mask createFileItemTestUnboundTests: unboundTests];
     [MainMenuControl reportUnboundTests: unboundTests];
   }
 
