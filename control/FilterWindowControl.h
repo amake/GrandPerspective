@@ -35,6 +35,9 @@
   
   IBOutlet NSTableView  *filterTestsView;
   IBOutlet NSTableView  *availableTestsView;
+
+  // The first responder when updateWindowState: was last called.
+  NSResponder  *firstResponder;
   
   FilterTestRepository  *testRepository;
   FilterTestEditor  *testEditor;

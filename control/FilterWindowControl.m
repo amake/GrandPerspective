@@ -47,6 +47,8 @@ NSString  *MatchColumn = @"match";
 - (void) textEditingStarted:(NSNotification *)notification;
 - (void) textEditingStopped:(NSNotification *)notification;
 
+- (void) appDidUpdate:(NSNotification *)notification;
+
 - (BOOL) isNameKnownInvalid;
 
 - (void) confirmTestRemovalAlertDidEnd:(NSAlert *)alert 
@@ -145,6 +147,11 @@ NSString  *MatchColumn = @"match";
           name: NSTextDidBeginEditingNotification object: nil];
   [nc addObserver: self selector: @selector(textEditingStopped:) 
           name: NSTextDidEndEditingNotification object: nil];
+
+  [nc addObserver: self
+         selector: @selector(appDidUpdate:)
+             name: NSApplicationDidUpdateNotification
+           object: nil];
 }
 
 
@@ -676,10 +683,9 @@ NSString  *MatchColumn = @"match";
     }
   }
 
-  BOOL  filterTestsHighlighted = 
-          ( [[self window] firstResponder] == filterTestsView );
-  BOOL  availableTestsHighlighted = 
-          ( [[self window] firstResponder] == availableTestsView );
+  firstResponder = [[self window] firstResponder];
+  BOOL  filterTestsHighlighted = (firstResponder == filterTestsView);
+  BOOL  availableTestsHighlighted = ( firstResponder == availableTestsView );
 
   // Find out which test (if any) is currently highlighted.
   NSString  *newSelectedTestName = nil;
@@ -768,6 +774,17 @@ NSString  *MatchColumn = @"match";
               withObject: @"\r" afterDelay: 0.1
               inModes: [NSArray arrayWithObjects: NSModalPanelRunLoopMode, 
                                                   NSDefaultRunLoopMode, nil]];
+}
+
+
+- (void) appDidUpdate:(NSNotification *)notification {
+  // We want to detect when one of the filter views is newly selected (i.e.
+  // became first responder) so that the description of the selected filter can
+  // be updated. Apparently there are no events signalling first responder
+  // changes, so doing it a bit more brute force.
+  if ([[self window] firstResponder] != firstResponder) {
+    [self updateWindowState: notification];
+  }
 }
 
 
