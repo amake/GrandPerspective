@@ -155,7 +155,7 @@
 
 /* Alert message */
 "Failed to update one or more filters:
-%@" = "Het bijwerken van een één of meer filters is mislukt:
+%@" = "Het bijwerken van één of meer filters is mislukt:
 %@";
 
 /* Error message */
@@ -210,13 +210,13 @@
 "None" = "Geen";
 
 /* Alert additional informative text */
-"Note: The file is hard-linked. It will take up space until all links to it are deleted." = "Het bestand is een harde link. Het zal ruimte innemen totdat alle links verwijderd zijn.";
+"Note: The file is hard-linked. It will take up space until all links to it are deleted." = "Het bestand is een harde link. Deze zal ruimte innemen totdat alle links verwijderd zijn.";
 
 /* Alert additional informative text */
-"Note: The folder is hard-linked. It will take up space until all links to it are deleted." = "De map is een harde link. Het zal ruimte innemen totdat alle links verwijderd zijn.";
+"Note: The folder is hard-linked. It will take up space until all links to it are deleted." = "De map is een harde link. Deze zal ruimte innemen totdat alle links verwijderd zijn.";
 
 /* Alert additional informative text */
-"Note: The package is hard-linked. It will take up space until all links to it are deleted." = "Het pakket is een harde link. Het zal ruimte innemen totdat alle links verwijderd zijn.";
+"Note: The package is hard-linked. It will take up space until all links to it are deleted." = "Het pakket is een harde link. Deze zal ruimte innemen totdat alle links verwijderd zijn.";
 
 /* (No Commment) */
 "OK" = "OK";
