@@ -40,7 +40,7 @@
 	<key>CFBundleSignature</key>
 	<string>GrPe</string>
 	<key>CFBundleVersion</key>
-	<string>34</string>
+	<string>1.8.0</string>
 	<key>GPApplicationDefaults</key>
 	<dict>
 		<key>confirmFileDeletion</key>

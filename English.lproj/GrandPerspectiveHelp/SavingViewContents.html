@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Saving view data</title>
+<link href="HelpStyle.css" rel="stylesheet" media="all">
+<meta name="description" content="Describes how to save the data that is shown in views.">
+<meta name="keywords" content="views, save, load, image">
+</head>
+<body>
+
+<div id="caticon">
+<img src="images/GrandPerspectiveIcon32.png" alt="GrandPerspective icon" height="32" width="32">
+</div>
+<div id="pagetitle">
+<h1>Saving scan results</h1>
+</div>
+
+<p>
+There are two ways in which you can save the contents of <a href="Views.html">views</a>, both accessible from the "File" menu:
+
+<ul>
+<li>
+<p>
+The <b>Save Scan Data</b> command lets you save all data in the view.
+Data is saved to an XML file.
+It does not matter which folder is currently displayed in the view. 
+All files &#151;also those not currently shown in the view&#151; are stored.
+However, if a <a href="MasksAndFilters.html">filter</a> has been used to create the view then files that have been excluded by the filter will not be stored.
+Comments that you enter in the text view in the <a href="ViewInfoPanel.html">Info panel</a> are stored as well.
+You can use this to associate useful information with the scan. 
+</p>
+<p>
+The saved data can be loaded into <a href="CreatingViews.html">a new view</a> at a later moment using the <b>Load Scan Data</b> command.
+Saving and loading data be useful for various reasons, amongst which the following:
+  <ul>
+  <li>
+  You can <a href="NavigatingViews.html">view and navigate</a> old contents of folders, even when these contents have now changed.
+  Comparing the old contents of a folder with the current contents can be useful to determine why your disk space has suddenly all disappeared.
+  Note: If you are using Time Machine, you can also view the old contents of folders by <a href="HowToAnalyseTimeMachineBackups.html">scanning old Time Machine back-ups</a>,
+  </li>
+  <li>
+  You can visualise your hard drive using GrandPerspective at another machine.
+  </li>
+  <li>
+  Loading saved scan data is quicker than obtaining the same data by scanning the folder again.
+  </li>
+  <li>
+  Experienced users may process, analyse, and manipulate the saved data using shell scripts or other tools.
+  </li>
+  </ul>
+</p>
+
+<p>
+<em>Beware: When viewing loaded scan data, you have to be extra careful using the <b>Delete</b> command.
+Files or folders that you select for deletion may have different contents than the view suggests;
+folders may contain more files and files may have changed (in size) as well. 
+</em>
+</p>
+</li>
+
+<li>
+<p>
+The <b>Save Image of View</b> command can be used to save a PNG image of the view.
+The image will be drawn using the <a href="ViewDisplayPanel.html">Display</a> settings of the view and will show the same folder.
+The image is a static representation of the data in the view; 
+it cannot be loaded into GrandPerspective again for further exploration.
+You can, however, upload the image to your blog, email it to friends, or frame it and hang it on your wall :-).
+</p>
+</li>
+
+</ul>
+</p>
+
+</body>
+</html>
