@@ -1,0 +1,59 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Het analyseren van crashes tijdens het inlezen</title>
+<link href="HelpStyle.css" rel="stylesheet" media="all">
+<meta name="description" content="Het analyseren van problemen tijdens het inlezen.">
+<meta name="keywords" content="hoe, crash, vastlopen, inlezen">
+</head>
+<body>
+
+<div id="caticon">
+<img src="images/GrandPerspectiveIcon32.png" alt="GrandPerspective icon" height="32" width="32">
+</div>
+<div id="pagetitle">
+<h1>Het analyseren van crashes tijdens het inlezen</h1>
+</div>
+
+<p>
+GrandPerspective is erg stabiel.
+Het gebeurt zelden dat de application vastloopt of crasht tijdens het inlezen, maar dit kan af en toe voorkomen.
+Als dit u overkomt, volg dan deze stappen:
+
+<ol>
+<li>Activeer alle log berichten wanneer u de application start.
+Hiertoe start u de applicatie vanuit de Terminal met <tt>-logAll YES</tt> als extra argument.<br><br>
+Bijvoorbeeld, wanneer u versie 1.7.0 heeft gekoppeld als volume, type dan:<br>
+<tt>/Volumes/GrandPerspective\ 1.7.0/GrandPerspective.app/Contents/MacOS/GrandPerspective -logAll YES</tt>
+</li>
+
+<li>Probeer nu de crash te reproduceren. Is dit gelukt?
+
+  <ul>
+  <li>Nee, blijf proberen. 
+Ga terug naar Stap 2.</li>
+
+  <li>Ja, inspecteer dan de log berichten in het Terminal scherm om te bepalen welke map ingelezen werd toen de crash plaats vond.
+Ga door naar Stap 3.</li>
+  </ul></li>
+
+<li>Probeer de onderliggende oorzaak van het probleem te achterhalen door de volgende vragen te beantwoorden:
+
+  <ul>
+  <li>Is de crash herhaalbaar?
+Vindt de crash altijd plaats wanneer dezelfde map ingelezen wordt?</li>
+  <li>Is er iets bijzonders aan de hand met deze map?
+Bevat het bijvoorbeeld bestanden met aparte karakters in de naam?</li>
+  </ul></li>
+
+<li>Zodra het u lukt een herhaalbare crash the reproduceren, kunt u <a href="https://sourceforge.net/p/grandperspectiv/bugs/">een probleem rapport indienen</a>.
+Vermeld hierbij zoveel mogelijk details.<br><br>
+
+Opmerking: U kunt ook een probleem rapport indienen wanneer het niet is gelukt een herhaalbare crash te reproduceren.
+De kans dat dit probleem vervolgens opgelost kan worden is echter veel kleiner.
+</li>
+</p>
+
+</body>
+</html>
+
