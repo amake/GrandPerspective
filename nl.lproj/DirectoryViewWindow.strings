@@ -5,7 +5,7 @@
 "92.label" = "Info";
 
 /* Class = "NSTabViewItem"; label = "Display"; ObjectID = "93"; */
-"93.label" = "Beeld";
+"93.label" = "Weergave";
 
 /* Class = "NSTabViewItem"; label = "Focus"; ObjectID = "97"; */
 "97.label" = "Focus";

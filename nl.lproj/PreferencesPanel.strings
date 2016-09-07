@@ -2,7 +2,7 @@
 "6.title" = "Voorkeuren";
 
 /* Class = "NSBox"; title = "Display"; ObjectID = "29"; */
-"29.title" = "Beeld";
+"29.title" = "Weergave";
 
 /* Class = "NSMenu"; title = "OtherViews"; ObjectID = "45"; */
 "45.title" = "OtherViews";
