@@ -113,7 +113,7 @@
 "938.title" = "Toon gehele opslagmedium";
 
 /* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "939"; */
-"939.title" = "Toon pakketinhoud";
+"939.title" = "Toon pakket inhoud";
 
 /* Class = "NSTextFieldCell"; title = "XXXX in view:"; ObjectID = "940"; */
 "940.title" = "Getoonde XXXX:";
