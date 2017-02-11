@@ -15,7 +15,7 @@ NSString  *FirstResponderChangedEvent = @"firstResponderChanged";
 
 // Overrides designated initialiser
 - (id)initWithContentRect: (NSRect)contentRect 
-       styleMask: (NSUInteger)styleMask
+       styleMask: (NSWindowStyleMask)styleMask
        backing: (NSBackingStoreType)backingType 
        defer: (BOOL)flag {
   if (self = [super initWithContentRect: contentRect styleMask: styleMask
