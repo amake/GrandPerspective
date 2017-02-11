@@ -69,7 +69,6 @@ NSString  *AttributeNameKey = @"name";
 
 @interface TreeReader (PrivateMethods) 
 
-- (BOOL) isAborted;
 - (NSXMLParser *)parser;
 - (ReadProgressTracker *)progressTracker;
 - (TreeBalancer *)treeBalancer;
@@ -384,7 +383,7 @@ NSString  *AttributeNameKey = @"name";
   [parser release];
   parser = nil;
 
-  return (error!=nil || abort) ? nil : tree;
+  return (error != nil || abort) ? nil : tree;
 }
 
 
@@ -398,9 +397,10 @@ NSString  *AttributeNameKey = @"name";
   abort = YES;
 }
 
-
+/* Returns YES iff the reading task was aborted externally (i.e. using -abort).
+ */
 - (BOOL) aborted {
-  return (error != nil) && abort;
+  return abort;
 }
 
 - (AnnotatedTreeContext *)annotatedTreeContext {
@@ -486,10 +486,6 @@ NSString  *AttributeNameKey = @"name";
 
 @implementation TreeReader (PrivateMethods) 
 
-- (BOOL) isAborted {
-  return abort;
-}
-
 - (NSXMLParser *)parser {
   return parser;
 }
@@ -520,10 +516,11 @@ NSString  *AttributeNameKey = @"name";
 
 
 - (void) setParseError:(NSError *)parseError {
-  if ( error == nil // There is no error yet
-       && !abort    // ... and parsing has not been aborted (this also 
-                    // triggers an error, which should be ignored).
-     ) {
+  if (
+    error == nil // There is no error yet
+    && !abort    // ... and parsing has not been aborted (this also
+                 // triggers an error, which should be ignored).
+  ) {
     error = 
       [[ApplicationError alloc] initWithLocalizedDescription:
           [NSString stringWithFormat: PARSE_ERROR_MSG, 
@@ -571,7 +568,9 @@ NSString  *AttributeNameKey = @"name";
            namespaceURI: (NSString *)namespaceURI 
            qualifiedName: (NSString *)qName 
            attributes: (NSDictionary *)attribs {
-  if ([reader isAborted]) {
+  if ([reader aborted]) {
+    // Although the TreeReader actually ignores it, given that the error callback
+    // is used for consistency providing a properly initialised error object.
     NSError  *error = 
       [ApplicationError errorWithLocalizedDescription: PARSING_ABORTED_MSG];
     [callback handler: self failedParsingElement: error];
@@ -608,7 +607,7 @@ NSString  *AttributeNameKey = @"name";
   
   [callback handler: self failedParsingElement: parseError];
 
-  [handler release]; 
+  [handler release];
 }
 
 - (void) handler: (ElementHandler *)handler 
