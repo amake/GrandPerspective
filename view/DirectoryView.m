@@ -483,14 +483,6 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
                            atIndex: itemCount++];
   }
   
-  if ( [self validateAction: @selector(rescanFile:)] ) {
-    [popUpMenu insertItemWithTitle: 
-     NSLocalizedStringFromTable( @"Rescan", @"PopUpMenu", @"Menu item" )
-                            action: @selector(rescanFile:) 
-                     keyEquivalent: @""
-                           atIndex: itemCount++];
-  }
-  
   return (itemCount > 0) ? popUpMenu : nil;
 }
 
