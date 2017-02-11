@@ -7,6 +7,20 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.folder</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleTypeName</key>
+			<string>Folder to scan</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+		</dict>
+		<dict>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>CFBundleTypeIconFile</key>
 			<string>GrandPerspectiveScan.icns</string>
 			<key>CFBundleTypeName</key>
