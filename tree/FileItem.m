@@ -89,6 +89,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
 - (FileItem *)duplicateFileItem:(DirectoryItem *)newParent {
   NSAssert(NO, @"-duplicateFileItem: called on (abstract) FileItem.");
+  return nil;
 }
 
 
@@ -199,10 +200,11 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   
   NSRange  dotRange = [s rangeOfString: @"."];
   if (dotRange.location != NSNotFound) {
-    int  delPos = ((dotRange.location < 3) ?
-                   4 : // Keep one or more digits after the decimal point.
-                   dotRange.location);
-                       // Keep only the digits before the decimal point.
+    NSUInteger  delPos = (
+      (dotRange.location < 3) ?
+      4 :               // Keep one or more digits after the decimal point.
+      dotRange.location // Keep only the digits before the decimal point.
+    );
 
     [s deleteCharactersInRange:NSMakeRange(delPos, [s length] - delPos)];
     

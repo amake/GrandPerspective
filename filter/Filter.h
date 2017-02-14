@@ -43,11 +43,11 @@
  */
 - (id) initWithFilter:(Filter *)filter;
 
-- (int) numFilterTests;
+- (NSUInteger) numFilterTests;
 - (NSArray *)filterTests;
-- (FilterTestRef *)filterTestAtIndex:(int) index;
+- (FilterTestRef *)filterTestAtIndex:(NSUInteger) index;
 - (FilterTestRef *)filterTestWithName:(NSString *)name;
-- (int) indexOfFilterTest:(FilterTestRef *)test;
+- (NSUInteger) indexOfFilterTest:(FilterTestRef *)test;
 
 
 /* Creates and returns the test object that represents the filter given the

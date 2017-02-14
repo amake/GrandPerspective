@@ -132,8 +132,8 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 
 
 - (BOOL) isUniformTypeDominated: (UniformType *)type {
-  int  i = 0;
-  int  i_max = [rankedTypes count];
+  NSUInteger  i = 0;
+  NSUInteger  i_max = [rankedTypes count];
   
   NSSet  *ancestors = [type ancestorTypes];
   
@@ -154,14 +154,15 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
     i++;
   }
   NSAssert(NO, @"Unexpected termination");
+  return NO;
 }
 
 - (NSArray *) undominatedRankedUniformTypes {
   NSMutableArray  *undominatedTypes = 
     [NSMutableArray arrayWithCapacity: [rankedTypes count]];
     
-  int  i = 0;
-  int  i_max = [rankedTypes count];
+  NSUInteger  i = 0;
+  NSUInteger  i_max = [rankedTypes count];
 
   while (i < i_max) {
     UniformType  *type = [rankedTypes objectAtIndex: i];

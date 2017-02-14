@@ -15,6 +15,7 @@
    modificationTime:(CFAbsoluteTime) modificationTime
          accessTime:(CFAbsoluteTime) accessTime {
   NSAssert(NO, @"Initialize without size.");
+  return nil;
 }
 
 

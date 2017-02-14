@@ -29,13 +29,13 @@ extern NSString  *EstimatedProgressKey;
   NSLock  *mutex;
   
   // The number of folders that have been processed so far.
-  int  numFoldersProcessed;
+  NSUInteger  numFoldersProcessed;
 
   // The number of folders that have been skipped so far.
-  int  numFoldersSkipped;
+  NSUInteger  numFoldersSkipped;
   
   // The recursion level.
-  int  level;
+  NSUInteger  level;
    
   // The stack of directories that are being processed.
   NSMutableArray  *directoryStack;

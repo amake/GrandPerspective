@@ -148,12 +148,12 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
   [focusControls setTarget: self];
   [focusControls setAction: @selector(focus:)];
   
-  signed int  i;
+  NSUInteger  i;
   
   // Check if tags have been used to change default segment ordering 
   i = [zoomControls segmentCount];
-  while (--i >= 0) {
-    int  tag = [[zoomControls cell] tagForSegment: i];
+  while (i-- > 0) {
+    NSUInteger  tag = [[zoomControls cell] tagForSegment: i];
     switch (tag) {
       case ZOOM_IN_TAG:
         zoomInSegment = i; break;
@@ -163,8 +163,8 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
   }
 
   i = [focusControls segmentCount];
-  while (--i >= 0) {
-    int  tag = [[focusControls cell] tagForSegment: i];
+  while (i-- > 0) {
+    NSUInteger  tag = [[focusControls cell] tagForSegment: i];
     switch (tag) {
       case FOCUS_UP_TAG:
         focusUpSegment = i; break;
@@ -546,7 +546,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 
 
 - (void) zoom: (id) sender {
-  int  selected = [sender selectedSegment];
+  NSUInteger  selected = [sender selectedSegment];
 
   if (selected == zoomInSegment) {
     [self zoomIn: sender];
@@ -555,13 +555,13 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
     [self zoomOut: sender];
   }
   else {
-    NSAssert1(NO, @"Unexpected selected segment: %d", selected);
+    NSAssert1(NO, @"Unexpected selected segment: %lu", (unsigned long)selected);
   }
 }
 
 
 - (void) focus: (id) sender {
-  int  selected = [sender selectedSegment];
+  NSUInteger  selected = [sender selectedSegment];
   
   if ([sender selectedSegment] == focusDownSegment) {
     [self moveFocusDown: sender];
@@ -570,7 +570,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
     [self moveFocusUp: sender];
   }
   else {
-    NSAssert1(NO, @"Unexpected selected segment: %d", selected);
+    NSAssert1(NO, @"Unexpected selected segment: %lu", (unsigned long)selected);
   }
 }
 

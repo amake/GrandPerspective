@@ -32,10 +32,10 @@ const int  minTimeDelta = 60;
 }
 
 
-- (int) hashForFileItem: (PlainFileItem *)item atDepth: (int) depth {
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
   CFAbsoluteTime  itemTime = nowTime - [self timeForFileItem: item];
   CFAbsoluteTime  refTime = nowTime - minTime;
-  int  hash = 0;
+  NSUInteger  hash = 0;
   
   while (YES) {
     if (itemTime > refTime) {
@@ -58,11 +58,11 @@ const int  minTimeDelta = 60;
 //----------------------------------------------------------------------------
 // Implementation of LegendProvidingFileItemMapping
 
-- (NSString *) descriptionForHash: (int)hash {
+- (NSString *) descriptionForHash: (NSUInteger)hash {
   CFAbsoluteTime  lowerBound = 0;
   CFAbsoluteTime  upperBound = minTime;
   
-  int i = hash;
+  NSUInteger  i = hash;
   while (i > 0) {
     lowerBound = upperBound;
     upperBound = lowerBound + (nowTime - lowerBound) / 2;

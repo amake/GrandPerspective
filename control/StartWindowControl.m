@@ -79,7 +79,7 @@ NSString*  TaglineFormat = @"tagline-%d";
 - (IBAction) repeatRecentScanAction:(id) sender {
   [[self window] close];
 
-  int row = [recentScansView clickedRow];
+  NSUInteger row = [recentScansView clickedRow];
   NSURL *docUrl = [[[NSDocumentController sharedDocumentController] recentDocumentURLs]
                    objectAtIndex: row];
 

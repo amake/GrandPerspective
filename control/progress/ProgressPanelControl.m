@@ -23,6 +23,7 @@ extern NSString  *EstimatedProgressKey;
 
 - (id) init {
   NSAssert(NO, @"Use initWithTaskExecutor: instead.");
+  return nil;
 }
 
 - (id) initWithTaskExecutor: (NSObject <TaskExecutor> *)taskExecutorVal {

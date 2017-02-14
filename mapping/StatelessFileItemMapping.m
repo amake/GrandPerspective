@@ -11,14 +11,14 @@
 }
 
 
-- (int) hashForFileItem: (PlainFileItem *)item atDepth: (int) depth {
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
   return 0;
 }
 
-- (int) hashForFileItem: (PlainFileItem *)item inTree: (FileItem *)treeRoot {
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item inTree: (FileItem *)treeRoot {
   // By default assuming that "depth" is not used in the hash calculation.
   // If it is, this method needs to be overridden.
-  return [self hashForFileItem: item atDepth: -1];
+  return [self hashForFileItem: item atDepth: 0];
 }
 
 

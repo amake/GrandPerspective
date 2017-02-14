@@ -13,6 +13,7 @@
 // Overrides designated initialiser
 - (id) initWithColorPalette: (NSColorList *)colorPaletteVal {
   NSAssert(NO, @"Use initWithScanTree: instead.");
+  return nil;
 }
 
 - (id) initWithScanTree:(DirectoryItem *)scanTreeVal {
@@ -202,14 +203,13 @@
 
   // It's a plain file
   if ( [file isPhysical] ) {
-    int  colorIndex = [colorMapper hashForFileItem: (PlainFileItem *)file 
-                                     atDepth: depth];
+    NSUInteger  colorIndex = [colorMapper hashForFileItem: (PlainFileItem *)file
+                                                  atDepth: depth];
     if ( [colorMapper canProvideLegend] ) {
-      NSAssert(colorIndex >= 0, @"Negative hash value.");
       colorIndex = MIN(colorIndex, numGradientColors - 1);
     }
     else {
-      colorIndex = abs(colorIndex) % numGradientColors;
+      colorIndex = colorIndex % numGradientColors;
     }
 
     [self drawGradientFilledRect: rect colorIndex: colorIndex];

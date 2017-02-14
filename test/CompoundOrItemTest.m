@@ -13,8 +13,8 @@
 
 
 - (BOOL) testFileItem:(FileItem *)item context:(id) context {
-  int  max = [subTests count];
-  int  i = 0;
+  NSUInteger  max = [subTests count];
+  NSUInteger  i = 0;
   BOOL  applicable = NO;
   
   while (i < max) {

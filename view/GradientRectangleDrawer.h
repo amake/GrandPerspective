@@ -8,7 +8,7 @@
   
   BOOL  initGradientColors;
   UInt32  *gradientColors;
-  int  numGradientColors;
+  NSUInteger  numGradientColors;
 
   NSRect  bitmapBounds;
   NSBitmapImageRep  *drawBitmap;
@@ -27,8 +27,8 @@
 - (void) setColorGradient: (float) gradient;
 - (float) colorGradient;
 
-- (NSImage *) drawImageOfGradientRectangleWithColor: (int) colorIndex
-                inRect: (NSRect) bounds;
+- (NSImage *) drawImageOfGradientRectangleWithColor: (NSUInteger) colorIndex
+                                             inRect: (NSRect) bounds;
                 
 @end
 
@@ -47,6 +47,6 @@
 
 - (void) drawBasicFilledRect: (NSRect) rect intColor: (UInt32) intColor;
 
-- (void) drawGradientFilledRect: (NSRect) rect colorIndex: (int) colorIndex;
+- (void) drawGradientFilledRect: (NSRect) rect colorIndex: (NSUInteger) colorIndex;
 
 @end

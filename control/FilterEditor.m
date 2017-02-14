@@ -67,7 +67,7 @@
 
   [ModalityTerminator 
      modalityTerminatorForEventSource: filterWindowControl];
-  int  status = [NSApp runModalForWindow: editFilterWindow];
+  NSInteger  status = [NSApp runModalForWindow: editFilterWindow];
   [editFilterWindow close];
 
   if (status == NSRunStoppedResponse) {
@@ -123,7 +123,7 @@
   
   [ModalityTerminator
      modalityTerminatorForEventSource: filterWindowControl];
-  int  status = [NSApp runModalForWindow: editFilterWindow];
+  NSInteger  status = [NSApp runModalForWindow: editFilterWindow];
   [editFilterWindow close];
     
   if (status == NSRunStoppedResponse) {
@@ -183,6 +183,7 @@
 // Overrides designated initialiser.
 - (id) init {
   NSAssert(NO, @"Use initWithExistingFilters: instead.");
+  return nil;
 }
 
 - (id) initWithExistingFilters:(NSDictionary *)allFiltersVal {
@@ -208,8 +209,6 @@
 
 
 - (NSString *)checkNameIsValid:(NSString *)name {
-  NSString*  errorText = nil;
-
   if ([name isEqualToString:@""]) {
     return NSLocalizedString(@"The filter must have a name.",
                              @"Alert message" );

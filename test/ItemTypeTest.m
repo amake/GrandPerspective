@@ -19,6 +19,7 @@
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithMatchTargets: instead.");
+  return nil;
 }
 
 - (id) initWithMatchTargets:(NSArray *)matchesVal {
@@ -49,7 +50,7 @@
 - (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSArray  *utis = [dict objectForKey: @"matches"];
-    unsigned  numMatches = [utis count];
+    NSUInteger  numMatches = [utis count];
 
     UniformTypeInventory  *typeInventory = 
       [UniformTypeInventory defaultUniformTypeInventory];
@@ -57,7 +58,7 @@
     NSMutableArray  *tmpMatches =
       [NSMutableArray arrayWithCapacity: numMatches];
     
-    unsigned  i = 0;
+    NSUInteger  i = 0;
     while (i < numMatches) {
       UniformType  *type = 
         [typeInventory uniformTypeForIdentifier: [utis objectAtIndex: i]];
@@ -83,10 +84,6 @@
   [super addPropertiesToDictionary: dict];
   
   [dict setObject: @"ItemTypeTest" forKey: @"class"];
-  
-  UniformTypeInventory  *typeInventory = 
-    [UniformTypeInventory defaultUniformTypeInventory];
-
   [dict setObject: [self matchesAsStrings] forKey: @"matches"]; 
   [dict setObject: [NSNumber numberWithBool: strict] forKey: @"strict"];
 }
@@ -110,8 +107,8 @@
   UniformType  *type = [((PlainFileItem *)item) uniformType];
   NSSet  *ancestorTypes = strict ? nil : [type ancestorTypes];
     
-  int  i = [matches count];
-  while (--i >= 0) {
+  NSUInteger  i = [matches count];
+  while (i-- > 0) {
     UniformType  *matchType = [matches objectAtIndex: i];
     if (type == matchType || [ancestorTypes containsObject: matchType]) {
       return TEST_PASSED;
@@ -158,10 +155,10 @@
 @implementation ItemTypeTest (PrivateMethods)
 
 - (NSArray *)matchesAsStrings {
-  unsigned  numMatches = [matches count];
+  NSUInteger  numMatches = [matches count];
   NSMutableArray  *utis = [NSMutableArray arrayWithCapacity: numMatches];
 
-  unsigned  i = 0;
+  NSUInteger  i = 0;
   while (i < numMatches) {
     [utis addObject: 
        [((UniformType *)[matches objectAtIndex: i]) uniformTypeIdentifier]];

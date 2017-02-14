@@ -21,12 +21,12 @@
 
   // For better performance on large input data, read only complete blocks in
   // the main loop.
-  unsigned  numBlocks = [inputData length] / READ_BUFFER_SIZE;
-  unsigned  maxpos = numBlocks * READ_BUFFER_SIZE;
+  NSUInteger  numBlocks = [inputData length] / READ_BUFFER_SIZE;
+  NSUInteger  maxpos = numBlocks * READ_BUFFER_SIZE;
   while (pos < maxpos) {
     [inputData getBytes: (void *)buffer
                   range: NSMakeRange(pos, READ_BUFFER_SIZE)];
-    int  i = READ_BUFFER_SIZE;
+    NSUInteger  i = READ_BUFFER_SIZE;
     while (i--) {
       // Note: Even though input is in UTF-8, which can contain multi-byte
       // characters, the nature of the encoding ensures that each byte
@@ -40,7 +40,7 @@
   }
 
   // Read the last, partially filled, block, if any.
-  int  i = [inputData length] - pos;
+  NSUInteger  i = [inputData length] - pos;
   if (i > 0) {
     [inputData getBytes: (void *)buffer range: NSMakeRange(pos, i)];
     while (i--) {

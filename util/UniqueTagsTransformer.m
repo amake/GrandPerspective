@@ -51,7 +51,7 @@
   id  tag = [valueToTag objectForKey: value];
  
   if (tag == nil) {
-    tag = [NSNumber numberWithInt: nextTag++];
+    tag = [NSNumber numberWithUnsignedInteger: nextTag++];
 
     [valueToTag setObject: tag forKey: value];
     [tagToValue setObject: value forKey: tag];
@@ -63,7 +63,7 @@
 - (id) reverseTransformedValue: (id) tag {
   id  value = [tagToValue objectForKey: tag];
   
-  NSAssert( value!=nil, @"Unknown tag value.");
+  NSAssert(value != nil, @"Unknown tag value.");
   
   return value;
 }
@@ -114,13 +114,13 @@
 }
 
 
-- (NSString *) nameForTag: (int) tag {
-  return [self reverseTransformedValue: [NSNumber numberWithInt: tag]];
+- (NSString *) nameForTag: (NSUInteger)tag {
+  return [self reverseTransformedValue: [NSNumber numberWithInteger: tag]];
 }
 
 /* Returns the tag for the locale-independent name.
  */
-- (int) tagForName:(NSString *)name {
+- (NSUInteger) tagForName: (NSString *)name {
   return [[self transformedValue: name] intValue];
 }
 

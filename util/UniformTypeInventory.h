@@ -42,7 +42,7 @@ extern NSString  *UniformTypeKey;
 
 + (UniformTypeInventory *)defaultUniformTypeInventory;
 
-- (unsigned) count;
+- (NSUInteger) count;
 
 - (NSSet *)childrenOfUniformType: (UniformType *)type;
 

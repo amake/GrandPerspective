@@ -9,6 +9,7 @@
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithLowerBound:upperBound: instead.");
+  return nil;
 }
 
 - (id) initWithLowerBound:(ITEM_SIZE) lowerBoundVal {

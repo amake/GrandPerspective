@@ -291,7 +291,6 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   [self updateFileDeletionSupport];
 
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
-  NSBundle  *mainBundle = [NSBundle mainBundle];
   
   //----------------------------------------------------------------
   // Configure the "Display" panel
@@ -661,8 +660,6 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
     infoMsg = [NSString stringWithFormat: @"%@\n\n%@", infoMsg, hardLinkMsg];
   }
 
-  NSBundle  *mainBundle = [NSBundle mainBundle];
-  
   [alert addButtonWithTitle: DELETE_BUTTON_TITLE];
   [alert addButtonWithTitle: CANCEL_BUTTON_TITLE];
   [alert setMessageText: [NSString stringWithFormat: mainMsg, 
@@ -996,7 +993,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
         [[[NSMutableAttributedString alloc] 
              initWithString: relativeItemPath] autorelease];
 
-      int  visibleLen = [itemPath length] - [invisiblePathName length];
+      NSUInteger  visibleLen = [itemPath length] - [invisiblePathName length];
       if (visibleLen > 0) {
         // Let the path separator also be part of the invisible path.
         visibleLen--;
@@ -1128,7 +1125,6 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   
   FileItem  *volumeTree = [pathModelView volumeTree];
   FileItem  *scanTree = [pathModelView scanTree];
-  FileItem  *visibleTree = [pathModelView visibleTree];
   
   NSString  *volumeName = [volumeTree name];
   NSImage  *volumeIcon = 
@@ -1249,6 +1245,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 - (NSString *) titleForFileItem: (FileItem *)item {
   NSAssert(NO, @"Abstract method");
+  return nil;
 }
 
 @end // @implementation ItemInFocusControls

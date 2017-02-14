@@ -49,6 +49,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithVolumePath:scanPath:fileSizeMeasure:... instead.");
+  return nil;
 }
 
 
@@ -455,7 +456,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   
   // Get the items in the path (from the underlying path model). 
   NSArray  *itemsInPath = [[pathModelView pathModel] itemPath];
-  int  i = [itemsInPath count] - 1;
+  NSUInteger  i = [itemsInPath count] - 1;
   while ([itemsInPath objectAtIndex: i] != selectedItem) {
     NSAssert(i > 0, @"Item not found.");
     i--;

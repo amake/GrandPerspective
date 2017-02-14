@@ -27,6 +27,7 @@
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithMatchTargets: instead.");
+  return nil;
 }
 
 - (id) initWithMatchTargets:(NSArray *)matchesVal {
@@ -101,8 +102,8 @@
 
 
 - (BOOL) testString:(NSString *)string {
-  int  i = [matches count];
-  while (--i >= 0) {
+  NSUInteger  i = [matches count];
+  while (i-- > 0) {
     if ([self testString: string matches: [matches objectAtIndex: i]]) {
       return YES;
     }

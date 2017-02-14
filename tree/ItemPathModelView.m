@@ -336,7 +336,7 @@
 
 - (int) indexCorrespondingToItem: (FileItem *)targetItem 
           startingAt: (int) index {
-  int  maxIndex = [fileItemPath count] - 1;
+  NSUInteger  maxIndex = [fileItemPath count] - 1;
   
   while (YES) {
     FileItem  *fileItem = [fileItemPath objectAtIndex: index];

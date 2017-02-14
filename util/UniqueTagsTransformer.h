@@ -24,7 +24,7 @@
   NSMutableDictionary  *valueToTag;
   NSMutableDictionary  *tagToValue;
   
-  int  nextTag;
+  NSUInteger  nextTag;
 
 }
 
@@ -49,10 +49,10 @@
  * as the item was created by this transformer using the
  * -addLocalisedNamesToPopUp:names:select:table method.
  */
-- (NSString *)nameForTag:(int) tag;
+- (NSString *)nameForTag: (NSUInteger)tag;
 
 /* Returns the tag for the locale-independent name.
  */
-- (int) tagForName:(NSString *)name;
+- (NSUInteger) tagForName: (NSString *)name;
 
 @end

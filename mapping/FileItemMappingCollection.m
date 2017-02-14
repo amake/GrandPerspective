@@ -31,11 +31,11 @@
 
 @implementation MappingByLevel
 
-- (int) hashForFileItem: (PlainFileItem *)item atDepth: (int) depth {
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
   return depth;
 }
 
-- (int) hashForFileItem: (PlainFileItem *)item inTree: (FileItem *)treeRoot {
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item inTree: (FileItem *)treeRoot {
   // Establish the depth of the file item in the tree.
 
   // Matching parent directories as a stop-criterion, as opposed to matching
@@ -45,7 +45,7 @@
   
   FileItem  *fileItem = [item parentDirectory];
   FileItem  *itemToMatch = [treeRoot parentDirectory];
-  int  depth = 0;
+  NSUInteger  depth = 0;
   
   while (fileItem != itemToMatch) {
     fileItem = [fileItem parentDirectory];
@@ -65,7 +65,7 @@
 //----------------------------------------------------------------------------
 // Implementation of informal LegendProvidingFileItemMapping protocol
 
-- (NSString *) descriptionForHash: (int)hash {
+- (NSString *) descriptionForHash: (NSUInteger)hash {
   if (hash == 0) {
     return NSLocalizedString(@"Outermost level", 
                              @"Legend for Level mapping scheme.");
@@ -88,7 +88,7 @@
 
 @implementation MappingByExtension
 
-- (int) hashForFileItem: (PlainFileItem *)item atDepth: (int) depth {
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
   return [[[item name] pathExtension] hash];
 }
 
@@ -97,7 +97,7 @@
 
 @implementation MappingByFilename
 
-- (int) hashForFileItem: (PlainFileItem *)item atDepth: (int) depth {
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
   return [[item name] hash];
 }
 
@@ -106,7 +106,7 @@
 
 @implementation MappingByDirectoryName
 
-- (int) hashForFileItem: (PlainFileItem *)item atDepth: (int) depth {
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
   return [[[item parentDirectory] name] hash];
 }
 
@@ -115,22 +115,24 @@
 
 @implementation MappingByTopDirectoryName
 
-- (int) hashForFileItem: (PlainFileItem *)item atDepth: (int) depth {
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
   if (depth == 0) {
     return [[item name] hash];
   }
 
   DirectoryItem  *dir = [item parentDirectory];
-  int  i = depth-2;
+  if (depth > 1) {
+    NSUInteger  i = depth - 2;
 
-  while (--i >= 0) {
-    dir = [dir parentDirectory];
+    while (i-- > 0) {
+      dir = [dir parentDirectory];
+    }
   }
 
   return [[dir name] hash];
 }
 
-- (int) hashForFileItem: (PlainFileItem *)item inTree: (FileItem *)treeRoot {
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item inTree: (FileItem *)treeRoot {
   if (item == treeRoot) {
     return [[item name] hash];
   }
@@ -215,7 +217,7 @@
 }
 
 - (void) addFileItemMappingScheme: (NSObject <FileItemMappingScheme> *)scheme 
-           key: (NSString *)key {
+                              key: (NSString *)key {
   [schemesDictionary setObject: scheme forKey: key];
 }
 

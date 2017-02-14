@@ -96,7 +96,7 @@
 - (FilterSet *)filterSetWithAddedNamedFilter:(NamedFilter *)filter
                                 unboundTests:(NSMutableArray *)unboundTests;
 
-- (int) numFilters;
+- (NSUInteger) numFilters;
 
 /* Returns an array of NamedFilters.
  */

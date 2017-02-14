@@ -19,12 +19,12 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 
 //----
 // Partial implementation of NSTableDataSource interface
-- (int) numberOfRowsInTableView: (NSTableView *)tableView;
+- (NSInteger) numberOfRowsInTableView: (NSTableView *)tableView;
 - (id) tableView: (NSTableView *)tableView 
          objectValueForTableColumn: (NSTableColumn *)column row: (int) row;
 //---- 
 
-- (NSString *) descriptionForRow: (int) row;
+- (NSString *) descriptionForRow: (NSUInteger) row;
 
 - (void) makeColorImages;
 - (void) updateDescriptionColumnWidth;
@@ -100,7 +100,7 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 //-----------------------------------------------------------------------------
 // Partial implementation of NSTableDataSource interface
 
-- (int) numberOfRowsInTableView: (NSTableView *)tableView {
+- (NSInteger) numberOfRowsInTableView: (NSTableView *)tableView {
   return [colorImages count];
 }
 
@@ -114,13 +114,14 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
   }
   else {
     NSAssert(NO, @"Unexpected column.");
+    return nil;
   }
 }
 
 
 //-----------------------------------------------------------------------------
 
-- (NSString *) descriptionForRow: (int) row {
+- (NSString *) descriptionForRow: (NSUInteger) row {
   NSObject <FileItemMapping>
     *colorMapper = [[dirView treeDrawerSettings] colorMapper];
 
@@ -152,7 +153,7 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
     [[[GradientRectangleDrawer alloc] initWithColorPalette: colorPalette]
          autorelease];
   
-  int  numColors = [[colorPalette allKeys] count];
+  NSUInteger  numColors = [[colorPalette allKeys] count];
   [colorImages release];
   colorImages = [[NSMutableArray alloc] initWithCapacity: numColors];
 
@@ -180,8 +181,8 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
     [[[NSDictionary alloc] initWithObjectsAndKeys:
         [dataCell font], NSFontAttributeName, nil] autorelease];
 
-  int  numColors = [colorImages count];
-  int  i = 0;
+  NSUInteger  numColors = [colorImages count];
+  NSUInteger  i = 0;
   float  maxWidth = 0;
   while (i < numColors) {
     NSString  *descr = [self descriptionForRow: i];
@@ -222,10 +223,10 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
       [[dirView treeDrawerSettings] colorMapper]; 
        
     if ([colorMapper canProvideLegend]) {
-      int  colorIndex = 
+      NSUInteger  colorIndex =
              [colorMapper hashForFileItem: (PlainFileItem *)selectedItem
                             inTree: [dirView treeInView]];
-      int  row = MIN(colorIndex, [tableView numberOfRows] - 1);
+      NSUInteger  row = MIN(colorIndex, [tableView numberOfRows] - 1);
       
       [tableView selectRowIndexes: [NSIndexSet indexSetWithIndex: row]
              byExtendingSelection: NO];

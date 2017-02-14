@@ -8,7 +8,7 @@
 
 @implementation ScanProgressTracker
 
-- (void) setNumSubFolders: (int)num {
+- (void) setNumSubFolders: (NSUInteger)num {
   [mutex lock];
 
   if (level <= NUM_PROGRESS_ESTIMATE_LEVELS) {
@@ -48,8 +48,8 @@
 - (float) estimatedProgress {
   float progress = 0;
   float fraction = 100;
-  int i = 0;
-  int max_i = MIN(level, NUM_PROGRESS_ESTIMATE_LEVELS);
+  NSUInteger i = 0;
+  NSUInteger max_i = MIN(level, NUM_PROGRESS_ESTIMATE_LEVELS);
   while (i < max_i) {
     progress += fraction * numSubFoldersProcessed[i] / numSubFolders[i];
     fraction /= numSubFolders[i];

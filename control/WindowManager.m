@@ -40,10 +40,10 @@
   NSString*  strippedTitle = [self stripTitle: title];
 
   NSNumber*  count = [titleLookup objectForKey: strippedTitle];
-  int  newCount = (count == nil) ? 1 : [count intValue] + 1;
+  NSUInteger  newCount = (count == nil) ? 1 : [count unsignedIntegerValue] + 1;
 
-  [titleLookup setObject: [NSNumber numberWithInt: newCount] 
-                 forKey: strippedTitle];
+  [titleLookup setObject: [NSNumber numberWithUnsignedInteger: newCount]
+                  forKey: strippedTitle];
     
   if (newCount == 1) {
     // First use of this (base) title
@@ -57,7 +57,7 @@
                                       [strippedTitle length] + 5];
                                       
     [uniqueTitle setString: strippedTitle];
-    [uniqueTitle appendFormat: @" [%i]", newCount];
+    [uniqueTitle appendFormat: @" [%lu]", (unsigned long)newCount];
     
     return uniqueTitle;
   }
@@ -65,26 +65,26 @@
 
 
 - (NSString *) stripTitle: (NSString *)title {
-  int  pos = [title length] - 1;
+  NSUInteger  pos = [title length];
   NSCharacterSet*  digitSet = [NSCharacterSet decimalDigitCharacterSet]; 
 
-  if ( pos == 0 || 
-       [title characterAtIndex: pos--] != ']' ||
-       pos == 0 || 
-       ! [digitSet characterIsMember: [title characterAtIndex: pos--]] ) {
+  if ( pos-- == 0 ||
+       [title characterAtIndex: pos] != ']' ||
+       pos-- == 0 ||
+       ! [digitSet characterIsMember: [title characterAtIndex: pos]] ) {
     // Does not end with DIGIT + "]"
     return title;
   }
   
   // Keep stripping digits.
-  while ( pos >=0 && 
-          [digitSet characterIsMember: [title characterAtIndex:pos]] ) {
+  while ( pos > 0 &&
+          [digitSet characterIsMember: [title characterAtIndex: pos - 1]] ) {
     pos--;
   }
 
-  if ( pos == 0 ||
-       [title characterAtIndex: pos--] != '[' ||
-       pos == 0 ||
+  if ( pos-- == 0 ||
+       [title characterAtIndex: pos] != '[' ||
+       pos-- == 0 ||
        [title characterAtIndex: pos] != ' ' ) {
     // Does not contain " [" directly in front of digits.
     return title;

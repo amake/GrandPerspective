@@ -12,6 +12,7 @@
 
 - (id) init {
   NSAssert(NO, @"Use -initWithColorPalette: instead.");
+  return nil;
 }
 
 - (id) initWithColorPalette: (NSColorList *)colorPaletteVal {
@@ -34,8 +35,8 @@
 }
 
 
-- (NSImage *) drawImageOfGradientRectangleWithColor: (int) colorIndex
-                inRect: (NSRect) bounds {
+- (NSImage *) drawImageOfGradientRectangleWithColor: (NSUInteger) colorIndex
+                                             inRect: (NSRect) bounds {
   [self setupBitmap: bounds];
   
   [self drawGradientFilledRect: bounds colorIndex: colorIndex];
@@ -129,17 +130,16 @@
 - (void) drawBasicFilledRect: (NSRect) rect intColor: (UInt32) intColor {
   UInt32  *data = (UInt32*)[drawBitmap bitmapData];
   
-  int  x, y;
   int  x0 = (int)(rect.origin.x + 0.5f);
   int  y0 = (int)(rect.origin.y + 0.5f); 
   int  height = (int)(rect.origin.y + rect.size.height + 0.5f) - y0;
   int  width = (int)(rect.origin.x + rect.size.width + 0.5f) - x0;
-  int  bitmapWidth = [drawBitmap bytesPerRow] / sizeof(UInt32);
-  int  bitmapHeight = [drawBitmap pixelsHigh];
+  int  bitmapWidth = (int)[drawBitmap bytesPerRow] / sizeof(UInt32);
+  int  bitmapHeight = (int)[drawBitmap pixelsHigh];
   
-  for (y=0; y<height; y++) {
+  for (int y = 0; y < height; y++) {
     int  pos = x0 + (bitmapHeight - y0 - y - 1) * bitmapWidth;
-    for (x=0; x<width; x++) {
+    for (int x = 0; x < width; x++) {
       data[pos] = intColor;
       pos++;
     }
@@ -147,7 +147,7 @@
 }
 
 
-- (void) drawGradientFilledRect: (NSRect) rect colorIndex: (int) colorIndex {
+- (void) drawGradientFilledRect: (NSRect) rect colorIndex: (NSUInteger) colorIndex {
   UInt32  *intColors = &gradientColors[colorIndex * 256];
   UInt32  intColor;
   int  gradient;
@@ -155,14 +155,13 @@
   UInt32  *data = (UInt32*)[drawBitmap bitmapData];
   UInt32  *pos;
   UInt32  *poslim;
-  
-  int  x, y;
+
   int  x0 = (int)(rect.origin.x + 0.5f);
   int  y0 = (int)(rect.origin.y + 0.5f);
   int  width = (int)(rect.origin.x + rect.size.width + 0.5f) - x0;
   int  height = (int)(rect.origin.y + rect.size.height + 0.5f) - y0;
-  int  bitmapWidth = [drawBitmap bytesPerRow] / sizeof(UInt32);
-  int  bitmapHeight = [drawBitmap pixelsHigh];
+  int  bitmapWidth = (int)[drawBitmap bytesPerRow] / sizeof(UInt32);
+  int  bitmapHeight = (int)[drawBitmap pixelsHigh];
  
   if (height <= 0 || width <= 0) {
     NSLog(@"Height and width should both be positive: x=%f, y=%f, w=%f, h=%f",
@@ -171,12 +170,12 @@
   }
  
   // Horizontal lines
-  for (y=0; y<height; y++) {
+  for (int y = 0; y < height; y++) {
     gradient = 256 * (y0 + y + 0.5f - rect.origin.y) / rect.size.height;
     // Check for out of bounds, rarely happens but can due to rounding errors.
     intColor = intColors[ MIN(255, MAX(0, gradient)) ];
     
-    x = (height - y - 1) * width / height; // Maximum x. 
+    int  x = (height - y - 1) * width / height; // Maximum x.
     pos = &data[ (bitmapHeight - y0 - y - 1) * bitmapWidth + x0 ];
     poslim = pos + x;
     while (pos < poslim) {
@@ -186,12 +185,12 @@
   }
   
   // Vertical lines
-  for (x=0; x<width; x++) {
+  for (int x = 0; x < width; x++) {
     gradient = 256 * (1 - (x0 + x + 0.5f - rect.origin.x) / rect.size.width);
     // Check for out of bounds, rarely happens but can due to rounding errors.
     intColor = intColors[ MIN(255, MAX(0, gradient)) ];
     
-    y = (width - x - 1) * height / width; // Minimum y.
+    int  y = (width - x - 1) * height / width; // Minimum y.
     pos = &data[ (bitmapHeight - y0 - height) * bitmapWidth + x + x0 ];
     poslim = pos + bitmapWidth * (height - y);
     while (pos < poslim) {
@@ -217,10 +216,9 @@
   
   NSAutoreleasePool  *localAutoreleasePool = [[NSAutoreleasePool alloc] init];
   
-  int  i, j;
   UInt32  *pos = gradientColors;
   
-  for (i=0; i<numGradientColors; i++) { 
+  for (int i = 0; i < numGradientColors; i++) {
     NSColor  *color = 
       [colorPalette colorWithKey: [colorKeys objectAtIndex: i]];
     
@@ -235,7 +233,7 @@
     NSColor  *modColor;
 
     // Darker colors
-    for (j=0; j<128; j++) {
+    for (int j = 0; j < 128; j++) {
       float  adjust = colorGradient * (float)(128-j) / 128;
       modColor = [NSColor colorWithDeviceHue: hue
                             saturation: saturation
@@ -249,7 +247,7 @@
     }
     
     // Lighter colors
-    for (j=0; j<128; j++) {
+    for (int j = 0; j < 128; j++) {
       float  adjust = colorGradient * (float)j / 128;
       
       // First ramp up brightness, then decrease saturation 

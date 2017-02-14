@@ -11,17 +11,18 @@
 
 
 - (BOOL) testString:(NSString *)string matches:(NSString *)match {
-  int  stringLen = [string length];
-  int  matchLen = [match length];
+  NSUInteger  stringLen = [string length];
+  NSUInteger  matchLen = [match length];
   
   if (stringLen < matchLen) {
     return NO;
   }
   else {
-    return [string compare: match 
-                     options: (caseSensitive ? 0 : NSCaseInsensitiveSearch)
-                     range: NSMakeRange( stringLen - matchLen, matchLen)
-                     ] == NSOrderedSame;
+    return [
+      string compare: match
+             options: (caseSensitive ? 0 : NSCaseInsensitiveSearch)
+               range: NSMakeRange( stringLen - matchLen, matchLen)
+    ] == NSOrderedSame;
   }
 }
 

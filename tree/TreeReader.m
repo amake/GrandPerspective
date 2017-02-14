@@ -770,7 +770,7 @@ NSString  *AttributeNameKey = @"name";
 @implementation ElementHandler (PrivateMethods) 
 
 - (ITEM_SIZE) parseItemSizeAttribute: (NSString *)name 
-                value: (NSString *)stringValue {
+                               value: (NSString *)stringValue {
   // Using own parsing code instead of NSScanner's scanLongLong for two 
   // reasons:
   // 1) NSScanner cannot handle unsigned long long values
@@ -778,8 +778,8 @@ NSString  *AttributeNameKey = @"name";
   //    memory).
 
   ITEM_SIZE  size = 0;
-  int  i = 0;
-  int  len = [stringValue length];
+  NSUInteger  i = 0;
+  NSUInteger  len = [stringValue length];
   while (i < len) {
     unichar  ch = [stringValue characterAtIndex: i++];
     
@@ -823,7 +823,7 @@ NSString  *AttributeNameKey = @"name";
 }
 
 - (int) parseIntegerAttribute: (NSString *)name 
-          value: (NSString *)stringValue {
+                        value: (NSString *)stringValue {
   // Note: Explicitly releasing scanner to minimise use of autorelease pool.
   NSScanner  *scanner = [[NSScanner alloc] initWithString: stringValue];
   int  intValue;
@@ -847,8 +847,8 @@ NSString  *AttributeNameKey = @"name";
       [lcValue isEqualToString: @"1"]) {
     return YES;
   }
-  else if  ([lcValue isEqualToString: @"false"] ||
-            [lcValue isEqualToString: @"0"]) {
+  else if ([lcValue isEqualToString: @"false"] ||
+           [lcValue isEqualToString: @"0"]) {
     return NO;
   }
   
@@ -1307,6 +1307,7 @@ NSString  *AttributeNameKey = @"name";
          callback: (id) callbackVal
          onSuccess: (SEL) successSelectorVal {
   NSAssert(NO, @"Invoke with parent argument.");
+  return nil;
 }
 
 - (id) initWithElement: (NSString *)elementNameVal
@@ -1441,6 +1442,7 @@ NSString  *AttributeNameKey = @"name";
          callback: (id) callbackVal
          onSuccess: (SEL) successSelectorVal {
   NSAssert(NO, @"Invoke with parent argument.");
+  return nil;
 }
 
 - (id) initWithElement: (NSString *)elementNameVal
@@ -1511,6 +1513,7 @@ NSString  *AttributeNameKey = @"name";
 - (id) initWithName: (NSString *)name reason: (NSString *)reason 
          userInfo: (NSDictionary *)userInfo {
   NSAssert(NO, @"Use -initWithAttributeName:reason: instead.");
+  return nil;
 }
 
 - (id) initWithAttributeName: (NSString *)attribName 

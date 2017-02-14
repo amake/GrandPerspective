@@ -7,6 +7,7 @@
 - (id) initWithDomain:(NSString *)domain code: (NSInteger)code
          userInfo: (NSDictionary *)userInfo {
   NSAssert(NO, @"Use initWithCode:userInfo instead.");
+  return nil;
 }
 
 - (id) initWithLocalizedDescription: (NSString *)descr {

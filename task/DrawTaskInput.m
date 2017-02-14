@@ -9,6 +9,7 @@
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithVisibleTree:treeInView:layoutBuilder... instead");
+  return nil;
 }
 
 - (id) initWithVisibleTree: (FileItem *)visibleTreeVal

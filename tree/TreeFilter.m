@@ -125,10 +125,10 @@
           directoryItems: dirs fileItems: files];
 
   if (!abort) { // Break recursion when task has been aborted.
-    int  i;
+    NSUInteger  i;
   
     // Collect all file items that passed the test
-    for (i = [files count]; --i >= 0; ) {
+    for (i = [files count]; i-- > 0; ) {
       PlainFileItem  *oldFile = [files objectAtIndex: i];
       PlainFileItem  *newFile = 
         (PlainFileItem *)[oldFile duplicateFileItem: newDir];
@@ -137,7 +137,7 @@
     }
   
     // Filter the contents of all directory items
-    for (i = [dirs count]; --i >= 0; ) {
+    for (i = [dirs count]; i-- > 0; ) {
       DirectoryItem  *oldSubDir = [dirs objectAtIndex: i];
       DirectoryItem  *newSubDir = 
         (DirectoryItem *)[oldSubDir duplicateFileItem: newDir];

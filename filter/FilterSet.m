@@ -140,7 +140,7 @@
 }
 
 
-- (int) numFilters {
+- (NSUInteger) numFilters {
   return [filters count];
 }
 

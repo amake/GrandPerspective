@@ -33,8 +33,8 @@
     return 0;
   }
 
-  int i = 0;
-  int max_i = MIN(level, NUM_PROGRESS_ESTIMATE_LEVELS - 1);
+  NSUInteger i = 0;
+  NSUInteger max_i = MIN(level, NUM_PROGRESS_ESTIMATE_LEVELS - 1);
   FILE_COUNT totalFilesProcessed = 0;
   while (i < max_i) {
     totalFilesProcessed += numFilesProcessed[i];
@@ -54,7 +54,6 @@
 
 - (void) processedOrSkippedFolder: (DirectoryItem *)dirItem {
   if (level > 0 && level <= NUM_PROGRESS_ESTIMATE_LEVELS) {
-    FILE_COUNT  old = numFilesProcessed[level - 1];
     numFilesProcessed[level - 1] += [dirItem numFiles];
 
     NSAssert(numFilesProcessed[level - 1] <= numFiles[level - 1],

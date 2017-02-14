@@ -10,10 +10,10 @@
   IBOutlet NSSegmentedControl  *zoomControls;
   IBOutlet NSSegmentedControl  *focusControls;
   
-  int  zoomInSegment;
-  int  zoomOutSegment;
-  int  focusUpSegment;
-  int  focusDownSegment;
+  NSUInteger  zoomInSegment;
+  NSUInteger  zoomOutSegment;
+  NSUInteger  focusUpSegment;
+  NSUInteger  focusDownSegment;
 
   DirectoryViewControl  *dirViewControl;
 

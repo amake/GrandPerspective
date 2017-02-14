@@ -96,6 +96,7 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
 // Overrides super's designated initialiser.
 - (id) init {
   NSAssert(NO, @"Use initWithDirectoryItem:fileRef:creationDate: instead.");
+  return nil;
 }
 
 - (id) initWithDirectoryItem: (DirectoryItem *)dirItemVal
@@ -385,10 +386,6 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
   
   [scanResult setScanTree: scanTree];
   
-  UniformTypeInventory  *typeInventory = 
-    [UniformTypeInventory defaultUniformTypeInventory];
-  // [typeInventory dumpTypesToLog];
-    
   return scanResult;
 }
 
@@ -429,7 +426,7 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
 
   NSAutoreleasePool  *localAutoreleasePool = nil;
   
-  int  i;
+  NSUInteger  i;
   
   while (YES) {
     // Declared here, to not needlessly put them on the recursive stack.
@@ -593,7 +590,7 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
   // benefit is that the scanning order becomes deterministic.
   [dirs sortUsingSelector: @selector(compareByCreationDate:)];
 
-  for (i = [dirs count]; --i >= 0; ) {
+  for (i = [dirs count]; i-- > 0; ) {
     TmpDirInfo  *tmpDirInfo = [dirs objectAtIndex: i];
     DirectoryItem  *dirChildItem = [tmpDirInfo directoryItem];
 
@@ -704,8 +701,7 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
 
   // Is it hard-linked? 
   FSCatalogInfo  *catalogInfo = catalogInfoArray; // Use first entry in array
-  OSStatus  result = FSGetCatalogInfo( fileRef, kFSCatInfoNodeFlags, 
-                                       catalogInfo, NULL, NULL, NULL );
+  FSGetCatalogInfo(fileRef, kFSCatInfoNodeFlags, catalogInfo, NULL, NULL, NULL);
   if (catalogInfo->nodeFlags & kFSNodeHardLinkMask) {
     flags |= FILE_IS_HARDLINKED;
   }

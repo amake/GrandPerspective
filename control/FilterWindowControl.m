@@ -29,7 +29,8 @@ NSString  *MatchColumn = @"match";
 // Returns the selected filter test (if any).
 - (MutableFilterTestRef *)selectedFilterTest;
 
-- (int) indexOfTestInFilterNamed:(NSString *)name;
+// Returns NSNotFound when the test was not found
+- (NSUInteger) indexOfTestInFilterNamed:(NSString *)name;
 
 /* Helper method for creating FilterTests to be added to the filter. It sets
  * the inverted and canToggleInverted flags correctly.
@@ -269,7 +270,7 @@ NSString  *MatchColumn = @"match";
 - (IBAction) addTestToRepository:(id) sender {
   FilterTest  *newTest = [testEditor newFilterTest];
   
-  int  index = [availableTests indexOfObject: [newTest name]];
+  NSUInteger  index = [availableTests indexOfObject: [newTest name]];
   [availableTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
                   byExtendingSelection: NO];
   [[self window] makeFirstResponder: availableTestsView];
@@ -279,7 +280,7 @@ NSString  *MatchColumn = @"match";
 
 - (IBAction) editTestInRepository:(id) sender {
   NSString  *oldName = [self selectedAvailableTestName];
-  FilterTest  *updatedTest = [testEditor editFilterTestNamed: oldName];
+  [testEditor editFilterTestNamed: oldName];
 }
 
 
@@ -296,7 +297,7 @@ NSString  *MatchColumn = @"match";
     [availableTestsView reloadData];
     
     // Select the newly added test.
-    int  index = [filterTests indexOfObject: filterTest];
+    NSUInteger  index = [filterTests indexOfObject: filterTest];
     [filterTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
                  byExtendingSelection: NO];
     [[self window] makeFirstResponder: filterTestsView];
@@ -306,7 +307,7 @@ NSString  *MatchColumn = @"match";
 }
 
 - (IBAction) removeTestFromFilter:(id) sender {
-  int  index = [filterTestsView selectedRow];
+  NSInteger  index = [filterTestsView selectedRow];
   
   if (index >= 0) {
     NSString  *testName = [[filterTests objectAtIndex: index] name];
@@ -317,7 +318,7 @@ NSString  *MatchColumn = @"match";
     [availableTestsView reloadData];
     
     // Select the test in the repository (if it still exists there)
-    int  index = [availableTests indexOfObject: testName];
+    NSUInteger  index = [availableTests indexOfObject: testName];
     if (index != NSNotFound) {
       [availableTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
                       byExtendingSelection: NO];
@@ -368,6 +369,7 @@ NSString  *MatchColumn = @"match";
   }
   else {
     NSAssert(NO, @"Unexpected sender.");
+    return 0;
   }
 }
 
@@ -395,6 +397,7 @@ NSString  *MatchColumn = @"match";
     return [mainBundle localizedStringForKey: name value: nil table: @"Names"];
   }
   NSAssert(NO, @"Unknown tableView.");
+  return nil;
 }
 
 
@@ -403,12 +406,10 @@ NSString  *MatchColumn = @"match";
 
 - (void) tableView:(NSTableView *)tableView willDisplayCell:(id) cell 
            forTableColumn:(NSTableColumn *)column row:(NSInteger) row {
-  NSBundle  *mainBundle = [NSBundle mainBundle];
-  
   if (tableView == availableTestsView) {
     NSString  *name = [availableTests objectAtIndex: row];
 
-    [cell setEnabled: [self indexOfTestInFilterNamed: name] < 0];
+    [cell setEnabled: [self indexOfTestInFilterNamed: name] == NSNotFound];
   }
 }
 
@@ -451,8 +452,8 @@ NSString  *MatchColumn = @"match";
   Filter  *filter = [namedFilter filter];
   [filterTests removeAllObjects];
   
-  int  i = 0;
-  int  max = [filter numFilterTests];
+  NSUInteger  i = 0;
+  NSUInteger  max = [filter numFilterTests];
   while (i < max) {
     FilterTestRef  *orgFilterTest = [filter filterTestAtIndex: i];
     NSString  *name = [orgFilterTest name];
@@ -517,28 +518,28 @@ NSString  *MatchColumn = @"match";
 
 // Returns the non-localized name of the selected available test (if any).
 - (NSString *)selectedAvailableTestName {
-  int  index = [availableTestsView selectedRow];
+  NSInteger  index = [availableTestsView selectedRow];
   
   return (index < 0) ? nil : [availableTests objectAtIndex: index];
 }
 
 // Returns the selected filter test (if any).
 - (MutableFilterTestRef *)selectedFilterTest {
-  int  index = [filterTestsView selectedRow];
+  NSInteger  index = [filterTestsView selectedRow];
   
   return (index < 0) ? nil : [filterTests objectAtIndex: index];
 }
 
-- (int) indexOfTestInFilterNamed:(NSString *)name {
-  int  i = [filterTests count];
+- (NSUInteger) indexOfTestInFilterNamed:(NSString *)name {
+  NSUInteger  i = [filterTests count];
 
-  while (--i >= 0) {
+  while (i-- > 0) {
     if ([[[filterTests objectAtIndex: i] name] isEqualToString: name]) {
       return i;
     }
   }
   
-  return -1;
+  return NSNotFound;
 }
 
 
@@ -577,7 +578,7 @@ NSString  *MatchColumn = @"match";
         
   if (selectedName != nil) {
     // Make sure that the same test is still selected.
-    int  index = [availableTests indexOfObject: selectedName];
+    NSUInteger  index = [availableTests indexOfObject: selectedName];
     [availableTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
                     byExtendingSelection: NO];
   }
@@ -590,7 +591,7 @@ NSString  *MatchColumn = @"match";
   NSString  *testName = [[notification userInfo] objectForKey:@"key"];
   NSString  *selectedName = [self selectedAvailableTestName];
 
-  int  index = [availableTests indexOfObject:testName];
+  NSUInteger  index = [availableTests indexOfObject: testName];
   NSAssert(index != NSNotFound, @"Test not found in available tests.");
 
   [availableTests removeObjectAtIndex:index];
@@ -628,7 +629,7 @@ NSString  *MatchColumn = @"match";
   NSString  *oldTestName = [[notification userInfo] objectForKey: @"oldkey"];
   NSString  *newTestName = [[notification userInfo] objectForKey: @"newkey"];
 
-  int  index = [availableTests indexOfObject: oldTestName];
+  NSUInteger  index = [availableTests indexOfObject: oldTestName];
   NSAssert(index != NSNotFound, @"Test not found in available tests.");
 
   NSString  *selectedName = [self selectedAvailableTestName];
@@ -656,9 +657,9 @@ NSString  *MatchColumn = @"match";
   NSString  *selectedAvailableTestName = [self selectedAvailableTestName];
 
   if (selectedAvailableTestName != nil) {
-    int  index = [self indexOfTestInFilterNamed: selectedAvailableTestName];
+    NSUInteger  index = [self indexOfTestInFilterNamed: selectedAvailableTestName];
       
-    if (index >= 0) {
+    if (index != NSNotFound) {
       // The window is in an anomalous situation: a test is selected in the
       // available tests view, even though the test is used in the filter.
       //

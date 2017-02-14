@@ -25,6 +25,7 @@
   }
 
   NSAssert1(NO, @"Unrecognized string test class \"%@\".", classString);
+  return nil;
 }
 
 @end

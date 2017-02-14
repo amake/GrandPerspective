@@ -64,7 +64,7 @@
 }
 
 
-- (int) numFilterTests {
+- (NSUInteger) numFilterTests {
   return [filterTests count];
 }
 
@@ -72,7 +72,7 @@
   return filterTests;
 }
 
-- (FilterTestRef *)filterTestAtIndex:(int) index {
+- (FilterTestRef *)filterTestAtIndex:(NSUInteger) index {
   return [filterTests objectAtIndex: index];
 }
 
@@ -88,7 +88,7 @@
   return nil;
 }
 
-- (int) indexOfFilterTest:(FilterTestRef *)test {
+- (NSUInteger) indexOfFilterTest:(FilterTestRef *)test {
   return [filterTests indexOfObject: test];
 }
 

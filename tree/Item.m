@@ -30,6 +30,7 @@ static NSZone  *dedicatedSharedZone = nil;
 
   NSAssert2(NO, @"Unrecognized value for %@: \"%@\"", 
     TreeMemoryZoneKey, memoryZone);
+  return nil;
 }
 
 + (BOOL) disposeZoneAfterUse:(NSZone *)zone {

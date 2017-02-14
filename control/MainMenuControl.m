@@ -324,7 +324,10 @@ static MainMenuControl  *singletonInstance = nil;
   // Let Cocoa automatically manage the contents of the Recent Documents sub-menu. This relies on
   // an undocumented interface, as discovered by Jeff Johnson and shared on his blog:
   // http://lapcatsoftware.com/blog/2007/07/10/working-without-a-nib-part-5-open-recent-menu/
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
   [recentMenu performSelector:@selector(_setMenuName:) withObject:@"NSRecentDocumentsMenu"];
+#pragma clang diagnostic pop
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
@@ -596,9 +599,6 @@ static MainMenuControl  *singletonInstance = nil;
 
 
 - (IBAction) loadScanData:(id) sender {
-  DirectoryViewControl  *dirViewControl = 
-    [[[NSApplication sharedApplication] mainWindow] windowController];
-    
   NSOpenPanel  *openPanel = [NSOpenPanel openPanel];
   [openPanel setAllowedFileTypes: 
                [NSArray arrayWithObjects: @"xml", @"gpscan", nil]];
@@ -622,9 +622,8 @@ static MainMenuControl  *singletonInstance = nil;
     [[[NSApplication sharedApplication] mainWindow] windowController];
 
   // Dialog auto-disposes when its job is done.
-  SaveImageDialogControl  *saveImageDialogControl = 
-    [[SaveImageDialogControl alloc] 
-        initWithDirectoryViewControl: dirViewControl];
+  [[SaveImageDialogControl alloc]
+      initWithDirectoryViewControl: dirViewControl];
 }
 
 - (IBAction) editPreferences:(id) sender {
@@ -869,7 +868,7 @@ static MainMenuControl  *singletonInstance = nil;
   }
   
   NSWindow  *selectFilterWindow = [filterSelectionPanelControl window];
-  int  status = [NSApp runModalForWindow: selectFilterWindow];
+  NSInteger  status = [NSApp runModalForWindow: selectFilterWindow];
   [selectFilterWindow close];
   
   if (status == NSModalResponseStop) {
@@ -957,6 +956,7 @@ static MainMenuControl  *singletonInstance = nil;
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithReadTaskInput: instead.");
+  return nil;
 }
 
 - (id) initWithWindowManager:(WindowManager *)windowManagerVal 
@@ -1031,6 +1031,7 @@ static MainMenuControl  *singletonInstance = nil;
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithWriteTaskInput: instead.");
+  return nil;
 }
 
 - (id) initWithWriteTaskInput:(WriteTaskInput *)taskInputVal {
@@ -1090,6 +1091,7 @@ static MainMenuControl  *singletonInstance = nil;
 // Overrides designated initialiser.
 - (id) init {
   NSAssert(NO, @"Use initWithWindowManager: instead.");
+  return nil;
 }
 
 - (id) initWithWindowManager:(WindowManager *)windowManagerVal {
@@ -1151,6 +1153,7 @@ static MainMenuControl  *singletonInstance = nil;
 - (id) initWithWindowManager:(WindowManager *)windowManagerVal {
   NSAssert(NO, 
     @"Use initWithWindowManager:targetPath:settings instead.");
+  return nil;
 }
 
 - (id) initWithWindowManager:(WindowManager *)windowManagerVal

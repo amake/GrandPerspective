@@ -72,7 +72,7 @@ NSString  *UnknownTypeUTI = @"unknown";
 }
 
 
-- (unsigned) count {
+- (NSUInteger) count {
   return [typeForUTI count];
 }
 

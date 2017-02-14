@@ -25,6 +25,7 @@
 // Overrides super's designated initialiser.
 - (id) init {
   NSAssert(NO, @"Use -initWithProgressPanel: instead.");
+  return nil;
 }
 
 - (id) initWithProgressPanel: (ProgressPanelControl *)panelControl {
@@ -89,6 +90,7 @@
 // Overrides super's designated initialiser.
 - (id) init {
   NSAssert(NO, @"Use -initWithProgressPanel:callback:selector instead.");
+  return nil;
 }
 
 - (id) initWithProgressPanel: (ProgressPanelControl *)panelControl

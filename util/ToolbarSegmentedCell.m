@@ -44,8 +44,8 @@
   
     [self setSegmentCount: [cell segmentCount]];
     
-    int  i = [self segmentCount];
-    while (--i >= 0) {
+    NSUInteger  i = [self segmentCount];
+    while (i-- > 0) {
       [self setWidth:   [cell widthForSegment: i]     forSegment: i];
       [self setImage:   [cell imageForSegment: i]     forSegment: i];
       [self setLabel:   [cell labelForSegment: i]     forSegment: i];

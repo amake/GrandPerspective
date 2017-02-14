@@ -44,7 +44,7 @@ extern NSString  *DateTimeFormat;
   FILE  *file;
   
   void  *dataBuffer;
-  unsigned  dataBufferPos;
+  NSUInteger  dataBufferPos;
   
   BOOL  abort;
   NSError  *error;

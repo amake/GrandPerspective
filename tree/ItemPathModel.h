@@ -19,16 +19,16 @@ extern NSString  *VisiblePathLockingChangedEvent;
   NSMutableArray  *path;
 
   // The index in the path array where the subtree starts (always a FileItem)
-  unsigned  visibleTreeIndex;
+  NSUInteger  visibleTreeIndex;
   
   // The root of the scan tree. The visible tree should always be inside the
   // scan tree.
-  unsigned  scanTreeIndex;
+  NSUInteger  scanTreeIndex;
 
   // The index in the path array where the selected file item is.
   //
   // Note: It is always part of the visible item path)
-  unsigned  selectedItemIndex;
+  NSUInteger  selectedItemIndex;
   
   // The index in the path array where the visible file path ends (always a 
   // FileItem).
@@ -36,7 +36,7 @@ extern NSString  *VisiblePathLockingChangedEvent;
   // Note: It is not necessarily always the last item in the array, as one
   // or more virtual items may still follow (in particular when the path is 
   // being extended).
-  unsigned  lastFileItemIndex;
+  NSUInteger  lastFileItemIndex;
   
   // Controls if "selectedItemChanged" notifications are being (temporarily)
   // supressed. If it is set to nil, they are posted as they occur. Otherwise

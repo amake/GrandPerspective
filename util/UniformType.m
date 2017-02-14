@@ -6,6 +6,7 @@
 - (id) init {
   NSAssert(NO, 
            @"Use initWithUniformTypeIdentifier:description:parents instead."); 
+  return nil;
 }
 
 

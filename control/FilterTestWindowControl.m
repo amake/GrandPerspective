@@ -619,7 +619,7 @@
     }
     
     [sizeLowerBoundCheckBox setState: NSOnState]; 
-    [sizeLowerBoundField setIntValue: bound];
+    [sizeLowerBoundField setIntegerValue: bound];
     [sizeLowerBoundUnits selectItemAtIndex: i]; 
   }
 
@@ -635,7 +635,7 @@
     }
     
     [sizeUpperBoundCheckBox setState: NSOnState];
-    [sizeUpperBoundField setIntValue: bound];
+    [sizeUpperBoundField setIntegerValue: bound];
     [sizeUpperBoundUnits selectItemAtIndex: i];
   }
 }
@@ -708,7 +708,7 @@
   int  bytesUnit = [FileItem bytesPerKilobyte];
 
   ITEM_SIZE  lowerBound = MAX(0, [sizeLowerBoundField intValue]);
-  int  i = [sizeLowerBoundUnits indexOfSelectedItem];
+  NSUInteger  i = [sizeLowerBoundUnits indexOfSelectedItem];
   while (i-- > 0) {
     lowerBound *= bytesUnit;
   }
@@ -769,7 +769,7 @@
 
 
 - (FileItemTest *)selectiveItemTestBasedOnState:(FileItemTest *)subTest {
-  int  index = [testTargetPopUp indexOfSelectedItem];
+  NSUInteger  index = [testTargetPopUp indexOfSelectedItem];
   
   if (index == POPUP_FILES_AND_FOLDERS) { 
     return subTest;
@@ -952,8 +952,9 @@
 }
 
 - (void) removeTarget {
-  int  selectedRow = [targetsView selectedRow];
-  [matchTargets removeObjectAtIndex: selectedRow];
+  NSInteger  selectedRow = [targetsView selectedRow];
+
+  NSAssert(selectedRow >= 0, @"No row selected");
 
   if (selectedRow == [matchTargets count] && selectedRow > 0) {
     [targetsView selectRowIndexes: [NSIndexSet indexSetWithIndex: selectedRow - 1] 
@@ -1008,6 +1009,7 @@
          addTargetButton:(NSButton *)addButton
          removeTargetButton:(NSButton *)removeButton {
   NSAssert(NO, @"Use other initialiser.");
+  return nil;
 }
 
 - (id) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
@@ -1064,7 +1066,7 @@
     return;
   }
 
-  int  newRow =  [matchTargets count];
+  NSUInteger  newRow = [matchTargets count];
   
   [matchTargets addObject: 
      NSLocalizedString( @"New match", 
@@ -1254,7 +1256,7 @@
 
 - (void) addTarget {
   NSPopUpButton  *popUp = (NSPopUpButton *)addTargetButton;
-  int  selectedIndex = [popUp indexOfSelectedItem];
+  NSInteger  selectedIndex = [popUp indexOfSelectedItem];
   if (selectedIndex <= 0) {
     return;
   }
@@ -1267,7 +1269,7 @@
   // Restore popup state
   [popUp selectItemAtIndex: POPUP_ADD_TYPE];
 
-  int  newRow =  [matchTargets count];
+  NSUInteger  newRow = [matchTargets count];
 
   [matchTargets addObject: type];
   [targetsView reloadData];

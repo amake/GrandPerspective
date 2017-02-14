@@ -8,6 +8,7 @@
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithSubItemTest: instead.");
+  return nil;
 }
 
 - (id) initWithSubItemTest:(FileItemTest *)subTestVal {

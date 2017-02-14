@@ -200,7 +200,7 @@ static BOOL appHasDeletePermission;
   UniqueTagsTransformer  *tagMaker =
     [UniqueTagsTransformer defaultUniqueTagsTransformer];
 
-  int  tag = [tagMaker tagForName: value];
+  NSUInteger  tag = [tagMaker tagForName: value];
   [popUp selectItemAtIndex: [popUp indexOfItemWithTag: tag]];
 }
 

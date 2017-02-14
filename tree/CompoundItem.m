@@ -21,6 +21,7 @@
 // Overrides super's designated initialiser.
 - (id) initWithItemSize:(ITEM_SIZE)size {
   NSAssert(NO, @"Use initWithFirst:second instead.");
+  return nil;
 }
 
 - (id) initWithFirst:(Item*)firstVal second:(Item*)secondVal {

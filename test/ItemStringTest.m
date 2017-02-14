@@ -8,6 +8,7 @@
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithStringTest: instead.");
+  return nil;
 }
 
 - (id) initWithStringTest:(StringTest *)stringTestVal {
@@ -49,6 +50,7 @@
 
 - (BOOL) testFileItem:(FileItem *)item {
   NSAssert(NO, @"This method must be overridden.");
+  return NO;
 }
 
 @end

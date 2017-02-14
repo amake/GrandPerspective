@@ -23,7 +23,7 @@
  * For calculating the hash value when not traversing a tree, use 
  * -hashForFileItem:inTree:.
  */
-- (int) hashForFileItem: (PlainFileItem *)item atDepth: (int)depth;
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth;
 
 /* Calculates a hash value for a given file item in a tree. It performs the
  * same calculation as -hashForFileItem:depth:. Unlike the latter method, this 
@@ -31,7 +31,7 @@
  * item is not easily available). The depth will be calculated relative to the
  * provided tree root.
  */
-- (int) hashForFileItem: (PlainFileItem *)item inTree: (FileItem *)treeRoot;
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item inTree: (FileItem *)treeRoot;
 
 /* Returns "YES" iff there are meaningful descriptions for each hash value.
  * In this case, the range of hash values is expected to be the consecutive 
@@ -52,7 +52,7 @@
  * description can be given (i.e. when -canProvideLegend returns "NO"), or if
  * the hash value is outside of the valid range.
  */
-- (NSString *) descriptionForHash: (int)hash;
+- (NSString *) descriptionForHash: (NSUInteger)hash;
 
 - (NSString *) descriptionForRemainingHashes;
 

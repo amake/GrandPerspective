@@ -71,7 +71,7 @@
 
   [ModalityTerminator 
      modalityTerminatorForEventSource: filterTestWindowControl];
-  int  status = [NSApp runModalForWindow: editTestWindow];
+  NSInteger  status = [NSApp runModalForWindow: editTestWindow];
   [editTestWindow close];
 
   if (status == NSRunStoppedResponse) {
@@ -129,7 +129,7 @@
   [filterTestWindowControl setNameValidator: testNameValidator];
   
   [ModalityTerminator modalityTerminatorForEventSource: filterTestWindowControl];
-  int  status = [NSApp runModalForWindow: editTestWindow];
+  NSInteger  status = [NSApp runModalForWindow: editTestWindow];
   [editTestWindow close];
     
   if (status == NSRunStoppedResponse) {
@@ -190,6 +190,7 @@
 // Overrides designated initialiser.
 - (id) init {
   NSAssert(NO, @"Use initWithExistingTests: instead.");
+  return nil;
 }
 
 - (id) initWithExistingTests:(NSDictionary *)allTestsVal {
@@ -215,8 +216,6 @@
 
 
 - (NSString *)checkNameIsValid:(NSString *)name {
-  NSString*  errorText = nil;
-
   if ([name isEqualToString:@""]) {
     return NSLocalizedString( @"The test must have a name.",
                               @"Alert message" );

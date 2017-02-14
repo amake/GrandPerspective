@@ -15,6 +15,7 @@
 
 - (id) init {
   NSAssert(NO, @"Use -initWithDirectoryViewControl: instead");
+  return nil;
 }
 
 // Special case: should not cover (override) super's designated initialiser in

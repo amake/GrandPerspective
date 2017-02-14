@@ -11,6 +11,7 @@
 // Overrides designated initialiser.
 - (id) init {
   NSAssert(NO, @"Use initWithName:fileItemTest: instead.");
+  return nil;
 }
 
 // Designated initialiser.

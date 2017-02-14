@@ -101,7 +101,7 @@
 
 - (IBAction) editFilterInRepository:(id) sender {
   NSString  *oldName = [self selectedFilterName];
-  NamedFilter  *updatedFilter = [filterEditor editFilterNamed: oldName];
+  [filterEditor editFilterNamed: oldName];
 }
 
 - (IBAction) removeFilterFromRepository:(id) sender {
@@ -171,14 +171,14 @@
 @implementation FiltersWindowControl (PrivateMethods)
 
 - (NSString *)selectedFilterName {
-  int  index = [filterView selectedRow];
+  NSInteger  index = [filterView selectedRow];
   return (index < 0) ? nil : [filterNames objectAtIndex: index];
 }
 
 
 - (void) selectFilterNamed:(NSString *)name {
-  int  row = [filterNames indexOfObject: name];
-  if (row >= 0) {
+  NSUInteger  row = [filterNames indexOfObject: name];
+  if (row != NSNotFound) {
     [filterView selectRowIndexes: [NSIndexSet indexSetWithIndex: row]
             byExtendingSelection: NO];
   }
@@ -222,7 +222,7 @@
   NSString  *name = [[notification userInfo] objectForKey: @"key"];
   NSString  *selectedName = [self selectedFilterName];
 
-  int  index = [filterNames indexOfObject: name];
+  NSUInteger  index = [filterNames indexOfObject: name];
   NSAssert(index != NSNotFound, @"Filter not found.");
 
   [filterNames removeObjectAtIndex: index];
@@ -250,7 +250,7 @@
   NSString  *oldName = [[notification userInfo] objectForKey: @"oldkey"];
   NSString  *newName = [[notification userInfo] objectForKey: @"newkey"];
 
-  int  index = [filterNames indexOfObject: oldName];
+  NSUInteger  index = [filterNames indexOfObject: oldName];
   NSAssert(index != NSNotFound, @"Filter not found.");
 
   NSString  *selectedName = [self selectedFilterName];

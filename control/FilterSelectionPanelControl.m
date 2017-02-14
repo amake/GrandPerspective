@@ -50,7 +50,7 @@
 - (IBAction) editFilter:(id) sender {
   [self filterEditor];
   NSString  *oldName = [filterPopUpControl selectedFilterName];
-  NamedFilter  *updatedFilter = [filterEditor editFilterNamed: oldName];
+  [filterEditor editFilterNamed: oldName];
 }
 
 - (IBAction) addFilter:(id) sender {

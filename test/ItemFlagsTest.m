@@ -9,6 +9,7 @@
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithFlagsMask:desiredResult: instead.");
+  return nil;
 }
 
 - (id) initWithFlagsMask:(UInt8) mask desiredResult:(UInt8) result {

@@ -37,13 +37,15 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
  *
  * Note: "start" and "end" are both inclusive.
  */
-- (NSArray*) buildFileItemPathFromIndex: (int) start toIndex: (int) end
-               usingArray: (NSMutableArray *)array;
+- (NSArray*) buildFileItemPathFromIndex: (NSUInteger) start
+                                toIndex: (NSUInteger) end
+                             usingArray: (NSMutableArray *)array;
 
-- (BOOL) extendVisiblePathToFileItem: (FileItem *)target 
-           similar: (BOOL) similar;
-- (BOOL) extendVisiblePathToFileItem: (FileItem *)target 
-           similar: (BOOL) similar fromItem: (Item *)current;
+- (BOOL) extendVisiblePathToFileItem: (FileItem *)target
+                             similar: (BOOL) similar;
+- (BOOL) extendVisiblePathToFileItem: (FileItem *)target
+                             similar: (BOOL) similar
+                            fromItem: (Item *)current;
 
 @end
 
@@ -58,6 +60,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 // Overrides super's designated initialiser.
 - (id) init {
   NSAssert(NO, @"Use -initWithTreeContext: instead.");
+  return nil;
 }
 
 - (id) initWithTreeContext: (TreeContext *)treeContextVal {
@@ -213,7 +216,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 - (BOOL) clearVisiblePath {
   NSAssert(!visiblePathLocked, @"Cannot clear path when locked.");
 
-  int  num = [path count] - visibleTreeIndex - 1;
+  NSUInteger  num = [path count] - visibleTreeIndex - 1;
 
   if (num > 0) {
     [path removeObjectsInRange: NSMakeRange(visibleTreeIndex + 1, num)];
@@ -289,7 +292,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 
 
 - (void) selectFileItem: (FileItem *)fileItem {
-  int  oldSelectedItemIndex = selectedItemIndex;
+  NSUInteger  oldSelectedItemIndex = selectedItemIndex;
   selectedItemIndex = lastFileItemIndex;
   
   while ( [path objectAtIndex: selectedItemIndex] != fileItem ) {
@@ -357,8 +360,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
   FileItem  *replacingItem = [treeContext replacingFileItem];
 
   // Check if all items in the path are still valid
-  unsigned  i = [path count] - 1;
-  do {
+  for (NSUInteger i = [path count]; i-- > 0; ) {
     Item  *item = [path objectAtIndex: i];
     if (item == replacedItem) {
       if (i != [path count] - 1) {
@@ -391,7 +393,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
       // Replaced item found, so iteration can be aborted.
       break;
     } 
-  } while (i-- > 0); // Condition handles fact that "i" is unsigned. 
+  }
 
   // Check if the replaced item was part of the visible tree.
   FileItem  *visibleTree = [self visibleTree];
@@ -467,11 +469,12 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 }
 
 
-- (NSArray*) buildFileItemPathFromIndex: (int) start toIndex: (int) end
-               usingArray: (NSMutableArray *)array; {
+- (NSArray*) buildFileItemPathFromIndex: (NSUInteger) start
+                                toIndex: (NSUInteger) end
+                             usingArray: (NSMutableArray *)array; {
   [array removeAllObjects];
 
-  unsigned  i = start;
+  NSUInteger  i = start;
   while (i <= end) {
     if (![[path objectAtIndex:i] isVirtual]) {
       [array addObject: [path objectAtIndex:i]];

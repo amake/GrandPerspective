@@ -111,12 +111,12 @@
 //----------------------------------------------------------------------------
 // Implementation of FileItemMapping protocol
 
-- (int) hashForFileItem: (PlainFileItem *)item atDepth: (int)depth {
+- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
   UniformType  *type = [item uniformType];
   
   if (type == nil) {
     // Unknown type
-    return INT_MAX;
+    return NSIntegerMax;
   }
   
   NSString  *uti = [type uniformTypeIdentifier];
@@ -126,7 +126,7 @@
   }
     
   NSSet  *ancestorTypes = [type ancestorTypes];
-  int  utiIndex = 0;
+  NSUInteger  utiIndex = 0;
   
   while (utiIndex < [orderedTypes count]) {
     UniformType  *orderedType = [orderedTypes objectAtIndex: utiIndex];
@@ -135,8 +135,8 @@
       // Found the first type in the list that the file item conforms to.
       
       // Add it to the cache for next time.
-      [hashForUTICache setObject: [NSNumber numberWithInt: utiIndex]
-                         forKey: uti];
+      [hashForUTICache setObject: [NSNumber numberWithInteger: utiIndex]
+                          forKey: uti];
       return utiIndex;
     }
     
@@ -144,6 +144,7 @@
   }
   
   NSAssert(NO, @"No conforming type found.");
+  return 0;
 }
 
 
@@ -154,8 +155,8 @@
 //----------------------------------------------------------------------------
 // Implementation of informal LegendProvidingFileItemMapping protocol
 
-- (NSString *) descriptionForHash: (int)hash {
-  if (hash < 0 || hash >= [orderedTypes count]) {
+- (NSString *) descriptionForHash: (NSUInteger)hash {
+  if (hash >= [orderedTypes count]) {
     return nil;
   }
   

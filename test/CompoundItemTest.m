@@ -30,6 +30,7 @@
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithSubItemTests: instead.");
+  return nil;
 }
 
 - (id) initWithSubItemTests:(NSArray*)subTestsVal {
@@ -99,8 +100,8 @@
 }
 
 - (BOOL) appliesToDirectories {
-  int  max = [subTests count];
-  int  i = 0;
+  NSUInteger  max = [subTests count];
+  NSUInteger  i = 0;
   
   while (i < max) {
     if ([[subTests objectAtIndex: i++] appliesToDirectories]) {

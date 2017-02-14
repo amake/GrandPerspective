@@ -30,6 +30,7 @@ enum {
 // Overrides super's designated initialiser.
 - (id) init {
   NSAssert(NO, @"Use -initWithTaskExecutor: instead.");
+  return nil;
 }
 
 - (id) initWithTaskExecutor: (NSObject <TaskExecutor>*)executorVal {

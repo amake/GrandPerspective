@@ -23,6 +23,7 @@
 // Overrides designated initialiser.
 - (id) init {
   NSAssert(NO, @"Use initWithName: instead.");
+  return nil;
 }
 
 - (id) initWithName:(NSString *)nameVal {

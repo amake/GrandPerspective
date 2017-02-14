@@ -26,6 +26,7 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 
 - (id) init {
   NSAssert(NO, @"Use initWithPopUpButton: instead.");
+  return nil;
 }
 
 - (id) initWithPopUpButton:(NSPopUpButton *)popUpButtonVal {
@@ -96,7 +97,7 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 }
 
 - (void) selectFilterNamed:(NSString *)name {
-  int  tag = [tagMaker tagForName: name];
+  NSUInteger  tag = [tagMaker tagForName: name];
   [popUpButton selectItemAtIndex: [popUpButton indexOfItemWithTag: tag]];
 }
 
@@ -116,8 +117,8 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 
 - (void) filterRemovedFromRepository:(NSNotification *)notification {
   NSString  *name = [[notification userInfo] objectForKey: @"key"];
-  int  tag = [tagMaker tagForName: name];
-  int  index = [popUpButton indexOfItemWithTag: tag];
+  NSUInteger  tag = [tagMaker tagForName: name];
+  NSUInteger  index = [popUpButton indexOfItemWithTag: tag];
   BOOL  wasSelected = [popUpButton indexOfSelectedItem] == index;
 
   [popUpButton removeItemAtIndex: [popUpButton indexOfItemWithTag: tag]];
@@ -130,8 +131,8 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 
 - (void) filterUpdatedInRepository:(NSNotification *)notification {
   NSString  *name = [[notification userInfo] objectForKey: @"key"];
-  int  tag = [tagMaker tagForName: name];
-  int  index = [popUpButton indexOfItemWithTag: tag];
+  NSUInteger  tag = [tagMaker tagForName: name];
+  NSUInteger  index = [popUpButton indexOfItemWithTag: tag];
   BOOL  isSelected = [popUpButton indexOfSelectedItem] == index;
 
   if (isSelected) {
@@ -143,8 +144,8 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 - (void) filterRenamedInRepository:(NSNotification *)notification {
   NSString  *oldName = [[notification userInfo] objectForKey: @"oldkey"];
   NSString  *newName = [[notification userInfo] objectForKey: @"newkey"];
-  int  tag = [tagMaker tagForName: oldName];
-  int  index = [popUpButton indexOfItemWithTag: tag];
+  NSUInteger  tag = [tagMaker tagForName: oldName];
+  NSUInteger  index = [popUpButton indexOfItemWithTag: tag];
   BOOL  wasSelected = [popUpButton indexOfSelectedItem] == index;
   
   [popUpButton removeItemAtIndex: index];

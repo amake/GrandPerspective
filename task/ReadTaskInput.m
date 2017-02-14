@@ -6,6 +6,7 @@
 // Overrides designated initialiser
 - (id) init {
   NSAssert(NO, @"Use initWithPath: instead");
+  return nil;
 }
 
 - (id) initWithPath: (NSString *)pathVal {

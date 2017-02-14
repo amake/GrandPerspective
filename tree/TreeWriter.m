@@ -88,9 +88,9 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   // Lazily construct buffer. Only use it when needed.
   NSMutableString  *buf = nil;
   
-  int  i;
-  int  numCharsInVal = [s length];
-  int  numCharsInBuf = 0;
+  NSUInteger  i;
+  NSUInteger  numCharsInVal = [s length];
+  NSUInteger  numCharsInBuf = 0;
   
   for (i = 0; i < numCharsInVal; i++) {
     unichar  c = [s characterAtIndex: i];
@@ -217,11 +217,11 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   
   if (error==nil && dataBufferPos > 0) {
     // Write remaining characters in buffer
-    unsigned  numWritten = fwrite( dataBuffer, 1, dataBufferPos, file );
+    NSUInteger  numWritten = fwrite( dataBuffer, 1, dataBufferPos, file );
     
     if (numWritten != dataBufferPos) {
-      NSLog(@"Failed to write last data: %d bytes written out of %d.", 
-                numWritten, dataBufferPos);
+      NSLog(@"Failed to write last data: %lu bytes written out of %lu.",
+                (unsigned long)numWritten, (unsigned long)dataBufferPos);
 
       error = [[ApplicationError alloc] initWithLocalizedDescription: 
                   WRITING_LAST_DATA_FAILED];
@@ -503,11 +503,11 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
   NSData  *newData = [s dataUsingEncoding: NSUTF8StringEncoding];
   const void  *newDataBytes = [newData bytes];
-  unsigned  numToAppend = [newData length];
-  unsigned  newDataPos = 0;
+  NSUInteger  numToAppend = [newData length];
+  NSUInteger  newDataPos = 0;
   
   while (numToAppend > 0) {
-    unsigned  numToCopy = ( (dataBufferPos + numToAppend <= BUFFER_SIZE)
+    NSUInteger  numToCopy = ( (dataBufferPos + numToAppend <= BUFFER_SIZE)
                             ? numToAppend 
                             : BUFFER_SIZE - dataBufferPos );
 
@@ -517,10 +517,11 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
     numToAppend -= numToCopy;
     
     if (dataBufferPos == BUFFER_SIZE) {
-      unsigned  numWritten = fwrite( dataBuffer, 1, BUFFER_SIZE, file );
+      NSUInteger  numWritten = fwrite( dataBuffer, 1, BUFFER_SIZE, file );
       
       if (numWritten != BUFFER_SIZE) {
-        NSLog(@"Failed to write entire buffer, %d bytes written", numWritten);
+        NSLog(@"Failed to write entire buffer, %lu bytes written",
+              (unsigned long)numWritten);
         
         error = [[ApplicationError alloc] initWithLocalizedDescription: 
                     WRITING_BUFFER_FAILED];
