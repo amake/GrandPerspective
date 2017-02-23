@@ -333,6 +333,17 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
       return YES;
     }
   }
+  else if ([chars isEqualToString: @" "]) {
+    if (flags == 0) {
+      SEL  action = @selector(previewFile:);
+      if ([self validateAction: action]) {
+        DirectoryViewControl*  target = (DirectoryViewControl*)
+          [[NSApplication sharedApplication] targetForAction: action];
+        [target previewFile: self];
+      }
+      return YES;
+    }
+  }
   
   return NO;
 }
@@ -457,6 +468,18 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
                             action: @selector(revealFileInFinder:) 
                      keyEquivalent: @""
                            atIndex: itemCount++];
+  }
+
+  if ( [self validateAction: @selector(previewFile:)] ) {
+    NSMenuItem  *menuItem =
+    [[[NSMenuItem alloc] initWithTitle:
+     NSLocalizedStringFromTable( @"Quick Look", @"PopUpMenu", @"Menu item" )
+                               action: @selector(previewFile:)
+     keyEquivalent: @" "]
+     autorelease];
+    menuItem.keyEquivalentModifierMask = 0; // No modifiers
+    [popUpMenu insertItem: menuItem
+                  atIndex: itemCount++];
   }
   
   if ( [self validateAction: @selector(openFile:)] ) {

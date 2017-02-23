@@ -10,6 +10,7 @@
 NSString  *ToolbarZoom = @"Zoom"; 
 NSString  *ToolbarFocus = @"Focus"; 
 NSString  *ToolbarOpenItem = @"OpenItem";
+NSString  *ToolbarPreviewItem = @"PreviewItem";
 NSString  *ToolbarRevealItem = @"RevealItem";
 NSString  *ToolbarDeleteItem = @"DeleteItem";
 NSString  *ToolbarRescan = @"Rescan";
@@ -35,6 +36,7 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
 - (NSToolbarItem *) zoomToolbarItem;
 - (NSToolbarItem *) focusToolbarItem;
 - (NSToolbarItem *) openItemToolbarItem;
+- (NSToolbarItem *) previewItemToolbarItem;
 - (NSToolbarItem *) revealItemToolbarItem;
 - (NSToolbarItem *) deleteItemToolbarItem;
 - (NSToolbarItem *) rescanToolbarItem;
@@ -57,6 +59,7 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
 
 // Methods corresponding to methods in DirectoryViewControl
 - (void) openFile: (id) sender;
+- (void) previewFile: (id) sender;
 - (void) revealFileInFinder: (id) sender;
 - (void) deleteFile: (id) sender;
 
@@ -196,19 +199,21 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
     createToolbarItemLookup = [[NSMutableDictionary alloc] initWithCapacity: 8];
 
     [self createToolbarItem: ToolbarZoom
-            usingSelector: @selector(zoomToolbarItem)];
+              usingSelector: @selector(zoomToolbarItem)];
     [self createToolbarItem: ToolbarFocus
-            usingSelector: @selector(focusToolbarItem)];
+              usingSelector: @selector(focusToolbarItem)];
     [self createToolbarItem: ToolbarOpenItem 
-            usingSelector: @selector(openItemToolbarItem)];
-    [self createToolbarItem: ToolbarRevealItem 
-            usingSelector: @selector(revealItemToolbarItem)];
+              usingSelector: @selector(openItemToolbarItem)];
+    [self createToolbarItem: ToolbarPreviewItem
+              usingSelector: @selector(previewItemToolbarItem)];
+    [self createToolbarItem: ToolbarRevealItem
+              usingSelector: @selector(revealItemToolbarItem)];
     [self createToolbarItem: ToolbarDeleteItem 
-            usingSelector: @selector(deleteItemToolbarItem)];
+              usingSelector: @selector(deleteItemToolbarItem)];
     [self createToolbarItem: ToolbarRescan 
-            usingSelector: @selector(rescanToolbarItem)];
+              usingSelector: @selector(rescanToolbarItem)];
     [self createToolbarItem: ToolbarToggleDrawer
-            usingSelector: @selector(toggleDrawerToolbarItem)];
+              usingSelector: @selector(toggleDrawerToolbarItem)];
   }
   
   SelectorObject  *selObj = 
@@ -226,7 +231,8 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
     return [NSArray arrayWithObjects:
                       ToolbarZoom, ToolbarFocus,
                       NSToolbarSpaceItemIdentifier, 
-                      ToolbarOpenItem, ToolbarRevealItem, ToolbarDeleteItem, 
+                      ToolbarOpenItem, ToolbarPreviewItem,
+                      ToolbarRevealItem, ToolbarDeleteItem,
                       NSToolbarSpaceItemIdentifier, 
                       ToolbarRescan,
                       NSToolbarFlexibleSpaceItemIdentifier, 
@@ -236,7 +242,8 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
     return [NSArray arrayWithObjects:
                       ToolbarZoom, ToolbarFocus,
-                      ToolbarOpenItem, ToolbarRevealItem, ToolbarDeleteItem,
+                      ToolbarOpenItem, ToolbarPreviewItem,
+                      ToolbarRevealItem, ToolbarDeleteItem,
                       ToolbarRescan,
                       ToolbarToggleDrawer, 
                       NSToolbarSeparatorItemIdentifier, 
@@ -367,6 +374,23 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
                                                 @"Toolbar", @"Tooltip" )];
   [item setImage: [NSImage imageNamed: @"OpenWithFinder"]];
   [item setAction: @selector(openFile:) ];
+  [item setTarget: self];
+
+  return item;
+}
+
+- (NSToolbarItem *) previewItemToolbarItem {
+  NSToolbarItem  *item =
+  [[[NSToolbarItem alloc]
+    initWithItemIdentifier: ToolbarPreviewItem] autorelease];
+
+  [item setLabel: NSLocalizedStringFromTable( @"Quick Look", @"Toolbar",
+                                              @"Toolbar action" )];
+  [item setPaletteLabel: [item label]];
+  [item setToolTip: NSLocalizedStringFromTable( @"Quick Look",
+                                                @"Toolbar", @"Tooltip" )];
+  [item setImage: [NSImage imageNamed: @"QuickLook"]];
+  [item setAction: @selector(previewFile:) ];
   [item setTarget: self];
 
   return item;
@@ -518,8 +542,9 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   else if ( action == @selector(moveFocusDown:) ) {
     return [[dirViewControl directoryView] canMoveFocusDown];
   }
-  else if ( action == @selector(openFile:) || 
-            action == @selector(revealFileInFinder:) || 
+  else if ( action == @selector(openFile:) ||
+            action == @selector(previewFile:) ||
+            action == @selector(revealFileInFinder:) ||
             action == @selector(deleteFile:) ) {
     return ( [dirViewControl validateAction: action] &&
     
@@ -595,6 +620,10 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 
 - (void) openFile: (id) sender {
   [dirViewControl openFile: sender];
+}
+
+- (void) previewFile: (id) sender {
+  [dirViewControl previewFile: sender];
 }
 
 - (void) revealFileInFinder: (id) sender {

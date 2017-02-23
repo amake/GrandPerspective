@@ -108,6 +108,7 @@ extern NSString  *DeleteFilesAndFolders;
 }
 
 - (IBAction) openFile:(id) sender;
+- (IBAction) previewFile:(id) sender;
 - (IBAction) revealFileInFinder:(id) sender;
 - (IBAction) deleteFile:(id) sender;
 - (IBAction) toggleDrawer:(id) sender;

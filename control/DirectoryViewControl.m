@@ -43,6 +43,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 @interface DirectoryViewControl (PrivateMethods)
 
 - (BOOL) canOpenSelectedFile;
+- (BOOL) canPreviewSelectedFile;
 - (BOOL) canRevealSelectedFile;
 - (BOOL) canDeleteSelectedFile;
 - (BOOL) canCopySelectedPathToPasteboard;
@@ -528,6 +529,9 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
            contextInfo: nil];
 }
 
+- (IBAction) previewFile:(id) sender {
+  NSLog(@"Previewing file");
+}
 
 - (IBAction) revealFileInFinder:(id) sender {
   FileItem  *file = [pathModelView selectedFileItem];
@@ -757,6 +761,9 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   if ( action == @selector(openFile:) ) {
     return [self canOpenSelectedFile];
   }
+  else if ( action == @selector(previewFile:) ) {
+    return [self canPreviewSelectedFile];
+  }
   else if ( action == @selector(revealFileInFinder:) ) {
     return [self canRevealSelectedFile];
   }
@@ -805,6 +812,10 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
       && ( ! [selectedFile isDirectory]
            || [selectedFile isPackage] )
     );
+}
+
+- (BOOL) canPreviewSelectedFile {
+  return [[pathModelView selectedFileItem] isPhysical];
 }
 
 - (BOOL) canRevealSelectedFile {
