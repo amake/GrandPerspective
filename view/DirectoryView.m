@@ -144,6 +144,22 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
                                                bounds: [self bounds]];
 }
 
+- (NSImage *)imageForSelectedItemInView {
+  NSRect sourceRect = [self locationOfSelectedItemInView];
+
+  NSImage  *targetImage =
+    [[[NSImage alloc] initWithSize: sourceRect.size] autorelease];
+
+  [targetImage lockFocus];
+  [treeImage drawInRect: NSMakeRect(0, 0, sourceRect.size.width, sourceRect.size.height)
+               fromRect: sourceRect
+              operation: NSCompositeCopy
+               fraction: 1.0];
+  [targetImage unlockFocus];
+
+  return targetImage;
+}
+
 
 - (TreeDrawerSettings *) treeDrawerSettings {
   DrawTaskExecutor  *drawTaskExecutor = 

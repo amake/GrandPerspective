@@ -59,6 +59,7 @@ extern NSString  *ColorMappingChangedEvent;
 - (FileItem *)treeInView;
 
 - (NSRect) locationOfSelectedItemInView;
+- (NSImage *)imageForSelectedItemInView;
 
 - (TreeDrawerSettings *)treeDrawerSettings;
 - (void) setTreeDrawerSettings: (TreeDrawerSettings *)settings;

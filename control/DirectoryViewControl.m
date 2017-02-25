@@ -843,7 +843,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 - (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel
                 previewItemAtIndex:(NSInteger)index {
   FileItem  *fileItem = [pathModelView selectedFileItem];
-  NSURL *xmlURL = [NSURL fileURLWithPath: [fileItem systemPath]];
+  NSURL  *xmlURL = [NSURL fileURLWithPath: [fileItem systemPath]];
   NSLog(@"Previewing %@", xmlURL);
   return xmlURL;
 }
@@ -867,6 +867,13 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   selectedItemRect = [[mainView window] convertRectToScreen: selectedItemRect];
 
   return selectedItemRect;
+}
+
+- (id)previewPanel:(QLPreviewPanel *)panel
+  transitionImageForPreviewItem:(id <QLPreviewItem>)item
+       contentRect:(NSRect *)contentRect {
+
+  return [mainView imageForSelectedItemInView];
 }
 
 @end // @implementation DirectoryViewControl
