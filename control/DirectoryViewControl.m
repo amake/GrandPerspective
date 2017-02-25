@@ -848,6 +848,27 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   return xmlURL;
 }
 
+#pragma mark - QLPreviewPanelDelegate
+
+// This delegate method provides the rect on screen from which the panel will zoom.
+- (NSRect) previewPanel:(QLPreviewPanel *)panel
+  sourceFrameOnScreenForPreviewItem:(id <QLPreviewItem>)item {
+
+  NSRect selectedItemRect = [mainView locationOfSelectedItemInView];
+
+  // Check that the rect is visible on screen
+  if (!NSIntersectsRect([mainView visibleRect], selectedItemRect)) {
+    return NSZeroRect;
+  }
+
+  // Convert to screen coordinates
+  selectedItemRect = [mainView convertRectToBacking: selectedItemRect];
+  selectedItemRect = [mainView convertRect: selectedItemRect toView: nil];
+  selectedItemRect = [[mainView window] convertRectToScreen: selectedItemRect];
+
+  return selectedItemRect;
+}
+
 @end // @implementation DirectoryViewControl
 
 

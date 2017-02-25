@@ -9,6 +9,7 @@
 #import "ItemPathDrawer.h"
 #import "ItemPathModel.h"
 #import "ItemPathModelView.h"
+#import "SelectedItemLocator.h"
 
 #import "TreeLayoutTraverser.h"
 
@@ -60,6 +61,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   if (self = [super initWithFrame:frame]) {
     layoutBuilder = [[TreeLayoutBuilder alloc] init];
     pathDrawer = [[ItemPathDrawer alloc] init];
+    selectedItemLocator = [[SelectedItemLocator alloc] init];
     
     scrollWheelDelta = 0;
   }
@@ -75,6 +77,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
   [layoutBuilder release];
   [pathDrawer release];
+  [selectedItemLocator release];
   
   [observedColorMapping release];
   
@@ -131,6 +134,14 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   return (showEntireVolume 
           ? [pathModelView volumeTree]
           : [pathModelView visibleTree]);
+}
+
+
+- (NSRect) locationOfSelectedItemInView {
+  return [selectedItemLocator locationForSelectedItem: pathModelView
+                                       startingAtTree: [self treeInView]
+                                   usingLayoutBuilder: layoutBuilder
+                                               bounds: [self bounds]];
 }
 
 

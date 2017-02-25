@@ -78,8 +78,9 @@
 		AA7A7F0D0E4F339D00EB366E /* ReadTaskInput.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7A7F0C0E4F339D00EB366E /* ReadTaskInput.m */; };
 		AA7A7F110E4F342100EB366E /* ReadTaskExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7A7F100E4F342100EB366E /* ReadTaskExecutor.m */; };
 		AA7A7F170E4F3C2800EB366E /* ProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7A7F160E4F3C2800EB366E /* ProgressTracker.m */; };
-		AA7B906A0DD707F000488CAA /* ItemPathModelView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7B90690DD707F000488CAA /* ItemPathModelView.m */; };
 		AA7BF5B51E5F5AB100A42F0F /* QuickLook.png in Resources */ = {isa = PBXBuildFile; fileRef = AA7BF5B41E5F5AB100A42F0F /* QuickLook.png */; };
+		AA7BF5B81E61E28900A42F0F /* ItemPathModelView.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7BF5B71E61E28900A42F0F /* ItemPathModelView.m */; };
+		AA7BF5BB1E61E44000A42F0F /* SelectedItemLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7BF5BA1E61E44000A42F0F /* SelectedItemLocator.m */; };
 		AA7C64D60AFE71DC007B8CD2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA7C64D50AFE71DC007B8CD2 /* Localizable.strings */; };
 		AA7DEA0A0D6718ED0057F5F8 /* UniformType.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7DEA080D6718ED0057F5F8 /* UniformType.m */; };
 		AA7DEC1B0D6CD38E0057F5F8 /* PlainFileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7DEC190D6CD38E0057F5F8 /* PlainFileItem.m */; };
@@ -304,9 +305,11 @@
 		AA7A7F100E4F342100EB366E /* ReadTaskExecutor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReadTaskExecutor.m; path = task/ReadTaskExecutor.m; sourceTree = "<group>"; };
 		AA7A7F150E4F3C2800EB366E /* ProgressTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressTracker.h; path = task/ProgressTracker.h; sourceTree = "<group>"; };
 		AA7A7F160E4F3C2800EB366E /* ProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressTracker.m; path = task/ProgressTracker.m; sourceTree = "<group>"; };
-		AA7B90680DD707F000488CAA /* ItemPathModelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPathModelView.h; path = tree/ItemPathModelView.h; sourceTree = "<group>"; };
-		AA7B90690DD707F000488CAA /* ItemPathModelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPathModelView.m; path = tree/ItemPathModelView.m; sourceTree = "<group>"; };
 		AA7BF5B41E5F5AB100A42F0F /* QuickLook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = QuickLook.png; path = Images/QuickLook.png; sourceTree = "<group>"; };
+		AA7BF5B61E61E28900A42F0F /* ItemPathModelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemPathModelView.h; path = view/ItemPathModelView.h; sourceTree = "<group>"; };
+		AA7BF5B71E61E28900A42F0F /* ItemPathModelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemPathModelView.m; path = view/ItemPathModelView.m; sourceTree = "<group>"; };
+		AA7BF5B91E61E44000A42F0F /* SelectedItemLocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectedItemLocator.h; path = view/SelectedItemLocator.h; sourceTree = "<group>"; };
+		AA7BF5BA1E61E44000A42F0F /* SelectedItemLocator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectedItemLocator.m; path = view/SelectedItemLocator.m; sourceTree = "<group>"; };
 		AA7C64CA0AFE717A007B8CD2 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; wrapsLines = 1; };
 		AA7C64E90AFE734A007B8CD2 /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; wrapsLines = 1; };
 		AA7DEA070D6718ED0057F5F8 /* UniformType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UniformType.h; path = util/UniformType.h; sourceTree = "<group>"; };
@@ -650,8 +653,6 @@
 				AA2B4A09104B122900B10262 /* AnnotatedTreeContext.m */,
 				AA4030320A5B02F1004EAAF3 /* ItemPathModel.h */,
 				AA4030310A5B02F1004EAAF3 /* ItemPathModel.m */,
-				AA7B90680DD707F000488CAA /* ItemPathModelView.h */,
-				AA7B90690DD707F000488CAA /* ItemPathModelView.m */,
 				AA60131D0A5AFCC500DEBCB8 /* TreeLayoutTraverser.h */,
 				AA60131F0A5AFCC500DEBCB8 /* TreeLayoutBuilder.h */,
 				AA60131E0A5AFCC500DEBCB8 /* TreeLayoutBuilder.m */,
@@ -688,6 +689,10 @@
 				AA6012F80A5AFC2500DEBCB8 /* ItemPathDrawer.m */,
 				AA6012FB0A5AFC2500DEBCB8 /* ItemPathBuilder.h */,
 				AA6012FA0A5AFC2500DEBCB8 /* ItemPathBuilder.m */,
+				AA7BF5B91E61E44000A42F0F /* SelectedItemLocator.h */,
+				AA7BF5BA1E61E44000A42F0F /* SelectedItemLocator.m */,
+				AA7BF5B61E61E28900A42F0F /* ItemPathModelView.h */,
+				AA7BF5B71E61E28900A42F0F /* ItemPathModelView.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -1079,10 +1084,11 @@
 				AA6E27A40D7AE95E00D5FBBA /* ColorLegendTableViewControl.m in Sources */,
 				AA8A38080D7B437300DB872C /* FileItemMappingCollection.m in Sources */,
 				AA8A380A0D7B437300DB872C /* FileItemMappingScheme.m in Sources */,
+				AA7BF5BB1E61E44000A42F0F /* SelectedItemLocator.m in Sources */,
+				AA7BF5B81E61E28900A42F0F /* ItemPathModelView.m in Sources */,
 				AA8A380C0D7B437300DB872C /* StatefulFileItemMapping.m in Sources */,
 				AA8A380E0D7B437300DB872C /* StatelessFileItemMapping.m in Sources */,
 				AA8A38100D7B437300DB872C /* UniformTypeMappingScheme.m in Sources */,
-				AA7B906A0DD707F000488CAA /* ItemPathModelView.m in Sources */,
 				AA987F610DF16D0300A6EA33 /* FilteredTreeGuide.m in Sources */,
 				AA9881900DF57B2F00A6EA33 /* BasicFileItemTestVisitor.m in Sources */,
 				AA9881910DF57B2F00A6EA33 /* CompoundAndItemTest.m in Sources */,

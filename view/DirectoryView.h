@@ -18,6 +18,7 @@ extern NSString  *ColorMappingChangedEvent;
 @class TreeDrawerSettings;
 @class ItemPathDrawer;
 @class ItemPathModelView;
+@class SelectedItemLocator;
 @protocol FileItemMappingScheme;
 
 @interface DirectoryView : NSView {
@@ -30,6 +31,7 @@ extern NSString  *ColorMappingChangedEvent;
   
   ItemPathDrawer  *pathDrawer;
   ItemPathModelView  *pathModelView;
+  SelectedItemLocator  *selectedItemLocator;
   
   /* The current color mapping, which is being observed for any changes to the
    * scheme.
@@ -56,13 +58,15 @@ extern NSString  *ColorMappingChangedEvent;
 - (ItemPathModelView *)pathModelView;
 - (FileItem *)treeInView;
 
-- (TreeDrawerSettings *) treeDrawerSettings;
+- (NSRect) locationOfSelectedItemInView;
+
+- (TreeDrawerSettings *)treeDrawerSettings;
 - (void) setTreeDrawerSettings: (TreeDrawerSettings *)settings;
 
 - (BOOL) showEntireVolume;
 - (void) setShowEntireVolume: (BOOL) flag;
 
-- (TreeLayoutBuilder*) layoutBuilder;
+- (TreeLayoutBuilder *)layoutBuilder;
 
 - (BOOL) canZoomIn;
 - (BOOL) canZoomOut;
