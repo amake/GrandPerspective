@@ -387,7 +387,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   [item setLabel: NSLocalizedStringFromTable( @"Quick Look", @"Toolbar",
                                               @"Toolbar action" )];
   [item setPaletteLabel: [item label]];
-  [item setToolTip: NSLocalizedStringFromTable( @"Quick Look",
+  [item setToolTip: NSLocalizedStringFromTable( @"Preview item in Quick Look panel",
                                                 @"Toolbar", @"Tooltip" )];
   [item setImage: [NSImage imageNamed: @"QuickLook"]];
   [item setAction: @selector(previewFile:) ];

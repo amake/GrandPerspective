@@ -28,6 +28,12 @@
 /* Tooltip */
 "Open/close drawer" = "Open/sluit lade";
 
+/* Tooltip */
+"Preview item in Quick Look panel" = "Snelle weergave van bestand of map";
+
+/* Toolbar action */
+"Quick Look" = "Geef snel weer";
+
 /* Toolbar action */
 "Rescan" = "Herlezen";
 

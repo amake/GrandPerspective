@@ -1,4 +1,4 @@
-﻿/* AND-test for flags sub tests with 1: subtest, 2: one or more sub tests */
+/* AND-test for flags sub tests with 1: subtest, 2: one or more sub tests */
 "%@ and %@" = "%1$@ and %2$@";
 
 /* Case-sensitive string test with 1: subject, and 2: match targets */
@@ -43,14 +43,14 @@
 /* OR-test with 1: sub test, and 2: another sub test */
 "(%@) or (%@)" = "(%1$@) or (%2$@)";
 
+/* Size test without any bounds */
+"any size" = "any size";
+
 /* Selective test with 1: sub test */
 "files: %@" = "files: %@";
 
 /* Selective test with 1: sub test */
 "folders: %@" = "folders: %@";
-
-/* Size test without any bounds */
-"any size" = "any size";
 
 /* File/folder flags sub test */
 "item is a package" = "item is a package";

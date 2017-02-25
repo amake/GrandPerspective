@@ -1,4 +1,4 @@
-﻿/* Menu item */
+/* Menu item */
 "Copy path" = "Copy path";
 
 /* Menu item */
@@ -8,7 +8,7 @@
 "Open with Finder" = "Open with Finder";
 
 /* Menu item */
-"Rescan" = "Rescan";
+"Quick Look" = "Quick Look";
 
 /* Menu item */
 "Reveal in Finder" = "Reveal in Finder";

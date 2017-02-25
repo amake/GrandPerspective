@@ -1,4 +1,4 @@
-﻿/* Toolbar action */
+/* Toolbar action */
 "Delete" = "Delete";
 
 /* Toolbar action */
@@ -27,6 +27,12 @@
 
 /* Tooltip */
 "Open/close drawer" = "Open/close drawer";
+
+/* Tooltip */
+"Preview item in Quick Look panel" = "Preview item in Quick Look panel";
+
+/* Toolbar action */
+"Quick Look" = "Quick Look";
 
 /* Toolbar action */
 "Rescan" = "Rescan";
