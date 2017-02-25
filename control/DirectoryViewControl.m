@@ -1,5 +1,7 @@
 #import "DirectoryViewControl.h"
 
+@import Quartz; // Quartz framework provides the QLPreviewPanel public API
+
 #import "PlainFileItem.h"
 #import "DirectoryItem.h"
 #import "DirectoryView.h"
@@ -39,6 +41,13 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
     @"A possible reason is that it does not exist anymore.", \
     @"Alert message (Note: 'it' can refer to a file or a folder)")
 
+
+@interface DirectoryViewControl () <QLPreviewPanelDataSource, QLPreviewPanelDelegate> {
+}
+
+@property (strong) QLPreviewPanel *previewPanel;
+
+@end
 
 @interface DirectoryViewControl (PrivateMethods)
 
@@ -530,7 +539,15 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 }
 
 - (IBAction) previewFile:(id) sender {
-  NSLog(@"Previewing file");
+  if (
+    [QLPreviewPanel sharedPreviewPanelExists] &&
+    [[QLPreviewPanel sharedPreviewPanel] isVisible]
+  ) {
+    [[QLPreviewPanel sharedPreviewPanel] orderOut: nil];
+  }
+  else {
+    [[QLPreviewPanel sharedPreviewPanel] makeKeyAndOrderFront: nil];
+  }
 }
 
 - (IBAction) revealFileInFinder:(id) sender {
@@ -794,6 +811,41 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   }
   
   return fileDeletionTargetNames;
+}
+
+#pragma mark - Quick Look panel support
+
+- (BOOL)acceptsPreviewPanelControl:(QLPreviewPanel *)panel {
+  return YES;
+}
+
+- (void)beginPreviewPanelControl:(QLPreviewPanel *)panel {
+  // This document is now responsible of the preview panel
+  // It is allowed to set the delegate, data source and refresh panel.
+  panel.delegate = self;
+  panel.dataSource = self;
+  _previewPanel = panel;
+}
+
+- (void)endPreviewPanelControl:(QLPreviewPanel *)panel {
+  // This document loses its responsisibility on the preview panel
+  // Until the next call to -beginPreviewPanelControl: it must not
+  // change the panel's delegate, data source or refresh it.
+  _previewPanel = nil;
+}
+
+#pragma mark - QLPreviewPanelDataSource
+
+- (NSInteger)numberOfPreviewItemsInPreviewPanel:(QLPreviewPanel *)panel {
+  return 1;
+}
+
+- (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel
+                previewItemAtIndex:(NSInteger)index {
+  FileItem  *fileItem = [pathModelView selectedFileItem];
+  NSURL *xmlURL = [NSURL fileURLWithPath: [fileItem systemPath]];
+  NSLog(@"Previewing %@", xmlURL);
+  return xmlURL;
 }
 
 @end // @implementation DirectoryViewControl
