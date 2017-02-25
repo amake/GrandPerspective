@@ -127,14 +127,14 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 /* Manages the "Item in view" controls in the Focus panel.
  */
-@interface  FolderInViewFocusControls : ItemInFocusControls {
+@interface FolderInViewFocusControls : ItemInFocusControls {
 }
 @end
 
 
 /* Manages the "Selected item" controls in the Focus panel.
  */
-@interface  SelectedItemFocusControls : ItemInFocusControls {
+@interface SelectedItemFocusControls : ItemInFocusControls {
   NSTextField  *creationTimeField;
   NSTextField  *modificationTimeField;
   NSTextField  *accessTimeField;
@@ -147,6 +147,17 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
           creationTimeField: (NSTextField *)creationTimeField
       modificationTimeField: (NSTextField *)modificationTimeField
             accessTimeField: (NSTextField *)accessTimeField;
+
+@end
+
+
+@interface DirectoryViewPreviewItem : NSObject <QLPreviewItem> {
+  FileItem  *selectedItem;
+}
+
+- (id) initWithSelectedItem: (FileItem *)selectedItem;
+
+- (FileItem *)selectedItem;
 
 @end
 
@@ -842,17 +853,26 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 - (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel
                 previewItemAtIndex:(NSInteger)index {
-  FileItem  *fileItem = [pathModelView selectedFileItem];
-  NSURL  *xmlURL = [NSURL fileURLWithPath: [fileItem systemPath]];
-  NSLog(@"Previewing %@", xmlURL);
-  return xmlURL;
+  return [[[DirectoryViewPreviewItem alloc]
+           initWithSelectedItem: [pathModelView selectedFileItem]] autorelease];
 }
 
 #pragma mark - QLPreviewPanelDelegate
 
-// This delegate method provides the rect on screen from which the panel will zoom.
+/* This delegate method provides the rect on screen from which the panel will zoom.
+ *
+ * This method is invoked multiple times when previewing a specific item. Nevertheless,
+ * the rect is not cached as it may change during the preview. It is possible to move
+ * and resize the DirectoryView window while the Quick Look panel is being shown.
+ */
 - (NSRect) previewPanel:(QLPreviewPanel *)panel
   sourceFrameOnScreenForPreviewItem:(id <QLPreviewItem>)item {
+
+  NSAssert(
+    [pathModelView selectedFileItem]
+      == [((DirectoryViewPreviewItem *)item) selectedItem],
+    @"Selection changed after Quick Look"
+  );
 
   NSRect selectedItemRect = [mainView locationOfSelectedItemInView];
 
@@ -869,9 +889,23 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   return selectedItemRect;
 }
 
+/* This delegate method provides the transition image for the Quick Look animation
+ * when showing and hiding the panel.
+ *
+ * This method is invoked multiple times when previewing a specific item. Nevertheless,
+ * the rect is not cached as it may change during the preview. It is possible to move
+ * and resize the DirectoryView window while the Quick Look panel is being shown.
+ */
 - (id)previewPanel:(QLPreviewPanel *)panel
   transitionImageForPreviewItem:(id <QLPreviewItem>)item
        contentRect:(NSRect *)contentRect {
+
+  NSLog(@"previewPanel:transitionImageForPreviewItem:contentRect:");
+  NSAssert(
+    [pathModelView selectedFileItem]
+      == [((DirectoryViewPreviewItem *)item) selectedItem],
+    @"Selection changed after Quick Look"
+  );
 
   return [mainView imageForSelectedItemInView];
 }
@@ -1419,3 +1453,30 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 }
 
 @end // @implementation SelectedItemFocusControls
+
+
+@implementation DirectoryViewPreviewItem
+
+- (id) initWithSelectedItem: (FileItem *)selectedItemVal {
+  if (self = [super init]) {
+    selectedItem = [selectedItemVal retain];
+  }
+
+  return self;
+}
+
+- (void) dealloc {
+  [selectedItem release];
+
+  [super dealloc];
+}
+
+- (NSURL *)previewItemURL {
+  return [NSURL fileURLWithPath: [selectedItem systemPath]];
+}
+
+- (FileItem *)selectedItem {
+  return selectedItem;
+}
+
+@end // @implementation DirectoryViewPreviewItem
