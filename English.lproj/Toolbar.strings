@@ -50,6 +50,12 @@
 "Rescan view data" = "Rescan view data";
 
 /* Toolbar action */
+"Reset focus" = "Reset focus";
+
+/* Toolbar action */
+"Reset zoom" = "Reset zoom";
+
+/* Toolbar action */
 "Reveal" = "Reveal";
 
 /* Tooltip */

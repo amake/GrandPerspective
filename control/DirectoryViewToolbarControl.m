@@ -23,6 +23,8 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
 #define  ZOOM_OUT_TAG    101
 #define  FOCUS_UP_TAG    102
 #define  FOCUS_DOWN_TAG  103
+#define  ZOOM_RESET_TAG  104
+#define  FOCUS_RESET_TAG 105
 
 
 @interface DirectoryViewToolbarControl (PrivateMethods)
@@ -53,9 +55,11 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
 
 - (void) zoomOut: (id) sender;
 - (void) zoomIn: (id) sender;
+- (void) resetZoom: (id) sender;
 
 - (void) moveFocusUp: (id) sender;
 - (void) moveFocusDown: (id) sender;
+- (void) resetFocus: (id) sender;
 
 // Methods corresponding to methods in DirectoryViewControl
 - (void) openFile: (id) sender;
@@ -162,6 +166,8 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
         zoomInSegment = i; break;
       case ZOOM_OUT_TAG:
         zoomOutSegment = i; break;
+      case ZOOM_RESET_TAG:
+        zoomResetSegment = i; break;
     }
   }
 
@@ -173,6 +179,8 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
         focusUpSegment = i; break;
       case FOCUS_DOWN_TAG:
         focusDownSegment = i; break;
+      case FOCUS_RESET_TAG:
+        focusResetSegment = i; break;
     }
   }
 
@@ -278,6 +286,9 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
     NSLocalizedStringFromTable( @"Zoom out", @"Toolbar", @"Toolbar action" );
   NSString  *zoomInTitle = 
     NSLocalizedStringFromTable( @"Zoom in", @"Toolbar", @"Toolbar action" );
+  NSString  *resetTitle =
+    NSLocalizedStringFromTable( @"Reset zoom", @"Toolbar",
+                                @"Toolbar action" );
 
   [item setLabel: title];
   [item setPaletteLabel: [item label]];
@@ -289,6 +300,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   // related text is in the same file, to facilitate localization.
   [[zoomControls cell] setToolTip: zoomInTitle  forSegment: zoomInSegment];
   [[zoomControls cell] setToolTip: zoomOutTitle forSegment: zoomOutSegment];
+  [[zoomControls cell] setToolTip: resetTitle   forSegment: zoomResetSegment];
 
   ToolbarItemMenu  *menu = 
     [[[ToolbarItemMenu alloc] initWithTitle: title target: self] autorelease];
@@ -296,6 +308,8 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
     [menu addAction: @selector(zoomOut:) withTitle: zoomOutTitle];
   NSMenuItem  *zoomInItem =
     [menu addAction: @selector(zoomIn:) withTitle: zoomInTitle];
+  NSMenuItem  *zoomResetItem __unused =
+    [menu addAction: @selector(resetZoom:) withTitle: resetTitle];
 
   // Set the key equivalents so that they show up in the menu (which may
   // help to make the user aware of them or remind the user of them). They do
@@ -328,6 +342,9 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   NSString  *moveDownTitle =
     NSLocalizedStringFromTable( @"Move focus down", @"Toolbar", 
                                 @"Toolbar action" );
+  NSString  *resetTitle =
+    NSLocalizedStringFromTable( @"Reset focus", @"Toolbar",
+                                @"Toolbar action" );
 
   [item setLabel: title];
   [item setPaletteLabel: [item label]];
@@ -339,6 +356,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   // related text is in the same file, to facilitate localization.
   [[focusControls cell] setToolTip: moveDownTitle forSegment: focusDownSegment];
   [[focusControls cell] setToolTip: moveUpTitle   forSegment: focusUpSegment];
+  [[focusControls cell] setToolTip: resetTitle    forSegment: focusResetSegment];
 
   ToolbarItemMenu  *menu = 
     [[[ToolbarItemMenu alloc] initWithTitle: title target: self] autorelease];
@@ -346,7 +364,9 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
     [menu addAction: @selector(moveFocusUp:) withTitle: moveUpTitle];
   NSMenuItem  *focusDownItem =
     [menu addAction: @selector(moveFocusDown:) withTitle: moveDownTitle];
-  
+  NSMenuItem  *focusResetItem __unused =
+    [menu addAction: @selector(resetFocus:) withTitle: resetTitle];
+
   // Set the key equivalents so that they show up in the menu (which may
   // help to make the user aware of them or remind the user of them). They do
   // not actually have an effect. Handling these key equivalents is handled in
@@ -505,6 +525,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 
   [control setEnabled: [dirView canZoomOut] forSegment: zoomOutSegment];
   [control setEnabled: [dirView canZoomIn]  forSegment: zoomInSegment];
+  [control setEnabled: [dirView canZoomOut] forSegment: zoomResetSegment];
 
   return self; // Always enable the overall control
 }
@@ -515,6 +536,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 
   [control setEnabled: [dirView canMoveFocusUp]   forSegment: focusUpSegment];
   [control setEnabled: [dirView canMoveFocusDown] forSegment: focusDownSegment];
+  [control setEnabled: [dirView canMoveFocusDown] forSegment: focusResetSegment];
 
   return self; // Always enable the overall control
 }
@@ -530,7 +552,8 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   
 
 - (BOOL) validateAction: (SEL)action {
-  if ( action == @selector(zoomOut:) ) {
+  if ( action == @selector(zoomOut:) ||
+       action == @selector(resetZoom:) ) {
     return [[dirViewControl directoryView] canZoomOut];
   }
   else if ( action == @selector(zoomIn:) ) {
@@ -539,7 +562,8 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   if ( action == @selector(moveFocusUp:) ) {
     return [[dirViewControl directoryView] canMoveFocusUp];
   }
-  else if ( action == @selector(moveFocusDown:) ) {
+  else if ( action == @selector(moveFocusDown:) ||
+            action == @selector(resetFocus:) ) {
     return [[dirViewControl directoryView] canMoveFocusDown];
   }
   else if ( action == @selector(openFile:) ||
@@ -579,6 +603,9 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   else if (selected == zoomOutSegment) {
     [self zoomOut: sender];
   }
+  else if (selected == zoomResetSegment) {
+    [self resetZoom: sender];
+  }
   else {
     NSAssert1(NO, @"Unexpected selected segment: %lu", (unsigned long)selected);
   }
@@ -594,6 +621,9 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   else if ([sender selectedSegment] == focusUpSegment) {
     [self moveFocusUp: sender];
   }
+  else if ([sender selectedSegment] == focusResetSegment) {
+    [self resetFocus: sender];
+  }
   else {
     NSAssert1(NO, @"Unexpected selected segment: %lu", (unsigned long)selected);
   }
@@ -608,6 +638,13 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   [[dirViewControl directoryView] zoomIn];
 }
 
+- (void) resetZoom: (id) sender {
+  DirectoryView  *directoryView = [dirViewControl directoryView];
+  while ([directoryView canZoomOut]) {
+    [directoryView zoomOut];
+  }
+}
+
 
 - (void) moveFocusUp: (id) sender {
   [[dirViewControl directoryView] moveFocusUp];
@@ -615,6 +652,13 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 
 - (void) moveFocusDown: (id) sender {
   [[dirViewControl directoryView] moveFocusDown];
+}
+
+- (void) resetFocus: (id) sender {
+  DirectoryView  *directoryView = [dirViewControl directoryView];
+  while ([directoryView canMoveFocusDown]) {
+    [directoryView moveFocusDown];
+  }
 }
 
 

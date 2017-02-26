@@ -12,8 +12,11 @@
   
   NSUInteger  zoomInSegment;
   NSUInteger  zoomOutSegment;
+  NSUInteger  zoomResetSegment;
+
   NSUInteger  focusUpSegment;
   NSUInteger  focusDownSegment;
+  NSUInteger  focusResetSegment;
 
   DirectoryViewControl  *dirViewControl;
 
