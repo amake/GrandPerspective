@@ -870,7 +870,11 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
   NSAssert(
     [pathModelView selectedFileItem]
-      == [((DirectoryViewPreviewItem *)item) selectedItem],
+      == [((DirectoryViewPreviewItem *)item) selectedItem] ||
+    // When package contents are hidden a temporary item is used to represent the
+    // item. In this case, more expensive comparison is needed
+    [[[pathModelView selectedFileItem] systemPath] isEqualToString:
+      [[((DirectoryViewPreviewItem *)item) selectedItem] systemPath]],
     @"Selection changed after Quick Look"
   );
 
@@ -902,7 +906,11 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
   NSAssert(
     [pathModelView selectedFileItem]
-      == [((DirectoryViewPreviewItem *)item) selectedItem],
+      == [((DirectoryViewPreviewItem *)item) selectedItem] ||
+    // When package contents are hidden a temporary item is used to represent the
+    // item. In this case, more expensive comparison is needed
+    [[[pathModelView selectedFileItem] systemPath] isEqualToString:
+      [[((DirectoryViewPreviewItem *)item) selectedItem] systemPath]],
     @"Selection changed after Quick Look"
   );
 
