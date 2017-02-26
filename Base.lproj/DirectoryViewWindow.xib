@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1217" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -68,7 +68,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="182" height="42"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView editable="NO" importsGraphics="NO" richText="NO" continuousSpellChecking="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="125">
+                                                <textView editable="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="125">
                                                     <rect key="frame" x="0.0" y="0.0" width="182" height="42"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -85,8 +85,6 @@
                                                         </fragment>
                                                     </attributedString>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="182" height="42"/>
-                                                    <size key="maxSize" width="415" height="10000000"/>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.99563515000000002" blue="0.98254054999999996" alpha="0.0" colorSpace="calibratedRGB"/>
@@ -109,7 +107,7 @@
                                             <rect key="frame" x="1" y="1" width="219" height="45"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView importsGraphics="NO" richText="NO" continuousSpellChecking="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="129">
+                                                <textView importsGraphics="NO" richText="NO" usesFontPanel="YES" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="129">
                                                     <rect key="frame" x="0.0" y="0.0" width="219" height="45"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -129,8 +127,6 @@ Bla</string>
                                                         </fragment>
                                                     </attributedString>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="219" height="45"/>
-                                                    <size key="maxSize" width="452" height="10000000"/>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -487,7 +483,7 @@ Bla</string>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="280">
-                                                    <rect key="frame" x="0.0" y="0.0" width="204" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="204" height="191"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -522,7 +518,6 @@ Bla</string>
                                                     </tableColumns>
                                                 </tableView>
                                             </subviews>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="959">
                                             <rect key="frame" x="-100" y="-100" width="210" height="15"/>
@@ -613,7 +608,7 @@ Bla</string>
                                             <rect key="frame" x="1" y="1" width="219" height="43"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" continuousSpellChecking="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="187">
+                                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="187">
                                                     <rect key="frame" x="0.0" y="0.0" width="219" height="84"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -636,11 +631,8 @@ Bla</string>
                                                         </fragment>
                                                     </attributedString>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="219" height="43"/>
-                                                    <size key="maxSize" width="232" height="10000000"/>
                                                 </textView>
                                             </subviews>
-                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="L2j-RD-HJH"/>
@@ -676,7 +668,7 @@ Bla</string>
                                             <rect key="frame" x="1" y="1" width="219" height="85"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" continuousSpellChecking="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="190">
+                                                <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" usesFontPanel="YES" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="190">
                                                     <rect key="frame" x="0.0" y="0.0" width="219" height="85"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -699,8 +691,6 @@ Bla</string>
                                                         </fragment>
                                                     </attributedString>
                                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="219" height="85"/>
-                                                    <size key="maxSize" width="231" height="10000000"/>
                                                 </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -938,42 +928,52 @@ Bla</string>
             </connections>
         </customObject>
         <customView autoresizesSubviews="NO" id="535" userLabel="Zoom controls">
-            <rect key="frame" x="0.0" y="0.0" width="93" height="61"/>
+            <rect key="frame" x="0.0" y="0.0" width="122" height="61"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="536">
-                    <rect key="frame" x="18" y="18" width="64" height="24"/>
+                    <rect key="frame" x="18" y="18" width="86" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="950">
                         <font key="font" metaFont="system"/>
                         <segments>
                             <segment image="ZoomIn" width="26" tag="100"/>
                             <segment image="ZoomOut" width="26" tag="101"/>
+                            <segment image="Reset" width="26" tag="104">
+                                <nil key="label"/>
+                            </segment>
                         </segments>
                     </segmentedCell>
                 </segmentedControl>
             </subviews>
-            <point key="canvasLocation" x="-301.5" y="-88.5"/>
+            <point key="canvasLocation" x="-287" y="-88.5"/>
         </customView>
         <customView id="542" userLabel="Focus controls">
-            <rect key="frame" x="0.0" y="0.0" width="111" height="61"/>
+            <rect key="frame" x="0.0" y="0.0" width="122" height="61"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="543">
-                    <rect key="frame" x="26" y="18" width="59" height="24"/>
+                    <rect key="frame" x="18" y="18" width="86" height="24"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="951">
                         <font key="font" metaFont="system"/>
                         <segments>
                             <segment image="FocusDown" width="26" tag="103"/>
                             <segment image="FocusUp" width="26" tag="102"/>
+                            <segment image="Reset" width="26" tag="105">
+                                <nil key="label"/>
+                            </segment>
                         </segments>
                     </segmentedCell>
                 </segmentedControl>
             </subviews>
+            <point key="canvasLocation" x="398" y="153.5"/>
         </customView>
     </objects>
     <resources>
         <image name="FocusDown" width="20" height="18"/>
         <image name="FocusUp" width="20" height="18"/>
+        <image name="Reset" width="20" height="18"/>
         <image name="ZoomIn" width="16" height="16"/>
         <image name="ZoomOut" width="16" height="16"/>
     </resources>
