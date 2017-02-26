@@ -900,7 +900,6 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   transitionImageForPreviewItem:(id <QLPreviewItem>)item
        contentRect:(NSRect *)contentRect {
 
-  NSLog(@"previewPanel:transitionImageForPreviewItem:contentRect:");
   NSAssert(
     [pathModelView selectedFileItem]
       == [((DirectoryViewPreviewItem *)item) selectedItem],
