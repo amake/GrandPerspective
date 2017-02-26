@@ -50,11 +50,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8.1</string>
+	<string>1.9.0</string>
 	<key>CFBundleSignature</key>
 	<string>GrPe</string>
 	<key>CFBundleVersion</key>
-	<string>1.8.1</string>
+	<string>1.9.0</string>
 	<key>GPApplicationDefaults</key>
 	<dict>
 		<key>confirmFileDeletion</key>
