@@ -34,8 +34,19 @@ For example, the logical size of a simple ASCII text file is the number of chara
 <li><b>Physical size</b>, 
 which represents the space that a file actually takes up on disk. 
 A file's physical size can be the same as its logical size, but is typically slightly larger due to the way files are stored.
-For example, a file with a logical size of ten bytes may, depending on the file system, have a physical size of 1024 bytes.</li>
+For example, a file with a logical size of ten bytes may, depending on the file system, have a physical size of 1024 bytes.
+It is also possible for the physical size to be <em>smaller</em> than the logical size.
+This can happen when the file is stored using HFS+ compression.
+In fact, very small files can then even have a physical size of <em>zero bytes</em>.
+This happens when their content can be stored entirely as part of the file's metadata.
+Such a file is then invisible in the <a href="Views.html">view window</a>.
+</li>
 </ul>
+
+<p>
+Which file size measure you select is a matter of taste.
+Physical size best shows how much space is freed up when you delete a file but exposes more details of the underlying file system.
+The reported file sizes differ most for small files and for files stored using HFS+ compression.
 </p>
 
 <h2>File size unit systems</h2>

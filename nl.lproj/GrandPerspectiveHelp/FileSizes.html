@@ -33,8 +33,19 @@ De intrinsieke grootte van een tekstbestand is bijvoorbeeld gelijk aan het aanta
 <li><b>Fysisch</b>,
 deze maat is gebaseerd op de ruimte die een bestand inneemt op schijf. 
 De fysische grootte van een bestand kan hetzelfde zijn als de intrinsieke grootte, maar is typisch iets groter. Dit wordt veroorzaakt door de manier waarop een schijf ingericht is.
-Een bestand met een intrinsieke grootte van tien bytes kan bijvoorbeeld, afhankelijk van het soort bestandssysteem, een fysische grootte hebben van 1024 bytes.</li>
+Een bestand met een intrinsieke grootte van tien bytes kan bijvoorbeeld, afhankelijk van het soort bestandssysteem, een fysische grootte hebben van 1024 bytes.
+Het is ook mogelijk dat de fysische grootte <em>kleiner</em> is dan de intrinsieke grootte.
+Dit kan gebeuren wanneer het bestand opgeslagen is met behulp van HFS+ compressie.
+In dit geval kunnen kleine bestanden zelfs een fysische grootte van <em>nul bytes</em> hebben.
+Dit gebeurt wanneer de gehele inhoud opgeslagen kan worden als deel van de metadata van het bestand.
+Zo'n bestand is dan onzichtbaar in het <a href="Views.html">overzicht venster</a>.
+</li>
 </ul>
+
+<p>
+Welke type bestandsgrootte u kiest is een kwestie van smaak.
+De fysische grootte geeft het beste aan hoeveel ruimte beschikbaar komt wanneer u een bestand verwijdert maar legt ook meer implementatie details van het bestandssysteem bloot.
+De gerapporteerde bestandsgroottes verschillen het meeste voor kleine bestanden en bestanden die opgeslagen zijn met behulp van HFS+ compressie.
 </p>
 
 <h2>Bestandsgrootte eenheidssystemen</h2>
