@@ -152,11 +152,12 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 
 @interface DirectoryViewPreviewItem : NSObject <QLPreviewItem> {
-  FileItem  *selectedItem;
+  NSArray  *pathToSelectedItem;
 }
 
-- (id) initWithSelectedItem: (FileItem *)selectedItem;
+- (id) initWithPathToSelectedItem: (NSArray *)pathToSelectedItem;
 
+- (NSArray *)pathToSelectedItem;
 - (FileItem *)selectedItem;
 
 @end
@@ -853,8 +854,9 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 - (id <QLPreviewItem>)previewPanel:(QLPreviewPanel *)panel
                 previewItemAtIndex:(NSInteger)index {
+  NSArray  *pathToSelectedItem = [[pathModelView pathModel] itemPathToSelectedFileItem];
   return [[[DirectoryViewPreviewItem alloc]
-           initWithSelectedItem: [pathModelView selectedFileItem]] autorelease];
+           initWithPathToSelectedItem: pathToSelectedItem] autorelease];
 }
 
 #pragma mark - QLPreviewPanelDelegate
@@ -868,17 +870,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 - (NSRect) previewPanel:(QLPreviewPanel *)panel
   sourceFrameOnScreenForPreviewItem:(id <QLPreviewItem>)item {
 
-  NSAssert(
-    [pathModelView selectedFileItem]
-      == [((DirectoryViewPreviewItem *)item) selectedItem] ||
-    // When package contents are hidden a temporary item is used to represent the
-    // item. In this case, more expensive comparison is needed
-    [[[pathModelView selectedFileItem] systemPath] isEqualToString:
-      [[((DirectoryViewPreviewItem *)item) selectedItem] systemPath]],
-    @"Selection changed after Quick Look"
-  );
-
-  NSRect selectedItemRect = [mainView locationOfSelectedItemInView];
+  NSArray  *path = [((DirectoryViewPreviewItem *)item) pathToSelectedItem];
+  NSRect selectedItemRect = [mainView locationInViewForItemAtEndOfPath: path];
 
   // Check that the rect is visible on screen
   if (!NSIntersectsRect([mainView visibleRect], selectedItemRect)) {
@@ -904,17 +897,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   transitionImageForPreviewItem:(id <QLPreviewItem>)item
        contentRect:(NSRect *)contentRect {
 
-  NSAssert(
-    [pathModelView selectedFileItem]
-      == [((DirectoryViewPreviewItem *)item) selectedItem] ||
-    // When package contents are hidden a temporary item is used to represent the
-    // item. In this case, more expensive comparison is needed
-    [[[pathModelView selectedFileItem] systemPath] isEqualToString:
-      [[((DirectoryViewPreviewItem *)item) selectedItem] systemPath]],
-    @"Selection changed after Quick Look"
-  );
-
-  return [mainView imageForSelectedItemInView];
+  NSArray  *path = [((DirectoryViewPreviewItem *)item) pathToSelectedItem];
+  return [mainView imageInViewForItemAtEndOfPath: path];
 }
 
 @end // @implementation DirectoryViewControl
@@ -1464,26 +1448,30 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 @implementation DirectoryViewPreviewItem
 
-- (id) initWithSelectedItem: (FileItem *)selectedItemVal {
+- (id) initWithPathToSelectedItem: (NSArray *)pathToSelectedItemVal {
   if (self = [super init]) {
-    selectedItem = [selectedItemVal retain];
+    pathToSelectedItem = [pathToSelectedItemVal retain];
   }
 
   return self;
 }
 
 - (void) dealloc {
-  [selectedItem release];
+  [pathToSelectedItem release];
 
   [super dealloc];
 }
 
 - (NSURL *)previewItemURL {
-  return [NSURL fileURLWithPath: [selectedItem systemPath]];
+  return [NSURL fileURLWithPath: [[self selectedItem] systemPath]];
+}
+
+- (NSArray *)pathToSelectedItem {
+  return pathToSelectedItem;
 }
 
 - (FileItem *)selectedItem {
-  return selectedItem;
+  return (FileItem *)[pathToSelectedItem lastObject];
 }
 
 @end // @implementation DirectoryViewPreviewItem

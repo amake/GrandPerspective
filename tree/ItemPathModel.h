@@ -62,40 +62,50 @@ extern NSString  *VisiblePathLockingChangedEvent;
 
 /* Returns the file items in the path.
  */
-- (NSArray*) fileItemPath;
+- (NSArray *)fileItemPath;
 
 /* Returns the file items in the path using the provided array.
  */
-- (NSArray *) fileItemPath: (NSMutableArray *)array;
+- (NSArray *)fileItemPath: (NSMutableArray *)array;
 
 
 /* Returns all items in the path.
+ *
+ * Note: For efficiency returns its own array instead of a copy. The contents may
+ * change. This does not matter if it is used directly, but otherwise, it should be
+ * copied before retaining it.
  */
-- (NSArray *) itemPath;
+- (NSArray *)itemPath;
+
+/* Returns all items in the path up until the selected item.
+ *
+ * Note: It creates a new array, which will not change when the selection changes.
+ */
+- (NSArray *)itemPathToSelectedFileItem;
 
 
-- (TreeContext *) treeContext;
+- (TreeContext *)treeContext;
 
 /* Returns the volume tree.
  */
-- (DirectoryItem *) volumeTree;
+- (DirectoryItem *)volumeTree;
 
 /* Returns the root of the scanned tree.
  */
-- (DirectoryItem *) scanTree;
+- (DirectoryItem *)scanTree;
 
 /* Returns the root of the visible tree. The visible tree is the part of the
  * volume tree whose treemap is drawn.
  */
-- (FileItem *) visibleTree;
+- (FileItem *)visibleTree;
 
 /* Returns the selected file item. It is always part of the visible path.
  */
-- (FileItem *) selectedFileItem;
+- (FileItem *)selectedFileItem;
 
 /* Returns the last file item on the path.
  */
-- (FileItem *) lastFileItem;
+- (FileItem *)lastFileItem;
 
 /* Selects the given file item. It should be an item that is already on the
  * path. If it is not yet on the visible part of the path, the visible tree 

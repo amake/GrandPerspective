@@ -8,14 +8,14 @@
 
 @implementation SelectedItemLocator
 
-- (NSRect) locationForSelectedItem: (ItemPathModelView *)pathModelView
-                    startingAtTree: (FileItem *)treeRoot
-                usingLayoutBuilder: (TreeLayoutBuilder *)layoutBuilder
-                            bounds: (NSRect)bounds {
+- (NSRect) locationForItemAtEndOfPath: (NSArray *)itemPath
+                       startingAtTree: (FileItem *)treeRoot
+                   usingLayoutBuilder: (TreeLayoutBuilder *)layoutBuilder
+                               bounds: (NSRect)bounds {
   itemLocation = NSZeroRect;
 
   NSAssert(path == nil, @"path should be nil");
-  path = [[pathModelView pathModel] itemPath];
+  path = itemPath;
     // Not retaining it. It is only needed during this method.
 
   // Align the path with the tree, as the path may contain invisible items
@@ -26,8 +26,6 @@
 
     NSAssert(pathIndex < [path count], @"treeRoot not found in path.");
   }
-
-  targetItem = [pathModelView selectedFileItemInTree];
 
   [layoutBuilder layoutItemTree: treeRoot inRect: bounds traverser: self];
 
@@ -46,7 +44,7 @@
   pathIndex++;
   itemLocation = rect;
 
-  return (item != targetItem);
+  return (pathIndex < [path count]);
 }
 
 - (void) emergedFromItem: (Item *)item {

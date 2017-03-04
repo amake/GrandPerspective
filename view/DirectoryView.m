@@ -137,15 +137,15 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 }
 
 
-- (NSRect) locationOfSelectedItemInView {
-  return [selectedItemLocator locationForSelectedItem: pathModelView
-                                       startingAtTree: [self treeInView]
-                                   usingLayoutBuilder: layoutBuilder
-                                               bounds: [self bounds]];
+- (NSRect) locationInViewForItemAtEndOfPath: (NSArray *)itemPath {
+  return [selectedItemLocator locationForItemAtEndOfPath: itemPath
+                                          startingAtTree: [self treeInView]
+                                      usingLayoutBuilder: layoutBuilder
+                                                  bounds: [self bounds]];
 }
 
-- (NSImage *)imageForSelectedItemInView {
-  NSRect sourceRect = [self locationOfSelectedItemInView];
+- (NSImage *)imageInViewForItemAtEndOfPath: (NSArray *)itemPath {
+  NSRect sourceRect = [self locationInViewForItemAtEndOfPath: itemPath];
 
   NSImage  *targetImage =
     [[[NSImage alloc] initWithSize: sourceRect.size] autorelease];

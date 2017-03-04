@@ -14,13 +14,12 @@
 
   NSArray  *path;
   unsigned int  pathIndex;
-  FileItem  *targetItem;
   NSRect  itemLocation;
 }
 
-- (NSRect) locationForSelectedItem: (ItemPathModelView *)pathModelView
-                    startingAtTree: (FileItem *)treeRoot
-                usingLayoutBuilder: (TreeLayoutBuilder *)layoutBuilder
-                            bounds: (NSRect)bounds;
+- (NSRect) locationForItemAtEndOfPath: (NSArray *)itemPath
+                       startingAtTree: (FileItem *)treeRoot
+                   usingLayoutBuilder: (TreeLayoutBuilder *)layoutBuilder
+                               bounds: (NSRect)bounds;
 
 @end

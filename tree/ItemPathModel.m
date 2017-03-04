@@ -107,17 +107,17 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 }
 
 
-- (NSArray*) fileItemPath {
+- (NSArray *)fileItemPath {
   return [self buildFileItemPathFromIndex: 0 toIndex: lastFileItemIndex
                  usingArray: [NSMutableArray arrayWithCapacity: 8]];
 }
 
-- (NSArray*) fileItemPath: (NSMutableArray *)array {
+- (NSArray *)fileItemPath: (NSMutableArray *)array {
   return [self buildFileItemPathFromIndex: 0 toIndex: lastFileItemIndex
                  usingArray: array];
 }
 
-- (NSArray*) itemPath {
+- (NSArray *)itemPath {
   // Note: For efficiency returning path directly, instead of an (immutable)
   // copy. This is done so that there is not too much overhead associated
   // with invoking ItemPathDrawer -drawVisiblePath:...: many times in short
@@ -125,28 +125,32 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
   return path;
 }
 
+- (NSArray *)itemPathToSelectedFileItem {
+  return [path subarrayWithRange: NSMakeRange(0, selectedItemIndex + 1)];
+}
 
-- (TreeContext *) treeContext {
+
+- (TreeContext *)treeContext {
   return treeContext;
 }
 
-- (DirectoryItem*) volumeTree {
+- (DirectoryItem *)volumeTree {
   return [path objectAtIndex: 0];
 }
 
-- (DirectoryItem*) scanTree {
+- (DirectoryItem *)scanTree {
   return [path objectAtIndex: scanTreeIndex];
 }
 
-- (FileItem*) visibleTree {
+- (FileItem *)visibleTree {
   return [path objectAtIndex: visibleTreeIndex];
 }
 
-- (FileItem*) selectedFileItem {
+- (FileItem *)selectedFileItem {
   return [path objectAtIndex: selectedItemIndex];
 }
 
-- (FileItem *) lastFileItem {
+- (FileItem *)lastFileItem {
   return [path objectAtIndex: lastFileItemIndex];
 }
 

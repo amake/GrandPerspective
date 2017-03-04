@@ -58,8 +58,8 @@ extern NSString  *ColorMappingChangedEvent;
 - (ItemPathModelView *)pathModelView;
 - (FileItem *)treeInView;
 
-- (NSRect) locationOfSelectedItemInView;
-- (NSImage *)imageForSelectedItemInView;
+- (NSRect) locationInViewForItemAtEndOfPath: (NSArray *)itemPath;
+- (NSImage *)imageInViewForItemAtEndOfPath: (NSArray *)itemPath;
 
 - (TreeDrawerSettings *)treeDrawerSettings;
 - (void) setTreeDrawerSettings: (TreeDrawerSettings *)settings;
