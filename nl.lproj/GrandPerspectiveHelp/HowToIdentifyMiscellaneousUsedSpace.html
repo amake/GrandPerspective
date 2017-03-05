@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Bepalen waaruit overige gebruikte ruimte bestaat</title>
+<link href="HelpStyle.css" rel="stylesheet" media="all">
+<meta name="description" content="Bepalen waaruit overige gebruikte ruimte bestaat">
+<meta name="keywords" content="hoe, bepalen, overige gebruikte ruimte">
+</head>
+<body>
+
+<div id="caticon">
+<img src="images/GrandPerspectiveIcon32.png" alt="GrandPerspective icon" height="32" width="32">
+</div>
+<div id="pagetitle">
+<h1>Bepalen waaruit overige gebruikte ruimte bestaat</h1>
+</div>
+
+<p>
+Alle gebruikte ruimte van een opslagmedium die niet ingelezen is, wordt als <a href="ViewInfoPanel.html">overige gebruikte ruimte</a> gerapporteerd.
+Kort samengevat, het is onduidelijk wat deze ruimte inneemt.
+Dus wanneer de grootte van de overige gebruikte ruimte omvangrijk is en u wilt weten waar deze uit bestaat, dan moet u meer van het opslagmedium inlezen.
+Specifieker gezegd:
+
+<ul>
+<li>Lees het gehele opslagmedium in, in plaats van één enkele map</li>
+<li>Gebruik de <a href="FileSizes.html">fysische bestandsgrootte maat</a></li>
+<li>Gebruik geen <a href="MasksAndFilters.html">filter</a>, d.w.z. gebruik niet de optie <b>Map inlezen met filter</b></li>
+<li>Draai GrandPerspective met voldoende lees-rechten</li>
+</ul>
+</p>
+
+<h2>Draai GrandPerspective met voldoende lees-rechten</h2>
+
+<p>
+Start GrandPerspective als een gebruiker met Beheerder rechten.
+U kunt in het "Gebruikers en groepen" Systeemvoorkeuren paneel zien welke gebruikers Beheerder rechten hebben.
+Log in als gebruiker met Beheerder rechten en start GrandPerspective zoals gebruikelijk.
+</p>
+
+<p>
+Als dit nog steeds teveel overige gebruikte ruimte oplevert, dan kunt u proberen de applicatie als rootgebruiker te draaien.
+Let wel, dit wordt in het algemeen afgeraden.
+De applicatie is niet specifiek ontworpen om met rootgebruiker rechten te draaien.
+Het lijkt echter te werken, maar het is op eigen risico.
+Wees vooral erg voorzichtig wanneer u bestanden verwijdert.
+Genoeg disclaimers, hier volgt hoe u de applicatie als rootgebruiker kan draaien.
+Ga binnen een Terminal scherm naar de map waar de applicatie zich bevindt en geef het volgende commando:
+<br><br>
+<tt>sudo /bin/launchctl asuser 0 GrandPerspective.app/Contents/MacOS/GrandPerspective</tt>
+</p>
+
+<h2>Als niks lijkt te helpen</h2>
+
+<p>
+Als u al het bovenstaande geprobeerd heeft en GrandPerspective desondanks nog veel overige gebruikte ruimte rapporteert, kunt u het volgende nog proberen.
+U kunt als rootgebruiker het <tt>du</tt> commando uitvoeren:
+<br><br>
+<tt>sudo du -xhd1 /</tt>
+<br><br>
+Hier zorgt <tt>-x</tt> ervoor dat enkel het huidige opslagmedium ingelezen wordt,
+<tt>-h</tt> zorgt voor een vriendelijk rapportage van het ruimtegebruik, en
+<tt>-d1</tt> zorgt dat slechts één nivo diep gerapporteerd wordt.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>How to determine what is taking up miscellaneous used space</title>
+<link href="HelpStyle.css" rel="stylesheet" media="all">
+<meta name="description" content="How to determine what is taking up miscellaneous used space">
+<meta name="keywords" content="how, to, howto, miscellaneous used space">
+</head>
+<body>
+
+<div id="caticon">
+<img src="images/GrandPerspectiveIcon32.png" alt="GrandPerspective icon" height="32" width="32">
+</div>
+<div id="pagetitle">
+<h1>How to determine what is taking up miscellaneous used space</h1>
+</div>
+
+<p>
+Any used space that is not accounted for by GrandPerspective based on the size of all files it scanned is dubbed <a href="ViewInfoPanel.html">miscellaneous used space</a>.
+Basically, it is unclear what is taking up this space.
+So if there is a lot of miscellaneous used space and you want to find out what it consists of, you need to scan more.
+More specifically:
+
+<ul>
+<li>Scan your entire volume, not just one of its folders</li>
+<li>Use the <a href="FileSizes.html">physical file size measure</a></li>
+<li>Do not use a <a href="MasksAndFilters.html">filter</a>, i.e. do not use <b>Filtered Scan</b></li>
+<li>Scan as a user that has sufficient read permissions</li>
+</ul>
+</p>
+
+<h2>Run GrandPerspective with sufficient permissions</h2>
+
+<p>
+First try running the app as a user with admin rights.
+You can see which users have admin rights in the "Users &amp; Groups" System Preferences Panel.
+Log in as a user with admin rights and start GrandPerspective as normal.
+</p>
+
+<p>
+If that still leaves too much space unaccounted for, you can try running GrandPerspective as root user.
+Note, this is generally not recommended.
+The app is not specifically designed for running as root.
+It seems to work, but do so at your own risk.
+Be especially careful when deleting any files.
+Enough disclaimers, here is how to run the app as root user.
+From a Terminal window go to the folder where the app resides and execute the following:
+<br><br>
+<tt>sudo /bin/launchctl asuser 0 GrandPerspective.app/Contents/MacOS/GrandPerspective</tt>
+</p>
+
+<h2>If all else fails</h2>
+
+<p>
+If after following all the above, you still have a large amount of miscellaneous used space, you can resort to other tools.
+In particular, you can run the <tt>du</tt> command as root:
+<br><br>
+<tt>sudo du -xhd1 /</tt>
+<br><br>
+Here <tt>-x</tt> ensures only disk usage of the current volume is scanned,
+<tt>-h</tt> gives human readable output, and
+<tt>-d1</tt> only displays one level deep.
+</p>
+
+</body>
+</html>
