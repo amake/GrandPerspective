@@ -219,6 +219,24 @@
 		AA2B4C2D10F09A630088EA1C /* FilterRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilterRepository.m; path = filter/FilterRepository.m; sourceTree = "<group>"; };
 		AA311D380B88B48900BD4132 /* nl */ = {isa = PBXFileReference; lastKnownFileType = folder; name = nl; path = nl.lproj/GrandPerspectiveHelp; sourceTree = "<group>"; };
 		AA3246711E630C130005F787 /* Reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Reset.png; path = Images/Reset.png; sourceTree = "<group>"; };
+		AA37C9E41FAFA5070032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Taglines.strings; sourceTree = "<group>"; };
+		AA37C9E51FAFA5070032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AA37C9E61FAFA5080032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/SaveImageDialog.strings; sourceTree = "<group>"; };
+		AA37C9E71FAFA5080032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/PreferencesPanel.strings; sourceTree = "<group>"; };
+		AA37C9E81FAFA5080032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/UniformTypeRankingWindow.strings; sourceTree = "<group>"; };
+		AA37C9E91FAFA5080032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/StartWindow.strings; sourceTree = "<group>"; };
+		AA37C9EA1FAFA5090032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/FilterSelectionPanel.strings; sourceTree = "<group>"; };
+		AA37C9EB1FAFA5090032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/FilterTestWindow.strings; sourceTree = "<group>"; };
+		AA37C9EC1FAFA5090032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/FilterWindow.strings; sourceTree = "<group>"; };
+		AA37C9ED1FAFA5090032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/ProgressPanel.strings; sourceTree = "<group>"; };
+		AA37C9EE1FAFA50A0032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/FiltersWindow.strings; sourceTree = "<group>"; };
+		AA37C9EF1FAFA50A0032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/DirectoryViewWindow.strings; sourceTree = "<group>"; };
+		AA37C9F01FAFA50A0032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Names.strings; sourceTree = "<group>"; };
+		AA37C9F11FAFA50A0032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/PopUpMenu.strings; sourceTree = "<group>"; };
+		AA37C9F21FAFA50A0032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Tests.strings; sourceTree = "<group>"; };
+		AA37C9F31FAFA50B0032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Toolbar.strings; sourceTree = "<group>"; };
+		AA37C9F41FAFA50B0032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/MainMenu.strings; sourceTree = "<group>"; };
+		AA37C9F51FAFA50B0032D799 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA3B38D70D17EEF60070E889 /* CompoundItem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = CompoundItem.h; path = tree/CompoundItem.h; sourceTree = "<group>"; };
 		AA3B38D80D17EEF60070E889 /* CompoundItem.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = CompoundItem.m; path = tree/CompoundItem.m; sourceTree = "<group>"; };
 		AA3B38D90D17EEF60070E889 /* DirectoryItem.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DirectoryItem.h; path = tree/DirectoryItem.h; sourceTree = "<group>"; };
@@ -1175,6 +1193,7 @@
 			children = (
 				089C165DFE840E0CC02AAC07 /* English */,
 				AAD6ACAE0B8A43D400624F9F /* nl */,
+				AA37C9E51FAFA5070032D799 /* zh */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1184,6 +1203,7 @@
 			children = (
 				AA1222590EF2A822002A178F /* English */,
 				AAAB9A3E0EF3C25A00B3C482 /* nl */,
+				AA37C9F31FAFA50B0032D799 /* zh */,
 			);
 			name = Toolbar.strings;
 			sourceTree = "<group>";
@@ -1193,6 +1213,7 @@
 			children = (
 				AA2B49B7104AEF9B00B10262 /* English */,
 				AA2B49B9104AEFB100B10262 /* nl */,
+				AA37C9F11FAFA50A0032D799 /* zh */,
 			);
 			name = PopUpMenu.strings;
 			sourceTree = "<group>";
@@ -1202,6 +1223,7 @@
 			children = (
 				AAD702B71CE9C305005AA800 /* Base */,
 				AA04903A1CFB3A4400ADAA76 /* nl */,
+				AA37C9EE1FAFA50A0032D799 /* zh */,
 			);
 			name = FiltersWindow.xib;
 			sourceTree = "<group>";
@@ -1211,6 +1233,7 @@
 			children = (
 				AAD702B81CE9C305005AA800 /* Base */,
 				AA04903C1CFB3A4400ADAA76 /* nl */,
+				AA37C9EC1FAFA5090032D799 /* zh */,
 			);
 			name = FilterWindow.xib;
 			sourceTree = "<group>";
@@ -1220,6 +1243,7 @@
 			children = (
 				AAD702BA1CE9C306005AA800 /* Base */,
 				AA0490381CFB3A4300ADAA76 /* nl */,
+				AA37C9EB1FAFA5090032D799 /* zh */,
 			);
 			name = FilterTestWindow.xib;
 			sourceTree = "<group>";
@@ -1229,6 +1253,7 @@
 			children = (
 				AAD702BC1CE9C306005AA800 /* Base */,
 				AA0490371CFB3A4300ADAA76 /* nl */,
+				AA37C9E81FAFA5080032D799 /* zh */,
 			);
 			name = UniformTypeRankingWindow.xib;
 			sourceTree = "<group>";
@@ -1238,6 +1263,7 @@
 			children = (
 				AAD702B91CE9C306005AA800 /* Base */,
 				AA0490351CFB3A4200ADAA76 /* nl */,
+				AA37C9EA1FAFA5090032D799 /* zh */,
 			);
 			name = FilterSelectionPanel.xib;
 			sourceTree = "<group>";
@@ -1247,6 +1273,7 @@
 			children = (
 				AA6FE2931CD6396500675955 /* English */,
 				AA6FE2951CD6397100675955 /* nl */,
+				AA37C9E41FAFA5070032D799 /* zh */,
 			);
 			name = Taglines.strings;
 			sourceTree = "<group>";
@@ -1256,6 +1283,7 @@
 			children = (
 				AA7C64CA0AFE717A007B8CD2 /* English */,
 				AA7C64E90AFE734A007B8CD2 /* nl */,
+				AA37C9F51FAFA50B0032D799 /* zh */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1265,6 +1293,7 @@
 			children = (
 				AAD702B61CE9C305005AA800 /* Base */,
 				AA0490391CFB3A4300ADAA76 /* nl */,
+				AA37C9EF1FAFA50A0032D799 /* zh */,
 			);
 			name = DirectoryViewWindow.xib;
 			sourceTree = "<group>";
@@ -1274,6 +1303,7 @@
 			children = (
 				AAD702B51CE9C305005AA800 /* Base */,
 				AA04903E1CFB3A4500ADAA76 /* nl */,
+				AA37C9F41FAFA50B0032D799 /* zh */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1283,6 +1313,7 @@
 			children = (
 				AAD702BB1CE9C306005AA800 /* Base */,
 				AA0490361CFB3A4200ADAA76 /* nl */,
+				AA37C9E71FAFA5080032D799 /* zh */,
 			);
 			name = PreferencesPanel.xib;
 			sourceTree = "<group>";
@@ -1292,6 +1323,7 @@
 			children = (
 				AAD702BD1CE9C306005AA800 /* Base */,
 				AA04903F1CFB3A4500ADAA76 /* nl */,
+				AA37C9E61FAFA5080032D799 /* zh */,
 			);
 			name = SaveImageDialog.xib;
 			sourceTree = "<group>";
@@ -1301,6 +1333,7 @@
 			children = (
 				AAD702BF1CE9C306005AA800 /* Base */,
 				AA04903B1CFB3A4400ADAA76 /* nl */,
+				AA37C9ED1FAFA5090032D799 /* zh */,
 			);
 			name = ProgressPanel.xib;
 			sourceTree = "<group>";
@@ -1310,6 +1343,7 @@
 			children = (
 				AA8FEB2A0B6CC2D80049FF42 /* English */,
 				AA8FEB650B6CD2390049FF42 /* nl */,
+				AA37C9F01FAFA50A0032D799 /* zh */,
 			);
 			name = Names.strings;
 			sourceTree = "<group>";
@@ -1328,6 +1362,7 @@
 			children = (
 				AADD34920B8B902000AC2C97 /* English */,
 				AADD349A0B8B905900AC2C97 /* nl */,
+				AA37C9F21FAFA50A0032D799 /* zh */,
 			);
 			name = Tests.strings;
 			sourceTree = "<group>";
@@ -1337,6 +1372,7 @@
 			children = (
 				AAD702BE1CE9C306005AA800 /* Base */,
 				AA04903D1CFB3A4400ADAA76 /* nl */,
+				AA37C9E91FAFA5080032D799 /* zh */,
 			);
 			name = StartWindow.xib;
 			sourceTree = "<group>";

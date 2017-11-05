@@ -1,0 +1,54 @@
+/* Class = "NSWindow"; title = "Preferences"; ObjectID = "6"; */
+"6.title" = "偏爱";
+
+/* Class = "NSBox"; title = "Display"; ObjectID = "29"; */
+"29.title" = "显示";
+
+/* Class = "NSBox"; title = "Info"; ObjectID = "57"; */
+"57.title" = "信息";
+
+/* Class = "NSBox"; title = "Actions"; ObjectID = "72"; */
+"72.title" = "行动";
+
+/* Class = "NSMenuItem"; title = "Files and folders"; ObjectID = "78"; */
+"78.title" = "文件与文件夹";
+
+/* Class = "NSMenuItem"; title = "Close old window"; ObjectID = "153"; */
+"153.title" = "关闭旧视窗";
+
+/* Class = "NSTextFieldCell"; title = "Palette:"; ObjectID = "167"; */
+"167.title" = "调色板:";
+
+/* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "171"; */
+"171.title" = "显示组件内容";
+
+/* Class = "NSTextFieldCell"; title = "Color by:"; ObjectID = "172"; */
+"172.title" = "颜色来自:";
+
+/* Class = "NSTextFieldCell"; title = "File size measure:"; ObjectID = "174"; */
+"174.title" = "文件大小测量:";
+
+/* Class = "NSButtonCell"; title = "Always require confirmation"; ObjectID = "176"; */
+"176.title" = "总是需要确认";
+
+/* Class = "NSTextFieldCell"; title = "Enable deletion of:"; ObjectID = "177"; */
+"177.title" = "启用删除:";
+
+/* Class = "NSTextFieldCell"; title = "After full rescan:"; ObjectID = "178"; */
+"178.title" = "完整的重新扫描后:";
+
+/* Class = "NSTextFieldCell"; title = "Filter:"; ObjectID = "181"; */
+"181.title" = "过滤:";
+
+/* Class = "NSTextFieldCell"; title = "Rescan action:"; ObjectID = "189"; */
+"189.title" = "重新扫描的动作:";
+
+/* Class = "NSMenuItem"; title = "Rescan folder in view"; ObjectID = "193"; */
+"193.title" = "重新扫描在视图里的文件夹";
+
+/* Class = "NSButtonCell"; title = "Show entire volume"; ObjectID = "199"; */
+"199.title" = "显示整个磁盘";
+
+/* Class = "NSTextFieldCell"; title = "File size unit system:"; ObjectID = "214"; */
+"214.title" = "文件大小单位系统:";
+

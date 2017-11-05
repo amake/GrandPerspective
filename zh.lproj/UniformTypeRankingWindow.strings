@@ -1,0 +1,48 @@
+/* Class = "NSWindow"; title = "Uniform type ranking"; ObjectID = "9"; */
+"9.title" = "划一种类排名";
+
+/* Class = "NSBox"; title = "Ordered file types"; ObjectID = "24"; */
+"24.title" = "有序文件种类";
+
+/* Class = "NSTextFieldCell"; title = "Description:"; ObjectID = "84"; */
+"84.title" = "描述:";
+
+/* Class = "NSTextFieldCell"; title = "Conforms to:"; ObjectID = "85"; */
+"85.title" = "符合:";
+
+/* Class = "NSTextFieldCell"; title = "File type:"; ObjectID = "86"; */
+"86.title" = "文件种类:";
+
+/* Class = "NSTextFieldCell"; title = "Description of type"; ObjectID = "88"; */
+"88.title" = "种类描述";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "90"; */
+"90.title" = "取消";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "91"; */
+"91.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Show file type details"; ObjectID = "92"; */
+"92.title" = "显示文件种类细节";
+
+/* Class = "NSButtonCell"; title = "Move to top"; ObjectID = "93"; */
+"93.title" = "移至顶部";
+
+/* Class = "NSButtonCell"; title = "Move to reveal"; ObjectID = "94"; */
+"94.title" = "移至揭示";
+
+/* Class = "NSButtonCell"; title = "Move up"; ObjectID = "95"; */
+"95.title" = "移上";
+
+/* Class = "NSButtonCell"; title = "Move down"; ObjectID = "96"; */
+"96.title" = "移下";
+
+/* Class = "NSButtonCell"; title = "Move to hide"; ObjectID = "97"; */
+"97.title" = "移至隐藏";
+
+/* Class = "NSButtonCell"; title = "Move to bottom"; ObjectID = "98"; */
+"98.title" = "移至底部";
+
+/* Class = "NSTextFieldCell"; title = "Note: The order determines which file types have a unique color when coloring by \"File type\" is used. Colors are assigned from top to bottom to all types that are not hidden, until all colors in the active color palette have been used. "; ObjectID = "103"; */
+"103.title" = "注意: 顺序决定在根据\"文件种类\"上色时,哪个文件类型有独特的颜色。颜色从顶部至底部分配至全部没隐藏的类型，直到全部在现行调色盘的颜色已被用为止。";
+

@@ -1,0 +1,75 @@
+/* Toolbar action */
+"Delete" = "删除";
+
+/* Toolbar action */
+"Drawer" = "抽屉";
+
+/* Label for focus controls */
+"Focus" = "聚焦";
+
+/* Menu item */
+"Hide Toolbar" = "隐藏工具栏";
+
+/* Toolbar action */
+"Move focus down" = "向下移动焦点";
+
+/* Toolbar action */
+"Move focus up" = "向上移动焦点";
+
+/* Tooltip */
+"Move to trash" = "移到废纸篓";
+
+/* Toolbar action */
+"Open" = "开启";
+
+/* Tooltip */
+"Open with Finder" = "用Finder开启";
+
+/* Tooltip */
+"Open/close drawer" = "开启／关闭抽屉";
+
+/* Tooltip */
+"Preview item in Quick Look panel" = "快速查看面板中的预览项目";
+
+/* Toolbar action */
+"Quick Look" = "快速查看";
+
+/* Toolbar action */
+"Rescan" = "重新扫描";
+
+/* Toolbar action */
+"Rescan all" = "重新扫描全部";
+
+/* Toolbar action */
+"Rescan folder in view" = "重新扫描视图里的文件夹";
+
+/* Toolbar action */
+"Rescan selected" = "重新扫描选择";
+
+/* Tooltip */
+"Rescan view data" = "重新扫描视图里的数据";
+
+/* Toolbar action */
+"Reset focus" = "复位焦点";
+
+/* Toolbar action */
+"Reset zoom" = "复位缩放";
+
+/* Toolbar action */
+"Reveal" = "揭示";
+
+/* Tooltip */
+"Reveal in Finder" = "在Finder揭示";
+
+/* Menu item */
+"Show Toolbar" = "显示工具栏";
+
+/* Label for zooming controls */
+"Zoom" = "放大";
+
+/* Toolbar action */
+"Zoom in" = "放大";
+
+/* Toolbar action */
+"Zoom out" = "放小";
+

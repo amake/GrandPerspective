@@ -1,0 +1,344 @@
+/* Enumeration of two items */
+"%@ and %@" = "%1$@ 与 %2$@";
+
+/* Enumeration of two items */
+"%@ or %@" = "%1$@ 与 %2$@";
+
+/* Enumeration of three or more items with 1: an item, 2: two or more items */
+"%@, %@" = "%1$@, %2$@";
+
+/* Enumeration of three or more items with 1: two or more items, 2: last item */
+"%@, and %@" = "%1$@, 与 %2$@";
+
+/* Enumeration of three or more items with 1: two or more items, 2: last item */
+"%@, or %@" = "%1$@, 与 %2$@";
+
+/* Legend for Time-based mapping schemes. */
+"%d - %d days ago" = "%1$d - %2$d 天前";
+
+/* Legend for Time-based mapping schemes. */
+"%d days ago" = "%d 天前";
+
+/* Legend for Time-based mapping schemes. */
+"%d days ago or more" = "%d 天前或之前";
+
+/* Message in progress panel while filtering */
+"%d folders filtered" = "%d 文件夹被过滤";
+
+/* Message in progress panel while loading data */
+"%d folders read" = "%d 文件夹被读";
+
+/* Message in progress panel while saving data */
+"%d folders saved" = "%d 文件夹被保存";
+
+/* Message in progress panel while scanning */
+"%d folders scanned" = "%d 文件夹被扫描";
+
+/* Exact file size (in bytes). */
+"%qu bytes" = "%qu bytes";
+
+/* Alert message */
+"A filter named \"%@\" already exists." = "一个名为 \"%@\" 的过滤已存在。";
+
+/* Alert message (Note: 'it' can refer to a file or a folder) */
+"A possible reason is that it does not exist anymore." = "一个可能的原因是它已经不存在了。";
+
+/* Alert message */
+"A test named \"%@\" already exists." = "一个名为\"%@\"的测试已经存在。";
+
+/* Alert message (with filename arg) */
+"Aborted saving the scan data to \"%@\"" = "终止保存扫描信息至\"%@\"";
+
+/* Label in Focus panel */
+"Area in view:" = "视图里的区域:";
+
+/* Parse error */
+"Attribute not found." = "属性未找到。";
+
+/* File size unit for bytes. */
+"B" = "B";
+
+/* (No Commment) */
+"Cancel" = "取消";
+
+/* (No Commment) */
+"Delete" = "删除";
+
+/* Alert message */
+"Do you want to delete the file \"%@\"?" = "你要删除文件\"%@\"吗？";
+
+/* Alert message */
+"Do you want to delete the folder \"%@\"?" = "你要删除文件夹\"%@\"?";
+
+/* Alert message */
+"Do you want to delete the package \"%@\"?" = "你要删除组件\"%@\"?";
+
+/* Parse error */
+"Encountered filter after folder." = "过了文件夹遇到过滤";
+
+/* Parse error */
+"Encountered more than one root element." = "遇见超过一个根元件。";
+
+/* Parse error */
+"Encountered more than one root folder." = "遇见超过一个文件夹。";
+
+/* Parse error */
+"Encountered multiple %@ elements." = "遇见多个\"%@\"元件。";
+
+/* Parse error */
+"Error parsing \"%@\" attribute: %@" = "解析%1$@\"属性:%2$@错误";
+
+/* Parse error */
+"Expected %@ element." = "预期%@元件。";
+
+/* Error message */
+"Expected a folder." = "预期一个文件夹.";
+
+/* Parse error */
+"Expected boolean value." = "预期布尔值。";
+
+/* Parse error */
+"Expected date value." = "预期日期值。";
+
+/* Parse error */
+"Expected integer value." = "预期整数值。";
+
+/* Error message */
+"Expected scandata file." = "预期扫描信息文件。";
+
+/* Parse error */
+"Expected time value." = "预期时间值。";
+
+/* Parse error */
+"Expected unsigned integer value." = "预期无符号整数值";
+
+/* Alert message */
+"Failed to bind one or more filter tests:
+%@" = "绑定一个或多个过滤测试失败:";
+
+/* Alert message */
+"Failed to delete the file \"%@\"" = "删除文件\"%@\"失败";
+
+/* Alert message */
+"Failed to delete the folder \"%@\"" = "删除文件夹\"%@\"失败";
+
+/* Error message */
+"Failed to get path from pasteboard." = "从纸板取得路径失败。";
+
+/* Alert message (with filename arg) */
+"Failed to load the scan data from \"%@\"" = "从\"%@\"加载扫描信息失败";
+
+/* Alert message */
+"Failed to open the file \"%@\"" = "开启文件\"%@\"失败";
+
+/* Alert message */
+"Failed to open the folder \"%@\"" = "开启文件夹\"%@\"失败";
+
+/* Alert message */
+"Failed to open the package \"%@\"" = "开启组件\"%@\"失败";
+
+/* Alert message */
+"Failed to reveal the file \"%@\"" = "揭示文件\"%@\"失败";
+
+/* Alert message */
+"Failed to reveal the folder \"%@\"" = "揭示文件夹\"%@\"失败";
+
+/* Alert message */
+"Failed to reveal the package \"%@\"" = "揭示组件\"%@\"失败";
+
+/* Alert message */
+"Failed to save the image." = "保存图像失败";
+
+/* Alert message (with filename arg) */
+"Failed to save the scan data to \"%@\"" = "保存扫描信息至\"%@\"失败";
+
+/* Alert message */
+"Failed to update one or more filters:
+%@" = "更新一个或更多过滤失败";
+
+/* Error message */
+"Failed to write entire buffer." = "写至整个缓冲失败。";
+
+/* Error message */
+"Failed to write last data to file." = "写最后数据至文件失败。";
+
+/* Label in Focus panel */
+"File in view:" = "视图里的文件:";
+
+/* Window title */
+"Filter - %@" = "过滤-%@";
+
+/* Window title */
+"Filter test - %@" = "过滤测试-%@";
+
+/* Message in progress panel while filtering */
+"Filtering %@" = "过滤%@中";
+
+/* Title of progress panel. */
+"Filtering in progress" = "过滤进行中";
+
+/* Label in Focus panel */
+"Folder in view:" = "视图里的文件夹:";
+
+/* File size unit for gigabytes. */
+"GB" = "GB";
+
+/* Legend for Level mapping scheme. */
+"Level %d" = "阶段%d";
+
+/* Title of load panel */
+"Load scan data" = "加载扫描数据";
+
+/* Title of progress panel. */
+"Loading in progress" = "加载进行中";
+
+/* Misc. description for Level mapping scheme. */
+"Lower levels" = "低阶段";
+
+/* File size unit for megabytes. */
+"MB" = "MB";
+
+/* Legend for Time-based mapping schemes. */
+"More recent" = "比较最近";
+
+/* Initial match value in FilterTestWindow */
+"New match" = "新的匹配";
+
+/* The filter name when there is no filter. */
+"None" = "无";
+
+/* Alert additional informative text */
+"Note: The file is hard-linked. It will take up space until all links to it are deleted." = "注意:文件是软链接。它将会占据空间直到它的全部链接被删除.";
+
+/* Alert additional informative text */
+"Note: The folder is hard-linked. It will take up space until all links to it are deleted." = "注意:文件夹是软链接。它将会占据空间直到它的全部链接被删除.";
+
+/* Alert additional informative text */
+"Note: The package is hard-linked. It will take up space until all links to it are deleted." = "注意:组件是软链接。它将会占据空间直到它的全部链接被删除.";
+
+/* (No Commment) */
+"OK" = "OK";
+
+/* Legend for Level mapping scheme. */
+"Outermost level" = "最外层";
+
+/* Label in Focus panel */
+"Package in view:" = "视图里的组件:";
+
+/* Parse error */
+"Parse error (line %d): %@" = "解析错误 (第%1$d行): %2$@";
+
+/* Parse error */
+"Parsing aborted" = "解析终止";
+
+/* Alert message */
+"Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "有可能的原因是它已不存在(它可能已被迁移，重新命名，或用其它方式被删除)或你缺必要的权限.";
+
+/* Message in progress panel while loading data */
+"Reading %@" = "读取 %@";
+
+/* (No Commment) */
+"Remove" = "去掉";
+
+/* Alert message */
+"Remove the filter named \"%@\"?" = "去掉名为\"%@\"的过滤";
+
+/* Alert message */
+"Remove the test named \"%@\"?" = "去掉名为\"%@\"的测试?";
+
+/* Title of save panel */
+"Save image" = "保存图像";
+
+/* Title of save panel */
+"Save scan data" = "保存扫描数据";
+
+/* Message in progress panel while saving data */
+"Saving %@" = "保存%@";
+
+/* Title of progress panel. */
+"Saving in progress" = "保存进行中";
+
+/* Prompt in open panel */
+"Scan" = "扫描";
+
+/* Title of open panel */
+"Scan folder" = "扫描文件夹";
+
+/* Message in progress panel while scanning */
+"Scanning %@" = "扫描%@";
+
+/* Title of progress panel. */
+"Scanning in progress" = "扫描进行中";
+
+/* Label in Focus panel */
+"Selected area:" = "选择区域:";
+
+/* Label in Focus panel */
+"Selected file:" = "选择文件:";
+
+/* Label in Focus panel */
+"Selected folder:" = "选择文件夹:";
+
+/* Label in Focus panel */
+"Selected package:" = "选择组件:";
+
+/* Alert message (with filename arg) */
+"Successfully saved the scan data to \"%@\"" = "成功保存扫描数据至\"%@\"";
+
+/* File size unit for terabytes. */
+"TB" = "TB";
+
+/* Alert message */
+"The filter must have a name." = "过滤一定要有名字";
+
+/* Alert informative text */
+"The filter will be irrevocably removed from the filter repository." = "过滤将不可撤销地从过滤器存储库中删除。";
+
+/* Alert informative text */
+"The filter will be replaced by the default filter with this name." = "过滤将会被此名字的预设过滤代替.";
+
+/* Alert informative text */
+"The resulting file is valid but incomplete." = "生成的文件有效但不完整。";
+
+/* Alert informative text */
+"The selected file will be moved to Trash." = "所选文件将被移到垃圾桶。";
+
+/* Alert informative text */
+"The selected folder, with all its contents, will be moved to Trash. Beware, any files in the folder that are not shown in the view will also be deleted." = "所选文件夹，与它的所有内容，将被移到垃圾桶。当心，文件夹中未显示在视图中的任何文件也将被删除。";
+
+/* Alert informative text */
+"The selected package will be moved to Trash." = "所选组件将被移动到垃圾桶。";
+
+/* Alert message */
+"The test must have a name." = "测试必须有一个名字。";
+
+/* Alert informative text */
+"The test will be irrevocably removed from the test repository." = "测试将不可撤销地从测试库中删除。";
+
+/* Alert informative text */
+"The test will be replaced by the default test with this name." = "测试将由使用此名称的预设测试代替。";
+
+/* Alert informative text */
+"The unbound tests have been omitted from the filter." = "未绑定的测试已从过滤器中省略。";
+
+/* Alert informative text */
+"These filters do not exist anymore. Their old definition is used instead." = "这些过滤不再存在。 旧的定义将会被使用。";
+
+/* Window title */
+"Unnamed filter" = "未命名的过滤";
+
+/* Window title */
+"Unnamed filter test" = "未命名的过滤测试";
+
+/* Parse error */
+"Unrecognized value." = "Unrecognized value.";
+
+/* File size unit for kilobytes. */
+"kB" = "kB";
+
+/* Misc. description for File type mapping scheme. */
+"other file types" = "其它文件类型";
+
+/* Description for 'unknown' UTI. */
+"unknown file type" = "未知文件类型";
+
