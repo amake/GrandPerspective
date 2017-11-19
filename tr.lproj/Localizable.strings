@@ -1,0 +1,346 @@
+/* Enumeration of two items */
+"%@ and %@" = "%1$@ ve %2$@";
+
+/* Enumeration of two items */
+"%@ or %@" = "%1$@ veya %2$@";
+
+/* Enumeration of three or more items with 1: an item, 2: two or more items */
+"%@, %@" = "%1$@, %2$@";
+
+/* Enumeration of three or more items with 1: two or more items, 2: last item */
+"%@, and %@" = "%1$@, ve %2$@";
+
+/* Enumeration of three or more items with 1: two or more items, 2: last item */
+"%@, or %@" = "%1$@, veya %2$@";
+
+/* Legend for Time-based mapping schemes. */
+"%d - %d days ago" = "%1$@ - %2$@ gün önce";
+
+/* Legend for Time-based mapping schemes. */
+"%d days ago" = "%d gün önce";
+
+/* Legend for Time-based mapping schemes. */
+"%d days ago or more" = "%d gün önce ya da daha önce";
+
+/* Message in progress panel while filtering */
+"%d folders filtered" = "%d klasör filtrelendi";
+
+/* Message in progress panel while loading data */
+"%d folders read" = "%d klasör okundu";
+
+/* Message in progress panel while saving data */
+"%d folders saved" = "%d klasör kaydedildi";
+
+/* Message in progress panel while scanning */
+"%d folders scanned" = "%d klasör tarandı";
+
+/* Exact file size (in bytes). */
+"%qu bytes" = "%qu bytes";
+
+/* Alert message */
+"A filter named \"%@\" already exists." = "\"%@\" isimli bir filtre zaten var.";
+
+/* Alert message (Note: 'it' can refer to a file or a folder) */
+"A possible reason is that it does not exist anymore." = "Artık bulunmuyor olması bir ihtimalle sebep olabilir.";
+
+/* Alert message */
+"A test named \"%@\" already exists." = "\"%@\" isimli bir deneme zaten var.";
+
+/* Alert message (with filename arg) */
+"Aborted saving the scan data to \"%@\"" = "Tarama verilerini \"%@\" ismiyle kaydedilmesi durduruldu";
+
+/* Label in Focus panel */
+"Area in view:" = "Görüntüdeki alan:";
+
+/* Parse error */
+"Attribute not found." = "Nitelik bulunamadı";
+
+/* File size unit for bytes. */
+"B" = "B";
+
+/* (No Commment) */
+"Cancel" = "Vazgeç";
+
+/* (No Commment) */
+"Delete" = "Sil";
+
+/* Alert message */
+"Do you want to delete the file \"%@\"?" = "\"%@\" dosyasını silmek istiyor musun? ";
+
+/* Alert message */
+"Do you want to delete the folder \"%@\"?" = "\"%@\" klasörünü silmek istiyor musun?";
+
+/* Alert message */
+"Do you want to delete the package \"%@\"?" = "\"%@\" paketini silmek istiyor musun?";
+
+/* Parse error */
+"Encountered filter after folder." = "Klasörden sonra filtre bulundu.";
+
+/* Parse error */
+"Encountered more than one root element." = "Birden fazla kök unsuru bulundu.";
+
+/* Parse error */
+"Encountered more than one root folder." = "Birden fazla kök klasörü bulundu.";
+
+/* Parse error */
+"Encountered multiple %@ elements." = "Birden çok %@ unsur bulundu";
+
+/* Parse error */
+"Error parsing \"%@\" attribute: %@" = "Ayrıştırma hatası \"%1$@\" nitelik: %2$@";
+
+/* Parse error */
+"Expected %@ element." = "%@ unsuru bekleniyordu.";
+
+/* Error message */
+"Expected a folder." = "Bir klasör bekleniyordu.";
+
+/* Parse error */
+"Expected boolean value." = "Mantıksal (doğru/yanlış) bir değer bekleniyordu.";
+
+/* Parse error */
+"Expected date value." = "Tarih değeri bekleniyordu.";
+
+/* Parse error */
+"Expected integer value." = "Tamsayı değeri bekleniyordu.";
+
+/* Error message */
+"Expected scandata file." = "Tarama verisi dosyası bekleniyordu.";
+
+/* Parse error */
+"Expected time value." = "Zaman değeri bekleniyordu.";
+
+/* Parse error */
+"Expected unsigned integer value." = "İşaretsiz tamsayı değeri bekleniyordu.";
+
+/* Alert message */
+"Failed to bind one or more filter tests:
+%@" = "Bir ya da daha fazla filtreli denemeyi bağlama hatası:
+%@";
+
+/* Alert message */
+"Failed to delete the file \"%@\"" = "\"%@\" dosyasını silerken hata oluştu";
+
+/* Alert message */
+"Failed to delete the folder \"%@\"" = "\"%@\" klasörünü silerken hata oluştu";
+
+/* Error message */
+"Failed to get path from pasteboard." = "Yolu panodan alırken hata oluştu.";
+
+/* Alert message (with filename arg) */
+"Failed to load the scan data from \"%@\"" = "Tarama verilerini \"%@\"'dan yüklerken hata oluştu";
+
+/* Alert message */
+"Failed to open the file \"%@\"" = "\"%@\" dosyasını açarken hata oluştu";
+
+/* Alert message */
+"Failed to open the folder \"%@\"" = "\"%@\" klasörünü açarken hata oluştu";
+
+/* Alert message */
+"Failed to open the package \"%@\"" = "\"%@\" paketini açarken hata oluştu";
+
+/* Alert message */
+"Failed to reveal the file \"%@\"" = "\"%@\" dosyasını ortaya çıkarırken hata oluştu";
+
+/* Alert message */
+"Failed to reveal the folder \"%@\"" = "\"%@\" klasörünü ortaya çıkarırken hata oluştu";
+
+/* Alert message */
+"Failed to reveal the package \"%@\"" = "\"%@\" paketini ortaya çıkarırken hata oluştu";
+
+/* Alert message */
+"Failed to save the image." = "Kopyayı kaydederken hata oluştu.";
+
+/* Alert message (with filename arg) */
+"Failed to save the scan data to \"%@\"" = "Tarama verisini  \"%@\"'a kaydederken hata oluştu.";
+
+/* Alert message */
+"Failed to update one or more filters:
+%@" = "Bir ya da daha fazla filtreyi güncellerken hata oluştu:
+%@";
+
+/* Error message */
+"Failed to write entire buffer." = "Tampon alanın tamamını yazarken hata oluştu.";
+
+/* Error message */
+"Failed to write last data to file." = "Son veriyi dosyaya yazarken hata oluştu.";
+
+/* Label in Focus panel */
+"File in view:" = "Görüntüdeki dosya:";
+
+/* Window title */
+"Filter - %@" = "Filtre - %@";
+
+/* Window title */
+"Filter test - %@" = "Filtre deneme - %@";
+
+/* Message in progress panel while filtering */
+"Filtering %@" = "Filtreliyor %@";
+
+/* Title of progress panel. */
+"Filtering in progress" = "Filtreleme devam ediyor";
+
+/* Label in Focus panel */
+"Folder in view:" = "Görüntüdeki klasör:";
+
+/* File size unit for gigabytes. */
+"GB" = "GB";
+
+/* Legend for Level mapping scheme. */
+"Level %d" = "Seviye %d";
+
+/* Title of load panel */
+"Load scan data" = "Tarama verisini yükle";
+
+/* Title of progress panel. */
+"Loading in progress" = "Yükleme devam ediyor";
+
+/* Misc. description for Level mapping scheme. */
+"Lower levels" = "Daha alt seviyeler";
+
+/* File size unit for megabytes. */
+"MB" = "MB";
+
+/* Legend for Time-based mapping schemes. */
+"More recent" = "Daha güncel";
+
+/* Initial match value in FilterTestWindow */
+"New match" = "Yeni eşleme";
+
+/* The filter name when there is no filter. */
+"None" = "Yok";
+
+/* Alert additional informative text */
+"Note: The file is hard-linked. It will take up space until all links to it are deleted." = "Not: Dosya sabit bağlantılı. Buna olan tüm bağlantılar silinene kadar yer işgal etmeye devam edecektir.";
+
+/* Alert additional informative text */
+"Note: The folder is hard-linked. It will take up space until all links to it are deleted." = "Not: Klasör sabit bağlantılı. Buna olan tüm bağlantılar silinene kadar yer işgal etmeye devam edecektir.";
+
+/* Alert additional informative text */
+"Note: The package is hard-linked. It will take up space until all links to it are deleted." = "Not: Paket sabit bağlantılı. Buna olan tüm bağlantılar silinene kadar yer işgal etmeye devam edecektir.";
+
+/* (No Commment) */
+"OK" = "Tamam";
+
+/* Legend for Level mapping scheme. */
+"Outermost level" = "En dış seviye";
+
+/* Label in Focus panel */
+"Package in view:" = "Görüntüdeki paket:";
+
+/* Parse error */
+"Parse error (line %d): %@" = "Ayrıştırma hatası (satır %1$d): %2$@";
+
+/* Parse error */
+"Parsing aborted" = "Ayrıştırma durduruldu";
+
+/* Alert message */
+"Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "Artık bulunmuyor olması neden olabilir (başka yollardan taşınmış, ismi değiştirilmiş ya da silinmiş olabilir) ya da gerekli izinleriniz yoktur.";
+
+/* Message in progress panel while loading data */
+"Reading %@" = "Okuyor %@";
+
+/* (No Commment) */
+"Remove" = "Kaldır";
+
+/* Alert message */
+"Remove the filter named \"%@\"?" = "\"%@\" isimli filtreyi kaldırmak istiyor musun?";
+
+/* Alert message */
+"Remove the test named \"%@\"?" = "\"%@\" isimli denemeyi kaldırmak istiyor musun?";
+
+/* Title of save panel */
+"Save image" = "Kopyayı kaydet";
+
+/* Title of save panel */
+"Save scan data" = "Tarama verisini kaydet";
+
+/* Message in progress panel while saving data */
+"Saving %@" = "%@'i kaydediyor";
+
+/* Title of progress panel. */
+"Saving in progress" = "Kaydetme devam ediyor";
+
+/* Prompt in open panel */
+"Scan" = "Tarama";
+
+/* Title of open panel */
+"Scan folder" = "Tarama klasörü";
+
+/* Message in progress panel while scanning */
+"Scanning %@" = "%@'i tariyor";
+
+/* Title of progress panel. */
+"Scanning in progress" = "Tarama devam ediyor";
+
+/* Label in Focus panel */
+"Selected area:" = "Seçilen alan:";
+
+/* Label in Focus panel */
+"Selected file:" = "Seçilen dosya:";
+
+/* Label in Focus panel */
+"Selected folder:" = "Seçilen klasör:";
+
+/* Label in Focus panel */
+"Selected package:" = "Seçilen paket:";
+
+/* Alert message (with filename arg) */
+"Successfully saved the scan data to \"%@\"" = "TArama verisini \"%@\" olarak başarıyla kaydedildi";
+
+/* File size unit for terabytes. */
+"TB" = "TB";
+
+/* Alert message */
+"The filter must have a name." = "Filtrenin bir adı olmalı.";
+
+/* Alert informative text */
+"The filter will be irrevocably removed from the filter repository." = "Filtre, filtre deposundan geri alınamaz şekilde silinecektir.";
+
+/* Alert informative text */
+"The filter will be replaced by the default filter with this name." = "Filtre, bu isimli varsayılan filtre ile değiştirilecektir.";
+
+/* Alert informative text */
+"The resulting file is valid but incomplete." = "Sonuç dosyası geçerli ancak tam değil.";
+
+/* Alert informative text */
+"The selected file will be moved to Trash." = "Seçilen dosya Çöp Kutusuna taşınacaktır.";
+
+/* Alert informative text */
+"The selected folder, with all its contents, will be moved to Trash. Beware, any files in the folder that are not shown in the view will also be deleted." = "Seçilen klasör, tüm içeriği ile birlikte, Cöp Kutusuna taşınacaktır. Dikkat! Bu klasörde olan ve görüntülenmeyen tüm dosyalar da silinecektir.";
+
+/* Alert informative text */
+"The selected package will be moved to Trash." = "Seçilen paket Çöp Kutusuna taşınacaktır.";
+
+/* Alert message */
+"The test must have a name." = "Denemenın bir adı olmalı.";
+
+/* Alert informative text */
+"The test will be irrevocably removed from the test repository." = "Deneme, geri dönüşü olmayacak şekilde deneme deposundan silinecektir.";
+
+/* Alert informative text */
+"The test will be replaced by the default test with this name." = "Deneme, varsayılan test ile bu ad ile değiştirilecektir.";
+
+/* Alert informative text */
+"The unbound tests have been omitted from the filter." = "Bağlanmamış denemeler filtreden çıkarılmıştır.";
+
+/* Alert informative text */
+"These filters do not exist anymore. Their old definition is used instead." = "Filtreler artık bulunmuyorlar. Bunu yerine bunların eski tanımları kullanılacaktır.";
+
+/* Window title */
+"Unnamed filter" = "İsimsiz filtre";
+
+/* Window title */
+"Unnamed filter test" = "İsimsiz filtre denemesi";
+
+/* Parse error */
+"Unrecognized value." = "Tanımlanamayan değer.";
+
+/* File size unit for kilobytes. */
+"kB" = "kB";
+
+/* Misc. description for File type mapping scheme. */
+"other file types" = "diğer dosya türleri";
+
+/* Description for 'unknown' UTI. */
+"unknown file type" = "bilinmeyen dosya türü";
+

@@ -1,0 +1,93 @@
+/* Class = "NSWindow"; title = "Preferences"; ObjectID = "6"; */
+"6.title" = "Tercihler";
+
+/* Class = "NSBox"; title = "Display"; ObjectID = "29"; */
+"29.title" = "Ekran";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "45"; */
+"45.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "46"; */
+"46.title" = "Item1";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "51"; */
+"51.title" = "Item1";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "53"; */
+"53.title" = "OtherViews";
+
+/* Class = "NSBox"; title = "Info"; ObjectID = "57"; */
+"57.title" = "Bilgi";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "61"; */
+"61.title" = "Item1";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "62"; */
+"62.title" = "OtherViews";
+
+/* Class = "NSBox"; title = "Actions"; ObjectID = "72"; */
+"72.title" = "Eylemler";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "74"; */
+"74.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Files and folders"; ObjectID = "78"; */
+"78.title" = "Dosyalar ve Klasörler";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "152"; */
+"152.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Close old window"; ObjectID = "153"; */
+"153.title" = "Eski pencereyi kapat";
+
+/* Class = "NSTextFieldCell"; title = "Palette:"; ObjectID = "167"; */
+"167.title" = "Palet:";
+
+/* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "171"; */
+"171.title" = "Paket içeriğini göster";
+
+/* Class = "NSTextFieldCell"; title = "Color by:"; ObjectID = "172"; */
+"172.title" = "Renklendirme Kıstası:";
+
+/* Class = "NSTextFieldCell"; title = "File size measure:"; ObjectID = "174"; */
+"174.title" = "Dosya büyüklüğü ölçüsü:";
+
+/* Class = "NSButtonCell"; title = "Always require confirmation"; ObjectID = "176"; */
+"176.title" = "Daima onay gereksin";
+
+/* Class = "NSTextFieldCell"; title = "Enable deletion of:"; ObjectID = "177"; */
+"177.title" = "Silmeyi aktif et:";
+
+/* Class = "NSTextFieldCell"; title = "After full rescan:"; ObjectID = "178"; */
+"178.title" = "Tam tekrar tarama ardından";
+
+/* Class = "NSTextFieldCell"; title = "Filter:"; ObjectID = "181"; */
+"181.title" = "Filtre:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "184"; */
+"184.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "185"; */
+"185.title" = "Item1";
+
+/* Class = "NSTextFieldCell"; title = "Rescan action:"; ObjectID = "189"; */
+"189.title" = "Tekrar tarama eylemi:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "192"; */
+"192.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Rescan folder in view"; ObjectID = "193"; */
+"193.title" = "Görüntüdeki klasörü tekrar tara";
+
+/* Class = "NSButtonCell"; title = "Show entire volume"; ObjectID = "199"; */
+"199.title" = "Tüm hacmi göster";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "206"; */
+"206.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "207"; */
+"207.title" = "Item1";
+
+/* Class = "NSTextFieldCell"; title = "File size unit system:"; ObjectID = "214"; */
+"214.title" = "Dosya büyüklüğü birim sistemi:";
+

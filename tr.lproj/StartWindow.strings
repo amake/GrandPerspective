@@ -1,0 +1,33 @@
+/* Class = "NSButtonCell"; title = "Scan Other Folder"; ObjectID = "Cd8-ae-UVZ"; */
+"Cd8-ae-UVZ.title" = "Başka Bir Klasörü Tara";
+
+/* Class = "NSButtonCell"; title = "Help"; ObjectID = "JEp-c0-ZgQ"; */
+"JEp-c0-ZgQ.title" = "Yardım";
+
+/* Class = "NSTextFieldCell"; title = "or"; ObjectID = "NMl-pA-jdd"; */
+"NMl-pA-jdd.title" = "ya da";
+
+/* Class = "NSWindow"; title = "Welcome"; ObjectID = "QvC-M9-y7g"; */
+"QvC-M9-y7g.title" = "Hoşgeldin";
+
+/* Class = "NSTextFieldCell"; title = "Path"; ObjectID = "UhX-F8-bW1"; */
+"UhX-F8-bW1.title" = "Yol";
+
+/* Class = "NSTextFieldCell"; title = "Repeat a recent scan"; ObjectID = "aI9-me-id8"; */
+"aI9-me-id8.title" = "Yakındaki bir taramayı tekrarlayın";
+
+/* Class = "NSTextFieldCell"; placeholderString = "Foldername"; ObjectID = "duM-ug-7fu"; */
+"duM-ug-7fu.placeholderString" = "Klasör adı";
+
+/* Class = "NSTextFieldCell"; title = "Folder"; ObjectID = "duM-ug-7fu"; */
+"duM-ug-7fu.title" = "Klasör";
+
+/* Class = "NSTextFieldCell"; title = "graphically shows your disk usage"; ObjectID = "lT6-9A-q8Z"; */
+"lT6-9A-q8Z.title" = "disk kullanımınızı grafik olarak gösterir";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "xvh-L4-J3V"; */
+"xvh-L4-J3V.title" = "Yazı Hücresi";
+
+/* Class = "NSTextFieldCell"; title = "GrandPerspective"; ObjectID = "zcR-VQ-ffQ"; */
+"zcR-VQ-ffQ.title" = "GrandPerspective";
+
