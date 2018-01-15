@@ -131,6 +131,7 @@
 		AA9881BC0DF57C6B00A6EA33 /* StringPrefixTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9881B40DF57C6B00A6EA33 /* StringPrefixTest.m */; };
 		AA9881BD0DF57C6B00A6EA33 /* StringSuffixTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9881B60DF57C6B00A6EA33 /* StringSuffixTest.m */; };
 		AA9882BF0DF71B8900A6EA33 /* ItemSizeTestFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9882BE0DF71B8900A6EA33 /* ItemSizeTestFinder.m */; };
+		AA9A8B16200D481A0048206A /* NSURL.m in Sources */ = {isa = PBXBuildFile; fileRef = AA9A8B15200D481A0048206A /* NSURL.m */; };
 		AAA2800310822DB000229112 /* StringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA2800210822DB000229112 /* StringTest.m */; };
 		AAA2809C108252C900229112 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA28099108252C900229112 /* Filter.m */; };
 		AAA2809D108252C900229112 /* FilterSet.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA2809B108252C900229112 /* FilterSet.m */; };
@@ -439,6 +440,8 @@
 		AA9881B70DF57C6B00A6EA33 /* StringTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringTest.h; path = test/strings/StringTest.h; sourceTree = "<group>"; };
 		AA9882BD0DF71B8900A6EA33 /* ItemSizeTestFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ItemSizeTestFinder.h; path = test/ItemSizeTestFinder.h; sourceTree = "<group>"; };
 		AA9882BE0DF71B8900A6EA33 /* ItemSizeTestFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ItemSizeTestFinder.m; path = test/ItemSizeTestFinder.m; sourceTree = "<group>"; };
+		AA9A8B14200D481A0048206A /* NSURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NSURL.h; path = util/NSURL.h; sourceTree = "<group>"; };
+		AA9A8B15200D481A0048206A /* NSURL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = NSURL.m; path = util/NSURL.m; sourceTree = "<group>"; };
 		AAA2800210822DB000229112 /* StringTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringTest.m; path = test/strings/StringTest.m; sourceTree = "<group>"; };
 		AAA28098108252C900229112 /* Filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Filter.h; path = filter/Filter.h; sourceTree = "<group>"; };
 		AAA28099108252C900229112 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Filter.m; path = filter/Filter.m; sourceTree = "<group>"; };
@@ -769,6 +772,8 @@
 				AA2B4BAC10EFB0DA0088EA1C /* ModalityTerminator.m */,
 				AA1A92631170579600217CF6 /* KBPopUpToolbarItem.h */,
 				AA1A92641170579600217CF6 /* KBPopUpToolbarItem.m */,
+				AA9A8B14200D481A0048206A /* NSURL.h */,
+				AA9A8B15200D481A0048206A /* NSURL.m */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -1147,6 +1152,7 @@
 				AA9881BA0DF57C6B00A6EA33 /* StringContainmentTest.m in Sources */,
 				AA9881BB0DF57C6B00A6EA33 /* StringEqualityTest.m in Sources */,
 				AA9881BC0DF57C6B00A6EA33 /* StringPrefixTest.m in Sources */,
+				AA9A8B16200D481A0048206A /* NSURL.m in Sources */,
 				AA9881BD0DF57C6B00A6EA33 /* StringSuffixTest.m in Sources */,
 				AA9882BF0DF71B8900A6EA33 /* ItemSizeTestFinder.m in Sources */,
 				AA837DBF0E29ECE5005384E0 /* TreeWriter.m in Sources */,

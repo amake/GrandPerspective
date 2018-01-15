@@ -9,6 +9,7 @@
 #import "FilterSet.h"
 #import "FilteredTreeGuide.h"
 #import "TreeBalancer.h"
+#import "NSURL.h"
 
 #import "ScanProgressTracker.h"
 #import "UniformTypeInventory.h"
@@ -17,101 +18,86 @@
 NSString  *LogicalFileSize = @"logical";
 NSString  *PhysicalFileSize = @"physical";
 
-
-NSString  *CouldNotEstablishSystemPath = @"CouldNotEstablishSystemPath";
-
-
-/* Set the bulk request size so that bulkCatalogInfo fits in exactly four VM 
- * pages. This is a good balance between the iteration I/O overhead and the 
- * risk of incurring additional I/O from additional memory allocation.
- *
- * (Source: Code derived from source code of Disk Inventory X by Tjark Derlien.
- *  This particular bit of code contributed by Dave Payne from Apple?)
- */
-#define BULK_CATALOG_REQUEST_SIZE  ( (4096 * 16) / ( sizeof(FSCatalogInfo) + \
-                                                     sizeof(FSRef) + \
-                                                     sizeof(HFSUniStr255) ) )
-#define CATALOG_INFO_BITMAP  ( kFSCatInfoNodeFlags | \
-                               kFSCatInfoDataSizes | \
-                               kFSCatInfoRsrcSizes | \
-                               kFSCatInfoCreateDate | \
-                               kFSCatInfoContentMod | \
-                               kFSCatInfoAccessDate)
-
-typedef struct  {
-  FSCatalogInfo  catalogInfoArray[BULK_CATALOG_REQUEST_SIZE];
-  FSRef          fileRefArray[BULK_CATALOG_REQUEST_SIZE];
-  HFSUniStr255   namesArray[BULK_CATALOG_REQUEST_SIZE];
-} BulkCatalogInfo;
-
-
-ITEM_SIZE getLogicalFileSize(FSCatalogInfo *catalogInfo) {
-  return (catalogInfo->dataLogicalSize + catalogInfo->rsrcLogicalSize);
-}
-
-ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
-  return (catalogInfo->dataPhysicalSize + catalogInfo->rsrcPhysicalSize);
-}
-
-
-@interface TreeBuilder (PrivateMethods)
-
-- (BOOL) buildTreeForDirectory: (DirectoryItem *)dirItem 
-           fileRef: (FSRef *)fileRef parentPath: (NSString *)parentPath;
-           
-- (BOOL) includeItemForFileRef: (FSRef *)fileRef
-           catalogInfo: (FSCatalogInfo *)catalogInfo
-           systemPath: (NSString **)systemPath;
-
-- (UInt8) flagsForFileRef: (FSRef *)fileRef;
-- (NSString *) systemPathStringForFileRef: (FSRef *)fileRef;
-
-@end // @interface TreeBuilder (PrivateMethods)
-
-
-/* Helper class that is used to temporarily store additional info for child 
- * directories. It stores the info that is not maintained by the DirectoryItem 
+/* Helper class that is used to temporarily store additional info for child
+ * directories. It stores the info that is not maintained by the DirectoryItem
  * class yet is needed while the child directory contents have not yet been
  * scanned.
  */
 @interface TmpDirInfo : NSObject {
-  DirectoryItem  *dirItem;
-  UTCDateTime  creationDate;
 @public
-  FSRef  ref;
+  DirectoryItem  *dirItem;
+
+  // Contains either TmpDirInfo or DirectoryItem instances
+  NSMutableArray  *dirs;
+
+  NSMutableArray<PlainFileItem *>  *files;
+
+  NSURL  *url;
 }
 
-- (id) initWithDirectoryItem: (DirectoryItem *)dirItem
-         fileRef: (FSRef *)ref creationDate: (UTCDateTime) creationDate;
+- (void) initWithDirectoryItem: (DirectoryItem *)dirItemVal
+                           URL: (NSURL *)urlVal;
 
 - (DirectoryItem *) directoryItem;
+
+/* Remove any sub-directories that should not be included according to the treeGuide. This
+ * filtering needs to be done after all items inside this directory have been scanned, as the
+ * filtering may be based on the (recursive) size of the items.
+ */
+- (void) filterSubDirectories: (FilteredTreeGuide *)treeGuide;
 
 - (NSComparisonResult) compareByCreationDate: (TmpDirInfo *)other;
 
 @end // @interface TmpDirInfo
 
 
+@interface TreeBuilder (PrivateMethods)
+
+- (TreeContext *) treeContextForVolumeContaining: (NSString *)path;
+- (void) addToStack: (DirectoryItem *)dirItem URL: (NSURL *)url;
+- (TmpDirInfo *) unwindStackToURL: (NSURL *)url;
+
+- (BOOL) buildTreeForDirectory: (DirectoryItem *)dirItem atPath: (NSString *)path;
+
+- (BOOL) visitHardLinkedItemAtURL: (NSURL *)url;
+
+@end // @interface TreeBuilder (PrivateMethods)
+
+
 @implementation TmpDirInfo
 
 // Overrides super's designated initialiser.
 - (id) init {
-  NSAssert(NO, @"Use initWithDirectoryItem:fileRef:creationDate: instead.");
-  return nil;
-}
-
-- (id) initWithDirectoryItem: (DirectoryItem *)dirItemVal
-         fileRef: (FSRef *)refVal 
-         creationDate: (UTCDateTime) creationDateVal {
   if (self = [super init]) {
-    dirItem = [dirItemVal retain];
-    ref = *refVal;
-    creationDate = creationDateVal;
+    dirs = [[NSMutableArray alloc] initWithCapacity: INITIAL_DIRS_CAPACITY];
+    files = [[NSMutableArray alloc] initWithCapacity: INITIAL_FILES_CAPACITY];
   }
-
   return self;
 }
 
+// "Constructor" intended for repeated usage. It assumes init has already been invoked
+- (void) initWithDirectoryItem: (DirectoryItem *)dirItemVal
+                           URL: (NSURL *)urlVal {
+  if (dirItem != dirItemVal) {
+    [dirItem release];
+  }
+  dirItem = [dirItemVal retain];
+
+  if (url != urlVal) {
+    [url release];
+  }
+  url = [urlVal retain];
+
+  // Clear data from previous usage
+  [dirs removeAllObjects];
+  [files removeAllObjects];
+}
+
 - (void) dealloc {  
+  [dirs release];
+  [files release];
+
+  [url release];
   [dirItem release];
   
   [super dealloc];
@@ -126,24 +112,38 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
  * array.
  */
 - (NSComparisonResult) compareByCreationDate: (TmpDirInfo *)other {
-  if (creationDate.highSeconds == other->creationDate.highSeconds) {
-    if (creationDate.lowSeconds == other->creationDate.lowSeconds) {
-      if (creationDate.fraction == other->creationDate.fraction) {
-        return NSOrderedSame;
-      }
-      else {
-        return ( (creationDate.fraction < other->creationDate.fraction) 
-                 ? NSOrderedDescending : NSOrderedAscending );
-      }
+  if ([dirItem creationTime] == [other->dirItem creationTime]) {
+    return NSOrderedSame;
+  } else {
+    return (
+            [dirItem creationTime] < [other->dirItem creationTime]
+            ? NSOrderedDescending
+            : NSOrderedAscending
+    );
+  }
+}
+
+- (void) filterSubDirectories: (FilteredTreeGuide *)treeGuide {
+  for (NSUInteger i = [dirs count]; i-- > 0; ) {
+    TmpDirInfo  *tmpDirInfo = [dirs objectAtIndex: i];
+    DirectoryItem  *dirChildItem = [tmpDirInfo directoryItem];
+
+    if ( [treeGuide includeFileItem: dirChildItem] ) {
+      // The directory passed the test. So include it.
+
+      // Temporarily boost retain count to ensure that the implicit release of
+      // the tmpDirInfo object does not trigger deallocation of dirChildItem.
+      [dirChildItem retain];
+
+      // Replace the tmpDirInfo object with the actual DirectoryItem object.
+      [dirs replaceObjectAtIndex: i withObject: dirChildItem];
+
+      [dirChildItem release];
     }
     else {
-      return ( (creationDate.lowSeconds < other->creationDate.lowSeconds) 
-               ? NSOrderedDescending : NSOrderedAscending );
+      // The directory did not pass the test, so exclude it.
+      [dirs removeObjectAtIndex: i];
     }
-  }
-  else {
-    return ( (creationDate.highSeconds < other->creationDate.highSeconds) 
-             ? NSOrderedDescending : NSOrderedAscending );
   }
 }
 
@@ -163,17 +163,6 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
   
   return fileSizeMeasureNames;
 }
-
-+ (BOOL) pathIsDirectory: (NSString *)path {
-  FSRef  pathRef;
-  Boolean  isDir;
-
-  FSPathMakeRef( (const UInt8 *) [path fileSystemRepresentation], 
-                 &pathRef, &isDir );
-
-  return isDir;
-}
-
 
 - (id) init {
   return [self initWithFilterSet: nil];
@@ -195,19 +184,8 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
     
     progressTracker = [[ScanProgressTracker alloc] init];
     
-    pathBuffer = NULL;
-    pathBufferLen = 0;
+    dirStack = [[NSMutableArray alloc] initWithCapacity: 16];
     
-    // Note: allocating three separate arrays using the "BulkCatalogInfo"
-    // struct. This ensures that there placed consecutively in memory, which
-    // should help to speed up access to these arrays (it definitely should not
-    // harm).
-    bulkCatalogInfo = malloc(sizeof(BulkCatalogInfo));
-    catalogInfoArray = ((BulkCatalogInfo *)bulkCatalogInfo)->catalogInfoArray;
-    fileRefArray =     ((BulkCatalogInfo *)bulkCatalogInfo)->fileRefArray;
-    namesArray =       ((BulkCatalogInfo *)bulkCatalogInfo)->namesArray;
-    
-    fileSizeMeasureFunction = NULL;
     [self setFileSizeMeasure: LogicalFileSize];
     
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
@@ -230,8 +208,7 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
   
   [progressTracker release];
   
-  free(pathBuffer);
-  free(bulkCatalogInfo);
+  [dirStack release];
   
   [super dealloc];
 }
@@ -252,10 +229,10 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
 
 - (void) setFileSizeMeasure: (NSString *)measure {
   if ([measure isEqualToString: LogicalFileSize]) {
-    fileSizeMeasureFunction = &getLogicalFileSize;
+    fileSizeMeasureKey = NSURLTotalFileSizeKey;
   }
   else if ([measure isEqualToString: PhysicalFileSize]) {
-    fileSizeMeasureFunction = &getPhysicalFileSize;
+    fileSizeMeasureKey = NSURLTotalFileAllocatedSizeKey;
   }
   else {
     NSAssert(NO, @"Invalid file size measure.");
@@ -272,111 +249,51 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
   abort = YES;
 }
 
-
 - (TreeContext *)buildTreeForPath: (NSString *)path {
-  if (! [TreeBuilder pathIsDirectory: path]) {
-    // This may happen when the directory has been deleted (which can happen when rescanning)
-    NSLog(@"Path to scan %@ is not a directory.", path);
-    return nil;
-  }
+  TreeContext  *treeContext = [self treeContextForVolumeContaining: path];
 
-  FSRef  pathRef;
-  FSPathMakeRef( (const UInt8 *) [path fileSystemRepresentation], &pathRef, NULL );
-
-  NSFileManager  *manager = [NSFileManager defaultManager];
-  NSError  *error = nil;
-  NSDictionary  *fsattrs = 
-    [manager attributesOfFileSystemForPath: path error: &error];
-  if (error != nil) {
-    // This may happen when the directory to scan has been deleted. The above pathIsDirectory check
-    // does not always fail (immediately).
-    NSLog(@"Error getting attributes for path to scan %@: %@", path, [error description]);
-    return nil;
-  }
-  
-  unsigned long long  freeSpace = 
-    [[fsattrs objectForKey: NSFileSystemFreeSize] unsignedLongLongValue];
-  unsigned long long  volumeSize =
-    [[fsattrs objectForKey: NSFileSystemSize] unsignedLongLongValue];
-  
-  // Establish the root of the volume
-  unsigned long long  fileSystemNumber =
-    [[fsattrs objectForKey: NSFileSystemNumber] unsignedLongLongValue];
-  NSString  *volumePath = path;
-
-  while (YES) {
-    NSString  *parentPath = [volumePath stringByDeletingLastPathComponent];
-    if ([parentPath isEqualToString: volumePath]) {
-      // String cannot be reduced further, so must be start of volume.
-      break;
-    }
-    error = nil;
-    fsattrs = [manager attributesOfFileSystemForPath: parentPath error: &error];
-    if (error != nil) {
-      NSLog(@"Error getting attributes for ancestor path %@: %@", parentPath, [error description]);
-      return nil;
-    }
-
-    unsigned long long  parentFileSystemNumber =
-      [[fsattrs objectForKey: NSFileSystemNumber] unsignedLongLongValue];
-    if (parentFileSystemNumber != fileSystemNumber) {
-      // There was a change of filesystem, so the start of the volume has been found.
-      break;
-    }
-    volumePath = parentPath;
-  }
-  
+  // Determine relative path
+  NSString  *volumePath = [[treeContext volumeTree] name];
   NSString  *relativePath =
-    ([volumePath length] < [path length] ? 
-       [path substringFromIndex: [volumePath length]] : @"");
+    [volumePath length] < [path length] ? [path substringFromIndex: [volumePath length]] : @"";
   if ([relativePath isAbsolutePath]) {
     // Strip leading slash.
     relativePath = [relativePath substringFromIndex: 1];
-  } 
-       
-  if ([relativePath length] > 0) {
-    NSLog(@"Scanning volume %@ [%@], starting at %@", volumePath, 
-             [manager displayNameAtPath: volumePath], relativePath);
-  }
-  else {
-    NSLog(@"Scanning entire volume %@ [%@].", volumePath, 
-             [manager displayNameAtPath: volumePath]);
   }
 
-  TreeContext  *scanResult =
-    [[[TreeContext alloc] initWithVolumePath: volumePath
-                            fileSizeMeasure: fileSizeMeasure
-                            volumeSize: volumeSize 
-                            freeSpace: freeSpace
-                            filterSet: filterSet] autorelease];
+  NSFileManager  *manager = [NSFileManager defaultManager];
+  if ([relativePath length] > 0) {
+    NSLog(@"Scanning volume %@ [%@], starting at %@", volumePath,
+          [manager displayNameAtPath: volumePath], relativePath);
+  }
+  else {
+    NSLog(@"Scanning entire volume %@ [%@].", volumePath,
+          [manager displayNameAtPath: volumePath]);
+  }
   
-  // Get the creation and modification times
-  FSCatalogInfo  catalogInfo;
-  FSGetCatalogInfo(&pathRef,
-                   kFSCatInfoCreateDate | kFSCatInfoContentMod | kFSCatInfoAccessDate,
-                   &catalogInfo,
-                   NULL, NULL, NULL);
-  CFAbsoluteTime  creationTime;
-  CFAbsoluteTime  modificationTime;
-  CFAbsoluteTime  accessTime;
-  UCConvertUTCDateTimeToCFAbsoluteTime(&(catalogInfo.createDate), &creationTime);
-  UCConvertUTCDateTimeToCFAbsoluteTime(&(catalogInfo.contentModDate), &modificationTime);
-  UCConvertUTCDateTimeToCFAbsoluteTime(&(catalogInfo.accessDate), &accessTime);
-    
-  DirectoryItem  *scanTree = 
+  // Get the properties
+  NSURL  *treeRootURL = [NSURL fileURLWithPath: path];
+  UInt8  flags = 0;
+  if ([treeRootURL isPackage]) {
+    flags |= FILE_IS_PACKAGE;
+  }
+  if ([treeRootURL isHardLinked]) {
+    flags |= FILE_IS_HARDLINKED;
+  }
+
+  DirectoryItem  *scanTree =
     [[[ScanTreeRoot allocWithZone: [Item zoneForTree]] 
          initWithName: relativePath 
-               parent: [scanResult scanTreeParent]
-                flags: [self flagsForFileRef: &pathRef]
-         creationTime: creationTime 
-     modificationTime: modificationTime
-           accessTime: accessTime
+               parent: [treeContext scanTreeParent]
+                flags: flags
+         creationTime: [treeRootURL creationTime]
+     modificationTime: [treeRootURL modificationTime]
+           accessTime: [treeRootURL accessTime]
       ] autorelease];
 
   [progressTracker startingTask];
-        
-  BOOL  ok = [self buildTreeForDirectory: scanTree fileRef: &pathRef
-                     parentPath: volumePath];
+
+  BOOL  ok = [self buildTreeForDirectory: scanTree atPath: path];
 
   [progressTracker finishedTask];
   
@@ -384,9 +301,9 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
     return nil;
   }
   
-  [scanResult setScanTree: scanTree];
+  [treeContext setScanTree: scanTree];
   
-  return scanResult;
+  return treeContext;
 }
 
 
@@ -399,365 +316,213 @@ ITEM_SIZE getPhysicalFileSize(FSCatalogInfo *catalogInfo) {
 
 @implementation TreeBuilder (PrivateMethods)
 
-- (BOOL) buildTreeForDirectory: (DirectoryItem *)dirItem 
-           fileRef: (FSRef *)parentFileRef parentPath: (NSString *)parentPath {
-  NSString  *path = [parentPath stringByAppendingPathComponent: [dirItem name]];
+- (TreeContext *) treeContextForVolumeContaining: (NSString *)path {
+  NSURL  *url = [NSURL fileURLWithPath: path];
 
-  FSIterator  iterator;
-  { 
-    OSStatus  result = FSOpenIterator(parentFileRef, kFSIterateFlat, &iterator);
-    if (result != noErr) {
-      NSLog( @"Couldn't create FSIterator for '%@': Error %d", path, (int)result);
-    
-      return NO;
-    }
+  if (! [url isDirectory]) {
+    // This may happen when the directory has been deleted (which can happen when rescanning)
+    NSLog(@"Path to scan %@ is not a directory.", path);
+    return nil;
   }
+
+  NSError  *error = nil;
+  NSURL  *volumeRoot;
+  [url getResourceValue: &volumeRoot forKey: NSURLVolumeURLKey error: &error];
+  if (error != nil) {
+    NSLog(@"Failed to determine volume root of %@: %@", url, [error description]);
+  }
+
+  NSNumber  *freeSpace;
+  [volumeRoot getResourceValue: &freeSpace forKey: NSURLVolumeAvailableCapacityKey error: &error];
+  if (error != nil) {
+    NSLog(@"Failed to determine free space for %@: %@", volumeRoot, [error description]);
+  }
+
+  NSNumber  *volumeSize;
+  [volumeRoot getResourceValue: &volumeSize forKey: NSURLVolumeTotalCapacityKey error: &error];
+  if (error != nil) {
+    NSLog(@"Failed to determine capacity of %@: %@", volumeRoot, [error description]);
+  }
+
+  return [[[TreeContext alloc] initWithVolumePath: [volumeRoot path]
+                                  fileSizeMeasure: fileSizeMeasure
+                                       volumeSize: [volumeSize unsignedLongLongValue]
+                                        freeSpace: [freeSpace unsignedLongLongValue]
+                                        filterSet: filterSet] autorelease];
+}
+
+- (void) addToStack: (DirectoryItem *)dirItem URL: (NSURL *)url {
+  // Expand stack if required
+  if (dirStackTopIndex <= [dirStack count]) {
+    [dirStack addObject: [[[TmpDirInfo alloc] init] autorelease]];
+  }
+  
+  // Add the item to the stack. Overwriting the previous entry.
+  [[dirStack objectAtIndex: ++dirStackTopIndex] initWithDirectoryItem: dirItem URL: url];
   
   [treeGuide descendIntoDirectory: dirItem];
   [progressTracker processingFolder: dirItem];
-  if (debugLogEnabled) {
-    NSLog( @"Scanning %@", [dirItem systemPath]);
-  }
-
-  NSMutableArray  *files = 
-    [[NSMutableArray alloc] initWithCapacity: INITIAL_FILES_CAPACITY];
-  NSMutableArray  *dirs = 
-    [[NSMutableArray alloc] initWithCapacity: INITIAL_DIRS_CAPACITY];
-
-  NSAutoreleasePool  *localAutoreleasePool = nil;
-  
-  NSUInteger  i;
-  
-  while (YES) {
-    // Declared here, to not needlessly put them on the recursive stack.
-    ItemCount  actualCount = 0;
-    OSStatus  result = FSGetCatalogInfoBulk( iterator,
-                                             BULK_CATALOG_REQUEST_SIZE, 
-                                             &actualCount, NULL,
-                                             CATALOG_INFO_BITMAP,
-                                             catalogInfoArray,
-                                             fileRefArray, NULL,
-                                             namesArray );
-                                   
-    if (result != noErr && result != errFSNoMoreItems) {
-      if (result == afpAccessDenied) {
-        NSAssert([dirs count] == 0 && [files count] == 0, 
-                 @"Partial access denied?");
-        [progressTracker skippedFolder: dirItem];
-        // Note: In the progressInfo for TreeBuilder the skipped folders are
-        // also counted as processed. In a way this is the case, so no need to
-        // change this, at least not for now.
-      }
-      else {
-        NSLog(@"Failed to get bulk catalog info for '%@': %d", path, (int)result);
-      }
-      break;
-    }
-    
-    if ( localAutoreleasePool == nil && actualCount > 16) {
-      localAutoreleasePool = [[NSAutoreleasePool alloc] init];
-    }
-      
-    for (i = 0; i < actualCount; i++) {
-      FSCatalogInfo  *catalogInfo = &catalogInfoArray[i];
-      FSRef  *childRef = &fileRefArray[i];
-      HFSUniStr255  *name = &namesArray[i];
-
-      // Allocate the string in the same zone as the rest of the tree.
-      // BUG: This does not seem to work. The string always ends up in the 
-      // default zone. which largely defeats the purpose of using zones for
-      // performance reasons. I do not know of a good workaround. It is for
-      // example not easy to instead allocate a CFString in the given zone
-      // either. Subclassing NSString so that the instance and its backing
-      // store are in the right zone probably works, but seems a hassle and may
-      // inadvertently harm performance if not done carefully.
-      NSString  *childName = 
-        [[NSString allocWithZone: [dirItem zone]] 
-            initWithCharacters: (unichar *) &(name->unicode)
-              length: name->length];
-      
-      // The "system path" path to the child item. It may not be needed, so it
-      // is created lazily.
-      NSString  *systemPath = nil; 
-
-      if ([self includeItemForFileRef: childRef catalogInfo: catalogInfo 
-                  systemPath: &systemPath]) {
-        // Include this item
-        
-        UInt8  flags = 0;
-        
-        if (catalogInfo->nodeFlags & kFSNodeHardLinkMask) {
-          flags |= FILE_IS_HARDLINKED;
-        }
-      
-        CFAbsoluteTime  creationTime;
-        CFAbsoluteTime  modificationTime;
-        CFAbsoluteTime  accessTime;
-        UCConvertUTCDateTimeToCFAbsoluteTime(&(catalogInfo->createDate), &creationTime);
-        UCConvertUTCDateTimeToCFAbsoluteTime(&(catalogInfo->contentModDate), &modificationTime);
-        UCConvertUTCDateTimeToCFAbsoluteTime(&(catalogInfo->accessDate), &accessTime);
-
-
-        if (catalogInfo->nodeFlags & kFSNodeIsDirectoryMask) {
-          // A directory node.
-          
-          // Check if it is a package.
-          if (systemPath == nil) {
-            // Lazily create the system path to the child item
-            systemPath = [self systemPathStringForFileRef: childRef];
-          }
-          if (systemPath != CouldNotEstablishSystemPath) {
-            if ([[NSWorkspace sharedWorkspace] 
-                    isFilePackageAtPath: systemPath]) {
-              flags |= FILE_IS_PACKAGE;
-            }
-          }
-          else {
-            NSLog(@"Assuming directory w/o a system path is not a package.");
-          }
-
-          DirectoryItem  *dirChildItem = 
-            [[DirectoryItem allocWithZone: [dirItem zone]] 
-                   initWithName: childName 
-                         parent: dirItem
-                          flags: flags
-                   creationTime: creationTime 
-               modificationTime: modificationTime
-                     accessTime: accessTime];
-          
-          // Only add directories that should be scanned (this does not
-          // necessarily mean that it has passed the filter test already) 
-          if ( [treeGuide shouldDescendIntoDirectory: dirChildItem] ) {
-            TmpDirInfo  *tmpDirInfo = 
-              [[TmpDirInfo alloc] initWithDirectoryItem: dirChildItem
-                                    fileRef: childRef 
-                                    creationDate: catalogInfo->createDate];
-
-            [dirs addObject: tmpDirInfo];
-            [tmpDirInfo release];
-          }
-          
-          [dirChildItem release];
-        }
-        else {
-          // A file node.
-            
-          ITEM_SIZE  childSize = fileSizeMeasureFunction(catalogInfo);
-            
-          UniformType  *fileType = 
-            [typeInventory uniformTypeForExtension: [childName pathExtension]];
-      
-          PlainFileItem  *fileChildItem =
-            [[PlainFileItem allocWithZone: [dirItem zone]] 
-                initWithName: childName 
-                      parent: dirItem 
-                        size: childSize 
-                        type: fileType
-                       flags: flags 
-                creationTime: creationTime 
-            modificationTime: modificationTime
-                  accessTime: accessTime];
-
-          // Only add file items that pass the filter test.
-          if ( [treeGuide includeFileItem: fileChildItem] ) {
-            [files addObject: fileChildItem];
-          }
-          
-          [fileChildItem release];
-        }
-      }
-      
-      if (systemPath == CouldNotEstablishSystemPath) {
-        NSLog(@"Failed to establish system path for %@/%@.", 
-                  [dirItem path], childName);
-      }
-      
-      [childName release];
-    }
-    
-    if (result == errFSNoMoreItems) {
-      break;
-    }
-  }
-  
-  [progressTracker setNumSubFolders: [dirs count]];
-
-  // Sort the child directories by creation date, so that the oldest 
-  // directories are scanned first. This affects the folder in which a 
-  // hard-linked item will appear. This scanning order is particularly useful 
-  // when a whole TimeMachine backup collection is scanned, as a file will be
-  // shown in the earliest backup where it appeared. More generally though, the 
-  // benefit is that the scanning order becomes deterministic.
-  [dirs sortUsingSelector: @selector(compareByCreationDate:)];
-
-  for (i = [dirs count]; i-- > 0; ) {
-    TmpDirInfo  *tmpDirInfo = [dirs objectAtIndex: i];
-    DirectoryItem  *dirChildItem = [tmpDirInfo directoryItem];
-
-    if (!abort) {
-      [self buildTreeForDirectory: dirChildItem
-              fileRef: &( tmpDirInfo->ref )
-              parentPath: path];
-    }
-
-    if ( [treeGuide includeFileItem: dirChildItem] ) {
-      // The directory passed the test. So include it.
-      
-      // Temporarily boost retain count to ensure that the implicit release of
-      // the tmpDirInfo object does not trigger deallocation of dirChildItem.
-      [dirChildItem retain];
-      
-      // Replace the tmpDirInfo object with the actual DirectoryItem object.
-      [dirs replaceObjectAtIndex: i withObject: dirChildItem];
-
-      [dirChildItem release];
-    }
-    else {
-      // The directory did not pass the test, so exclude it.
-      [dirs removeObjectAtIndex: i];
-    }
-  }
-  
-  [dirItem setDirectoryContents: 
-    [CompoundItem 
-       compoundItemWithFirst: [treeBalancer createTreeForItems: files] 
-                      second: [treeBalancer createTreeForItems: dirs]]];
-
-  [files release];
-  [dirs release];
-
-  [localAutoreleasePool release];
-  
-  [treeGuide emergedFromDirectory: dirItem];
-  [progressTracker processedFolder: dirItem];
-  
-  FSCloseIterator(iterator);
-  
-  return !abort;
 }
 
-
-/* Returns YES if the item should be included in the tree.
- *
- * The system path may optionally be provided (if already known). Also, 
- * a side effect of this method may be that the system path is set. This, 
- * however, is optional. It may still be nil.
- */
-- (BOOL) includeItemForFileRef: (FSRef *)fileRef
-           catalogInfo: (FSCatalogInfo *)catalogInfo
-           systemPath: (NSString **)systemPath {
-           
-  if (catalogInfo->nodeFlags & kFSNodeHardLinkMask) {
-    // The item is hard-linked (i.e. it appears more than once on this volume).
+- (TmpDirInfo *) unwindStackToURL: (NSURL *)url {
+  TmpDirInfo  *topDir = (TmpDirInfo *)[dirStack objectAtIndex: dirStackTopIndex];
+  while (! [topDir->url isEqual: url]) {
+    // Pop directory from stack. Its contents have been fully scanned so finalize its contents.
+    [topDir filterSubDirectories: treeGuide];
     
-    if (*systemPath == nil) {
-      // Lazily create the system path
-      *systemPath = [self systemPathStringForFileRef: fileRef]; 
-    }
-    if (*systemPath == CouldNotEstablishSystemPath) {
-      NSLog(@"Excluding hard-linked file item w/o a system path.");
-      return NO;
-    }
+    DirectoryItem  *dirItem = topDir->dirItem;
     
-    NSFileManager  *fileManager = [NSFileManager defaultManager];
-    NSError  *error = nil;
-    NSDictionary  *fileAttributes = 
-      [fileManager attributesOfItemAtPath: *systemPath error: &error];
-    NSAssert2(
-      error==nil, @"Error getting attributes for %@: %@", 
-      *systemPath, [error description]
-    );
-    NSNumber  *fileNumber = 
-      [fileAttributes objectForKey: NSFileSystemFileNumber];
+    [dirItem setDirectoryContents:
+      [CompoundItem compoundItemWithFirst: [treeBalancer createTreeForItems: topDir->files]
+                                   second: [treeBalancer createTreeForItems: topDir->dirs]]];
 
-    if (fileNumber == nil) {
-      // Workaround for bug #2243134
-      NSLog(@"Failed to get file number for the hard-linked file: %@\n Cannot establish if the file has been included already, but including it anyway (possibly overestimating the amount of used disk space).", 
-              *systemPath);
-      return YES; 
-    }
-            
-    if ([hardLinkedFileNumbers containsObject: fileNumber]) {
-      // The item has already been encountered. So ignore it this
-      // time so that it is not counted more than once.
+    [treeGuide emergedFromDirectory: dirItem];
+    [progressTracker processedFolder: dirItem];
 
-      return NO;
-    }
-    else {
-      [hardLinkedFileNumbers addObject: fileNumber];
-    }
+    topDir = (TmpDirInfo *)[dirStack objectAtIndex: --dirStackTopIndex];
   }
 
+  return topDir;
+}
+
+- (BOOL) visitItemAtURL: (NSURL *)url parent: (TmpDirInfo *)parent {
+  UInt8  flags = 0;
+
+  if ([url isHardLinked]) {
+    flags |= FILE_IS_HARDLINKED;
+
+    if (![self visitHardLinkedItemAtURL: url]) {
+      return NO;
+    }
+  }
+  
+  NSString  *name = [url lastPathComponent];
+  
+  BOOL visitDescendants = YES;
+  
+  if ([url isDirectory]) {
+    if ([url isPackage]) {
+      flags |= FILE_IS_PACKAGE;
+    }
+    
+    DirectoryItem  *dirChildItem =
+    [[DirectoryItem allocWithZone: [parent zone]] initWithName: name
+                                                        parent: parent->dirItem
+                                                         flags: flags
+                                                  creationTime: [url creationTime]
+                                              modificationTime: [url modificationTime]
+                                                    accessTime: [url accessTime]];
+
+    // Only add directories that should be scanned (this does not necessarily mean that it has
+    // passed the filter test already)
+    if ( [treeGuide shouldDescendIntoDirectory: dirChildItem] ) {
+      [parent->dirs addObject: dirChildItem];
+      [self addToStack: dirChildItem URL: url];
+    } else {
+      visitDescendants = NO;
+    }
+
+    [dirChildItem release];
+  }
+  else { // A file node.
+    NSNumber  *fileSize;
+    [url getResourceValue: &fileSize forKey: fileSizeMeasureKey error: nil];
+
+    UniformType  *fileType = [typeInventory uniformTypeForExtension: [name pathExtension]];
+
+    PlainFileItem  *fileChildItem =
+    [[PlainFileItem allocWithZone: [parent zone]] initWithName: name
+                                                        parent: parent->dirItem
+                                                          size: [fileSize unsignedLongLongValue]
+                                                          type: fileType
+                                                         flags: flags
+                                                  creationTime: [url creationTime]
+                                              modificationTime: [url modificationTime]
+                                                    accessTime: [url accessTime]];
+
+    // Only add file items that pass the filter test.
+    if ( [treeGuide includeFileItem: fileChildItem] ) {
+      [parent->files addObject: fileChildItem];
+    }
+
+    [fileChildItem release];
+  }
+
+  return visitDescendants;
+}
+
+- (BOOL) buildTreeForDirectory: (DirectoryItem *)dirItem
+                        atPath: (NSString *)path {
+  NSURL  *url = [NSURL fileURLWithPath: path];
+  
+  dirStackTopIndex = -1;
+  [self addToStack: dirItem URL: url];
+
+  NSDirectoryEnumerator  *directoryEnumerator =
+    [[NSFileManager defaultManager] enumeratorAtURL: url
+                         includingPropertiesForKeys: @[
+                                                       NSURLNameKey,
+                                                       NSURLIsDirectoryKey,
+                                                       NSURLParentDirectoryURLKey,
+                                                       NSURLCreationDateKey,
+                                                       NSURLContentModificationDateKey,
+                                                       NSURLContentAccessDateKey,
+                                                       NSURLLinkCountKey,
+                                                       NSURLIsPackageKey
+                                                      ]
+                                            options: 0
+                                       errorHandler: nil];
+  
+  for (NSURL *fileURL in directoryEnumerator) {
+    NSURL  *parentURL = nil;
+    [fileURL getResourceValue:&parentURL forKey:NSURLParentDirectoryURLKey error:nil];
+
+    TmpDirInfo  *parent = [self unwindStackToURL: parentURL];
+
+    if (![self visitItemAtURL: fileURL parent: parent]) {
+      [directoryEnumerator skipDescendants];
+    }
+
+    if (abort) {
+      return NO;
+    }
+  }
+  
   return YES;
 }
 
 
-/* Gets the flags (as used by FileItem) for the given file.
+/* Returns YES if item should be included in the tree. It returns NO when the item is hard-linked
+ * and has already been encountered.
  */
-- (UInt8) flagsForFileRef: (FSRef *)fileRef {
-  UInt8  flags = 0;
-  
-  // It's physical per definition (otherwise it would not have an FSRef).
+- (BOOL) visitHardLinkedItemAtURL: (NSURL *)url {
+  NSError  *error;
+  NSFileManager  *fileManager = [NSFileManager defaultManager];
+  NSDictionary  *fileAttributes = [fileManager attributesOfItemAtPath: [url path] error: &error];
+  NSAssert2(
+    error==nil, @"Error getting attributes for %@: %@",
+    url, [error description]
+  );
+  NSNumber  *fileNumber = [fileAttributes objectForKey: NSFileSystemFileNumber];
 
-  // Is it hard-linked? 
-  FSCatalogInfo  *catalogInfo = catalogInfoArray; // Use first entry in array
-  FSGetCatalogInfo(fileRef, kFSCatInfoNodeFlags, catalogInfo, NULL, NULL, NULL);
-  if (catalogInfo->nodeFlags & kFSNodeHardLinkMask) {
-    flags |= FILE_IS_HARDLINKED;
+  if (fileNumber == nil) {
+    // Workaround for bug #2243134
+    NSLog(
+      @"Failed to get file number for the hard-linked file: %@\nCannot establish if the file has been included already, but including it anyway (possibly overestimating the amount of used disk space).",
+      [url path]
+    );
+    return YES;
   }
-  
-  // Is it a package?
-  NSString  *systemPath = [self systemPathStringForFileRef: fileRef];
-  if (systemPath != CouldNotEstablishSystemPath) {
-    if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath: systemPath]) {
-      flags |= FILE_IS_PACKAGE;
-    }
-  }
-  
-  return flags;
-}
 
+  if ([hardLinkedFileNumbers containsObject: fileNumber]) {
+    // The item has already been encountered. Ignore it now so that it is not counted more than
+    // once.
 
-/* Gets the "system path" to the file associated with the given FSRef.
- *
- * The system path differs from the "display path" created by recursively using
- * -stringByAppendingPathComponent. In the latter, for example, slashes can
- * be used in individual path components (e.g. files can be named 
- * mydata-05/05/2008.doc), which is also how the files are shown in Finder.
- * In system paths, however, slashes are converted to colons, which is needed 
- * to actually get to the files given the path. The method
- * -fileAttributesAtPath:traverseLink: requires a system path for example.
- */
-- (NSString *) systemPathStringForFileRef: (FSRef *)fileRef {
-  if (pathBuffer == NULL) {
-    // Allocate initial buffer
+    return NO;
+  }
 
-    pathBufferLen = 128; // Initial size
-    pathBuffer = malloc(sizeof(UInt8) * pathBufferLen);
-    NSAssert(pathBuffer != NULL, @"Malloc failed.");
-  }
-  
-  while (YES) {
-    OSStatus  status = FSRefMakePath(fileRef, pathBuffer, pathBufferLen);
-    
-    if (status == 0) {
-      // All okay.
-      return [NSString stringWithUTF8String: (const char*)pathBuffer];
-    }
-    else if (status == -2110) {
-      // Buffer too short. Replace buffer by larger one.
-      free(pathBuffer);
-      
-      pathBufferLen *= 2;
-      pathBuffer = malloc(sizeof(UInt8) * pathBufferLen);
-      NSAssert(pathBuffer != NULL, @"Malloc failed.");
-    }
-    else {
-      // Failed to create path.
-      NSLog(@"FSRefMakePath failed (code=%d)", (int)status);
-      return CouldNotEstablishSystemPath; 
-    }
-  }
+  [hardLinkedFileNumbers addObject: fileNumber];
+  return YES;
 }
 
 @end // @implementation TreeBuilder (PrivateMethods)

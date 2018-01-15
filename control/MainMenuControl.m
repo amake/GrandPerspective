@@ -47,6 +47,7 @@
 #import "UniformTypeRanking.h"
 #import "UniformTypeInventory.h"
 
+#import "NSURL.h"
 
 NSString  *RescanClosesOldWindow = @"close old window";
 NSString  *RescanKeepsOldWindow = @"keep old window";
@@ -376,7 +377,8 @@ static MainMenuControl  *singletonInstance = nil;
     return;
   }
   
-  if (! [TreeBuilder pathIsDirectory: path]) {
+  NSURL  *url = [NSURL fileURLWithPath: path];
+  if (! [url isDirectory]) {
     *error = NSLocalizedString( @"Expected a folder.",
                                 @"Error message" );
     NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?

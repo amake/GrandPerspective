@@ -24,7 +24,7 @@ extern NSString  *PhysicalFileSize;
   FilterSet  *filterSet;
 
   NSString  *fileSizeMeasure;
-  ITEM_SIZE  (*fileSizeMeasureFunction) (FSCatalogInfo *);
+  NSURLResourceKey  fileSizeMeasureKey;
   
   BOOL  abort;
   FilteredTreeGuide  *treeGuide;
@@ -38,22 +38,15 @@ extern NSString  *PhysicalFileSize;
   
   ScanProgressTracker  *progressTracker;
   
-  // Temporary buffer for constructing path names
-  UInt8  *pathBuffer;
-  int  pathBufferLen;
-  
-  // Temporary buffers for getting bulk catalog data
-  void  *bulkCatalogInfo;
-  FSCatalogInfo  *catalogInfoArray;
-  FSRef  *fileRefArray;
-  HFSUniStr255   *namesArray;
+  NSMutableArray  *dirStack;
+  // The index of the top element on the stack. It is not necessarly the last object in the array,
+  // as items on the stack are never popped but kept for re-use.
+  int  dirStackTopIndex;
   
   BOOL  debugLogEnabled;
 }
 
 + (NSArray *) fileSizeMeasureNames;
-
-+ (BOOL) pathIsDirectory: (NSString *)path;
 
 - (id) init;
 - (id) initWithFilterSet:(FilterSet *)filterSet;
