@@ -3,8 +3,8 @@
 @implementation NSURL (HelperMethods)
 
 - (BOOL) isDirectory {
-  NSError  *error;
-  NSNumber  *isDirectory = nil;
+  NSError  *error = nil;
+  NSNumber  *isDirectory;
   
   [self getResourceValue: &isDirectory forKey: NSURLIsDirectoryKey error: &error];
   if (error != nil) {
@@ -16,8 +16,8 @@
 }
 
 - (BOOL) isPackage {
-  NSError  *error;
-  NSNumber  *isPackage = nil;
+  NSError  *error = nil;
+  NSNumber  *isPackage;
   
   [self getResourceValue: &isPackage forKey: NSURLIsPackageKey error: &error];
   if (error != nil) {
@@ -30,7 +30,7 @@
 
 - (BOOL) isHardLinked {
   NSNumber  *linkCount;
-  NSError  *error;
+  NSError  *error = nil;
   
   [self getResourceValue: &linkCount forKey: NSURLLinkCountKey error: &error];
   if (error != nil) {
@@ -43,7 +43,7 @@
 
 - (CFAbsoluteTime) creationTime {
   NSDate  *creationTime;
-  NSError  *error;
+  NSError  *error = nil;
   
   [self getResourceValue: &creationTime forKey:NSURLCreationDateKey error: &error];
   if (error != nil) {
@@ -56,7 +56,7 @@
 
 - (CFAbsoluteTime) modificationTime {
   NSDate  *modificationTime;
-  NSError  *error;
+  NSError  *error = nil;
   
   [self getResourceValue: &modificationTime forKey:NSURLContentModificationDateKey error: &error];
   if (error != nil) {
@@ -69,7 +69,7 @@
 
 - (CFAbsoluteTime) accessTime {
   NSDate  *accessTime;
-  NSError  *error;
+  NSError  *error = nil;
   
   [self getResourceValue: &accessTime forKey:NSURLContentAccessDateKey error: &error];
   if (error != nil) {

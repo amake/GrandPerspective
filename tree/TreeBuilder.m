@@ -27,9 +27,7 @@ NSString  *PhysicalFileSize = @"physical";
 @public
   DirectoryItem  *dirItem;
 
-  // Contains either TmpDirInfo or DirectoryItem instances
-  NSMutableArray  *dirs;
-
+  NSMutableArray<DirectoryItem *>  *dirs;
   NSMutableArray<PlainFileItem *>  *files;
 
   NSURL  *url;
@@ -125,8 +123,7 @@ NSString  *PhysicalFileSize = @"physical";
 
 - (void) filterSubDirectories: (FilteredTreeGuide *)treeGuide {
   for (NSUInteger i = [dirs count]; i-- > 0; ) {
-    TmpDirInfo  *tmpDirInfo = [dirs objectAtIndex: i];
-    DirectoryItem  *dirChildItem = [tmpDirInfo directoryItem];
+    DirectoryItem  *dirChildItem = [dirs objectAtIndex: i];
 
     if ( [treeGuide includeFileItem: dirChildItem] ) {
       // The directory passed the test. So include it.
@@ -353,7 +350,7 @@ NSString  *PhysicalFileSize = @"physical";
 
 - (void) addToStack: (DirectoryItem *)dirItem URL: (NSURL *)url {
   // Expand stack if required
-  if (dirStackTopIndex <= [dirStack count]) {
+  if (dirStackTopIndex <= (int)[dirStack count]) {
     [dirStack addObject: [[[TmpDirInfo alloc] init] autorelease]];
   }
   
@@ -361,7 +358,7 @@ NSString  *PhysicalFileSize = @"physical";
   [[dirStack objectAtIndex: ++dirStackTopIndex] initWithDirectoryItem: dirItem URL: url];
   
   [treeGuide descendIntoDirectory: dirItem];
-  [progressTracker processingFolder: dirItem];
+  //[progressTracker processingFolder: dirItem];
 }
 
 - (TmpDirInfo *) unwindStackToURL: (NSURL *)url {
@@ -377,7 +374,11 @@ NSString  *PhysicalFileSize = @"physical";
                                    second: [treeBalancer createTreeForItems: topDir->dirs]]];
 
     [treeGuide emergedFromDirectory: dirItem];
-    [progressTracker processedFolder: dirItem];
+    //[progressTracker processedFolder: dirItem];
+
+    if (dirStackTopIndex == 0) {
+      return nil;
+    }
 
     topDir = (TmpDirInfo *)[dirStack objectAtIndex: --dirStackTopIndex];
   }
@@ -487,6 +488,7 @@ NSString  *PhysicalFileSize = @"physical";
       return NO;
     }
   }
+  [self unwindStackToURL: nil]; // Force full unwind
   
   return YES;
 }
@@ -496,7 +498,7 @@ NSString  *PhysicalFileSize = @"physical";
  * and has already been encountered.
  */
 - (BOOL) visitHardLinkedItemAtURL: (NSURL *)url {
-  NSError  *error;
+  NSError  *error = nil;
   NSFileManager  *fileManager = [NSFileManager defaultManager];
   NSDictionary  *fileAttributes = [fileManager attributesOfItemAtPath: [url path] error: &error];
   NSAssert2(
