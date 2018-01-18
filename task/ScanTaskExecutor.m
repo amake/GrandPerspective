@@ -45,9 +45,11 @@
     [treeBuilder buildTreeForPath: [myInput pathToScan]];
   
   if (scanResult != nil) {
-    NSLog(@"Done scanning: %lu folders scanned (containing %lu files) in %.2fs.",
-            [treeBuilder numFoldersScanned],
-            [treeBuilder numFilesScanned],
+    NSLog(@"Done scanning: %d folders scanned (%d skipped) in %.2fs.",
+            [[[self progressInfo] 
+                 objectForKey: NumFoldersProcessedKey] intValue],
+            [[[self progressInfo] 
+                 objectForKey: NumFoldersSkippedKey] intValue],
             -[startTime timeIntervalSinceNow]);
   }
   else {

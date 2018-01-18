@@ -44,9 +44,6 @@ extern NSString  *PhysicalFileSize;
   int  dirStackTopIndex;
   
   BOOL  debugLogEnabled;
-
-  unsigned long  numFilesScanned;
-  unsigned long  numFoldersScanned;
 }
 
 + (NSArray *) fileSizeMeasureNames;
@@ -73,8 +70,5 @@ extern NSString  *PhysicalFileSize;
  * -buildTreeForPath: (and not doing so would actually be quite silly).
  */
 - (NSDictionary *) progressInfo;
-
-- (unsigned long) numFoldersScanned;
-- (unsigned long) numFilesScanned;
 
 @end
