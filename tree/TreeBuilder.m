@@ -382,20 +382,23 @@ NSString  *PhysicalFileSize = @"physical";
 
 - (BOOL) visitItemAtURL: (NSURL *)url parent: (ScanStackFrame *)parent {
   UInt8  flags = 0;
+  BOOL  visitDescendants = YES;
+  BOOL  isDirectory = [url isDirectory];
 
   if ([url isHardLinked]) {
     flags |= FILE_IS_HARDLINKED;
 
     if (![self visitHardLinkedItemAtURL: url]) {
-      return NO;
+      // Do not visit descendants if the item was a directory
+      visitDescendants = !isDirectory;
+
+      return visitDescendants;
     }
   }
   
   NSString  *name = [url lastPathComponent];
-  
-  BOOL visitDescendants = YES;
-  
-  if ([url isDirectory]) {
+
+  if (isDirectory) {
     if ([url isPackage]) {
       flags |= FILE_IS_PACKAGE;
     }
