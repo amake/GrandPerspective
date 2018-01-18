@@ -289,6 +289,8 @@ NSString  *PhysicalFileSize = @"physical";
       ] autorelease];
 
   [progressTracker startingTask];
+  numFoldersScanned = 0;
+  numFilesScanned = 0;
 
   BOOL  ok = [self buildTreeForDirectory: scanTree atPath: path];
 
@@ -306,6 +308,14 @@ NSString  *PhysicalFileSize = @"physical";
 
 - (NSDictionary *) progressInfo {
   return [progressTracker progressInfo];
+}
+
+- (unsigned long) numFoldersScanned {
+  return numFoldersScanned;
+}
+
+- (unsigned long) numFilesScanned {
+  return numFilesScanned;
 }
 
 @end // @implementation TreeBuilder
@@ -375,6 +385,7 @@ NSString  *PhysicalFileSize = @"physical";
 
     [treeGuide emergedFromDirectory: dirItem];
     //[progressTracker processedFolder: dirItem];
+    numFoldersScanned++;
 
     if (dirStackTopIndex == 0) {
       return nil;
@@ -444,6 +455,11 @@ NSString  *PhysicalFileSize = @"physical";
     // Only add file items that pass the filter test.
     if ( [treeGuide includeFileItem: fileChildItem] ) {
       [parent->files addObject: fileChildItem];
+
+      // Only count file as scanned if it should be included. This is a fairly arbitrary choice, as
+      // actual properties of the file have already been retrieved, but this corresponds to how
+      // folders are counted.
+      numFilesScanned++;
     }
 
     [fileChildItem release];
