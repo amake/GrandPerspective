@@ -18,25 +18,24 @@
 NSString  *LogicalFileSize = @"logical";
 NSString  *PhysicalFileSize = @"physical";
 
-/* Helper class that is used to temporarily store additional info for child
- * directories. It stores the info that is not maintained by the DirectoryItem
- * class yet is needed while the child directory contents have not yet been
- * scanned.
+/* Helper class that is used to temporarily store additional info for directories that are being
+ * scanned. It stores the info that is not maintained by the DirectoryItem class yet is needed
+ * while its contents are still being scanned.
  */
-@interface TmpDirInfo : NSObject {
+@interface ScanStackFrame : NSObject {
 @public
   DirectoryItem  *dirItem;
 
+  // The url for the directory file item
+  NSURL  *url;
+
+  // Arrays containing the immediate children
   NSMutableArray<DirectoryItem *>  *dirs;
   NSMutableArray<PlainFileItem *>  *files;
-
-  NSURL  *url;
 }
 
 - (void) initWithDirectoryItem: (DirectoryItem *)dirItemVal
                            URL: (NSURL *)urlVal;
-
-- (DirectoryItem *) directoryItem;
 
 /* Remove any sub-directories that should not be included according to the treeGuide. This
  * filtering needs to be done after all items inside this directory have been scanned, as the
@@ -44,16 +43,14 @@ NSString  *PhysicalFileSize = @"physical";
  */
 - (void) filterSubDirectories: (FilteredTreeGuide *)treeGuide;
 
-- (NSComparisonResult) compareByCreationDate: (TmpDirInfo *)other;
-
-@end // @interface TmpDirInfo
+@end // @interface ScanStackFrame
 
 
 @interface TreeBuilder (PrivateMethods)
 
 - (TreeContext *) treeContextForVolumeContaining: (NSString *)path;
 - (void) addToStack: (DirectoryItem *)dirItem URL: (NSURL *)url;
-- (TmpDirInfo *) unwindStackToURL: (NSURL *)url;
+- (ScanStackFrame *) unwindStackToURL: (NSURL *)url;
 
 - (BOOL) buildTreeForDirectory: (DirectoryItem *)dirItem atPath: (NSString *)path;
 
@@ -62,7 +59,7 @@ NSString  *PhysicalFileSize = @"physical";
 @end // @interface TreeBuilder (PrivateMethods)
 
 
-@implementation TmpDirInfo
+@implementation ScanStackFrame
 
 // Overrides super's designated initialiser.
 - (id) init {
@@ -105,22 +102,6 @@ NSString  *PhysicalFileSize = @"physical";
   return dirItem;
 }
 
-/* Note: The ordering is from most recent to the oldest. This is done so that
- * iteration starts with the oldest item when starting from the back of the
- * array.
- */
-- (NSComparisonResult) compareByCreationDate: (TmpDirInfo *)other {
-  if ([dirItem creationTime] == [other->dirItem creationTime]) {
-    return NSOrderedSame;
-  } else {
-    return (
-            [dirItem creationTime] < [other->dirItem creationTime]
-            ? NSOrderedDescending
-            : NSOrderedAscending
-    );
-  }
-}
-
 - (void) filterSubDirectories: (FilteredTreeGuide *)treeGuide {
   for (NSUInteger i = [dirs count]; i-- > 0; ) {
     DirectoryItem  *dirChildItem = [dirs objectAtIndex: i];
@@ -129,10 +110,10 @@ NSString  *PhysicalFileSize = @"physical";
       // The directory passed the test. So include it.
 
       // Temporarily boost retain count to ensure that the implicit release of
-      // the tmpDirInfo object does not trigger deallocation of dirChildItem.
+      // the ScanStackFrame object does not trigger deallocation of dirChildItem.
       [dirChildItem retain];
 
-      // Replace the tmpDirInfo object with the actual DirectoryItem object.
+      // Replace the ScanStackFrame object with the actual DirectoryItem object.
       [dirs replaceObjectAtIndex: i withObject: dirChildItem];
 
       [dirChildItem release];
@@ -144,7 +125,7 @@ NSString  *PhysicalFileSize = @"physical";
   }
 }
 
-@end // @implementation TmpDirInfo
+@end // @implementation ScanStackFrame
 
 
 @implementation TreeBuilder
@@ -361,7 +342,7 @@ NSString  *PhysicalFileSize = @"physical";
 - (void) addToStack: (DirectoryItem *)dirItem URL: (NSURL *)url {
   // Expand stack if required
   if (dirStackTopIndex <= (int)[dirStack count]) {
-    [dirStack addObject: [[[TmpDirInfo alloc] init] autorelease]];
+    [dirStack addObject: [[[ScanStackFrame alloc] init] autorelease]];
   }
   
   // Add the item to the stack. Overwriting the previous entry.
@@ -371,8 +352,8 @@ NSString  *PhysicalFileSize = @"physical";
   //[progressTracker processingFolder: dirItem];
 }
 
-- (TmpDirInfo *) unwindStackToURL: (NSURL *)url {
-  TmpDirInfo  *topDir = (TmpDirInfo *)[dirStack objectAtIndex: dirStackTopIndex];
+- (ScanStackFrame *) unwindStackToURL: (NSURL *)url {
+  ScanStackFrame  *topDir = (ScanStackFrame *)[dirStack objectAtIndex: dirStackTopIndex];
   while (! [topDir->url isEqual: url]) {
     // Pop directory from stack. Its contents have been fully scanned so finalize its contents.
     [topDir filterSubDirectories: treeGuide];
@@ -391,13 +372,13 @@ NSString  *PhysicalFileSize = @"physical";
       return nil;
     }
 
-    topDir = (TmpDirInfo *)[dirStack objectAtIndex: --dirStackTopIndex];
+    topDir = (ScanStackFrame *)[dirStack objectAtIndex: --dirStackTopIndex];
   }
 
   return topDir;
 }
 
-- (BOOL) visitItemAtURL: (NSURL *)url parent: (TmpDirInfo *)parent {
+- (BOOL) visitItemAtURL: (NSURL *)url parent: (ScanStackFrame *)parent {
   UInt8  flags = 0;
 
   if ([url isHardLinked]) {
@@ -494,7 +475,7 @@ NSString  *PhysicalFileSize = @"physical";
     NSURL  *parentURL = nil;
     [fileURL getResourceValue:&parentURL forKey:NSURLParentDirectoryURLKey error:nil];
 
-    TmpDirInfo  *parent = [self unwindStackToURL: parentURL];
+    ScanStackFrame  *parent = [self unwindStackToURL: parentURL];
 
     if (![self visitItemAtURL: fileURL parent: parent]) {
       [directoryEnumerator skipDescendants];
