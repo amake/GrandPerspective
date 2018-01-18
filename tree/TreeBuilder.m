@@ -18,6 +18,11 @@
 NSString  *LogicalFileSize = @"logical";
 NSString  *PhysicalFileSize = @"physical";
 
+/* Use smaller bounds given the extra scan cost needed to determine the number of directories
+ * at each level used for tracking progress.
+ */
+#define  NUM_SCAN_PROGRESS_ESTIMATE_LEVELS MIN(6, NUM_PROGRESS_ESTIMATE_LEVELS)
+
 /* Helper class that is used to temporarily store additional info for directories that are being
  * scanned. It stores the info that is not maintained by the DirectoryItem class yet is needed
  * while its contents are still being scanned.
@@ -55,6 +60,8 @@ NSString  *PhysicalFileSize = @"physical";
 - (BOOL) buildTreeForDirectory: (DirectoryItem *)dirItem atPath: (NSString *)path;
 
 - (BOOL) visitHardLinkedItemAtURL: (NSURL *)url;
+
+- (int) determineNumSubFoldersFor: (NSURL *)url;
 
 @end // @interface TreeBuilder (PrivateMethods)
 
@@ -162,7 +169,8 @@ NSString  *PhysicalFileSize = @"physical";
     hardLinkedFileNumbers = [[NSMutableSet alloc] initWithCapacity: 32];
     abort = NO;
     
-    progressTracker = [[ScanProgressTracker alloc] init];
+    progressTracker =
+      [[ScanProgressTracker alloc] initWithMaxLevel: NUM_SCAN_PROGRESS_ESTIMATE_LEVELS];
     
     dirStack = [[NSMutableArray alloc] initWithCapacity: 16];
     
@@ -351,7 +359,10 @@ NSString  *PhysicalFileSize = @"physical";
   [[dirStack objectAtIndex: ++dirStackTopIndex] initWithDirectoryItem: dirItem URL: url];
   
   [treeGuide descendIntoDirectory: dirItem];
-  //[progressTracker processingFolder: dirItem];
+  [progressTracker processingFolder: dirItem];
+  if (dirStackTopIndex < NUM_SCAN_PROGRESS_ESTIMATE_LEVELS) {
+    [progressTracker setNumSubFolders: [self determineNumSubFoldersFor: url]];
+  }
 }
 
 - (ScanStackFrame *) unwindStackToURL: (NSURL *)url {
@@ -367,7 +378,7 @@ NSString  *PhysicalFileSize = @"physical";
                                    second: [treeBalancer createTreeForItems: topDir->dirs]]];
 
     [treeGuide emergedFromDirectory: dirItem];
-    //[progressTracker processedFolder: dirItem];
+    [progressTracker processedFolder: dirItem];
     numFoldersScanned++;
 
     if (dirStackTopIndex == 0) {
@@ -524,6 +535,22 @@ NSString  *PhysicalFileSize = @"physical";
 
   [hardLinkedFileNumbers addObject: fileNumber];
   return YES;
+}
+
+- (int) determineNumSubFoldersFor: (NSURL *)url {
+  NSDirectoryEnumerator  *directoryEnumerator =
+  [[NSFileManager defaultManager] enumeratorAtURL: url
+                       includingPropertiesForKeys: @[NSURLIsDirectoryKey]
+                                          options: NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                     errorHandler: nil];
+  int  numSubDirs = 0;
+  for (NSURL *fileURL in directoryEnumerator) {
+    if ([fileURL isDirectory]) {
+      numSubDirs++;
+    }
+  }
+
+  return numSubDirs;
 }
 
 @end // @implementation TreeBuilder (PrivateMethods)

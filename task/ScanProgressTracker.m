@@ -8,10 +8,33 @@
 
 @implementation ScanProgressTracker
 
+// Override super's designated initializer
+- (id) init {
+  return [self initWithMaxLevel: NUM_PROGRESS_ESTIMATE_LEVELS];
+}
+
+// Designated initializer
+- (id) initWithMaxLevel: (int)maxLevelsVal {
+  if (self = [super init]) {
+    maxLevels = maxLevelsVal;
+
+    numSubFolders = (NSUInteger *) malloc(maxLevels * sizeof(NSUInteger));
+    numSubFoldersProcessed = (NSUInteger *) malloc(maxLevels * sizeof(NSUInteger));
+  }
+  return self;
+}
+
+- (void) dealloc {
+  free(numSubFolders);
+  free(numSubFoldersProcessed);
+
+  [super dealloc];
+}
+
 - (void) setNumSubFolders: (NSUInteger)num {
   [mutex lock];
 
-  if (level <= NUM_PROGRESS_ESTIMATE_LEVELS) {
+  if (level <= maxLevels) {
     if (num > 0) {
       numSubFolders[level - 1] = num;
     } else {
@@ -27,7 +50,7 @@
 - (void) _processingFolder: (DirectoryItem *)dirItem {
   [super _processingFolder: dirItem];
 
-  if (level <= NUM_PROGRESS_ESTIMATE_LEVELS) {
+  if (level <= maxLevels) {
     // Set to non-zero until actually set by setNumSubFolders, to simplify
     // calculation by estimatedProgress.
     numSubFolders[level - 1] = 1;
@@ -49,7 +72,7 @@
   float progress = 0;
   float fraction = 100;
   NSUInteger i = 0;
-  NSUInteger max_i = MIN(level, NUM_PROGRESS_ESTIMATE_LEVELS);
+  NSUInteger max_i = MIN(level, maxLevels);
   while (i < max_i) {
     progress += fraction * numSubFoldersProcessed[i] / numSubFolders[i];
     fraction /= numSubFolders[i];
@@ -67,7 +90,7 @@
 @implementation ScanProgressTracker (PrivateMethods)
 
 - (void) processedOrSkippedFolder: (DirectoryItem *)dirItem {
-  if (level > 0 && level <= NUM_PROGRESS_ESTIMATE_LEVELS) {
+  if (level > 0 && level <= maxLevels) {
     numSubFoldersProcessed[level - 1] += 1;
     NSAssert(numSubFoldersProcessed[level - 1] <= numSubFolders[level - 1],
              @"More sub-folders processed than expected.");

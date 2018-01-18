@@ -7,11 +7,15 @@
  */
 @interface ScanProgressTracker : ProgressTracker {
   // The number of sub-folders at each level.
-  NSUInteger  numSubFolders[NUM_PROGRESS_ESTIMATE_LEVELS];
+  NSUInteger  *numSubFolders;
 
   // The number of sub-folders processed sofar at each level.
-  NSUInteger  numSubFoldersProcessed[NUM_PROGRESS_ESTIMATE_LEVELS];
+  NSUInteger  *numSubFoldersProcessed;
+
+  NSUInteger  maxLevels;
 }
+
+- (id) initWithMaxLevel: (int)maxLevels;
 
 /* Called by the scanning task to indicate how many sub-folders the current
  * folder has. It should be called before descending into any of these
