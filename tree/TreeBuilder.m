@@ -64,8 +64,10 @@ NSString  *PhysicalFileSize = @"physical";
 // Overrides super's designated initialiser.
 - (id) init {
   if (self = [super init]) {
-    dirs = [[NSMutableArray alloc] initWithCapacity: INITIAL_DIRS_CAPACITY];
-    files = [[NSMutableArray alloc] initWithCapacity: INITIAL_FILES_CAPACITY];
+    // Multiplying sizes specified in TreeConstants.h. As these arrays are being re-used, it is
+    // better to make them initially larger to avoid unnecessary resizing.
+    dirs = [[NSMutableArray alloc] initWithCapacity: INITIAL_DIRS_CAPACITY * 32];
+    files = [[NSMutableArray alloc] initWithCapacity: INITIAL_FILES_CAPACITY * 32];
   }
   return self;
 }
