@@ -162,7 +162,7 @@
     // descend towards the visible tree. 
   
     if ( [file isDirectory] ) {
-      if ( ![file isPhysical] && [[file name] isEqualToString: UsedSpace] ) {
+      if ( ![file isPhysical] && [[file label] isEqualToString: UsedSpace] ) {
         [self drawBasicFilledRect: rect intColor: usedSpaceColor];
       }
       
@@ -175,7 +175,7 @@
       }
     }
     else {
-      if ( ![file isPhysical] && [[file name] isEqualToString: FreeSpace] ) {
+      if ( ![file isPhysical] && [[file label] isEqualToString: FreeSpace] ) {
         [self drawBasicFilledRect: rect intColor: freeSpaceColor];
       }
       
@@ -215,7 +215,7 @@
     [self drawGradientFilledRect: rect colorIndex: colorIndex];
   }
   else {
-    if ( [[file name] isEqualToString: FreedSpace] ) {
+    if ( [[file label] isEqualToString: FreedSpace] ) {
       [self drawBasicFilledRect: rect intColor: freeSpaceColor];
     }
   }
