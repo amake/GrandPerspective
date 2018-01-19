@@ -73,23 +73,19 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
                 filterSet: (FilterSet *)filterSetVal
                  scanTime: (NSDate *)scanTimeVal {
   if (self = [super init]) {
-    volumeTree = 
-      [[DirectoryItem alloc] 
-            initWithName: volumePath 
-                  parent: nil
-                   flags: 0
-            creationTime: 0 
-        modificationTime: 0
-              accessTime: 0];
+    volumeTree = [[DirectoryItem alloc] initWithLabel: volumePath
+                                               parent: nil
+                                                flags: 0
+                                         creationTime: 0
+                                     modificationTime: 0
+                                           accessTime: 0];
     
-    usedSpaceItem = 
-      [[DirectoryItem alloc] 
-            initWithName: UsedSpace 
-                  parent: volumeTree
-                   flags: FILE_IS_NOT_PHYSICAL
-            creationTime: 0 
-        modificationTime: 0
-              accessTime: 0];
+    usedSpaceItem = [[DirectoryItem alloc] initWithLabel: UsedSpace
+                                                  parent: volumeTree
+                                                   flags: FILE_IS_NOT_PHYSICAL
+                                            creationTime: 0
+                                        modificationTime: 0
+                                              accessTime: 0];
     
     fileSizeMeasure = [fileSizeMeasureVal retain];
     volumeSize = volumeSizeVal;
@@ -185,27 +181,23 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
           [scanTree itemSize], [FileItem stringForFileItemSize: [scanTree itemSize]]);
   }
 
-  FileItem*  freeSpaceItem =
-  [[[FileItem alloc]
-    initWithName: FreeSpace
-    parent: volumeTree
-    size: actualFreeSpace
-    flags: FILE_IS_NOT_PHYSICAL
-    creationTime: 0
-    modificationTime: 0
-    accessTime: 0
-    ] autorelease];
+  FileItem*  freeSpaceItem = [[[FileItem alloc] initWithLabel: FreeSpace
+                                                       parent: volumeTree
+                                                         size: actualFreeSpace
+                                                        flags: FILE_IS_NOT_PHYSICAL
+                                                 creationTime: 0
+                                             modificationTime: 0
+                                                   accessTime: 0
+                               ] autorelease];
 
-  miscUsedSpaceItem =
-    [[[FileItem alloc]
-      initWithName: MiscUsedSpace 
-            parent: usedSpaceItem
-              size: miscUsedSize
-             flags: FILE_IS_NOT_PHYSICAL
-      creationTime: 0
-  modificationTime: 0
-        accessTime: 0
-      ] autorelease];
+  miscUsedSpaceItem = [[[FileItem alloc] initWithLabel: MiscUsedSpace
+                                                parent: usedSpaceItem
+                                                  size: miscUsedSize
+                                                 flags: FILE_IS_NOT_PHYSICAL
+                                          creationTime: 0
+                                      modificationTime: 0
+                                            accessTime: 0
+                        ] autorelease];
 
   [usedSpaceItem setDirectoryContents: 
                    [CompoundItem compoundItemWithFirst: miscUsedSpaceItem
@@ -285,16 +277,14 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   NSAssert(replacingItem == nil, @"Replacing item not nil.");
   
   replacedItem = [[pathModelView selectedFileItemInTree] retain]; 
-  replacingItem =
-    [[FileItem alloc] 
-     initWithName: FreedSpace
-           parent: [replacedItem parentDirectory] 
-             size: [replacedItem itemSize]
-            flags: FILE_IS_NOT_PHYSICAL     
-     creationTime: 0
- modificationTime: 0
-       accessTime: 0];
-                                      
+  replacingItem = [[FileItem alloc] initWithLabel: FreedSpace
+                                           parent: [replacedItem parentDirectory]
+                                             size: [replacedItem itemSize]
+                                            flags: FILE_IS_NOT_PHYSICAL
+                                     creationTime: 0
+                                 modificationTime: 0
+                                       accessTime: 0];
+
   Item  *containingItem = [self itemContainingSelectedFileItem: pathModelView];
   
   [self obtainWriteLock];

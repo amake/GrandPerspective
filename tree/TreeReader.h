@@ -13,6 +13,7 @@
 
   NSXMLParser  *parser;
   AnnotatedTreeContext  *tree;
+  int  formatVersion;
 
   BOOL  abort;
   NSError  *error;
@@ -64,5 +65,8 @@
  * -writeTree:toFile: (and not doing so would actually be quite silly).
  */
 - (NSDictionary *)progressInfo;
+
+- (void) setFormatVersion: (int)version;
+- (int) formatVersion;
 
 @end

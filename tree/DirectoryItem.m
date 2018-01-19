@@ -7,32 +7,32 @@
 @implementation DirectoryItem
 
 // Overrides designated initialiser
-- (id) initWithName:(NSString *)name
-             parent:(DirectoryItem *)parent 
-               size:(ITEM_SIZE) size 
-              flags:(UInt8) flags
-       creationTime:(CFAbsoluteTime) creationTime 
-   modificationTime:(CFAbsoluteTime) modificationTime
-         accessTime:(CFAbsoluteTime) accessTime {
+- (id) initWithLabel:(NSString *)label
+              parent:(DirectoryItem *)parent
+                size:(ITEM_SIZE) size
+               flags:(UInt8) flags
+        creationTime:(CFAbsoluteTime) creationTime
+    modificationTime:(CFAbsoluteTime) modificationTime
+          accessTime:(CFAbsoluteTime) accessTime {
   NSAssert(NO, @"Initialize without size.");
   return nil;
 }
 
 
-- (id) initWithName: (NSString *)nameVal 
-             parent: (DirectoryItem *)parentVal
-              flags: (UInt8) flagsVal
-       creationTime: (CFAbsoluteTime) creationTimeVal
-   modificationTime: (CFAbsoluteTime) modificationTimeVal
-         accessTime: (CFAbsoluteTime) accessTimeVal {
+- (id) initWithLabel: (NSString *)labelVal
+              parent: (DirectoryItem *)parentVal
+               flags: (UInt8) flagsVal
+        creationTime: (CFAbsoluteTime) creationTimeVal
+    modificationTime: (CFAbsoluteTime) modificationTimeVal
+          accessTime: (CFAbsoluteTime) accessTimeVal {
   
-  if (self = [super initWithName: nameVal
-                          parent: parentVal
-                            size: 0
-                           flags: flagsVal
-                    creationTime: creationTimeVal
-                modificationTime: modificationTimeVal
-                      accessTime: accessTimeVal]) {
+  if (self = [super initWithLabel: labelVal
+                           parent: parentVal
+                             size: 0
+                            flags: flagsVal
+                     creationTime: creationTimeVal
+                 modificationTime: modificationTimeVal
+                       accessTime: accessTimeVal]) {
     contents = nil;
   }
   return self;
@@ -48,13 +48,13 @@
 
 - (FileItem *)duplicateFileItem:(DirectoryItem *)newParent {
   return [[[DirectoryItem allocWithZone: [newParent zone]] 
-              initWithName: name 
-                    parent: newParent 
-                     flags: flags
-              creationTime: creationTime 
-          modificationTime: modificationTime
-                accessTime: accessTime
-           ] autorelease];
+              initWithLabel: label
+                     parent: newParent
+                      flags: flags
+               creationTime: creationTime
+           modificationTime: modificationTime
+                 accessTime: accessTime
+            ] autorelease];
 }
 
 
@@ -82,19 +82,19 @@
   if ([self isPackage]) {
     UniformType  *fileType = 
       [[UniformTypeInventory defaultUniformTypeInventory] 
-         uniformTypeForExtension: [name pathExtension]];
+         uniformTypeForExtension: [[self systemPathComponent] pathExtension]];
   
     // Note: This item is short-lived, so it is allocated in the default zone.
     return [[[PlainFileItem alloc]
-             initWithName: name
-                   parent: parent
-                     size: size
-                     type: fileType
-                    flags: flags
-             creationTime: creationTime 
-         modificationTime: modificationTime
-               accessTime: accessTime
-             ] autorelease];
+             initWithLabel: label
+                    parent: parent
+                      size: size
+                      type: fileType
+                     flags: flags
+              creationTime: creationTime
+          modificationTime: modificationTime
+                accessTime: accessTime
+              ] autorelease];
   }
   else {
     return self;
@@ -103,7 +103,7 @@
 
 
 - (NSString *)description {
-  return [NSString stringWithFormat:@"DirectoryItem(%@, %qu, %@)", name, size,
+  return [NSString stringWithFormat:@"DirectoryItem(%@, %qu, %@)", label, size,
                      [contents description]];
 }
 
@@ -121,23 +121,4 @@
 }
 
 @end // @implementation DirectoryItem
-
-
-@implementation DirectoryItem (ProtectedMethods)
-
-- (NSString *)systemPathComponent {
-  if (! [self isPhysical]) {
-    return nil;
-  }
-  if (parent == nil) {
-    // This is the volume root. Return the name "as is", it could be "/".
-    return [self pathComponent];
-  }
-
-  // The path component is the name of a single folder. It may contain
-  // slashes, which should be converted to colons.
-  return [super systemPathComponent];
-}
-
-@end // @implementation DirectoryItem (ProtectedMethods)
 

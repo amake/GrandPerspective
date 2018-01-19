@@ -420,6 +420,14 @@ NSString  *AttributeNameKey = @"name";
   return [progressTracker progressInfo];
 }
 
+- (void) setFormatVersion: (int)version {
+  formatVersion = version;
+}
+
+- (int) formatVersion {
+  return formatVersion;
+}
+
 
 //----------------------------------------------------------------------------
 // NSXMLParser delegate methods
@@ -919,10 +927,11 @@ NSString  *AttributeNameKey = @"name";
 
 
 - (void) handleAttributes: (NSDictionary *)attribs {
-  // Not doing anything with "appVersion" and "formatVersion" attributes.
-  // These can be ignored as they won't affect the parsing anyway (there
-  // are no earlier formats, so these do not need to be handled especailly).
-  
+  int  formatVersion = [self getIntegerAttributeValue: FormatVersionAttr
+                                                 from: attribs
+                                         defaultValue: 0];
+  [reader setFormatVersion: formatVersion];
+
   [super handleAttributes: attribs];
 }
 
@@ -1085,12 +1094,12 @@ NSString  *AttributeNameKey = @"name";
 
   // Replace tree by new one that also contains the given filter set. 
   tree = [[TreeContext alloc] 
-             initWithVolumePath: [[oldTree volumeTree] name]
-             fileSizeMeasure: [oldTree fileSizeMeasure]
-             volumeSize: [oldTree volumeSize] 
-             freeSpace: [oldTree freeSpace]
-             filterSet: filterSet
-             scanTime: [oldTree scanTime]];
+             initWithVolumePath: [[oldTree volumeTree] systemPathComponent]
+                fileSizeMeasure: [oldTree fileSizeMeasure]
+                     volumeSize: [oldTree volumeSize]
+                      freeSpace: [oldTree freeSpace]
+                      filterSet: filterSet
+                       scanTime: [oldTree scanTime]];
 
   [oldTree release];
 
@@ -1343,6 +1352,11 @@ NSString  *AttributeNameKey = @"name";
 - (void) handleAttributes: (NSDictionary *)attribs {
   @try {
     NSString  *name = [self getStringAttributeValue: NameAttr from: attribs];
+    if ([reader formatVersion] < 6) {
+      // Pre v6 names were stored using their friendly representation
+      name = [FileItem systemPathComponentFor: name];
+    }
+
     int  flags = [self getIntegerAttributeValue: FlagsAttr
                          from: attribs defaultValue: 0];
 
@@ -1354,12 +1368,12 @@ NSString  *AttributeNameKey = @"name";
     [self getTimeAttributeValue: AccessedAttr from: attribs];
     
     dirItem = [[self allocDirectoryItemWithZone: [parentItem zone]]
-                  initWithName: name 
-                        parent: parentItem 
-                         flags: flags
-                  creationTime: creationTime 
-              modificationTime: modificationTime
-                    accessTime: accessTime];
+                  initWithLabel: name
+                         parent: parentItem
+                          flags: flags
+                   creationTime: creationTime
+               modificationTime: modificationTime
+                     accessTime: accessTime];
     
     [[reader progressTracker] processingFolder: dirItem
                                 processedLines: [[reader parser] lineNumber]];
@@ -1469,6 +1483,11 @@ NSString  *AttributeNameKey = @"name";
 - (void) handleAttributes: (NSDictionary *)attribs {
   @try {
     NSString  *name = [self getStringAttributeValue: NameAttr from: attribs];
+    if ([reader formatVersion] < 6) {
+      // Pre v6 names were stored using their friendly representation
+      name = [FileItem systemPathComponentFor: name];
+    }
+
     int  flags = [self getIntegerAttributeValue: FlagsAttr
                          from: attribs defaultValue: 0];
     ITEM_SIZE  size = [self getItemSizeAttributeValue: SizeAttr from: attribs];
@@ -1486,14 +1505,14 @@ NSString  *AttributeNameKey = @"name";
     [self getTimeAttributeValue: AccessedAttr from: attribs];
 
     fileItem = [[PlainFileItem allocWithZone: [parentItem zone]]
-                   initWithName: name 
-                         parent: parentItem
-                           size: size
-                           type: fileType
-                          flags: flags
-                   creationTime: creationTime 
-               modificationTime: modificationTime
-                     accessTime: accessTime];
+                   initWithLabel: name
+                          parent: parentItem
+                            size: size
+                            type: fileType
+                           flags: flags
+                    creationTime: creationTime
+                modificationTime: modificationTime
+                      accessTime: accessTime];
   }
   @catch (AttributeParseException *ex) {
     [self handlerAttributeParseError: ex];

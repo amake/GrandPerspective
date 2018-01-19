@@ -538,7 +538,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 
     if (target == fileItem ||
           (similar &&
-             ([[fileItem name] isEqualToString: [target name]] &&
+             ([[fileItem label] isEqualToString: [target label]] &&
               [fileItem isDirectory] == [target isDirectory] &&
               [fileItem isPhysical] == [target isPhysical]))) {
       return YES;

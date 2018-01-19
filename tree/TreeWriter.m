@@ -18,7 +18,10 @@
 
 #define  BUFFER_SIZE  4096
 
-NSString  *TreeWriterFormatVersion = @"5";
+/* Changes
+ * v6: Use system path component for name of physical files and directories
+ */
+NSString  *TreeWriterFormatVersion = @"6";
 
 // XML elements
 NSString  *ScanDumpElem = @"GrandPerspectiveScanDump";
@@ -315,7 +318,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
      [NSString stringWithFormat: 
         @"<%@ %@=\"%@\" %@=\"%qu\" %@=\"%qu\" %@=\"%@\" %@=\"%@\">\n", 
         ScanInfoElem, 
-        VolumePathAttr, escapedXML( [[tree volumeTree] name], 
+        VolumePathAttr, escapedXML( [[tree volumeTree] systemPathComponent],
                                     ATTRIBUTE_ESCAPE_CHARS ),
         VolumeSizeAttr, [tree volumeSize],
         FreeSpaceAttr, ([tree freeSpace] + [tree freedSpace]),
@@ -399,10 +402,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 - (void) appendFolderElement: (DirectoryItem *)dirItem root: (BOOL) isRoot {
   [progressTracker processingFolder: dirItem];
 
-  // For the scan tree root, output the system name so that slashes inside path
-  // components can be distinguished from path separators.
-  NSString  *rawName = isRoot ? [dirItem systemPathComponent] : [dirItem name];
-  NSString  *nameVal = escapedXML(rawName, ATTRIBUTE_ESCAPE_CHARS);
+  NSString  *nameVal = escapedXML([dirItem systemPathComponent], ATTRIBUTE_ESCAPE_CHARS);
   
   UInt8  flags = [dirItem fileItemFlags];
   NSString  *createdVal = [TreeWriter stringForTime: [dirItem creationTime]];
@@ -437,7 +437,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
 
 - (void) appendFileElement: (FileItem *)fileItem {
-  NSString  *nameVal = escapedXML([fileItem name], ATTRIBUTE_ESCAPE_CHARS);
+  NSString  *nameVal = escapedXML([fileItem systemPathComponent], ATTRIBUTE_ESCAPE_CHARS);
   UInt8  flags = [fileItem fileItemFlags];
   NSString  *createdVal = [TreeWriter stringForTime: [fileItem creationTime]];
   NSString  *modifiedVal = [TreeWriter stringForTime: [fileItem modificationTime]];

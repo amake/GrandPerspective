@@ -538,7 +538,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
                               @"Alert message")
           : NSLocalizedString(@"Failed to open the file \"%@\"", 
                               @"Alert message") ) );
-  NSString  *msg = [NSString stringWithFormat: msgFmt, [file name]];
+  NSString  *msg = [NSString stringWithFormat: msgFmt, [file pathComponent]];
          
   [alert addButtonWithTitle: OK_BUTTON_TITLE];
   [alert setMessageText: msg];
@@ -623,7 +623,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
                               @"Alert message")
           : NSLocalizedString(@"Failed to reveal the file \"%@\"", 
                               @"Alert message") ) );
-  NSString  *msg = [NSString stringWithFormat: msgFmt, [file name]];
+  NSString  *msg = [NSString stringWithFormat: msgFmt, [file pathComponent]];
          
   [alert addButtonWithTitle: OK_BUTTON_TITLE];
   [alert setMessageText: msg];
@@ -695,11 +695,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
   [alert addButtonWithTitle: DELETE_BUTTON_TITLE];
   [alert addButtonWithTitle: CANCEL_BUTTON_TITLE];
-  [alert setMessageText: [NSString stringWithFormat: mainMsg, 
-                                     [[selectedFile name] lastPathComponent]]];
-                                     // Note: using lastPathComponent, as the
-                                     // scan tree item's name is relative to 
-                                     // the volume root.
+  [alert setMessageText: [NSString stringWithFormat: mainMsg, [selectedFile pathComponent]]];
   [alert setInformativeText: infoMsg];
 
   [alert beginSheetModalForWindow: [self window] modalDelegate: self
@@ -941,7 +937,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
       // Can only delete the entire scan tree when it is an actual folder 
       // within the volume. You cannot delete the root folder.
       && ! ( (selectedFile == [pathModelView scanTree])
-             && [[[pathModelView scanTree] name] isEqualToString: @""])
+             && [[[pathModelView scanTree] systemPathComponent] isEqualToString: @""])
 
       // Don't enable Click-through for deletion. The window needs to be 
       // active for the file deletion controls to be enabled.
@@ -977,17 +973,17 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   FileItem  *selectedFile = [pathModelView selectedFileItem];
 
   NSWorkspace  *workspace = [NSWorkspace sharedWorkspace];
-  NSString  *sourceDir = [[selectedFile parentDirectory] path];
+  NSString  *sourceDir = [[selectedFile parentDirectory] systemPath];
     // Note: Can always obtain the encompassing directory this way. The 
     // volume tree cannot be deleted so there is always a valid parent
     // directory.
 
   NSInteger  tag;
   if ([workspace performFileOperation: NSWorkspaceRecycleOperation
-                   source: sourceDir
-                   destination: @""
-                   files: [NSArray arrayWithObject: [selectedFile name]]
-                   tag: &tag]) {
+                               source: sourceDir
+                          destination: @""
+                                files: [NSArray arrayWithObject: [selectedFile systemPathComponent]]
+                                  tag: &tag]) {
     [treeContext deleteSelectedFileItem: pathModelView];
     
     return; // All went okay
@@ -1001,7 +997,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
                            @"Alert message")
       : NSLocalizedString( @"Failed to delete the file \"%@\"", 
                            @"Alert message") );
-  NSString  *msg = [NSString stringWithFormat: msgFmt, [selectedFile name]];
+  NSString  *msg = [NSString stringWithFormat: msgFmt, [selectedFile pathComponent]];
   NSString  *info =
     NSLocalizedString(@"Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions.", 
                       @"Alert message"); 
@@ -1084,9 +1080,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   NSString  *relativeItemPath;
 
   if (! [selectedItem isPhysical]) {
-    itemPath = 
-      [[NSBundle mainBundle] localizedStringForKey: [selectedItem name] 
-                               value: nil table: @"Names"];
+    itemPath = [[NSBundle mainBundle] localizedStringForKey: [selectedItem label]
+                                                      value: nil table: @"Names"];
     relativeItemPath = itemPath;
   }
   else {
@@ -1142,8 +1137,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
     
     if (! [selectedItem isPhysical]) {
       itemPath = 
-        [[NSBundle mainBundle] localizedStringForKey: [selectedItem name] 
-                                 value: nil table: @"Names"];
+        [[NSBundle mainBundle] localizedStringForKey: [selectedItem label]
+                                               value: nil table: @"Names"];
     }
     else {
       itemPath = [selectedItem path];
@@ -1242,15 +1237,12 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   FileItem  *volumeTree = [pathModelView volumeTree];
   FileItem  *scanTree = [pathModelView scanTree];
   
-  NSString  *volumeName = [volumeTree name];
-  NSImage  *volumeIcon = 
-    [[NSWorkspace sharedWorkspace] iconForFile: volumeName];
+  NSString  *volumeName = [volumeTree systemPath];
+  NSImage  *volumeIcon = [[NSWorkspace sharedWorkspace] iconForFile: volumeName];
   [volumeIconView setImage: volumeIcon];
+  [volumeNameField setStringValue: [[NSFileManager defaultManager] displayNameAtPath: volumeName]];
   
-  [volumeNameField setStringValue: 
-    [[NSFileManager defaultManager] displayNameAtPath: volumeName]];
-  
-  [scanPathTextView setString: [scanTree name]];
+  [scanPathTextView setString: [scanTree path]];
   
   FilterSet  *filterSet = [treeContext filterSet];
   [filterNameField setStringValue: 
@@ -1333,8 +1325,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   NSString  *itemPath = 
     ( [item isPhysical]
       ? [item path] 
-      : [[NSBundle mainBundle] localizedStringForKey: [item name] 
-                                 value: nil table: @"Names"] );
+      : [[NSBundle mainBundle] localizedStringForKey: [item label]
+                                               value: nil table: @"Names"] );
     
   [self showFileItem: item itemPath: itemPath sizeString: sizeString];
 }

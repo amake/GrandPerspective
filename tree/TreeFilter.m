@@ -69,22 +69,22 @@
 
 - (TreeContext *)filterTree: (TreeContext *)oldTree {
   TreeContext  *filterResult =
-    [[[TreeContext alloc] initWithVolumePath: [[oldTree volumeTree] name]
-                            fileSizeMeasure: [oldTree fileSizeMeasure]
-                            volumeSize: [oldTree volumeSize] 
-                            freeSpace: [oldTree freeSpace]
-                            filterSet: filterSet] autorelease];
+    [[[TreeContext alloc] initWithVolumePath: [[oldTree volumeTree] systemPath]
+                             fileSizeMeasure: [oldTree fileSizeMeasure]
+                                  volumeSize: [oldTree volumeSize]
+                                   freeSpace: [oldTree freeSpace]
+                                   filterSet: filterSet] autorelease];
 
   DirectoryItem  *oldScanTree = [oldTree scanTree];
   DirectoryItem  *scanTree = 
     [[[ScanTreeRoot allocWithZone: [Item zoneForTree]]
-         initWithName: [oldScanTree name]
-               parent: [filterResult scanTreeParent]
-                flags: [oldScanTree fileItemFlags]
-         creationTime: [oldScanTree creationTime]
-     modificationTime: [oldScanTree modificationTime]
-           accessTime: [oldScanTree accessTime]
-      ] autorelease];
+         initWithLabel: [oldScanTree label]
+                parent: [filterResult scanTreeParent]
+                 flags: [oldScanTree fileItemFlags]
+          creationTime: [oldScanTree creationTime]
+      modificationTime: [oldScanTree modificationTime]
+            accessTime: [oldScanTree accessTime]
+       ] autorelease];
 
   [progressTracker startingTask];
   

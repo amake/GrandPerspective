@@ -241,7 +241,7 @@ NSString  *PhysicalFileSize = @"physical";
   TreeContext  *treeContext = [self treeContextForVolumeContaining: path];
 
   // Determine relative path
-  NSString  *volumePath = [[treeContext volumeTree] name];
+  NSString  *volumePath = [[treeContext volumeTree] systemPathComponent];
   NSString  *relativePath =
     [volumePath length] < [path length] ? [path substringFromIndex: [volumePath length]] : @"";
   if ([relativePath isAbsolutePath]) {
@@ -271,12 +271,12 @@ NSString  *PhysicalFileSize = @"physical";
 
   DirectoryItem  *scanTree =
     [[[ScanTreeRoot allocWithZone: [Item zoneForTree]] 
-         initWithName: relativePath 
-               parent: [treeContext scanTreeParent]
-                flags: flags
-         creationTime: [treeRootURL creationTime]
-     modificationTime: [treeRootURL modificationTime]
-           accessTime: [treeRootURL accessTime]
+         initWithLabel: relativePath
+                parent: [treeContext scanTreeParent]
+                 flags: flags
+          creationTime: [treeRootURL creationTime]
+      modificationTime: [treeRootURL modificationTime]
+            accessTime: [treeRootURL accessTime]
       ] autorelease];
 
   [progressTracker startingTask];
@@ -396,7 +396,7 @@ NSString  *PhysicalFileSize = @"physical";
     }
   }
   
-  NSString  *name = [url lastPathComponent];
+  NSString  *lastPathComponent = [url lastPathComponent];
 
   if (isDirectory) {
     if ([url isPackage]) {
@@ -404,12 +404,12 @@ NSString  *PhysicalFileSize = @"physical";
     }
     
     DirectoryItem  *dirChildItem =
-    [[DirectoryItem allocWithZone: [parent zone]] initWithName: name
-                                                        parent: parent->dirItem
-                                                         flags: flags
-                                                  creationTime: [url creationTime]
-                                              modificationTime: [url modificationTime]
-                                                    accessTime: [url accessTime]];
+    [[DirectoryItem allocWithZone: [parent zone]] initWithLabel: lastPathComponent
+                                                         parent: parent->dirItem
+                                                          flags: flags
+                                                   creationTime: [url creationTime]
+                                               modificationTime: [url modificationTime]
+                                                     accessTime: [url accessTime]];
 
     // Only add directories that should be scanned (this does not necessarily mean that it has
     // passed the filter test already)
@@ -426,17 +426,18 @@ NSString  *PhysicalFileSize = @"physical";
     NSNumber  *fileSize;
     [url getResourceValue: &fileSize forKey: fileSizeMeasureKey error: nil];
 
-    UniformType  *fileType = [typeInventory uniformTypeForExtension: [name pathExtension]];
+    UniformType  *fileType =
+      [typeInventory uniformTypeForExtension: [lastPathComponent pathExtension]];
 
     PlainFileItem  *fileChildItem =
-    [[PlainFileItem allocWithZone: [parent zone]] initWithName: name
-                                                        parent: parent->dirItem
-                                                          size: [fileSize unsignedLongLongValue]
-                                                          type: fileType
-                                                         flags: flags
-                                                  creationTime: [url creationTime]
-                                              modificationTime: [url modificationTime]
-                                                    accessTime: [url accessTime]];
+    [[PlainFileItem allocWithZone: [parent zone]] initWithLabel: lastPathComponent
+                                                         parent: parent->dirItem
+                                                           size: [fileSize unsignedLongLongValue]
+                                                           type: fileType
+                                                          flags: flags
+                                                   creationTime: [url creationTime]
+                                               modificationTime: [url modificationTime]
+                                                     accessTime: [url accessTime]];
 
     // Only add file items that pass the filter test.
     if ( [treeGuide includeFileItem: fileChildItem] ) {

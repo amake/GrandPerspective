@@ -47,25 +47,25 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
 // Overrides super's designated initialiser.
 - (id) initWithItemSize:(ITEM_SIZE) sizeVal {
-  return [self initWithName: @"" 
-                     parent: nil 
-                       size: sizeVal
-                      flags: 0 
-               creationTime: 0 
-           modificationTime: 0
-                 accessTime: 0];
+  return [self initWithLabel: @""
+                      parent: nil
+                        size: sizeVal
+                       flags: 0
+                creationTime: 0
+            modificationTime: 0
+                  accessTime: 0];
 }
 
 
-- (id) initWithName: (NSString *)nameVal 
-             parent: (DirectoryItem *)parentVal
-               size: (ITEM_SIZE) sizeVal 
-              flags: (UInt8) flagsVal
-       creationTime: (CFAbsoluteTime) creationTimeVal
-   modificationTime: (CFAbsoluteTime) modificationTimeVal
-         accessTime: (CFAbsoluteTime) accessTimeVal {
+- (id) initWithLabel: (NSString *)labelVal
+              parent: (DirectoryItem *)parentVal
+                size: (ITEM_SIZE) sizeVal
+               flags: (UInt8) flagsVal
+        creationTime: (CFAbsoluteTime) creationTimeVal
+    modificationTime: (CFAbsoluteTime) modificationTimeVal
+          accessTime: (CFAbsoluteTime) accessTimeVal {
   if (self = [super initWithItemSize: sizeVal]) {
-    name = [nameVal retain];
+    label = [labelVal retain];
 
     parent = parentVal; // not retaining it, as it is not owned.
     flags = flagsVal;
@@ -81,7 +81,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   if (parent==nil) {
     NSLog(@"FileItem-dealloc (root)");
   }
-  [name release];
+  [label release];
 
   [super dealloc];
 }
@@ -94,7 +94,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
 
 - (NSString *)description {
-  return [NSString stringWithFormat:@"FileItem(%@, %qu)", name, size];
+  return [NSString stringWithFormat:@"FileItem(%@, %qu)", label, size];
 }
 
 
@@ -102,8 +102,8 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   return 1;
 }
 
-- (NSString *)name {
-  return name;
+- (NSString *)label {
+  return label;
 }
 
 - (DirectoryItem *)parentDirectory {
@@ -158,8 +158,11 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
 
 - (NSString *)pathComponent {
-  // Only physical items contribute to the path.
-  return [self isPhysical] ? name : nil;
+  if (! [self isPhysical] ) {
+    return nil;
+  }
+
+  return [FileItem friendlyPathComponentFor: label];
 }
 
 - (NSString *)path {
@@ -246,20 +249,32 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   }
 }
 
+/* Returns path component as it is displayed to user, with colons replaced by slashes.
+ */
++ (NSString *)friendlyPathComponentFor: (NSString *)pathComponent {
+  NSMutableString  *comp = [NSMutableString stringWithString: pathComponent];
+  [comp replaceOccurrencesOfString: @":" withString: @"/"
+                           options: NSLiteralSearch range: NSMakeRange(0, [comp length])];
+  return comp;
+}
+
+/* Returns path component as it is used by system, with slashes replaced by colons.
+ */
++ (NSString *)systemPathComponentFor: (NSString *)pathComponent {
+  NSMutableString  *comp = [NSMutableString stringWithString: pathComponent];
+  [comp replaceOccurrencesOfString: @"/" withString: @":"
+                           options: NSLiteralSearch range: NSMakeRange(0, [comp length])];
+  return comp;
+}
+
 @end // @implementation FileItem
 
 
 @implementation FileItem (ProtectedMethods)
 
 - (NSString *)systemPathComponent {
-  if (! [self isPhysical] ) {
-    return nil;
-  }
-  NSMutableString  *comp = [NSMutableString stringWithString: name];
-
-  [comp replaceOccurrencesOfString: @"/" withString: @":"
-          options: NSLiteralSearch range: NSMakeRange(0, [comp length])];
-  return comp;
+  // Only physical items contribute to the path.
+  return [self isPhysical] ? label : nil;
 }
     
 @end // @implementation FileItem (ProtectedMethods)

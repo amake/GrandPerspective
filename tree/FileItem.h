@@ -14,8 +14,10 @@
 @class DirectoryItem;
 
 @interface FileItem : Item {
-  // The friendly name of the item, as it is shown to the user.
-  NSString  *name;
+  /* The label of the item. For physical file items this is the system representation of its path
+   * component. For other non-physical items, it is a non-localized string identifier.
+   */
+  NSString  *label;
   DirectoryItem  *parent;
 
   // Bitmask for storing boolean properties of the file
@@ -36,13 +38,13 @@
  */
 + (int) bytesPerKilobyte;
 
-- (id) initWithName: (NSString *)name
-             parent: (DirectoryItem *)parent 
-               size: (ITEM_SIZE) size 
-              flags: (UInt8) flags
-       creationTime: (CFAbsoluteTime) creationTime 
-   modificationTime: (CFAbsoluteTime) modificationTime
-         accessTime: (CFAbsoluteTime) accessTime;
+- (id) initWithLabel: (NSString *)label
+              parent: (DirectoryItem *)parent
+                size: (ITEM_SIZE) size
+               flags: (UInt8) flags
+        creationTime: (CFAbsoluteTime) creationTime
+    modificationTime: (CFAbsoluteTime) modificationTime
+          accessTime: (CFAbsoluteTime) accessTime;
 
 
 /* Creates a duplicate item, for use in a new tree (so with a new parent).
@@ -53,7 +55,7 @@
 - (FileItem *)duplicateFileItem:(DirectoryItem *)newParent;
 
 
-- (NSString *)name;
+- (NSString *)label;
 
 - (DirectoryItem *) parentDirectory;
 
@@ -133,6 +135,14 @@
 /* Returns a string for the provided time.
  */
 + (NSString *)stringForTime:(CFAbsoluteTime) absTime;
+
+/* Returns path component as it is displayed to user, with colons replaced by slashes.
+ */
++ (NSString *)friendlyPathComponentFor: (NSString *)pathComponent;
+
+/* Returns path component as it is used by system, with slashes replaced by colons.
+ */
++ (NSString *)systemPathComponentFor: (NSString *)pathComponent;
 
 @end // @interface FileItem
 

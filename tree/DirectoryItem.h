@@ -10,12 +10,12 @@
 
 /* A directory item is initialized without a size. It will be set when its contents are set.
  */
-- (id) initWithName: (NSString *)name
-             parent: (DirectoryItem *)parent 
-              flags: (UInt8) flags
-       creationTime: (CFAbsoluteTime) creationTime 
-   modificationTime: (CFAbsoluteTime) modificationTime
-         accessTime: (CFAbsoluteTime) accessTime;
+- (id) initWithLabel: (NSString *)label
+              parent: (DirectoryItem *)parent
+               flags: (UInt8) flags
+        creationTime: (CFAbsoluteTime) creationTime
+    modificationTime: (CFAbsoluteTime) modificationTime
+          accessTime: (CFAbsoluteTime) accessTime;
 
 - (void) setDirectoryContents:(Item *)contents;
 

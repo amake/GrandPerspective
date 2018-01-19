@@ -16,14 +16,14 @@
   UniformType  *type;
 }
 
-- (id) initWithName: (NSString *)name
-             parent: (DirectoryItem *)parent 
-               size: (ITEM_SIZE) size 
-               type: (UniformType *)type 
-              flags: (UInt8) flags
-       creationTime: (CFAbsoluteTime) creationTime 
-   modificationTime: (CFAbsoluteTime) modificationTime
-         accessTime: (CFAbsoluteTime) accessTime;
+- (id) initWithLabel: (NSString *)label
+              parent: (DirectoryItem *)parent
+                size: (ITEM_SIZE) size
+                type: (UniformType *)type
+               flags: (UInt8) flags
+        creationTime: (CFAbsoluteTime) creationTime
+    modificationTime: (CFAbsoluteTime) modificationTime
+          accessTime: (CFAbsoluteTime) accessTime;
 
 - (UniformType *)uniformType;
 
