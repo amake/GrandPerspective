@@ -12,10 +12,11 @@
   SEL  callbackSelector; 
 }
 
-- (id) initWithProgressPanel: (ProgressPanelControl *)progressPanel
-         callback: (NSObject *)callback selector: (SEL) selector;
+- (id) initWithProgressPanel:(ProgressPanelControl *)progressPanel
+                    callback:(NSObject *)callback
+                    selector:(SEL)selector;
          
-- (void) taskDone: (id) result;
+- (void) taskDone:(id)result;
 
 @end // @interface CallbackHandler
 
@@ -28,13 +29,12 @@
   return nil;
 }
 
-- (id) initWithProgressPanel: (ProgressPanelControl *)panelControl {
+- (id) initWithProgressPanel:(ProgressPanelControl *)panelControl {
   if (self = [super init]) {
     progressPanelControl = [panelControl retain];
     
-    taskManager = 
-      [[AsynchronousTaskManager alloc] initWithTaskExecutor:
-                                         [progressPanelControl taskExecutor]];
+    taskManager = [[AsynchronousTaskManager alloc] initWithTaskExecutor:
+                   [progressPanelControl taskExecutor]];
   }
 
   return self;
@@ -62,24 +62,23 @@
 }
 
 
-- (void) asynchronouslyRunTaskWithInput: (id) input 
-           callback: (NSObject *)callback 
-           selector: (SEL) selector {
+- (void) asynchronouslyRunTaskWithInput:(id)input
+           callback:(NSObject *)callback
+           selector:(SEL)selector {
   // Show the progess panel and let its Cancel button abort the task.
   [progressPanelControl taskStartedWithInput: input
-                          cancelCallback: taskManager
-                          selector: @selector(abortTask) ];
+                              cancelCallback: taskManager
+                                    selector: @selector(abortTask) ];
 
   CallbackHandler  *callbackHandler = 
     [[[CallbackHandler alloc] initWithProgressPanel: progressPanelControl
-                                callback: callback
-                                selector: selector] autorelease];
+                                           callback: callback
+                                           selector: selector] autorelease];
 
-  // Let callback go through handler object, so that progress panel is also
-  // closed.
+  // Let callback go through handler object, so that progress panel is also closed.
   [taskManager asynchronouslyRunTaskWithInput: input 
-                 callback: callbackHandler 
-                 selector: @selector(taskDone:) ];
+                                     callback: callbackHandler
+                                     selector: @selector(taskDone:)];
 }
 
 @end // @implementation VisibleAsynchronousTaskManager
@@ -93,8 +92,9 @@
   return nil;
 }
 
-- (id) initWithProgressPanel: (ProgressPanelControl *)panelControl
-         callback: (NSObject *)callbackVal selector: (SEL) selector {
+- (id) initWithProgressPanel:(ProgressPanelControl *)panelControl
+                    callback:(NSObject *)callbackVal
+                    selector:(SEL)selector {
 
   if (self = [super init]) {
     progressPanelControl = [panelControl retain];
@@ -112,7 +112,7 @@
   [super dealloc];
 }
 
-- (void) taskDone: (id) result {
+- (void) taskDone:(id)result {
   [progressPanelControl taskStopped];
   
   [callback performSelector: callbackSelector withObject: result];

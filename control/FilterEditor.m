@@ -17,8 +17,7 @@
 }
 
 - (id) initWithExistingFilters:(NSDictionary *)allFilters;
-- (id) initWithExistingFilters:(NSDictionary *)allFilters 
-         allowedName:(NSString *)name;
+- (id) initWithExistingFilters:(NSDictionary *)allFilters allowedName:(NSString *)name;
 
 @end // @interface FilterNameValidator
 
@@ -58,9 +57,8 @@
   NSWindow  *editFilterWindow = [self loadEditFilterWindow];
   
   FilterNameValidator  *nameValidator = 
-    [[[FilterNameValidator alloc]
-        initWithExistingFilters: [filterRepository filtersByName]]
-          autorelease];
+    [[[FilterNameValidator alloc] initWithExistingFilters: [filterRepository filtersByName]]
+     autorelease];
   
   [filterWindowControl setNameValidator: nameValidator];
   [filterWindowControl representEmptyFilter];
@@ -121,8 +119,7 @@
           allowedName: oldName] autorelease];
   [filterWindowControl setNameValidator: testNameValidator];
   
-  [ModalityTerminator
-     modalityTerminatorForEventSource: filterWindowControl];
+  [ModalityTerminator modalityTerminatorForEventSource: filterWindowControl];
   NSInteger  status = [NSApp runModalForWindow: editFilterWindow];
   [editFilterWindow close];
     
@@ -170,8 +167,7 @@
   if (filterWindowControl == nil) {
     filterWindowControl = [[FilterWindowControl alloc] init];
   }
-  // Return its window. This also ensure that it is loaded before its control 
-  // is used.
+  // Return its window. This also ensure that it is loaded before its control is used.
   return [filterWindowControl window];
 }
 
@@ -190,8 +186,7 @@
   return [self initWithExistingFilters: allFiltersVal allowedName: nil];
 }
 
-- (id) initWithExistingFilters:(NSDictionary *)allFiltersVal
-         allowedName:(NSString *)name {
+- (id) initWithExistingFilters:(NSDictionary *)allFiltersVal allowedName:(NSString *)name {
   if (self = [super init]) {
     allFilters = [allFiltersVal retain];
     allowedName = [name retain];    
@@ -210,8 +205,7 @@
 
 - (NSString *)checkNameIsValid:(NSString *)name {
   if ([name isEqualToString:@""]) {
-    return NSLocalizedString(@"The filter must have a name.",
-                             @"Alert message" );
+    return NSLocalizedString(@"The filter must have a name.", @"Alert message");
   }
   else if ( ![allowedName isEqualToString: name] &&
             [allFilters objectForKey: name] != nil) {

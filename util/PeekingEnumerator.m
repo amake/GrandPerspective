@@ -8,14 +8,13 @@
   return [self initWithEnumerator:nil]; // nil value -> empty enumerator.
 }
 
-- (id) initWithEnumerator:(NSEnumerator*)enumVal {
+- (id) initWithEnumerator:(NSEnumerator *)enumVal {
   if (self = [super init]) {
     enumerator = [enumVal retain];
 
     nextObject = [enumerator nextObject];
-    // Not retaining it, as for efficiency we don't want to auto-release it.
-    // Freeing the object while enumeration is ongoing simply a bug and 
-    // should never happen.
+    // Not retaining it, as for efficiency we don't want to auto-release it. Freeing the object
+    // while enumeration is ongoing simply a bug and should never happen.
   }
   return self;
 }

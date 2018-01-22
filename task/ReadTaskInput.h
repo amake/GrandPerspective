@@ -5,8 +5,8 @@
   NSString  *path;
 }
 
-- (id) initWithPath: (NSString *)path;
+- (id) initWithPath:(NSString *)path;
 
-- (NSString *) path;
+- (NSString *)path;
 
 @end

@@ -5,8 +5,8 @@
 @class FileItemTest;
 
 
-/* Settings for TreeDrawer objects. The settings are immutable, to 
- * facilitate use in multi-threading context. 
+/* Settings for TreeDrawer objects. The settings are immutable, to facilitate use in multi-threading
+ * context.
  */
 @interface TreeDrawerSettings : NSObject {
   NSObject <FileItemMapping>  *colorMapper;
@@ -20,16 +20,16 @@
 - (id) init;
 
 - (id) initWithColorMapper:(NSObject <FileItemMapping> *)colorMapper
-         colorPalette:(NSColorList *)colorPalette
-         colorGradient:(float) colorGradient
-         maskTest:(FileItemTest *)maskTest
-         showPackageContents:(BOOL) showPackageContents;
+              colorPalette:(NSColorList *)colorPalette
+             colorGradient:(float)colorGradient
+                  maskTest:(FileItemTest *)maskTest
+       showPackageContents:(BOOL)showPackageContents;
 
 - (id) copyWithColorMapper:(NSObject <FileItemMapping> *)colorMapper;
 - (id) copyWithColorPalette:(NSColorList *)colorPalette;
-- (id) copyWithColorGradient:(float) colorGradient;
+- (id) copyWithColorGradient:(float)colorGradient;
 - (id) copyWithMaskTest:(FileItemTest *)maskTest;
-- (id) copyWithShowPackageContents:(BOOL) showPackageContents;
+- (id) copyWithShowPackageContents:(BOOL)showPackageContents;
 
 - (NSObject <FileItemMapping> *)colorMapper;
 - (NSColorList *)colorPalette;

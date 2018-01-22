@@ -4,8 +4,8 @@
 
 /* Bitmasks used for the flags field of the FileItem
  */
-// Note: Using "NOT_PHYSICAL" as a mask as opposed to "PHYSICAL" so that a set
-// bit signals an exceptional setting. 
+// Note: Using "NOT_PHYSICAL" as a mask as opposed to "PHYSICAL" so that a set bit signals an
+// exceptional setting.
 #define FILE_IS_NOT_PHYSICAL 0x01
 #define FILE_IS_HARDLINKED 0x02
 #define FILE_IS_PACKAGE 0x04
@@ -49,15 +49,15 @@
 
 /* Creates a duplicate item, for use in a new tree (so with a new parent).
  *
- * Note: If the item is a directory, its contents still need to be set, as
- * these can be different from the original item, e.g. by applying a filter.
+ * Note: If the item is a directory, its contents still need to be set, as these can be different
+ * from the original item, e.g. by applying a filter.
  */
 - (FileItem *)duplicateFileItem:(DirectoryItem *)newParent;
 
 
 - (NSString *)label;
 
-- (DirectoryItem *) parentDirectory;
+- (DirectoryItem *)parentDirectory;
 
 - (BOOL) isAncestorOfFileItem:(FileItem *)fileItem;
   
@@ -79,14 +79,13 @@
 - (CFAbsoluteTime) accessTime;
 
 
-/* Bit-mask flags. Lower-level representation for the file's physical, 
- * hard-linked, and package status.
+/* Bit-mask flags. Lower-level representation for the file's physical, hard-linked, and package
+ * status.
  */
 - (UInt8) fileItemFlags;
 
-/* Returns YES iff the file item is physical, i.e. it is an actual file on the
- * file system. A file item that is not physical may for example represent the
- * free space on a volume. 
+/* Returns YES iff the file item is physical, i.e. it is an actual file on the file system. A file
+ * item that is not physical may for example represent the free space on a volume.
  */
 - (BOOL) isPhysical;
 
@@ -96,22 +95,21 @@
 
 /* Return YES iff the file item is a package.
  *
- * Note: Although packages are always directories in the underlying file 
- * system, they may be represented by file items that are plain files 
- * (namely when package contents are hidden). This is the reason that this
- * method is introduced by the FileItem class.
+ * Note: Although packages are always directories in the underlying file system, they may be
+ * represented by file items that are plain files (namely when package contents are hidden). This is
+ * the reason that this method is introduced by the FileItem class.
  */
 - (BOOL) isPackage;
 
 
-/* Returns the path component that the item contributes to the path. The path
- * component is nil if the item is not physical.
+/* Returns the path component that the item contributes to the path. The path component is nil if
+ * the item is not physical.
  */
 - (NSString *)pathComponent;
 
-/* Returns the path to the file item. It is the path as shown to the user. The
- * system representation of the path can be different. This is for example the
- * case when a path component contains slash characters.
+/* Returns the path to the file item. It is the path as shown to the user. The system representation
+ * of the path can be different. This is for example the case when a path component contains slash
+ * characters.
  *
  * See also: -systemPath
  */
@@ -126,31 +124,31 @@
 
 /* Returns a short string, approximating the given size. E.g. "1.23 MB"
  */
-+ (NSString *)stringForFileItemSize:(ITEM_SIZE) size;
++ (NSString *)stringForFileItemSize:(ITEM_SIZE)size;
 
 /* Returns a string, specifying the file size exactly. E.g. "12345678 bytes"
  */
-+ (NSString *)exactStringForFileItemSize:(ITEM_SIZE) size;
++ (NSString *)exactStringForFileItemSize:(ITEM_SIZE)size;
 
 /* Returns a string for the provided time.
  */
-+ (NSString *)stringForTime:(CFAbsoluteTime) absTime;
++ (NSString *)stringForTime:(CFAbsoluteTime)absTime;
 
 /* Returns path component as it is displayed to user, with colons replaced by slashes.
  */
-+ (NSString *)friendlyPathComponentFor: (NSString *)pathComponent;
++ (NSString *)friendlyPathComponentFor:(NSString *)pathComponent;
 
 /* Returns path component as it is used by system, with slashes replaced by colons.
  */
-+ (NSString *)systemPathComponentFor: (NSString *)pathComponent;
++ (NSString *)systemPathComponentFor:(NSString *)pathComponent;
 
 @end // @interface FileItem
 
 
 @interface FileItem (ProtectedMethods) 
 
-/* Returns the path component that the item contributes to the path, in the 
- * file system representation.
+/* Returns the path component that the item contributes to the path, in the file system
+ * representation.
  *
  * See also -pathComponent.
  */

@@ -9,8 +9,8 @@
 
 @interface TimeBasedMapping (PrivateMethods)
 
-- (void) initTimeBounds: (DirectoryItem *)treeRoot;
-- (void) visitItemToDetermineTimeBounds: (Item *)item;
+- (void) initTimeBounds:(DirectoryItem *)treeRoot;
+- (void) visitItemToDetermineTimeBounds:(Item *)item;
 
 @end // @interface TimeBasedMapping (PrivateMethods)
 
@@ -23,8 +23,8 @@ const int  secondsPerDay = 60 * 60 * 24;
 const int  minTimeDelta = 60;
 
 
-- (id) initWithFileItemMappingScheme: (NSObject <FileItemMappingScheme> *)schemeVal 
-                                tree: (DirectoryItem *)tree {
+- (id) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)schemeVal
+                                tree:(DirectoryItem *)tree {
   if (self = [super initWithFileItemMappingScheme: schemeVal]) {
     [self initTimeBounds: tree];
   }
@@ -32,7 +32,7 @@ const int  minTimeDelta = 60;
 }
 
 
-- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
+- (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
   CFAbsoluteTime  itemTime = nowTime - [self timeForFileItem: item];
   CFAbsoluteTime  refTime = nowTime - minTime;
   NSUInteger  hash = 0;
@@ -58,7 +58,7 @@ const int  minTimeDelta = 60;
 //----------------------------------------------------------------------------
 // Implementation of LegendProvidingFileItemMapping
 
-- (NSString *) descriptionForHash: (NSUInteger)hash {
+- (NSString *)descriptionForHash: (NSUInteger)hash {
   CFAbsoluteTime  lowerBound = 0;
   CFAbsoluteTime  upperBound = minTime;
   
@@ -73,19 +73,16 @@ const int  minTimeDelta = 60;
   int  minDelta = (int) ceil((nowTime - upperBound) / secondsPerDay);
   
   if (hash == 0) {
-    NSString *fmt = 
-      NSLocalizedString(@"%d days ago or more", 
-                        @"Legend for Time-based mapping schemes.");
+    NSString *fmt = NSLocalizedString(@"%d days ago or more",
+                                      @"Legend for Time-based mapping schemes.");
     return [NSString stringWithFormat: fmt, minDelta];
   } else if (minDelta < maxDelta) {
-    NSString *fmt = 
-      NSLocalizedString(@"%d - %d days ago", 
-                        @"Legend for Time-based mapping schemes.");
+    NSString *fmt = NSLocalizedString(@"%d - %d days ago",
+                                      @"Legend for Time-based mapping schemes.");
     return [NSString stringWithFormat: fmt, minDelta, maxDelta];
   } else {
-    NSString *fmt = 
-      NSLocalizedString(@"%d days ago", 
-                        @"Legend for Time-based mapping schemes.");
+    NSString *fmt = NSLocalizedString(@"%d days ago",
+                                      @"Legend for Time-based mapping schemes.");
     return [NSString stringWithFormat: fmt, maxDelta];
   }
 }
@@ -100,7 +97,7 @@ const int  minTimeDelta = 60;
 
 @implementation TimeBasedMapping (PrivateMethods)
 
-- (void) initTimeBounds: (DirectoryItem *)treeRoot {
+- (void) initTimeBounds:(DirectoryItem *)treeRoot {
   minTime = 0;
   maxTime = 0;
   [self visitItemToDetermineTimeBounds: treeRoot];
@@ -149,7 +146,7 @@ const int  minTimeDelta = 60;
 }
 
 
-- (void) visitItemToDetermineTimeBounds: (Item *)item {
+- (void) visitItemToDetermineTimeBounds:(Item *)item {
   if ([item isVirtual]) {
     [self visitItemToDetermineTimeBounds: [((CompoundItem *)item) getFirst]];
     [self visitItemToDetermineTimeBounds: [((CompoundItem *)item) getSecond]];

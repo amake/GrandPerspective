@@ -4,8 +4,7 @@
 @implementation FilterTest
 
 + (id) filterTestWithName:(NSString *)name fileItemTest:(FileItemTest *)test {
-  return [[[FilterTest alloc] initWithName: name fileItemTest: test]
-              autorelease];
+  return [[[FilterTest alloc] initWithName: name fileItemTest: test] autorelease];
 }
 
 // Overrides designated initialiser.

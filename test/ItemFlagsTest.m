@@ -12,7 +12,7 @@
   return nil;
 }
 
-- (id) initWithFlagsMask:(UInt8) mask desiredResult:(UInt8) result {
+- (id) initWithFlagsMask:(UInt8)mask desiredResult:(UInt8)result {
   if (self = [super init]) {
     flagsMask = mask;
     desiredResult = result;
@@ -23,8 +23,9 @@
 }
 
 
-// Note: Special case. Does not call own designated initialiser. It should
-// be overridden and only called by initialisers with the same signature.
+/* Note: Special case. Does not call own designated initialiser. It should be overridden and only
+ * called by initialisers with the same signature.
+ */
 - (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     id  object;
@@ -45,10 +46,8 @@
   
   [dict setObject: @"ItemFlagsTest" forKey: @"class"];
   
-  [dict setObject: [NSNumber numberWithUnsignedChar: flagsMask]
-            forKey: @"flagsMask"];
-  [dict setObject: [NSNumber numberWithUnsignedChar: desiredResult]
-            forKey: @"desiredResult"];
+  [dict setObject: [NSNumber numberWithUnsignedChar: flagsMask] forKey: @"flagsMask"];
+  [dict setObject: [NSNumber numberWithUnsignedChar: desiredResult] forKey: @"desiredResult"];
 }
 
 
@@ -61,9 +60,8 @@
 }
 
 
-- (TestResult) testFileItem:(FileItem *)item context:(id) context {
-  return ( (([item fileItemFlags] & flagsMask) == desiredResult)
-           ? TEST_PASSED : TEST_FAILED );
+- (TestResult) testFileItem:(FileItem *)item context:(id)context {
+  return ([item fileItemFlags] & flagsMask) == desiredResult ? TEST_PASSED : TEST_FAILED;
 }
 
 - (BOOL) appliesToDirectories {
@@ -83,36 +81,31 @@
   // Description of a single flags test.
   NSString  *sub;
   
-  NSString  *andFormat =
-    NSLocalizedStringFromTable(
-      @"%@ and %@", @"Tests", 
-      @"AND-test for flags sub tests with 1: subtest, 2: one or more sub tests");
+  NSString  *andFormat = NSLocalizedStringFromTable
+    (@"%@ and %@", @"Tests",
+     @"AND-test for flags sub tests with 1: subtest, 2: one or more sub tests");
   
   if (flagsMask & FILE_IS_HARDLINKED) {
     if (desiredResult & FILE_IS_HARDLINKED) {
-      sub = NSLocalizedStringFromTable(
-              @"item is hard-linked", @"Tests", 
-              @"File/folder flags sub test");
+      sub = NSLocalizedStringFromTable(@"item is hard-linked", @"Tests",
+                                       @"File/folder flags sub test");
     }
     else {
-      sub = NSLocalizedStringFromTable(
-              @"item is not hard-linked", @"Tests", 
-              @"File/folder flags sub test");
+      sub = NSLocalizedStringFromTable(@"item is not hard-linked", @"Tests",
+                                       @"File/folder flags sub test");
     }
     s = sub;
   }
   
   if (flagsMask & FILE_IS_PACKAGE) {
     if (desiredResult & FILE_IS_PACKAGE) {
-      sub = NSLocalizedStringFromTable(
-              @"item is a package", @"Tests", 
-              @"File/folder flags sub test");
+      sub = NSLocalizedStringFromTable(@"item is a package", @"Tests",
+                                       @"File/folder flags sub test");
     }
     else {
-      sub = NSLocalizedStringFromTable(
-              @"item is not a package", @"Tests", 
-              @"File/folder flags sub test");
-    }
+      sub = NSLocalizedStringFromTable(@"item is not a package", @"Tests",
+                                       @"File/folder flags sub test");
+      }
 
     if ( s == nil ) {
       s = sub;
@@ -128,10 +121,9 @@
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict {
   NSAssert([[dict objectForKey: @"class"] isEqualToString: @"ItemFlagsTest"],
-             @"Incorrect value for class in dictionary.");
+           @"Incorrect value for class in dictionary.");
 
-  return [[[ItemFlagsTest alloc] initWithPropertiesFromDictionary: dict]
-              autorelease];
+  return [[[ItemFlagsTest alloc] initWithPropertiesFromDictionary: dict] autorelease];
 }
 
 @end

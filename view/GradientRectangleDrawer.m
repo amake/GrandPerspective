@@ -15,7 +15,7 @@
   return nil;
 }
 
-- (id) initWithColorPalette: (NSColorList *)colorPaletteVal {
+- (id) initWithColorPalette:(NSColorList *)colorPaletteVal {
   if (self = [super init]) {
     [self setColorPalette: colorPaletteVal];
     [self setColorGradient: 0.5f];
@@ -35,8 +35,8 @@
 }
 
 
-- (NSImage *) drawImageOfGradientRectangleWithColor: (NSUInteger) colorIndex
-                                             inRect: (NSRect) bounds {
+- (NSImage *)drawImageOfGradientRectangleWithColor:(NSUInteger)colorIndex
+                                            inRect:(NSRect)bounds {
   [self setupBitmap: bounds];
   
   [self drawGradientFilledRect: bounds colorIndex: colorIndex];
@@ -45,7 +45,7 @@
 }
 
 
-- (void) setColorPalette: (NSColorList *)colorPaletteVal {
+- (void) setColorPalette:(NSColorList *)colorPaletteVal {
   NSAssert(colorPaletteVal != nil && [[colorPaletteVal allKeys] count] > 0,
            @"Cannot set an invalid color palette.");
 
@@ -57,12 +57,12 @@
   }
 }
 
-- (NSColorList *) colorPalette {
+- (NSColorList *)colorPalette {
   return colorPalette;
 }
 
 
-- (void) setColorGradient: (float) gradient {
+- (void) setColorGradient:(float)gradient {
   NSAssert(gradient >= 0 && gradient <= 1, @"Invalid gradient value.");
   
   if (gradient != colorGradient) {
@@ -81,23 +81,21 @@
 
 @implementation GradientRectangleDrawer (ProtectedMethods) 
 
-- (void) setupBitmap: (NSRect) bounds {
+- (void) setupBitmap:(NSRect)bounds {
   NSAssert(drawBitmap == nil, @"Bitmap should be nil.");
 
   bitmapBounds = bounds;
 
-  drawBitmap = 
-    [[NSBitmapImageRep alloc] 
-      initWithBitmapDataPlanes: NULL
-      pixelsWide: (int) bitmapBounds.size.width
-      pixelsHigh: (int) bitmapBounds.size.height
-      bitsPerSample: 8
-      samplesPerPixel: 3
-      hasAlpha: NO
-      isPlanar: NO
-      colorSpaceName: NSDeviceRGBColorSpace
-      bytesPerRow: 0
-      bitsPerPixel: 32];
+  drawBitmap = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes: NULL
+                                                       pixelsWide: (int) bitmapBounds.size.width
+                                                       pixelsHigh: (int) bitmapBounds.size.height
+                                                    bitsPerSample: 8
+                                                  samplesPerPixel: 3
+                                                         hasAlpha: NO
+                                                         isPlanar: NO
+                                                   colorSpaceName: NSDeviceRGBColorSpace
+                                                      bytesPerRow: 0
+                                                     bitsPerPixel: 32];
 
   if (initGradientColors) {
     [self initGradientColors];
@@ -106,9 +104,8 @@
 }
 
 
-- (NSImage *) createImageFromBitmap {
-  NSImage  *image = 
-    [[[NSImage alloc] initWithSize: bitmapBounds.size] autorelease];
+- (NSImage *)createImageFromBitmap {
+  NSImage  *image = [[[NSImage alloc] initWithSize: bitmapBounds.size] autorelease];
   [image addRepresentation: drawBitmap];
 
   [drawBitmap release];
@@ -120,15 +117,14 @@
 
 - (UInt32) intValueForColor: (NSColor *)color {
   color = [color colorUsingColorSpaceName: NSDeviceRGBColorSpace];
-  return CFSwapInt32BigToHost(
-                 ((UInt32)([color redComponent] * 255) & 0xFF) << 24 |
-                 ((UInt32)([color greenComponent] * 255) & 0xFF) << 16 |
-                 ((UInt32)([color blueComponent] * 255) & 0xFF) << 8);
+  return CFSwapInt32BigToHost(((UInt32)([color redComponent] * 255) & 0xFF) << 24 |
+                              ((UInt32)([color greenComponent] * 255) & 0xFF) << 16 |
+                              ((UInt32)([color blueComponent] * 255) & 0xFF) << 8);
 }
 
 
-- (void) drawBasicFilledRect: (NSRect) rect intColor: (UInt32) intColor {
-  UInt32  *data = (UInt32*)[drawBitmap bitmapData];
+- (void) drawBasicFilledRect:(NSRect)rect intColor:(UInt32)intColor {
+  UInt32  *data = (UInt32 *)[drawBitmap bitmapData];
   
   int  x0 = (int)(rect.origin.x + 0.5f);
   int  y0 = (int)(rect.origin.y + 0.5f); 
@@ -147,12 +143,12 @@
 }
 
 
-- (void) drawGradientFilledRect: (NSRect) rect colorIndex: (NSUInteger) colorIndex {
+- (void) drawGradientFilledRect:(NSRect)rect colorIndex:(NSUInteger)colorIndex {
   UInt32  *intColors = &gradientColors[colorIndex * 256];
   UInt32  intColor;
   int  gradient;
   
-  UInt32  *data = (UInt32*)[drawBitmap bitmapData];
+  UInt32  *data = (UInt32 *)[drawBitmap bitmapData];
   UInt32  *pos;
   UInt32  *poslim;
 
@@ -219,16 +215,14 @@
   UInt32  *pos = gradientColors;
   
   for (int i = 0; i < numGradientColors; i++) {
-    NSColor  *color = 
-      [colorPalette colorWithKey: [colorKeys objectAtIndex: i]];
+    NSColor  *color = [colorPalette colorWithKey: [colorKeys objectAtIndex: i]];
     
-    // Maybe not needed, but there is no harm. It guarantees that 
-    // getHue:saturation:brightness:alpha can be invoked.
-    color = [color colorUsingColorSpaceName:NSDeviceRGBColorSpace];
+    // Maybe not needed, but there is no harm. It guarantees that getHue:saturation:brightness:alpha
+    // can be invoked.
+    color = [color colorUsingColorSpaceName: NSDeviceRGBColorSpace];
     
     CGFloat  hue, saturation, brightness, alpha;
-    [color getHue: &hue saturation: &saturation brightness: &brightness 
-             alpha: &alpha];
+    [color getHue: &hue saturation: &saturation brightness: &brightness alpha: &alpha];
 
     NSColor  *modColor;
 
@@ -236,14 +230,13 @@
     for (int j = 0; j < 128; j++) {
       float  adjust = colorGradient * (float)(128-j) / 128;
       modColor = [NSColor colorWithDeviceHue: hue
-                            saturation: saturation
-                            brightness: brightness * ( 1 - adjust)
-                            alpha: alpha];
+                                  saturation: saturation
+                                  brightness: brightness * ( 1 - adjust)
+                                       alpha: alpha];
                    
-      *pos++ = CFSwapInt32BigToHost(
-                 ((UInt32)([modColor redComponent] * 255) & 0xFF) << 24 |
-                 ((UInt32)([modColor greenComponent] * 255) & 0xFF) << 16 |
-                 ((UInt32)([modColor blueComponent] * 255) & 0xFF) << 8);
+      *pos++ = CFSwapInt32BigToHost(((UInt32)([modColor redComponent] * 255) & 0xFF) << 24 |
+                                    ((UInt32)([modColor greenComponent] * 255) & 0xFF) << 16 |
+                                    ((UInt32)([modColor blueComponent] * 255) & 0xFF) << 8);
     }
     
     // Lighter colors
@@ -256,21 +249,20 @@
 
       if (absAdjust < dif) {
         modColor = [NSColor colorWithDeviceHue: hue
-                              saturation: saturation
-                              brightness: brightness + absAdjust
-                              alpha: alpha];
+                                    saturation: saturation
+                                    brightness: brightness + absAdjust
+                                         alpha: alpha];
       }
       else {
-        modColor = [NSColor colorWithDeviceHue:hue
-                              saturation:saturation + dif - absAdjust
-                              brightness:1.0f
-                              alpha:alpha];
+        modColor = [NSColor colorWithDeviceHue: hue
+                                    saturation: saturation + dif - absAdjust
+                                    brightness: 1.0f
+                                         alpha: alpha];
       }
       
-      *pos++ = CFSwapInt32BigToHost(
-                 ((UInt32)([modColor redComponent] * 255) & 0xFF) << 24 |
-                 ((UInt32)([modColor greenComponent] * 255) & 0xFF) << 16 |
-                 ((UInt32)([modColor blueComponent] * 255) & 0xFF) << 8);
+      *pos++ = CFSwapInt32BigToHost(((UInt32)([modColor redComponent] * 255) & 0xFF) << 24 |
+                                    ((UInt32)([modColor greenComponent] * 255) & 0xFF) << 16 |
+                                    ((UInt32)([modColor blueComponent] * 255) & 0xFF) << 8);
     }
   }
   

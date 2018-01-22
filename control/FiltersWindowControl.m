@@ -24,7 +24,8 @@
 - (void) filterRenamedInRepository:(NSNotification *)notification;
 
 - (void) confirmFilterRemovalAlertDidEnd:(NSAlert *)alert 
-           returnCode:(int) returnCode contextInfo:(void *)contextInfo;
+                              returnCode:(int)returnCode
+                             contextInfo:(void *)contextInfo;
 
 @end // @interface FiltersWindowControl (PrivateMethods)
 
@@ -41,26 +42,32 @@
   if (self = [super initWithWindowNibName: @"FiltersWindow" owner: self]) {
     filterRepository = [filterRepositoryVal retain];
 
-    filterEditor = 
-      [[FilterEditor alloc] initWithFilterRepository: filterRepository];
+    filterEditor = [[FilterEditor alloc] initWithFilterRepository: filterRepository];
 
     NotifyingDictionary  *repositoryFiltersByName = 
       [filterRepository filtersByNameAsNotifyingDictionary];
     NSNotificationCenter  *nc = [repositoryFiltersByName notificationCenter];
     
-    [nc addObserver: self selector: @selector(filterAddedToRepository:) 
-          name: ObjectAddedEvent object: repositoryFiltersByName];
-    [nc addObserver: self selector: @selector(filterRemovedFromRepository:) 
-          name: ObjectRemovedEvent object: repositoryFiltersByName];
-    [nc addObserver: self selector: @selector(filterUpdatedInRepository:) 
-          name: ObjectUpdatedEvent object: repositoryFiltersByName];
-    [nc addObserver: self selector: @selector(filterRenamedInRepository:) 
-          name: ObjectRenamedEvent object: repositoryFiltersByName];
+    [nc addObserver: self
+           selector: @selector(filterAddedToRepository:)
+               name: ObjectAddedEvent
+             object: repositoryFiltersByName];
+    [nc addObserver: self
+           selector: @selector(filterRemovedFromRepository:)
+               name: ObjectRemovedEvent
+             object: repositoryFiltersByName];
+    [nc addObserver: self
+           selector: @selector(filterUpdatedInRepository:)
+               name: ObjectUpdatedEvent
+             object: repositoryFiltersByName];
+    [nc addObserver: self
+           selector: @selector(filterRenamedInRepository:)
+               name: ObjectRenamedEvent
+             object: repositoryFiltersByName];
 
-    filterNames = [[NSMutableArray alloc] initWithCapacity:
-                      [[filterRepository filtersByName] count] + 8];
-    [filterNames addObjectsFromArray: 
-       [[filterRepository filtersByName] allKeys]];
+    filterNames =
+      [[NSMutableArray alloc] initWithCapacity: [[filterRepository filtersByName] count] + 8];
+    [filterNames addObjectsFromArray: [[filterRepository filtersByName] allKeys]];
     [filterNames sortUsingSelector: @selector(compare:)];
     
     filterNameToSelect = nil;
@@ -69,7 +76,7 @@
 }
 
 - (void) dealloc {
-  NSNotificationCenter  *nc = 
+  NSNotificationCenter  *nc =
     [[filterRepository filtersByNameAsNotifyingDictionary] notificationCenter];
   [nc removeObserver: self];
     
@@ -84,42 +91,39 @@
 }
 
 
-- (IBAction) okAction:(id) sender {
+- (IBAction) okAction:(id)sender {
   [[self window] close];
 }
 
-- (void)cancelOperation:(id) sender {
+- (void)cancelOperation:(id)sender {
   [[self window] close];
 }
 
-- (IBAction) addFilterToRepository:(id) sender {
+- (IBAction) addFilterToRepository:(id)sender {
   NamedFilter  *newFilter = [filterEditor newNamedFilter];
   
   [self selectFilterNamed: [newFilter name]];
   [[self window] makeFirstResponder: filterView];
 }
 
-- (IBAction) editFilterInRepository:(id) sender {
+- (IBAction) editFilterInRepository:(id)sender {
   NSString  *oldName = [self selectedFilterName];
   [filterEditor editFilterNamed: oldName];
 }
 
-- (IBAction) removeFilterFromRepository:(id) sender {
+- (IBAction) removeFilterFromRepository:(id)sender {
   NSString  *filterName = [self selectedFilterName];  
   NSAlert  *alert = [[[NSAlert alloc] init] autorelease];
-  NSString  *fmt = NSLocalizedString( @"Remove the filter named \"%@\"?",
-                                      @"Alert message" );
+  NSString  *fmt = NSLocalizedString(@"Remove the filter named \"%@\"?", @"Alert message");
   NSString  *infoMsg = 
     ([filterRepository applicationProvidedFilterForName: filterName] != nil) ?
-      NSLocalizedString(
-        @"The filter will be replaced by the default filter with this name.",
-        @"Alert informative text" ) :
-      NSLocalizedString( 
-        @"The filter will be irrevocably removed from the filter repository.",
-        @"Alert informative text" );
+      NSLocalizedString(@"The filter will be replaced by the default filter with this name.",
+                        @"Alert informative text") :
+      NSLocalizedString(@"The filter will be irrevocably removed from the filter repository.",
+                        @"Alert informative text");
 
   NSBundle  *mainBundle = [NSBundle mainBundle];
-  NSString  *localizedName = 
+  NSString  *localizedName =
     [mainBundle localizedStringForKey: filterName value: nil table: @"Names"];
   
   [alert addButtonWithTitle: REMOVE_BUTTON_TITLE];
@@ -127,10 +131,10 @@
   [alert setMessageText: [NSString stringWithFormat: fmt, localizedName]];
   [alert setInformativeText: infoMsg];
 
-  [alert beginSheetModalForWindow: [self window] modalDelegate: self
-           didEndSelector: @selector(confirmFilterRemovalAlertDidEnd: 
-                                       returnCode:contextInfo:) 
-           contextInfo: filterName];
+  [alert beginSheetModalForWindow: [self window]
+                    modalDelegate: self
+                   didEndSelector: @selector(confirmFilterRemovalAlertDidEnd:returnCode:contextInfo:)
+                      contextInfo: filterName];
 }
 
 - (void) windowDidLoad {
@@ -144,16 +148,15 @@
 //----------------------------------------------------------------------------
 // NSTableSource
 
-- (NSInteger) numberOfRowsInTableView: (NSTableView *)tableView {
+- (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
   return [filterNames count];
 }
 
-- (id) tableView: (NSTableView *)tableView 
-         objectValueForTableColumn: (NSTableColumn *)column row: (NSInteger)row {
+- (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)column
+             row:(NSInteger)row {
   NSString  *filterName = [filterNames objectAtIndex: row];
   NSBundle  *mainBundle = [NSBundle mainBundle];
-  return 
-    [mainBundle localizedStringForKey: filterName value: nil table: @"Names"];
+  return [mainBundle localizedStringForKey: filterName value: nil table: @"Names"];
 
 }
 
@@ -161,7 +164,7 @@
 //----------------------------------------------------------------------------
 // Delegate methods for NSTable
 
-- (void) tableViewSelectionDidChange: (NSNotification *)notification {
+- (void) tableViewSelectionDidChange:(NSNotification *)notification {
   [self updateWindowState];
 }
 
@@ -179,8 +182,7 @@
 - (void) selectFilterNamed:(NSString *)name {
   NSUInteger  row = [filterNames indexOfObject: name];
   if (row != NSNotFound) {
-    [filterView selectRowIndexes: [NSIndexSet indexSetWithIndex: row]
-            byExtendingSelection: NO];
+    [filterView selectRowIndexes: [NSIndexSet indexSetWithIndex: row] byExtendingSelection: NO];
   }
   else {
     [filterView deselectAll: self];
@@ -271,7 +273,8 @@
 
 
 - (void) confirmFilterRemovalAlertDidEnd:(NSAlert *)alert 
-          returnCode:(int) returnCode contextInfo:(void *)filterName {
+                              returnCode:(int)returnCode
+                             contextInfo:(void *)filterName {
   if (returnCode == NSAlertFirstButtonReturn) {
     // Delete confirmed.
     
@@ -284,8 +287,8 @@
       [repositoryFiltersByName removeObjectForKey: filterName];
     }
     else {
-      // Replace it by the application-provided filter with the same name
-      // (this would happen anyway when the application is restarted).
+      // Replace it by the application-provided filter with the same name (this would happen anyway
+      // when the application is restarted).
       [repositoryFiltersByName updateObject: defaultFilter forKey: filterName];
     }
 

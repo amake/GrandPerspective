@@ -7,11 +7,11 @@
 
 @implementation ItemPathBuilder
 
-- (FileItem *) itemAtPoint: (NSPoint) point 
-                 startingAtTree: (FileItem *)treeRoot
-                 usingLayoutBuilder: (TreeLayoutBuilder *)layoutBuilder 
-                 bounds: (NSRect) bounds
-                 updatePath: (ItemPathModel *)pathModelVal {
+- (FileItem *)itemAtPoint:(NSPoint)point
+           startingAtTree:(FileItem *)treeRoot
+       usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
+                   bounds:(NSRect)bounds
+               updatePath:(ItemPathModel *)pathModelVal {
   NSAssert(pathModel==nil, @"Path model should be nil.");
   pathModel = pathModelVal;
   visibleTree = [pathModel visibleTree];
@@ -20,9 +20,9 @@
 
   insideVisibleTree = NO; 
   FileItem  *retVal = [self itemAtPoint: point 
-                              startingAtTree: treeRoot 
-                              usingLayoutBuilder: layoutBuilder 
-                              bounds: bounds];
+                         startingAtTree: treeRoot
+                     usingLayoutBuilder: layoutBuilder
+                                 bounds: bounds];
   
   visibleTree = nil;
   pathModel = nil;
@@ -30,10 +30,10 @@
   return retVal;
 }
 
-- (FileItem *) itemAtPoint: (NSPoint)point 
-                 startingAtTree: (FileItem *)treeRoot
-                 usingLayoutBuilder: (TreeLayoutBuilder *)layoutBuilder 
-                 bounds: (NSRect)bounds {
+- (FileItem *)itemAtPoint:(NSPoint)point
+           startingAtTree:(FileItem *)treeRoot
+       usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
+                   bounds:(NSRect)bounds {
   NSAssert(foundItem==nil, @"foundItem should be nil.");
   
   targetPoint = point;
@@ -46,8 +46,7 @@
 }
 
 
-- (BOOL) descendIntoItem: (Item *)item atRect: (NSRect) rect 
-           depth: (int) depth {
+- (BOOL) descendIntoItem:(Item *)item atRect:(NSRect)rect depth:(int)depth {
   if (!NSPointInRect(targetPoint, rect)) {
     return NO;
   }
@@ -57,8 +56,7 @@
       insideVisibleTree = YES;
     }
     else if (insideVisibleTree) {
-      // Note: Append the visible item which is not the visible tree root 
-      // itself) to the path.
+      // Note: Append the visible item which is not the visible tree root itself) to the path.
       [pathModel extendVisiblePath: item];
     }
   }

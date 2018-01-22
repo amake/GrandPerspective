@@ -9,12 +9,11 @@
 /**
  * A control for a FilterWindow.
  *
- * The control fires "okPerformed", "cancelPerformed", "applyPerformed", and
- * "closePerformed" notifications to signal that respectively the OK, Cancel,
- * Apply and Close buttons have been pressed. This allows the window to be run 
- * modally (e.g. when used to apply a Filter from the main menu), as well as 
- * normally (e.g. when used to set/change a mask for a specific directory
- * view window).
+ * The control fires "okPerformed", "cancelPerformed", "applyPerformed", and "closePerformed"
+ * notifications to signal that respectively the OK, Cancel, Apply and Close buttons have been
+ * pressed. This allows the window to be run modally (e.g. when used to apply a Filter from the main
+ * menu), as well as normally (e.g. when used to set/change a mask for a specific directory view
+ * window).
  */
 @interface FilterWindowControl 
   : NSWindowController <NSTableViewDataSource, NSTableViewDelegate> {
@@ -55,34 +54,34 @@
   // Locale-independent name of currently selected test.
   NSString  *selectedTestName;
   
-  // Indicates iff an "okPerformed", "cancelPerformed" or "closePerformed"
-  // notification has been fired already.
+  // Indicates iff an "okPerformed", "cancelPerformed" or "closePerformed" notification has been
+  // fired already.
   BOOL  finalNotificationFired;
   
   // Controls if an empty filter (i.e. a filter without any tests) is allowed.
   BOOL  allowEmptyFilter;
 }
 
-- (IBAction) cancelAction:(id) sender;
-- (IBAction) okAction:(id) sender;
+- (IBAction) cancelAction:(id)sender;
+- (IBAction) okAction:(id)sender;
 
-- (IBAction) filterNameChanged:(id) sender;
+- (IBAction) filterNameChanged:(id)sender;
 
-- (IBAction) addTestToRepository:(id) sender;
-- (IBAction) removeTestFromRepository:(id) sender;
-- (IBAction) editTestInRepository:(id) sender;
+- (IBAction) addTestToRepository:(id)sender;
+- (IBAction) removeTestFromRepository:(id)sender;
+- (IBAction) editTestInRepository:(id)sender;
 
-- (IBAction) addTestToFilter:(id) sender;
-- (IBAction) removeTestFromFilter:(id) sender;
-- (IBAction) removeAllTestsFromFilter:(id) sender;
+- (IBAction) addTestToFilter:(id)sender;
+- (IBAction) removeTestFromFilter:(id)sender;
+- (IBAction) removeAllTestsFromFilter:(id)sender;
 
-- (IBAction) showTestDescriptionChanged:(id) sender;
+- (IBAction) showTestDescriptionChanged:(id)sender;
 
-- (IBAction) testDoubleClicked:(id) sender;
+- (IBAction) testDoubleClicked:(id)sender;
 
 - (id) initWithTestRepository:(FilterTestRepository *)testRepository;
 
-- (void) setAllowEmptyFilter:(BOOL) flag;
+- (void) setAllowEmptyFilter:(BOOL)flag;
 - (BOOL) allowEmptyFilter;
 
 /* Returns the name of the filter, given the current window state.
@@ -95,9 +94,9 @@
  */
 - (void) representEmptyFilter;
 
-/* Configures the window to represent the given filter. It copies the state of
- * the original filter (as far as possible, given that some filter tests may
- * not exist anymore) and leaves the provided filter unchanged.
+/* Configures the window to represent the given filter. It copies the state of the original filter
+ * (as far as possible, given that some filter tests may not exist anymore) and leaves the provided
+ * filter unchanged.
  */
 - (void) representNamedFilter:(NamedFilter *)filterVal;
 
@@ -105,9 +104,9 @@
  */
 - (NamedFilter *)createNamedFilter;
 
-/* Sets the name of the filter as it is shown in the window. This may be
- * different from the actual name  (in particular, the visible name may be
- * localized). Once a visible name is set, it cannot be changed.
+/* Sets the name of the filter as it is shown in the window. This may be different from the actual
+ * name  (in particular, the visible name may be localized). Once a visible name is set, it cannot
+ * be changed.
  */
 - (void) setVisibleName:(NSString *)name;
 

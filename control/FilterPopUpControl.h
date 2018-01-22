@@ -7,11 +7,10 @@ extern NSString  *SelectedFilterUpdated;
 @class FilterRepository;
 @class UniqueTagsTransformer;
 
-/* Controller for a pop-up button for selecting the filters in the filter
- * repository. It observes the repository and updates the button when filters
- * are added, removed or renamed. It also fires events itself when the
- * selected filter is either renamed, removed or updated. Where available, the 
- * pop-up shows the localized names of the filters.
+/* Controller for a pop-up button for selecting the filters in the filter repository. It observes
+ * the repository and updates the button when filters are added, removed or renamed. It also fires
+ * events itself when the selected filter is either renamed, removed or updated. Where available,
+ * the pop-up shows the localized names of the filters.
  */
 @interface FilterPopUpControl : NSObject {
   NSPopUpButton  *popUpButton;
@@ -24,7 +23,7 @@ extern NSString  *SelectedFilterUpdated;
 - (id) initWithPopUpButton:(NSPopUpButton *)popUpButton;
 
 - (id) initWithPopUpButton:(NSPopUpButton *)popUpButton 
-         filterRepository:(FilterRepository *)filterRepository;
+          filterRepository:(FilterRepository *)filterRepository;
 
 - (NSNotificationCenter *)notificationCenter; 
 - (void) setNotificationCenter:(NSNotificationCenter *)notificationCenter; 

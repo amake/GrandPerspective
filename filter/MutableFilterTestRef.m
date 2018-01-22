@@ -4,7 +4,7 @@
 @implementation MutableFilterTestRef
 
 // Override designated initialiser
-- (id) initWithName:(NSString *)nameVal inverted:(BOOL) invertedVal {
+- (id) initWithName:(NSString *)nameVal inverted:(BOOL)invertedVal {
   if (self = [super initWithName: nameVal inverted: invertedVal]) {
     // Set default value
     canToggleInverted = YES;
@@ -13,7 +13,7 @@
   return self;
 }
 
-- (void) setCanToggleInverted:(BOOL) flag {
+- (void) setCanToggleInverted:(BOOL)flag {
   canToggleInverted = flag;
 }
 

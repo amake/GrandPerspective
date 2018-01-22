@@ -29,10 +29,10 @@
 - (id) init;
 - (id) initWithFilterTestRepository:(FilterTestRepository *)repository;
 
-/* Reads the tree from a file in scan dump format. Returns the annotated tree
- * context when succesful. The tree can then later be retrieved using
- * -annotatedTreeContext. Returns nil if reading is aborted, or if there is
- * an error. In the latter case, the error can be retrieved using -error.
+/* Reads the tree from a file in scan dump format. Returns the annotated tree context when
+ * succesful. The tree can then later be retrieved using -annotatedTreeContext. Returns nil if
+ * reading is aborted, or if there is an error. In the latter case, the error can be retrieved
+ * using -error.
  */
 - (AnnotatedTreeContext *)readTreeFromFile:(NSString *)path;
 
@@ -48,25 +48,23 @@
  */
 - (AnnotatedTreeContext *)annotatedTreeContext;
 
-/* Returns details of the error iff there was an error when carrying out the 
- * reading task.
+/* Returns details of the error iff there was an error when carrying out the reading task.
  */
 - (NSError *)error;
 
-/* Returns the names of any unbound filter tests, i.e. tests that could not
- * be found in the test repository.
+/* Returns the names of any unbound filter tests, i.e. tests that could not be found in the test
+ * repository.
  */
 - (NSArray *)unboundFilterTests;
 
-/* Returns a dictionary containing information about the progress of the
- * ongoing tree-reading task.
+/* Returns a dictionary containing information about the progress of the ongoing tree-reading task.
  *
- * It can safely be invoked from a different thread than the one that invoked
- * -writeTree:toFile: (and not doing so would actually be quite silly).
+ * It can safely be invoked from a different thread than the one that invoked -readTreeFromFile:
+ * (and not doing so would actually be quite silly).
  */
 - (NSDictionary *)progressInfo;
 
-- (void) setFormatVersion: (int)version;
+- (void) setFormatVersion:(int)version;
 - (int) formatVersion;
 
 @end

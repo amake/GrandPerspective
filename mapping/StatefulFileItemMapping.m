@@ -3,7 +3,7 @@
 
 @implementation StatefulFileItemMapping
 
-- (id) initWithFileItemMappingScheme: (NSObject <FileItemMappingScheme> *)schemeVal {
+- (id) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)schemeVal {
   if (self = [super init]) {
     scheme = [schemeVal retain];
   } 
@@ -18,16 +18,16 @@
 }
 
 
-- (NSObject <FileItemMappingScheme> *) fileItemMappingScheme {
+- (NSObject <FileItemMappingScheme> *)fileItemMappingScheme {
   return scheme;
 }
 
 
-- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
+- (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
   return 0;
 }
 
-- (NSUInteger) hashForFileItem: (PlainFileItem *)item inTree: (FileItem *)treeRoot {
+- (NSUInteger) hashForFileItem:(PlainFileItem *)item inTree:(FileItem *)treeRoot {
   // By default assuming that "depth" is not used in the hash calculation.
   // If it is, this method needs to be overridden.
   return [self hashForFileItem: item atDepth: 0];

@@ -3,8 +3,8 @@
 
 @interface WindowManager (PrivateMethods)
 
-- (NSString *) makeTitleUnique: (NSString *)title;
-- (NSString *) stripTitle: (NSString *)title;
+- (NSString *) makeTitleUnique:(NSString *)title;
+- (NSString *) stripTitle:(NSString *)title;
 
 @end
 
@@ -26,7 +26,7 @@
   [titleLookup release];
 }
 
-- (void) addWindow: (NSWindow *)window usingTitle: (NSString *)title {
+- (void) addWindow:(NSWindow *)window usingTitle:(NSString *)title {
   nextWindowPosition = [window cascadeTopLeftFromPoint: nextWindowPosition]; 
   [window setTitle: [self makeTitleUnique: title]];
 }
@@ -53,8 +53,8 @@
   else {
     // This title has been used before. Append the count to make it unique.
     
-    NSMutableString*  uniqueTitle = [NSMutableString stringWithCapacity:
-                                      [strippedTitle length] + 5];
+    NSMutableString*  uniqueTitle =
+      [NSMutableString stringWithCapacity: [strippedTitle length] + 5];
                                       
     [uniqueTitle setString: strippedTitle];
     [uniqueTitle appendFormat: @" [%lu]", (unsigned long)newCount];
@@ -64,7 +64,7 @@
 }
 
 
-- (NSString *) stripTitle: (NSString *)title {
+- (NSString *)stripTitle:(NSString *)title {
   NSUInteger  pos = [title length];
   NSCharacterSet*  digitSet = [NSCharacterSet decimalDigitCharacterSet]; 
 
@@ -77,8 +77,7 @@
   }
   
   // Keep stripping digits.
-  while ( pos > 0 &&
-          [digitSet characterIsMember: [title characterAtIndex: pos - 1]] ) {
+  while ( pos > 0 && [digitSet characterIsMember: [title characterAtIndex: pos - 1]] ) {
     pos--;
   }
 

@@ -46,7 +46,7 @@ NSString*  TaglineFormat = @"tagline-%d";
 //----------------------------------------------------------------------------
 // NSTableSource
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+- (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
   return [[[NSDocumentController sharedDocumentController] recentDocumentURLs] count];
 }
 
@@ -70,13 +70,13 @@ NSString*  TaglineFormat = @"tagline-%d";
 
 //----------------------------------------------------------------------------
 
-- (IBAction) scanAction:(id) sender {
+- (IBAction) scanAction:(id)sender {
   [[self window] close];
 
   [mainMenuControl scanDirectoryView: sender];
 }
 
-- (IBAction) repeatRecentScanAction:(id) sender {
+- (IBAction) repeatRecentScanAction:(id)sender {
   [[self window] close];
 
   NSUInteger row = [recentScansView clickedRow];
@@ -86,13 +86,13 @@ NSString*  TaglineFormat = @"tagline-%d";
   [mainMenuControl scanFolder: [docUrl path]];
 }
 
-- (IBAction) helpAction:(id) sender {
+- (IBAction) helpAction:(id)sender {
   [[self window] close];
 
   [[NSApplication sharedApplication] showHelp: sender];
 }
 
-- (void)cancelOperation:(id) sender {
+- (void)cancelOperation:(id)sender {
   [[self window] close];
 }
 

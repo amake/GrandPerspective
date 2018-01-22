@@ -10,10 +10,9 @@ extern NSString  *EstimatedProgressKey;
 @class DirectoryItem;
 
 
-/* The number of recursion levels to take into account in the progress
- * estimates. There's diminishing returns for each extra level, so it makes
- * sense to bound it. This constant is not actually used for the base class,
- * but used by various of its subclasses.
+/* The number of recursion levels to take into account in the progress estimates. There's
+ * diminishing returns for each extra level, so it makes sense to bound it. This constant is not
+ * actually used for the base class, but used by various of its subclasses.
  */
 #define NUM_PROGRESS_ESTIMATE_LEVELS 8
 
@@ -24,8 +23,8 @@ extern NSString  *EstimatedProgressKey;
  */
 @interface ProgressTracker : NSObject {
 
-  // Lock protecting the progress statistics (which can be retrieved from a
-  // thread different than the one carrying out the task).
+  // Lock protecting the progress statistics (which can be retrieved from a thread different than
+  // the one carrying out the task).
   NSLock  *mutex;
   
   // The number of folders that have been processed so far.
@@ -41,8 +40,7 @@ extern NSString  *EstimatedProgressKey;
   NSMutableArray  *directoryStack;
 }
 
-/* Called to signal that a new task is about to be carried out. The progress
- * statistics are reset.
+/* Called to signal that a new task is about to be carried out. The progress statistics are reset.
  */
 - (void) startingTask;
 
@@ -59,8 +57,7 @@ extern NSString  *EstimatedProgressKey;
  */
 - (void) processedFolder: (DirectoryItem *)dirItem;
 
-/* Called to signal that a folder is skipped. I.e. it is encountered, but not
- * processed.
+/* Called to signal that a folder is skipped. I.e. it is encountered, but not processed.
  */
 - (void) skippedFolder: (DirectoryItem *)dirItem;
 
@@ -72,26 +69,26 @@ extern NSString  *EstimatedProgressKey;
 
 @interface ProgressTracker (ProtectedMethods)
 
-/* Invoked by processingFolder. Can be overridden. It can be assumed that the
- * caller will have obtained the mutex lock.
+/* Invoked by processingFolder. Can be overridden. It can be assumed that the caller will have
+ * obtained the mutex lock.
  */
-- (void) _processingFolder: (DirectoryItem *)dirItem;
+- (void) _processingFolder:(DirectoryItem *)dirItem;
 
-/* Invoked by processedFolder. Can be overridden. It can be assumed that the
- * caller will have obtained the mutex lock.
+/* Invoked by processedFolder. Can be overridden. It can be assumed that the caller will have
+ * obtained the mutex lock.
  */
-- (void) _processedFolder: (DirectoryItem *)dirItem;
+- (void) _processedFolder:(DirectoryItem *)dirItem;
 
-/* Invoked by skippedFolder. Can be overridden. It can be assumed that the
- * caller will have obtained the mutex lock.
+/* Invoked by skippedFolder. Can be overridden. It can be assumed that the caller will have obtained
+ * the mutex lock.
  */
-- (void) _skippedFolder: (DirectoryItem *)dirItem;
+- (void) _skippedFolder:(DirectoryItem *)dirItem;
 
 /* The estimated progress. It ranges from 0 (no progress yet) to 100 (done).
  *
- * It is meant to be overridden and should only be used by the base class in
- * response to a call to progressInfo:. It can be assumed that the caller will
- * have obtained the mutex lock, so this does not need to be obtained here.
+ * It is meant to be overridden and should only be used by the base class in response to a call to
+ * progressInfo:. It can be assumed that the caller will have obtained the mutex lock, so this does
+ * not need to be obtained here.
  */
 - (float) estimatedProgress;
 

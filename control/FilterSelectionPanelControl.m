@@ -19,11 +19,10 @@
   return [self initWithFilterRepository: [FilterRepository defaultInstance]];
 }
 
-// Special case: should not cover (override) super's designated initialiser in
-// NSWindowController's case
+// Special case: should not cover (override) super's designated initialiser in NSWindowController's
+// case
 - (id) initWithFilterRepository:(FilterRepository *)filterRepositoryVal {
-  if (self = [super initWithWindowNibName: @"FilterSelectionPanel" 
-                      owner: self]) {
+  if (self = [super initWithWindowNibName: @"FilterSelectionPanel" owner: self]) {
     filterRepository = [filterRepositoryVal retain];
 
     filterEditor = nil; // Load it lazily
@@ -41,29 +40,28 @@
 
 
 - (void) windowDidLoad {
-  filterPopUpControl = 
-    [[FilterPopUpControl alloc] initWithPopUpButton: filterPopUp
-                                  filterRepository: filterRepository];
+  filterPopUpControl = [[FilterPopUpControl alloc] initWithPopUpButton: filterPopUp
+                                                      filterRepository: filterRepository];
 }
 
 
-- (IBAction) editFilter:(id) sender {
+- (IBAction) editFilter:(id)sender {
   [self filterEditor];
   NSString  *oldName = [filterPopUpControl selectedFilterName];
   [filterEditor editFilterNamed: oldName];
 }
 
-- (IBAction) addFilter:(id) sender {
+- (IBAction) addFilter:(id)sender {
   [self filterEditor];
   NamedFilter  *newFilter = [filterEditor newNamedFilter];
   [self selectFilterNamed: [newFilter name]];
 }
 
-- (IBAction) okAction:(id) sender {
+- (IBAction) okAction:(id)sender {
   [NSApp stopModal];
 }
 
-- (IBAction) cancelAction:(id) sender {
+- (IBAction) cancelAction:(id)sender {
   [NSApp abortModal];
 }
 
@@ -76,8 +74,7 @@
   NSString  *name = [filterPopUpControl selectedFilterName];
 
   Filter  *filter = [[filterRepository filtersByName] objectForKey: name];
-  // Filter should always exist, as pop-up control is observing the filter
-  // repository.
+  // Filter should always exist, as pop-up control is observing the filter repository.
   NSAssert(filter != nil, @"Unexpected nil filter");
 
   return [NamedFilter namedFilter: filter name: name];
@@ -90,8 +87,7 @@
 
 - (FilterEditor *)filterEditor {
   if (filterEditor == nil) {
-    filterEditor = 
-      [[FilterEditor alloc] initWithFilterRepository: filterRepository];
+    filterEditor = [[FilterEditor alloc] initWithFilterRepository: filterRepository];
   }
   return filterEditor;
 }

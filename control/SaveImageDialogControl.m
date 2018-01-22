@@ -18,11 +18,11 @@
   return nil;
 }
 
-// Special case: should not cover (override) super's designated initialiser in
-// NSWindowController's case
+// Special case: should not cover (override) super's designated initialiser in NSWindowController's
+// case
 - (id) initWithDirectoryViewControl: (DirectoryViewControl*)dirViewControlVal {
          
-  if (self = [super initWithWindowNibName:@"SaveImageDialog" owner:self]) {
+  if (self = [super initWithWindowNibName: @"SaveImageDialog" owner: self]) {
     dirViewControl = [dirViewControlVal retain];
     
     // Trigger loading of window.
@@ -42,9 +42,10 @@
 
 
 - (void) windowDidLoad {
-  [[NSNotificationCenter defaultCenter]
-      addObserver: self selector: @selector(windowWillClose:)
-      name: NSWindowWillCloseNotification object: [self window]];
+  [[NSNotificationCenter defaultCenter] addObserver: self
+                                           selector: @selector(windowWillClose:)
+                                               name: NSWindowWillCloseNotification
+                                             object: [self window]];
 
   [[self window] center];
   [[self window] makeKeyAndOrderFront: self];
@@ -55,13 +56,12 @@
 }
 
 
-- (void) windowWillClose:(NSNotification*)notification {
+- (void) windowWillClose:(NSNotification *)notification {
    [self autorelease];
 }
 
 
-// Auto-corrects the width/height fields so that they contain a valid
-// numeric value.
+// Auto-corrects the width/height fields so that they contain a valid numeric value.
 - (IBAction)valueEntered:(id)sender {
   int  value = [sender intValue];
   
@@ -80,19 +80,16 @@
   [[self window] close];
 
   // Retrieve the desired size of the image.
-  // Note: Cannot rely on valueEntered: for making sure that the size is 
-  //   valid. The action event is not fired when the user modifies a text field
-  //   and directly clicks OK. Therefore using MAX to ensure that both 
-  //   dimensions are positive.
-  NSRect  bounds = 
-            NSMakeRect(0, 0, MAX(MINIMUM_SIZE, [widthField intValue]),
-                             MAX(MINIMUM_SIZE, [heightField intValue]));
+  // Note: Cannot rely on valueEntered: for making sure that the size is valid. The action event is
+  // not fired when the user modifies a text field and directly clicks OK. Therefore using MAX to
+  // ensure that both dimensions are positive.
+  NSRect  bounds = NSMakeRect(0, 0, MAX(MINIMUM_SIZE, [widthField intValue]),
+                                    MAX(MINIMUM_SIZE, [heightField intValue]));
 
   // Get a filename for the image.
   NSSavePanel  *savePanel = [NSSavePanel savePanel]; 
   [savePanel setAllowedFileTypes: [NSArray arrayWithObject: @"tiff"]];
-  [savePanel setTitle: 
-     NSLocalizedString( @"Save image", @"Title of save panel") ];
+  [savePanel setTitle: NSLocalizedString( @"Save image", @"Title of save panel") ];
   
   if ([savePanel runModal] == NSModalResponseOK) {
     NSURL  *destURL = [savePanel URL];
@@ -100,34 +97,28 @@
     // Draw the image.
     DirectoryView  *dirView = [dirViewControl directoryView];
     ItemPathModelView  *pathModelView = [dirView pathModelView];
-    TreeDrawer  *treeDrawer = 
-      [[[TreeDrawer alloc] 
-           initWithScanTree: [pathModelView scanTree]
-             treeDrawerSettings: [dirView treeDrawerSettings]]
-               autorelease];
-    NSImage  *image =
-      [treeDrawer drawImageOfVisibleTree: [pathModelView visibleTree]
-                    startingAtTree: [dirView treeInView]
-                    usingLayoutBuilder: [dirView layoutBuilder]
-                    inRect: bounds];
+    TreeDrawer  *treeDrawer = [[[TreeDrawer alloc] initWithScanTree: [pathModelView scanTree]
+                                                 treeDrawerSettings: [dirView treeDrawerSettings]]
+                               autorelease];
+    NSImage  *image = [treeDrawer drawImageOfVisibleTree: [pathModelView visibleTree]
+                                          startingAtTree: [dirView treeInView]
+                                      usingLayoutBuilder: [dirView layoutBuilder]
+                                                  inRect: bounds];
     
     // Save the image.
-    NSBitmapImageRep  *imageBitmap = (NSBitmapImageRep*)[[image representations] objectAtIndex:0];
-    NSData  *imageData = [imageBitmap 
-                            representationUsingType: NSTIFFFileType
-                            properties: @{}];
-  
+    NSBitmapImageRep  *imageBitmap = (NSBitmapImageRep *)[[image representations] objectAtIndex: 0];
+    NSData  *imageData = [imageBitmap representationUsingType: NSTIFFFileType
+                                                   properties: @{}];
+
     if (! [imageData  writeToURL: destURL atomically: NO] ) {
       NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 
       [alert addButtonWithTitle: OK_BUTTON_TITLE];
-      [alert setMessageText: NSLocalizedString( @"Failed to save the image.", 
-                                                @"Alert message" )];
+      [alert setMessageText: NSLocalizedString(@"Failed to save the image.", @"Alert message")];
 
       [alert runModal];
     }
   }
 }
-
 
 @end

@@ -3,12 +3,12 @@
 
 @interface PeekingEnumerator : NSObject {
 
-  NSEnumerator*  enumerator;
+  NSEnumerator  *enumerator;
   id  nextObject;
   
 }
 
-- (id) initWithEnumerator:(NSEnumerator*)enumerator;
+- (id) initWithEnumerator:(NSEnumerator *)enumerator;
 
 - (id) nextObject;
 

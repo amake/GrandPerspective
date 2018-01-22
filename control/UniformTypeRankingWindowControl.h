@@ -27,21 +27,21 @@
   BOOL  updateTypeList;
 }
 
-- (IBAction) cancelAction: (id) sender;
-- (IBAction) okAction: (id) sender;
+- (IBAction) cancelAction:(id)sender;
+- (IBAction) okAction:(id)sender;
 
-- (IBAction) moveToTopAction: (id) sender;
-- (IBAction) moveToBottomAction: (id) sender;
+- (IBAction) moveToTopAction:(id)sender;
+- (IBAction) moveToBottomAction:(id)sender;
 
-- (IBAction) moveToRevealAction: (id) sender;
-- (IBAction) moveToHideAction: (id) sender;
+- (IBAction) moveToRevealAction:(id)sender;
+- (IBAction) moveToHideAction:(id)sender;
 
-- (IBAction) moveUpAction: (id) sender;
-- (IBAction) moveDownAction: (id) sender;
+- (IBAction) moveUpAction:(id)sender;
+- (IBAction) moveDownAction:(id)sender;
 
-- (IBAction) showTypeDescriptionChanged: (id) sender;
+- (IBAction) showTypeDescriptionChanged:(id)sender;
 
 
-- (id) initWithUniformTypeRanking: (UniformTypeRanking *)typeRanking;
+- (id) initWithUniformTypeRanking:(UniformTypeRanking *)typeRanking;
 
 @end

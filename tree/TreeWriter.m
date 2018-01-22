@@ -83,9 +83,9 @@ NSString  *DateTimeFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
                                   | CHAR_NON_PRINTING)
 
 
-/* Escapes the string so that it can be used a valid XML attribute value or
- * valid XML character data. The characters that are escaped are specified by
- * a mask, which must reflect the context where the string is to be used.
+/* Escapes the string so that it can be used a valid XML attribute value or valid XML character
+ * data. The characters that are escaped are specified by a mask, which must reflect the context
+ * where the string is to be used.
  */
 NSString *escapedXML(NSString *s, int escapeCharMask) {
   // Lazily construct buffer. Only use it when needed.
@@ -115,10 +115,9 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
         }
       } else {
         if ((escapeCharMask & CHAR_NON_PRINTING) != 0) {
-          // Some files can have names with non-printing characters. Just do 
-          // something to ensure that the XML data can be loaded correctly. 
-          // However, no attempt is made to enable a reversible transformation.
-          // If anything, such names should be discouraged, not supported.
+          // Some files can have names with non-printing characters. Just do something to ensure
+          // that the XML data can be loaded correctly. However, no attempt is made to enable a
+          // reversible transformation. Such names should be discouraged not supported.
           r = @"?";
         }
       }
@@ -130,9 +129,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
       if (numCharsInBuf < i) {
         // Copy preceding characters that did not require escaping to buffer
-        [buf appendString: [s substringWithRange:
-                                NSMakeRange(numCharsInBuf,
-                                            i - numCharsInBuf)]];
+        [buf appendString: [s substringWithRange: NSMakeRange(numCharsInBuf, i - numCharsInBuf)]];
         numCharsInBuf = i;
       }
       
@@ -148,9 +145,8 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   
   if (numCharsInBuf < numCharsInVal) {
     // Append final characters to buffer
-    [buf appendString: [s substringWithRange: 
-                            NSMakeRange(numCharsInBuf,
-                                        numCharsInVal - numCharsInBuf)]];
+    [buf appendString: [s substringWithRange:
+                        NSMakeRange(numCharsInBuf, numCharsInVal - numCharsInBuf)]];
     numCharsInBuf = numCharsInVal;
   }
   
@@ -160,20 +156,20 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
 @interface TreeWriter (PrivateMethods) 
 
-- (void) appendScanDumpElement: (AnnotatedTreeContext *)tree;
-- (void) appendScanInfoElement: (AnnotatedTreeContext *)tree;
-- (void) appendScanCommentsElement: (NSString *)comments;
-- (void) appendFilterSetElement: (FilterSet *)filterSet;
-- (void) appendFilterElement: (NamedFilter *)filter;
-- (void) appendFilterTestElement: (FilterTestRef *)filterTest;
-- (void) appendFolderElement: (DirectoryItem *)dirItem root: (BOOL) isRoot;
-- (void) appendFileElement: (FileItem *)fileItem;
+- (void) appendScanDumpElement:(AnnotatedTreeContext *)tree;
+- (void) appendScanInfoElement:(AnnotatedTreeContext *)tree;
+- (void) appendScanCommentsElement:(NSString *)comments;
+- (void) appendFilterSetElement:(FilterSet *)filterSet;
+- (void) appendFilterElement:(NamedFilter *)filter;
+- (void) appendFilterTestElement:(FilterTestRef *)filterTest;
+- (void) appendFolderElement:(DirectoryItem *)dirItem root:(BOOL)isRoot;
+- (void) appendFileElement:(FileItem *)fileItem;
 
-- (void) dumpItemContents: (Item *)item;
+- (void) dumpItemContents:(Item *)item;
 
-- (void) appendString: (NSString *)s;
+- (void) appendString:(NSString *)s;
 
-+ (NSString *)stringForTime: (CFAbsoluteTime) time;
++ (NSString *)stringForTime:(CFAbsoluteTime)time;
 
 @end
 
@@ -203,7 +199,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 }
 
 
-- (BOOL) writeTree: (AnnotatedTreeContext *)tree toFile: (NSString *)filename {
+- (BOOL) writeTree:(AnnotatedTreeContext *)tree toFile:(NSString *)filename {
   NSAssert(file == NULL, @"File not NULL");
 
   [progressTracker startingTask];
@@ -226,8 +222,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
       NSLog(@"Failed to write last data: %lu bytes written out of %lu.",
                 (unsigned long)numWritten, (unsigned long)dataBufferPos);
 
-      error = [[ApplicationError alloc] initWithLocalizedDescription: 
-                  WRITING_LAST_DATA_FAILED];
+      error = [[ApplicationError alloc] initWithLocalizedDescription: WRITING_LAST_DATA_FAILED];
     }
   }
   
@@ -247,11 +242,11 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   return (error==nil) && abort;
 }
 
-- (NSError *) error {
+- (NSError *)error {
   return error;
 }
 
-- (NSDictionary *) progressInfo {
+- (NSDictionary *)progressInfo {
   return [progressTracker progressInfo];
 }
 
@@ -278,13 +273,13 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   return dateFormatter;
 }
 
-+ (NSDateFormatter *) nsTimeFormatter {
++ (NSDateFormatter *)nsTimeFormatter {
     static NSDateFormatter *timeFmt = nil;
     if (timeFmt == nil) {
         timeFmt = [[NSDateFormatter alloc] init];
-        [timeFmt setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-        [timeFmt setDateFormat:DateTimeFormat];
-        [timeFmt setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        [timeFmt setLocale: [NSLocale localeWithLocaleIdentifier: @"en_US_POSIX"]];
+        [timeFmt setDateFormat: DateTimeFormat];
+        [timeFmt setTimeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]];
     }
     return timeFmt;
 }
@@ -294,10 +289,8 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
 @implementation TreeWriter (PrivateMethods) 
 
-- (void) appendScanDumpElement: (AnnotatedTreeContext *)annotatedTree {
-  NSString  *appVersion =
-    [[[NSBundle mainBundle] infoDictionary] objectForKey: 
-                                              @"CFBundleVersion"];
+- (void) appendScanDumpElement:(AnnotatedTreeContext *)annotatedTree {
+  NSString  *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleVersion"];
 
   [self appendString: 
     [NSString stringWithFormat: @"<%@ %@=\"%@\" %@=\"%@\">\n", 
@@ -311,7 +304,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 }
 
 
-- (void) appendScanInfoElement: (AnnotatedTreeContext *)annotatedTree {
+- (void) appendScanInfoElement:(AnnotatedTreeContext *)annotatedTree {
   TreeContext  *tree = [annotatedTree treeContext];
 
   [self appendString: 
@@ -336,7 +329,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 }
 
 
-- (void) appendScanCommentsElement: (NSString *)comments {
+- (void) appendScanCommentsElement:(NSString *)comments {
   if ([comments length] == 0) {
     return;
   }
@@ -349,7 +342,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 }
 
 
-- (void) appendFilterSetElement: (FilterSet *)filterSet {
+- (void) appendFilterSetElement:(FilterSet *)filterSet {
   if ([filterSet numFilters] == 0) {
     return;
   }
@@ -388,7 +381,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 }
 
 
-- (void) appendFilterTestElement: (FilterTestRef *)filterTest {
+- (void) appendFilterTestElement:(FilterTestRef *)filterTest {
   NSString  *nameVal = escapedXML([filterTest name], ATTRIBUTE_ESCAPE_CHARS);
   [self appendString: 
           [NSString stringWithFormat: @"<%@ %@=\"%@\" %@=\"%@\" />\n", 
@@ -399,7 +392,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 }
 
 
-- (void) appendFolderElement: (DirectoryItem *)dirItem root: (BOOL) isRoot {
+- (void) appendFolderElement:(DirectoryItem *)dirItem root:(BOOL)isRoot {
   [progressTracker processingFolder: dirItem];
 
   NSString  *nameVal = escapedXML([dirItem systemPathComponent], ATTRIBUTE_ESCAPE_CHARS);
@@ -408,11 +401,9 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   NSString  *createdVal = [TreeWriter stringForTime: [dirItem creationTime]];
   NSString  *modifiedVal = [TreeWriter stringForTime: [dirItem modificationTime]];
   NSString  *accessedVal = [TreeWriter stringForTime: [dirItem accessTime]];
-  [self appendString: 
-   [NSString stringWithFormat: 
-               @"<%@ %@=\"%@\"", 
-               FolderElem,
-               NameAttr, nameVal
+  [self appendString: [NSString stringWithFormat: @"<%@ %@=\"%@\"",
+                                  FolderElem,
+                                  NameAttr, nameVal
     ]];
   if (flags != 0) {
     [self appendString: [NSString stringWithFormat: @" %@=\"%d\"", FlagsAttr, flags]];
@@ -436,19 +427,17 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 }
 
 
-- (void) appendFileElement: (FileItem *)fileItem {
+- (void) appendFileElement:(FileItem *)fileItem {
   NSString  *nameVal = escapedXML([fileItem systemPathComponent], ATTRIBUTE_ESCAPE_CHARS);
   UInt8  flags = [fileItem fileItemFlags];
   NSString  *createdVal = [TreeWriter stringForTime: [fileItem creationTime]];
   NSString  *modifiedVal = [TreeWriter stringForTime: [fileItem modificationTime]];
   NSString  *accessedVal = [TreeWriter stringForTime: [fileItem accessTime]];
   
-  [self appendString: 
-   [NSString stringWithFormat:
-               @"<%@ %@=\"%@\" %@=\"%qu\"", 
-               FileElem,
-               NameAttr, nameVal, 
-               SizeAttr, [fileItem itemSize]
+  [self appendString: [NSString stringWithFormat: @"<%@ %@=\"%@\" %@=\"%qu\"",
+                                  FileElem,
+                                  NameAttr, nameVal,
+                                  SizeAttr, [fileItem itemSize]
     ]];
   if (flags != 0) {
     [self appendString: [NSString stringWithFormat: @" %@=\"%d\"", FlagsAttr, flags]];
@@ -466,7 +455,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 }
 
 
-- (void) dumpItemContents: (Item *)item {
+- (void) dumpItemContents:(Item *)item {
   if (abort) {
     return;
   }
@@ -492,7 +481,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 }
 
 
-- (void) appendString: (NSString *)s {
+- (void) appendString:(NSString *)s {
   if (error != nil) {
     // Don't write anything when an error has occurred. 
     //
@@ -520,11 +509,9 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
       NSUInteger  numWritten = fwrite( dataBuffer, 1, BUFFER_SIZE, file );
       
       if (numWritten != BUFFER_SIZE) {
-        NSLog(@"Failed to write entire buffer, %lu bytes written",
-              (unsigned long)numWritten);
+        NSLog(@"Failed to write entire buffer, %lu bytes written", (unsigned long)numWritten);
         
-        error = [[ApplicationError alloc] initWithLocalizedDescription: 
-                    WRITING_BUFFER_FAILED];
+        error = [[ApplicationError alloc] initWithLocalizedDescription: WRITING_BUFFER_FAILED];
         abort = YES;
         
         return; // Do not attempt anymore writes to file.
@@ -536,14 +523,12 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 }
 
 
-+ (NSString *)stringForTime: (CFAbsoluteTime) time {
++ (NSString *)stringForTime:(CFAbsoluteTime)time {
   if (time == 0) {
     return nil;
   } else {
     return 
-    [(NSString *)CFDateFormatterCreateStringWithAbsoluteTime(NULL,
-                                                            [self timeFormatter],
-                                                            time)
+    [(NSString *)CFDateFormatterCreateStringWithAbsoluteTime(NULL, [self timeFormatter], time)
      autorelease];
   }  
 }

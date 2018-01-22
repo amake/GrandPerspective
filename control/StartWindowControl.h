@@ -13,8 +13,8 @@
 
 - (id) initWithMainMenuControl:(MainMenuControl *)mainMenuControl;
 
-- (IBAction) scanAction:(id) sender;
-- (IBAction) helpAction:(id) sender;
-- (IBAction) repeatRecentScanAction:(id) sender;
+- (IBAction) scanAction:(id)sender;
+- (IBAction) helpAction:(id)sender;
+- (IBAction) repeatRecentScanAction:(id)sender;
 
 @end

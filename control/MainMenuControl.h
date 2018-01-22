@@ -31,38 +31,38 @@
 + (void) reportUnboundFilters:(NSArray *)unboundFilters;
 + (void) reportUnboundTests:(NSArray *)unboundTests;
 
-- (IBAction) scanDirectoryView:(id) sender;
-- (IBAction) scanFilteredDirectoryView:(id) sender;
+- (IBAction) scanDirectoryView:(id)sender;
+- (IBAction) scanFilteredDirectoryView:(id)sender;
 
 // Default rescan action
-- (IBAction) rescan:(id) sender;
+- (IBAction) rescan:(id)sender;
 
 // Rescan entire scan tree
-- (IBAction) rescanAll:(id) sender;
+- (IBAction) rescanAll:(id)sender;
 
 // Rescan visible tree
-- (IBAction) rescanVisible:(id) sender;
+- (IBAction) rescanVisible:(id)sender;
 
 // Rescan selected item (file or directory)
-- (IBAction) rescanSelected:(id) sender;
+- (IBAction) rescanSelected:(id)sender;
 
-- (IBAction) filterDirectoryView:(id) sender;
-- (IBAction) duplicateDirectoryView:(id) sender;
-- (IBAction) twinDirectoryView:(id) sender;
+- (IBAction) filterDirectoryView:(id)sender;
+- (IBAction) duplicateDirectoryView:(id)sender;
+- (IBAction) twinDirectoryView:(id)sender;
 
-- (IBAction) saveScanData:(id) sender;
-- (IBAction) loadScanData:(id) sender;
+- (IBAction) saveScanData:(id)sender;
+- (IBAction) loadScanData:(id)sender;
 
-- (IBAction) saveDirectoryViewImage:(id) sender;
+- (IBAction) saveDirectoryViewImage:(id)sender;
 
-- (IBAction) editPreferences:(id) sender;
-- (IBAction) editFilters:(id) sender;
-- (IBAction) editUniformTypeRanking:(id) sender;
+- (IBAction) editPreferences:(id)sender;
+- (IBAction) editFilters:(id)sender;
+- (IBAction) editUniformTypeRanking:(id)sender;
 
-- (IBAction) toggleToolbarShown:(id) sender;
-- (IBAction) customizeToolbar:(id) sender;
+- (IBAction) toggleToolbarShown:(id)sender;
+- (IBAction) customizeToolbar:(id)sender;
 
-- (IBAction) openWebsite:(id) sender;
+- (IBAction) openWebsite:(id)sender;
 
 - (void) scanFolder:(NSString *)path;
 

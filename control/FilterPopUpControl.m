@@ -31,11 +31,11 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 
 - (id) initWithPopUpButton:(NSPopUpButton *)popUpButtonVal {
   return [self initWithPopUpButton: popUpButtonVal
-                 filterRepository: [FilterRepository defaultInstance]];
+                  filterRepository: [FilterRepository defaultInstance]];
 }
 
 - (id) initWithPopUpButton:(NSPopUpButton *)popUpButtonVal
-         filterRepository:(FilterRepository *)filterRepositoryVal {
+          filterRepository:(FilterRepository *)filterRepositoryVal {
   if (self = [super init]) {
     popUpButton = [popUpButtonVal retain];
     filterRepository = [filterRepositoryVal retain];
@@ -46,28 +46,36 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
       [filterRepository filtersByNameAsNotifyingDictionary];
     NSNotificationCenter  *nc = [repositoryFiltersByName notificationCenter];
     
-    [nc addObserver: self selector: @selector(filterAddedToRepository:) 
-          name: ObjectAddedEvent object: repositoryFiltersByName];
-    [nc addObserver: self selector: @selector(filterRemovedFromRepository:) 
-          name: ObjectRemovedEvent object: repositoryFiltersByName];
-    [nc addObserver: self selector: @selector(filterUpdatedInRepository:) 
-          name: ObjectUpdatedEvent object: repositoryFiltersByName];
-    [nc addObserver: self selector: @selector(filterRenamedInRepository:) 
-          name: ObjectRenamedEvent object: repositoryFiltersByName];
+    [nc addObserver: self
+           selector: @selector(filterAddedToRepository:)
+               name: ObjectAddedEvent
+             object: repositoryFiltersByName];
+    [nc addObserver: self
+           selector: @selector(filterRemovedFromRepository:)
+               name: ObjectRemovedEvent
+             object: repositoryFiltersByName];
+    [nc addObserver: self
+           selector: @selector(filterUpdatedInRepository:)
+               name: ObjectUpdatedEvent
+             object: repositoryFiltersByName];
+    [nc addObserver: self
+           selector: @selector(filterRenamedInRepository:)
+               name: ObjectRenamedEvent
+             object: repositoryFiltersByName];
           
     NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];  
 
     [popUpButton removeAllItems];
     [tagMaker addLocalisedNames: [[filterRepository filtersByName] allKeys]
-                toPopUp: popUpButton
-                select: [userDefaults stringForKey: DefaultFilterName]
-                table: @"Names"];
+                        toPopUp: popUpButton
+                         select: [userDefaults stringForKey: DefaultFilterName]
+                          table: @"Names"];
   }
   return self;
 }
 
 - (void) dealloc {
-  NSNotificationCenter  *nc = 
+  NSNotificationCenter  *nc =
     [[filterRepository filtersByNameAsNotifyingDictionary] notificationCenter];
   [nc removeObserver: self];
 
@@ -84,7 +92,7 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
   return notificationCenter;
 }
   
-- (void) setNotificationCenter:(NSNotificationCenter*)notificationCenterVal {
+- (void) setNotificationCenter:(NSNotificationCenter *)notificationCenterVal {
   if (notificationCenterVal != notificationCenter) {
     [notificationCenter release];
     notificationCenter = [notificationCenterVal retain];
@@ -109,10 +117,7 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 - (void) filterAddedToRepository:(NSNotification *)notification {
   NSString  *name = [[notification userInfo] objectForKey: @"key"];
   
-  [tagMaker addLocalisedName: name 
-              toPopUp: popUpButton
-              select: NO
-              table: @"Names"];
+  [tagMaker addLocalisedName: name toPopUp: popUpButton select: NO table: @"Names"];
 }
 
 - (void) filterRemovedFromRepository:(NSNotification *)notification {
@@ -124,8 +129,7 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
   [popUpButton removeItemAtIndex: [popUpButton indexOfItemWithTag: tag]];
   
   if (wasSelected) {
-    [notificationCenter postNotificationName: SelectedFilterRemoved
-                          object: self];
+    [notificationCenter postNotificationName: SelectedFilterRemoved object: self];
   }
 }
 
@@ -136,8 +140,7 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
   BOOL  isSelected = [popUpButton indexOfSelectedItem] == index;
 
   if (isSelected) {
-    [notificationCenter postNotificationName: SelectedFilterUpdated
-                          object: self];
+    [notificationCenter postNotificationName: SelectedFilterUpdated object: self];
   }
 }
 
@@ -149,14 +152,10 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
   BOOL  wasSelected = [popUpButton indexOfSelectedItem] == index;
   
   [popUpButton removeItemAtIndex: index];
-  [tagMaker addLocalisedName: newName 
-              toPopUp: popUpButton
-              select: wasSelected
-              table: @"Names"];  
+  [tagMaker addLocalisedName: newName toPopUp: popUpButton select: wasSelected table: @"Names"];
 
   if (wasSelected) {
-    [notificationCenter postNotificationName: SelectedFilterRenamed
-                          object: self];
+    [notificationCenter postNotificationName: SelectedFilterRenamed object: self];
   }
 }
 

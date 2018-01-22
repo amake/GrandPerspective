@@ -11,26 +11,25 @@
   return nil;
 }
 
-- (id) initWithPath:(NSString *)path 
-         fileSizeMeasure:(NSString *)fileSizeMeasureVal
-         filterSet:(FilterSet *)filterSetVal {
+- (id) initWithPath:(NSString *)path
+    fileSizeMeasure:(NSString *)fileSizeMeasureVal
+          filterSet:(FilterSet *)filterSetVal {
 
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
   BOOL  showPackageContentsByDefault =
-          ( [userDefaults boolForKey: ShowPackageContentsByDefaultKey]
-            ? NSOnState : NSOffState );
+    [userDefaults boolForKey: ShowPackageContentsByDefaultKey] ? NSOnState : NSOffState;
             
   return [self initWithPath: path
-                 fileSizeMeasure: fileSizeMeasureVal
-                 filterSet: filterSetVal
-                 packagesAsFiles: !showPackageContentsByDefault];
+            fileSizeMeasure: fileSizeMeasureVal
+                  filterSet: filterSetVal
+            packagesAsFiles: !showPackageContentsByDefault];
 }
          
 - (id) initWithPath:(NSString *)path 
-         fileSizeMeasure:(NSString *)fileSizeMeasureVal
-         filterSet:(FilterSet *)filterSetVal
-         packagesAsFiles:(BOOL) packagesAsFilesVal {
+    fileSizeMeasure:(NSString *)fileSizeMeasureVal
+          filterSet:(FilterSet *)filterSetVal
+    packagesAsFiles:(BOOL) packagesAsFilesVal {
   if (self = [super init]) {
     pathToScan = [path retain];
     fileSizeMeasure = [fileSizeMeasureVal retain];

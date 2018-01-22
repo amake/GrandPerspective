@@ -12,9 +12,9 @@ extern NSString  *EstimatedProgressKey;
 
 - (void) updatePanel;
 
-- (void) updateProgressDetails: (NSString *)currentPath;
-- (void) updateProgressSummary: (int) numProcessed;
-- (void) updateProgressEstimate: (float) progressEstimate;
+- (void) updateProgressDetails:(NSString *)currentPath;
+- (void) updateProgressSummary:(int)numProcessed;
+- (void) updateProgressEstimate:(float)progressEstimate;
 
 @end
 
@@ -26,12 +26,11 @@ extern NSString  *EstimatedProgressKey;
   return nil;
 }
 
-- (id) initWithTaskExecutor: (NSObject <TaskExecutor> *)taskExecutorVal {
+- (id) initWithTaskExecutor:(NSObject <TaskExecutor> *)taskExecutorVal {
   if (self = [super initWithWindowNibName: @"ProgressPanel" owner: self]) {
     taskExecutor = [taskExecutorVal retain];
     
-    refreshRate = [[NSUserDefaults standardUserDefaults] 
-                      floatForKey: ProgressPanelRefreshRateKey];
+    refreshRate = [[NSUserDefaults standardUserDefaults] floatForKey: ProgressPanelRefreshRateKey];
     if (refreshRate <= 0) {
       NSLog(@"Invalid value for progressPanelRefreshRate.");
       refreshRate = 1;
@@ -65,14 +64,15 @@ extern NSString  *EstimatedProgressKey;
 }
 
 
-- (NSObject <TaskExecutor> *) taskExecutor {
+- (NSObject <TaskExecutor> *)taskExecutor {
   return taskExecutor;
 }
 
 
-- (void) taskStartedWithInput: (id) taskInput
-           cancelCallback: (NSObject *)callback selector: (SEL) selector {
-  NSAssert( cancelCallback==nil, @"Callback already set." );
+- (void) taskStartedWithInput:(id)taskInput
+               cancelCallback:(NSObject *)callback
+                     selector:(SEL)selector {
+  NSAssert(cancelCallback == nil, @"Callback already set.");
   
   cancelCallback = [callback retain];
   cancelCallbackSelector = selector;
@@ -89,7 +89,7 @@ extern NSString  *EstimatedProgressKey;
 }
 
 - (void) taskStopped {
-  NSAssert( cancelCallback!=nil, @"Callback already nil.");
+  NSAssert(cancelCallback != nil, @"Callback already nil.");
   
   [cancelCallback release];
   cancelCallback = nil;
@@ -100,11 +100,10 @@ extern NSString  *EstimatedProgressKey;
 }
 
 
-- (IBAction) abort: (id) sender {
+- (IBAction) abort:(id)sender {
   [cancelCallback performSelector: cancelCallbackSelector];
  
-  // No need to invoke "taskStopped". This is the responsibility of the caller
-  // of "taskStarted".
+  // No need to invoke "taskStopped". This is the responsibility of the caller of "taskStarted".
 }
 
 @end // @implementation ProgressPanelControl
@@ -120,31 +119,27 @@ extern NSString  *EstimatedProgressKey;
   NSDictionary  *dict = [self progressInfo];
   if (dict != nil) {
     [self updateProgressDetails: [dict objectForKey: CurrentFolderPathKey]];
-    [self updateProgressSummary: 
-     [[dict objectForKey: NumFoldersProcessedKey] intValue]];
-    [self updateProgressEstimate:
-     [[dict objectForKey: EstimatedProgressKey] floatValue]];
+    [self updateProgressSummary: [[dict objectForKey: NumFoldersProcessedKey] intValue]];
+    [self updateProgressEstimate: [[dict objectForKey: EstimatedProgressKey] floatValue]];
   }
 
   // Schedule another update 
-  [self performSelector: @selector(updatePanel) withObject: 0 
-          afterDelay: refreshRate];
+  [self performSelector: @selector(updatePanel) withObject: 0 afterDelay: refreshRate];
 }
 
 
-- (void) updateProgressDetails: (NSString *)currentPath {
+- (void) updateProgressDetails:(NSString *)currentPath {
   [progressDetails setStringValue: 
                      (currentPath != nil)
                      ? [NSString stringWithFormat: detailsFormat, currentPath]
                      : @""];
 }
 
-- (void) updateProgressSummary: (int) numProcessed {
-  [progressSummary setStringValue: 
-                     [NSString stringWithFormat: summaryFormat, numProcessed]];
+- (void) updateProgressSummary:(int)numProcessed {
+  [progressSummary setStringValue: [NSString stringWithFormat: summaryFormat, numProcessed]];
 }
 
-- (void) updateProgressEstimate: (float) progressEstimate {
+- (void) updateProgressEstimate:(float)progressEstimate {
   progressIndicator.doubleValue = progressEstimate;
 }
 

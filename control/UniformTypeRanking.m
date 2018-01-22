@@ -10,7 +10,7 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 
 @interface UniformTypeRanking (PrivateMethods) 
 
-- (void) uniformTypeAdded: (NSNotification *)notification;
+- (void) uniformTypeAdded:(NSNotification *)notification;
 
 @end
 
@@ -18,8 +18,7 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 @implementation UniformTypeRanking
 
 + (UniformTypeRanking *)defaultUniformTypeRanking {
-  static UniformTypeRanking
-    *defaultUniformTypeRankingInstance = nil;
+  static UniformTypeRanking  *defaultUniformTypeRankingInstance = nil;
 
   if (defaultUniformTypeRankingInstance==nil) {
     defaultUniformTypeRankingInstance = [[UniformTypeRanking alloc] init];
@@ -46,7 +45,7 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 }
 
 
-- (void) loadRanking: (UniformTypeInventory *)typeInventory {
+- (void) loadRanking:(UniformTypeInventory *)typeInventory {
   NSAssert([rankedTypes count] == 0, @"List must be empty before load.");
   
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults]; 
@@ -65,11 +64,9 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 }
 
 - (void) storeRanking {
-  NSMutableArray  *rankedUTIs =
-    [[NSMutableArray alloc] initWithCapacity: [rankedTypes count]];
+  NSMutableArray  *rankedUTIs = [[NSMutableArray alloc] initWithCapacity: [rankedTypes count]];
     
-  NSMutableSet  *encountered = 
-    [NSMutableSet setWithCapacity: [rankedUTIs count]];
+  NSMutableSet  *encountered = [NSMutableSet setWithCapacity: [rankedUTIs count]];
     
   NSEnumerator  *typeEnum = [rankedTypes objectEnumerator];
   UniformType  *type;
@@ -90,17 +87,18 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 }
 
 
-- (void) observeUniformTypeInventory: (UniformTypeInventory *)typeInventory {
+- (void) observeUniformTypeInventory:(UniformTypeInventory *)typeInventory {
   NSNotificationCenter  *nc = [NSNotificationCenter defaultCenter];
 
   // Observe the inventory to for newly added types so that these can be added
   // to (the end of) the ranked list. 
-  [nc addObserver: self selector: @selector(uniformTypeAdded:)
-        name: UniformTypeAddedEvent object: typeInventory];
+  [nc addObserver: self
+         selector: @selector(uniformTypeAdded:)
+             name: UniformTypeAddedEvent
+           object: typeInventory];
         
   // Also add any types in the inventory that are not yet in the ranking
-  NSMutableSet  *typesInRanking = 
-    [NSMutableSet setWithCapacity: ([rankedTypes count] + 16)];
+  NSMutableSet  *typesInRanking = [NSMutableSet setWithCapacity: ([rankedTypes count] + 16)];
 
   [typesInRanking addObjectsFromArray: rankedTypes];
   NSEnumerator  *typesEnum = [typeInventory uniformTypeEnumerator];
@@ -114,16 +112,15 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 }
 
 
-- (NSArray *) rankedUniformTypes {
+- (NSArray *)rankedUniformTypes {
   // Return an immutable copy of the array.
   return [NSArray arrayWithArray: rankedTypes]; 
 }
 
-- (void) updateRankedUniformTypes: (NSArray *)ranking {
-  // Updates the ranking while keeping new types that may have appeared in the
-  // meantime.
+- (void) updateRankedUniformTypes:(NSArray *)ranking {
+  // Updates the ranking while keeping new types that may have appeared in the meantime.
   [rankedTypes replaceObjectsInRange: NSMakeRange(0, [ranking count])
-                 withObjectsFromArray: ranking];
+                withObjectsFromArray: ranking];
   
   // Notify any observers.
   NSNotificationCenter  *nc = [NSNotificationCenter defaultCenter]; 
@@ -131,7 +128,7 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 }
 
 
-- (BOOL) isUniformTypeDominated: (UniformType *)type {
+- (BOOL) isUniformTypeDominated:(UniformType *)type {
   NSUInteger  i = 0;
   NSUInteger  i_max = [rankedTypes count];
   
@@ -141,8 +138,7 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
     UniformType  *higherType = [rankedTypes objectAtIndex: i];
     
     if (higherType == type) {
-      // Found the type in the list, without encountering any type that 
-      // dominates it.
+      // Found the type in the list, without encountering any type that dominates it.
       return NO;
     }
 
@@ -157,9 +153,8 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
   return NO;
 }
 
-- (NSArray *) undominatedRankedUniformTypes {
-  NSMutableArray  *undominatedTypes = 
-    [NSMutableArray arrayWithCapacity: [rankedTypes count]];
+- (NSArray *)undominatedRankedUniformTypes {
+  NSMutableArray  *undominatedTypes = [NSMutableArray arrayWithCapacity: [rankedTypes count]];
     
   NSUInteger  i = 0;
   NSUInteger  i_max = [rankedTypes count];
@@ -182,7 +177,7 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 
 @implementation UniformTypeRanking (PrivateMethods) 
 
-- (void) uniformTypeAdded: (NSNotification *)notification {
+- (void) uniformTypeAdded:(NSNotification *)notification {
   UniformType  *type = [[notification userInfo] objectForKey: UniformTypeKey];
 
   [rankedTypes addObject: type];

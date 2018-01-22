@@ -28,8 +28,8 @@
 }
 
 - (id) initWithScanTree:(DirectoryItem *)scanTree;
-- (id) initWithScanTree:(DirectoryItem *)scanTree 
-         treeDrawerSettings:(TreeDrawerSettings *)settings;
+- (id) initWithScanTree:(DirectoryItem *)scanTree
+     treeDrawerSettings:(TreeDrawerSettings *)settings;
 
 - (void) setMaskTest:(FileItemTest *)mask;
 - (FileItemTest *)maskTest;
@@ -37,7 +37,7 @@
 - (void) setColorMapper:(NSObject <FileItemMapping> *)colorMapper;
 - (NSObject <FileItemMapping> *)colorMapper;
 
-- (void) setShowPackageContents:(BOOL) showPackageContents;
+- (void) setShowPackageContents:(BOOL)showPackageContents;
 - (BOOL) showPackageContents;
 
 // Updates the drawer according to the given settings.
@@ -45,18 +45,17 @@
 
 // Note: The tree starting at "treeRoot" should be immutable.
 - (NSImage *)drawImageOfVisibleTree:(FileItem *)visibleTree
-               startingAtTree:(FileItem *)treeRoot
-               usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
-               inRect:(NSRect) bounds;
+                     startingAtTree:(FileItem *)treeRoot
+                 usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
+                             inRect:(NSRect)bounds;
 
 /* Any outstanding request to abort Drawing is cancelled.
  */
 - (void) clearAbortFlag;
 
-/* Cancels any ongoing drawing task. Note: It is possible that the ongoing
- * task is just finishing, in which case it may still finish normally. 
- * Therefore, -clearAbortFlag should be invoked before initiating a new 
- * drawing task, otherwise the next drawing task will be aborted immediately.
+/* Cancels any ongoing drawing task. Note: It is possible that the ongoing task is just finishing,
+ * in which case it may still finish normally. Therefore, -clearAbortFlag should be invoked before
+ * initiating a new drawing task, otherwise the next drawing task will be aborted immediately.
  */
 - (void) abortDrawing;
 

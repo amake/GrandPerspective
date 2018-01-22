@@ -10,8 +10,8 @@
 #import "FilterTestWindowControl.h"
 
 
-/* Performs a validity check on the name of filter tests (before the window is 
- * closed using the OK button).
+/* Performs a validity check on the name of filter tests (before the window is closed using the OK
+ * button).
  */
 @interface FilterTestNameValidator : NSObject <NameValidator> {
   NSDictionary  *allTests;
@@ -19,8 +19,7 @@
 }
 
 - (id) initWithExistingTests:(NSDictionary *)allTests;
-- (id) initWithExistingTests:(NSDictionary *)allTests 
-         allowedName:(NSString *)name;
+- (id) initWithExistingTests:(NSDictionary *)allTests allowedName:(NSString *)name;
 
 @end // @interface FilterTestNameValidator
 
@@ -37,8 +36,7 @@
 @implementation FilterTestEditor
 
 - (id) init {
-  return [self initWithFilterTestRepository: 
-                 [FilterTestRepository defaultInstance]];
+  return [self initWithFilterTestRepository: [FilterTestRepository defaultInstance]];
 }
 
 - (id) initWithFilterTestRepository:(FilterTestRepository *)repository {
@@ -63,14 +61,13 @@
   NSWindow  *editTestWindow = [self loadEditFilterTestWindow];
   
   FilterTestNameValidator  *testNameValidator = 
-    [[[FilterTestNameValidator alloc]
-        initWithExistingTests: [testRepository testsByName]] autorelease];
+    [[[FilterTestNameValidator alloc] initWithExistingTests: [testRepository testsByName]]
+     autorelease];
   
   [filterTestWindowControl setNameValidator: testNameValidator];
   [filterTestWindowControl representFilterTest: nil];
 
-  [ModalityTerminator 
-     modalityTerminatorForEventSource: filterTestWindowControl];
+  [ModalityTerminator modalityTerminatorForEventSource: filterTestWindowControl];
   NSInteger  status = [NSApp runModalForWindow: editTestWindow];
   [editTestWindow close];
 
@@ -81,12 +78,11 @@
       NSString  *name = [filterTest name];
 
       // The nameValidator should have ensured that this check succeeds.
-      NSAssert( 
-        [[testRepository testsByName] objectForKey: name] == nil,
-        @"Duplicate name check failed.");
+      NSAssert([[testRepository testsByName] objectForKey: name] == nil,
+               @"Duplicate name check failed.");
 
-      [[testRepository testsByNameAsNotifyingDictionary]
-          addObject: [filterTest fileItemTest] forKey: name];
+      [[testRepository testsByNameAsNotifyingDictionary] addObject: [filterTest fileItemTest]
+                                                            forKey: name];
         
       // Rest of addition handled in response to notification event.
     }
@@ -103,28 +99,25 @@
 - (FilterTest *)editFilterTestNamed:(NSString *)oldName {
   NSWindow  *editTestWindow = [self loadEditFilterTestWindow];
 
-  FileItemTest  *oldTest = 
-    [[testRepository testsByName] objectForKey: oldName];
+  FileItemTest  *oldTest = [[testRepository testsByName] objectForKey: oldName];
 
   [filterTestWindowControl representFilterTest: 
      [FilterTest filterTestWithName: oldName fileItemTest: oldTest]];
 
   if ([testRepository applicationProvidedTestForName: oldName] != nil) {
-    // The test's name equals that of an application provided test. Show the
-    // localized version of the name (which implicitly prevents the name from
-    // being changed).
+    // The test's name equals that of an application provided test. Show the localized version of
+    // the name (which implicitly prevents the name from being changed).
   
     NSBundle  *mainBundle = [NSBundle mainBundle];
-    NSString  *localizedName = 
+    NSString  *localizedName =
       [mainBundle localizedStringForKey: oldName value: nil table: @"Names"];
       
     [filterTestWindowControl setVisibleName: localizedName];
   }
   
-  FilterTestNameValidator  *testNameValidator = 
-    [[[FilterTestNameValidator alloc]
-        initWithExistingTests: [testRepository testsByName]
-        allowedName: oldName] autorelease];
+  FilterTestNameValidator  *testNameValidator =
+    [[[FilterTestNameValidator alloc] initWithExistingTests: [testRepository testsByName]
+                                                allowedName: oldName] autorelease];
   
   [filterTestWindowControl setNameValidator: testNameValidator];
   
@@ -139,22 +132,21 @@
       NSString  *newName = [newFilterTest name];
 
       // The terminationControl should have ensured that this check succeeds.
-      NSAssert( 
-        [newName isEqualToString: oldName] ||
-        [[testRepository testsByName] objectForKey: newName] == nil,
-        @"Duplicate name check failed.");
+      NSAssert([newName isEqualToString: oldName] ||
+               [[testRepository testsByName] objectForKey: newName] == nil,
+               @"Duplicate name check failed.");
 
       if (! [newName isEqualToString: oldName]) {
         // Handle name change.
-        [[testRepository testsByNameAsNotifyingDictionary]
-            moveObjectFromKey: oldName toKey: newName];
+        [[testRepository testsByNameAsNotifyingDictionary] moveObjectFromKey: oldName
+                                                                       toKey: newName];
           
         // Rest of rename handled in response to update notification event.
       }
         
       // Test itself has changed as well.
-      [[testRepository testsByNameAsNotifyingDictionary]
-          updateObject: [newFilterTest fileItemTest] forKey: newName];
+      [[testRepository testsByNameAsNotifyingDictionary] updateObject: [newFilterTest fileItemTest]
+                                                               forKey: newName];
 
       // Rest of update handled in response to update notification event.
     }
@@ -177,8 +169,7 @@
   if (filterTestWindowControl == nil) {
     filterTestWindowControl = [[FilterTestWindowControl alloc] init];
   }
-  // Return its window. This also ensure that it is loaded before its control 
-  // is used.
+  // Return its window. This also ensure that it is loaded before its control is used.
   return [filterTestWindowControl window];
 }
 
@@ -197,8 +188,7 @@
   return [self initWithExistingTests: allTestsVal allowedName: nil];
 }
 
-- (id) initWithExistingTests:(NSDictionary *)allTestsVal
-         allowedName:(NSString *)name {
+- (id) initWithExistingTests:(NSDictionary *)allTestsVal allowedName:(NSString *)name {
   if (self = [super init]) {
     allTests = [allTestsVal retain];
     allowedName = [name retain];    
@@ -217,13 +207,11 @@
 
 - (NSString *)checkNameIsValid:(NSString *)name {
   if ([name isEqualToString:@""]) {
-    return NSLocalizedString( @"The test must have a name.",
-                              @"Alert message" );
+    return NSLocalizedString(@"The test must have a name.", @"Alert message");
   }
   else if ( ![allowedName isEqualToString: name] &&
             [allTests objectForKey: name] != nil) {
-    NSString  *fmt = NSLocalizedString( @"A test named \"%@\" already exists.",
-                                        @"Alert message" );
+    NSString  *fmt = NSLocalizedString(@"A test named \"%@\" already exists.", @"Alert message");
     return [NSString stringWithFormat: fmt, name];
   }
   

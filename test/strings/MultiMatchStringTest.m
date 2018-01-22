@@ -11,11 +11,11 @@
 
 /* Not implemented. Needs to be provided by subclass.
  *
- * It should return a string with two "%@" arguments. The first for the
- * subject of the test and the second for the description of the match targets.
+ * It should return a string with two "%@" arguments. The first for the subject of the test and the
+ * second for the description of the match targets.
  *
- * Furthermore, the descriptionFormat should somehow indicate whether or not 
- * the matching is case-sensitive.
+ * Furthermore, the descriptionFormat should somehow indicate whether or not the matching is
+ * case-sensitive.
  */
 - (NSString *)descriptionFormat;
 
@@ -34,14 +34,12 @@
   return [self initWithMatchTargets: matchesVal caseSensitive: YES];
 }
   
-- (id) initWithMatchTargets:(NSArray *)matchesVal
-         caseSensitive: (BOOL)caseFlag {
+- (id) initWithMatchTargets:(NSArray *)matchesVal caseSensitive:(BOOL)caseFlag {
   if (self = [super init]) {
-    NSAssert([matchesVal count] >= 1, 
-             @"There must at least be one possible match.");
+    NSAssert([matchesVal count] >= 1, @"There must at least be one possible match.");
 
     // Make the array immutable
-    matches = [[NSArray alloc] initWithArray:matchesVal];
+    matches = [[NSArray alloc] initWithArray: matchesVal];
     caseSensitive = caseFlag;
   }
   
@@ -57,8 +55,8 @@
 
 /* Initialiser used when the test is restored from a dictionary.
  *
- * Note: Special case. Does not call own designated initialiser. It should
- * be overridden and only called by initialisers with the same signature.
+ * Note: Special case. Does not call own designated initialiser. It should be overridden and only
+ * called by initialisers with the same signature.
  */
 - (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
@@ -78,8 +76,7 @@
   
   [dict setObject: matches forKey: @"matches"];
   
-  [dict setObject: [NSNumber numberWithBool: caseSensitive] 
-          forKey: @"caseSensitive"];
+  [dict setObject: [NSNumber numberWithBool: caseSensitive] forKey: @"caseSensitive"];
 }
 
 

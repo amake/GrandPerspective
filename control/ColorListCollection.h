@@ -7,12 +7,12 @@
 
 }
 
-+ (ColorListCollection*) defaultColorListCollection;
++ (ColorListCollection *)defaultColorListCollection;
 
-- (void) addColorList: (NSColorList *)colorList key: (NSString *)key;
-- (void) removeColorListForKey: (NSString *)key;
+- (void) addColorList:(NSColorList *)colorList key:(NSString *)key;
+- (void) removeColorListForKey:(NSString *)key;
 
-- (NSArray*) allKeys;
-- (NSColorList*) colorListForKey: (NSString *)key;
+- (NSArray *)allKeys;
+- (NSColorList *)colorListForKey:(NSString *)key;
 
 @end

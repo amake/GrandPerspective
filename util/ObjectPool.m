@@ -9,7 +9,7 @@
   return [self initWithCapacity: INT_MAX];
 }
 
-- (id) initWithCapacity: (int) maxSizeVal {
+- (id) initWithCapacity:(int)maxSizeVal {
   if (self = [super init]) {
     maxSize = maxSizeVal;
     
@@ -38,7 +38,7 @@
   }
 }
 
-- (void) returnObject: (id) object {
+- (void) returnObject:(id)object {
   if ([pool count] < maxSize) {
     [pool addObject: [self resetObject: object]];
   }

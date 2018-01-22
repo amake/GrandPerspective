@@ -23,9 +23,8 @@ NSString  *ShowPackageContentsByDefaultKey = @"showPackageContentsByDefault";
 NSString  *ShowEntireVolumeByDefaultKey = @"showEntireVolumeByDefault";
 
 
-/* Note: The preferences below cannot currently be changed from the 
- * preferences panel; they are set by the application defaults and can be
- * changed by manually editing the user preferences file.
+/* Note: The preferences below cannot currently be changed from the preferences panel; they are set
+ * by the application defaults and can be changed by manually editing the user preferences file.
  */
 NSString  *ConfirmFolderDeletionKey = @"confirmFolderDeletion";
 NSString  *DefaultColorGradient = @"defaultColorGradient";
@@ -43,10 +42,9 @@ NSString  *DelayBeforeWelcomeWindowAfterStartupKey = @"delayBeforeWelcomeWindowA
 
 + (BOOL) doesAppHaveFileDeletePermission;
 
-- (void) setupPopUp: (NSPopUpButton *)popUp key: (NSString *)key
-           content: (NSArray *)names;
+- (void) setupPopUp:(NSPopUpButton *)popUp key:(NSString *)key content:(NSArray *)names;
 
-- (void) setPopUp: (NSPopUpButton *)popUp toValue: (NSString *)value;
+- (void) setPopUp:(NSPopUpButton *)popUp toValue:(NSString *)value;
 
 - (void) updateButtonState;
 
@@ -65,8 +63,8 @@ static BOOL appHasDeletePermission;
   return appHasDeletePermission;
 }
 
-// Special case: should not cover (override) super's designated initialiser in
-// NSWindowController's case
+// Special case: should not cover (override) super's designated initialiser in NSWindowController's
+// case
 - (id) init {
   if (self = [super initWithWindowNibName: @"PreferencesPanel" owner: self]) {
     // Trigger loading of the window
@@ -87,20 +85,26 @@ static BOOL appHasDeletePermission;
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
 
   // Configure all pop-up buttons.
-  [self setupPopUp: fileDeletionPopUp key: FileDeletionTargetsKey
+  [self setupPopUp: fileDeletionPopUp
+               key: FileDeletionTargetsKey
            content: [DirectoryViewControl fileDeletionTargetNames]];
-  [self setupPopUp: rescanActionPopUp key: DefaultRescanActionKey
+  [self setupPopUp: rescanActionPopUp
+               key: DefaultRescanActionKey
            content: [MainMenuControl rescanActionNames]];
-  [self setupPopUp: rescanBehaviourPopUp key: RescanBehaviourKey
+  [self setupPopUp: rescanBehaviourPopUp
+               key: RescanBehaviourKey
            content: [MainMenuControl rescanBehaviourNames]];
-  [self setupPopUp: fileSizeMeasurePopUp key: FileSizeMeasureKey
+  [self setupPopUp: fileSizeMeasurePopUp
+               key: FileSizeMeasureKey
            content: [TreeBuilder fileSizeMeasureNames]];
-  [self setupPopUp: fileSizeUnitSystemPopUp key: FileSizeUnitSystemKey
+  [self setupPopUp: fileSizeUnitSystemPopUp
+               key: FileSizeUnitSystemKey
            content: [FileItem fileSizeUnitSystemNames]];
-  [self setupPopUp: defaultColorMappingPopUp key: DefaultColorMappingKey
-           content:  [[FileItemMappingCollection 
-                        defaultFileItemMappingCollection] allKeys]];
-  [self setupPopUp: defaultColorPalettePopUp key: DefaultColorPaletteKey
+  [self setupPopUp: defaultColorMappingPopUp
+               key: DefaultColorMappingKey
+           content:  [[FileItemMappingCollection defaultFileItemMappingCollection] allKeys]];
+  [self setupPopUp: defaultColorPalettePopUp
+               key: DefaultColorPaletteKey
            content: [[ColorListCollection defaultColorListCollection] allKeys]];
 
   if (! appHasDeletePermission) {
@@ -109,27 +113,20 @@ static BOOL appHasDeletePermission;
     [self setPopUp: fileDeletionPopUp toValue: DeleteNothing];
   }
 
-  // The filter pop-up uses its own control that keeps it up to date. Its
-  // entries can change when filters are added/removed.
-  filterPopUpControl =
-    [[FilterPopUpControl alloc] initWithPopUpButton: defaultFilterPopUp];
-  [filterPopUpControl selectFilterNamed: 
-     [userDefaults stringForKey: DefaultFilterName]];
+  // The filter pop-up uses its own control that keeps it up to date. Its entries can change when
+  // filters are added/removed.
+  filterPopUpControl = [[FilterPopUpControl alloc] initWithPopUpButton: defaultFilterPopUp];
+  [filterPopUpControl selectFilterNamed: [userDefaults stringForKey: DefaultFilterName]];
 
-  UniqueTagsTransformer  *tagMaker = 
-    [UniqueTagsTransformer defaultUniqueTagsTransformer];
-  [defaultFilterPopUp setTag: 
-     [[tagMaker transformedValue: DefaultFilterName] intValue]];
+  UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
+  [defaultFilterPopUp setTag: [[tagMaker transformedValue: DefaultFilterName] intValue]];
   
-  [fileDeletionConfirmationCheckBox setState: 
-     ([userDefaults boolForKey: ConfirmFileDeletionKey]
-        ? NSOnState : NSOffState)];
-  [showPackageContentsByDefaultCheckBox setState: 
-     ([userDefaults boolForKey: ShowPackageContentsByDefaultKey]
-        ? NSOnState : NSOffState)];
-  [showEntireVolumeByDefaultCheckBox setState: 
-     ([userDefaults boolForKey: ShowEntireVolumeByDefaultKey]
-        ? NSOnState : NSOffState)];
+  [fileDeletionConfirmationCheckBox setState:
+     [userDefaults boolForKey: ConfirmFileDeletionKey] ? NSOnState : NSOffState];
+  [showPackageContentsByDefaultCheckBox setState:
+     [userDefaults boolForKey: ShowPackageContentsByDefaultKey] ? NSOnState : NSOffState];
+  [showEntireVolumeByDefaultCheckBox setState:
+     [userDefaults boolForKey: ShowEntireVolumeByDefaultKey] ? NSOnState : NSOffState];
 
   [self updateButtonState];
   
@@ -137,10 +134,9 @@ static BOOL appHasDeletePermission;
 }
 
 
-- (IBAction) popUpValueChanged: (id)sender {
+- (IBAction) popUpValueChanged:(id)sender {
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
-  UniqueTagsTransformer  *tagMaker = 
-    [UniqueTagsTransformer defaultUniqueTagsTransformer];
+  UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
 
   NSPopUpButton  *popUp = sender;
   NSString  *name = [tagMaker nameForTag: [[popUp selectedItem] tag]];
@@ -153,7 +149,7 @@ static BOOL appHasDeletePermission;
   }
 }
 
-- (IBAction) valueChanged: (id) sender {
+- (IBAction) valueChanged:(id)sender {
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
 
   if (sender == fileDeletionConfirmationCheckBox) {
@@ -181,10 +177,10 @@ static BOOL appHasDeletePermission;
 
 @implementation PreferencesPanelControl (PrivateMethods)
 
-- (void) setupPopUp: (NSPopUpButton *)popUp key: (NSString *)key
-           content: (NSArray *)names {
-  UniqueTagsTransformer  *tagMaker = 
-    [UniqueTagsTransformer defaultUniqueTagsTransformer];
+- (void) setupPopUp:(NSPopUpButton *)popUp
+                key:(NSString *)key
+            content:(NSArray *)names {
+  UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
   // Associate the pop-up with its key in the preferences by their tag.
@@ -192,26 +188,24 @@ static BOOL appHasDeletePermission;
 
   // Initialise the pop-up with its (localized) content
   [popUp removeAllItems];
-  [tagMaker addLocalisedNames: names toPopUp: popUp 
-              select: [userDefaults stringForKey: key] table: @"Names"];
+  [tagMaker addLocalisedNames: names
+                      toPopUp: popUp
+                       select: [userDefaults stringForKey: key]
+                        table: @"Names"];
 }
 
-- (void) setPopUp: (NSPopUpButton *)popUp toValue: (NSString *)value {
-  UniqueTagsTransformer  *tagMaker =
-    [UniqueTagsTransformer defaultUniqueTagsTransformer];
+- (void) setPopUp: (NSPopUpButton *)popUp toValue:(NSString *)value {
+  UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
 
   NSUInteger  tag = [tagMaker tagForName: value];
   [popUp selectItemAtIndex: [popUp indexOfItemWithTag: tag]];
 }
 
 - (void) updateButtonState {
-  UniqueTagsTransformer  *tagMaker = 
-    [UniqueTagsTransformer defaultUniqueTagsTransformer];
-  NSString  *name = 
-    [tagMaker nameForTag: [[fileDeletionPopUp selectedItem] tag]];
+  UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
+  NSString  *name = [tagMaker nameForTag: [[fileDeletionPopUp selectedItem] tag]];
 
-  [fileDeletionConfirmationCheckBox setEnabled:
-    ! [name isEqualToString: DeleteNothing]];
+  [fileDeletionConfirmationCheckBox setEnabled: ![name isEqualToString: DeleteNothing]];
 }
 
 /* Check if the application has permission to delete files. The assumption is that the application

@@ -9,22 +9,22 @@
 // Overrides designated initialiser
 - (id) initWithLabel:(NSString *)label
               parent:(DirectoryItem *)parent
-                size:(ITEM_SIZE) size
-               flags:(UInt8) flags
-        creationTime:(CFAbsoluteTime) creationTime
-    modificationTime:(CFAbsoluteTime) modificationTime
-          accessTime:(CFAbsoluteTime) accessTime {
+                size:(ITEM_SIZE)size
+               flags:(UInt8)flags
+        creationTime:(CFAbsoluteTime)creationTime
+    modificationTime:(CFAbsoluteTime)modificationTime
+          accessTime:(CFAbsoluteTime)accessTime {
   NSAssert(NO, @"Initialize without size.");
   return nil;
 }
 
 
-- (id) initWithLabel: (NSString *)labelVal
-              parent: (DirectoryItem *)parentVal
-               flags: (UInt8) flagsVal
-        creationTime: (CFAbsoluteTime) creationTimeVal
-    modificationTime: (CFAbsoluteTime) modificationTimeVal
-          accessTime: (CFAbsoluteTime) accessTimeVal {
+- (id) initWithLabel:(NSString *)labelVal
+              parent:(DirectoryItem *)parentVal
+               flags:(UInt8) flagsVal
+        creationTime:(CFAbsoluteTime)creationTimeVal
+    modificationTime:(CFAbsoluteTime)modificationTimeVal
+          accessTime:(CFAbsoluteTime)accessTimeVal {
   
   if (self = [super initWithLabel: labelVal
                            parent: parentVal
@@ -80,9 +80,8 @@
 
 - (FileItem *)itemWhenHidingPackageContents {
   if ([self isPackage]) {
-    UniformType  *fileType = 
-      [[UniformTypeInventory defaultUniformTypeInventory] 
-         uniformTypeForExtension: [[self systemPathComponent] pathExtension]];
+    UniformType  *fileType = [[UniformTypeInventory defaultUniformTypeInventory]
+                              uniformTypeForExtension: [[self systemPathComponent] pathExtension]];
   
     // Note: This item is short-lived, so it is allocated in the default zone.
     return [[[PlainFileItem alloc]
@@ -103,8 +102,8 @@
 
 
 - (NSString *)description {
-  return [NSString stringWithFormat:@"DirectoryItem(%@, %qu, %@)", label, size,
-                     [contents description]];
+  return [NSString stringWithFormat:
+          @"DirectoryItem(%@, %qu, %@)", label, size, [contents description]];
 }
 
 

@@ -8,7 +8,7 @@
 
 @interface UniformTypeMappingScheme (PrivateMethods)
 
-- (void) typeRankingChanged: (NSNotification *)notification;
+- (void) typeRankingChanged:(NSNotification *)notification;
 
 @end
 
@@ -27,8 +27,7 @@
 @implementation UniformTypeMappingScheme
 
 - (id) init {
-  return [self initWithUniformTypeRanking: 
-                 [UniformTypeRanking defaultUniformTypeRanking]];
+  return [self initWithUniformTypeRanking: [UniformTypeRanking defaultUniformTypeRanking]];
 
 }
 
@@ -38,8 +37,10 @@
     
     NSNotificationCenter  *nc = [NSNotificationCenter defaultCenter];
 
-    [nc addObserver: self selector: @selector(typeRankingChanged:)
-          name: UniformTypeRankingChangedEvent object: typeRanking];
+    [nc addObserver: self
+           selector: @selector(typeRankingChanged:)
+               name: UniformTypeRankingChangedEvent
+             object: typeRanking];
   }
   
   return self;
@@ -62,9 +63,8 @@
 //----------------------------------------------------------------------------
 // Implementation of FileItemMappingScheme protocol
 
-- (NSObject <FileItemMapping> *) fileItemMappingForTree: (DirectoryItem *)tree {
-  return [[[MappingByUniformType alloc] initWithFileItemMappingScheme: self]
-              autorelease];
+- (NSObject <FileItemMapping> *)fileItemMappingForTree:(DirectoryItem *)tree {
+  return [[[MappingByUniformType alloc] initWithFileItemMappingScheme: self] autorelease];
 }
 
 @end // @implementation UniformTypeMappingScheme
@@ -83,15 +83,12 @@
 
 @implementation MappingByUniformType
 
-- (id) initWithFileItemMappingScheme: 
-                                (NSObject <FileItemMappingScheme> *)schemeVal {
+- (id) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)schemeVal {
 
   if (self = [super initWithFileItemMappingScheme: schemeVal]) {
-    hashForUTICache = 
-      [[NSMutableDictionary dictionaryWithCapacity: 16] retain];
+    hashForUTICache = [[NSMutableDictionary dictionaryWithCapacity: 16] retain];
     
-    UniformTypeRanking  *typeRanking =
-      [((UniformTypeMappingScheme *)schemeVal) uniformTypeRanking];
+    UniformTypeRanking  *typeRanking = [((UniformTypeMappingScheme *)schemeVal) uniformTypeRanking];
     
     orderedTypes = [[typeRanking undominatedRankedUniformTypes] retain];
   }
@@ -111,7 +108,7 @@
 //----------------------------------------------------------------------------
 // Implementation of FileItemMapping protocol
 
-- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
+- (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
   UniformType  *type = [item uniformType];
   
   if (type == nil) {
@@ -155,7 +152,7 @@
 //----------------------------------------------------------------------------
 // Implementation of informal LegendProvidingFileItemMapping protocol
 
-- (NSString *) descriptionForHash: (NSUInteger)hash {
+- (NSString *)descriptionForHash:(NSUInteger)hash {
   if (hash >= [orderedTypes count]) {
     return nil;
   }
@@ -167,10 +164,9 @@
   return (descr != nil) ? descr : [type uniformTypeIdentifier];
 }
 
-- (NSString *) descriptionForRemainingHashes {
-  return NSLocalizedString
-           (@"other file types",
-            @"Misc. description for File type mapping scheme.");
+- (NSString *)descriptionForRemainingHashes {
+  return NSLocalizedString(@"other file types",
+                           @"Misc. description for File type mapping scheme.");
 }
 
 @end

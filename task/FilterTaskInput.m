@@ -13,20 +13,20 @@
 }
 
 - (id) initWithTreeContext:(TreeContext *)treeContextVal
-         filterSet:(FilterSet *)filterSetVal {
+                 filterSet:(FilterSet *)filterSetVal {
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
   BOOL  showPackageContentsByDefault =
-          ( [userDefaults boolForKey: ShowPackageContentsByDefaultKey]
-            ? NSOnState : NSOffState );
+    [userDefaults boolForKey: ShowPackageContentsByDefaultKey] ? NSOnState : NSOffState;
 
-  return [self initWithTreeContext: treeContextVal filterSet: filterSetVal
-                 packagesAsFiles: !showPackageContentsByDefault];
+  return [self initWithTreeContext: treeContextVal
+                         filterSet: filterSetVal
+                   packagesAsFiles: !showPackageContentsByDefault];
 }
 
 - (id) initWithTreeContext:(TreeContext *)treeContextVal
-         filterSet:(FilterSet *)filterSetVal
-         packagesAsFiles:(BOOL) packagesAsFilesVal {
+                 filterSet:(FilterSet *)filterSetVal
+           packagesAsFiles:(BOOL) packagesAsFilesVal {
   if (self = [super init]) {
     treeContext = [treeContextVal retain];
     filterSet = [filterSetVal retain];
@@ -44,11 +44,11 @@
 }
 
 
-- (TreeContext *) treeContext {
+- (TreeContext *)treeContext {
   return treeContext;
 }
 
-- (FilterSet *) filterSet {
+- (FilterSet *)filterSet {
   return filterSet;
 }
 

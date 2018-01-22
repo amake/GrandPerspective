@@ -8,21 +8,18 @@
 @implementation FilterProgressPanelControl
 
 - (NSString *)windowTitle {
-  return NSLocalizedString( @"Filtering in progress",
-                            @"Title of progress panel." );
+  return NSLocalizedString(@"Filtering in progress", @"Title of progress panel.");
 }
 
 - (NSString *)progressDetailsFormat {
-  return NSLocalizedString( @"Filtering %@", 
-                            @"Message in progress panel while filtering" );
+  return NSLocalizedString(@"Filtering %@", @"Message in progress panel while filtering");
 }
 
 - (NSString *)progressSummaryFormat {
-  return NSLocalizedString( @"%d folders filtered", 
-                            @"Message in progress panel while filtering" );
+  return NSLocalizedString(@"%d folders filtered", @"Message in progress panel while filtering");
 }
 
-- (NSString *)pathFromTaskInput: (id) taskInput {
+- (NSString *)pathFromTaskInput:(id)taskInput {
   return [[[taskInput treeContext] scanTree] path];
 }
 

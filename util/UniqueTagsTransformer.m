@@ -60,7 +60,7 @@
   return tag;
 }
 
-- (id) reverseTransformedValue: (id) tag {
+- (id) reverseTransformedValue:(id) tag {
   id  value = [tagToValue objectForKey: tag];
   
   NSAssert(value != nil, @"Unknown tag value.");
@@ -69,33 +69,32 @@
 }
 
 
-- (void) addLocalisedNames:(NSArray *)names 
-           toPopUp:(NSPopUpButton *)popUp
-           select:(NSString *)selectName
-           table:(NSString *)tableName {
+- (void) addLocalisedNames:(NSArray *)names
+                   toPopUp:(NSPopUpButton *)popUp
+                    select:(NSString *)selectName
+                     table:(NSString *)tableName {
   NSEnumerator  *nameEnum = [names objectEnumerator];
   NSString  *name;
   
   while (name = [nameEnum nextObject]) {
     [self addLocalisedName: name 
-            toPopUp: popUp
-            select: [name isEqualToString: selectName]
-            table: tableName];
+                   toPopUp: popUp
+                    select: [name isEqualToString: selectName]
+                     table: tableName];
   }
 }
 
 - (void) addLocalisedName:(NSString *)name 
-           toPopUp:(NSPopUpButton *)popUp
-           select:(BOOL) select
-           table:(NSString *)tableName {
+                  toPopUp:(NSPopUpButton *)popUp
+                   select:(BOOL) select
+                    table:(NSString *)tableName {
   NSBundle  *mainBundle = [NSBundle mainBundle];
-  NSString  *localizedName = 
-    [mainBundle localizedStringForKey: name value: nil table: tableName];
+  NSString  *localizedName = [mainBundle localizedStringForKey: name value: nil table: tableName];
 
   int  tag = [[self transformedValue: name] intValue];
   
   // Find location where to insert item so that list remains sorted by localized name
-  // Note: Using lineair search, which is OK as long as list is relatively small.
+  // Note: Using linear search, which is OK as long as list is relatively small.
   int  index = 0;
   while (index < [popUp numberOfItems]) {
     NSString  *otherName = [[popUp itemAtIndex: index] title];
@@ -114,13 +113,13 @@
 }
 
 
-- (NSString *) nameForTag: (NSUInteger)tag {
+- (NSString *)nameForTag:(NSUInteger)tag {
   return [self reverseTransformedValue: [NSNumber numberWithInteger: tag]];
 }
 
 /* Returns the tag for the locale-independent name.
  */
-- (NSUInteger) tagForName: (NSString *)name {
+- (NSUInteger) tagForName:(NSString *)name {
   return [[self transformedValue: name] intValue];
 }
 

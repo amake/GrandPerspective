@@ -4,15 +4,14 @@
 
 // Overrides super's designated initialiser.
 - (id) init {
-  NSAssert(NO, 
-           @"Use initWithUniformTypeIdentifier:description:parents instead."); 
+  NSAssert(NO, @"Use initWithUniformTypeIdentifier:description:parents instead.");
   return nil;
 }
 
 
-- (id) initWithUniformTypeIdentifier: (NSString *)utiVal
-         description: (NSString *)descriptionVal
-         parents: (NSArray *)parentTypes {
+- (id) initWithUniformTypeIdentifier:(NSString *)utiVal
+                         description:(NSString *)descriptionVal
+                             parents:(NSArray *)parentTypes {
 
   if (self = [super init]) { 
     uti = [utiVal retain];
@@ -58,15 +57,14 @@
     UniformType  *current = [toVisit lastObject];
     [toVisit removeLastObject];
   
-    // Add parents that have not yet been encountered to list of nodes to 
-    // visit.
+    // Add parents that have not yet been encountered to list of nodes to visit.
     NSEnumerator  *parentsEnum = [[current parentTypes] objectEnumerator];
     UniformType  *parentType;
     while (parentType = [parentsEnum nextObject]) {
       if (! [ancestors containsObject: parentType]) {
-        // Only visit ancestor types that have not yet been encountered. This
-        // ensures that the search time is lineair in the number of ancestors
-        // (despite there possibly being multiple paths to certain ancestors).
+        // Only visit ancestor types that have not yet been encountered. This ensures that the
+        // search time is linear in the number of ancestors (despite there possibly being multiple
+        // paths to certain ancestors).
         [ancestors addObject: parentType];
         [toVisit addObject: parentType];
       }

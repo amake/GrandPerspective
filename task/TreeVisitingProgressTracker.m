@@ -2,13 +2,13 @@
 
 @interface TreeVisitingProgressTracker (PrivateMethods)
 
-- (void) processedOrSkippedFolder: (DirectoryItem *)dirItem;
+- (void) processedOrSkippedFolder:(DirectoryItem *)dirItem;
 
 @end
 
 @implementation TreeVisitingProgressTracker
 
-- (void) _processingFolder: (DirectoryItem *)dirItem {
+- (void) _processingFolder:(DirectoryItem *)dirItem {
   [super _processingFolder: dirItem];
 
   if (level <= NUM_PROGRESS_ESTIMATE_LEVELS) {
@@ -17,12 +17,12 @@
   }
 }
 
-- (void) _processedFolder: (DirectoryItem *)dirItem {
+- (void) _processedFolder:(DirectoryItem *)dirItem {
   [super _processedFolder: dirItem];
   [self processedOrSkippedFolder: dirItem];
 }
 
-- (void) _skippedFolder: (DirectoryItem *)dirItem {
+- (void) _skippedFolder:(DirectoryItem *)dirItem {
   [super _skippedFolder: dirItem];
   [self processedOrSkippedFolder: dirItem];
 }
@@ -52,7 +52,7 @@
 
 @implementation TreeVisitingProgressTracker (PrivateMethods)
 
-- (void) processedOrSkippedFolder: (DirectoryItem *)dirItem {
+- (void) processedOrSkippedFolder:(DirectoryItem *)dirItem {
   if (level > 0 && level <= NUM_PROGRESS_ESTIMATE_LEVELS) {
     numFilesProcessed[level - 1] += [dirItem numFiles];
 

@@ -8,21 +8,18 @@
 @implementation ScanProgressPanelControl
 
 - (NSString *)windowTitle {
-  return NSLocalizedString( @"Scanning in progress",
-                            @"Title of progress panel." );
+  return NSLocalizedString(@"Scanning in progress", @"Title of progress panel.");
 }
 
 - (NSString *)progressDetailsFormat {
-  return NSLocalizedString( @"Scanning %@", 
-                            @"Message in progress panel while scanning" );
+  return NSLocalizedString(@"Scanning %@", @"Message in progress panel while scanning");
 }
 
 - (NSString *)progressSummaryFormat {
-  return NSLocalizedString( @"%d folders scanned", 
-                            @"Message in progress panel while scanning" );
+  return NSLocalizedString(@"%d folders scanned", @"Message in progress panel while scanning");
 }
 
-- (NSString *)pathFromTaskInput: (id) taskInput {
+- (NSString *)pathFromTaskInput:(id)taskInput {
   return [taskInput pathToScan];
 }
 

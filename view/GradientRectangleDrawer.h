@@ -15,20 +15,19 @@
 
 }
 
-- (id) initWithColorPalette: (NSColorList *)colorPalette;
+- (id) initWithColorPalette:(NSColorList *)colorPalette;
 
-- (void) setColorPalette: (NSColorList *)colorPalette;
-- (NSColorList *) colorPalette;
+- (void) setColorPalette:(NSColorList *)colorPalette;
+- (NSColorList *)colorPalette;
 
-/* Sets the color gradient, which determines how much the color of each
- * rectangle varies. The value should be between 0 (uniform color) and 1 
- * (maximum color difference).
+/* Sets the color gradient, which determines how much the color of each rectangle varies. The value
+ * should be between 0 (uniform color) and 1 (maximum color difference).
  */
-- (void) setColorGradient: (float) gradient;
+- (void) setColorGradient:(float)gradient;
 - (float) colorGradient;
 
-- (NSImage *) drawImageOfGradientRectangleWithColor: (NSUInteger) colorIndex
-                                             inRect: (NSRect) bounds;
+- (NSImage *)drawImageOfGradientRectangleWithColor:(NSUInteger)colorIndex
+                                            inRect:(NSRect)bounds;
                 
 @end
 
@@ -37,16 +36,16 @@
 
 /* Sets up a bitmap, to be used for drawing
  */
-- (void) setupBitmap: (NSRect) bounds;
+- (void) setupBitmap:(NSRect)bounds;
 
 /* Creates an image from the bitmap, and disposes of the bitmap.
  */
-- (NSImage *) createImageFromBitmap;
+- (NSImage *)createImageFromBitmap;
 
-- (UInt32) intValueForColor: (NSColor *)color;
+- (UInt32) intValueForColor:(NSColor *)color;
 
-- (void) drawBasicFilledRect: (NSRect) rect intColor: (UInt32) intColor;
+- (void) drawBasicFilledRect:(NSRect)rect intColor:(UInt32)intColor;
 
-- (void) drawGradientFilledRect: (NSRect) rect colorIndex: (NSUInteger) colorIndex;
+- (void) drawGradientFilledRect:(NSRect)rect colorIndex:(NSUInteger)colorIndex;
 
 @end

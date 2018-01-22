@@ -9,12 +9,12 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
 @interface FileItem (PrivateMethods)
 
-+ (NSString *)filesizeUnitString:(int) order;
++ (NSString *)filesizeUnitString:(int)order;
 + (NSString *)decimalSeparator;
 
 + (CFDateFormatterRef) timeFormatter;
 
-- (NSString *)constructPath:(BOOL) useFileSystemRepresentation;
+- (NSString *)constructPath:(BOOL)useFileSystemRepresentation;
 
 @end
 
@@ -57,13 +57,13 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 }
 
 
-- (id) initWithLabel: (NSString *)labelVal
-              parent: (DirectoryItem *)parentVal
-                size: (ITEM_SIZE) sizeVal
-               flags: (UInt8) flagsVal
-        creationTime: (CFAbsoluteTime) creationTimeVal
-    modificationTime: (CFAbsoluteTime) modificationTimeVal
-          accessTime: (CFAbsoluteTime) accessTimeVal {
+- (id) initWithLabel:(NSString *)labelVal
+              parent:(DirectoryItem *)parentVal
+                size:(ITEM_SIZE)sizeVal
+               flags:(UInt8)flagsVal
+        creationTime:(CFAbsoluteTime)creationTimeVal
+    modificationTime:(CFAbsoluteTime)modificationTimeVal
+          accessTime:(CFAbsoluteTime)accessTimeVal {
   if (self = [super initWithItemSize: sizeVal]) {
     label = [labelVal retain];
 
@@ -174,32 +174,29 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 }
 
 
-+ (NSString *)stringForFileItemSize:(ITEM_SIZE) filesize {
++ (NSString *)stringForFileItemSize:(ITEM_SIZE)filesize {
   int  bytesUnit = [FileItem bytesPerKilobyte];
   
   if (filesize < bytesUnit) {
     // Definitely don't want a decimal point here
-    NSString  *byteSizeUnit = NSLocalizedString( @"B", 
-                                                 @"File size unit for bytes." );
+    NSString  *byteSizeUnit = NSLocalizedString(@"B", @"File size unit for bytes.");
     return [NSString stringWithFormat:@"%qu %@", filesize, byteSizeUnit];
   }
 
   double  n = (double)filesize / bytesUnit;
   int  m = 0;
-  // Note: The threshold for "n" is chosen to cope with rounding, ensuring
-  // that the string for n = 1024^3 becomes "1.00 GB" instead of "1024 MB"
+  // Note: The threshold for "n" is chosen to cope with rounding, ensuring that the string for
+  // n = 1024^3 becomes "1.00 GB" instead of "1024 MB"
   while (n > (bytesUnit - 0.001) && m < 3) {
     m++;
     n /= bytesUnit; 
   }
 
-  NSMutableString*  s = 
-    [[[NSMutableString alloc] initWithCapacity:12] autorelease];
+  NSMutableString*  s = [[[NSMutableString alloc] initWithCapacity:12] autorelease];
   [s appendFormat:@"%.2f", n];
   
   // Ensure that only the three most-significant digits are shown.
-  // Exception: If there are four digits before the decimal point, all four
-  // are shown.
+  // Exception: If there are four digits before the decimal point, all four are shown.
   
   NSRange  dotRange = [s rangeOfString: @"."];
   if (dotRange.location != NSNotFound) {
@@ -214,56 +211,57 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
     if (dotRange.location < delPos) {
       // The dot is still visible, so localize it
       
-      [s replaceCharactersInRange: dotRange withString: 
-           [FileItem decimalSeparator]];
+      [s replaceCharactersInRange: dotRange withString: [FileItem decimalSeparator]];
     }
   }
   else {
-    // Void. We always expect a dot (even if the user has set a different
-    // decimal separator in his I18N settings). So this should not really
-    // happen, but raise no fuss if it does anyway.
+    // Void. We always expect a dot (even if the user has set a different decimal separator in his
+    // I18N settings). So this should not really happen, but raise no fuss if it does anyway.
   }
 
-  [s appendFormat:@" %@", [FileItem filesizeUnitString: m] ];
+  [s appendFormat:@" %@", [FileItem filesizeUnitString: m]];
 
   return s;
 }
 
 
-+ (NSString *)exactStringForFileItemSize:(ITEM_SIZE) filesize {
-  NSString  *format = NSLocalizedString( @"%qu bytes", 
-                                         @"Exact file size (in bytes)." );
++ (NSString *)exactStringForFileItemSize:(ITEM_SIZE)filesize {
+  NSString  *format = NSLocalizedString(@"%qu bytes", @"Exact file size (in bytes).");
 
   return [NSString stringWithFormat: format, filesize ];
 }
 
 
-+ (NSString *)stringForTime:(CFAbsoluteTime) absTime {
++ (NSString *)stringForTime:(CFAbsoluteTime)absTime {
   if (absTime == 0) {
     return @"";
   } else {
     return [(NSString *)CFDateFormatterCreateStringWithAbsoluteTime(NULL,
-                                                                   [self timeFormatter],
-                                                                   absTime)
+                                                                    [self timeFormatter],
+                                                                    absTime)
             autorelease];
   }
 }
 
 /* Returns path component as it is displayed to user, with colons replaced by slashes.
  */
-+ (NSString *)friendlyPathComponentFor: (NSString *)pathComponent {
++ (NSString *)friendlyPathComponentFor:(NSString *)pathComponent {
   NSMutableString  *comp = [NSMutableString stringWithString: pathComponent];
-  [comp replaceOccurrencesOfString: @":" withString: @"/"
-                           options: NSLiteralSearch range: NSMakeRange(0, [comp length])];
+  [comp replaceOccurrencesOfString: @":"
+                        withString: @"/"
+                           options: NSLiteralSearch
+                             range: NSMakeRange(0, [comp length])];
   return comp;
 }
 
 /* Returns path component as it is used by system, with slashes replaced by colons.
  */
-+ (NSString *)systemPathComponentFor: (NSString *)pathComponent {
++ (NSString *)systemPathComponentFor:(NSString *)pathComponent {
   NSMutableString  *comp = [NSMutableString stringWithString: pathComponent];
-  [comp replaceOccurrencesOfString: @"/" withString: @":"
-                           options: NSLiteralSearch range: NSMakeRange(0, [comp length])];
+  [comp replaceOccurrencesOfString: @"/"
+                        withString: @":"
+                           options: NSLiteralSearch
+                             range: NSMakeRange(0, [comp length])];
   return comp;
 }
 
@@ -282,13 +280,13 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
 @implementation FileItem (PrivateMethods)
 
-+ (NSString *)filesizeUnitString:(int) order {
++ (NSString *)filesizeUnitString:(int)order {
   switch (order) {
-    case 0: return NSLocalizedString( @"kB", @"File size unit for kilobytes.");
-    case 1: return NSLocalizedString( @"MB", @"File size unit for megabytes.");
-    case 2: return NSLocalizedString( @"GB", @"File size unit for gigabytes.");
-    case 3: return NSLocalizedString( @"TB", @"File size unit for terabytes.");
-    default: return @""; // Should not happen, but cannot can NSAssert here.
+    case 0: return NSLocalizedString(@"kB", @"File size unit for kilobytes.");
+    case 1: return NSLocalizedString(@"MB", @"File size unit for megabytes.");
+    case 2: return NSLocalizedString(@"GB", @"File size unit for gigabytes.");
+    case 3: return NSLocalizedString(@"TB", @"File size unit for terabytes.");
+    default: NSAssert(NO, @"Unexpected order value"); return @"";
   }
 }
 
@@ -297,8 +295,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   static NSString  *decimalSeparator = nil;
 
   if (decimalSeparator == nil) {
-    NSNumberFormatter  *numFormat = 
-      [[[NSNumberFormatter alloc] init] autorelease];
+    NSNumberFormatter  *numFormat = [[[NSNumberFormatter alloc] init] autorelease];
     [numFormat setLocalizesFormat: YES];
     decimalSeparator = [[numFormat decimalSeparator] retain];
   }
@@ -322,15 +319,12 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
 
 - (NSString *)constructPath:(BOOL) useFileSystemRepresentation {
-  NSString  *comp = 
-    ( useFileSystemRepresentation 
-      ? [self systemPathComponent] 
-      : [self pathComponent] );
+  NSString  *comp = useFileSystemRepresentation ? [self systemPathComponent] : [self pathComponent];
   
   if (comp != nil) {
     return ( (parent != nil) 
-             ? [[parent constructPath: useFileSystemRepresentation] 
-                   stringByAppendingPathComponent: comp] 
+             ? [[parent constructPath: useFileSystemRepresentation]
+                  stringByAppendingPathComponent: comp] 
              : comp );
   }
   else {

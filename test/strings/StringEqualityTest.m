@@ -20,24 +20,19 @@
 }
 
 - (NSString *)descriptionFormat {
-  return 
-    ( caseSensitive
-      ? NSLocalizedStringFromTable( 
-          @"%@ eQuals %@", @"Tests",
-          @"Case-sensitive string test with 1: subject, and 2: match targets" )
-      : NSLocalizedStringFromTable( 
-          @"%@ equals %@", @"Tests",
-          @"String test with 1: subject, and 2: match targets" ) );
+  return caseSensitive
+    ? NSLocalizedStringFromTable(@"%@ eQuals %@", @"Tests",
+                                 @"Case-sensitive string test with 1: subject, and 2: match targets")
+    : NSLocalizedStringFromTable(@"%@ equals %@", @"Tests",
+                                 @"String test with 1: subject, and 2: match targets");
 }
 
 
 + (StringTest *)stringTestFromDictionary:(NSDictionary *)dict {
-  NSAssert([[dict objectForKey: @"class"] 
-             isEqualToString: @"StringEqualityTest"],
-             @"Incorrect value for class in dictionary.");
+  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"StringEqualityTest"],
+           @"Incorrect value for class in dictionary.");
 
-  return [[[StringEqualityTest alloc] initWithPropertiesFromDictionary: dict]
-             autorelease];
+  return [[[StringEqualityTest alloc] initWithPropertiesFromDictionary: dict] autorelease];
 }
 
 @end

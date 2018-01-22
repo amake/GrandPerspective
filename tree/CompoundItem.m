@@ -3,15 +3,15 @@
 
 @implementation CompoundItem
 
-+ (Item*) compoundItemWithFirst:(Item*)firstVal second:(Item*)secondVal {
-  if (firstVal!=nil && secondVal!=nil) {
-    return [[[CompoundItem allocWithZone: [firstVal zone]] 
-                initWithFirst: firstVal second: secondVal] autorelease];
++ (Item *)compoundItemWithFirst:(Item *)firstVal second:(Item *)secondVal {
+  if (firstVal != nil && secondVal != nil) {
+    return [[[CompoundItem allocWithZone: [firstVal zone]] initWithFirst: firstVal
+                                                                  second: secondVal] autorelease];
   }
-  if (firstVal!=nil) {
+  if (firstVal != nil) {
     return firstVal;
   }
-  if (secondVal!=nil) {
+  if (secondVal != nil) {
     return secondVal;
   }
   return nil;
@@ -24,11 +24,10 @@
   return nil;
 }
 
-- (id) initWithFirst:(Item*)firstVal second:(Item*)secondVal {
-  NSAssert(firstVal!=nil && secondVal!=nil, @"Both values must be non nil.");
+- (id) initWithFirst:(Item *)firstVal second:(Item *)secondVal {
+  NSAssert(firstVal != nil && secondVal != nil, @"Both values must be non nil.");
   
-  if (self = [super initWithItemSize:([firstVal itemSize] + 
-                                      [secondVal itemSize])]) {
+  if (self = [super initWithItemSize:([firstVal itemSize] + [secondVal itemSize])]) {
     first = [firstVal retain];
     second = [secondVal retain];
     numFiles = [first numFiles] + [second numFiles];
@@ -46,7 +45,7 @@
 }
 
 
-- (NSString*) description {
+- (NSString *)description {
   return [NSString stringWithFormat:@"CompoundItem(%@, %@)", first, second];
 }
 
@@ -69,7 +68,7 @@
 }
 
 
-- (void) replaceFirst: (Item *)newItem {
+- (void) replaceFirst:(Item *)newItem {
   NSAssert([newItem itemSize] == [first itemSize], @"Sizes must be equal.");
   
   if (first != newItem) {
@@ -78,7 +77,7 @@
   }
 }
 
-- (void) replaceSecond: (Item *)newItem {
+- (void) replaceSecond:(Item *)newItem {
   NSAssert([newItem itemSize] == [second itemSize], @"Sizes must be equal.");
   
   if (second != newItem) {

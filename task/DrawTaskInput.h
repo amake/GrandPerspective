@@ -11,9 +11,9 @@
 }
 
 - (id) initWithVisibleTree: (FileItem *)visibleTree
-         treeInView: (FileItem *)treeInView 
-         layoutBuilder: (TreeLayoutBuilder *)layoutBuilder
-         bounds: (NSRect) bounds;
+                treeInView: (FileItem *)treeInView
+             layoutBuilder: (TreeLayoutBuilder *)layoutBuilder
+                    bounds: (NSRect) bounds;
 
 - (FileItem *)visibleTree;
 - (FileItem *)treeInView;

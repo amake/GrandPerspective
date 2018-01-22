@@ -2,7 +2,7 @@
 
 @interface ScanProgressTracker (PrivateMethods)
 
-- (void) processedOrSkippedFolder: (DirectoryItem *)dirItem;
+- (void) processedOrSkippedFolder:(DirectoryItem *)dirItem;
 
 @end
 
@@ -14,7 +14,7 @@
 }
 
 // Designated initializer
-- (id) initWithMaxLevel: (int)maxLevelsVal {
+- (id) initWithMaxLevel:(int)maxLevelsVal {
   if (self = [super init]) {
     maxLevels = maxLevelsVal;
 
@@ -31,15 +31,14 @@
   [super dealloc];
 }
 
-- (void) setNumSubFolders: (NSUInteger)num {
+- (void) setNumSubFolders:(NSUInteger)num {
   [mutex lock];
 
   if (level <= maxLevels) {
     if (num > 0) {
       numSubFolders[level - 1] = num;
     } else {
-      // Make both equal (and non-zero), to simplify calculation by
-      // estimatedProgress.
+      // Make both equal (and non-zero), to simplify calculation by estimatedProgress.
       numSubFoldersProcessed[level - 1] = numSubFolders[level - 1];
     }
   }
@@ -47,23 +46,23 @@
   [mutex unlock];
 }
 
-- (void) _processingFolder: (DirectoryItem *)dirItem {
+- (void) _processingFolder:(DirectoryItem *)dirItem {
   [super _processingFolder: dirItem];
 
   if (level <= maxLevels) {
-    // Set to non-zero until actually set by setNumSubFolders, to simplify
-    // calculation by estimatedProgress.
+    // Set to non-zero until actually set by setNumSubFolders, to simplify calculation by
+    // estimatedProgress.
     numSubFolders[level - 1] = 1;
     numSubFoldersProcessed[level - 1] = 0;
   }
 }
 
-- (void) _processedFolder: (DirectoryItem *)dirItem {
+- (void) _processedFolder:(DirectoryItem *)dirItem {
   [super _processedFolder: dirItem];
   [self processedOrSkippedFolder: dirItem];
 }
 
-- (void) _skippedFolder: (DirectoryItem *)dirItem {
+- (void) _skippedFolder:(DirectoryItem *)dirItem {
   [super _skippedFolder: dirItem];
   [self processedOrSkippedFolder: dirItem];
 }
@@ -89,7 +88,7 @@
 
 @implementation ScanProgressTracker (PrivateMethods)
 
-- (void) processedOrSkippedFolder: (DirectoryItem *)dirItem {
+- (void) processedOrSkippedFolder:(DirectoryItem *)dirItem {
   if (level > 0 && level <= maxLevels) {
     numSubFoldersProcessed[level - 1] += 1;
     NSAssert(numSubFoldersProcessed[level - 1] <= numSubFolders[level - 1],

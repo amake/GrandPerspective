@@ -14,12 +14,12 @@
 
 @interface TreeFilter (PrivateMethods)
 
-- (void) filterItemTree: (DirectoryItem *)oldDirItem 
-           into: (DirectoryItem *)newDirItem;
+- (void) filterItemTree:(DirectoryItem *)oldDirItem
+                   into:(DirectoryItem *)newDirItem;
 
-- (void) flattenAndFilterSiblings: (Item *)item
-           directoryItems: (NSMutableArray *)dirItems
-                fileItems: (NSMutableArray *)fileItems;
+- (void) flattenAndFilterSiblings:(Item *)item
+                   directoryItems:(NSMutableArray *)dirItems
+                        fileItems:(NSMutableArray *)fileItems;
 
 - (void) flattenAndFilterSiblings: (Item *)item;
 
@@ -32,8 +32,7 @@
   if (self = [super init]) {
     filterSet = [filterSetVal retain];
 
-    treeGuide = [[FilteredTreeGuide alloc]
-                    initWithFileItemTest: [filterSet fileItemTest]];
+    treeGuide = [[FilteredTreeGuide alloc] initWithFileItemTest: [filterSet fileItemTest]];
     treeBalancer = [[TreeBalancer alloc] init];
     
     abort = NO;
@@ -76,15 +75,14 @@
                                    filterSet: filterSet] autorelease];
 
   DirectoryItem  *oldScanTree = [oldTree scanTree];
-  DirectoryItem  *scanTree = 
-    [[[ScanTreeRoot allocWithZone: [Item zoneForTree]]
-         initWithLabel: [oldScanTree label]
-                parent: [filterResult scanTreeParent]
-                 flags: [oldScanTree fileItemFlags]
-          creationTime: [oldScanTree creationTime]
-      modificationTime: [oldScanTree modificationTime]
-            accessTime: [oldScanTree accessTime]
-       ] autorelease];
+  DirectoryItem  *scanTree = [ScanTreeRoot allocWithZone: [Item zoneForTree]];
+  [[scanTree initWithLabel: [oldScanTree label]
+                    parent: [filterResult scanTreeParent]
+                     flags: [oldScanTree fileItemFlags]
+              creationTime: [oldScanTree creationTime]
+          modificationTime: [oldScanTree modificationTime]
+                accessTime: [oldScanTree accessTime]
+    ] autorelease];
 
   [progressTracker startingTask];
   
@@ -111,18 +109,14 @@
 
 @implementation TreeFilter (PrivateMethods)
 
-- (void) filterItemTree: (DirectoryItem *)oldDir 
-           into: (DirectoryItem *)newDir {
-  NSMutableArray  *dirs = 
-    [[NSMutableArray alloc] initWithCapacity: INITIAL_DIRS_CAPACITY];
-  NSMutableArray  *files = 
-    [[NSMutableArray alloc] initWithCapacity: INITIAL_FILES_CAPACITY];
+- (void) filterItemTree:(DirectoryItem *)oldDir into:(DirectoryItem *)newDir {
+  NSMutableArray  *dirs = [[NSMutableArray alloc] initWithCapacity: INITIAL_DIRS_CAPACITY];
+  NSMutableArray  *files = [[NSMutableArray alloc] initWithCapacity: INITIAL_FILES_CAPACITY];
   
   [treeGuide descendIntoDirectory: newDir];
   [progressTracker processingFolder: oldDir];
 
-  [self flattenAndFilterSiblings: [oldDir getContents] 
-          directoryItems: dirs fileItems: files];
+  [self flattenAndFilterSiblings: [oldDir getContents] directoryItems: dirs fileItems: files];
 
   if (!abort) { // Break recursion when task has been aborted.
     NSUInteger  i;
@@ -130,8 +124,7 @@
     // Collect all file items that passed the test
     for (i = [files count]; i-- > 0; ) {
       PlainFileItem  *oldFile = [files objectAtIndex: i];
-      PlainFileItem  *newFile = 
-        (PlainFileItem *)[oldFile duplicateFileItem: newDir];
+      PlainFileItem  *newFile = (PlainFileItem *)[oldFile duplicateFileItem: newDir];
       
       [files replaceObjectAtIndex: i withObject: newFile];
     }
@@ -139,8 +132,7 @@
     // Filter the contents of all directory items
     for (i = [dirs count]; i-- > 0; ) {
       DirectoryItem  *oldSubDir = [dirs objectAtIndex: i];
-      DirectoryItem  *newSubDir = 
-        (DirectoryItem *)[oldSubDir duplicateFileItem: newDir];
+      DirectoryItem  *newSubDir = (DirectoryItem *)[oldSubDir duplicateFileItem: newDir];
       
       [self filterItemTree: oldSubDir into: newSubDir];
     
@@ -152,9 +144,8 @@
     }
   
     [newDir setDirectoryContents: 
-      [CompoundItem 
-         compoundItemWithFirst: [treeBalancer createTreeForItems: files] 
-                        second: [treeBalancer createTreeForItems: dirs]]];
+      [CompoundItem compoundItemWithFirst: [treeBalancer createTreeForItems: files]
+                                   second: [treeBalancer createTreeForItems: dirs]]];
   }
   
   [treeGuide emergedFromDirectory: newDir];
@@ -165,16 +156,15 @@
 }
 
 
-- (void) flattenAndFilterSiblings: (Item *)item
-           directoryItems:(NSMutableArray *)dirItems
-                fileItems:(NSMutableArray *)fileItems {
+- (void) flattenAndFilterSiblings:(Item *)item
+                   directoryItems:(NSMutableArray *)dirItems
+                        fileItems:(NSMutableArray *)fileItems {
   if (item == nil) {
     // All done.
     return;
   }
 
-  NSAssert(tmpDirItems==nil && tmpFileItems==nil, 
-             @"Helper arrays already in use?");
+  NSAssert(tmpDirItems==nil && tmpFileItems==nil, @"Helper arrays already in use?");
   
   tmpDirItems = dirItems;
   tmpFileItems = fileItems;

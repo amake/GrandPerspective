@@ -19,29 +19,29 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 
 //----
 // Partial implementation of NSTableDataSource interface
-- (NSInteger) numberOfRowsInTableView: (NSTableView *)tableView;
-- (id) tableView: (NSTableView *)tableView 
-         objectValueForTableColumn: (NSTableColumn *)column row: (int) row;
+- (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView;
+- (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)column
+             row:(int)row;
 //---- 
 
-- (NSString *) descriptionForRow: (NSUInteger) row;
+- (NSString *)descriptionForRow:(NSUInteger)row;
 
 - (void) makeColorImages;
 - (void) updateDescriptionColumnWidth;
 - (void) updateSelectedRow;
 
-- (void) colorPaletteChanged: (NSNotification *)notification;
-- (void) colorMappingChanged: (NSNotification *)notification;
-- (void) selectedItemChanged: (NSNotification *)notification;
-- (void) visibleTreeChanged: (NSNotification *)notification;
+- (void) colorPaletteChanged:(NSNotification *)notification;
+- (void) colorMappingChanged:(NSNotification *)notification;
+- (void) selectedItemChanged:(NSNotification *)notification;
+- (void) visibleTreeChanged:(NSNotification *)notification;
 
 @end
 
 
 @implementation ColorLegendTableViewControl
 
-- (id) initWithDirectoryView: (DirectoryView *)dirViewVal 
-         tableView: (NSTableView *)tableViewVal {
+- (id) initWithDirectoryView:(DirectoryView *)dirViewVal
+                   tableView:(NSTableView *)tableViewVal {
   if (self = [super init]) {
     dirView = [dirViewVal retain];
     tableView = [tableViewVal retain];
@@ -69,14 +69,22 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
     
     NSNotificationCenter  *nc = [NSNotificationCenter defaultCenter];
 
-    [nc addObserver: self selector: @selector(colorPaletteChanged:)
-          name: ColorPaletteChangedEvent object: dirView];
-    [nc addObserver: self selector: @selector(colorMappingChanged:)
-          name: ColorMappingChangedEvent object: dirView];
-    [nc addObserver:self selector: @selector(selectedItemChanged:)
-          name: SelectedItemChangedEvent object: pathModelView];
-    [nc addObserver:self selector: @selector(visibleTreeChanged:)
-          name: VisibleTreeChangedEvent object: pathModelView];
+    [nc addObserver: self
+           selector: @selector(colorPaletteChanged:)
+               name: ColorPaletteChangedEvent
+             object: dirView];
+    [nc addObserver: self
+           selector: @selector(colorMappingChanged:)
+               name: ColorMappingChangedEvent
+             object: dirView];
+    [nc addObserver: self
+           selector: @selector(selectedItemChanged:)
+               name: SelectedItemChangedEvent
+             object: pathModelView];
+    [nc addObserver: self
+           selector: @selector(visibleTreeChanged:)
+               name: VisibleTreeChangedEvent
+             object: pathModelView];
   }
   
   return self;
@@ -100,12 +108,12 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 //-----------------------------------------------------------------------------
 // Partial implementation of NSTableDataSource interface
 
-- (NSInteger) numberOfRowsInTableView: (NSTableView *)tableView {
+- (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
   return [colorImages count];
 }
 
-- (id) tableView: (NSTableView *)tableView 
-         objectValueForTableColumn: (NSTableColumn *)column row: (int) row {
+- (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)column
+             row:(int)row {
   if ([column identifier] == ColorImageColumnIdentifier) {
     return [colorImages objectAtIndex: row];
   }
@@ -121,13 +129,11 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 
 //-----------------------------------------------------------------------------
 
-- (NSString *) descriptionForRow: (NSUInteger) row {
-  NSObject <FileItemMapping>
-    *colorMapper = [[dirView treeDrawerSettings] colorMapper];
+- (NSString *)descriptionForRow:(NSUInteger)row {
+  NSObject <FileItemMapping>  *colorMapper = [[dirView treeDrawerSettings] colorMapper];
 
   if ([colorMapper canProvideLegend]) {
-    LegendProvidingFileItemMapping  *legendProvider =
-      (LegendProvidingFileItemMapping *)colorMapper;
+    LegendProvidingFileItemMapping  *legendProvider = (LegendProvidingFileItemMapping *)colorMapper;
   
     if (row < [colorImages count] - 1) {
       return [legendProvider descriptionForHash: row];
@@ -150,36 +156,32 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 - (void) makeColorImages {
   NSColorList  *colorPalette = [[dirView treeDrawerSettings] colorPalette];
   GradientRectangleDrawer  *drawer = 
-    [[[GradientRectangleDrawer alloc] initWithColorPalette: colorPalette]
-         autorelease];
+    [[[GradientRectangleDrawer alloc] initWithColorPalette: colorPalette] autorelease];
   
   NSUInteger  numColors = [[colorPalette allKeys] count];
   [colorImages release];
   colorImages = [[NSMutableArray alloc] initWithCapacity: numColors];
 
-  NSTableColumn  *imageColumn = 
-    [tableView tableColumnWithIdentifier: ColorImageColumnIdentifier];
+  NSTableColumn  *imageColumn = [tableView tableColumnWithIdentifier: ColorImageColumnIdentifier];
   NSRect  bounds = NSMakeRect(0, 0, [imageColumn width], [tableView rowHeight]);
 
   int  i = 0;
   while (i < numColors) {
-    [colorImages addObject: [drawer drawImageOfGradientRectangleWithColor: i
-                                      inRect: bounds]];
+    [colorImages addObject: [drawer drawImageOfGradientRectangleWithColor: i inRect: bounds]];
     i++;
   }
 }
 
 - (void) updateDescriptionColumnWidth {
-  NSTableColumn  *descrColumn = 
+  NSTableColumn  *descrColumn =
     [tableView tableColumnWithIdentifier: ColorDescriptionColumnIdentifier];
   NSCell  *dataCell = [descrColumn dataCell];
   
-  // TODO: Determine if more attributes need to be provided for 
-  // sizeWithAttributes: to always return the right width. So far, it appears
-  // as if the font is all that is needed.
+  // TODO: Determine if more attributes need to be provided for sizeWithAttributes: to always return
+  // the right width. So far, it appears as if the font is all that is needed.
   NSDictionary  *attribs = 
-    [[[NSDictionary alloc] initWithObjectsAndKeys:
-        [dataCell font], NSFontAttributeName, nil] autorelease];
+    [[[NSDictionary alloc] initWithObjectsAndKeys: [dataCell font], NSFontAttributeName, nil]
+     autorelease];
 
   NSUInteger  numColors = [colorImages count];
   NSUInteger  i = 0;
@@ -207,9 +209,8 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 }
 
 
-/* Update the selected row in the color legend table. When the selected item 
- * is a plain file, its color is selected. Otherwise, the selection is
- * cleared.
+/* Update the selected row in the color legend table. When the selected item is a plain file, its
+ * color is selected. Otherwise, the selection is cleared.
  */
 - (void) updateSelectedRow {
   FileItem  *selectedItem = [[dirView pathModelView] selectedFileItem];
@@ -219,13 +220,11 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
   if ( selectedItem != nil && 
        [selectedItem isPhysical] &&
        ![selectedItem isDirectory] ) {
-    NSObject <FileItemMapping>  *colorMapper =
-      [[dirView treeDrawerSettings] colorMapper]; 
+    NSObject <FileItemMapping>  *colorMapper = [[dirView treeDrawerSettings] colorMapper];
        
     if ([colorMapper canProvideLegend]) {
-      NSUInteger  colorIndex =
-             [colorMapper hashForFileItem: (PlainFileItem *)selectedItem
-                            inTree: [dirView treeInView]];
+      NSUInteger  colorIndex = [colorMapper hashForFileItem: (PlainFileItem *)selectedItem
+                                                     inTree: [dirView treeInView]];
       NSUInteger  row = MIN(colorIndex, [tableView numberOfRows] - 1);
       
       [tableView selectRowIndexes: [NSIndexSet indexSetWithIndex: row]
@@ -239,11 +238,10 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 }
 
 
-- (void) colorPaletteChanged: (NSNotification *)notification {
+- (void) colorPaletteChanged:(NSNotification *)notification {
   [self makeColorImages];
 
-  // As the number of colors may have changed, the longest description may
-  // have changed as well.
+  // As the number of colors may have changed, the longest description may have changed as well.
   [self updateDescriptionColumnWidth];
 
   [tableView reloadData];
@@ -251,21 +249,21 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
   [self updateSelectedRow];
 }
 
-- (void) colorMappingChanged: (NSNotification *)notification {
+- (void) colorMappingChanged:(NSNotification *)notification {
   [self updateDescriptionColumnWidth];
   [tableView reloadData];
 
   [self updateSelectedRow];
 }
 
-- (void) selectedItemChanged: (NSNotification *)notification {
+- (void) selectedItemChanged:(NSNotification *)notification {
   [self updateSelectedRow];
 }
 
 
-- (void) visibleTreeChanged: (NSNotification *)notification {
-  // A change of the visible tree changes the level of the selected file item,
-  // which may affect its color.
+- (void) visibleTreeChanged:(NSNotification *)notification {
+  // A change of the visible tree changes the level of the selected file item, which may affect its
+  // color.
   [self updateSelectedRow];
 }
 

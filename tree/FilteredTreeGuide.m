@@ -18,7 +18,7 @@
 }
 
 - (id) initWithFileItemTest:(FileItemTest *)itemTestVal
-         packagesAsFiles:(BOOL) packagesAsFilesVal {
+            packagesAsFiles:(BOOL)packagesAsFilesVal {
   if (self = [super init]) {
     itemTest = nil;
     testUsesSize = NO;
@@ -47,7 +47,7 @@
   return packagesAsFiles;
 }
 
-- (void) setPackagesAsFiles:(BOOL) flag {
+- (void) setPackagesAsFiles:(BOOL)flag {
   packagesAsFiles = flag;
 }
 
@@ -63,8 +63,7 @@
     
     // Check if the test includes an ItemSizeTest
     if (itemTest != nil) {
-      ItemSizeTestFinder  *sizeTestFinder = 
-        [[[ItemSizeTestFinder alloc] init] autorelease];
+      ItemSizeTestFinder  *sizeTestFinder = [[[ItemSizeTestFinder alloc] init] autorelease];
       
       [test acceptFileItemTestVisitor: sizeTestFinder];
       testUsesSize = [sizeTestFinder itemSizeTestFound];
@@ -88,8 +87,7 @@
     // It's a plain file
     
     if ( ! [item isPhysical] ) {
-      // Exclude all special items (inside  the volume tree, these all 
-      // represent freed space).
+      // Exclude all special items (inside  the volume tree, these all represent freed space).
       //
       // TO DO: Check if special items should still always be excluded.
 
@@ -98,14 +96,13 @@
   }
 
   if ( packagesAsFiles && packageCount > 0 ) {
-    // Currently inside opaque package (implying that a tree is being 
-    // constructed). Include all items.
+    // Currently inside opaque package (implying that a tree is being constructed). Include all
+    // items.
     return proxyItem;
   }
 
-  if ( itemTest == nil 
-       || [itemTest testFileItem: proxyItem
-                      context: fileItemPathStringCache] != TEST_FAILED ) {
+  if ( itemTest == nil || [itemTest testFileItem: proxyItem
+                                         context: fileItemPathStringCache] != TEST_FAILED ) {
     // The item passed the test.
     return proxyItem;
   }
@@ -119,23 +116,22 @@
   
   if ( packagesAsFiles ) {
     if ( testUsesSize) {
-      // The test considers the file's size. This means that the item should be
-      // constructed first before applying the test.
+      // The test considers the file's size. This means that the item should be constructed first
+      // before applying the test.
       return YES;
     }
     else {
-      // Even though the directory has not yet been constructed, the test can 
-      // be applied to its plain file proxy.
+      // Even though the directory has not yet been constructed, the test can be applied to its
+      // plain file proxy.
       proxyItem = [((DirectoryItem *)item) itemWhenHidingPackageContents];
     }
   }
 
-  // Even though the directory item has not yet been fully created, the test
-  // can be applied already. So only descend (and construct the contents) 
-  // when it passed the test (and will be included in the tree).
-  return ( itemTest == nil 
-           || [itemTest testFileItem: proxyItem
-                          context: fileItemPathStringCache] != TEST_FAILED );
+  // Even though the directory item has not yet been fully created, the test can be applied already.
+  // So only descend (and construct the contents) when it passed the test (and will be included in
+  // the tree).
+  return ( itemTest == nil || [itemTest testFileItem: proxyItem
+                                             context: fileItemPathStringCache] != TEST_FAILED );
 }
 
 

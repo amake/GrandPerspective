@@ -27,7 +27,7 @@
   // Can be ignored because a one-shot object is used for running the task.
 }
 
-- (id) runTaskWithInput: (id) input {
+- (id) runTaskWithInput:(id)input {
   NSAssert( treeWriter==nil, @"treeWriter already set.");
 
   WriteTaskInput  *myInput = input;
@@ -37,13 +37,11 @@
   [taskLock unlock];
 
   id  result = nil;
-  if ([treeWriter writeTree: [myInput annotatedTreeContext] 
-                    toFile: [myInput path]]) {
+  if ([treeWriter writeTree: [myInput annotatedTreeContext] toFile: [myInput path]]) {
     result = SuccessfulVoidResult;
   }
   else {
-    result = [[[treeWriter error] retain] autorelease]; 
-      // Will return nil when task was aborted
+    result = [[[treeWriter error] retain] autorelease]; // Will return nil when task was aborted
   }
 
   [taskLock lock];
@@ -63,8 +61,8 @@
   NSDictionary  *dict;
 
   [taskLock lock];
-  // The "taskLock" ensures that when treeWriter is not nil, the object will
-  // always be valid when it is used (i.e. it won't be deallocated).
+  // The "taskLock" ensures that when treeWriter is not nil, the object will always be valid when
+  // it is used (i.e. it won't be deallocated).
   dict = [treeWriter progressInfo];
   [taskLock unlock];
   

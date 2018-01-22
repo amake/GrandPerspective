@@ -4,12 +4,12 @@
 @implementation MutableArrayPool
 
 // Overrides designated initialiser.
-- (id) initWithCapacity: (int) maxSizeVal {
+- (id) initWithCapacity:(int)maxSizeVal {
   return [self initWithCapacity: maxSizeVal initialArrayCapacity: 16];
 }
 
-- (id) initWithCapacity: (int) maxSizeVal 
-         initialArrayCapacity: (int) initialArraySize {
+- (id) initWithCapacity:(int)maxSizeVal
+   initialArrayCapacity:(int)initialArraySize {
   if (self = [super initWithCapacity: maxSizeVal]) {
     initialArrayCapacity = initialArraySize;
   }
@@ -22,7 +22,7 @@
   return [NSMutableArray arrayWithCapacity: initialArrayCapacity];
 }
 
-- (id) resetObject: (id) object {
+- (id) resetObject:(id)object {
   [object removeAllObjects];
   return object;
 }

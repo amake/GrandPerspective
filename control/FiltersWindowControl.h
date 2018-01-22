@@ -4,8 +4,7 @@
 @class FilterRepository;
 @class FilterEditor;
 
-@interface FiltersWindowControl : 
-  NSWindowController <NSTableViewDataSource, NSTableViewDelegate> {
+@interface FiltersWindowControl : NSWindowController <NSTableViewDataSource, NSTableViewDelegate> {
 
   IBOutlet NSButton  *editFilterButton;
   IBOutlet NSButton  *removeFilterButton;
@@ -26,10 +25,10 @@
 - (id) init;
 - (id) initWithFilterRepository:(FilterRepository *)filterRepository;
 
-- (IBAction) okAction:(id) sender;
+- (IBAction) okAction:(id)sender;
 
-- (IBAction) addFilterToRepository:(id) sender;
-- (IBAction) editFilterInRepository:(id) sender;
-- (IBAction) removeFilterFromRepository:(id) sender;
+- (IBAction) addFilterToRepository:(id)sender;
+- (IBAction) editFilterInRepository:(id)sender;
+- (IBAction) removeFilterFromRepository:(id)sender;
 
 @end // @interface EditFiltersWindowControl

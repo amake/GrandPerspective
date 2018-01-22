@@ -13,12 +13,12 @@
 
 }
 
-- (id) initWithLowerBound:(ITEM_SIZE) lowerBound;
+- (id) initWithLowerBound:(ITEM_SIZE)lowerBound;
 
-- (id) initWithUpperBound:(ITEM_SIZE) upperBound;
+- (id) initWithUpperBound:(ITEM_SIZE)upperBound;
 
-- (id) initWithLowerBound:(ITEM_SIZE) lowerBound
-               upperBound:(ITEM_SIZE) upperBound;
+- (id) initWithLowerBound:(ITEM_SIZE)lowerBound
+               upperBound:(ITEM_SIZE)upperBound;
 
 - (BOOL) hasLowerBound;
 - (BOOL) hasUpperBound;

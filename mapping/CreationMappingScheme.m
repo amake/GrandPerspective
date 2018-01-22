@@ -13,7 +13,7 @@
 //----------------------------------------------------------------------------
 // Implementation of FileItemMappingScheme protocol
 
-- (NSObject <FileItemMapping> *) fileItemMappingForTree: (DirectoryItem *)tree {
+- (NSObject <FileItemMapping> *)fileItemMappingForTree:(DirectoryItem *)tree {
   return [[[MappingByCreation alloc] initWithFileItemMappingScheme: self tree: tree] autorelease];
 }
 
@@ -22,7 +22,7 @@
 
 @implementation MappingByCreation
 
-- (CFAbsoluteTime) timeForFileItem: (FileItem *)fileItem {
+- (CFAbsoluteTime) timeForFileItem:(FileItem *)fileItem {
   return [fileItem creationTime];
 }
 

@@ -44,19 +44,19 @@ NSString  *EstimatedProgressKey = @"estimatedProgress";
 }
 
 
-- (void) processingFolder: (DirectoryItem *)dirItem {
+- (void) processingFolder:(DirectoryItem *)dirItem {
   [mutex lock];
   [self _processingFolder: dirItem];
   [mutex unlock];
 }
 
-- (void) processedFolder: (DirectoryItem *)dirItem {
+- (void) processedFolder:(DirectoryItem *)dirItem {
   [mutex lock];
   [self _processedFolder: dirItem];
   [mutex unlock];
 }
 
-- (void) skippedFolder: (DirectoryItem *)dirItem {
+- (void) skippedFolder:(DirectoryItem *)dirItem {
   [mutex lock];
   [self _skippedFolder: dirItem];
   [mutex unlock];
@@ -87,7 +87,7 @@ NSString  *EstimatedProgressKey = @"estimatedProgress";
 
 @implementation ProgressTracker (ProtectedMethods)
 
-- (void) _processingFolder: (DirectoryItem *)dirItem {
+- (void) _processingFolder:(DirectoryItem *)dirItem {
   if ([directoryStack count] == 0) {
     // Find the root of the tree
     DirectoryItem  *root = dirItem;
@@ -109,14 +109,14 @@ NSString  *EstimatedProgressKey = @"estimatedProgress";
   level++;
 }
 
-- (void) _processedFolder: (DirectoryItem *)dirItem {
+- (void) _processedFolder:(DirectoryItem *)dirItem {
   NSAssert([directoryStack lastObject] == dirItem, @"Inconsistent stack.");
   [directoryStack removeLastObject];
   numFoldersProcessed++;
   level--;
 }
 
-- (void) _skippedFolder: (DirectoryItem *)dirItem {
+- (void) _skippedFolder:(DirectoryItem *)dirItem {
   numFoldersSkipped++;
 }
 

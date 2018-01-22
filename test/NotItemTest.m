@@ -26,8 +26,9 @@
 }
 
 
-// Note: Special case. Does not call own designated initialiser. It should
-// be overridden and only called by initialisers with the same signature.
+/* Note: Special case. Does not call own designated initialiser. It should be overridden and only
+ * called by initialisers with the same signature.
+ */
 - (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSDictionary  *subTestDict = [dict objectForKey: @"subTest"];
@@ -55,9 +56,9 @@
 - (TestResult) testFileItem:(FileItem *)item context:(id) context {
   TestResult  result = [subTest testFileItem: item context: context];
   
-  return ( (result == TEST_NOT_APPLICABLE) 
-           ? TEST_NOT_APPLICABLE
-           : ( (result == TEST_FAILED) ? TEST_PASSED : TEST_FAILED ) );
+  return (result == TEST_NOT_APPLICABLE
+          ? TEST_NOT_APPLICABLE
+          : (result == TEST_FAILED ? TEST_PASSED : TEST_FAILED));
 }
 
 - (BOOL) appliesToDirectories {
@@ -70,9 +71,7 @@
 
 
 - (NSString *)description {
-  NSString  *fmt =
-    NSLocalizedStringFromTable( @"not (%@)" , @"Tests", 
-                                @"NOT-test with 1: sub test" );
+  NSString  *fmt = NSLocalizedStringFromTable(@"not (%@)" , @"Tests", @"NOT-test with 1: sub test");
 
   return [NSString stringWithFormat: fmt, [subTest description]];
 }
@@ -80,10 +79,9 @@
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict {
   NSAssert([[dict objectForKey: @"class"] isEqualToString: @"NotItemTest"],
-             @"Incorrect value for class in dictionary.");
+           @"Incorrect value for class in dictionary.");
 
-  return [[[NotItemTest alloc] initWithPropertiesFromDictionary: dict]
-              autorelease];
+  return [[[NotItemTest alloc] initWithPropertiesFromDictionary: dict] autorelease];
 }
 
 @end

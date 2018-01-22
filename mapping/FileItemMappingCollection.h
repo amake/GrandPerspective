@@ -10,16 +10,15 @@
 
 }
 
-+ (FileItemMappingCollection*) defaultFileItemMappingCollection;
++ (FileItemMappingCollection *)defaultFileItemMappingCollection;
 
-- (id) initWithDictionary: (NSMutableDictionary *)dictionary;
+- (id) initWithDictionary:(NSMutableDictionary *)dictionary;
 
-- (void) addFileItemMappingScheme: (NSObject <FileItemMappingScheme> *)scheme 
-           key: (NSString *)key;
-- (void) removeFileItemMappingSchemeForKey: (NSString *)key;
+- (void) addFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)scheme
+                              key:(NSString *)key;
+- (void) removeFileItemMappingSchemeForKey:(NSString *)key;
 
 - (NSArray*) allKeys;
-- (NSObject <FileItemMappingScheme> *) fileItemMappingSchemeForKey: 
-                                                              (NSString *)key;
+- (NSObject <FileItemMappingScheme> *)fileItemMappingSchemeForKey:(NSString *)key;
 
 @end

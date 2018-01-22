@@ -11,7 +11,7 @@
 
 }
 
-- (id) initWithUniformTypeRanking: (UniformTypeRanking *)typeRanking;
+- (id) initWithUniformTypeRanking:(UniformTypeRanking *)typeRanking;
 
 - (UniformTypeRanking *)uniformTypeRanking;
 

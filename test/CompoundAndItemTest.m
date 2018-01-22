@@ -12,14 +12,13 @@
 }
 
 
-- (BOOL) testFileItem:(FileItem *)item context:(id) context {
+- (BOOL) testFileItem:(FileItem *)item context:(id)context {
   NSInteger  max = [subTests count];
   NSInteger  i = 0;
   BOOL  applicable = NO;
   
   while (i < max) {
-    TestResult  result = 
-      [[subTests objectAtIndex: i++] testFileItem: item context: context];
+    TestResult  result = [[subTests objectAtIndex: i++] testFileItem: item context: context];
       
     if (result == TEST_FAILED) {
       // Short-circuit evaluation
@@ -31,7 +30,7 @@
     }
   }
 
-  return ( applicable ? TEST_PASSED : TEST_NOT_APPLICABLE );
+  return applicable ? TEST_PASSED : TEST_NOT_APPLICABLE;
 }
 
 - (void) acceptFileItemTestVisitor:(NSObject <FileItemTestVisitor> *)visitor {
@@ -40,25 +39,21 @@
 
 
 - (NSString *)bootstrapDescriptionTemplate {
-  return NSLocalizedStringFromTable( 
-           @"(%@) and (%@)" , @"Tests", 
-           @"AND-test with 1: sub test, and 2: another sub test" );
+  return NSLocalizedStringFromTable(@"(%@) and (%@)" , @"Tests",
+                                    @"AND-test with 1: sub test, and 2: another sub test");
 }
 
 - (NSString *)repeatingDescriptionTemplate {
-  return NSLocalizedStringFromTable( 
-           @"(%@) and %@" , @"Tests", 
-           @"AND-test with 1: sub test, and 2: two or more other sub tests" );
+  return NSLocalizedStringFromTable(@"(%@) and %@" , @"Tests",
+                                    @"AND-test with 1: sub test, and 2: two or more other sub tests");
 }
 
 
-+ (FileItemTest *)fileItemTestFromDictionary: (NSDictionary *)dict {
-  NSAssert([[dict objectForKey: @"class"] 
-             isEqualToString: @"CompoundAndItemTest"],
-             @"Incorrect value for class in dictionary.");
++ (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict {
+  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"CompoundAndItemTest"],
+           @"Incorrect value for class in dictionary.");
 
-  return [[[CompoundAndItemTest alloc] initWithPropertiesFromDictionary: dict]
-              autorelease];
+  return [[[CompoundAndItemTest alloc] initWithPropertiesFromDictionary: dict] autorelease];
 }
 
 @end

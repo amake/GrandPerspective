@@ -62,7 +62,7 @@ NSString  *RescanVisible = @"rescan visible";
 }
 
 - (id) initWithWindowManager:(WindowManager *)windowManager 
-         readTaskInput:(ReadTaskInput *)taskInput;
+               readTaskInput:(ReadTaskInput *)taskInput;
 
 - (void) readTaskCompleted:(TreeReader *)treeReader;
 
@@ -75,7 +75,7 @@ NSString  *RescanVisible = @"rescan visible";
 
 - (id) initWithWriteTaskInput:(WriteTaskInput *)taskInput;
 
-- (void) writeTaskCompleted:(id) result;
+- (void) writeTaskCompleted:(id)result;
 
 @end // @interface WriteTaskCallback
 
@@ -103,8 +103,8 @@ NSString  *RescanVisible = @"rescan visible";
 }
 
 - (id) initWithWindowManager:(WindowManager *)windowManager
-         targetPath:(ItemPathModel *)targetPath
-         settings:(DirectoryViewControlSettings *)settings;
+                  targetPath:(ItemPathModel *)targetPath
+                    settings:(DirectoryViewControlSettings *)settings;
 
 @end // @interface DerivedDirViewWindowCreator
 
@@ -112,18 +112,17 @@ NSString  *RescanVisible = @"rescan visible";
 @interface MainMenuControl (PrivateMethods)
 
 - (void) showWelcomeWindow;
-- (void) scanFolderUsingFilter:(BOOL) useFilter;
+- (void) scanFolderUsingFilter:(BOOL)useFilter;
 - (void) scanFolder:(NSString *)path namedFilter:(NamedFilter *)filter;
 - (void) scanFolder:(NSString *)path filterSet:(FilterSet *)filterSet;
-- (void) rescanItem:(FileItem *)item 
-           deriveFrom:(DirectoryViewControl *)oldControl;
+- (void) rescanItem:(FileItem *)item deriveFrom:(DirectoryViewControl *)oldControl;
 
 - (void) loadScanDataFromFile:(NSString *)path;
 
-- (void) duplicateCurrentWindowSharingPath:(BOOL) sharePathModel;
+- (void) duplicateCurrentWindowSharingPath:(BOOL)sharePathModel;
 
-/* Prompts the user to select a filter. The initialFilter, when set, specifies
- * the initial/default selection.
+/* Prompts the user to select a filter. The initialFilter, when set, specifies the initial/default
+ * selection.
  */
 - (NamedFilter *)getSelectedNamedFilter:(NamedFilter *)initialFilter;
 
@@ -150,30 +149,25 @@ NSString  *RescanVisible = @"rescan visible";
   // Load application-defaults from the information properties file.
   NSBundle  *bundle = [NSBundle mainBundle];
       
-  NSDictionary  *appDefaults = 
-    [bundle objectForInfoDictionaryKey: @"GPApplicationDefaults"];
+  NSDictionary  *appDefaults = [bundle objectForInfoDictionaryKey: @"GPApplicationDefaults"];
 
   [defaults registerDefaults: appDefaults];
   
-  // Load the ranked list of uniform types and observe the inventory to ensure 
-  // that it will be extended when new types are encountered (as a result of
-  // scanning).
-  UniformTypeRanking  *uniformTypeRanking = 
-    [UniformTypeRanking defaultUniformTypeRanking];
-  UniformTypeInventory  *uniformTypeInventory = 
-    [UniformTypeInventory defaultUniformTypeInventory];
+  // Load the ranked list of uniform types and observe the inventory to ensure that it will be
+  // extended when new types are encountered (as a result of scanning).
+  UniformTypeRanking  *uniformTypeRanking = [UniformTypeRanking defaultUniformTypeRanking];
+  UniformTypeInventory  *uniformTypeInventory = [UniformTypeInventory defaultUniformTypeInventory];
     
   [uniformTypeRanking loadRanking: uniformTypeInventory];
 
-  // Observe the inventory for newly added types. Note: we do not want to
-  // receive notifications about types that have been added to the
-  // inventory as a result of the recent invocation of -loadRanking:. Calling 
-  // -observerUniformTypeInventory: using -performSelectorOnMainThread:...
-  // ensures that any pending notifications are fired before uniformTypeRanking
-  // is added as an observer. 
-  [uniformTypeRanking 
-     performSelectorOnMainThread: @selector(observeUniformTypeInventory:)
-     withObject: uniformTypeInventory waitUntilDone: NO];
+  // Observe the inventory for newly added types. Note: we do not want to receive notifications
+  // about types that have been added to the inventory as a result of the recent invocation of
+  // -loadRanking:. Calling -observerUniformTypeInventory: using -performSelectorOnMainThread:...
+  // ensures that any pending notifications are fired before uniformTypeRanking is added as an
+  // observer.
+  [uniformTypeRanking performSelectorOnMainThread: @selector(observeUniformTypeInventory:)
+                                       withObject: uniformTypeInventory
+                                    waitUntilDone: NO];
 }
 
 static MainMenuControl  *singletonInstance = nil;
@@ -183,32 +177,28 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 + (NSArray *) rescanActionNames {
-  return [NSArray arrayWithObjects: RescanAll, 
-                                    RescanVisible, nil];
+  return [NSArray arrayWithObjects: RescanAll, RescanVisible, nil];
 }
 
 + (NSArray *) rescanBehaviourNames {
-  return [NSArray arrayWithObjects: RescanClosesOldWindow, 
-                                    RescanKeepsOldWindow, nil];
+  return [NSArray arrayWithObjects: RescanClosesOldWindow, RescanKeepsOldWindow, nil];
 }
 
 + (void) reportUnboundFilters:(NSArray *)unboundFilters {
-  NSString  *format = 
-    NSLocalizedString( @"Failed to update one or more filters:\n%@", 
-                       @"Alert message" );
+  NSString  *format =
+    NSLocalizedString(@"Failed to update one or more filters:\n%@", @"Alert message");
   NSString  *infoText = 
-    NSLocalizedString( @"These filters do not exist anymore. Their old definition is used instead.", 
-                       @"Alert informative text" );
+    NSLocalizedString(@"These filters do not exist anymore. Their old definition is used instead.",
+                      @"Alert informative text");
   [self reportUnbound: unboundFilters messageFormat: format infoText: infoText];
 }
 
 + (void) reportUnboundTests:(NSArray *)unboundTests {
   NSString  *format = 
-    NSLocalizedString( @"Failed to bind one or more filter tests:\n%@", 
-                       @"Alert message" );
+    NSLocalizedString(@"Failed to bind one or more filter tests:\n%@", @"Alert message");
   NSString  *infoText = 
-    NSLocalizedString( @"The unbound tests have been omitted from the filter.", 
-                       @"Alert informative text" );
+    NSLocalizedString(@"The unbound tests have been omitted from the filter.",
+                      @"Alert informative text");
   [self reportUnbound: unboundTests messageFormat: format infoText: infoText];
 }
 
@@ -220,40 +210,36 @@ static MainMenuControl  *singletonInstance = nil;
     windowManager = [[WindowManager alloc] init]; 
 
     ProgressPanelControl  *scanProgressPanelControl = 
-      [[[ScanProgressPanelControl alloc] 
-           initWithTaskExecutor: [[[ScanTaskExecutor alloc] init] autorelease] 
+      [[[ScanProgressPanelControl alloc]
+        initWithTaskExecutor: [[[ScanTaskExecutor alloc] init] autorelease]
        ] autorelease];
 
     scanTaskManager =
-      [[VisibleAsynchronousTaskManager alloc] 
-          initWithProgressPanel: scanProgressPanelControl]; 
+      [[VisibleAsynchronousTaskManager alloc] initWithProgressPanel: scanProgressPanelControl];
 
     ProgressPanelControl  *filterProgressPanelControl = 
-      [[[FilterProgressPanelControl alloc] 
-           initWithTaskExecutor: [[[FilterTaskExecutor alloc] init] autorelease]
+      [[[FilterProgressPanelControl alloc]
+        initWithTaskExecutor: [[[FilterTaskExecutor alloc] init] autorelease]
        ] autorelease];
 
     filterTaskManager =
-      [[VisibleAsynchronousTaskManager alloc] 
-          initWithProgressPanel: filterProgressPanelControl];
+      [[VisibleAsynchronousTaskManager alloc] initWithProgressPanel: filterProgressPanelControl];
           
     ProgressPanelControl  *writeProgressPanelControl = 
       [[[WriteProgressPanelControl alloc] 
-           initWithTaskExecutor: [[[WriteTaskExecutor alloc] init] autorelease]
+        initWithTaskExecutor: [[[WriteTaskExecutor alloc] init] autorelease]
        ] autorelease];
 
     writeTaskManager =
-      [[VisibleAsynchronousTaskManager alloc] 
-          initWithProgressPanel: writeProgressPanelControl];
+      [[VisibleAsynchronousTaskManager alloc] initWithProgressPanel: writeProgressPanelControl];
           
     ProgressPanelControl  *readProgressPanelControl = 
       [[[ReadProgressPanelControl alloc] 
-           initWithTaskExecutor: [[[ReadTaskExecutor alloc] init] autorelease]
+        initWithTaskExecutor: [[[ReadTaskExecutor alloc] init] autorelease]
        ] autorelease];
 
     readTaskManager =
-      [[VisibleAsynchronousTaskManager alloc] 
-          initWithProgressPanel: readProgressPanelControl];
+      [[VisibleAsynchronousTaskManager alloc] initWithProgressPanel: readProgressPanelControl];
     
     // Lazily load the optional panels and windows
     preferencesPanelControl = nil;
@@ -294,11 +280,10 @@ static MainMenuControl  *singletonInstance = nil;
   [super dealloc];
 }
 
-- (BOOL) application:(NSApplication *)theApplication 
-           openFile:(NSString *)filename {
+- (BOOL) application:(NSApplication *)theApplication openFile:(NSString *)filename {
   BOOL isDirectory;
-  BOOL targetExists = [[NSFileManager defaultManager]
-                       fileExistsAtPath: filename isDirectory: &isDirectory];
+  BOOL targetExists =
+    [[NSFileManager defaultManager] fileExistsAtPath: filename isDirectory: &isDirectory];
   
   if (targetExists) {
     if (isDirectory) {
@@ -342,12 +327,11 @@ static MainMenuControl  *singletonInstance = nil;
       [self showWelcomeWindow];
     } else if (delay > 0) {
       // Set a watchdog. If it times out before service activity is detected, show welcome window
-      [NSTimer 
-         scheduledTimerWithTimeInterval: delay
-         target: self 
-         selector: @selector(showWelcomeWindow)
-         userInfo: nil 
-         repeats: NO];
+      [NSTimer scheduledTimerWithTimeInterval: delay
+                                       target: self
+                                     selector: @selector(showWelcomeWindow)
+                                     userInfo: nil
+                                      repeats: NO];
     }
   }
 }
@@ -363,24 +347,20 @@ static MainMenuControl  *singletonInstance = nil;
 
 
 // Service method for handling dock drags.
-- (void)scanFolder:(NSPasteboard *)pboard 
-          userData:(NSString *)userData
-          error:(NSString **)error {
+- (void)scanFolder:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
   NSLog(@"scanFolder:userData:error:");
   showWelcomeWindowAfterLaunch = NO; // Do not automatically pop-up scan dialog
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
-    *error = NSLocalizedString( @"Failed to get path from pasteboard.",
-                                @"Error message" );
+    *error = NSLocalizedString(@"Failed to get path from pasteboard.", @"Error message");
     NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
   
   NSURL  *url = [NSURL fileURLWithPath: path];
   if (! [url isDirectory]) {
-    *error = NSLocalizedString( @"Expected a folder.",
-                                @"Error message" );
+    *error = NSLocalizedString(@"Expected a folder.", @"Error message");
     NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
@@ -390,23 +370,19 @@ static MainMenuControl  *singletonInstance = nil;
 
 
 // Service method for handling dock drags.
-- (void)loadScanData:(NSPasteboard *)pboard 
-          userData:(NSString *)userData
-          error:(NSString **)error {
+- (void)loadScanData:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
   NSLog(@"loadScanData:userData:error:");
   showWelcomeWindowAfterLaunch = NO; // Do not automatically pop-up scan dialog
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
-    *error = NSLocalizedString( @"Failed to get path from pasteboard.",
-                                @"Error message" );
+    *error = NSLocalizedString(@"Failed to get path from pasteboard.", @"Error message" );
     NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
   
   if (! [[[path pathExtension] lowercaseString] isEqualToString: @"gpscan"]) {
-    *error = NSLocalizedString( @"Expected scandata file.",
-                                @"Error message" );
+    *error = NSLocalizedString(@"Expected scandata file.", @"Error message" );
     NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
@@ -447,16 +423,16 @@ static MainMenuControl  *singletonInstance = nil;
   return YES;
 }
 
-- (IBAction) scanDirectoryView:(id) sender {
+- (IBAction) scanDirectoryView:(id)sender {
   [self scanFolderUsingFilter: NO];
 }
 
-- (IBAction) scanFilteredDirectoryView:(id) sender {
+- (IBAction) scanFilteredDirectoryView:(id)sender {
   [self scanFolderUsingFilter: YES];
 }
 
 
-- (IBAction) rescan:(id) sender {
+- (IBAction) rescan:(id)sender {
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   NSString  *rescanAction = [userDefaults stringForKey: DefaultRescanActionKey];
   if ([rescanAction isEqualToString: RescanAll]) {
@@ -470,8 +446,8 @@ static MainMenuControl  *singletonInstance = nil;
   }
 }
 
-- (IBAction) rescanAll:(id) sender {
-  DirectoryViewControl  *oldControl = 
+- (IBAction) rescanAll:(id)sender {
+  DirectoryViewControl  *oldControl =
     [[[NSApplication sharedApplication] mainWindow] windowController];
   if (oldControl == nil) {
     return;
@@ -487,7 +463,7 @@ static MainMenuControl  *singletonInstance = nil;
   [self rescanItem: [oldContext scanTree] deriveFrom: oldControl];
 }
 
-- (IBAction) rescanVisible:(id) sender {
+- (IBAction) rescanVisible:(id)sender {
   DirectoryViewControl  *oldControl = 
     [[[NSApplication sharedApplication] mainWindow] windowController];
   if (oldControl == nil) {
@@ -498,7 +474,7 @@ static MainMenuControl  *singletonInstance = nil;
   [self rescanItem: [pathModelView visibleTree] deriveFrom: oldControl];
 }
 
-- (IBAction) rescanSelected:(id) sender {
+- (IBAction) rescanSelected:(id)sender {
   DirectoryViewControl  *oldControl = 
     [[[NSApplication sharedApplication] mainWindow] windowController];
   if (oldControl == nil) {
@@ -510,12 +486,11 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-- (IBAction) filterDirectoryView:(id) sender {
+- (IBAction) filterDirectoryView:(id)sender {
   DirectoryViewControl  *oldControl = 
     [[[NSApplication sharedApplication] mainWindow] windowController];
 
-  NamedFilter  *namedFilter =
-    [self getSelectedNamedFilter: [oldControl namedMask]];
+  NamedFilter  *namedFilter = [self getSelectedNamedFilter: [oldControl namedMask]];
   if (namedFilter == nil) {
     // User cancelled selection, so abort
     return;
@@ -523,71 +498,62 @@ static MainMenuControl  *singletonInstance = nil;
 
   NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
   FilterSet  *filterSet =
-    [[[oldControl treeContext] filterSet]
-         filterSetWithAddedNamedFilter: namedFilter
-                          unboundTests: unboundTests];
+    [[[oldControl treeContext] filterSet] filterSetWithAddedNamedFilter: namedFilter
+                                                           unboundTests: unboundTests];
   [MainMenuControl reportUnboundTests: unboundTests];
 
   ItemPathModel  *pathModel = [[oldControl pathModelView] pathModel];
-  DirectoryViewControlSettings  *settings = 
-    [oldControl directoryViewControlSettings];
+  DirectoryViewControlSettings  *settings = [oldControl directoryViewControlSettings];
   if ([[namedFilter name] isEqualToString: [settings maskName]]) {
-    // Don't retain the mask if the filter has the same name. It is
-    // likely that the filter is the same as the mask, or if not, is at least
-    // a modified version of it. It therefore does not make sense to retain
-    // the mask. This is only confusing.
+    // Don't retain the mask if the filter has the same name. It is likely that the filter is the
+    // same as the mask, or if not, is at least a modified version of it. It therefore does not make
+    // sense to retain the mask. This is only confusing.
     [settings setMaskName: nil];
   }
 
   DerivedDirViewWindowCreator  *windowCreator =
-    [[[DerivedDirViewWindowCreator alloc] 
-         initWithWindowManager: windowManager 
-           targetPath: pathModel 
-           settings: settings]
-         autorelease];
+    [[[DerivedDirViewWindowCreator alloc] initWithWindowManager: windowManager
+                                                     targetPath: pathModel
+                                                       settings: settings] autorelease];
 
   FilterTaskInput  *input = 
-    [[[FilterTaskInput alloc] 
-         initWithTreeContext: [oldControl treeContext]
-           filterSet: filterSet
-           packagesAsFiles: ! [settings showPackageContents]]
-         autorelease];
+    [[[FilterTaskInput alloc] initWithTreeContext: [oldControl treeContext]
+                                        filterSet: filterSet
+                                  packagesAsFiles: ! [settings showPackageContents]] autorelease];
 
   [filterTaskManager asynchronouslyRunTaskWithInput: input
-                       callback: windowCreator
-                       selector: @selector(createWindowForTree:)];
+                                           callback: windowCreator
+                                           selector: @selector(createWindowForTree:)];
 }
 
 
-- (IBAction) duplicateDirectoryView:(id) sender {
+- (IBAction) duplicateDirectoryView:(id)sender {
   [self duplicateCurrentWindowSharingPath: NO];
 }
 
-- (IBAction) twinDirectoryView:(id) sender {
+- (IBAction) twinDirectoryView:(id)sender {
   [self duplicateCurrentWindowSharingPath: YES];
 }
 
 
-- (IBAction) saveScanData:(id) sender {
-  DirectoryViewControl  *dirViewControl = 
+- (IBAction) saveScanData:(id)sender {
+  DirectoryViewControl  *dirViewControl =
     [[[NSApplication sharedApplication] mainWindow] windowController];
     
   NSSavePanel  *savePanel = [NSSavePanel savePanel]; 
   [savePanel setAllowedFileTypes: [NSArray arrayWithObject: @"gpscan"]];
-  [savePanel setTitle: 
-     NSLocalizedString( @"Save scan data", @"Title of save panel") ];
+  [savePanel setTitle: NSLocalizedString(@"Save scan data", @"Title of save panel") ];
   
   if ([savePanel runModal] == NSModalResponseOK) {
     NSURL  *destURL = [savePanel URL];
     
     if ([destURL isFileURL]) {
       WriteTaskInput  *input = 
-        [[[WriteTaskInput alloc] 
-             initWithAnnotatedTreeContext: [dirViewControl annotatedTreeContext] 
-                                     path: [destURL path]] 
+        [[[WriteTaskInput alloc] initWithAnnotatedTreeContext: [dirViewControl annotatedTreeContext]
+                                                         path: [destURL path]]
          autorelease];
            
-      WriteTaskCallback  *callback = 
+      WriteTaskCallback  *callback =
         [[[WriteTaskCallback alloc] initWithWriteTaskInput: input] autorelease];
     
       [writeTaskManager asynchronouslyRunTaskWithInput: input
@@ -600,13 +566,11 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-- (IBAction) loadScanData:(id) sender {
+- (IBAction) loadScanData:(id)sender {
   NSOpenPanel  *openPanel = [NSOpenPanel openPanel];
-  [openPanel setAllowedFileTypes: 
-               [NSArray arrayWithObjects: @"xml", @"gpscan", nil]];
+  [openPanel setAllowedFileTypes: [NSArray arrayWithObjects: @"xml", @"gpscan", nil]];
 
-  [openPanel setTitle: 
-     NSLocalizedString( @"Load scan data", @"Title of load panel") ];
+  [openPanel setTitle: NSLocalizedString(@"Load scan data", @"Title of load panel") ];
   
   if ([openPanel runModal] == NSModalResponseOK) {
     NSURL  *sourceURL = [openPanel URL];
@@ -619,16 +583,15 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-- (IBAction) saveDirectoryViewImage:(id) sender {
+- (IBAction) saveDirectoryViewImage:(id)sender {
   DirectoryViewControl  *dirViewControl = 
     [[[NSApplication sharedApplication] mainWindow] windowController];
 
   // Dialog auto-disposes when its job is done.
-  [[SaveImageDialogControl alloc]
-      initWithDirectoryViewControl: dirViewControl];
+  [[SaveImageDialogControl alloc] initWithDirectoryViewControl: dirViewControl];
 }
 
-- (IBAction) editPreferences:(id) sender {
+- (IBAction) editPreferences:(id)sender {
   if (preferencesPanelControl == nil) {
     // Lazily create the panel
     preferencesPanelControl = [[PreferencesPanelControl alloc] init];
@@ -639,7 +602,7 @@ static MainMenuControl  *singletonInstance = nil;
   [[preferencesPanelControl window] makeKeyAndOrderFront: self];
 }
 
-- (IBAction) editFilters:(id) sender {
+- (IBAction) editFilters:(id)sender {
   if (filtersWindowControl == nil) {
     // Lazily create the window
     filtersWindowControl = [[FiltersWindowControl alloc] init];
@@ -651,11 +614,10 @@ static MainMenuControl  *singletonInstance = nil;
   [[filtersWindowControl window] makeKeyAndOrderFront: self];
 }
 
-- (IBAction) editUniformTypeRanking: (id) sender {
+- (IBAction) editUniformTypeRanking:(id)sender {
   if (uniformTypeWindowControl == nil) {
     // Lazily construct the window
-    uniformTypeWindowControl = 
-      [[UniformTypeRankingWindowControl alloc] init];
+    uniformTypeWindowControl = [[UniformTypeRankingWindowControl alloc] init];
   }
   
   // [uniformTypeWindowControl refreshTypeList];
@@ -663,21 +625,19 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-- (IBAction) toggleToolbarShown:(id) sender {
+- (IBAction) toggleToolbarShown:(id)sender {
   [[[NSApplication sharedApplication] mainWindow] toggleToolbarShown: sender];
 }
 
-- (IBAction) customizeToolbar:(id) sender {
-  [[[NSApplication sharedApplication] mainWindow] 
-       runToolbarCustomizationPalette: sender];
+- (IBAction) customizeToolbar:(id)sender {
+  [[[NSApplication sharedApplication] mainWindow] runToolbarCustomizationPalette: sender];
 }
 
 
-- (IBAction) openWebsite:(id) sender {
+- (IBAction) openWebsite:(id)sender {
   NSBundle  *bundle = [NSBundle mainBundle];
 
-  NSURL  *url = [NSURL URLWithString: 
-                   [bundle objectForInfoDictionaryKey: @"GPWebsiteURL"]];
+  NSURL  *url = [NSURL URLWithString: [bundle objectForInfoDictionaryKey: @"GPWebsiteURL"]];
 
   [[NSWorkspace sharedWorkspace] openURL: url];
 }
@@ -706,7 +666,7 @@ static MainMenuControl  *singletonInstance = nil;
   }
 }
        
-- (void) scanFolderUsingFilter:(BOOL) useFilter {
+- (void) scanFolderUsingFilter:(BOOL)useFilter {
   NSOpenPanel  *openPanel = [NSOpenPanel openPanel];
   [openPanel setCanChooseFiles: NO];
   [openPanel setCanChooseDirectories: YES];
@@ -716,9 +676,8 @@ static MainMenuControl  *singletonInstance = nil;
   [openPanel setTreatsFilePackagesAsDirectories: 
                [userDefaults boolForKey: ShowPackageContentsByDefaultKey]];
   
-  [openPanel setTitle: NSLocalizedString(@"Scan folder", 
-                                         @"Title of open panel") ];
-  [openPanel setPrompt: NSLocalizedString(@"Scan", @"Prompt in open panel") ];
+  [openPanel setTitle: NSLocalizedString(@"Scan folder", @"Title of open panel")];
+  [openPanel setPrompt: NSLocalizedString(@"Scan", @"Prompt in open panel")];
 
   if ([openPanel runModal] != NSModalResponseOK) {
     return; // Abort
@@ -763,25 +722,22 @@ static MainMenuControl  *singletonInstance = nil;
     [[NSUserDefaults standardUserDefaults] stringForKey: FileSizeMeasureKey];
 
   FreshDirViewWindowCreator  *windowCreator =
-    [[[FreshDirViewWindowCreator alloc] initWithWindowManager: windowManager]
-         autorelease];
-  ScanTaskInput  *input = 
-    [[[ScanTaskInput alloc] initWithPath: path
-                              fileSizeMeasure: fileSizeMeasure 
-                              filterSet: filterSet] 
-         autorelease];
+    [[[FreshDirViewWindowCreator alloc] initWithWindowManager: windowManager] autorelease];
+  ScanTaskInput  *input = [[[ScanTaskInput alloc] initWithPath: path
+                                               fileSizeMeasure: fileSizeMeasure
+                                                     filterSet: filterSet] autorelease];
 
   windowCreator.addToRecentScans = YES;
   [scanTaskManager asynchronouslyRunTaskWithInput: input
-                     callback: windowCreator
-                     selector: @selector(createWindowForTree:)];
+                                         callback: windowCreator
+                                         selector: @selector(createWindowForTree:)];
 }
 
 /* Used to implement various Rescan commands. The new view is derived from the
  * current/old control, and its settings are matched as much as possible.
  */
 - (void) rescanItem:(FileItem *)item 
-           deriveFrom:(DirectoryViewControl *)oldControl {
+         deriveFrom:(DirectoryViewControl *)oldControl {
   // Make sure to always scan a directory.
   if (![item isDirectory]) {
     item = [item parentDirectory];
@@ -790,12 +746,10 @@ static MainMenuControl  *singletonInstance = nil;
   TreeContext  *oldContext = [oldControl treeContext];
   ItemPathModel  *pathModel = [[oldControl pathModelView] pathModel];
     
-  DerivedDirViewWindowCreator  *windowCreator =
-    [[[DerivedDirViewWindowCreator alloc] 
-         initWithWindowManager: windowManager
-           targetPath: pathModel
-           settings: [oldControl directoryViewControlSettings]]
-         autorelease];
+  DerivedDirViewWindowCreator  *windowCreator = [DerivedDirViewWindowCreator alloc];
+  [[windowCreator initWithWindowManager: windowManager
+                             targetPath: pathModel
+                               settings: [oldControl directoryViewControlSettings]] autorelease];
 
   FilterSet  *filterSet = [oldContext filterSet];
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -803,40 +757,35 @@ static MainMenuControl  *singletonInstance = nil;
     NSMutableArray  *unboundFilters = [NSMutableArray arrayWithCapacity: 8];
     NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
     filterSet = [filterSet updatedFilterSetUnboundFilters: unboundFilters
-                             unboundTests: unboundTests];
+                                             unboundTests: unboundTests];
     [MainMenuControl reportUnboundFilters: unboundFilters];
     [MainMenuControl reportUnboundTests: unboundTests];
   }
   
-  ScanTaskInput  *input = 
-    [[[ScanTaskInput alloc] 
-         initWithPath: [item systemPath]
-           fileSizeMeasure: [oldContext fileSizeMeasure]
-           filterSet: filterSet]
-         autorelease];
+  ScanTaskInput  *input = [[[ScanTaskInput alloc] initWithPath: [item systemPath]
+                                               fileSizeMeasure: [oldContext fileSizeMeasure]
+                                                     filterSet: filterSet] autorelease];
     
   [scanTaskManager asynchronouslyRunTaskWithInput: input
-                     callback: windowCreator
-                     selector: @selector(createWindowForTree:)];
+                                         callback: windowCreator
+                                         selector: @selector(createWindowForTree:)];
 }
 
 
 - (void) loadScanDataFromFile:(NSString *)path {
-  ReadTaskInput  *input = 
-    [[[ReadTaskInput alloc] initWithPath: path] autorelease];
+  ReadTaskInput  *input = [[[ReadTaskInput alloc] initWithPath: path] autorelease];
 
   ReadTaskCallback  *callback = 
-    [[[ReadTaskCallback alloc] 
-         initWithWindowManager: windowManager readTaskInput: input] 
-         autorelease];
+    [[[ReadTaskCallback alloc] initWithWindowManager: windowManager readTaskInput: input]
+     autorelease];
     
   [readTaskManager asynchronouslyRunTaskWithInput: input
-                      callback: callback
-                      selector: @selector(readTaskCompleted:)];
+                                         callback: callback
+                                         selector: @selector(readTaskCompleted:)];
 }
 
 
-- (void) duplicateCurrentWindowSharingPath:(BOOL) sharePathModel {
+- (void) duplicateCurrentWindowSharingPath:(BOOL)sharePathModel {
   DirectoryViewControl  *oldControl = 
     [[[NSApplication sharedApplication] mainWindow] windowController];
 
@@ -847,16 +796,14 @@ static MainMenuControl  *singletonInstance = nil;
     pathModel = [[pathModel copy] autorelease];
   }
 
-  DirectoryViewControl  *newControl = 
-    [[DirectoryViewControl alloc] 
-        initWithAnnotatedTreeContext: [oldControl annotatedTreeContext]
-          pathModel: pathModel
-          settings: [oldControl directoryViewControlSettings]];
+  DirectoryViewControl  *newControl = [DirectoryViewControl alloc];
+  [ newControl initWithAnnotatedTreeContext: [oldControl annotatedTreeContext]
+                                  pathModel: pathModel
+                                   settings: [oldControl directoryViewControlSettings]];
   // Note: The control should auto-release itself when its window closes
     
   // Force loading (and showing) of the window.
-  [windowManager addWindow: [newControl window] 
-                   usingTitle: [[oldControl window] title]];
+  [windowManager addWindow: [newControl window] usingTitle: [[oldControl window] title]];
 }
 
 
@@ -903,8 +850,9 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-+ (void) reportUnbound:(NSArray *)unboundNames messageFormat:(NSString *)format
-           infoText:(NSString *)infoText {
++ (void) reportUnbound:(NSArray *)unboundNames
+         messageFormat:(NSString *)format
+              infoText:(NSString *)infoText {
   if ([unboundNames count] == 0) {
     // No unbound items. Nothing to report.
     return;
@@ -913,16 +861,14 @@ static MainMenuControl  *singletonInstance = nil;
   NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 
   // Quote the names
-  NSMutableArray  *quotedNames =
-    [NSMutableArray arrayWithCapacity: [unboundNames count]];
+  NSMutableArray  *quotedNames = [NSMutableArray arrayWithCapacity: [unboundNames count]];
   NSEnumerator  *nameEnum = [unboundNames objectEnumerator];
   NSString  *name;
   while (name = [nameEnum nextObject]) {
     [quotedNames addObject: [NSString stringWithFormat: @"\"%@\"", name]];
   }
     
-  NSString  *nameList =
-    [LocalizableStrings localizedAndEnumerationString: quotedNames]; 
+  NSString  *nameList = [LocalizableStrings localizedAndEnumerationString: quotedNames];
 
   [alert addButtonWithTitle: OK_BUTTON_TITLE];
   [alert setMessageText: [NSString stringWithFormat: format, nameList]];
@@ -936,18 +882,13 @@ static MainMenuControl  *singletonInstance = nil;
   TreeContext  *treeContext = [control treeContext];
   NSString  *scanPath = [[treeContext scanTree] path];
 
-  NSString  *scanTimeString = [treeContext stringForScanTime]; 
+  NSString  *scanTime = [treeContext stringForScanTime];
   FilterSet  *filterSet = [treeContext filterSet];
 
   if ([filterSet numFilters] == 0) {
-    return [NSString stringWithFormat: @"%@ - %@", 
-                                         scanPath, scanTimeString];
+    return [NSString stringWithFormat: @"%@ - %@", scanPath, scanTime];
   }
-  else {
-    return [NSString stringWithFormat: @"%@ - %@ - %@", 
-                                         scanPath, scanTimeString,
-                                         [filterSet description] ];
-  }
+  return [NSString stringWithFormat: @"%@ - %@ - %@", scanPath, scanTime, [filterSet description]];
 }
 
 @end // @implementation MainMenuControl (PrivateMethods)
@@ -962,7 +903,7 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 - (id) initWithWindowManager:(WindowManager *)windowManagerVal 
-         readTaskInput:(ReadTaskInput *)taskInputVal {
+               readTaskInput:(ReadTaskInput *)taskInputVal {
   if (self = [super init]) {
     windowManager = [windowManagerVal retain];
     taskInput = [taskInputVal retain];
@@ -979,7 +920,7 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-- (void) readTaskCompleted:(TreeReader *) treeReader {
+- (void) readTaskCompleted:(TreeReader *)treeReader {
   if ([treeReader aborted]) {
     // Reading was aborted. Silently ignore.
     return;
@@ -988,13 +929,12 @@ static MainMenuControl  *singletonInstance = nil;
     NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 
     NSString  *format = 
-      NSLocalizedString( @"Failed to load the scan data from \"%@\"", 
-                         @"Alert message (with filename arg)" );
+      NSLocalizedString(@"Failed to load the scan data from \"%@\"",
+                        @"Alert message (with filename arg)");
 
     [alert addButtonWithTitle: OK_BUTTON_TITLE];
     [alert setMessageText: 
-             [NSString stringWithFormat: format, 
-                                         [[taskInput path] lastPathComponent]]];
+             [NSString stringWithFormat: format, [[taskInput path] lastPathComponent]]];
     [alert setInformativeText: [[treeReader error] localizedDescription]];
 
     [alert runModal];
@@ -1003,23 +943,20 @@ static MainMenuControl  *singletonInstance = nil;
     AnnotatedTreeContext  *tree = [treeReader annotatedTreeContext];
     NSAssert(tree != nil, @"Unexpected state.");
 
-    // Do not report unbound tests as there is no direct impact. Firstly, the
-    // state of the read scan tree does not depend on the restored filter.
-    // Secondly, the filter description as reported in the comments is also
-    // restored from file and therefore also not impacted.
+    // Do not report unbound tests as there is no direct impact. Firstly, the state of the read scan
+    // tree does not depend on the restored filter. Secondly, the filter description as reported in
+    // the comments is also restored from file and therefore also not impacted.
     //
-    // There is an impact when rescanning the resulting view, but this will
-    // then be reported at that moment.
+    // There is an impact when rescanning the resulting view, but this will then be reported at that
+    // moment.
     //
-    // There is no impact when filtering the resulting view. Although the filter
-    // is less specific than it was (because it is missing one or more filter
-    // tests), there are no nodes anymore in the scan tree that are impacted, as
-    // these have all been filtered out already.
+    // There is no impact when filtering the resulting view. Although the filter is less specific
+    // than it was (because it is missing one or more filter tests), there are no nodes anymore in
+    // the scan tree that are impacted, as these have all been filtered out already.
     //[MainMenuControl reportUnboundTests: [treeReader unboundFilterTests]];
     
     FreshDirViewWindowCreator  *windowCreator =
-      [[[FreshDirViewWindowCreator alloc] 
-           initWithWindowManager: windowManager] autorelease];
+      [[[FreshDirViewWindowCreator alloc] initWithWindowManager: windowManager] autorelease];
       
     [windowCreator createWindowForAnnotatedTree: tree];
   }
@@ -1051,24 +988,23 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-- (void) writeTaskCompleted:(id) result {
+- (void) writeTaskCompleted:(id)result {
   NSAlert  *alert = [[[NSAlert alloc] init] autorelease];
   NSString  *msgFormat = nil;
 
   if (result == SuccessfulVoidResult) {
     [alert setAlertStyle:  NSInformationalAlertStyle];
     
-    msgFormat = 
-      NSLocalizedString( @"Successfully saved the scan data to \"%@\"", 
-                         @"Alert message (with filename arg)" );
+    msgFormat = NSLocalizedString(@"Successfully saved the scan data to \"%@\"",
+                                  @"Alert message (with filename arg)");
   }
   else if (result == nil) {
     // Writing was aborted
-    msgFormat = NSLocalizedString( @"Aborted saving the scan data to \"%@\"", 
-                                   @"Alert message (with filename arg)" );
+    msgFormat = NSLocalizedString(@"Aborted saving the scan data to \"%@\"",
+                                  @"Alert message (with filename arg)");
     [alert setInformativeText: 
-       NSLocalizedString( @"The resulting file is valid but incomplete.", 
-                          @"Alert informative text" )];
+       NSLocalizedString(@"The resulting file is valid but incomplete.",
+                         @"Alert informative text")];
   }
   else {
     // An error occured while writing
@@ -1078,8 +1014,7 @@ static MainMenuControl  *singletonInstance = nil;
   }
 
   [alert setMessageText: 
-           [NSString stringWithFormat: msgFormat, 
-                                       [[taskInput path] lastPathComponent]]];
+           [NSString stringWithFormat: msgFormat, [[taskInput path] lastPathComponent]]];
   
   [alert addButtonWithTitle: OK_BUTTON_TITLE];
   [alert runModal];
@@ -1112,8 +1047,7 @@ static MainMenuControl  *singletonInstance = nil;
 
 
 - (void) createWindowForTree:(TreeContext *)treeContext {
-  [self createWindowForAnnotatedTree: 
-          [AnnotatedTreeContext annotatedTreeContext: treeContext]]; 
+  [self createWindowForAnnotatedTree: [AnnotatedTreeContext annotatedTreeContext: treeContext]];
 }
 
 - (void) createWindowForAnnotatedTree:(AnnotatedTreeContext *)annTreeContext {
@@ -1125,16 +1059,15 @@ static MainMenuControl  *singletonInstance = nil;
   if (self.addToRecentScans) {
     // The scan was successful, so add it to the "Recent Scans" list
     NSString  *scanPath = [[[annTreeContext treeContext] scanTree] systemPath];
-    [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:
-     [NSURL fileURLWithPath: scanPath]];
+    [[NSDocumentController sharedDocumentController]
+      noteNewRecentDocumentURL: [NSURL fileURLWithPath: scanPath]];
   }
 
   // Note: The control should auto-release itself when its window closes 
   DirectoryViewControl  *dirViewControl = 
     [[self createDirectoryViewControlForAnnotatedTree: annTreeContext] retain];
   
-  NSString  *title = 
-    [MainMenuControl windowTitleForDirectoryView: dirViewControl];
+  NSString  *title = [MainMenuControl windowTitleForDirectoryView: dirViewControl];
   
   // Force loading (and showing) of the window.
   [windowManager addWindow: [dirViewControl window] usingTitle: title];
@@ -1142,8 +1075,7 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (DirectoryViewControl *) createDirectoryViewControlForAnnotatedTree:
                              (AnnotatedTreeContext *)annTreeContext {
-  return [[[DirectoryViewControl alloc] 
-              initWithAnnotatedTreeContext: annTreeContext] autorelease];
+  return [[[DirectoryViewControl alloc] initWithAnnotatedTreeContext: annTreeContext] autorelease];
 }
 
 @end // @implementation FreshDirViewWindowCreator
@@ -1153,21 +1085,19 @@ static MainMenuControl  *singletonInstance = nil;
 
 // Overrides designated initialiser.
 - (id) initWithWindowManager:(WindowManager *)windowManagerVal {
-  NSAssert(NO, 
-    @"Use initWithWindowManager:targetPath:settings instead.");
+  NSAssert(NO, @"Use initWithWindowManager:targetPath:settings instead.");
   return nil;
 }
 
 - (id) initWithWindowManager:(WindowManager *)windowManagerVal
-         targetPath:(ItemPathModel *)targetPathVal
-         settings:(DirectoryViewControlSettings *)settingsVal {
+                  targetPath:(ItemPathModel *)targetPathVal
+                    settings:(DirectoryViewControlSettings *)settingsVal {
          
   if (self = [super initWithWindowManager: windowManagerVal]) {
     targetPath = [targetPathVal retain];
-    // Note: The state of "targetPath" may change during scanning/filtering 
-    // (which happens in the background). This is okay and even desired. When 
-    // the callback occurs the path in the new window will match the current
-    // path in the original window.
+    // Note: The state of "targetPath" may change during scanning/filtering (which happens in the
+    // background). This is okay and even desired. When the callback occurs the path in the new
+    // window will match the current path in the original window.
      
     settings = [settingsVal retain];
   }
@@ -1185,8 +1115,7 @@ static MainMenuControl  *singletonInstance = nil;
 - (DirectoryViewControl *)createDirectoryViewControlForAnnotatedTree:
                             (AnnotatedTreeContext *)annTreeContext {
   // Try to match the subjectPath to the targetPath
-  ItemPathModel  *subjectPath = 
-    [ItemPathModel pathWithTreeContext: [annTreeContext treeContext]];
+  ItemPathModel  *subjectPath = [ItemPathModel pathWithTreeContext: [annTreeContext treeContext]];
 
   [subjectPath suppressVisibleTreeChangedNotifications: YES];
 
@@ -1203,9 +1132,9 @@ static MainMenuControl  *singletonInstance = nil;
   
   while (targetItem = [fileItemEnum nextObject]) {
     if (insideSubjectScanTree) {
-      // Only try to extend the visible path once we are inside the subject's 
-      // scan tree, as this is where the path starts. (Also, we need to be in
-      // the target's scan tree as well, but this is implied). 
+      // Only try to extend the visible path once we are inside the subject's scan tree, as this is
+      // where the path starts. (Also, we need to be in the target's scan tree as well, but this is
+      // implied).
       if ( [subjectPath extendVisiblePathToSimilarFileItem: targetItem] ) {
         if (! insideVisibleTree) {
           [subjectPath moveVisibleTreeDown];
@@ -1246,19 +1175,17 @@ static MainMenuControl  *singletonInstance = nil;
     [subjectPath selectFileItem: itemToSelect];
   }
   else {
-    // Did not manage to match the new path all the way up to the selected
-    // item in the original path. The selected item of the new path can 
-    // therefore be set to the path endpoint (as that is the closest it can 
-    // come to matching the old selection).
+    // Did not manage to match the new path all the way up to the selected item in the original
+    // path. The selected item of the new path can therefore be set to the path endpoint (as that is
+    // the closest it can come to matching the old selection).
     [subjectPath selectFileItem: [subjectPath lastFileItem]];
   }
         
   [subjectPath suppressVisibleTreeChangedNotifications: NO];
 
-  return [[[DirectoryViewControl alloc] 
-             initWithAnnotatedTreeContext: annTreeContext
-               pathModel: subjectPath 
-               settings: settings] autorelease];
+  return [[[DirectoryViewControl alloc] initWithAnnotatedTreeContext: annTreeContext
+                                                           pathModel: subjectPath
+                                                            settings: settings] autorelease];
 }
 
 @end // @implementation DerivedDirViewWindowCreator

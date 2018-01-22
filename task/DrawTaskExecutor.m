@@ -15,20 +15,18 @@
 }
 
 
-- (id) initWithTreeContext: (TreeContext *)treeContextVal {
+- (id) initWithTreeContext:(TreeContext *)treeContextVal {
   return [self initWithTreeContext: treeContextVal 
-                 drawingSettings:
-                   [[[TreeDrawerSettings alloc] init] autorelease]];
+                   drawingSettings: [[[TreeDrawerSettings alloc] init] autorelease]];
 }
 
-- (id) initWithTreeContext: (TreeContext *)treeContextVal
-         drawingSettings: (TreeDrawerSettings *)settings {
+- (id) initWithTreeContext:(TreeContext *)treeContextVal
+           drawingSettings:(TreeDrawerSettings *)settings {
   if (self = [super init]) {
     treeContext = [treeContextVal retain];
   
-    treeDrawer = 
-      [[TreeDrawer alloc] initWithScanTree: [treeContext scanTree]
-                            treeDrawerSettings: settings];
+    treeDrawer = [[TreeDrawer alloc] initWithScanTree: [treeContext scanTree]
+                                   treeDrawerSettings: settings];
     treeDrawerSettings = [settings retain];
     
     settingsLock = [[NSLock alloc] init];
@@ -48,11 +46,11 @@
 }
 
 
-- (TreeDrawerSettings *) treeDrawerSettings {
+- (TreeDrawerSettings *)treeDrawerSettings {
   return treeDrawerSettings;
 }
 
-- (void) setTreeDrawerSettings: (TreeDrawerSettings *)settings {
+- (void) setTreeDrawerSettings:(TreeDrawerSettings *)settings {
   [settingsLock lock];
   if (settings != treeDrawerSettings) {
     [treeDrawerSettings release];
@@ -66,7 +64,7 @@
   [treeDrawer clearAbortFlag];
 }
 
-- (id) runTaskWithInput: (id)input {
+- (id) runTaskWithInput:(id)input {
   [settingsLock lock];
   // Even though the settings are immutable, obtaining the settingsLock
   // ensures that it is not de-allocated while it is being used. 
@@ -77,14 +75,13 @@
     
   [treeContext obtainReadLock];
     
-  NSImage  *image = 
-    [treeDrawer drawImageOfVisibleTree: [drawingInput visibleTree] 
-                  startingAtTree: [drawingInput treeInView]
-                  usingLayoutBuilder: [drawingInput layoutBuilder]
-                  inRect: [drawingInput bounds]];
-                         
+  NSImage  *image = [treeDrawer drawImageOfVisibleTree: [drawingInput visibleTree]
+                                        startingAtTree: [drawingInput treeInView]
+                                    usingLayoutBuilder: [drawingInput layoutBuilder]
+                                                inRect: [drawingInput bounds]];
+
   [treeContext releaseReadLock];
-    
+
   return image;
 }
 

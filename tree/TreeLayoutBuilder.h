@@ -7,7 +7,8 @@
 @interface TreeLayoutBuilder : NSObject {
 }
 
-- (void) layoutItemTree:(Item *)itemTreeRoot inRect:(NSRect)bounds
-           traverser:(NSObject <TreeLayoutTraverser> *)traverser;
+- (void) layoutItemTree:(Item *)itemTreeRoot
+                 inRect:(NSRect)bounds
+              traverser:(NSObject <TreeLayoutTraverser> *)traverser;
 
 @end

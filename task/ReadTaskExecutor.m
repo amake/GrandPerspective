@@ -27,7 +27,7 @@
   // Can be ignored because a one-shot object is used for running the task.
 }
 
-- (id) runTaskWithInput: (id) input {
+- (id) runTaskWithInput:(id)input {
   NSAssert( treeReader==nil, @"treeReader already set.");
 
   ReadTaskInput  *myInput = input;
@@ -44,8 +44,8 @@
   treeReader = nil;
   [taskLock unlock];
 
-  // Return the TreeReader as next to the tree that is read, its -error and
-  // -unboundTests might be of interest as well.
+  // Return the TreeReader as next to the tree that is read, its -error and -unboundTests might be
+  // of interest as well.
   return retVal;
 }
 
@@ -58,8 +58,8 @@
   NSDictionary  *dict;
 
   [taskLock lock];
-  // The "taskLock" ensures that when treeReader is not nil, the object will
-  // always be valid when it is used (i.e. it won't be deallocated).
+  // The "taskLock" ensures that when treeReader is not nil, the object will always be valid when it
+  // is used (i.e. it won't be deallocated).
   dict = [treeReader progressInfo];
   [taskLock unlock];
   

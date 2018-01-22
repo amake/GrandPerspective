@@ -10,7 +10,7 @@
 
 }
 
-- (id) initWithFlagsMask:(UInt8) mask desiredResult:(UInt8) result;
+- (id) initWithFlagsMask:(UInt8)mask desiredResult:(UInt8)result;
 
 - (UInt8) flagsMask;
 - (UInt8) desiredResult;

@@ -10,17 +10,15 @@
 + (id) annotatedTreeContext:(TreeContext *)treeContext {
   return (treeContext == nil 
           ? nil
-          : [[[AnnotatedTreeContext alloc] initWithTreeContext: treeContext] 
-                 autorelease]);
+          : [[[AnnotatedTreeContext alloc] initWithTreeContext: treeContext] autorelease]);
 }
 
 + (id) annotatedTreeContext:(TreeContext *)treeContext 
-         comments:(NSString *)comments {
+                   comments:(NSString *)comments {
   return (treeContext == nil
           ? nil
-          : [[[AnnotatedTreeContext alloc] 
-                 initWithTreeContext: treeContext comments: comments] 
-                   autorelease]);
+          : [[[AnnotatedTreeContext alloc] initWithTreeContext: treeContext comments: comments]
+             autorelease]);
 }
 
 
@@ -28,20 +26,18 @@
   FileItemTest  *test = [[treeContextVal filterSet] fileItemTest];
 
   return [self initWithTreeContext: treeContextVal
-                 comments: ((test != nil) ? [test description] : @"")];
+                          comments: ((test != nil) ? [test description] : @"")];
 }
 
 - (id) initWithTreeContext:(TreeContext *)treeContextVal
-         comments:(NSString *)commentsVal {
+                  comments:(NSString *)commentsVal {
   if (self = [super init]) {
     NSAssert(treeContextVal != nil, @"TreeContext must be set.");
   
     treeContext = [treeContextVal retain];
     
     // Create a copy of the string, to ensure it is immutable.
-    comments = (commentsVal != nil 
-                ? [NSString stringWithString: commentsVal]
-                : @"");
+    comments = commentsVal != nil ? [NSString stringWithString: commentsVal] : @"";
     [comments retain];
   }
   return self;

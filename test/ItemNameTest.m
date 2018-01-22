@@ -15,7 +15,7 @@
 
 
 - (TestResult) testFileItem:(FileItem *)item context:(id) context {
-  return ([stringTest testString: [item pathComponent]] ? TEST_PASSED : TEST_FAILED);
+  return [stringTest testString: [item pathComponent]] ? TEST_PASSED : TEST_FAILED;
 }
 
 - (BOOL) appliesToDirectories {
@@ -29,8 +29,8 @@
 
 - (NSString *)description {
   NSString  *subject = 
-    NSLocalizedStringFromTable( @"name" , @"Tests", 
-                                @"A filename as the subject of a string test" );
+    NSLocalizedStringFromTable(@"name" , @"Tests",
+                               @"A filename as the subject of a string test");
 
   return [stringTest descriptionWithSubject: subject];
 }
@@ -38,10 +38,9 @@
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict {
   NSAssert([[dict objectForKey: @"class"] isEqualToString: @"ItemNameTest"],
-             @"Incorrect value for class in dictionary.");
+           @"Incorrect value for class in dictionary.");
 
-  return [[[ItemNameTest alloc] initWithPropertiesFromDictionary: dict]
-              autorelease];
+  return [[[ItemNameTest alloc] initWithPropertiesFromDictionary: dict] autorelease];
 }
 
 @end

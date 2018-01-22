@@ -21,7 +21,7 @@
 }
 
 
-- (void) visitItemSizeTest: (ItemSizeTest *)test {
+- (void) visitItemSizeTest:(ItemSizeTest *)test {
   itemSizeTestFound = YES;
 }
 

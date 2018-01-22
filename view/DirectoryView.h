@@ -5,9 +5,8 @@
  */
 extern NSString  *ColorPaletteChangedEvent;
 
-/* Event fired when the color mapper has changed. This is the case when the
- * color mapping scheme changed, or when the scheme changed the way it maps
- * file items to hash values.
+/* Event fired when the color mapper has changed. This is the case when the color mapping scheme
+ * changed, or when the scheme changed the way it maps file items to hash values.
  */
 extern NSString  *ColorMappingChangedEvent;
 
@@ -24,28 +23,24 @@ extern NSString  *ColorMappingChangedEvent;
 @interface DirectoryView : NSView {
   AsynchronousTaskManager  *drawTaskManager;
 
-  // Even though layout builder could also be considered part of the
-  // itemTreeDrawerSettings, it is maintained here, as it is also needed by
-  // the pathDrawer, and other objects.
+  // Even though layout builder could also be considered part of the itemTreeDrawerSettings, it is
+  // maintained here, as it is also needed by the pathDrawer, and other objects.
   TreeLayoutBuilder  *layoutBuilder;
   
   ItemPathDrawer  *pathDrawer;
   ItemPathModelView  *pathModelView;
   SelectedItemLocator  *selectedItemLocator;
   
-  /* The current color mapping, which is being observed for any changes to the
-   * scheme.
-   */
+  // The current color mapping, which is being observed for any changes to the scheme.
   NSObject <FileItemMappingScheme>  *observedColorMapping;
 
   BOOL  showEntireVolume;
 
   NSImage  *treeImage;
   
-  // Indicates if the image has been resized to fit inside the current view.
-  // This is only a temporary measure. A new image is already being constructed
-  // for the new size, but as long as that's not yet ready, the scaled image 
-  // can be used.
+  // Indicates if the image has been resized to fit inside the current view. This is only a
+  // temporary measure. A new image is already being constructed for the new size, but as long as
+  // that's not yet ready, the scaled image can be used.
   BOOL  treeImageIsScaled;
   
   float  scrollWheelDelta;
@@ -53,19 +48,19 @@ extern NSString  *ColorMappingChangedEvent;
 
 // Initialises the instance-specific state after the view has been restored
 // from the nib file (which invokes the generic initWithFrame: method).
-- (void) postInitWithPathModelView: (ItemPathModelView *)pathModelView;
+- (void) postInitWithPathModelView:(ItemPathModelView *)pathModelView;
 
 - (ItemPathModelView *)pathModelView;
 - (FileItem *)treeInView;
 
-- (NSRect) locationInViewForItemAtEndOfPath: (NSArray *)itemPath;
-- (NSImage *)imageInViewForItemAtEndOfPath: (NSArray *)itemPath;
+- (NSRect) locationInViewForItemAtEndOfPath:(NSArray *)itemPath;
+- (NSImage *)imageInViewForItemAtEndOfPath:(NSArray *)itemPath;
 
 - (TreeDrawerSettings *)treeDrawerSettings;
-- (void) setTreeDrawerSettings: (TreeDrawerSettings *)settings;
+- (void) setTreeDrawerSettings:(TreeDrawerSettings *)settings;
 
 - (BOOL) showEntireVolume;
-- (void) setShowEntireVolume: (BOOL) flag;
+- (void) setShowEntireVolume:(BOOL)flag;
 
 - (TreeLayoutBuilder *)layoutBuilder;
 

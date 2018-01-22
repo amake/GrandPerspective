@@ -5,13 +5,13 @@
 
 }
 
-+ (NSString *) localizedAndEnumerationString:(NSArray *)items;
++ (NSString *)localizedAndEnumerationString:(NSArray *)items;
 
-+ (NSString *) localizedOrEnumerationString:(NSArray *)items;
++ (NSString *)localizedOrEnumerationString:(NSArray *)items;
                  
-+ (NSString *) localizedEnumerationString:(NSArray *)items
-                 pairTemplate:(NSString *)pairTemplate
-                 bootstrapTemplate:(NSString *)bootstrapTemplate
-                 repeatingTemplate:(NSString *)repeatingTemplate;
++ (NSString *)localizedEnumerationString:(NSArray *)items
+                            pairTemplate:(NSString *)pairTemplate
+                       bootstrapTemplate:(NSString *)bootstrapTemplate
+                       repeatingTemplate:(NSString *)repeatingTemplate;
 
 @end

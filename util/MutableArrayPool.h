@@ -9,6 +9,6 @@
   int  initialArrayCapacity;
 }
 
-- (id) initWithCapacity: (int) maxSize initialArrayCapacity: (int) arraySize;
+- (id) initWithCapacity:(int) maxSize initialArrayCapacity:(int) arraySize;
 
 @end

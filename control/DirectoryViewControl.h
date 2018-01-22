@@ -81,9 +81,9 @@ extern NSString  *DeleteFilesAndFolders;
   
   FilterRepository  *filterRepository;
 
-  // The "initialSettings" and "initialComments" fields are only used between
-  // initialization and subsequent creation of the window. The are subsequently
-  // owned and managed by various GUI components.
+  // The "initialSettings" and "initialComments" fields are only used between initialization and
+  // subsequent creation of the window. The are subsequently owned and managed by various GUI
+  // components.
   DirectoryViewControlSettings  *initialSettings;
   NSString  *initialComments;
 
@@ -107,28 +107,28 @@ extern NSString  *DeleteFilesAndFolders;
   NSSize  unzoomedViewSize;
 }
 
-- (IBAction) openFile:(id) sender;
-- (IBAction) previewFile:(id) sender;
-- (IBAction) revealFileInFinder:(id) sender;
-- (IBAction) deleteFile:(id) sender;
-- (IBAction) toggleDrawer:(id) sender;
+- (IBAction) openFile:(id)sender;
+- (IBAction) previewFile:(id)sender;
+- (IBAction) revealFileInFinder:(id)sender;
+- (IBAction) deleteFile:(id)sender;
+- (IBAction) toggleDrawer:(id)sender;
 
-- (IBAction) maskCheckBoxChanged:(id) sender;
+- (IBAction) maskCheckBoxChanged:(id)sender;
 
-- (IBAction) colorMappingChanged:(id) sender;
-- (IBAction) colorPaletteChanged:(id) sender;
-- (IBAction) maskChanged:(id) sender;
-- (IBAction) showEntireVolumeCheckBoxChanged:(id) sender;
-- (IBAction) showPackageContentsCheckBoxChanged:(id) sender;
+- (IBAction) colorMappingChanged:(id)sender;
+- (IBAction) colorPaletteChanged:(id)sender;
+- (IBAction) maskChanged:(id)sender;
+- (IBAction) showEntireVolumeCheckBoxChanged:(id)sender;
+- (IBAction) showPackageContentsCheckBoxChanged:(id)sender;
 
 - (id) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)treeContext;
 - (id) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)treeContext
-         pathModel:(ItemPathModel *)itemPathModel
-         settings:(DirectoryViewControlSettings *)settings;
+                          pathModel:(ItemPathModel *)itemPathModel
+                           settings:(DirectoryViewControlSettings *)settings;
 - (id) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)treeContext
-         pathModel:(ItemPathModel *)itemPathModel
-         settings:(DirectoryViewControlSettings *)settings
-         filterRepository:(FilterRepository *)filterRepository;
+                          pathModel:(ItemPathModel *)itemPathModel
+                           settings:(DirectoryViewControlSettings *)settings
+                   filterRepository:(FilterRepository *)filterRepository;
 
 - (Filter *)mask;
 - (NamedFilter *)namedMask;
@@ -137,8 +137,8 @@ extern NSString  *DeleteFilesAndFolders;
 
 - (DirectoryView *)directoryView;
 
-/* Returns a newly created object that represents the current settings of the
- * view. It can subsequently be safely modified. This will not affect the view.
+/* Returns a newly created object that represents the current settings of the view. It can
+ * subsequently be safely modified. This will not affect the view.
  */
 - (DirectoryViewControlSettings *)directoryViewControlSettings;
 
@@ -147,13 +147,13 @@ extern NSString  *DeleteFilesAndFolders;
 
 /* Returns YES iff the action is currently enabled. 
  * 
- * Only works for a subset of of actions, e.g. openFile: and deleteFile:. See 
- * implementation for complete list, which can be extended when needed.
+ * Only works for a subset of of actions, e.g. openFile: and deleteFile:. See implementation for
+ * complete list, which can be extended when needed.
  */
-- (BOOL) validateAction:(SEL) action;
+- (BOOL) validateAction:(SEL)action;
 
-/* Returns YES iff the selection is currently locked, which means that it does
- * not change when the mouse position changes.
+/* Returns YES iff the selection is currently locked, which means that it does not change when the
+ * mouse position changes.
  */
 - (BOOL) isSelectedFileLocked;
 

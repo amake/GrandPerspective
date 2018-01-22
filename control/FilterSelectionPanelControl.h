@@ -17,11 +17,11 @@
 - (id) init;
 - (id) initWithFilterRepository:(FilterRepository *)filterRepository;
 
-- (IBAction) editFilter:(id) sender;
-- (IBAction) addFilter:(id) sender;
+- (IBAction) editFilter:(id)sender;
+- (IBAction) addFilter:(id)sender;
 
-- (IBAction) okAction:(id) sender;
-- (IBAction) cancelAction:(id) sender;
+- (IBAction) okAction:(id)sender;
+- (IBAction) cancelAction:(id)sender;
 
 - (void) selectFilterNamed:(NSString *)name;
 

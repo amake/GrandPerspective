@@ -31,17 +31,17 @@
 
 @implementation MappingByLevel
 
-- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
+- (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
   return depth;
 }
 
-- (NSUInteger) hashForFileItem: (PlainFileItem *)item inTree: (FileItem *)treeRoot {
+- (NSUInteger) hashForFileItem:(PlainFileItem *)item inTree:(FileItem *)treeRoot {
   // Establish the depth of the file item in the tree.
 
-  // Matching parent directories as a stop-criterion, as opposed to matching
-  // the file items directly. The reason is that when the item is at depth 0, 
-  // it does not necessarily equal the treeRoot; When package contents are 
-  // hidden, a stand-in item is used for directory items that are packages.
+  // Matching parent directories as a stop-criterion, as opposed to matching the file items
+  // directly. The reason is that when the item is at depth 0, it does not necessarily equal the
+  // treeRoot; When package contents are hidden, a stand-in item is used for directory items that
+  // are packages.
   
   FileItem  *fileItem = [item parentDirectory];
   FileItem  *itemToMatch = [treeRoot parentDirectory];
@@ -65,22 +65,18 @@
 //----------------------------------------------------------------------------
 // Implementation of informal LegendProvidingFileItemMapping protocol
 
-- (NSString *) descriptionForHash: (NSUInteger)hash {
+- (NSString *)descriptionForHash:(NSUInteger)hash {
   if (hash == 0) {
-    return NSLocalizedString(@"Outermost level", 
-                             @"Legend for Level mapping scheme.");
+    return NSLocalizedString(@"Outermost level", @"Legend for Level mapping scheme.");
   }
   else {
-    NSString 
-      *fmt = NSLocalizedString(@"Level %d", 
-                               @"Legend for Level mapping scheme.");
+    NSString  *fmt = NSLocalizedString(@"Level %d", @"Legend for Level mapping scheme.");
     return [NSString stringWithFormat: fmt, hash];
   }
 }
 
-- (NSString *) descriptionForRemainingHashes {
-  return NSLocalizedString(@"Lower levels",
-                           @"Misc. description for Level mapping scheme.");
+- (NSString *)descriptionForRemainingHashes {
+  return NSLocalizedString(@"Lower levels", @"Misc. description for Level mapping scheme.");
 }
 
 @end // @implementation MappingByLevel
@@ -88,7 +84,7 @@
 
 @implementation MappingByExtension
 
-- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
+- (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
   return [[[item systemPathComponent] pathExtension] hash];
 }
 
@@ -97,7 +93,7 @@
 
 @implementation MappingByFilename
 
-- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
+- (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
   return [[item systemPathComponent] hash];
 }
 
@@ -106,7 +102,7 @@
 
 @implementation MappingByDirectoryName
 
-- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
+- (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
   return [[[item parentDirectory] systemPathComponent] hash];
 }
 
@@ -115,7 +111,7 @@
 
 @implementation MappingByTopDirectoryName
 
-- (NSUInteger) hashForFileItem: (PlainFileItem *)item atDepth: (NSUInteger)depth {
+- (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
   if (depth == 0) {
     return [[item label] hash];
   }
@@ -132,7 +128,7 @@
   return [[dir label] hash];
 }
 
-- (NSUInteger) hashForFileItem: (PlainFileItem *)item inTree: (FileItem *)treeRoot {
+- (NSUInteger) hashForFileItem:(PlainFileItem *)item inTree:(FileItem *)treeRoot {
   if (item == treeRoot) {
     return [[item label] hash];
   }
@@ -154,43 +150,31 @@
 @implementation FileItemMappingCollection
 
 + (FileItemMappingCollection*) defaultFileItemMappingCollection {
-  static  FileItemMappingCollection 
-    *defaultFileItemMappingCollectionInstance = nil;
+  static  FileItemMappingCollection  *defaultFileItemMappingCollectionInstance = nil;
 
   if (defaultFileItemMappingCollectionInstance==nil) {
-    FileItemMappingCollection  *instance = 
-      [[[FileItemMappingCollection alloc] init] autorelease];
+    FileItemMappingCollection  *instance = [[[FileItemMappingCollection alloc] init] autorelease];
     
-    [instance addFileItemMappingScheme:
-                  [[[MappingByTopDirectoryName alloc] init] autorelease]
-                key: @"top folder"];
-    [instance addFileItemMappingScheme:
-                  [[[MappingByDirectoryName alloc] init] autorelease]
-                key: @"folder"];
-    [instance addFileItemMappingScheme:
-                  [[[MappingByExtension alloc] init] autorelease]
-                key: @"extension"];
-    [instance addFileItemMappingScheme:
-                  [[[MappingByFilename alloc] init] autorelease]
-                key: @"name"];
-    [instance addFileItemMappingScheme:
-                  [[[MappingByLevel alloc] init] autorelease]
-                key: @"level"];
-    [instance addFileItemMappingScheme:
-                  [[[StatelessFileItemMapping alloc] init] autorelease]
-                key: @"nothing"];
-    [instance addFileItemMappingScheme:
-                  [[[UniformTypeMappingScheme alloc] init] autorelease]
-                key: @"uniform type"];
-    [instance addFileItemMappingScheme:
-                  [[[CreationMappingScheme alloc] init] autorelease]
-                key: @"creation"];
-    [instance addFileItemMappingScheme:
-                  [[[ModificationMappingScheme alloc] init] autorelease]
-                key: @"modification"];
-    [instance addFileItemMappingScheme:
-                  [[[AccessMappingScheme alloc] init] autorelease]
-                key: @"access"];
+    [instance addFileItemMappingScheme: [[[MappingByTopDirectoryName alloc] init] autorelease]
+                                   key: @"top folder"];
+    [instance addFileItemMappingScheme: [[[MappingByDirectoryName alloc] init] autorelease]
+                                   key: @"folder"];
+    [instance addFileItemMappingScheme: [[[MappingByExtension alloc] init] autorelease]
+                                   key: @"extension"];
+    [instance addFileItemMappingScheme: [[[MappingByFilename alloc] init] autorelease]
+                                   key: @"name"];
+    [instance addFileItemMappingScheme: [[[MappingByLevel alloc] init] autorelease]
+                                   key: @"level"];
+    [instance addFileItemMappingScheme: [[[StatelessFileItemMapping alloc] init] autorelease]
+                                   key: @"nothing"];
+    [instance addFileItemMappingScheme: [[[UniformTypeMappingScheme alloc] init] autorelease]
+                                   key: @"uniform type"];
+    [instance addFileItemMappingScheme: [[[CreationMappingScheme alloc] init] autorelease]
+                                   key: @"creation"];
+    [instance addFileItemMappingScheme: [[[ModificationMappingScheme alloc] init] autorelease]
+                                   key: @"modification"];
+    [instance addFileItemMappingScheme: [[[AccessMappingScheme alloc] init] autorelease]
+                                   key: @"access"];
     defaultFileItemMappingCollectionInstance = [instance retain];
   }
   
@@ -199,11 +183,10 @@
 
 // Overrides super's designated initialiser.
 - (id) init {
-  return [self initWithDictionary:
-                   [NSMutableDictionary dictionaryWithCapacity: 8]];
+  return [self initWithDictionary: [NSMutableDictionary dictionaryWithCapacity: 8]];
 }
 
-- (id) initWithDictionary: (NSMutableDictionary *)dictionary {
+- (id) initWithDictionary:(NSMutableDictionary *)dictionary {
   if (self = [super init]) {
     schemesDictionary = [dictionary retain];
   }
@@ -216,21 +199,20 @@
   [super dealloc];
 }
 
-- (void) addFileItemMappingScheme: (NSObject <FileItemMappingScheme> *)scheme 
-                              key: (NSString *)key {
+- (void) addFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)scheme
+                              key:(NSString *)key {
   [schemesDictionary setObject: scheme forKey: key];
 }
 
-- (void) removeFileItemMappingSchemeForKey: (NSString *)key {
+- (void) removeFileItemMappingSchemeForKey:(NSString *)key {
   [schemesDictionary removeObjectForKey: key];
 }
 
-- (NSArray*) allKeys {
+- (NSArray *)allKeys {
   return [schemesDictionary allKeys];
 }
 
-- (NSObject <FileItemMappingScheme> *) fileItemMappingSchemeForKey: 
-                                                              (NSString *)key {
+- (NSObject <FileItemMappingScheme> *)fileItemMappingSchemeForKey:(NSString *)key {
   return [schemesDictionary objectForKey: key];
 }
 

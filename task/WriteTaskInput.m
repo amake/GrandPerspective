@@ -9,8 +9,8 @@
   return nil;
 }
 
-- (id) initWithAnnotatedTreeContext: (AnnotatedTreeContext *)context 
-         path: (NSString *)pathVal {
+- (id) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)context
+                               path:(NSString *)pathVal {
   if (self = [super init]) {
     treeContext = [context retain];
     path = [pathVal retain];
@@ -30,7 +30,7 @@
   return treeContext;
 }
 
-- (NSString *) path {
+- (NSString *)path {
   return path;
 }
 

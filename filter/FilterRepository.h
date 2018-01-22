@@ -16,9 +16,9 @@
  */
 - (NotifyingDictionary *)filtersByNameAsNotifyingDictionary;
 
-/* Returns dictionary as an NSDictionary, which is useful if the dictionary
- * does not need to be modified. Note, the dictionary can still be modified
- * by casting it to NotifyingDictionary. This is only a convenience method.
+/* Returns dictionary as an NSDictionary, which is useful if the dictionary does not need to be
+ * modified. Note, the dictionary can still be modified by casting it to NotifyingDictionary. This
+ * is only a convenience method.
  */
 - (NSDictionary *)filtersByName;
 

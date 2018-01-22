@@ -65,8 +65,8 @@
 
 /* Initialiser used when the test is restored from a dictionary.
  *
- * Note: Special case. Does not call own designated initialiser. It should
- * be overridden and only called by initialisers with the same signature.
+ * Note: Special case. Does not call own designated initialiser. It should be overridden and only
+ * called by initialisers with the same signature.
  */
 - (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super init]) {

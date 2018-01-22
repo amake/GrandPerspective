@@ -5,8 +5,8 @@
 
 @protocol FileItemMappingScheme;
 
-/* Base class for file item mapping implementations that maintain state, which
- * are therefore not thread-safe.
+/* Base class for file item mapping implementations that maintain state, which are therefore not
+ * thread-safe.
  */
 @interface StatefulFileItemMapping : NSObject <FileItemMapping> {
 
@@ -14,6 +14,6 @@
 
 }
 
-- (id) initWithFileItemMappingScheme: (NSObject <FileItemMappingScheme> *)scheme;
+- (id) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)scheme;
 
 @end

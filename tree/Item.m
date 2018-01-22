@@ -2,7 +2,7 @@
 
 #import "PreferencesPanelControl.h"
 
-/* The supported memory-zone options for storing trees. */
+// The supported memory-zone options for storing trees.
 NSString  *DefaultZone = @"default";
 NSString  *DedicatedSharedZone = @"dedicated shared";
 NSString  *DedicatedPrivateZone = @"dedicated private";
@@ -28,8 +28,7 @@ static NSZone  *dedicatedSharedZone = nil;
     return NSCreateZone(8192 * 16, 4096 * 16, NO);
   }
 
-  NSAssert2(NO, @"Unrecognized value for %@: \"%@\"", 
-    TreeMemoryZoneKey, memoryZone);
+  NSAssert2(NO, @"Unrecognized value for %@: \"%@\"", TreeMemoryZoneKey, memoryZone);
   return nil;
 }
 
@@ -66,7 +65,7 @@ static NSZone  *dedicatedSharedZone = nil;
 }
 
 
-- (NSString*) description {
+- (NSString *)description {
   return [NSString stringWithFormat:@"Item(size=%qu)", size];
 }
 

@@ -15,7 +15,7 @@
 
 - (id) initWithMatchTargets:(NSArray *)matches;
 
-- (id) initWithMatchTargets:(NSArray *)matches strict:(BOOL) strict;
+- (id) initWithMatchTargets:(NSArray *)matches strict:(BOOL)strict;
 
 
 - (NSArray *)matchTargets;

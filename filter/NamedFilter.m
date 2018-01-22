@@ -6,8 +6,7 @@
 @implementation NamedFilter
 
 + (NamedFilter *)emptyFilterWithName:(NSString *)name {
-  return [[[NamedFilter alloc] initWithFilter: [Filter filter] name: name] 
-              autorelease];
+  return [[[NamedFilter alloc] initWithFilter: [Filter filter] name: name] autorelease];
 }
 
 + (NamedFilter *)namedFilter:(Filter *)filter name:(NSString *)name {
@@ -45,8 +44,7 @@
 }
 
 - (NSString *)localizedName {
-  return [[NSBundle mainBundle] localizedStringForKey: name 
-                                  value: nil table: @"Names"];
+  return [[NSBundle mainBundle] localizedStringForKey: name value: nil table: @"Names"];
 }
 
 @end

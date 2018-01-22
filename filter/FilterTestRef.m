@@ -8,15 +8,14 @@
 }
 
 + (id) filterTestWithName:(NSString *)name inverted:(BOOL) inverted {
-  return [[[FilterTestRef alloc] initWithName: name inverted: inverted] 
-              autorelease];
+  return [[[FilterTestRef alloc] initWithName: name inverted: inverted] autorelease];
 }
 
 
 + (FilterTestRef *)filterTestRefFromDictionary:(NSDictionary *)dict {
   return 
     [FilterTestRef filterTestWithName: [dict objectForKey: @"name"]
-                     inverted: [[dict objectForKey: @"inverted"] boolValue]];
+                             inverted: [[dict objectForKey: @"inverted"] boolValue]];
 }
 
 
@@ -30,7 +29,7 @@
   return [self initWithName: nameVal inverted: NO];
 }
 
-- (id) initWithName:(NSString *)nameVal inverted:(BOOL) invertedVal {
+- (id) initWithName:(NSString *)nameVal inverted:(BOOL)invertedVal {
   if (self = [super init]) {
     name = [[NSString alloc] initWithString: nameVal]; // Ensure it's immutable
     inverted = invertedVal;
@@ -57,8 +56,7 @@
 
 - (NSDictionary *)dictionaryForObject {
   return [NSDictionary dictionaryWithObjectsAndKeys:
-                         [NSNumber numberWithBool: inverted], @"inverted",                         name, @"name",
-                         nil];
+                         [NSNumber numberWithBool: inverted], @"inverted", name, @"name", nil];
 }
 
 @end // @implementation FilterTestRef

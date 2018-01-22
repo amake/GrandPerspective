@@ -18,8 +18,7 @@
   BOOL  applicable = NO;
   
   while (i < max) {
-    TestResult  result = 
-      [[subTests objectAtIndex: i++] testFileItem: item context: context];
+    TestResult  result = [[subTests objectAtIndex: i++] testFileItem: item context: context];
       
     if (result == TEST_PASSED) {
       // Short-circuit evaluation.
@@ -31,7 +30,7 @@
     }
   }
 
-  return ( applicable ? TEST_FAILED : TEST_NOT_APPLICABLE );
+  return applicable ? TEST_FAILED : TEST_NOT_APPLICABLE;
 }
 
 - (void) acceptFileItemTestVisitor:(NSObject <FileItemTestVisitor> *)visitor {
@@ -40,25 +39,21 @@
 
 
 - (NSString *)bootstrapDescriptionTemplate {
-  return NSLocalizedStringFromTable( 
-           @"(%@) or (%@)" , @"Tests", 
-           @"OR-test with 1: sub test, and 2: another sub test" );
+  return NSLocalizedStringFromTable(@"(%@) or (%@)" , @"Tests",
+                                    @"OR-test with 1: sub test, and 2: another sub test");
 }
 
 - (NSString *)repeatingDescriptionTemplate {
-  return NSLocalizedStringFromTable( 
-           @"(%@) or %@" , @"Tests", 
-           @"OR-test with 1: sub test, and 2: two or more other sub tests" );
+  return NSLocalizedStringFromTable(@"(%@) or %@" , @"Tests",
+                                    @"OR-test with 1: sub test, and 2: two or more other sub tests");
 }
 
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict {
-  NSAssert([[dict objectForKey: @"class"] 
-             isEqualToString: @"CompoundOrItemTest"],
-             @"Incorrect value for class in dictionary.");
+  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"CompoundOrItemTest"],
+           @"Incorrect value for class in dictionary.");
 
-  return [[[CompoundOrItemTest alloc] initWithPropertiesFromDictionary: dict]
-              autorelease];
+  return [[[CompoundOrItemTest alloc] initWithPropertiesFromDictionary: dict] autorelease];
 }
 
 @end

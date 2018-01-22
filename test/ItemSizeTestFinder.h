@@ -3,8 +3,8 @@
 #import "BasicFileItemTestVisitor.h"
 
 
-/* Simple visitor that can be used to check if a (compound) FileItemTest 
- * contains an ItemSizeTest as one of its subtests.
+/* Simple visitor that can be used to check if a (compound) FileItemTest contains an ItemSizeTest as
+ * one of its subtests.
  */
 @interface ItemSizeTestFinder : BasicFileItemTestVisitor {
   BOOL  itemSizeTestFound;
@@ -14,9 +14,9 @@
  */
 - (void) reset;
 
-/* Returns YES if an ItemSizeTest has been encountered. It should be called
- * after the finder has "visited" the FileItemTest for which it should 
- * determine whether or not the test includes an ItemSizeTest.
+/* Returns YES if an ItemSizeTest has been encountered. It should be called after the finder has
+ * "visited" the FileItemTest for which it should determine whether or not the test includes an
+ * ItemSizeTest.
  */
 - (BOOL) itemSizeTestFound;
 

@@ -8,29 +8,23 @@
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
 
   return 
-    [self initWithColorMappingKey:
-              [userDefaults stringForKey: DefaultColorMappingKey]
-            colorPaletteKey: 
-              [userDefaults stringForKey: DefaultColorPaletteKey] 
-            maskName: [userDefaults stringForKey: DefaultFilterName]
-            maskEnabled: NO 
-            showEntireVolume: 
-              [[userDefaults objectForKey: ShowEntireVolumeByDefaultKey] boolValue] 
-            showPackageContents: 
-              [[userDefaults objectForKey: ShowPackageContentsByDefaultKey] boolValue] 
-            unzoomedViewSize:
-              NSMakeSize([userDefaults floatForKey: DefaultViewWindowWidth],
-                         [userDefaults floatForKey: DefaultViewWindowHeight]) 
-            ];
+    [self initWithColorMappingKey: [userDefaults stringForKey: DefaultColorMappingKey]
+                  colorPaletteKey: [userDefaults stringForKey: DefaultColorPaletteKey]
+                         maskName: [userDefaults stringForKey: DefaultFilterName]
+                      maskEnabled: NO
+                 showEntireVolume: [[userDefaults objectForKey: ShowEntireVolumeByDefaultKey] boolValue]
+              showPackageContents: [[userDefaults objectForKey: ShowPackageContentsByDefaultKey] boolValue]
+                 unzoomedViewSize: NSMakeSize([userDefaults floatForKey: DefaultViewWindowWidth],
+                                              [userDefaults floatForKey: DefaultViewWindowHeight])];
 }
 
 - (id) initWithColorMappingKey:(NSString *)colorMappingKeyVal 
-         colorPaletteKey:(NSString *)colorPaletteKeyVal
-         maskName:(NSString *)maskNameVal
-         maskEnabled:(BOOL) maskEnabledVal 
-         showEntireVolume:(BOOL) showEntireVolumeVal
-         showPackageContents:(BOOL) showPackageContentsVal
-         unzoomedViewSize:(NSSize) unzoomedViewSizeVal {
+               colorPaletteKey:(NSString *)colorPaletteKeyVal
+                      maskName:(NSString *)maskNameVal
+                   maskEnabled:(BOOL)maskEnabledVal
+              showEntireVolume:(BOOL)showEntireVolumeVal
+           showPackageContents:(BOOL)showPackageContentsVal
+              unzoomedViewSize:(NSSize)unzoomedViewSizeVal {
   if (self = [super init]) {
     colorMappingKey = [colorMappingKeyVal retain];
     colorPaletteKey = [colorPaletteKeyVal retain];
@@ -92,7 +86,7 @@
   return maskEnabled;
 }
 
-- (void) setFileItemMaskEnabled:(BOOL) flag {
+- (void) setFileItemMaskEnabled:(BOOL)flag {
   maskEnabled = flag;
 }
 
@@ -101,7 +95,7 @@
   return showEntireVolume;
 }
 
-- (void) setShowEntireVolume:(BOOL) flag {
+- (void) setShowEntireVolume:(BOOL)flag {
   showEntireVolume = flag;
 }
 
@@ -110,7 +104,7 @@
   return showPackageContents;
 }
 
-- (void) setShowPackageContents:(BOOL) flag {
+- (void) setShowPackageContents:(BOOL)flag {
   showPackageContents = flag;
 }
 
@@ -119,7 +113,7 @@
   return unzoomedViewSize;
 }
 
-- (void) setunzoomedViewSize:(NSSize) size {
+- (void) setunzoomedViewSize:(NSSize)size {
   unzoomedViewSize = size;
 }
 

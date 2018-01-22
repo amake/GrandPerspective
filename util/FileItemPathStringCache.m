@@ -4,10 +4,9 @@
 
 @interface FileItemPathStringCache (PrivateMethods)
 
-- (NSString *)finishDirectoryPath: (NSString *)path 
-                pathComponent: (NSString *)comp;
+- (NSString *)finishDirectoryPath:(NSString *)path pathComponent:(NSString *)comp;
 
-- (void) fillCacheToItem: (FileItem *)item;
+- (void) fillCacheToItem:(FileItem *)item;
 
 @end
 
@@ -42,7 +41,7 @@
 }
 
 
-- (NSString*) pathStringForFileItem: (FileItem *)item {
+- (NSString *)pathStringForFileItem:(FileItem *)item {
   DirectoryItem  *parentDirectory = [item parentDirectory];
 
   while ([cachedFileItems count]) {
@@ -102,8 +101,7 @@
 
 @implementation FileItemPathStringCache (PrivateMethods)
 
-- (NSString *)finishDirectoryPath: (NSString *)path 
-                pathComponent: (NSString *)comp {
+- (NSString *)finishDirectoryPath:(NSString *)path pathComponent:(NSString *)comp {
 
   // Check if a trailing slash should be added to ensure that a slash is only
   // added when needed, e.g. when there is not a valid one already. Note, 

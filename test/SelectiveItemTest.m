@@ -11,8 +11,7 @@
   return nil;
 }
 
-- (id) initWithSubItemTest:(FileItemTest *)subTestVal 
-         onlyFiles:(BOOL) onlyFilesVal {
+- (id) initWithSubItemTest:(FileItemTest *)subTestVal onlyFiles:(BOOL)onlyFilesVal {
   if (self = [super init]) {
     subTest = [subTestVal retain];
     
@@ -29,8 +28,9 @@
 }
 
 
-// Note: Special case. Does not call own designated initialiser. It should
-// be overridden and only called by initialisers with the same signature.
+/* Note: Special case. Does not call own designated initialiser. It should be overridden and only
+ * called by initialisers with the same signature.
+ */
 - (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSDictionary  *subTestDict = [dict objectForKey: @"subTest"];
@@ -46,9 +46,7 @@
   [super addPropertiesToDictionary: dict];
   
   [dict setObject: @"SelectiveItemTest" forKey: @"class"];
-
   [dict setObject: [subTest dictionaryForObject] forKey: @"subTest"];
-
   [dict setObject: [NSNumber numberWithBool: onlyFiles] forKey: @"onlyFiles"];
 }
 
@@ -68,8 +66,7 @@
     return TEST_NOT_APPLICABLE;
   }
   
-  return ( [subTest testFileItem: item context: context] 
-           ? TEST_PASSED : TEST_FAILED );
+  return [subTest testFileItem: item context: context] ? TEST_PASSED : TEST_FAILED;
 }
 
 - (BOOL) appliesToDirectories {
@@ -83,25 +80,21 @@
 
 
 - (NSString *)description {
-  NSString  *format = ( onlyFiles 
-                        ? NSLocalizedStringFromTable( 
-                            @"files: %@", @"Tests",
-                            @"Selective test with 1: sub test" )
-                        : NSLocalizedStringFromTable( 
-                            @"folders: %@", @"Tests",
-                            @"Selective test with 1: sub test" ) );
+  NSString  *format = (onlyFiles
+                       ? NSLocalizedStringFromTable(@"files: %@", @"Tests",
+                                                    @"Selective test with 1: sub test")
+                       : NSLocalizedStringFromTable(@"folders: %@", @"Tests",
+                                                    @"Selective test with 1: sub test"));
   
   return [NSString stringWithFormat: format, [subTest description]];
 }
 
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict { 
-  NSAssert([[dict objectForKey: @"class"] 
-               isEqualToString: @"SelectiveItemTest"],
-             @"Incorrect value for class in dictionary.");
+  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"SelectiveItemTest"],
+           @"Incorrect value for class in dictionary.");
 
-  return [[[SelectiveItemTest alloc] initWithPropertiesFromDictionary: dict]
-              autorelease];
+  return [[[SelectiveItemTest alloc] initWithPropertiesFromDictionary: dict] autorelease];
 }
 
 @end

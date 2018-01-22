@@ -28,7 +28,7 @@
   // Can be ignored because a one-shot object is used for running the task.
 }
 
-- (id) runTaskWithInput: (id) input {
+- (id) runTaskWithInput:(id)input {
   NSAssert( treeBuilder==nil, @"treeBuilder already set.");
 
   ScanTaskInput  *myInput = input;
@@ -41,15 +41,12 @@
   
   NSDate  *startTime = [NSDate date];
   
-  TreeContext*  scanResult = 
-    [treeBuilder buildTreeForPath: [myInput pathToScan]];
+  TreeContext*  scanResult = [treeBuilder buildTreeForPath: [myInput pathToScan]];
   
   if (scanResult != nil) {
     NSLog(@"Done scanning: %d folders scanned (%d skipped) in %.2fs.",
-            [[[self progressInfo] 
-                 objectForKey: NumFoldersProcessedKey] intValue],
-            [[[self progressInfo] 
-                 objectForKey: NumFoldersSkippedKey] intValue],
+            [[[self progressInfo] objectForKey: NumFoldersProcessedKey] intValue],
+            [[[self progressInfo] objectForKey: NumFoldersSkippedKey] intValue],
             -[startTime timeIntervalSinceNow]);
   }
   else {

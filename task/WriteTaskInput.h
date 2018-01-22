@@ -8,10 +8,10 @@
   NSString  *path;
 }
 
-- (id) initWithAnnotatedTreeContext: (AnnotatedTreeContext *)context 
-         path: (NSString *)path;
+- (id) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)context
+                               path:(NSString *)path;
 
 - (AnnotatedTreeContext *)annotatedTreeContext;
-- (NSString *) path;
+- (NSString *)path;
 
 @end

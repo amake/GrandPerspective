@@ -11,21 +11,19 @@
 @implementation TreeDrawer
 
 // Overrides designated initialiser
-- (id) initWithColorPalette: (NSColorList *)colorPaletteVal {
+- (id) initWithColorPalette:(NSColorList *)colorPaletteVal {
   NSAssert(NO, @"Use initWithScanTree: instead.");
   return nil;
 }
 
 - (id) initWithScanTree:(DirectoryItem *)scanTreeVal {
-  TreeDrawerSettings  *defaultSettings = 
-    [[[TreeDrawerSettings alloc] init] autorelease];
+  TreeDrawerSettings  *defaultSettings = [[[TreeDrawerSettings alloc] init] autorelease];
     
-  return [self initWithScanTree: scanTreeVal 
-                 treeDrawerSettings: defaultSettings];
+  return [self initWithScanTree: scanTreeVal treeDrawerSettings: defaultSettings];
 }
 
 - (id) initWithScanTree:(DirectoryItem *)scanTreeVal 
-         treeDrawerSettings:(TreeDrawerSettings *)settings {
+     treeDrawerSettings:(TreeDrawerSettings *)settings {
   if (self = [super initWithColorPalette: [settings colorPalette]]) {
     scanTree = [scanTreeVal retain];
   
@@ -80,7 +78,7 @@
 }
 
 
-- (void) setShowPackageContents:(BOOL) showPackageContents {
+- (void) setShowPackageContents:(BOOL)showPackageContents {
   [treeGuide setPackagesAsFiles: !showPackageContents];
 }
 
@@ -99,9 +97,9 @@
 
 
 - (NSImage *)drawImageOfVisibleTree:(FileItem *)visibleTreeVal
-               startingAtTree:(FileItem *)treeRoot
-               usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
-               inRect:(NSRect) bounds {
+                     startingAtTree:(FileItem *)treeRoot
+                 usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
+                             inRect:(NSRect)bounds {
   [self setupBitmap: bounds];
   
   insideVisibleTree = NO;
@@ -134,7 +132,7 @@
 }
 
 
-- (BOOL) descendIntoItem:(Item *)item atRect:(NSRect) rect depth:(int) depth {
+- (BOOL) descendIntoItem:(Item *)item atRect:(NSRect)rect depth:(int)depth {
   if ( [item isVirtual] ) {
     return YES;
   }
@@ -157,9 +155,8 @@
   }
     
   if ( !insideVisibleTree ) {
-    // Not yet inside the visible tree (implying that the entire volume is 
-    // shown). Ensure that the special "volume" items are drawn, and only
-    // descend towards the visible tree. 
+    // Not yet inside the visible tree (implying that the entire volume is shown). Ensure that the
+    // special "volume" items are drawn, and only descend towards the visible tree.
   
     if ( [file isDirectory] ) {
       if ( ![file isPhysical] && [[file label] isEqualToString: UsedSpace] ) {
@@ -203,8 +200,7 @@
 
   // It's a plain file
   if ( [file isPhysical] ) {
-    NSUInteger  colorIndex = [colorMapper hashForFileItem: (PlainFileItem *)file
-                                                  atDepth: depth];
+    NSUInteger  colorIndex = [colorMapper hashForFileItem: (PlainFileItem *)file atDepth: depth];
     if ( [colorMapper canProvideLegend] ) {
       colorIndex = MIN(colorIndex, numGradientColors - 1);
     }
@@ -227,10 +223,9 @@
 
   // Do not descend into the item. 
   //
-  // Note: This is not just an optimisation but needs to be done. Even though 
-  // the item is seen as a file by the TreeDrawer, it may actually be a 
-  // package whose contents are hidden. The TreeLayoutBuilder should not 
-  // descend into the directory in this case.
+  // Note: This is not just an optimisation but needs to be done. Even though the item is seen as a
+  // file by the TreeDrawer, it may actually be a package whose contents are hidden. The
+  // TreeLayoutBuilder should not descend into the directory in this case.
   return NO;
 }
 

@@ -10,16 +10,16 @@
   FilterSet  *filterSet;
 }
 
-- (id) initWithTreeContext:(TreeContext *)context 
-         filterSet:(FilterSet *)filterSet;
+- (id) initWithTreeContext:(TreeContext *)context
+                 filterSet:(FilterSet *)filterSet;
 
 - (id) initWithTreeContext:(TreeContext *)context 
-         filterSet:(FilterSet *)test
-         packagesAsFiles:(BOOL) packagesAsFiles;
+                 filterSet:(FilterSet *)test
+           packagesAsFiles:(BOOL) packagesAsFiles;
 
 
-- (TreeContext *) treeContext;
-- (FilterSet *) filterSet;
+- (TreeContext *)treeContext;
+- (FilterSet *)filterSet;
 - (BOOL) packagesAsFiles;
 
 @end

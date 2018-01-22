@@ -4,8 +4,8 @@
 @class AsynchronousTaskManager;
 @class ProgressPanelControl;
 
-/* Wraps around an AsynchronousTaskManager to show a progress panel whenever
- * as task is run in the background.
+/* Wraps around an AsynchronousTaskManager to show a progress panel whenever as task is run in the
+ * background.
  */
 @interface VisibleAsynchronousTaskManager : NSObject {
 
@@ -14,16 +14,14 @@
 
 }
 
-
-- (id) initWithProgressPanel: (ProgressPanelControl *)panelControl;
+- (id) initWithProgressPanel:(ProgressPanelControl *)panelControl;
 
 - (void) dispose;
 
-
 - (void) abortTask;
 
-- (void) asynchronouslyRunTaskWithInput: (id) input 
-           callback: (NSObject *)callback 
-           selector: (SEL) selector;
+- (void) asynchronouslyRunTaskWithInput:(id)input
+                               callback:(NSObject *)callback
+                               selector:(SEL)selector;
 
 @end

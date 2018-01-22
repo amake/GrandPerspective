@@ -13,16 +13,16 @@
 
 @protocol FileItemTestVisitor 
 
-- (void) visitItemNameTest: (ItemNameTest *)test;
-- (void) visitItemPathTest: (ItemPathTest *)test;
-- (void) visitItemSizeTest: (ItemSizeTest *)test;
-- (void) visitItemTypeTest: (ItemTypeTest *)test;
-- (void) visitItemFlagsTest: (ItemFlagsTest *)test;
+- (void) visitItemNameTest:(ItemNameTest *)test;
+- (void) visitItemPathTest:(ItemPathTest *)test;
+- (void) visitItemSizeTest:(ItemSizeTest *)test;
+- (void) visitItemTypeTest:(ItemTypeTest *)test;
+- (void) visitItemFlagsTest:(ItemFlagsTest *)test;
 
 - (void) visitSelectiveItemTest: (SelectiveItemTest *)test;
 
-- (void) visitNotItemTest: (NotItemTest *)test;
-- (void) visitCompoundAndItemTest: (CompoundAndItemTest *)test;
-- (void) visitCompoundOrItemTest: (CompoundOrItemTest *)test;
+- (void) visitNotItemTest:(NotItemTest *)test;
+- (void) visitCompoundAndItemTest:(CompoundAndItemTest *)test;
+- (void) visitCompoundOrItemTest:(CompoundOrItemTest *)test;
 
 @end

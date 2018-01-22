@@ -7,6 +7,6 @@
 
 }
 
-+ (FileItemTest *)fileItemTestFromDictionary: (NSDictionary *)dict;
++ (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict;
 
 @end

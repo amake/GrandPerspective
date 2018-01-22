@@ -47,9 +47,9 @@ extern NSString  *DelayBeforeWelcomeWindowAfterStartupKey;
   FilterPopUpControl  *filterPopUpControl;
 }
 
-- (IBAction) popUpValueChanged:(id) sender;
+- (IBAction) popUpValueChanged:(id)sender;
 
-- (IBAction) valueChanged:(id) sender;
+- (IBAction) valueChanged:(id)sender;
 
 + (BOOL) appHasDeletePermission;
 

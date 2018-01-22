@@ -11,7 +11,7 @@
 
 }
 
-- (id) initWithDirectoryView: (DirectoryView *)dirView 
-         tableView: (NSTableView *)tableView;
+- (id) initWithDirectoryView:(DirectoryView *)dirView
+                   tableView:(NSTableView *)tableView;
 
 @end

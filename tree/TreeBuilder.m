@@ -39,29 +39,28 @@ NSString  *PhysicalFileSize = @"physical";
   NSMutableArray<PlainFileItem *>  *files;
 }
 
-- (void) initWithDirectoryItem: (DirectoryItem *)dirItemVal
-                           URL: (NSURL *)urlVal;
+- (void) initWithDirectoryItem:(DirectoryItem *)dirItemVal URL:(NSURL *)urlVal;
 
 /* Remove any sub-directories that should not be included according to the treeGuide. This
  * filtering needs to be done after all items inside this directory have been scanned, as the
  * filtering may be based on the (recursive) size of the items.
  */
-- (void) filterSubDirectories: (FilteredTreeGuide *)treeGuide;
+- (void) filterSubDirectories:(FilteredTreeGuide *)treeGuide;
 
 @end // @interface ScanStackFrame
 
 
 @interface TreeBuilder (PrivateMethods)
 
-- (TreeContext *) treeContextForVolumeContaining: (NSString *)path;
-- (void) addToStack: (DirectoryItem *)dirItem URL: (NSURL *)url;
-- (ScanStackFrame *) unwindStackToURL: (NSURL *)url;
+- (TreeContext *)treeContextForVolumeContaining:(NSString *)path;
+- (void) addToStack:(DirectoryItem *)dirItem URL:(NSURL *)url;
+- (ScanStackFrame *)unwindStackToURL:(NSURL *)url;
 
-- (BOOL) buildTreeForDirectory: (DirectoryItem *)dirItem atPath: (NSString *)path;
+- (BOOL) buildTreeForDirectory:(DirectoryItem *)dirItem atPath:(NSString *)path;
 
-- (BOOL) visitHardLinkedItemAtURL: (NSURL *)url;
+- (BOOL) visitHardLinkedItemAtURL:(NSURL *)url;
 
-- (int) determineNumSubFoldersFor: (NSURL *)url;
+- (int) determineNumSubFoldersFor:(NSURL *)url;
 
 @end // @interface TreeBuilder (PrivateMethods)
 
@@ -80,8 +79,7 @@ NSString  *PhysicalFileSize = @"physical";
 }
 
 // "Constructor" intended for repeated usage. It assumes init has already been invoked
-- (void) initWithDirectoryItem: (DirectoryItem *)dirItemVal
-                           URL: (NSURL *)urlVal {
+- (void) initWithDirectoryItem:(DirectoryItem *)dirItemVal URL:(NSURL *)urlVal {
   if (dirItem != dirItemVal) {
     [dirItem release];
   }
@@ -111,7 +109,7 @@ NSString  *PhysicalFileSize = @"physical";
   return dirItem;
 }
 
-- (void) filterSubDirectories: (FilteredTreeGuide *)treeGuide {
+- (void) filterSubDirectories:(FilteredTreeGuide *)treeGuide {
   for (NSUInteger i = [dirs count]; i-- > 0; ) {
     DirectoryItem  *dirChildItem = [dirs objectAtIndex: i];
 
@@ -139,13 +137,12 @@ NSString  *PhysicalFileSize = @"physical";
 
 @implementation TreeBuilder
 
-+ (NSArray *) fileSizeMeasureNames {
++ (NSArray *)fileSizeMeasureNames {
   static NSArray  *fileSizeMeasureNames = nil;
 
   if (fileSizeMeasureNames == nil) {
-    fileSizeMeasureNames = 
-      [[NSArray arrayWithObjects: LogicalFileSize, PhysicalFileSize, nil] 
-          retain];
+    fileSizeMeasureNames =
+      [[NSArray arrayWithObjects: LogicalFileSize, PhysicalFileSize, nil] retain];
   }
   
   return fileSizeMeasureNames;
@@ -160,8 +157,7 @@ NSString  *PhysicalFileSize = @"physical";
   if (self = [super init]) {
     filterSet = [filterSetVal retain];
 
-    treeGuide = [[FilteredTreeGuide alloc]
-                    initWithFileItemTest: [filterSet fileItemTest]];
+    treeGuide = [[FilteredTreeGuide alloc] initWithFileItemTest: [filterSet fileItemTest]];
 
     treeBalancer = [[TreeBalancer alloc] init];
     typeInventory = [[UniformTypeInventory defaultUniformTypeInventory] retain];
@@ -177,8 +173,7 @@ NSString  *PhysicalFileSize = @"physical";
     [self setFileSizeMeasure: LogicalFileSize];
     
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
-    debugLogEnabled = 
-      [args boolForKey: @"logAll"] || [args boolForKey: @"logScanning"];      
+    debugLogEnabled = [args boolForKey: @"logAll"] || [args boolForKey: @"logScanning"];
   }
   return self;
 }
@@ -206,16 +201,16 @@ NSString  *PhysicalFileSize = @"physical";
   return [treeGuide packagesAsFiles];
 }
 
-- (void) setPackagesAsFiles:(BOOL) flag {
+- (void) setPackagesAsFiles:(BOOL)flag {
   [treeGuide setPackagesAsFiles: flag];
 }
 
 
-- (NSString *) fileSizeMeasure {
+- (NSString *)fileSizeMeasure {
   return fileSizeMeasure;
 }
 
-- (void) setFileSizeMeasure: (NSString *)measure {
+- (void) setFileSizeMeasure:(NSString *)measure {
   if ([measure isEqualToString: LogicalFileSize]) {
     fileSizeMeasureKey = NSURLTotalFileSizeKey;
   }
@@ -237,7 +232,7 @@ NSString  *PhysicalFileSize = @"physical";
   abort = YES;
 }
 
-- (TreeContext *)buildTreeForPath: (NSString *)path {
+- (TreeContext *)buildTreeForPath:(NSString *)path {
   TreeContext  *treeContext = [self treeContextForVolumeContaining: path];
 
   // Determine relative path
@@ -269,15 +264,14 @@ NSString  *PhysicalFileSize = @"physical";
     flags |= FILE_IS_HARDLINKED;
   }
 
-  DirectoryItem  *scanTree =
-    [[[ScanTreeRoot allocWithZone: [Item zoneForTree]] 
-         initWithLabel: relativePath
-                parent: [treeContext scanTreeParent]
-                 flags: flags
-          creationTime: [treeRootURL creationTime]
-      modificationTime: [treeRootURL modificationTime]
-            accessTime: [treeRootURL accessTime]
-      ] autorelease];
+  DirectoryItem  *scanTree = [ScanTreeRoot allocWithZone: [Item zoneForTree]];
+  [[scanTree initWithLabel: relativePath
+                    parent: [treeContext scanTreeParent]
+                     flags: flags
+              creationTime: [treeRootURL creationTime]
+          modificationTime: [treeRootURL modificationTime]
+                accessTime: [treeRootURL accessTime]
+    ] autorelease];
 
   [progressTracker startingTask];
 
@@ -295,7 +289,7 @@ NSString  *PhysicalFileSize = @"physical";
 }
 
 
-- (NSDictionary *) progressInfo {
+- (NSDictionary *)progressInfo {
   return [progressTracker progressInfo];
 }
 
@@ -304,7 +298,7 @@ NSString  *PhysicalFileSize = @"physical";
 
 @implementation TreeBuilder (PrivateMethods)
 
-- (TreeContext *) treeContextForVolumeContaining: (NSString *)path {
+- (TreeContext *)treeContextForVolumeContaining:(NSString *)path {
   NSURL  *url = [NSURL fileURLWithPath: path];
 
   if (! [url isDirectory]) {
@@ -339,7 +333,7 @@ NSString  *PhysicalFileSize = @"physical";
                                         filterSet: filterSet] autorelease];
 }
 
-- (void) addToStack: (DirectoryItem *)dirItem URL: (NSURL *)url {
+- (void) addToStack:(DirectoryItem *)dirItem URL:(NSURL *)url {
   // Expand stack if required
   if (dirStackTopIndex <= (int)[dirStack count]) {
     [dirStack addObject: [[[ScanStackFrame alloc] init] autorelease]];
@@ -355,7 +349,7 @@ NSString  *PhysicalFileSize = @"physical";
   }
 }
 
-- (ScanStackFrame *) unwindStackToURL: (NSURL *)url {
+- (ScanStackFrame *)unwindStackToURL:(NSURL *)url {
   ScanStackFrame  *topDir = (ScanStackFrame *)[dirStack objectAtIndex: dirStackTopIndex];
   while (! [topDir->url isEqual: url]) {
     // Pop directory from stack. Its contents have been fully scanned so finalize its contents.
@@ -380,7 +374,7 @@ NSString  *PhysicalFileSize = @"physical";
   return topDir;
 }
 
-- (BOOL) visitItemAtURL: (NSURL *)url parent: (ScanStackFrame *)parent {
+- (BOOL) visitItemAtURL:(NSURL *)url parent:(ScanStackFrame *)parent {
   UInt8  flags = 0;
   BOOL  visitDescendants = YES;
   BOOL  isDirectory = [url isDirectory];
@@ -404,12 +398,12 @@ NSString  *PhysicalFileSize = @"physical";
     }
     
     DirectoryItem  *dirChildItem =
-    [[DirectoryItem allocWithZone: [parent zone]] initWithLabel: lastPathComponent
-                                                         parent: parent->dirItem
-                                                          flags: flags
-                                                   creationTime: [url creationTime]
-                                               modificationTime: [url modificationTime]
-                                                     accessTime: [url accessTime]];
+      [[DirectoryItem allocWithZone: [parent zone]] initWithLabel: lastPathComponent
+                                                           parent: parent->dirItem
+                                                            flags: flags
+                                                     creationTime: [url creationTime]
+                                                 modificationTime: [url modificationTime]
+                                                       accessTime: [url accessTime]];
 
     // Only add directories that should be scanned (this does not necessarily mean that it has
     // passed the filter test already)
@@ -430,14 +424,14 @@ NSString  *PhysicalFileSize = @"physical";
       [typeInventory uniformTypeForExtension: [lastPathComponent pathExtension]];
 
     PlainFileItem  *fileChildItem =
-    [[PlainFileItem allocWithZone: [parent zone]] initWithLabel: lastPathComponent
-                                                         parent: parent->dirItem
-                                                           size: [fileSize unsignedLongLongValue]
-                                                           type: fileType
-                                                          flags: flags
-                                                   creationTime: [url creationTime]
-                                               modificationTime: [url modificationTime]
-                                                     accessTime: [url accessTime]];
+      [[PlainFileItem allocWithZone: [parent zone]] initWithLabel: lastPathComponent
+                                                           parent: parent->dirItem
+                                                             size: [fileSize unsignedLongLongValue]
+                                                             type: fileType
+                                                            flags: flags
+                                                     creationTime: [url creationTime]
+                                                 modificationTime: [url modificationTime]
+                                                       accessTime: [url accessTime]];
 
     // Only add file items that pass the filter test.
     if ( [treeGuide includeFileItem: fileChildItem] ) {
@@ -450,8 +444,7 @@ NSString  *PhysicalFileSize = @"physical";
   return visitDescendants;
 }
 
-- (BOOL) buildTreeForDirectory: (DirectoryItem *)dirItem
-                        atPath: (NSString *)path {
+- (BOOL) buildTreeForDirectory:(DirectoryItem *)dirItem atPath:(NSString *)path {
   NSURL  *url = [NSURL fileURLWithPath: path];
   
   dirStackTopIndex = -1;
@@ -495,7 +488,7 @@ NSString  *PhysicalFileSize = @"physical";
 /* Returns YES if item should be included in the tree. It returns NO when the item is hard-linked
  * and has already been encountered.
  */
-- (BOOL) visitHardLinkedItemAtURL: (NSURL *)url {
+- (BOOL) visitHardLinkedItemAtURL:(NSURL *)url {
   NSError  *error = nil;
   NSFileManager  *fileManager = [NSFileManager defaultManager];
   NSDictionary  *fileAttributes = [fileManager attributesOfItemAtPath: [url path] error: &error];
@@ -515,8 +508,7 @@ NSString  *PhysicalFileSize = @"physical";
   }
 
   if ([hardLinkedFileNumbers containsObject: fileNumber]) {
-    // The item has already been encountered. Ignore it now so that it is not counted more than
-    // once.
+    // The item has already been encountered. Ignore it now so that it is only counted once.
 
     return NO;
   }
@@ -525,12 +517,12 @@ NSString  *PhysicalFileSize = @"physical";
   return YES;
 }
 
-- (int) determineNumSubFoldersFor: (NSURL *)url {
+- (int) determineNumSubFoldersFor:(NSURL *)url {
   NSDirectoryEnumerator  *directoryEnumerator =
-  [[NSFileManager defaultManager] enumeratorAtURL: url
-                       includingPropertiesForKeys: @[NSURLIsDirectoryKey]
-                                          options: NSDirectoryEnumerationSkipsSubdirectoryDescendants
-                                     errorHandler: nil];
+    [[NSFileManager defaultManager] enumeratorAtURL: url
+                         includingPropertiesForKeys: @[NSURLIsDirectoryKey]
+                                            options: NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                       errorHandler: nil];
   int  numSubDirs = 0;
   for (NSURL *fileURL in directoryEnumerator) {
     if ([fileURL isDirectory]) {

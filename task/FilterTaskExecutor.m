@@ -26,7 +26,7 @@
   // Can be ignored because a one-shot object is used for running the task.
 }
 
-- (id) runTaskWithInput: (id) input {
+- (id) runTaskWithInput:(id)input {
   NSAssert( treeFilter==nil, @"treeFilter already set.");
   
   FilterTaskInput  *filterInput = input;

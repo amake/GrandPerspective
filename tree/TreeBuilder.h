@@ -16,11 +16,9 @@ extern NSString  *PhysicalFileSize;
 @class ScanProgressTracker;
 
 
-/* Constructs trees for folders by (recursively) scanning the folder's 
- * contents.
+/* Constructs trees for folders by (recursively) scanning the folder's contents.
  */
 @interface TreeBuilder : NSObject {
-
   FilterSet  *filterSet;
 
   NSString  *fileSizeMeasure;
@@ -31,9 +29,8 @@ extern NSString  *PhysicalFileSize;
   TreeBalancer  *treeBalancer;
   UniformTypeInventory  *typeInventory;
   
-  // Contains the file numbers of the hard linked files that have been 
-  // encountered so far. If a file with a same number is encountered once
-  // more, it is ignored. 
+  // Contains the file numbers of the hard linked files that have been encountered so far. If a file
+  // with a same number is encountered once more, it is ignored.
   NSMutableSet  *hardLinkedFileNumbers;
   
   ScanProgressTracker  *progressTracker;
@@ -46,29 +43,28 @@ extern NSString  *PhysicalFileSize;
   BOOL  debugLogEnabled;
 }
 
-+ (NSArray *) fileSizeMeasureNames;
++ (NSArray *)fileSizeMeasureNames;
 
 - (id) init;
 - (id) initWithFilterSet:(FilterSet *)filterSet;
 
 - (BOOL) packagesAsFiles;
-- (void) setPackagesAsFiles: (BOOL) flag;
+- (void) setPackagesAsFiles:(BOOL)flag;
 
-- (NSString *) fileSizeMeasure;
-- (void) setFileSizeMeasure: (NSString *)measure;
+- (NSString *)fileSizeMeasure;
+- (void) setFileSizeMeasure:(NSString *)measure;
 
 /* Construct the tree for the given folder.
  */
-- (TreeContext *) buildTreeForPath: (NSString *)path;
+- (TreeContext *)buildTreeForPath:(NSString *)path;
 
 - (void) abort;
 
-/* Returns a dictionary containing information about the progress of the
- * ongoing tree-building task.
+/* Returns a dictionary containing information about the progress of the ongoing tree-building task.
  *
- * It can safely be invoked from a different thread than the one that invoked
- * -buildTreeForPath: (and not doing so would actually be quite silly).
+ * It can safely be invoked from a different thread than the one that invoked -buildTreeForPath:
+ * (and not doing so would actually be quite silly).
  */
-- (NSDictionary *) progressInfo;
+- (NSDictionary *)progressInfo;
 
 @end

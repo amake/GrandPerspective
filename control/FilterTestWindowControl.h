@@ -54,8 +54,8 @@
   // Set to the last name (if any) that has been reported invalid.
   NSString  *invalidName;
     
-  // Indicates iff an "okPerformed", "cancelPerformed" or "closePerformed"
-  // notification has been fired already.
+  // Indicates iff an "okPerformed", "cancelPerformed" or "closePerformed" notification has been
+  // fired already.
   BOOL  finalNotificationFired;
   
   TypeMatchControls  *typeTestControls;
@@ -65,30 +65,30 @@
 
 + (id) defaultInstance;
 
-- (IBAction) testNameChanged:(id) sender;
-- (IBAction) sizeBoundEntered:(id) sender;
+- (IBAction) testNameChanged:(id)sender;
+- (IBAction) sizeBoundEntered:(id)sender;
 
-- (IBAction) targetPopUpChanged:(id) sender;
+- (IBAction) targetPopUpChanged:(id)sender;
 
-- (IBAction) nameCheckBoxChanged:(id) sender;
-- (IBAction) pathCheckBoxChanged:(id) sender;
-- (IBAction) hardLinkCheckBoxChanged:(id) sender;
-- (IBAction) packageCheckBoxChanged:(id) sender;
-- (IBAction) typeCheckBoxChanged:(id) sender;
-- (IBAction) lowerBoundCheckBoxChanged:(id) sender;
-- (IBAction) upperBoundCheckBoxChanged:(id) sender;
+- (IBAction) nameCheckBoxChanged:(id)sender;
+- (IBAction) pathCheckBoxChanged:(id)sender;
+- (IBAction) hardLinkCheckBoxChanged:(id)sender;
+- (IBAction) packageCheckBoxChanged:(id)sender;
+- (IBAction) typeCheckBoxChanged:(id)sender;
+- (IBAction) lowerBoundCheckBoxChanged:(id)sender;
+- (IBAction) upperBoundCheckBoxChanged:(id)sender;
 
-- (IBAction) addNameTarget:(id) sender;
-- (IBAction) removeNameTarget:(id) sender;
+- (IBAction) addNameTarget:(id)sender;
+- (IBAction) removeNameTarget:(id)sender;
 
-- (IBAction) addPathTarget:(id) sender;
-- (IBAction) removePathTarget:(id) sender;
+- (IBAction) addPathTarget:(id)sender;
+- (IBAction) removePathTarget:(id)sender;
 
-- (IBAction) addTypeTarget:(id) sender;
-- (IBAction) removeTypeTarget:(id) sender;
+- (IBAction) addTypeTarget:(id)sender;
+- (IBAction) removeTypeTarget:(id)sender;
 
-- (IBAction) cancelAction:(id) sender;
-- (IBAction) okAction:(id) sender;
+- (IBAction) cancelAction:(id)sender;
+- (IBAction) okAction:(id)sender;
 
 - (NSString *)fileItemTestName;
 
@@ -102,9 +102,9 @@
  */
 - (FilterTest *)createFilterTest;
 
-/* Sets the name of the filter test as it is shown in the window. This may be
- * different from the actual name of the test (in particular, the visible
- * name may be localized). Once a visible name is set, it cannot be changed.
+/* Sets the name of the filter test as it is shown in the window. This may be different from the
+ * actual name of the test (in particular, the visible name may be localized). Once a visible name
+ * is set, it cannot be changed.
  */
 - (void) setVisibleName:(NSString *)name;
 

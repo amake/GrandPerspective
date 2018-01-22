@@ -13,7 +13,7 @@
 }
 
 - (id) initWithMatchTargets:(NSArray *)matches;
-- (id) initWithMatchTargets:(NSArray *)matches caseSensitive:(BOOL) caseFlag;
+- (id) initWithMatchTargets:(NSArray *)matches caseSensitive:(BOOL)caseFlag;
 
 - (NSArray *)matchTargets;
 - (BOOL) isCaseSensitive;

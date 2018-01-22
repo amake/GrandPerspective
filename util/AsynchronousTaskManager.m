@@ -8,12 +8,11 @@ enum {
   // Indicates that there is a task in progress or ready to be executed.
   BACKGROUND_THREAD_BUSY = 456,
 
-  // Indicates that the thread can block or is blocking, waiting for a new
-  // task (or waiting for the manager to be disposed).
+  // Indicates that the thread can block or is blocking, waiting for a new task (or waiting for the
+  // manager to be disposed).
   BACKGROUND_THREAD_IDLE, 
   
-  // Indicates that the manager is being disposed off and that the thread
-  // should terminate.
+  // Indicates that the manager is being disposed off and that the thread should terminate.
   BACKGROUND_THREAD_SHUTDOWN
 };
 
@@ -33,17 +32,17 @@ enum {
   return nil;
 }
 
-- (id) initWithTaskExecutor: (NSObject <TaskExecutor>*)executorVal {
+- (id) initWithTaskExecutor:(NSObject<TaskExecutor> *)executorVal {
   if (self = [super init]) {
     executor = [executorVal retain];
   
-    workLock = [[NSConditionLock alloc] 
-                   initWithCondition:BACKGROUND_THREAD_IDLE];
+    workLock = [[NSConditionLock alloc] initWithCondition:BACKGROUND_THREAD_IDLE];
     settingsLock = [[NSLock alloc] init];
     alive = YES;
 
-    [NSThread detachNewThreadSelector:@selector(taskRunningLoop)
-                toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector: @selector(taskRunningLoop)
+                             toTarget: self
+                           withObject: nil];
   }
   return self;
 }
@@ -101,8 +100,9 @@ enum {
 }
 
 
-- (void) asynchronouslyRunTaskWithInput: (id) input callback: (id) callback 
-           selector: (SEL) selector {
+- (void) asynchronouslyRunTaskWithInput:(id)input
+                               callback:(id)callback
+                               selector:(SEL)selector {
 
   [settingsLock lock];
   NSAssert(alive, @"Disturbing a dead task manager.");
@@ -162,7 +162,8 @@ enum {
       [settingsLock lock];
       
       [taskCallback performSelectorOnMainThread: taskCallbackSelector
-                      withObject: taskOutput waitUntilDone: NO];
+                                     withObject: taskOutput
+                                  waitUntilDone: NO];
             
       if (!alive) {
         // The manager has been disposed of while BUSY.

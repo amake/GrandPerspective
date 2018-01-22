@@ -14,14 +14,14 @@
   CFAbsoluteTime  nowTime;
 }
 
-- (id) initWithFileItemMappingScheme: (NSObject <FileItemMappingScheme> *)scheme 
-                                tree: (DirectoryItem *)tree;
+- (id) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)scheme
+                                tree:(DirectoryItem *)tree;
 
 @end // @interface TimeBasedMapping
 
 
 @interface TimeBasedMapping (ProtectedMethods)
 
-- (CFAbsoluteTime) timeForFileItem: (FileItem *)fileItem;
+- (CFAbsoluteTime) timeForFileItem:(FileItem *)fileItem;
 
 @end // @interface TimeBasedMapping (ProtectedMethods)

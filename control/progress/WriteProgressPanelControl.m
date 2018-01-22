@@ -9,21 +9,18 @@
 @implementation WriteProgressPanelControl
 
 - (NSString *)windowTitle {
-  return NSLocalizedString( @"Saving in progress",
-                            @"Title of progress panel." );
+  return NSLocalizedString(@"Saving in progress", @"Title of progress panel.");
 }
 
 - (NSString *)progressDetailsFormat {
-  return NSLocalizedString( @"Saving %@", 
-                            @"Message in progress panel while saving data" );
+  return NSLocalizedString(@"Saving %@", @"Message in progress panel while saving data");
 }
 
 - (NSString *)progressSummaryFormat {
-  return NSLocalizedString( @"%d folders saved", 
-                            @"Message in progress panel while saving data" );
+  return NSLocalizedString(@"%d folders saved", @"Message in progress panel while saving data");
 }
 
-- (NSString *)pathFromTaskInput: (id) taskInput {
+- (NSString *)pathFromTaskInput:(id)taskInput {
   return [[[[taskInput annotatedTreeContext] treeContext] scanTree] path];
 }
 

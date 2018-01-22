@@ -9,7 +9,7 @@
   return nil;
 }
 
-- (id) initWithPath: (NSString *)pathVal {
+- (id) initWithPath:(NSString *)pathVal {
   if (self = [super init]) {
     path = [pathVal retain];
   }
@@ -23,7 +23,7 @@
   [super dealloc];
 }
 
-- (NSString *) path {
+- (NSString *)path {
   return path;
 }
 

@@ -12,10 +12,10 @@
   return nil;
 }
 
-- (id) initWithVisibleTree: (FileItem *)visibleTreeVal
-         treeInView: (FileItem *)treeInViewVal
-         layoutBuilder: (TreeLayoutBuilder *)layoutBuilderVal
-         bounds: (NSRect) boundsVal {
+- (id) initWithVisibleTree:(FileItem *)visibleTreeVal
+                treeInView:(FileItem *)treeInViewVal
+             layoutBuilder:(TreeLayoutBuilder *)layoutBuilderVal
+                    bounds:(NSRect) boundsVal {
   if (self = [super init]) {
     visibleTree = [visibleTreeVal retain];
     treeInView = [treeInViewVal retain];
@@ -34,15 +34,15 @@
 }
 
 
-- (FileItem*) visibleTree {
+- (FileItem *)visibleTree {
   return visibleTree;
 }
 
-- (FileItem*) treeInView {
+- (FileItem *)treeInView {
   return treeInView;
 }
 
-- (TreeLayoutBuilder *) layoutBuilder {
+- (TreeLayoutBuilder *)layoutBuilder {
   return layoutBuilder;
 }
 

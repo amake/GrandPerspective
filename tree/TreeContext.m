@@ -25,19 +25,19 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
 
 @interface TreeContext (PrivateMethods)
 
-/* Returns the item that owns the selected file item, i.e. the one directly
- * above it in the tree. This can be a virtual item.
+/* Returns the item that owns the selected file item, i.e. the one directly above it in the tree.
+ * This can be a virtual item.
  */
 - (Item *)itemContainingSelectedFileItem:(ItemPathModelView *)pathModelView;
 
-// Signals that an item in the tree has been replaced (by another one, of the
-// same size). The item itself is not part of the notification, but can be 
-// recognized because its parent directory has been cleared.
+/* Signals that an item in the tree has been replaced (by another one, of the same size). The item
+ * itself is not part of the notification, but can be recognized because its parent directory has
+ * been cleared.
+ */
 - (void) postFileItemDeleted;
 - (void) fileItemDeletedHandled:(NSNotification *)notification;
 
-/* Recursively updates the freed space count after the given item has been
- * deleted.
+/* Recursively updates the freed space count after the given item has been deleted.
  */
 - (void) updateFreedSpaceForDeletedItem:(Item *)item;
 
@@ -53,11 +53,11 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
 }
 
 
-- (id) initWithVolumePath: (NSString *)volumePath
-          fileSizeMeasure: (NSString *)fileSizeMeasureVal
-               volumeSize: (unsigned long long) volumeSizeVal 
-                freeSpace: (unsigned long long) freeSpaceVal
-                filterSet: (FilterSet *)filterSetVal {
+- (id) initWithVolumePath:(NSString *)volumePath
+          fileSizeMeasure:(NSString *)fileSizeMeasureVal
+               volumeSize:(unsigned long long)volumeSizeVal
+                freeSpace:(unsigned long long)freeSpaceVal
+                filterSet:(FilterSet *)filterSetVal {
   return [self initWithVolumePath: volumePath
                   fileSizeMeasure: fileSizeMeasureVal
                        volumeSize: volumeSizeVal 
@@ -66,12 +66,12 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
                          scanTime: [NSDate date]];
 }
 
-- (id) initWithVolumePath: (NSString *)volumePath
-          fileSizeMeasure: (NSString *)fileSizeMeasureVal
-               volumeSize: (unsigned long long) volumeSizeVal 
-                freeSpace: (unsigned long long) freeSpaceVal
-                filterSet: (FilterSet *)filterSetVal
-                 scanTime: (NSDate *)scanTimeVal {
+- (id) initWithVolumePath:(NSString *)volumePath
+          fileSizeMeasure:(NSString *)fileSizeMeasureVal
+               volumeSize:(unsigned long long)volumeSizeVal
+                freeSpace:(unsigned long long)freeSpaceVal
+                filterSet:(FilterSet *)filterSetVal
+                 scanTime:(NSDate *)scanTimeVal {
   if (self = [super init]) {
     volumeTree = [[DirectoryItem alloc] initWithLabel: volumePath
                                                parent: nil
@@ -96,14 +96,13 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
     scanTime = [scanTimeVal retain];
 
     // Ensure filter set is always set
-    filterSet = 
-      [ ((filterSetVal != nil) ? filterSetVal : [FilterSet filterSet])
-          retain];
+    filterSet = [ ((filterSetVal != nil) ? filterSetVal : [FilterSet filterSet]) retain];
 
     // Listen to self
-    [[NSNotificationCenter defaultCenter] 
-        addObserver: self selector: @selector(fileItemDeletedHandled:)
-        name: FileItemDeletedHandledEvent object: self];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(fileItemDeletedHandled:)
+                                                 name: FileItemDeletedHandledEvent
+                                               object: self];
         
     mutex = [[NSLock alloc] init];
     lock = [[NSConditionLock alloc] initWithCondition: IDLE];
@@ -139,8 +138,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
 
 - (void) setScanTree:(DirectoryItem *)scanTreeVal {
   NSAssert(scanTree == nil, @"scanTree should be nil.");
-  NSAssert([scanTreeVal parentDirectory] == [self scanTreeParent], 
-             @"Invalid parent.");
+  NSAssert([scanTreeVal parentDirectory] == [self scanTreeParent], @"Invalid parent.");
 
   scanTree = [scanTreeVal retain];
 
@@ -157,8 +155,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
       NSLog(@"Scanned tree size plus free space is larger than volume size.");
       miscUsedSizeAnomaly = TRUE;
 
-      // Adapt actual free space, so that size of volumeTree still adds up to
-      // volume size.
+      // Adapt actual free space, so that size of volumeTree still adds up to volume size.
       actualFreeSpace = miscUsedSize;
       miscUsedSize = 0;
     }
@@ -167,9 +164,8 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
     NSLog(@"Scanned tree size is larger than volume size.");
     miscUsedSizeAnomaly = TRUE;
 
-    // Set actual free space and misc used size both to zero to minimize
-    // difference between claimed volume size and size of scanned items, which
-    // appears to be larger.
+    // Set actual free space and misc used size both to zero to minimize difference between claimed
+    // volume size and size of scanned items, which appears to be larger.
     actualFreeSpace = 0;
     miscUsedSize = 0;
   }
@@ -181,7 +177,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
           [scanTree itemSize], [FileItem stringForFileItemSize: [scanTree itemSize]]);
   }
 
-  FileItem*  freeSpaceItem = [[[FileItem alloc] initWithLabel: FreeSpace
+  FileItem  *freeSpaceItem = [[[FileItem alloc] initWithLabel: FreeSpace
                                                        parent: volumeTree
                                                          size: actualFreeSpace
                                                         flags: FILE_IS_NOT_PHYSICAL
@@ -199,13 +195,11 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
                                             accessTime: 0
                         ] autorelease];
 
-  [usedSpaceItem setDirectoryContents: 
-                   [CompoundItem compoundItemWithFirst: miscUsedSpaceItem
-                                   second: scanTree]];
+  [usedSpaceItem setDirectoryContents: [CompoundItem compoundItemWithFirst: miscUsedSpaceItem
+                                                                    second: scanTree]];
     
-  [volumeTree setDirectoryContents: 
-                [CompoundItem compoundItemWithFirst: freeSpaceItem
-                                second: usedSpaceItem]];
+  [volumeTree setDirectoryContents: [CompoundItem compoundItemWithFirst: freeSpaceItem
+                                                                 second: usedSpaceItem]];
 }
 
 
@@ -225,10 +219,9 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   return volumeSize;
 }
 
-/* The free space of the volume at the time of the scan (as claimed by the
- * system). The free space in the volume tree may be less. The latter is
- * reduced if not doing so would cause the size of scanned files plus the free
- * space to be more than the volume size.
+/* The free space of the volume at the time of the scan (as claimed by the system). The free space
+ * in the volume tree may be less. The latter is reduced if not doing so would cause the size of
+ * scanned files plus the free space to be more than the volume size.
  */
 - (unsigned long long) freeSpace {
   return freeSpace;
@@ -305,8 +298,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
     DirectoryItem  *dirItem = (DirectoryItem *)containingItem;
   
     NSAssert([dirItem isDirectory], @"Expected a DirectoryItem.");
-    NSAssert([dirItem getContents] == replacedItem, 
-               @"Selected item not found.");
+    NSAssert([dirItem getContents] == replacedItem, @"Selected item not found.");
     
     [dirItem replaceDirectoryContents: replacingItem];
   } 
@@ -370,8 +362,8 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
     [lock lockWhenCondition: READING]; // Immediately succeeds.
     
     if (numWaitingReaders > 0) {
-      // Although there is no need for waiting readers in the READING state,
-      // this can happen if waiting readers are not woken up quickly enough.
+      // Although there is no need for waiting readers in the READING state, this can happen if
+      // waiting readers are not woken up quickly enough.
       [lock unlockWithCondition: READING];
     }
     else if (numWaitingWriters > 0) {
@@ -392,13 +384,11 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   if ([lock tryLockWhenCondition: IDLE]) {
     // Was in IDLE state, start writing
     
-    // Note: Not releasing lock, to ensure that no other thread starts reading
-    // or writing.
+    // Note: Not releasing lock, to ensure that no other thread starts reading or writing.
     
-    // Note: Although the condition of the lock is still IDLE, that does not
-    // matter as long as the lock is being held. The condition only matters 
-    // when the is (being) unlocked. The TreeContext is now already considered 
-    // to be in WRITING state.
+    // Note: Although the condition of the lock is still IDLE, that does not matter as long as the
+    // lock is being held. The condition only matters when the is (being) unlocked. The TreeContext
+    // is now already considered to be in WRITING state.
   }
   else {
     // Currently in READING or WRITING state 
@@ -415,8 +405,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
     numWaitingWriters--;
     [mutex unlock];
     
-    // Note: Not releasing lock, to ensure that no other thread starts reading
-    // or writing.
+    // Note: Not releasing lock, to ensure that no other thread starts reading or writing.
   }
 }
 
@@ -478,24 +467,21 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
     [self updateFreedSpaceForDeletedItem: [((CompoundItem *)item) getSecond]];
   }
   else {
-    FileItem *fileItem = (FileItem *)item;
+    FileItem  *fileItem = (FileItem *)item;
     
-    // Note: Deletion of hard-linked items is included in the freedSpace
-    // accounting, even though the free space on the harddrive won't be 
-    // increased until all instances have been deleted. The reason is that
-    // not doing can result in strange anonalies. For example, deleting a
-    // directory that contains one or more hard-linked files increases the
-    // freedSpace count by less than the size of the "freed space" block that
-    // replaces all files that have been deleted.
+    // Note: Deletion of hard-linked items is included in the freedSpace accounting, even though
+    // the free space on the harddrive won't be increased until all instances have been deleted.
+    // The reason is that not doing can result in strange anonalies. For example, deleting a
+    // directory that contains one or more hard-linked files increases the freedSpace count by less
+    // than the size of the "freed space" block that replaces all files that have been deleted.
 
     if ( [fileItem isDirectory] ) {
-      [self updateFreedSpaceForDeletedItem:
-              [((DirectoryItem *)item) getContents]];
+      [self updateFreedSpaceForDeletedItem: [((DirectoryItem *)item) getContents]];
     }
     else {
       if ([fileItem isPhysical] ) {
-        // The item is physical so we freed up some space. (Non-physical items,
-        // including already freed space, should not be counted)
+        // The item is physical so we freed up some space. (Non-physical items, including already
+        // freed space, should not be counted)
         freedSpace += [item itemSize];
         freedFiles++;
       }

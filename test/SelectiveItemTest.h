@@ -15,7 +15,7 @@
 
 }
 
-- (id) initWithSubItemTest:(FileItemTest *)subTest onlyFiles:(BOOL) onlyFiles;
+- (id) initWithSubItemTest:(FileItemTest *)subTest onlyFiles:(BOOL)onlyFiles;
 
 
 - (FileItemTest *)subItemTest;

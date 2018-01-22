@@ -26,7 +26,7 @@
   return [self initWithMatchTargets: matchesVal strict: NO];
 }
 
-- (id) initWithMatchTargets:(NSArray *)matchesVal strict:(BOOL) strictVal {
+- (id) initWithMatchTargets:(NSArray *)matchesVal strict:(BOOL)strictVal {
   if (self = [super init]) {
     // Make the array immutable
     matches = [[NSArray alloc] initWithArray: matchesVal];
@@ -45,23 +45,21 @@
 }
 
 
-// Note: Special case. Does not call own designated initialiser. It should
-// be overridden and only called by initialisers with the same signature.
+/* Note: Special case. Does not call own designated initialiser. It should be overridden and only
+ * called by initialisers with the same signature.
+ */
 - (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSArray  *utis = [dict objectForKey: @"matches"];
     NSUInteger  numMatches = [utis count];
 
-    UniformTypeInventory  *typeInventory = 
-      [UniformTypeInventory defaultUniformTypeInventory];
+    UniformTypeInventory  *typeInventory = [UniformTypeInventory defaultUniformTypeInventory];
 
-    NSMutableArray  *tmpMatches =
-      [NSMutableArray arrayWithCapacity: numMatches];
+    NSMutableArray  *tmpMatches = [NSMutableArray arrayWithCapacity: numMatches];
     
     NSUInteger  i = 0;
     while (i < numMatches) {
-      UniformType  *type = 
-        [typeInventory uniformTypeForIdentifier: [utis objectAtIndex: i]];
+      UniformType  *type = [typeInventory uniformTypeForIdentifier: [utis objectAtIndex: i]];
         
       if (type != nil) {
         [tmpMatches addObject: type];
@@ -129,13 +127,13 @@
 
 - (NSString *)description {
   NSString  *matchesDescr = descriptionForMatches( [self matchesAsStrings] );
-  NSString  *format = ( strict 
-                        ? NSLocalizedStringFromTable( 
-                            @"type equals %@", @"Tests",
-                            @"Filetype test with 1: match targets" )
-                        : NSLocalizedStringFromTable( 
-                            @"type conforms to %@", @"Tests",
-                            @"Filetype test with 1: match targets" ) );
+  NSString  *format = (strict
+                       ? NSLocalizedStringFromTable(
+                           @"type equals %@", @"Tests",
+                           @"Filetype test with 1: match targets")
+                       : NSLocalizedStringFromTable(
+                           @"type conforms to %@", @"Tests",
+                           @"Filetype test with 1: match targets"));
   
   return [NSString stringWithFormat: format, matchesDescr];
 }
@@ -143,10 +141,9 @@
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict { 
   NSAssert([[dict objectForKey: @"class"] isEqualToString: @"ItemTypeTest"],
-             @"Incorrect value for class in dictionary.");
+           @"Incorrect value for class in dictionary.");
 
-  return [[[ItemTypeTest alloc] initWithPropertiesFromDictionary: dict]
-              autorelease];
+  return [[[ItemTypeTest alloc] initWithPropertiesFromDictionary: dict] autorelease];
 }
 
 @end
