@@ -955,6 +955,7 @@
   NSInteger  selectedRow = [targetsView selectedRow];
 
   NSAssert(selectedRow >= 0, @"No row selected");
+  [matchTargets removeObjectAtIndex: selectedRow];
 
   if (selectedRow == [matchTargets count] && selectedRow > 0) {
     [targetsView selectRowIndexes: [NSIndexSet indexSetWithIndex: selectedRow - 1] 
