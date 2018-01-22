@@ -269,12 +269,14 @@ NSString  *MatchColumn = @"match";
 
 - (IBAction) addTestToRepository:(id) sender {
   FilterTest  *newTest = [testEditor newFilterTest];
-  
-  NSUInteger  index = [availableTests indexOfObject: [newTest name]];
-  [availableTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
-                  byExtendingSelection: NO];
-  [[self window] makeFirstResponder: availableTestsView];
-  [self updateWindowState: nil];
+
+  if (newTest != nil) {
+    NSUInteger  index = [availableTests indexOfObject: [newTest name]];
+    [availableTestsView selectRowIndexes: [NSIndexSet indexSetWithIndex: index]
+                    byExtendingSelection: NO];
+    [[self window] makeFirstResponder: availableTestsView];
+    [self updateWindowState: nil];
+  }
 }
 
 
