@@ -196,21 +196,17 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
   return [typeCells count];
 }
 
-- (id) tableView: (NSTableView *)tableView 
-         objectValueForTableColumn: (NSTableColumn *)column row: (NSInteger)row {
+- (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)column
+             row:(NSInteger)row {
   return [[[typeCells objectAtIndex: row] uniformType] uniformTypeIdentifier];
 }
 
 
-- (BOOL)tableView:(NSTableView *)tableView
-        writeRows:(NSArray *)rows
+- (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes
      toPasteboard:(NSPasteboard *)pboard {
-  // Note: This method is deprecated in Mac OS X 10.4 where 
-  // tableView:writeRowsWithIndexes:toPasteboard: should be used instead. For now, however, we want
-  // to support Mac OS X 10.3 as well.
 
-  // Store the source row number of the type that is being dragged.
-  NSNumber  *rowNum = (NSNumber *)[rows objectAtIndex: 0];
+  // Get the source row number of the type that is being dragged.
+  NSNumber  *rowNum = [NSNumber numberWithUnsignedInteger: [rowIndexes firstIndex]];
   NSData  *data = [NSKeyedArchiver archivedDataWithRootObject: rowNum];
 
   [pboard declareTypes: [NSArray arrayWithObject: InternalTableDragType] owner: self];
