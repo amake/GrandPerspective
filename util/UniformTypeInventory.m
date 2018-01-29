@@ -99,7 +99,6 @@ NSString  *UnknownTypeUTI = @"unknown";
 
   NSString  *uti = (NSString *)UTTypeCreatePreferredIdentifierForTag
                                  (kUTTagClassFilenameExtension, (CFStringRef)ext, NULL);
-    // TODO: Use "kUTTypeData" in Mac OS X 10.4 and up. 
 
   if (! [uti hasPrefix: @"dyn."]) {
     type = [self uniformTypeForIdentifier: uti];
@@ -259,9 +258,9 @@ NSString  *UnknownTypeUTI = @"unknown";
     parents = [NSArray array];
   }
 
-  return [[UniformType alloc] initWithUniformTypeIdentifier: uti
-                                                description: descr
-                                                    parents: parents];
+  return [[[UniformType alloc] initWithUniformTypeIdentifier: uti
+                                                 description: descr
+                                                     parents: parents] autorelease];
 }
 
 @end // @implementation UniformTypeInventory (PrivateMethods)
