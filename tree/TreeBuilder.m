@@ -95,7 +95,7 @@ NSString  *PhysicalFileSize = @"physical";
   [files removeAllObjects];
 }
 
-- (void) dealloc {  
+- (void) dealloc {
   [dirs release];
   [files release];
 
@@ -113,19 +113,7 @@ NSString  *PhysicalFileSize = @"physical";
   for (NSUInteger i = [dirs count]; i-- > 0; ) {
     DirectoryItem  *dirChildItem = [dirs objectAtIndex: i];
 
-    if ( [treeGuide includeFileItem: dirChildItem] ) {
-      // The directory passed the test. So include it.
-
-      // Temporarily boost retain count to ensure that the implicit release of
-      // the ScanStackFrame object does not trigger deallocation of dirChildItem.
-      [dirChildItem retain];
-
-      // Replace the ScanStackFrame object with the actual DirectoryItem object.
-      [dirs replaceObjectAtIndex: i withObject: dirChildItem];
-
-      [dirChildItem release];
-    }
-    else {
+    if (! [treeGuide includeFileItem: dirChildItem] ) {
       // The directory did not pass the test, so exclude it.
       [dirs removeObjectAtIndex: i];
     }
@@ -335,7 +323,7 @@ NSString  *PhysicalFileSize = @"physical";
 
 - (void) addToStack:(DirectoryItem *)dirItem URL:(NSURL *)url {
   // Expand stack if required
-  if (dirStackTopIndex <= (int)[dirStack count]) {
+  if (dirStackTopIndex + 1 == (int)[dirStack count]) {
     [dirStack addObject: [[[ScanStackFrame alloc] init] autorelease]];
   }
   
@@ -465,23 +453,34 @@ NSString  *PhysicalFileSize = @"physical";
                                                       ]
                                             options: 0
                                        errorHandler: nil];
-  
-  for (NSURL *fileURL in directoryEnumerator) {
-    NSURL  *parentURL = nil;
-    [fileURL getResourceValue:&parentURL forKey:NSURLParentDirectoryURLKey error:nil];
+  NSAutoreleasePool  *autoreleasePool = [[NSAutoreleasePool alloc] init];
+  int  i = 0;
 
-    ScanStackFrame  *parent = [self unwindStackToURL: parentURL];
+  @try {
+    for (NSURL *fileURL in directoryEnumerator) {
+      NSURL  *parentURL = nil;
+      [fileURL getResourceValue:&parentURL forKey:NSURLParentDirectoryURLKey error:nil];
 
-    if (![self visitItemAtURL: fileURL parent: parent]) {
-      [directoryEnumerator skipDescendants];
+      ScanStackFrame  *parent = [self unwindStackToURL: parentURL];
+
+      if (![self visitItemAtURL: fileURL parent: parent]) {
+        [directoryEnumerator skipDescendants];
+      }
+      if (++i == 2048) {
+        [autoreleasePool drain];
+        autoreleasePool = [[NSAutoreleasePool alloc] init];
+        i = 0;
+      }
+      if (abort) {
+        return NO;
+      }
     }
-
-    if (abort) {
-      return NO;
-    }
+    [self unwindStackToURL: nil]; // Force full unwind
   }
-  [self unwindStackToURL: nil]; // Force full unwind
-  
+  @finally {
+    [autoreleasePool drain];
+  }
+
   return YES;
 }
 
