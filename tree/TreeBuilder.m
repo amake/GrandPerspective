@@ -411,6 +411,7 @@ NSString  *PhysicalFileSize = @"physical";
       [parent->dirs addObject: dirChildItem];
       [self addToStack: dirChildItem URL: url];
     } else {
+      [progressTracker skippedFolder: dirChildItem];
       visitDescendants = NO;
     }
 
