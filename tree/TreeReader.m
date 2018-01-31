@@ -70,7 +70,6 @@ NSString  *AttributeNameKey = @"name";
 @interface TreeReader (PrivateMethods) 
 
 - (NSXMLParser *)parser;
-- (ReadProgressTracker *)progressTracker;
 - (TreeBalancer *)treeBalancer;
 - (ObjectPool *)dirsArrayPool;
 - (ObjectPool *)filesArrayPool;
@@ -79,6 +78,9 @@ NSString  *AttributeNameKey = @"name";
 - (NSMutableArray *)mutableUnboundFilterTests;
 
 - (void) setParseError:(NSError *)error;
+
+- (void) processingFolder:(DirectoryItem *)dirItem;
+- (void) processedFolder:(DirectoryItem *)dirItem;
 
 @end
 
@@ -316,6 +318,7 @@ NSString  *AttributeNameKey = @"name";
   
     parser = nil;
     tree = nil;
+    autoreleasePool = nil;
     error = nil;
     abort = NO;
     
@@ -347,7 +350,7 @@ NSString  *AttributeNameKey = @"name";
   [treeBalancer release];
   [dirsArrayPool release];
   [filesArrayPool release];
-  
+
   [super dealloc];
 }
 
@@ -360,7 +363,8 @@ NSString  *AttributeNameKey = @"name";
   if (data == nil) {
     return nil;
   }
-  
+
+  autoreleasePool = [[NSAutoreleasePool alloc] init];
   parser = [[NSXMLParser alloc] initWithData: data];
   [parser setDelegate: self];
   
@@ -381,6 +385,9 @@ NSString  *AttributeNameKey = @"name";
   
   [parser release];
   parser = nil;
+
+  [autoreleasePool release];
+  autoreleasePool = nil;
 
   return (error != nil || abort) ? nil : tree;
 }
@@ -495,10 +502,6 @@ didStartElement:(NSString *)elementName
   return parser;
 }
 
-- (ProgressTracker *)progressTracker {
-  return progressTracker;
-}
-
 - (TreeBalancer *)treeBalancer {
   return treeBalancer;
 }
@@ -531,6 +534,23 @@ didStartElement:(NSString *)elementName
           [NSString stringWithFormat: PARSE_ERROR_MSG,
                       [parser lineNumber],
                       [parseError localizedDescription]]];
+  }
+}
+
+
+
+- (void) processingFolder:(DirectoryItem *)dirItem {
+  [progressTracker processingFolder: dirItem processedLines: [parser lineNumber]];
+}
+
+- (void) processedFolder:(DirectoryItem *)dirItem {
+  [progressTracker processedFolder: dirItem];
+  if ([progressTracker numFoldersProcessed] % 1024 == 0) {
+    // Drain auto-release pool to prevent high memory usage while reading is in progress. The
+    // temporary objects created while reading the tree can be three times larger in size than the
+    // footprint of the actual tree in memory.
+    [autoreleasePool release];
+    autoreleasePool = [[NSAutoreleasePool alloc] init];
   }
 }
 
@@ -1349,9 +1369,8 @@ didStartElement:(NSString *)childElement
               creationTime: creationTime
           modificationTime: modificationTime
                 accessTime: accessTime];
-    
-    [[reader progressTracker] processingFolder: dirItem
-                                processedLines: [[reader parser] lineNumber]];
+
+    [reader processingFolder: dirItem];
   }
   @catch (AttributeParseException *ex) {
     [self handlerAttributeParseError: ex];
@@ -1389,7 +1408,7 @@ didStartElement:(NSString *)childElement
     [CompoundItem compoundItemWithFirst: [treeBalancer createTreeForItems: files]
                                  second: [treeBalancer createTreeForItems: dirs]]];
 
-  [[reader progressTracker] processedFolder: dirItem];
+  [reader processedFolder: dirItem];
   
   return dirItem;
 }

@@ -24,6 +24,8 @@
   TreeBalancer  *treeBalancer;
   ObjectPool  *dirsArrayPool;
   ObjectPool  *filesArrayPool;
+
+  NSAutoreleasePool  *autoreleasePool;
 }
 
 - (id) init;
