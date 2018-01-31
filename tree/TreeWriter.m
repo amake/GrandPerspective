@@ -162,7 +162,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 - (void) appendFilterSetElement:(FilterSet *)filterSet;
 - (void) appendFilterElement:(NamedFilter *)filter;
 - (void) appendFilterTestElement:(FilterTestRef *)filterTest;
-- (void) appendFolderElement:(DirectoryItem *)dirItem root:(BOOL)isRoot;
+- (void) appendFolderElement:(DirectoryItem *)dirItem;
 - (void) appendFileElement:(FileItem *)fileItem;
 
 - (void) dumpItemContents:(Item *)item;
@@ -322,7 +322,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   [self appendFilterSetElement: [tree filterSet]];
   
   [tree obtainReadLock];
-  [self appendFolderElement: [tree scanTree] root: YES];
+  [self appendFolderElement: [tree scanTree]];
   [tree releaseReadLock];
   
   [self appendString: [NSString stringWithFormat: @"</%@>\n", ScanInfoElem]];
@@ -392,7 +392,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 }
 
 
-- (void) appendFolderElement:(DirectoryItem *)dirItem root:(BOOL)isRoot {
+- (void) appendFolderElement:(DirectoryItem *)dirItem {
   [progressTracker processingFolder: dirItem];
 
   NSString  *nameVal = escapedXML([dirItem systemPathComponent], ATTRIBUTE_ESCAPE_CHARS);
@@ -403,8 +403,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   NSString  *accessedVal = [TreeWriter stringForTime: [dirItem accessTime]];
   [self appendString: [NSString stringWithFormat: @"<%@ %@=\"%@\"",
                                   FolderElem,
-                                  NameAttr, nameVal
-    ]];
+                                  NameAttr, nameVal]];
   if (flags != 0) {
     [self appendString: [NSString stringWithFormat: @" %@=\"%d\"", FlagsAttr, flags]];
   }
@@ -471,7 +470,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
       // Only include actual files.
 
       if ([fileItem isDirectory]) {
-        [self appendFolderElement: (DirectoryItem *)fileItem root: NO];
+        [self appendFolderElement: (DirectoryItem *)fileItem];
       }
       else {
         [self appendFileElement: fileItem];
