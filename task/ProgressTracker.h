@@ -61,9 +61,15 @@ extern NSString  *EstimatedProgressKey;
  */
 - (void) skippedFolder: (DirectoryItem *)dirItem;
 
-/* Returns a dictionary with progress statistics.
+/* Returns a dictionary with progress statistics. This thread-safe and can be invoked from a
+ * different thread than the one that carries out the task.
  */
 - (NSDictionary *)progressInfo;
+
+/* Returns the number of folders processed sofar. This method is not thread-safe and should only be
+ * invoked from the thread that does the processing.
+ */
+- (NSUInteger) numFoldersProcessed;
 
 @end
 

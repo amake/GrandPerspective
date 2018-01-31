@@ -194,13 +194,15 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   [error release];
 
   [progressTracker release];
-  
+
   [super dealloc];
 }
 
 
 - (BOOL) writeTree:(AnnotatedTreeContext *)tree toFile:(NSString *)filename {
   NSAssert(file == NULL, @"File not NULL");
+
+  autoreleasePool = [[NSAutoreleasePool alloc] init];
 
   [progressTracker startingTask];
   
@@ -230,6 +232,9 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   file = NULL;
   
   [progressTracker finishedTask];
+
+  [autoreleasePool release];
+  autoreleasePool = nil;
   
   return (error==nil) && !abort;
 }
@@ -423,6 +428,13 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   [self appendString: [NSString stringWithFormat: @"</%@>\n", FolderElem]];
   
   [progressTracker processedFolder: dirItem];
+  if ([progressTracker numFoldersProcessed] % 1024 == 0) {
+    // Flush auto-release pool to prevent high memory usage while writing is in progress. The
+    // temporary objects created while writing the tree can be four times larger in size than the
+    // footprint of the actual tree in memory.
+    [autoreleasePool release];
+    autoreleasePool = [[NSAutoreleasePool alloc] init];
+  }
 }
 
 

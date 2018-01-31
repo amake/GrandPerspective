@@ -50,6 +50,8 @@ extern NSString  *DateTimeFormat;
   NSError  *error;
   
   ProgressTracker  *progressTracker;
+
+  NSAutoreleasePool  *autoreleasePool;
 }
 
 /* Writes the tree to file (in XML format). Returns YES if the operation completed successfully.

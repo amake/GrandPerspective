@@ -82,6 +82,10 @@ NSString  *EstimatedProgressKey = @"estimatedProgress";
   return dict;
 }
 
+- (NSUInteger) numFoldersProcessed {
+  return numFoldersProcessed;
+}
+
 @end // @implementation ProgressTracker
 
 
