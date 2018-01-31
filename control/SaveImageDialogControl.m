@@ -51,8 +51,12 @@
   [[self window] makeKeyAndOrderFront: self];
 
   NSRect  bounds = [[dirViewControl directoryView] bounds];
-  [widthField setIntValue: (int)bounds.size.width];
-  [heightField setIntValue: (int)bounds.size.height];
+  // Setting string value directly instead of using setIntValue, as the latter adds a decimal
+  // separator. Even worse, the reverse operation using intValue to retrieve the integer value can
+  // give a different number.
+  // On my system, the following happened on OS X 10.11: 1920 -> "1.920" -> 1
+  [widthField setStringValue: [NSString stringWithFormat: @"%d", (int)bounds.size.width]];
+  [heightField setStringValue: [NSString stringWithFormat: @"%d", (int)bounds.size.height]];
 }
 
 
