@@ -53,7 +53,7 @@ Het nadeel hiervan is echter dat het resulterende venster ook de bestanden bevat
 
 <p>
 Voer <b>Map inlezen</b> uit op de map "<em>Backup Volume</em>/Backups.backupdb/<em>Mijn Computer</em>".
-Dit kan even duren.
+Let op, dit kan behoorlijk lang duren.
 Wanneer het inlezen volbracht is zal een <a href="Views.html">overzicht venster</a> getoond worden met alle reservekopieën.
 Kies vervolgens kleuren naar "Buitenste map" in het <a href="ViewDisplayPanel.html">Weergave paneel</a>.
 Alle bestanden die bij dezelfde reservekopie horen hebben nu dezelfde kleur.
@@ -62,7 +62,7 @@ Alle bestanden die bij dezelfde reservekopie horen hebben nu dezelfde kleur.
 <p>
 U zult waarschijnlijk zien dat één reservekopie aanzienlijk groter is dan de rest.
 Dit is naar alle waarschijnlijkheid de oudste reservekopie.
-De reservekopieën worden namelijk ingelezen in de volgorde waarin ze gemaakt zijn.
+De reservekopieën worden namelijk ingelezen in de volgorde waarin ze gemaakt zijn <a href="#footnote1">[voetnoot 1]</a>.
 Dit betekent dus dat the oudste reservekopie het eerst ingelezen wordt.
 Alle bestanden in deze map zijn daarom nog niet eerder gezien, en worden daarom in beschouwing genomen.
 Tijdens het inlezen van de overige reservekopieën zijn de meeste harde links al eens gezien (in eerdere reservekopieën), waardoor ze vervolgens buiten beschouwing worden gelaten.
@@ -98,6 +98,15 @@ Een nieuw overzicht venster wordt gemaakt, zonder de grootste reservekopie.
 Dit nieuwe venster geeft een veel beter idee van de ruimte die nodig is voor iedere nieuwe reservekopie.
 <a href="NavigatingViews.html">Verken</a> dit venster om een goed idee te krijgen van de bestanden die telkens weer opnieuw gekopieerd worden.
 Als u bestanden tegenkomt die niet in de reservekopieën thuis horen kunt u uw Time Machine instellingen hierop aanpassen.
+</p>
+
+<p>
+<a name="footnote1">Voetnoot 1:</a>
+Vanaf GrandPerspective 2.0 specificeert de applicatie niet meer in welke volgorde de mappen ingelezen worden.
+De volgorde wordt nu bepaald door de inlees functionaliteit geleverd door het Cocoa Raamwerk.
+Op mijn systeem leest dit nog steeds de oudste reservekopieën eerst in.
+Echter, er is geen garantie dat dit zo gebeurt op elk systeem, noch dat dit gedrag na een update van macOS niet verandert.
+Wanneer de inlees volgorde verandert dan kan de reservekopie waarin een hard-gelinkt bestand getoond wordt veranderen.
 </p>
 
 

@@ -53,7 +53,7 @@ The drawback of the latter approach is that the resulting view will include file
 
 <p>
 Execute <b>Scan Folder</b> on the folder "<em>Backup Volume</em>/Backups.backupdb/<em>My Computer</em>".
-This may take a while.
+Be warned, this may take a while.
 When scanning is complete, a <a href="Views.html">view</a> is shown showing all back-ups.
 In the <a href="ViewDisplayPanel.html">Display panel</a>, select coloring by "Top folder".
 All files belonging to the same back-up now have the same color.
@@ -62,10 +62,10 @@ All files belonging to the same back-up now have the same color.
 <p>
 You will probably see that one back-up is much larger than the rest.
 This is likely the earliest back-up folder.
-The back-ups are scanned in the order they have been created.
-So the folder containing the earliest back-up is scanned first. 
+The back-ups are scanned in the order they have been created <a href="#footnote1">[footnote 1]</a>.
+So the folder containing the earliest back-up is scanned first.
 All files in it are encountered for the first time and are therefore included.
-When scanning the other back-up folders, most hard-linked files will have been encountered already (in older back-ups) and so are now exluded.
+When scanning the other back-up folders, most hard-linked files will have been encountered already (in older back-ups) and so are now excluded.
 </p>
 
 <p>
@@ -100,6 +100,14 @@ This new view gives a much better idea of the size required by each incremental 
 If you spot files that should not be backed up, update your Time Machine preferences.
 </p>
 
+<p>
+<a name="footnote1">Footnote 1:</a>
+From GrandPerspective 2.0 onwards, the application does not explicitly specify the scan order anymore.
+The order is now determined by the directory scanner provided by Cocoa Framework.
+On my system, this still scans the oldest back-ups first.
+However, there is no guarantee that this happens on every system nor that this behaviour will not change after a future update of macOS.
+If the scanning order changes then the back-up folder in which a hard-linked file appears may change.
+</p>
 
 <h2>Check which files have been backed up during the latest back-up</h2>
 
