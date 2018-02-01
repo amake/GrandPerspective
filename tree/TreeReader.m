@@ -422,7 +422,10 @@ NSString  *AttributeNameKey = @"name";
 }
 
 - (NSDictionary *)progressInfo {
-  return [progressTracker progressInfo];
+  // Only return progress info while task has not been aborted. When task is aborted, handlers are
+  // released, as are the objects they were constructing. This can trigger a memory access violation
+  // when trying to construct the path for the current folder being scanned.
+  return abort ? nil : [progressTracker progressInfo];
 }
 
 - (void) setFormatVersion:(int)version {

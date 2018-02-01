@@ -90,7 +90,7 @@
 		<key>minimumTimeBoundForColorMapping</key>
 		<string>01/01/2001 00:00</string>
 		<key>progressPanelRefreshRate</key>
-		<real>0.25</real>
+		<real>0.2</real>
 		<key>rescanBehaviour</key>
 		<string>keep old window</string>
 		<key>showEntireVolumeByDefault</key>
