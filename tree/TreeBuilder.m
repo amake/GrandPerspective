@@ -23,6 +23,8 @@ NSString  *PhysicalFileSize = @"physical";
  */
 #define  NUM_SCAN_PROGRESS_ESTIMATE_LEVELS MIN(6, NUM_PROGRESS_ESTIMATE_LEVELS)
 
+#define  AUTORELEASE_PERIOD  1024
+
 /* Helper class that is used to temporarily store additional info for directories that are being
  * scanned. It stores the info that is not maintained by the DirectoryItem class yet is needed
  * while its contents are still being scanned.
@@ -278,7 +280,10 @@ NSString  *PhysicalFileSize = @"physical";
 
 
 - (NSDictionary *)progressInfo {
-  return [progressTracker progressInfo];
+  // To be safe, do not return info when aborted. Auto-releasing parts of constructed tree could
+  // invalidate path construction done by progressTracker. Even though it does not look that could
+  // happen with current code, it could after some refactoring.
+  return abort ? nil : [progressTracker progressInfo];
 }
 
 @end // @implementation TreeBuilder
@@ -459,15 +464,15 @@ NSString  *PhysicalFileSize = @"physical";
   @try {
     for (NSURL *fileURL in directoryEnumerator) {
       NSURL  *parentURL = nil;
-      [fileURL getResourceValue:&parentURL forKey:NSURLParentDirectoryURLKey error:nil];
+      [fileURL getResourceValue: &parentURL forKey: NSURLParentDirectoryURLKey error: nil];
 
       ScanStackFrame  *parent = [self unwindStackToURL: parentURL];
 
       if (![self visitItemAtURL: fileURL parent: parent]) {
         [directoryEnumerator skipDescendants];
       }
-      if (++i == 2048) {
-        [autoreleasePool drain];
+      if (++i == AUTORELEASE_PERIOD) {
+        [autoreleasePool release];
         autoreleasePool = [[NSAutoreleasePool alloc] init];
         i = 0;
       }
@@ -478,7 +483,7 @@ NSString  *PhysicalFileSize = @"physical";
     [self unwindStackToURL: nil]; // Force full unwind
   }
   @finally {
-    [autoreleasePool drain];
+    [autoreleasePool release];
   }
 
   return YES;

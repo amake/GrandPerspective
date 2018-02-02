@@ -28,6 +28,8 @@
 
 NSString  *AttributeNameKey = @"name";
 
+#define  AUTORELEASE_PERIOD  1024
+
 // Localized error messages
 #define PARSE_ERROR_MSG \
   NSLocalizedString(@"Parse error (line %d): %@", @"Parse error")
@@ -548,7 +550,7 @@ didStartElement:(NSString *)elementName
 
 - (void) processedFolder:(DirectoryItem *)dirItem {
   [progressTracker processedFolder: dirItem];
-  if ([progressTracker numFoldersProcessed] % 1024 == 0) {
+  if ([progressTracker numFoldersProcessed] % AUTORELEASE_PERIOD == 0) {
     // Drain auto-release pool to prevent high memory usage while reading is in progress. The
     // temporary objects created while reading the tree can be three times larger in size than the
     // footprint of the actual tree in memory.

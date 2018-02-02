@@ -101,7 +101,10 @@
 
 
 - (NSDictionary *) progressInfo {
-  return [progressTracker progressInfo];
+  // To be safe, do not return info when aborted. Auto-releasing parts of constructed tree could
+  // invalidate path construction done by progressTracker. Even though it does not look that could
+  // happen with current code, it could after some refactoring.
+  return abort ? nil : [progressTracker progressInfo];
 }
 
 @end
@@ -181,8 +184,8 @@
   }
 
   if ([item isVirtual]) {
-    [self flattenAndFilterSiblings: [((CompoundItem*)item) getFirst]];
-    [self flattenAndFilterSiblings: [((CompoundItem*)item) getSecond]];
+    [self flattenAndFilterSiblings: [((CompoundItem *)item) getFirst]];
+    [self flattenAndFilterSiblings: [((CompoundItem *)item) getSecond]];
   }
   else {
     FileItem  *fileItem = (FileItem *)item;
