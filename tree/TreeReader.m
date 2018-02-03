@@ -341,6 +341,7 @@ NSString  *AttributeNameKey = @"name";
 
 - (void) dealloc {
   NSAssert(parser == nil, @"parser should be nil.");
+  NSAssert(autoreleasePool == nil, @"autoreleasePool should be nil");
   
   [testRepository release];
 
@@ -366,7 +367,6 @@ NSString  *AttributeNameKey = @"name";
     return nil;
   }
 
-  autoreleasePool = [[NSAutoreleasePool alloc] init];
   parser = [[NSXMLParser alloc] initWithData: data];
   [parser setDelegate: self];
   

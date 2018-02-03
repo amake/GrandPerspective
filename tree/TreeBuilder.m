@@ -458,7 +458,7 @@ NSString  *PhysicalFileSize = @"physical";
                                                       ]
                                             options: 0
                                        errorHandler: nil];
-  NSAutoreleasePool  *autoreleasePool = [[NSAutoreleasePool alloc] init];
+  NSAutoreleasePool  *autoreleasePool = nil;
   int  i = 0;
 
   @try {

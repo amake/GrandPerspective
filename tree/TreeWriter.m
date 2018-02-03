@@ -17,6 +17,7 @@
 
 
 #define  BUFFER_SIZE  4096
+#define  AUTORELEASE_PERIOD  1024
 
 /* Changes
  * v6: Use system path component for name of physical files and directories
@@ -184,11 +185,14 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
     error = nil;
     
     progressTracker = [[TreeVisitingProgressTracker alloc] init];
+    autoreleasePool = nil;
   }
   return self;
 }
 
 - (void) dealloc {
+  NSAssert(autoreleasePool == nil, @"autoreleasePool should be nil");
+
   free(dataBuffer);
   
   [error release];
@@ -201,8 +205,6 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
 - (BOOL) writeTree:(AnnotatedTreeContext *)tree toFile:(NSString *)filename {
   NSAssert(file == NULL, @"File not NULL");
-
-  autoreleasePool = [[NSAutoreleasePool alloc] init];
 
   [progressTracker startingTask];
   
@@ -428,7 +430,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   [self appendString: [NSString stringWithFormat: @"</%@>\n", FolderElem]];
   
   [progressTracker processedFolder: dirItem];
-  if ([progressTracker numFoldersProcessed] % 1024 == 0) {
+  if ([progressTracker numFoldersProcessed] % AUTORELEASE_PERIOD == 0) {
     // Flush auto-release pool to prevent high memory usage while writing is in progress. The
     // temporary objects created while writing the tree can be four times larger in size than the
     // footprint of the actual tree in memory.
