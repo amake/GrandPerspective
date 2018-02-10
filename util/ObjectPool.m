@@ -5,11 +5,11 @@
 
 /* Creates a pool with an unlimited maximum size.
  */
-- (id) init {
+- (instancetype) init {
   return [self initWithCapacity: INT_MAX];
 }
 
-- (id) initWithCapacity:(int)maxSizeVal {
+- (instancetype) initWithCapacity:(int)maxSizeVal {
   if (self = [super init]) {
     maxSize = maxSizeVal;
     
@@ -27,8 +27,8 @@
 
 
 - (id) borrowObject {
-  if ([pool count] > 0) {
-    id  obj = [[[pool lastObject] retain] autorelease];
+  if (pool.count > 0) {
+    id  obj = [[pool.lastObject retain] autorelease];
     [pool removeLastObject];
 
     return obj;
@@ -39,7 +39,7 @@
 }
 
 - (void) returnObject:(id)object {
-  if ([pool count] < maxSize) {
+  if (pool.count < maxSize) {
     [pool addObject: [self resetObject: object]];
   }
 }

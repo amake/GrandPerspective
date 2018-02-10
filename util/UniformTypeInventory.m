@@ -36,7 +36,7 @@ NSString  *UnknownTypeUTI = @"unknown";
 
 
 // Overrides super's designated initialiser.
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     typeForExtension = [[NSMutableDictionary alloc] initWithCapacity: 32];
     untypedExtensions = [[NSMutableSet alloc] initWithCapacity: 32];
@@ -49,8 +49,8 @@ NSString  *UnknownTypeUTI = @"unknown";
                                          @"Description for 'unknown' UTI.");
     unknownType = [[UniformType alloc] initWithUniformTypeIdentifier: UnknownTypeUTI
                                                          description: descr
-                                                             parents: [NSArray array]];
-    [typeForUTI setObject: unknownType forKey: UnknownTypeUTI];
+                                                             parents: @[]];
+    typeForUTI[UnknownTypeUTI] = unknownType;
     [parentlessTypes addObject: unknownType];
   }
   
@@ -71,7 +71,7 @@ NSString  *UnknownTypeUTI = @"unknown";
 
 
 - (NSUInteger) count {
-  return [typeForUTI count];
+  return typeForUTI.count;
 }
 
 
@@ -85,7 +85,7 @@ NSString  *UnknownTypeUTI = @"unknown";
 
 
 - (UniformType *)uniformTypeForExtension:(NSString *)ext {
-  UniformType  *type = [typeForExtension objectForKey: ext];
+  UniformType  *type = typeForExtension[ext];
   if (type != nil) {
     // The extension was already encountered, and corresponds to a valid UTI.
     return type;
@@ -110,7 +110,7 @@ NSString  *UnknownTypeUTI = @"unknown";
       // information describing the type. In this case, no UniformType can be created, which is why
       // the check is needed.
       
-      [typeForExtension setObject: type forKey: ext];
+      typeForExtension[ext] = type;
     }
   }
 
@@ -127,7 +127,7 @@ NSString  *UnknownTypeUTI = @"unknown";
 }
 
 - (UniformType *)uniformTypeForIdentifier:(NSString *)uti {
-  id  type = [typeForUTI objectForKey: uti];
+  id  type = typeForUTI[uti];
 
   if (type == self) {
     // Encountered cycle in the type conformance relationships. Breaking the loop to avoid infinite
@@ -144,7 +144,7 @@ NSString  *UnknownTypeUTI = @"unknown";
   // Temporarily associate "self" with the UTI to mark that the type is currently being created.
   // This is done to guard against infinite recursion should there be a cycle in the
   // type-conformance relationsships.
-  [typeForUTI setObject: self forKey: uti];
+  typeForUTI[uti] = self;
   type = [self createUniformTypeForIdentifier: uti];
 
   if (type == nil) {
@@ -154,25 +154,24 @@ NSString  *UnknownTypeUTI = @"unknown";
     return nil;
   }
   
-  [typeForUTI setObject: type forKey: uti];
-  [childrenForUTI setObject: [NSArray array] forKey: uti];
+  typeForUTI[uti] = type;
+  childrenForUTI[uti] = @[];
   
   // Register it as a child for each parent
   NSEnumerator  *parentEnum = [[type parentTypes] objectEnumerator];
   UniformType  *parentType;
   while (parentType = [parentEnum nextObject]) {
     NSString  *parentUTI = [parentType uniformTypeIdentifier];
-    NSArray  *children = [childrenForUTI objectForKey: parentUTI];
+    NSArray  *children = childrenForUTI[parentUTI];
     
-    [childrenForUTI setObject: [children arrayByAddingObject: type] forKey: parentUTI];
+    childrenForUTI[parentUTI] = [children arrayByAddingObject: type];
   }
   
   // Notify interested observers
   NSNotification  *notification = 
     [NSNotification notificationWithName: UniformTypeAddedEvent 
                                   object: self
-                                userInfo: [NSDictionary dictionaryWithObject: type
-                                                                      forKey: UniformTypeKey]];
+                                userInfo: @{UniformTypeKey: type}];
   [self performSelectorOnMainThread: @selector(postNotification:)
                          withObject: notification
                       waitUntilDone: NO];
@@ -182,7 +181,7 @@ NSString  *UnknownTypeUTI = @"unknown";
 
 
 - (NSSet *)childrenOfUniformType:(UniformType *)type {
-  return [NSSet setWithArray: [childrenForUTI objectForKey: [type uniformTypeIdentifier]]];
+  return [NSSet setWithArray: childrenForUTI[[type uniformTypeIdentifier]]];
 }
 
 
@@ -201,7 +200,7 @@ NSString  *UnknownTypeUTI = @"unknown";
     }
     NSLog(@"  Parents:%@", s);
     
-    [s deleteCharactersInRange: NSMakeRange(0, [s length])];
+    [s deleteCharactersInRange: NSMakeRange(0, s.length)];
     typesEnum2 = [[self childrenOfUniformType: type] objectEnumerator];
     while (type2 = [typesEnum2 nextObject]) {
       [s appendFormat: @" %@", [type2 uniformTypeIdentifier]];
@@ -229,15 +228,15 @@ NSString  *UnknownTypeUTI = @"unknown";
     return nil;
   }
 
-  NSString  *descr = [dict objectForKey: (NSString *)kUTTypeDescriptionKey];
+  NSString  *descr = dict[(NSString *)kUTTypeDescriptionKey];
     
-  NSObject  *conforms = [dict objectForKey: (NSString *)kUTTypeConformsToKey];
+  NSObject  *conforms = dict[(NSString *)kUTTypeConformsToKey];
   NSArray  *parents;
   if ([conforms isKindOfClass: [NSArray class]]) {
     NSArray  *utiArray = (NSArray *)conforms;
 
     // Create the corresponding array of type objects.
-    NSMutableArray *temp = [NSMutableArray arrayWithCapacity: [utiArray count]];
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity: utiArray.count];
 
     NSEnumerator  *utiEnum = [utiArray objectEnumerator];
     NSString  *parentUti;
@@ -252,10 +251,10 @@ NSString  *UnknownTypeUTI = @"unknown";
   }
   else if ([conforms isKindOfClass: [NSString class]]) {
     UniformType  *parentType = [self uniformTypeForIdentifier: (NSString *)conforms];
-    parents = (parentType != nil) ? [NSArray arrayWithObject: parentType] : [NSArray array];
+    parents = (parentType != nil) ? @[parentType] : @[];
   }
   else {
-    parents = [NSArray array];
+    parents = @[];
   }
 
   return [[[UniformType alloc] initWithUniformTypeIdentifier: uti

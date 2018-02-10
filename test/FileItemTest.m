@@ -15,7 +15,7 @@
 @implementation FileItemTest
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict {
-  NSString  *classString = [dict objectForKey: @"class"];
+  NSString  *classString = dict[@"class"];
   
   if ([classString isEqualToString: @"ItemSizeTest"]) {
     return [ItemSizeTest fileItemTestFromDictionary: dict];
@@ -68,7 +68,7 @@
  * Note: Special case. Does not call own designated initialiser. It should be overridden and only
  * called by initialisers with the same signature.
  */
-- (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super init]) {
     // void
   }

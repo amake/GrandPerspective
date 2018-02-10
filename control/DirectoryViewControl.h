@@ -121,29 +121,29 @@ extern NSString  *DeleteFilesAndFolders;
 - (IBAction) showEntireVolumeCheckBoxChanged:(id)sender;
 - (IBAction) showPackageContentsCheckBoxChanged:(id)sender;
 
-- (id) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)treeContext;
-- (id) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)treeContext
-                          pathModel:(ItemPathModel *)itemPathModel
-                           settings:(DirectoryViewControlSettings *)settings;
-- (id) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)treeContext
-                          pathModel:(ItemPathModel *)itemPathModel
-                           settings:(DirectoryViewControlSettings *)settings
-                   filterRepository:(FilterRepository *)filterRepository;
+- (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)treeContext;
+- (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)treeContext
+                                    pathModel:(ItemPathModel *)itemPathModel
+                                     settings:(DirectoryViewControlSettings *)settings;
+- (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)treeContext
+                                    pathModel:(ItemPathModel *)itemPathModel
+                                     settings:(DirectoryViewControlSettings *)settings
+                             filterRepository:(FilterRepository *)filterRepository NS_DESIGNATED_INITIALIZER;
 
-- (Filter *)mask;
-- (NamedFilter *)namedMask;
+@property (nonatomic, readonly, strong) Filter *mask;
+@property (nonatomic, readonly, strong) NamedFilter *namedMask;
 
-- (ItemPathModelView *)pathModelView;
+@property (nonatomic, readonly, strong) ItemPathModelView *pathModelView;
 
-- (DirectoryView *)directoryView;
+@property (nonatomic, readonly, strong) DirectoryView *directoryView;
 
 /* Returns a newly created object that represents the current settings of the view. It can
  * subsequently be safely modified. This will not affect the view.
  */
-- (DirectoryViewControlSettings *)directoryViewControlSettings;
+@property (nonatomic, readonly, strong) DirectoryViewControlSettings *directoryViewControlSettings;
 
-- (TreeContext *)treeContext;
-- (AnnotatedTreeContext *)annotatedTreeContext;
+@property (nonatomic, readonly, strong) TreeContext *treeContext;
+@property (nonatomic, readonly, strong) AnnotatedTreeContext *annotatedTreeContext;
 
 /* Returns YES iff the action is currently enabled. 
  * 
@@ -155,7 +155,7 @@ extern NSString  *DeleteFilesAndFolders;
 /* Returns YES iff the selection is currently locked, which means that it does not change when the
  * mouse position changes.
  */
-- (BOOL) isSelectedFileLocked;
+@property (nonatomic, getter=isSelectedFileLocked, readonly) BOOL selectedFileLocked;
 
 + (NSArray *)fileDeletionTargetNames;
 

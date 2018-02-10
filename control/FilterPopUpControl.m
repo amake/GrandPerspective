@@ -24,18 +24,18 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 
 @implementation FilterPopUpControl
 
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithPopUpButton: instead.");
   return nil;
 }
 
-- (id) initWithPopUpButton:(NSPopUpButton *)popUpButtonVal {
+- (instancetype) initWithPopUpButton:(NSPopUpButton *)popUpButtonVal {
   return [self initWithPopUpButton: popUpButtonVal
                   filterRepository: [FilterRepository defaultInstance]];
 }
 
-- (id) initWithPopUpButton:(NSPopUpButton *)popUpButtonVal
-          filterRepository:(FilterRepository *)filterRepositoryVal {
+- (instancetype) initWithPopUpButton:(NSPopUpButton *)popUpButtonVal
+                    filterRepository:(FilterRepository *)filterRepositoryVal {
   if (self = [super init]) {
     popUpButton = [popUpButtonVal retain];
     filterRepository = [filterRepositoryVal retain];
@@ -66,7 +66,7 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
     NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];  
 
     [popUpButton removeAllItems];
-    [tagMaker addLocalisedNames: [[filterRepository filtersByName] allKeys]
+    [tagMaker addLocalisedNames: [filterRepository filtersByName].allKeys
                         toPopUp: popUpButton
                          select: [userDefaults stringForKey: DefaultFilterName]
                           table: @"Names"];
@@ -101,7 +101,7 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 
 
 - (NSString *)selectedFilterName {
-  return [tagMaker nameForTag: [[popUpButton selectedItem] tag]];
+  return [tagMaker nameForTag: popUpButton.selectedItem.tag];
 }
 
 - (void) selectFilterNamed:(NSString *)name {
@@ -115,16 +115,16 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 @implementation FilterPopUpControl (PrivateMethods)
 
 - (void) filterAddedToRepository:(NSNotification *)notification {
-  NSString  *name = [[notification userInfo] objectForKey: @"key"];
+  NSString  *name = notification.userInfo[@"key"];
   
   [tagMaker addLocalisedName: name toPopUp: popUpButton select: NO table: @"Names"];
 }
 
 - (void) filterRemovedFromRepository:(NSNotification *)notification {
-  NSString  *name = [[notification userInfo] objectForKey: @"key"];
+  NSString  *name = notification.userInfo[@"key"];
   NSUInteger  tag = [tagMaker tagForName: name];
   NSUInteger  index = [popUpButton indexOfItemWithTag: tag];
-  BOOL  wasSelected = [popUpButton indexOfSelectedItem] == index;
+  BOOL  wasSelected = popUpButton.indexOfSelectedItem == index;
 
   [popUpButton removeItemAtIndex: [popUpButton indexOfItemWithTag: tag]];
   
@@ -134,10 +134,10 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 }
 
 - (void) filterUpdatedInRepository:(NSNotification *)notification {
-  NSString  *name = [[notification userInfo] objectForKey: @"key"];
+  NSString  *name = notification.userInfo[@"key"];
   NSUInteger  tag = [tagMaker tagForName: name];
   NSUInteger  index = [popUpButton indexOfItemWithTag: tag];
-  BOOL  isSelected = [popUpButton indexOfSelectedItem] == index;
+  BOOL  isSelected = popUpButton.indexOfSelectedItem == index;
 
   if (isSelected) {
     [notificationCenter postNotificationName: SelectedFilterUpdated object: self];
@@ -145,11 +145,11 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 }
 
 - (void) filterRenamedInRepository:(NSNotification *)notification {
-  NSString  *oldName = [[notification userInfo] objectForKey: @"oldkey"];
-  NSString  *newName = [[notification userInfo] objectForKey: @"newkey"];
+  NSString  *oldName = notification.userInfo[@"oldkey"];
+  NSString  *newName = notification.userInfo[@"newkey"];
   NSUInteger  tag = [tagMaker tagForName: oldName];
   NSUInteger  index = [popUpButton indexOfItemWithTag: tag];
-  BOOL  wasSelected = [popUpButton indexOfSelectedItem] == index;
+  BOOL  wasSelected = popUpButton.indexOfSelectedItem == index;
   
   [popUpButton removeItemAtIndex: index];
   [tagMaker addLocalisedName: newName toPopUp: popUpButton select: wasSelected table: @"Names"];

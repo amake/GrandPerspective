@@ -9,6 +9,7 @@
   int  initialArrayCapacity;
 }
 
-- (id) initWithCapacity:(int) maxSize initialArrayCapacity:(int) arraySize;
+- (instancetype) initWithCapacity:(int) maxSize
+             initialArrayCapacity:(int) arraySize NS_DESIGNATED_INITIALIZER;
 
 @end

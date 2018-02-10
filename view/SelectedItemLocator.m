@@ -19,7 +19,7 @@
 
   // Align the path with the tree, as the path may contain invisible items not part of the tree.
   pathIndex = 0;
-  while ([path objectAtIndex: pathIndex] != treeRoot) {
+  while (path[pathIndex] != treeRoot) {
     pathIndex++;
 
     NSAssert(pathIndex < [path count], @"treeRoot not found in path.");
@@ -33,14 +33,14 @@
 }
 
 - (BOOL) descendIntoItem:(Item *)item atRect:(NSRect)rect depth:(int)depth {
-  if (pathIndex >= [path count] || [path objectAtIndex: pathIndex] != item) {
+  if (pathIndex >= path.count || path[pathIndex] != item) {
     return NO;
   }
 
   pathIndex++;
   itemLocation = rect;
 
-  return (pathIndex < [path count]);
+  return (pathIndex < path.count);
 }
 
 - (void) emergedFromItem: (Item *)item {

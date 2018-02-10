@@ -9,7 +9,7 @@
 
 @interface ItemTypeTest (PrivateMethods)
 
-- (NSArray *)matchesAsStrings;
+@property (nonatomic, readonly, copy) NSArray *matchesAsStrings;
 
 @end
 
@@ -17,16 +17,16 @@
 @implementation ItemTypeTest
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithMatchTargets: instead.");
   return nil;
 }
 
-- (id) initWithMatchTargets:(NSArray *)matchesVal {
+- (instancetype) initWithMatchTargets:(NSArray *)matchesVal {
   return [self initWithMatchTargets: matchesVal strict: NO];
 }
 
-- (id) initWithMatchTargets:(NSArray *)matchesVal strict:(BOOL)strictVal {
+- (instancetype) initWithMatchTargets:(NSArray *)matchesVal strict:(BOOL)strictVal {
   if (self = [super init]) {
     // Make the array immutable
     matches = [[NSArray alloc] initWithArray: matchesVal];
@@ -48,10 +48,10 @@
 /* Note: Special case. Does not call own designated initialiser. It should be overridden and only
  * called by initialisers with the same signature.
  */
-- (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
-    NSArray  *utis = [dict objectForKey: @"matches"];
-    NSUInteger  numMatches = [utis count];
+    NSArray  *utis = dict[@"matches"];
+    NSUInteger  numMatches = utis.count;
 
     UniformTypeInventory  *typeInventory = [UniformTypeInventory defaultUniformTypeInventory];
 
@@ -59,7 +59,7 @@
     
     NSUInteger  i = 0;
     while (i < numMatches) {
-      UniformType  *type = [typeInventory uniformTypeForIdentifier: [utis objectAtIndex: i]];
+      UniformType  *type = [typeInventory uniformTypeForIdentifier: utis[i]];
         
       if (type != nil) {
         [tmpMatches addObject: type];
@@ -71,7 +71,7 @@
     // Make the array immutable
     matches = [[NSArray alloc] initWithArray: tmpMatches];
     
-    strict = [[dict objectForKey: @"strict"] boolValue];
+    strict = [dict[@"strict"] boolValue];
   }
   
   return self;
@@ -81,9 +81,9 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  [dict setObject: @"ItemTypeTest" forKey: @"class"];
-  [dict setObject: [self matchesAsStrings] forKey: @"matches"]; 
-  [dict setObject: [NSNumber numberWithBool: strict] forKey: @"strict"];
+  dict[@"class"] = @"ItemTypeTest";
+  dict[@"matches"] = [self matchesAsStrings];
+  dict[@"strict"] = @(strict);
 }
 
 
@@ -105,9 +105,9 @@
   UniformType  *type = [((PlainFileItem *)item) uniformType];
   NSSet  *ancestorTypes = strict ? nil : [type ancestorTypes];
     
-  NSUInteger  i = [matches count];
+  NSUInteger  i = matches.count;
   while (i-- > 0) {
-    UniformType  *matchType = [matches objectAtIndex: i];
+    UniformType  *matchType = matches[i];
     if (type == matchType || [ancestorTypes containsObject: matchType]) {
       return TEST_PASSED;
     }
@@ -140,7 +140,7 @@
 
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict { 
-  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"ItemTypeTest"],
+  NSAssert([dict[@"class"] isEqualToString: @"ItemTypeTest"],
            @"Incorrect value for class in dictionary.");
 
   return [[[ItemTypeTest alloc] initWithPropertiesFromDictionary: dict] autorelease];
@@ -152,13 +152,13 @@
 @implementation ItemTypeTest (PrivateMethods)
 
 - (NSArray *)matchesAsStrings {
-  NSUInteger  numMatches = [matches count];
+  NSUInteger  numMatches = matches.count;
   NSMutableArray  *utis = [NSMutableArray arrayWithCapacity: numMatches];
 
   NSUInteger  i = 0;
   while (i < numMatches) {
     [utis addObject: 
-       [((UniformType *)[matches objectAtIndex: i]) uniformTypeIdentifier]];
+       [((UniformType *)matches[i]) uniformTypeIdentifier]];
     i++;
   }
   

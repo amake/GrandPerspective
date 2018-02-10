@@ -10,18 +10,18 @@
   FilterSet  *filterSet;
 }
 
-- (id) initWithPath:(NSString *)path 
-    fileSizeMeasure:(NSString *)measure
-          filterSet:(FilterSet *)filterSet;
+- (instancetype) initWithPath:(NSString *)path
+              fileSizeMeasure:(NSString *)measure
+                    filterSet:(FilterSet *)filterSet;
 
-- (id) initWithPath:(NSString *)path 
-    fileSizeMeasure:(NSString *)measure
-          filterSet:(FilterSet *)filterSet
-    packagesAsFiles:(BOOL) packagesAsFiles;
+- (instancetype) initWithPath:(NSString *)path
+              fileSizeMeasure:(NSString *)measure
+                    filterSet:(FilterSet *)filterSet
+              packagesAsFiles:(BOOL) packagesAsFiles NS_DESIGNATED_INITIALIZER;
 
-- (NSString *)pathToScan;
-- (NSString *)fileSizeMeasure;
-- (FilterSet *)filterSet;
-- (BOOL) packagesAsFiles;
+@property (nonatomic, readonly, copy) NSString *pathToScan;
+@property (nonatomic, readonly, copy) NSString *fileSizeMeasure;
+@property (nonatomic, readonly, strong) FilterSet *filterSet;
+@property (nonatomic, readonly) BOOL packagesAsFiles;
 
 @end

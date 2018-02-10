@@ -5,8 +5,8 @@
   NSString  *path;
 }
 
-- (id) initWithPath:(NSString *)path;
+- (instancetype) initWithPath:(NSString *)path NS_DESIGNATED_INITIALIZER;
 
-- (NSString *)path;
+@property (nonatomic, readonly, copy) NSString *path;
 
 @end

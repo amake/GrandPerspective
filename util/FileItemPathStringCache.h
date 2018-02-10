@@ -11,8 +11,7 @@
 
 }
 
-- (BOOL) addTrailingSlashToDirectoryPaths;
-- (void) setAddTrailingSlashToDirectoryPaths:(BOOL)flag;
+@property (nonatomic) BOOL addTrailingSlashToDirectoryPaths;
 
 - (NSString *)pathStringForFileItem:(FileItem *)item;
 - (void) clearCache;

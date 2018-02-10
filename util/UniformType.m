@@ -3,15 +3,15 @@
 @implementation UniformType
 
 // Overrides super's designated initialiser.
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithUniformTypeIdentifier:description:parents instead.");
   return nil;
 }
 
 
-- (id) initWithUniformTypeIdentifier:(NSString *)utiVal
-                         description:(NSString *)descriptionVal
-                             parents:(NSArray *)parentTypes {
+- (instancetype) initWithUniformTypeIdentifier:(NSString *)utiVal
+                                   description:(NSString *)descriptionVal
+                                       parents:(NSArray *)parentTypes {
 
   if (self = [super init]) { 
     uti = [utiVal retain];
@@ -52,9 +52,9 @@
   NSMutableArray  *toVisit = [NSMutableArray arrayWithCapacity: 8];
   [toVisit addObject: self];
   
-  while ([toVisit count] > 0) {
+  while (toVisit.count > 0) {
     // Visit next node in the list.
-    UniformType  *current = [toVisit lastObject];
+    UniformType  *current = toVisit.lastObject;
     [toVisit removeLastObject];
   
     // Add parents that have not yet been encountered to list of nodes to visit.

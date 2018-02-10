@@ -12,7 +12,7 @@
   DirectoryViewControl  *dirViewControl;
 }
 
-- (id) initWithDirectoryViewControl: (DirectoryViewControl*)dirViewControl;
+- (instancetype) initWithDirectoryViewControl:(DirectoryViewControl *)dirViewControl NS_DESIGNATED_INITIALIZER;
 
 - (IBAction)valueEntered:(id)sender;
 - (IBAction)cancelSaveImage:(id)sender;

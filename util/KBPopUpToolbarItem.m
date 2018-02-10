@@ -31,17 +31,17 @@
 	NSPoint menuPosition = [self menuPositionForFrame:cellFrame inView:controlView];
 	
 	// Create event for pop up menu with adjusted mouse position
-	NSEvent *menuEvent = [NSEvent mouseEventWithType:[theEvent type]
-											location:menuPosition
-									   modifierFlags:[theEvent modifierFlags]
-										   timestamp:[theEvent timestamp]
-										windowNumber:[theEvent windowNumber]
-											 context:[theEvent context]
-										 eventNumber:[theEvent eventNumber]
-										  clickCount:[theEvent clickCount]
-											pressure:[theEvent pressure]];
+	NSEvent *menuEvent = [NSEvent mouseEventWithType: theEvent.type
+							                    				location: menuPosition
+									                   modifierFlags: theEvent.modifierFlags
+										                     timestamp: theEvent.timestamp
+							                  			windowNumber: theEvent.windowNumber
+									                    		 context: theEvent.context
+									                  	 eventNumber: theEvent.eventNumber
+										                    clickCount: theEvent.clickCount
+                                        	pressure: theEvent.pressure];
 	
-	[NSMenu popUpContextMenu:[self menu] withEvent:menuEvent forView:controlView];
+	[NSMenu popUpContextMenu:self.menu withEvent:menuEvent forView:controlView];
 }
 
 - (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView untilMouseUp:(BOOL)untilMouseUp
@@ -49,7 +49,7 @@
 	
 	BOOL result = NO;
 	NSDate *endDate;
-	NSPoint currentPoint = [theEvent locationInWindow];
+	NSPoint currentPoint = theEvent.locationInWindow;
 	BOOL done = NO;
 	BOOL trackContinously = [self startTrackingAt:currentPoint inView:controlView];
 	
@@ -61,7 +61,7 @@
 		NSPoint lastPoint = currentPoint;
 		
 		// Set up timer for pop-up menu if we have one
-		if ([self menu])
+		if (self.menu)
 			endDate = [NSDate dateWithTimeIntervalSinceNow:0.6];
 		else
 			endDate = [NSDate distantFuture];
@@ -73,7 +73,7 @@
 		
 		if (event)	// Mouse event
 		{
-			currentPoint = [event locationInWindow];
+			currentPoint = event.locationInWindow;
 			
 			// Send continueTracking.../stopTracking...
 			if (trackContinously)
@@ -83,13 +83,13 @@
 					done = YES;
 					[self stopTracking:lastPoint at:currentPoint inView:controlView mouseIsUp:mouseIsUp];
 				}
-				if ([self isContinuous])
+				if (self.continuous)
 				{
-					[NSApp sendAction:[self action] to:[self target] from:controlView];
+					[NSApp sendAction:self.action to:self.target from:controlView];
 				}
 			}
 			
-			mouseIsUp = ([event type] == NSLeftMouseUp);
+			mouseIsUp = (event.type == NSLeftMouseUp);
 			done = done || mouseIsUp;
 			
 			if (untilMouseUp)
@@ -104,8 +104,8 @@
 					done = YES;
 			}
 			
-			if (done && result && ![self isContinuous])
-				[NSApp sendAction:[self action] to:[self target] from:controlView];
+			if (done && result && !self.continuous)
+				[NSApp sendAction:self.action to:self.target from:controlView];
 		
 		}
 		else	// Show menu
@@ -125,16 +125,16 @@
 
 @implementation KBDelayedPopUpButton
 
-- (id)initWithFrame:(NSRect)frameRect
+- (instancetype)initWithFrame:(NSRect)frameRect
 {
 	if (self = [super initWithFrame:frameRect])
 	{
-		if (![[self cell] isKindOfClass:[KBDelayedPopUpButtonCell class]])
+		if (![self.cell isKindOfClass:[KBDelayedPopUpButtonCell class]])
 		{
-			NSString *title = [self title];
+			NSString *title = self.title;
 			if (title == nil) title = @"";			
-			[self setCell:[[[KBDelayedPopUpButtonCell alloc] initTextCell:title] autorelease]];
-			[[self cell] setControlSize:NSRegularControlSize];
+			self.cell = [[[KBDelayedPopUpButtonCell alloc] initTextCell:title] autorelease];
+			self.cell.controlSize = NSRegularControlSize;
 		}
 	}
 	return self;
@@ -145,16 +145,16 @@
 
 @implementation KBPopUpToolbarItem
 
-- (id)initWithItemIdentifier:(NSString *)ident
+- (instancetype)initWithItemIdentifier:(NSString *)ident
 {
 	if (self = [super initWithItemIdentifier:ident])
 	{
 		button = [[KBDelayedPopUpButton alloc] initWithFrame:NSMakeRect(0,0,32,32)];
 		[button setButtonType:NSMomentaryChangeButton];
 		[button setBordered:NO];
-		[self setView:button];
-		[self setMinSize:NSMakeSize(32,32)];
-		[self setMaxSize:NSMakeSize(32,32)];
+		self.view = button;
+		self.minSize = NSMakeSize(32,32);
+		self.maxSize = NSMakeSize(32,32);
 	}
 	return self;
 }
@@ -171,44 +171,44 @@
 
 - (KBDelayedPopUpButtonCell *)popupCell
 {
-	return [(KBDelayedPopUpButton *)[self view] cell];
+	return ((KBDelayedPopUpButton *)self.view).cell;
 }
 
 - (void)setMenu:(NSMenu *)menu
 {
-	[[self popupCell] setMenu:menu];
+	[self popupCell].menu = menu;
 	
 	// Also set menu form representation - this is used in the toolbar overflow menu but also, more importantly, to display
 	// a menu in text-only mode.
-	NSMenuItem *menuFormRep = [[NSMenuItem alloc] initWithTitle:[self label] action:nil keyEquivalent:@""];
-	[menuFormRep setSubmenu:menu];
-	[self setMenuFormRepresentation:menuFormRep];
+	NSMenuItem *menuFormRep = [[NSMenuItem alloc] initWithTitle:self.label action:nil keyEquivalent:@""];
+	menuFormRep.submenu = menu;
+	self.menuFormRepresentation = menuFormRep;
 	[menuFormRep release];
 }
 
 - (NSMenu *)menu
 {
-	return [[self popupCell] menu];
+	return [self popupCell].menu;
 }
 
 - (void)setAction:(SEL)aSelector
 {
-	[[self popupCell] setAction:aSelector];
+	[self popupCell].action = aSelector;
 }
 
 - (SEL)action
 {
-	return [[self popupCell] action];
+	return [self popupCell].action;
 }
 
 - (void)setTarget:(id)anObject
 {
-	[[self popupCell] setTarget:anObject];
+	[self popupCell].target = anObject;
 }
 
 - (id)target
 {
-	return [[self popupCell] target];
+	return [self popupCell].target;
 }
 
 - (void)setImage:(NSImage *)anImage
@@ -218,67 +218,67 @@
 	
 	regularImage = [anImage retain];
 	smallImage = [anImage copy];
-	[smallImage setSize:NSMakeSize(24,24)];
+	smallImage.size = NSMakeSize(24,24);
 
-	if ([[self toolbar] sizeMode] == NSToolbarSizeModeSmall) anImage = smallImage;
+	if (self.toolbar.sizeMode == NSToolbarSizeModeSmall) anImage = smallImage;
 	
-	[[self popupCell] setImage:anImage];
+	[self popupCell].image = anImage;
 }
 
 - (NSImage *)image
 {
-	return [[self popupCell] image];
+	return [self popupCell].image;
 }
 
 - (void)setToolTip:(NSString *)theToolTip
 {
-	[[self view] setToolTip:theToolTip];
+	self.view.toolTip = theToolTip;
 }
 
 - (NSString *)toolTip
 {
-	return [[self view] toolTip];
+	return self.view.toolTip;
 }
 
 - (void)validate
 {
 	// First, make sure the toolbar image size fits the toolbar size mode; there must be a better place to do this!
-	NSToolbarSizeMode sizeMode = [[self toolbar] sizeMode];
-	float imgWidth = [[self image] size].width;
+	NSToolbarSizeMode sizeMode = self.toolbar.sizeMode;
+	float imgWidth = self.image.size.width;
 	
 	if (sizeMode == NSToolbarSizeModeSmall && imgWidth != 24)
 	{
-		[[self popupCell] setImage:smallImage];
+		[self popupCell].image = smallImage;
 	}
 	else if (sizeMode == NSToolbarSizeModeRegular && imgWidth == 24)
 	{
-		[[self popupCell] setImage:regularImage];
+		[self popupCell].image = regularImage;
 	}
 	
-	if ([[self toolbar] delegate])
+	if (self.toolbar.delegate)
 	{
 		BOOL enabled = YES;
 		
-		if ([[[self toolbar] delegate] respondsToSelector:@selector(validateToolbarItem:)])
+		if ([self.toolbar.delegate respondsToSelector:@selector(validateToolbarItem:)])
 			enabled = [
-                ((NSObject <KBItemValidator>*) [[self toolbar] delegate])
+                ((NSObject <KBItemValidator>*) self.toolbar.delegate)
                 validateToolbarItem:self
             ];
-		else if ([[[self toolbar] delegate] respondsToSelector:@selector(validateUserInterfaceItem:)])
+		else if ([self.toolbar.delegate respondsToSelector:@selector(validateUserInterfaceItem:)])
 			enabled = [
-                ((NSObject <KBItemValidator>*) [[self toolbar] delegate])
+                ((NSObject <KBItemValidator>*) self.toolbar.delegate)
                 validateUserInterfaceItem:self
             ];
-		[self setEnabled:enabled];
+		self.enabled = enabled;
 	}
 	
-	else if ([self action])
+	else if (self.action)
 	{
-		if (![self target])
-			[self setEnabled:[[[[self view] window] firstResponder] respondsToSelector:[self action]]];
+		if (!self.target)
+			self.enabled = [self.view.window.firstResponder respondsToSelector:self.action];
 		
 		else
-			[self setEnabled:[[self target] respondsToSelector:[self action]]];
+			self.enabled = [self.target respondsToSelector:self.action];
 	}
 	
 	else

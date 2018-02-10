@@ -5,7 +5,7 @@
 
 @implementation ReadProgressTracker
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     totalLines = 0;
     processedLines = 0;
@@ -20,7 +20,7 @@
   unsigned  pos = 0;
 
   // For better performance on large input data, read only complete blocks in the main loop.
-  NSUInteger  numBlocks = [inputData length] / READ_BUFFER_SIZE;
+  NSUInteger  numBlocks = inputData.length / READ_BUFFER_SIZE;
   NSUInteger  maxpos = numBlocks * READ_BUFFER_SIZE;
   while (pos < maxpos) {
     [inputData getBytes: (void *)buffer range: NSMakeRange(pos, READ_BUFFER_SIZE)];
@@ -38,7 +38,7 @@
   }
 
   // Read the last, partially filled, block, if any.
-  NSUInteger  i = [inputData length] - pos;
+  NSUInteger  i = inputData.length - pos;
   if (i > 0) {
     [inputData getBytes: (void *)buffer range: NSMakeRange(pos, i)];
     while (i--) {

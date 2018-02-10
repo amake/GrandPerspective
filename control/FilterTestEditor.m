@@ -18,8 +18,9 @@
   NSString  *allowedName;
 }
 
-- (id) initWithExistingTests:(NSDictionary *)allTests;
-- (id) initWithExistingTests:(NSDictionary *)allTests allowedName:(NSString *)name;
+- (instancetype) initWithExistingTests:(NSDictionary *)allTests;
+- (instancetype) initWithExistingTests:(NSDictionary *)allTests
+                           allowedName:(NSString *)name NS_DESIGNATED_INITIALIZER;
 
 @end // @interface FilterTestNameValidator
 
@@ -27,7 +28,7 @@
 
 @interface FilterTestEditor (PrivateMethods)
 
-- (NSWindow *)loadEditFilterTestWindow;
+@property (nonatomic, readonly, strong) NSWindow *loadEditFilterTestWindow;
 
 @end // @interface FilterTestEditor (PrivateMethods)
 
@@ -35,11 +36,11 @@
 
 @implementation FilterTestEditor
 
-- (id) init {
+- (instancetype) init {
   return [self initWithFilterTestRepository: [FilterTestRepository defaultInstance]];
 }
 
-- (id) initWithFilterTestRepository:(FilterTestRepository *)repository {
+- (instancetype) initWithFilterTestRepository:(FilterTestRepository *)repository {
   if (self = [super init]) {
     filterTestWindowControl = nil; // Load it lazily
   
@@ -78,7 +79,7 @@
       NSString  *name = [filterTest name];
 
       // The nameValidator should have ensured that this check succeeds.
-      NSAssert([[testRepository testsByName] objectForKey: name] == nil,
+      NSAssert([testRepository testsByName][name] == nil,
                @"Duplicate name check failed.");
 
       [[testRepository testsByNameAsNotifyingDictionary] addObject: [filterTest fileItemTest]
@@ -99,7 +100,7 @@
 - (FilterTest *)editFilterTestNamed:(NSString *)oldName {
   NSWindow  *editTestWindow = [self loadEditFilterTestWindow];
 
-  FileItemTest  *oldTest = [[testRepository testsByName] objectForKey: oldName];
+  FileItemTest  *oldTest = [testRepository testsByName][oldName];
 
   [filterTestWindowControl representFilterTest: 
      [FilterTest filterTestWithName: oldName fileItemTest: oldTest]];
@@ -133,7 +134,7 @@
 
       // The terminationControl should have ensured that this check succeeds.
       NSAssert([newName isEqualToString: oldName] ||
-               [[testRepository testsByName] objectForKey: newName] == nil,
+               [testRepository testsByName][newName] == nil,
                @"Duplicate name check failed.");
 
       if (! [newName isEqualToString: oldName]) {
@@ -170,7 +171,7 @@
     filterTestWindowControl = [[FilterTestWindowControl alloc] init];
   }
   // Return its window. This also ensure that it is loaded before its control is used.
-  return [filterTestWindowControl window];
+  return filterTestWindowControl.window;
 }
 
 @end // @implementation FilterTestEditor (PrivateMethods)
@@ -179,16 +180,17 @@
 @implementation FilterTestNameValidator
 
 // Overrides designated initialiser.
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithExistingTests: instead.");
   return nil;
 }
 
-- (id) initWithExistingTests:(NSDictionary *)allTestsVal {
+- (instancetype) initWithExistingTests:(NSDictionary *)allTestsVal {
   return [self initWithExistingTests: allTestsVal allowedName: nil];
 }
 
-- (id) initWithExistingTests:(NSDictionary *)allTestsVal allowedName:(NSString *)name {
+- (instancetype) initWithExistingTests:(NSDictionary *)allTestsVal
+                           allowedName:(NSString *)name {
   if (self = [super init]) {
     allTests = [allTestsVal retain];
     allowedName = [name retain];    
@@ -210,7 +212,7 @@
     return NSLocalizedString(@"The test must have a name.", @"Alert message");
   }
   else if ( ![allowedName isEqualToString: name] &&
-            [allTests objectForKey: name] != nil) {
+            allTests[name] != nil) {
     NSString  *fmt = NSLocalizedString(@"A test named \"%@\" already exists.", @"Alert message");
     return [NSString stringWithFormat: fmt, name];
   }

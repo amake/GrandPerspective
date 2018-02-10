@@ -28,7 +28,7 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 }
 
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     rankedTypes = [[NSMutableArray alloc] initWithCapacity: 32];
   }
@@ -64,9 +64,9 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 }
 
 - (void) storeRanking {
-  NSMutableArray  *rankedUTIs = [[NSMutableArray alloc] initWithCapacity: [rankedTypes count]];
+  NSMutableArray  *rankedUTIs = [[NSMutableArray alloc] initWithCapacity: rankedTypes.count];
     
-  NSMutableSet  *encountered = [NSMutableSet setWithCapacity: [rankedUTIs count]];
+  NSMutableSet  *encountered = [NSMutableSet setWithCapacity: rankedUTIs.count];
     
   NSEnumerator  *typeEnum = [rankedTypes objectEnumerator];
   UniformType  *type;
@@ -98,7 +98,7 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
            object: typeInventory];
         
   // Also add any types in the inventory that are not yet in the ranking
-  NSMutableSet  *typesInRanking = [NSMutableSet setWithCapacity: ([rankedTypes count] + 16)];
+  NSMutableSet  *typesInRanking = [NSMutableSet setWithCapacity: (rankedTypes.count + 16)];
 
   [typesInRanking addObjectsFromArray: rankedTypes];
   NSEnumerator  *typesEnum = [typeInventory uniformTypeEnumerator];
@@ -119,7 +119,7 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 
 - (void) updateRankedUniformTypes:(NSArray *)ranking {
   // Updates the ranking while keeping new types that may have appeared in the meantime.
-  [rankedTypes replaceObjectsInRange: NSMakeRange(0, [ranking count])
+  [rankedTypes replaceObjectsInRange: NSMakeRange(0, ranking.count)
                 withObjectsFromArray: ranking];
   
   // Notify any observers.
@@ -130,12 +130,12 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 
 - (BOOL) isUniformTypeDominated:(UniformType *)type {
   NSUInteger  i = 0;
-  NSUInteger  i_max = [rankedTypes count];
+  NSUInteger  i_max = rankedTypes.count;
   
   NSSet  *ancestors = [type ancestorTypes];
   
   while (i < i_max) {
-    UniformType  *higherType = [rankedTypes objectAtIndex: i];
+    UniformType  *higherType = rankedTypes[i];
     
     if (higherType == type) {
       // Found the type in the list, without encountering any type that dominates it.
@@ -154,13 +154,13 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 }
 
 - (NSArray *)undominatedRankedUniformTypes {
-  NSMutableArray  *undominatedTypes = [NSMutableArray arrayWithCapacity: [rankedTypes count]];
+  NSMutableArray  *undominatedTypes = [NSMutableArray arrayWithCapacity: rankedTypes.count];
     
   NSUInteger  i = 0;
-  NSUInteger  i_max = [rankedTypes count];
+  NSUInteger  i_max = rankedTypes.count;
 
   while (i < i_max) {
-    UniformType  *type = [rankedTypes objectAtIndex: i];
+    UniformType  *type = rankedTypes[i];
     
     if (! [self isUniformTypeDominated: type]) {
       [undominatedTypes addObject: type];
@@ -178,7 +178,7 @@ NSString  *UniformTypesRankingKey = @"uniformTypesRanking";
 @implementation UniformTypeRanking (PrivateMethods) 
 
 - (void) uniformTypeAdded:(NSNotification *)notification {
-  UniformType  *type = [[notification userInfo] objectForKey: UniformTypeKey];
+  UniformType  *type = notification.userInfo[UniformTypeKey];
 
   [rankedTypes addObject: type];
 }

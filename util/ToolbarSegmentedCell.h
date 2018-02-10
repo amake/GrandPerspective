@@ -10,6 +10,6 @@
 
 /* Initialises the cell using the settings of the provided cell.
  */
-- (id) initWithSegmentedCell:(NSSegmentedCell *)cell;
+- (instancetype) initWithSegmentedCell:(NSSegmentedCell *)cell NS_DESIGNATED_INITIALIZER;
 
 @end

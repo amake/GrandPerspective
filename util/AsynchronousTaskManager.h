@@ -24,13 +24,13 @@
 /* Initialises the manager with the task executor, which is responsible for carrying out the actual
  * tasks.
  */
-- (id) initWithTaskExecutor: (NSObject <TaskExecutor>*)executor;
+- (instancetype) initWithTaskExecutor: (NSObject <TaskExecutor>*)executor NS_DESIGNATED_INITIALIZER;
 
 /* Call to free used resources (in particular the background thread that is being used).
  */
 - (void) dispose;
 
-- (NSObject <TaskExecutor>*) taskExecutor;
+@property (nonatomic, readonly, strong) NSObject<TaskExecutor> *taskExecutor;
 
 /* Aborts the currently running task (if any)
  */

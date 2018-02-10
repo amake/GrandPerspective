@@ -14,33 +14,27 @@
   NSSize  unzoomedViewSize;
 }
 
-- (id) initWithColorMappingKey:(NSString *)colorMappingKey 
-               colorPaletteKey:(NSString *)colorPaletteKey
-                      maskName:(NSString *)maskName
-                   maskEnabled:(BOOL)maskEnabled
-              showEntireVolume:(BOOL)showEntireVolume
-           showPackageContents:(BOOL)showPackageContents
-              unzoomedViewSize:(NSSize)viewSize;
+- (instancetype) initWithColorMappingKey:(NSString *)colorMappingKey
+                         colorPaletteKey:(NSString *)colorPaletteKey
+                                maskName:(NSString *)maskName
+                             maskEnabled:(BOOL)maskEnabled
+                        showEntireVolume:(BOOL)showEntireVolume
+                     showPackageContents:(BOOL)showPackageContents
+                        unzoomedViewSize:(NSSize)viewSize NS_DESIGNATED_INITIALIZER;
 
-- (NSString *)colorMappingKey;
-- (void) setColorMappingKey:(NSString *)key;
+@property (nonatomic, copy) NSString *colorMappingKey;
 
-- (NSString *)colorPaletteKey;
-- (void) setColorPaletteKey:(NSString *)key;
+@property (nonatomic, copy) NSString *colorPaletteKey;
 
-- (NSString *)maskName;
-- (void) setMaskName:(NSString *)maskName;
+@property (nonatomic, copy) NSString *maskName;
 
-- (BOOL) fileItemMaskEnabled;
-- (void) setFileItemMaskEnabled:(BOOL)flag;
+@property (nonatomic) BOOL fileItemMaskEnabled;
 
-- (BOOL) showEntireVolume;
-- (void) setShowEntireVolume:(BOOL)flag;
+@property (nonatomic) BOOL showEntireVolume;
 
-- (BOOL) showPackageContents;
-- (void) setShowPackageContents:(BOOL)flag;
+@property (nonatomic) BOOL showPackageContents;
 
-- (NSSize) unzoomedViewSize;
+@property (nonatomic, readonly) NSSize unzoomedViewSize;
 - (void) setunzoomedViewSize:(NSSize)size;
 
 @end

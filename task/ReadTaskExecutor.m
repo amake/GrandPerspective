@@ -6,7 +6,7 @@
 
 @implementation ReadTaskExecutor
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     taskLock = [[NSLock alloc] init];
     treeReader = nil;

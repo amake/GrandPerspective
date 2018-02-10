@@ -9,33 +9,33 @@
 
 @interface FilterSet (PrivateMethods)
 
-- (id) initWithNamedFilters:(NSArray *)filters
-           filterRepository:(FilterRepository *)filterRepository
-             testRepository:(FilterTestRepository *)testRepository
-             unboundFilters:(NSMutableArray *)unboundFilters
-               unboundTests:(NSMutableArray *)unboundTests;
+- (instancetype) initWithNamedFilters:(NSArray *)filters
+                     filterRepository:(FilterRepository *)filterRepository
+                       testRepository:(FilterTestRepository *)testRepository
+                       unboundFilters:(NSMutableArray *)unboundFilters
+                         unboundTests:(NSMutableArray *)unboundTests;
 
 @end // @interface FilterSet (PrivateMethods)
 
 
 @implementation FilterSet
 
-+ (id) filterSet {
++ (instancetype) filterSet {
   return [[[FilterSet alloc] init] autorelease];
 }
 
-+ (id) filterSetWithNamedFilter:(NamedFilter *)namedFilter
-                 unboundFilters:(NSMutableArray *)unboundFilters
-                   unboundTests:(NSMutableArray *)unboundTests {
-  NSArray  *namedFilters = [NSArray arrayWithObject: namedFilter];
++ (instancetype) filterSetWithNamedFilter:(NamedFilter *)namedFilter
+                           unboundFilters:(NSMutableArray *)unboundFilters
+                             unboundTests:(NSMutableArray *)unboundTests {
+  NSArray  *namedFilters = @[namedFilter];
   return [FilterSet filterSetWithNamedFilters: namedFilters
                                unboundFilters: unboundFilters
                                  unboundTests: unboundTests];
 }
 
-+ (id) filterSetWithNamedFilters:(NSArray *)namedFilters
-                  unboundFilters:(NSMutableArray *)unboundFilters
-                    unboundTests:(NSMutableArray *)unboundTests {
++ (instancetype) filterSetWithNamedFilters:(NSArray *)namedFilters
+                            unboundFilters:(NSMutableArray *)unboundFilters
+                              unboundTests:(NSMutableArray *)unboundTests {
   FilterRepository  *filterRepo = [FilterRepository defaultInstance];
   FilterTestRepository  *testRepo = [FilterTestRepository defaultInstance];
   return [FilterSet filterSetWithNamedFilters: namedFilters
@@ -45,11 +45,11 @@
                                  unboundTests: unboundTests];
 }
 
-+ (id) filterSetWithNamedFilters:(NSArray *)namedFilters
-                filterRepository:(FilterRepository *)filterRepository
-                  testRepository:(FilterTestRepository *)testRepository
-                  unboundFilters:(NSMutableArray *)unboundFilters
-                    unboundTests:(NSMutableArray *)unboundTests {
++ (instancetype) filterSetWithNamedFilters:(NSArray *)namedFilters
+                          filterRepository:(FilterRepository *)filterRepository
+                            testRepository:(FilterTestRepository *)testRepository
+                            unboundFilters:(NSMutableArray *)unboundFilters
+                              unboundTests:(NSMutableArray *)unboundTests {
   // Clone to ensure immutability
   NSArray  *clonedNamedFilters = [NSArray arrayWithArray: namedFilters];
   return [[[FilterSet alloc] initWithNamedFilters: clonedNamedFilters
@@ -62,13 +62,13 @@
 
 
 // Overrides parent's designated initialiser.
-- (id) init {
-  return [self initWithNamedFilters: [NSArray array] fileItemTest: nil];
+- (instancetype) init {
+  return [self initWithNamedFilters: @[] fileItemTest: nil];
 }
 
 /* Designated initialiser.
  */
-- (id) initWithNamedFilters:(NSArray *)filtersVal
+- (instancetype) initWithNamedFilters:(NSArray *)filtersVal
                fileItemTest:(FileItemTest *)fileItemTestVal {
   if (self = [super init]) {
     filters = [filtersVal retain];
@@ -106,7 +106,7 @@
 
 - (FilterSet *)filterSetWithAddedNamedFilter:(NamedFilter *)filter
                                 unboundTests:(NSMutableArray *)unboundTests {
-  NSMutableArray  *newFilters = [NSMutableArray arrayWithCapacity: [filters count]+1];
+  NSMutableArray  *newFilters = [NSMutableArray arrayWithCapacity: filters.count+1];
     
   [newFilters addObjectsFromArray: filters];
   [newFilters addObject: filter];
@@ -120,8 +120,8 @@
   } else if (testForNewFilter == nil) {
     newFileItemTest = fileItemTest;
   } else {
-    newFileItemTest = [[CompoundAndItemTest alloc] initWithSubItemTests:
-                       [NSArray arrayWithObjects: fileItemTest, testForNewFilter, nil]];
+    newFileItemTest =
+      [[CompoundAndItemTest alloc] initWithSubItemTests: @[fileItemTest, testForNewFilter]];
   }
 
   return [[[FilterSet alloc] initWithNamedFilters: newFilters
@@ -134,7 +134,7 @@
 
 
 - (NSUInteger) numFilters {
-  return [filters count];
+  return filters.count;
 }
 
 - (NSArray *)filters {
@@ -149,7 +149,7 @@
   NamedFilter  *namedFilter;
 
   while (namedFilter = [filterEnum nextObject]) {
-    if ([descr length] > 0) {
+    if (descr.length > 0) {
       [descr appendString: @", "];
     }
     [descr appendString: [namedFilter localizedName]];
@@ -163,13 +163,13 @@
 
 @implementation FilterSet (PrivateMethods)
 
-- (id) initWithNamedFilters:(NSArray *)namedFilters
-           filterRepository:(FilterRepository *)filterRepository
-             testRepository:(FilterTestRepository *)testRepository
-             unboundFilters:(NSMutableArray *)unboundFilters
-               unboundTests:(NSMutableArray *)unboundTests {
+- (instancetype) initWithNamedFilters:(NSArray *)namedFilters
+                     filterRepository:(FilterRepository *)filterRepository
+                       testRepository:(FilterTestRepository *)testRepository
+                       unboundFilters:(NSMutableArray *)unboundFilters
+                         unboundTests:(NSMutableArray *)unboundTests {
   // Create the file item test for the set of filters.
-  NSMutableArray  *filterTests = [NSMutableArray arrayWithCapacity: [namedFilters count]];
+  NSMutableArray  *filterTests = [NSMutableArray arrayWithCapacity: namedFilters.count];
 
   NSEnumerator  *filterEnum = [namedFilters objectEnumerator];
   NamedFilter  *namedFilter;
@@ -181,7 +181,7 @@
       filter = [namedFilter filter];
     } else {
       // Look-up current filter definition
-      filter = [[filterRepository filtersByName] objectForKey: [namedFilter name]];
+      filter = [filterRepository filtersByName][[namedFilter name]];
       if (filter == nil) {
         // The filter with this name does not exist anymore in the repository
         [unboundFilters addObject: [namedFilter name]];
@@ -203,11 +203,11 @@
   }
 
   FileItemTest  *testForFilterSet;
-  if ([filterTests count] == 0) {
+  if (filterTests.count == 0) {
     testForFilterSet = nil;
   }
-  else if ([filterTests count] == 1) {
-    testForFilterSet = [[filterTests objectAtIndex: 0] retain];
+  else if (filterTests.count == 1) {
+    testForFilterSet = [filterTests[0] retain];
   }
   else {
     testForFilterSet = [[CompoundAndItemTest alloc] initWithSubItemTests: filterTests];

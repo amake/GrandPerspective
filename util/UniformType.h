@@ -11,15 +11,15 @@
 }
 
 
-- (id) initWithUniformTypeIdentifier:(NSString *)uti
-                         description:(NSString *)description
-                             parents:(NSArray *)parentTypes;
+- (instancetype) initWithUniformTypeIdentifier:(NSString *)uti
+                                   description:(NSString *)description
+                                       parents:(NSArray *)parentTypes NS_DESIGNATED_INITIALIZER;
 
-- (NSString *)uniformTypeIdentifier;
+@property (nonatomic, readonly, copy) NSString *uniformTypeIdentifier;
 
-- (NSString *)description;
+@property (nonatomic, readonly, copy) NSString *description;
 
-- (NSSet *)parentTypes;
+@property (nonatomic, readonly, copy) NSSet *parentTypes;
 
 /* Dynamically constructs the set of types that the receiving type conforms to (directly or
  * indirectly).
@@ -34,6 +34,6 @@
  * convenience method. Furthermore, such a method would also hide the execution overhead associated
  * with conformance tests.
  */
-- (NSSet *)ancestorTypes;
+@property (nonatomic, readonly, copy) NSSet *ancestorTypes;
 
 @end

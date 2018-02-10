@@ -15,14 +15,14 @@
   FilterTestWindowControl  *filterTestWindowControl;
 }
 
-- (id) init;
-- (id) initWithFilterTestRepository:(FilterTestRepository *)testRepository;
+- (instancetype) init;
+- (instancetype) initWithFilterTestRepository:(FilterTestRepository *)testRepository NS_DESIGNATED_INITIALIZER;
 
 /* Edits a new filter test. It returns the new test, or "nil" if the action was cancelled. It
  * updates the repository. The repository's NotifyingDictionary will fire an "objectAdded" event in
  * response.
  */
-- (FilterTest *)newFilterTest;
+@property (nonatomic, readonly, strong) FilterTest *newFilterTest;
 
 /* Edits an existing test with the given name. The test should exist in the test repository. It
  * returns the modified test, or "nil" if the action was cancelled. It updates the filter in the

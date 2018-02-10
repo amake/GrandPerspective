@@ -11,8 +11,8 @@
 
 }
 
-- (id) initWithUniformTypeRanking:(UniformTypeRanking *)typeRanking;
+- (instancetype) initWithUniformTypeRanking:(UniformTypeRanking *)typeRanking NS_DESIGNATED_INITIALIZER;
 
-- (UniformTypeRanking *)uniformTypeRanking;
+@property (nonatomic, readonly, strong) UniformTypeRanking *uniformTypeRanking;
 
 @end

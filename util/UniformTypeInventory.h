@@ -39,7 +39,7 @@ extern NSString  *UniformTypeKey;
 
 + (UniformTypeInventory *)defaultUniformTypeInventory;
 
-- (NSUInteger) count;
+@property (nonatomic, readonly) NSUInteger count;
 
 - (NSSet *)childrenOfUniformType: (UniformType *)type;
 
@@ -61,7 +61,7 @@ extern NSString  *UniformTypeKey;
 /* Returns the generic unknown type. It can be used whenever there is no proper uniform type for a
  * given file, extension or UTI.
  */
-- (UniformType *)unknownUniformType;
+@property (nonatomic, readonly, strong) UniformType *unknownUniformType;
 
 // For debugging.
 - (void) dumpTypesToLog;

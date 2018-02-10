@@ -3,7 +3,7 @@
 
 @implementation ItemSizeTestFinder
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     itemSizeTestFound = NO;
   }

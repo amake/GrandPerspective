@@ -61,8 +61,8 @@ NSString  *RescanVisible = @"rescan visible";
   ReadTaskInput  *taskInput;
 }
 
-- (id) initWithWindowManager:(WindowManager *)windowManager 
-               readTaskInput:(ReadTaskInput *)taskInput;
+- (instancetype) initWithWindowManager:(WindowManager *)windowManager
+                         readTaskInput:(ReadTaskInput *)taskInput NS_DESIGNATED_INITIALIZER;
 
 - (void) readTaskCompleted:(TreeReader *)treeReader;
 
@@ -73,7 +73,7 @@ NSString  *RescanVisible = @"rescan visible";
   WriteTaskInput  *taskInput;
 }
 
-- (id) initWithWriteTaskInput:(WriteTaskInput *)taskInput;
+- (instancetype) initWithWriteTaskInput:(WriteTaskInput *)taskInput NS_DESIGNATED_INITIALIZER;
 
 - (void) writeTaskCompleted:(id)result;
 
@@ -86,7 +86,7 @@ NSString  *RescanVisible = @"rescan visible";
 
 @property BOOL  addToRecentScans;
 
-- (id) initWithWindowManager:(WindowManager *)windowManager;
+- (instancetype) initWithWindowManager:(WindowManager *)windowManager NS_DESIGNATED_INITIALIZER;
 
 - (void) createWindowForTree:(TreeContext *)treeContext;
 - (void) createWindowForAnnotatedTree:(AnnotatedTreeContext *)annTreeContext;
@@ -102,9 +102,9 @@ NSString  *RescanVisible = @"rescan visible";
   DirectoryViewControlSettings  *settings;
 }
 
-- (id) initWithWindowManager:(WindowManager *)windowManager
-                  targetPath:(ItemPathModel *)targetPath
-                    settings:(DirectoryViewControlSettings *)settings;
+- (instancetype) initWithWindowManager:(WindowManager *)windowManager
+                            targetPath:(ItemPathModel *)targetPath
+                              settings:(DirectoryViewControlSettings *)settings NS_DESIGNATED_INITIALIZER;
 
 @end // @interface DerivedDirViewWindowCreator
 
@@ -177,11 +177,11 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 + (NSArray *) rescanActionNames {
-  return [NSArray arrayWithObjects: RescanAll, RescanVisible, nil];
+  return @[RescanAll, RescanVisible];
 }
 
 + (NSArray *) rescanBehaviourNames {
-  return [NSArray arrayWithObjects: RescanClosesOldWindow, RescanKeepsOldWindow, nil];
+  return @[RescanClosesOldWindow, RescanKeepsOldWindow];
 }
 
 + (void) reportUnboundFilters:(NSArray *)unboundFilters {
@@ -203,7 +203,7 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-- (id) init {
+- (instancetype) init {
   NSAssert(singletonInstance == nil, @"Can only create one MainMenuControl.");
 
   if (self = [super init]) {
@@ -292,7 +292,7 @@ static MainMenuControl  *singletonInstance = nil;
       // Loading is done asynchronously, so starting a scan is assumed a successful action
       return YES;
     }
-    else if ([[[filename pathExtension] lowercaseString] isEqualToString: @"gpscan"]) {
+    else if ([filename.pathExtension.lowercaseString isEqualToString: @"gpscan"]) {
       [self loadScanDataFromFile: filename];
       showWelcomeWindowAfterLaunch = NO;
       // Loading is done asynchronously, so starting a load is assumed a successful action
@@ -303,9 +303,9 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 - (void) applicationWillFinishLaunching:(NSNotification *)notification {
-  NSMenu  *mainMenu = [NSApp mainMenu];
-  NSMenu  *fileMenu = [[mainMenu itemWithTag: 100] submenu];
-  NSMenu  *recentMenu = [[fileMenu itemWithTag: 102] submenu];
+  NSMenu  *mainMenu = NSApp.mainMenu;
+  NSMenu  *fileMenu = [mainMenu itemWithTag: 100].submenu;
+  NSMenu  *recentMenu = [fileMenu itemWithTag: 102].submenu;
 
   // Let Cocoa automatically manage the contents of the Recent Documents sub-menu. This relies on
   // an undocumented interface, as discovered by Jeff Johnson and shared on his blog:
@@ -317,7 +317,7 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
-  [NSApp setServicesProvider: self];
+  NSApp.servicesProvider = self;
   
   if (showWelcomeWindowAfterLaunch) {
     NSTimeInterval delay = [[NSUserDefaults standardUserDefaults] 
@@ -381,7 +381,7 @@ static MainMenuControl  *singletonInstance = nil;
     return;
   }
   
-  if (! [[[path pathExtension] lowercaseString] isEqualToString: @"gpscan"]) {
+  if (! [path.pathExtension.lowercaseString isEqualToString: @"gpscan"]) {
     *error = NSLocalizedString(@"Expected scandata file.", @"Error message" );
     NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
@@ -392,18 +392,17 @@ static MainMenuControl  *singletonInstance = nil;
 
 
 - (BOOL) validateMenuItem:(NSMenuItem *)item {
-  SEL  action = [item action];
+  SEL  action = item.action;
 
   if ( action == @selector(toggleToolbarShown:) ) {
-    NSWindow  *window = [[NSApplication sharedApplication] mainWindow];
+    NSWindow  *window = [NSApplication sharedApplication].mainWindow;
 
     if (window == nil) {
       return NO;
     }
-    [item setTitle:
-       [[window toolbar] isVisible]
+    item.title = window.toolbar.visible
        ? NSLocalizedStringFromTable(@"Hide Toolbar", @"Toolbar", @"Menu item")
-       : NSLocalizedStringFromTable(@"Show Toolbar", @"Toolbar", @"Menu item")];
+       : NSLocalizedStringFromTable(@"Show Toolbar", @"Toolbar", @"Menu item");
 
     return YES;
   }
@@ -417,7 +416,7 @@ static MainMenuControl  *singletonInstance = nil;
        action == @selector(saveDirectoryViewImage:) ||
        action == @selector(rescan:) ||
        action == @selector(filterDirectoryView:) ) {
-    return ([[NSApplication sharedApplication] mainWindow] != nil);
+    return ([NSApplication sharedApplication].mainWindow != nil);
   }
   
   return YES;
@@ -448,7 +447,7 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (IBAction) rescanAll:(id)sender {
   DirectoryViewControl  *oldControl =
-    [[[NSApplication sharedApplication] mainWindow] windowController];
+    [NSApplication sharedApplication].mainWindow.windowController;
   if (oldControl == nil) {
     return;
   }
@@ -456,7 +455,7 @@ static MainMenuControl  *singletonInstance = nil;
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   NSString  *rescanBehaviour = [userDefaults stringForKey: RescanBehaviourKey];
   if ([rescanBehaviour isEqualToString: RescanClosesOldWindow]) {
-    [[oldControl window] close];
+    [oldControl.window close];
   }
   
   TreeContext  *oldContext = [oldControl treeContext];
@@ -465,7 +464,7 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (IBAction) rescanVisible:(id)sender {
   DirectoryViewControl  *oldControl = 
-    [[[NSApplication sharedApplication] mainWindow] windowController];
+    [NSApplication sharedApplication].mainWindow.windowController;
   if (oldControl == nil) {
     return;
   }
@@ -476,7 +475,7 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (IBAction) rescanSelected:(id)sender {
   DirectoryViewControl  *oldControl = 
-    [[[NSApplication sharedApplication] mainWindow] windowController];
+    [NSApplication sharedApplication].mainWindow.windowController;
   if (oldControl == nil) {
     return;
   }
@@ -488,7 +487,7 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (IBAction) filterDirectoryView:(id)sender {
   DirectoryViewControl  *oldControl = 
-    [[[NSApplication sharedApplication] mainWindow] windowController];
+    [NSApplication sharedApplication].mainWindow.windowController;
 
   NamedFilter  *namedFilter = [self getSelectedNamedFilter: [oldControl namedMask]];
   if (namedFilter == nil) {
@@ -538,19 +537,19 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (IBAction) saveScanData:(id)sender {
   DirectoryViewControl  *dirViewControl =
-    [[[NSApplication sharedApplication] mainWindow] windowController];
+    [NSApplication sharedApplication].mainWindow.windowController;
     
   NSSavePanel  *savePanel = [NSSavePanel savePanel]; 
-  [savePanel setAllowedFileTypes: [NSArray arrayWithObject: @"gpscan"]];
+  savePanel.allowedFileTypes = @[@"gpscan"];
   [savePanel setTitle: NSLocalizedString(@"Save scan data", @"Title of save panel") ];
   
   if ([savePanel runModal] == NSModalResponseOK) {
-    NSURL  *destURL = [savePanel URL];
+    NSURL  *destURL = savePanel.URL;
     
-    if ([destURL isFileURL]) {
+    if (destURL.fileURL) {
       WriteTaskInput  *input = 
         [[[WriteTaskInput alloc] initWithAnnotatedTreeContext: [dirViewControl annotatedTreeContext]
-                                                         path: [destURL path]]
+                                                         path: destURL.path]
          autorelease];
            
       WriteTaskCallback  *callback =
@@ -568,14 +567,14 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (IBAction) loadScanData:(id)sender {
   NSOpenPanel  *openPanel = [NSOpenPanel openPanel];
-  [openPanel setAllowedFileTypes: [NSArray arrayWithObjects: @"xml", @"gpscan", nil]];
+  openPanel.allowedFileTypes = @[@"xml", @"gpscan"];
 
   [openPanel setTitle: NSLocalizedString(@"Load scan data", @"Title of load panel") ];
   
   if ([openPanel runModal] == NSModalResponseOK) {
-    NSURL  *sourceURL = [openPanel URL];
-    if ([sourceURL isFileURL]) {
-      [self loadScanDataFromFile: [sourceURL path]];
+    NSURL  *sourceURL = openPanel.URL;
+    if (sourceURL.fileURL) {
+      [self loadScanDataFromFile: sourceURL.path];
     } else {
       NSLog(@"Source '%@' is not a file?", sourceURL); 
     }
@@ -585,7 +584,7 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (IBAction) saveDirectoryViewImage:(id)sender {
   DirectoryViewControl  *dirViewControl = 
-    [[[NSApplication sharedApplication] mainWindow] windowController];
+    [NSApplication sharedApplication].mainWindow.windowController;
 
   // Dialog auto-disposes when its job is done.
   [[SaveImageDialogControl alloc] initWithDirectoryViewControl: dirViewControl];
@@ -596,10 +595,10 @@ static MainMenuControl  *singletonInstance = nil;
     // Lazily create the panel
     preferencesPanelControl = [[PreferencesPanelControl alloc] init];
     
-    [[preferencesPanelControl window] center];
+    [preferencesPanelControl.window center];
   }
 
-  [[preferencesPanelControl window] makeKeyAndOrderFront: self];
+  [preferencesPanelControl.window makeKeyAndOrderFront: self];
 }
 
 - (IBAction) editFilters:(id)sender {
@@ -608,10 +607,10 @@ static MainMenuControl  *singletonInstance = nil;
     filtersWindowControl = [[FiltersWindowControl alloc] init];
 
     // Initially center it, subsequently keep position as chosen by user
-    [[filtersWindowControl window] center];
+    [filtersWindowControl.window center];
   }
   
-  [[filtersWindowControl window] makeKeyAndOrderFront: self];
+  [filtersWindowControl.window makeKeyAndOrderFront: self];
 }
 
 - (IBAction) editUniformTypeRanking:(id)sender {
@@ -621,16 +620,16 @@ static MainMenuControl  *singletonInstance = nil;
   }
   
   // [uniformTypeWindowControl refreshTypeList];
-  [[uniformTypeWindowControl window] makeKeyAndOrderFront: self];
+  [uniformTypeWindowControl.window makeKeyAndOrderFront: self];
 }
 
 
 - (IBAction) toggleToolbarShown:(id)sender {
-  [[[NSApplication sharedApplication] mainWindow] toggleToolbarShown: sender];
+  [[NSApplication sharedApplication].mainWindow toggleToolbarShown: sender];
 }
 
 - (IBAction) customizeToolbar:(id)sender {
-  [[[NSApplication sharedApplication] mainWindow] runToolbarCustomizationPalette: sender];
+  [[NSApplication sharedApplication].mainWindow runToolbarCustomizationPalette: sender];
 }
 
 
@@ -662,7 +661,7 @@ static MainMenuControl  *singletonInstance = nil;
       [[[StartWindowControl alloc] initWithMainMenuControl: self] autorelease];
 
     // Show modal window. The controller will close it and end the modal session.
-    [NSApp runModalForWindow: [startWindowControl window]];
+    [NSApp runModalForWindow: startWindowControl.window];
   }
 }
        
@@ -673,8 +672,7 @@ static MainMenuControl  *singletonInstance = nil;
   [openPanel setAllowsMultipleSelection: NO];
   
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
-  [openPanel setTreatsFilePackagesAsDirectories: 
-               [userDefaults boolForKey: ShowPackageContentsByDefaultKey]];
+  openPanel.treatsFilePackagesAsDirectories = [userDefaults boolForKey: ShowPackageContentsByDefaultKey];
   
   [openPanel setTitle: NSLocalizedString(@"Scan folder", @"Title of open panel")];
   [openPanel setPrompt: NSLocalizedString(@"Scan", @"Prompt in open panel")];
@@ -683,8 +681,8 @@ static MainMenuControl  *singletonInstance = nil;
     return; // Abort
   } 
 
-  NSURL  *targetURL = [openPanel URL];
-  if (! [targetURL isFileURL]) {
+  NSURL  *targetURL = openPanel.URL;
+  if (! targetURL.fileURL) {
     NSLog(@"URL '%@' is not a file?", targetURL);
     return;
   }
@@ -698,7 +696,7 @@ static MainMenuControl  *singletonInstance = nil;
     }
   }
 
-  [self scanFolder: [targetURL path] namedFilter: namedFilter];
+  [self scanFolder: targetURL.path namedFilter: namedFilter];
 }
 
 - (void) scanFolder:(NSString *)path namedFilter:(NamedFilter *)namedFilter {
@@ -787,7 +785,7 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (void) duplicateCurrentWindowSharingPath:(BOOL)sharePathModel {
   DirectoryViewControl  *oldControl = 
-    [[[NSApplication sharedApplication] mainWindow] windowController];
+    [NSApplication sharedApplication].mainWindow.windowController;
 
   // Share or clone the path model.
   ItemPathModel  *pathModel = [[oldControl pathModelView] pathModel];
@@ -803,7 +801,7 @@ static MainMenuControl  *singletonInstance = nil;
   // Note: The control should auto-release itself when its window closes
     
   // Force loading (and showing) of the window.
-  [windowManager addWindow: [newControl window] usingTitle: [[oldControl window] title]];
+  [windowManager addWindow: newControl.window usingTitle: oldControl.window.title];
 }
 
 
@@ -816,7 +814,7 @@ static MainMenuControl  *singletonInstance = nil;
     [filterSelectionPanelControl selectFilterNamed: [initialFilter name]];
   }
   
-  NSWindow  *selectFilterWindow = [filterSelectionPanelControl window];
+  NSWindow  *selectFilterWindow = filterSelectionPanelControl.window;
   NSInteger  status = [NSApp runModalForWindow: selectFilterWindow];
   [selectFilterWindow close];
   
@@ -829,7 +827,7 @@ static MainMenuControl  *singletonInstance = nil;
 
 + (NSString *)getPathFromPasteboard:(NSPasteboard *)pboard {
   NSArray *supportedTypes =
-    [NSArray arrayWithObjects: NSFilenamesPboardType, NSStringPboardType, nil];
+    @[NSFilenamesPboardType, NSStringPboardType];
     
   NSString  *bestType = [pboard availableTypeFromArray: supportedTypes];
   if (bestType == nil) {
@@ -838,10 +836,10 @@ static MainMenuControl  *singletonInstance = nil;
 
   if ([bestType isEqualToString: NSFilenamesPboardType]) {
     NSArray  *files = [pboard propertyListForType: NSFilenamesPboardType];
-    if ([files count] < 1) {
+    if (files.count < 1) {
       return nil;
     }
-    return [files objectAtIndex: 0];
+    return files[0];
   }
   else if ([bestType isEqualToString: NSStringPboardType]) {
     return [pboard stringForType: NSStringPboardType];
@@ -853,7 +851,7 @@ static MainMenuControl  *singletonInstance = nil;
 + (void) reportUnbound:(NSArray *)unboundNames
          messageFormat:(NSString *)format
               infoText:(NSString *)infoText {
-  if ([unboundNames count] == 0) {
+  if (unboundNames.count == 0) {
     // No unbound items. Nothing to report.
     return;
   }
@@ -861,7 +859,7 @@ static MainMenuControl  *singletonInstance = nil;
   NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 
   // Quote the names
-  NSMutableArray  *quotedNames = [NSMutableArray arrayWithCapacity: [unboundNames count]];
+  NSMutableArray  *quotedNames = [NSMutableArray arrayWithCapacity: unboundNames.count];
   NSEnumerator  *nameEnum = [unboundNames objectEnumerator];
   NSString  *name;
   while (name = [nameEnum nextObject]) {
@@ -871,8 +869,8 @@ static MainMenuControl  *singletonInstance = nil;
   NSString  *nameList = [LocalizableStrings localizedAndEnumerationString: quotedNames];
 
   [alert addButtonWithTitle: OK_BUTTON_TITLE];
-  [alert setMessageText: [NSString stringWithFormat: format, nameList]];
-  [alert setInformativeText: infoText];
+  alert.messageText = [NSString stringWithFormat: format, nameList];
+  alert.informativeText = infoText;
 
   [alert runModal];
 }
@@ -888,7 +886,7 @@ static MainMenuControl  *singletonInstance = nil;
   if ([filterSet numFilters] == 0) {
     return [NSString stringWithFormat: @"%@ - %@", scanPath, scanTime];
   }
-  return [NSString stringWithFormat: @"%@ - %@ - %@", scanPath, scanTime, [filterSet description]];
+  return [NSString stringWithFormat: @"%@ - %@ - %@", scanPath, scanTime, filterSet.description];
 }
 
 @end // @implementation MainMenuControl (PrivateMethods)
@@ -897,13 +895,13 @@ static MainMenuControl  *singletonInstance = nil;
 @implementation ReadTaskCallback
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithReadTaskInput: instead.");
   return nil;
 }
 
-- (id) initWithWindowManager:(WindowManager *)windowManagerVal 
-               readTaskInput:(ReadTaskInput *)taskInputVal {
+- (instancetype) initWithWindowManager:(WindowManager *)windowManagerVal
+                         readTaskInput:(ReadTaskInput *)taskInputVal {
   if (self = [super init]) {
     windowManager = [windowManagerVal retain];
     taskInput = [taskInputVal retain];
@@ -933,9 +931,8 @@ static MainMenuControl  *singletonInstance = nil;
                         @"Alert message (with filename arg)");
 
     [alert addButtonWithTitle: OK_BUTTON_TITLE];
-    [alert setMessageText: 
-             [NSString stringWithFormat: format, [[taskInput path] lastPathComponent]]];
-    [alert setInformativeText: [[treeReader error] localizedDescription]];
+    alert.messageText = [NSString stringWithFormat: format, [taskInput path].lastPathComponent];
+    alert.informativeText = [treeReader error].localizedDescription;
 
     [alert runModal];
   }
@@ -968,12 +965,12 @@ static MainMenuControl  *singletonInstance = nil;
 @implementation WriteTaskCallback
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithWriteTaskInput: instead.");
   return nil;
 }
 
-- (id) initWithWriteTaskInput:(WriteTaskInput *)taskInputVal {
+- (instancetype) initWithWriteTaskInput:(WriteTaskInput *)taskInputVal {
   if (self = [super init]) {
     taskInput = [taskInputVal retain];
   }
@@ -993,7 +990,7 @@ static MainMenuControl  *singletonInstance = nil;
   NSString  *msgFormat = nil;
 
   if (result == SuccessfulVoidResult) {
-    [alert setAlertStyle:  NSInformationalAlertStyle];
+    alert.alertStyle = NSInformationalAlertStyle;
     
     msgFormat = NSLocalizedString(@"Successfully saved the scan data to \"%@\"",
                                   @"Alert message (with filename arg)");
@@ -1010,11 +1007,10 @@ static MainMenuControl  *singletonInstance = nil;
     // An error occured while writing
     msgFormat = NSLocalizedString( @"Failed to save the scan data to \"%@\"", 
                                    @"Alert message (with filename arg)" );
-    [alert setInformativeText: [((NSError *)result) localizedDescription]]; 
+    alert.informativeText = ((NSError *)result).localizedDescription;
   }
 
-  [alert setMessageText: 
-           [NSString stringWithFormat: msgFormat, [[taskInput path] lastPathComponent]]];
+  alert.messageText = [NSString stringWithFormat: msgFormat, [taskInput path].lastPathComponent];
   
   [alert addButtonWithTitle: OK_BUTTON_TITLE];
   [alert runModal];
@@ -1026,12 +1022,12 @@ static MainMenuControl  *singletonInstance = nil;
 @implementation FreshDirViewWindowCreator
 
 // Overrides designated initialiser.
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithWindowManager: instead.");
   return nil;
 }
 
-- (id) initWithWindowManager:(WindowManager *)windowManagerVal {
+- (instancetype) initWithWindowManager:(WindowManager *)windowManagerVal {
   if (self = [super init]) {
     windowManager = [windowManagerVal retain];
     self.addToRecentScans = NO;
@@ -1070,7 +1066,7 @@ static MainMenuControl  *singletonInstance = nil;
   NSString  *title = [MainMenuControl windowTitleForDirectoryView: dirViewControl];
   
   // Force loading (and showing) of the window.
-  [windowManager addWindow: [dirViewControl window] usingTitle: title];
+  [windowManager addWindow: dirViewControl.window usingTitle: title];
 }
 
 - (DirectoryViewControl *) createDirectoryViewControlForAnnotatedTree:
@@ -1084,14 +1080,14 @@ static MainMenuControl  *singletonInstance = nil;
 @implementation DerivedDirViewWindowCreator
 
 // Overrides designated initialiser.
-- (id) initWithWindowManager:(WindowManager *)windowManagerVal {
+- (instancetype) initWithWindowManager:(WindowManager *)windowManagerVal {
   NSAssert(NO, @"Use initWithWindowManager:targetPath:settings instead.");
   return nil;
 }
 
-- (id) initWithWindowManager:(WindowManager *)windowManagerVal
-                  targetPath:(ItemPathModel *)targetPathVal
-                    settings:(DirectoryViewControlSettings *)settingsVal {
+- (instancetype) initWithWindowManager:(WindowManager *)windowManagerVal
+                            targetPath:(ItemPathModel *)targetPathVal
+                              settings:(DirectoryViewControlSettings *)settingsVal {
          
   if (self = [super initWithWindowManager: windowManagerVal]) {
     targetPath = [targetPathVal retain];

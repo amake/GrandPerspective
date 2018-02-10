@@ -19,12 +19,12 @@
 
 
 // Overrides super's designated initialiser.
-- (id) initWithItemSize:(ITEM_SIZE)size {
+- (instancetype) initWithItemSize:(ITEM_SIZE)size {
   NSAssert(NO, @"Use initWithFirst:second instead.");
   return nil;
 }
 
-- (id) initWithFirst:(Item *)firstVal second:(Item *)secondVal {
+- (instancetype) initWithFirst:(Item *)firstVal second:(Item *)secondVal {
   NSAssert(firstVal != nil && secondVal != nil, @"Both values must be non nil.");
   
   if (self = [super initWithItemSize:([firstVal itemSize] + [secondVal itemSize])]) {

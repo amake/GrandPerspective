@@ -66,11 +66,11 @@
 - (void) updateStateBasedOnItemFlagsTest:(ItemFlagsTest *)test;
 - (FileItemTest *)updateStateBasedOnSelectiveItemTest:(SelectiveItemTest *)test;
 
-- (ItemNameTest *)itemNameTestBasedOnState;
-- (ItemPathTest *)itemPathTestBasedOnState;
-- (ItemTypeTest *)itemTypeTestBasedOnState;
-- (ItemSizeTest *)itemSizeTestBasedOnState;
-- (ItemFlagsTest *)itemFlagsTestBasedOnState;
+@property (nonatomic, readonly, strong) ItemNameTest *itemNameTestBasedOnState;
+@property (nonatomic, readonly, strong) ItemPathTest *itemPathTestBasedOnState;
+@property (nonatomic, readonly, strong) ItemTypeTest *itemTypeTestBasedOnState;
+@property (nonatomic, readonly, strong) ItemSizeTest *itemSizeTestBasedOnState;
+@property (nonatomic, readonly, strong) ItemFlagsTest *itemFlagsTestBasedOnState;
 - (FileItemTest *)selectiveItemTestBasedOnState:(FileItemTest *)subTest;
 
 - (IBAction) updateEnabledState:(id)sender;
@@ -81,7 +81,7 @@
 - (void) textEditingStarted:(NSNotification *)notification;
 - (void) textEditingStopped:(NSNotification *)notification;
 
-- (BOOL) isNameKnownInvalid;
+@property (nonatomic, getter=isNameKnownInvalid, readonly) BOOL nameKnownInvalid;
 
 - (void) invalidNameAlertDidEnd:(NSAlert *)alert
                      returnCode:(int)returnCode
@@ -100,16 +100,16 @@
   BOOL  enabled;
 }
 
-- (id) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
-                        targetsView:(NSTableView *)targetsView
-                    addTargetButton:(NSButton *)addTargetButton
-                 removeTargetButton:(NSButton *)removeTargetButton;
+- (instancetype) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
+                                  targetsView:(NSTableView *)targetsView
+                              addTargetButton:(NSButton *)addTargetButton
+                           removeTargetButton:(NSButton *)removeTargetButton NS_DESIGNATED_INITIALIZER;
 
 - (void) resetState;
 
 - (void) setEnabled:(BOOL)enabled;
 
-- (BOOL) hasTargets;
+@property (nonatomic, readonly) BOOL hasTargets;
 - (void) addTarget;
 - (void) removeTarget;
 
@@ -133,15 +133,15 @@
   BOOL  editInProgress;
 }
  
-- (id) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
-                        targetsView:(NSTableView *)targetsView
-            caseInsensitiveCheckBox:(NSButton *)caseCheckBox
-                    addTargetButton:(NSButton *)addTargetButton
-                 removeTargetButton:(NSButton *)removeTargetButton
-                      windowControl:(FilterTestWindowControl *)windowControl;
+- (instancetype) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
+                                  targetsView:(NSTableView *)targetsView
+                      caseInsensitiveCheckBox:(NSButton *)caseCheckBox
+                              addTargetButton:(NSButton *)addTargetButton
+                           removeTargetButton:(NSButton *)removeTargetButton
+                                windowControl:(FilterTestWindowControl *)windowControl NS_DESIGNATED_INITIALIZER;
 
 - (void) updateStateBasedOnStringTest:(MultiMatchStringTest *)test;
-- (MultiMatchStringTest *)stringTestBasedOnState;
+@property (nonatomic, readonly, strong) MultiMatchStringTest *stringTestBasedOnState;
 
 @end // @interface StringMatchControls
 
@@ -159,7 +159,7 @@
 }
 
 - (void) updateStateBasedOnItemTypeTest:(ItemTypeTest *)test;
-- (ItemTypeTest *)itemTypeTestBasedOnState;
+@property (nonatomic, readonly, strong) ItemTypeTest *itemTypeTestBasedOnState;
 
 @end
 
@@ -178,7 +178,7 @@
 
 // Special case: should not cover (override) super's designated initialiser in NSWindowController's
 // case
-- (id) init { 
+- (instancetype) init {
   if (self = [super initWithWindowNibName: @"FilterTestWindow" owner: self]) {
     testName = nil;
     nameValidator = nil;
@@ -239,9 +239,9 @@
 
 
 - (NSString *)fileItemTestName {
-  if ([testNameField isEnabled]) {
+  if (testNameField.enabled) {
     // No fixed "visible" name was set, so get the name from the text field.
-    return [testNameField stringValue];
+    return testNameField.stringValue;
   }
   else {
     // The test name field was showing the test's visible name. Return its original name.
@@ -270,7 +270,7 @@
   // Remember the original name of the test
   [testName release];
   testName = [[filterTest name] retain];
-  [testNameField setStringValue: testName];  
+  testNameField.stringValue = testName;
   FileItemTest  *test = [filterTest fileItemTest];
   
   if ([test isKindOfClass: [SelectiveItemTest class]]) {
@@ -319,7 +319,7 @@
     [subTests addObject: subTest];
   }
   
-  if ( [testTargetPopUp indexOfSelectedItem] == POPUP_FILES ) {
+  if ( testTargetPopUp.indexOfSelectedItem == POPUP_FILES ) {
     // Add any file-only tests
     
     subTest = [self itemSizeTestBasedOnState];
@@ -334,11 +334,11 @@
   }
   
   FileItemTest  *test;
-  if ([subTests count] == 0) {
+  if (subTests.count == 0) {
     test = nil;
   }
-  else if ([subTests count] == 1) {
-    test = [subTests lastObject];
+  else if (subTests.count == 1) {
+    test = subTests.lastObject;
   }
   else {
     test = [[[CompoundAndItemTest alloc] initWithSubItemTests:subTests] autorelease];
@@ -350,7 +350,7 @@
 }
 
 - (void) setVisibleName:(NSString *)name {
-  [testNameField setStringValue: name];
+  testNameField.stringValue = name;
   [testNameField setEnabled: NO];
   [self updateWindowTitle];
 }
@@ -360,7 +360,7 @@
   finalNotificationFired = NO; 
   
   if (invalidName) {
-    [[self window] makeFirstResponder: testNameField];
+    [self.window makeFirstResponder: testNameField];
   }
 }
 
@@ -401,9 +401,9 @@
       NSAlert *alert = [[[NSAlert alloc] init] autorelease];
   
       [alert addButtonWithTitle: OK_BUTTON_TITLE];
-      [alert setMessageText: errorMsg];
+      alert.messageText = errorMsg;
 
-      [alert beginSheetModalForWindow: [self window]
+      [alert beginSheetModalForWindow: self.window
                         modalDelegate: self
                        didEndSelector: @selector(invalidNameAlertDidEnd:returnCode:contextInfo:)
                           contextInfo: nil];
@@ -464,7 +464,7 @@
   [self updateEnabledState: sender];
   
   if ([sender state]==NSOnState) {
-    [[self window] makeFirstResponder: sizeLowerBoundField];
+    [self.window makeFirstResponder: sizeLowerBoundField];
   }
 }
 
@@ -472,7 +472,7 @@
   [self updateEnabledState: sender];
   
   if ([sender state]==NSOnState) {
-    [[self window] makeFirstResponder: sizeUpperBoundField];
+    [self.window makeFirstResponder: sizeUpperBoundField];
   }
 }
 
@@ -514,7 +514,7 @@
 @implementation FilterTestWindowControl (PrivateMethods) 
 
 - (void) resetState {
-  [testNameField setStringValue: @""];
+  testNameField.stringValue = @"";
   [testNameField setEnabled: YES];
   
   // Forget about any previously reported invalid names.
@@ -523,27 +523,27 @@
   
   [testTargetPopUp selectItemAtIndex: POPUP_FILES];
 
-  [nameCheckBox setState: NSOffState];
+  nameCheckBox.state = NSOffState;
   [nameTestControls resetState];
   
-  [pathCheckBox setState: NSOffState];
+  pathCheckBox.state = NSOffState;
   [pathTestControls resetState];
 
-  [typeCheckBox setState: NSOffState];
+  typeCheckBox.state = NSOffState;
   [typeTestControls resetState];
 
-  [sizeLowerBoundCheckBox setState: NSOffState];
-  [sizeLowerBoundField setIntValue: 0];
+  sizeLowerBoundCheckBox.state = NSOffState;
+  sizeLowerBoundField.intValue = 0;
   [sizeLowerBoundUnits selectItemAtIndex: POPUP_BYTES];
   
-  [sizeUpperBoundCheckBox setState: NSOffState];
-  [sizeUpperBoundField setIntValue: 0];
+  sizeUpperBoundCheckBox.state = NSOffState;
+  sizeUpperBoundField.intValue = 0;
   [sizeUpperBoundUnits selectItemAtIndex: POPUP_BYTES];
   
-  [hardLinkCheckBox setState: NSOffState];
+  hardLinkCheckBox.state = NSOffState;
   [hardLinkStatusPopUp selectItemAtIndex: POPUP_FLAG_IS];
 
-  [packageCheckBox setState: NSOffState];
+  packageCheckBox.state = NSOffState;
   [packageStatusPopUp selectItemAtIndex: POPUP_FLAG_IS];
   
   [self updateWindowTitle];
@@ -578,7 +578,7 @@
   MultiMatchStringTest  *stringTest = (MultiMatchStringTest*)[test stringTest];
   
   [nameTestControls updateStateBasedOnStringTest: stringTest];
-  [nameCheckBox setState: NSOnState];
+  nameCheckBox.state = NSOnState;
 }
 
 
@@ -586,13 +586,13 @@
   MultiMatchStringTest  *stringTest = (MultiMatchStringTest*)[test stringTest];
   
   [pathTestControls updateStateBasedOnStringTest: stringTest];
-  [pathCheckBox setState: NSOnState];
+  pathCheckBox.state = NSOnState;
 }
 
 
 - (void) updateStateBasedOnItemTypeTest:(ItemTypeTest *)test {
   [typeTestControls updateStateBasedOnItemTypeTest: test];
-  [typeCheckBox setState: NSOnState];
+  typeCheckBox.state = NSOnState;
 }
 
 
@@ -610,8 +610,8 @@
       }
     }
     
-    [sizeLowerBoundCheckBox setState: NSOnState]; 
-    [sizeLowerBoundField setIntegerValue: bound];
+    sizeLowerBoundCheckBox.state = NSOnState;
+    sizeLowerBoundField.integerValue = bound;
     [sizeLowerBoundUnits selectItemAtIndex: i]; 
   }
 
@@ -626,8 +626,8 @@
       }
     }
     
-    [sizeUpperBoundCheckBox setState: NSOnState];
-    [sizeUpperBoundField setIntegerValue: bound];
+    sizeUpperBoundCheckBox.state = NSOnState;
+    sizeUpperBoundField.integerValue = bound;
     [sizeUpperBoundUnits selectItemAtIndex: i];
   }
 }
@@ -635,14 +635,14 @@
 
 - (void) updateStateBasedOnItemFlagsTest:(ItemFlagsTest *)test {
   if ([test flagsMask] & FILE_IS_HARDLINKED) {
-    [hardLinkCheckBox setState: NSOnState];
+    hardLinkCheckBox.state = NSOnState;
     
     [hardLinkStatusPopUp selectItemAtIndex:
       ([test desiredResult] & FILE_IS_HARDLINKED) ? POPUP_FLAG_IS : POPUP_FLAG_IS_NOT];
   }
   
   if ([test flagsMask] & FILE_IS_PACKAGE) {
-    [packageCheckBox setState: NSOnState];
+    packageCheckBox.state = NSOnState;
     
     [packageStatusPopUp selectItemAtIndex: 
       ([test desiredResult] & FILE_IS_PACKAGE) ? POPUP_FLAG_IS : POPUP_FLAG_IS_NOT];
@@ -659,7 +659,7 @@
 
 
 - (ItemNameTest *)itemNameTestBasedOnState {
-  if ([nameCheckBox state] != NSOnState) {
+  if (nameCheckBox.state != NSOnState) {
     return nil;
   }
   
@@ -671,7 +671,7 @@
 
 
 - (ItemPathTest *)itemPathTestBasedOnState {
-  if ([pathCheckBox state] != NSOnState) {
+  if (pathCheckBox.state != NSOnState) {
     return nil;
   }
   
@@ -684,7 +684,7 @@
 
 
 - (ItemTypeTest *)itemTypeTestBasedOnState {
-  return ([typeCheckBox state] == NSOnState) ? [typeTestControls itemTypeTestBasedOnState] : nil;
+  return (typeCheckBox.state == NSOnState) ? [typeTestControls itemTypeTestBasedOnState] : nil;
 }
 
 
@@ -692,19 +692,19 @@
   int  bytesUnit = [FileItem bytesPerKilobyte];
 
   ITEM_SIZE  lowerBound = MAX(0, [sizeLowerBoundField intValue]);
-  NSUInteger  i = [sizeLowerBoundUnits indexOfSelectedItem];
+  NSUInteger  i = sizeLowerBoundUnits.indexOfSelectedItem;
   while (i-- > 0) {
     lowerBound *= bytesUnit;
   }
 
   ITEM_SIZE  upperBound = MAX(0, [sizeUpperBoundField intValue]);
-  i = [sizeUpperBoundUnits indexOfSelectedItem];
+  i = sizeUpperBoundUnits.indexOfSelectedItem;
   while (i-- > 0) {
     upperBound *= bytesUnit;
   }
   
-  if ([sizeLowerBoundCheckBox state]==NSOnState && lowerBound>0) {
-    if ([sizeUpperBoundCheckBox state]==NSOnState) {
+  if (sizeLowerBoundCheckBox.state==NSOnState && lowerBound>0) {
+    if (sizeUpperBoundCheckBox.state==NSOnState) {
       return [[[ItemSizeTest alloc] initWithLowerBound: lowerBound upperBound: upperBound]
                autorelease];
     }
@@ -713,7 +713,7 @@
     }
   }
   else {
-    if ([sizeUpperBoundCheckBox state]==NSOnState) {
+    if (sizeUpperBoundCheckBox.state==NSOnState) {
       return [[[ItemSizeTest alloc] initWithUpperBound: upperBound] autorelease];
     }
     else {
@@ -727,16 +727,16 @@
   UInt8  flagsMask = 0;
   UInt8  desiredResult = 0;
   
-  if ([hardLinkCheckBox state] == NSOnState) {
+  if (hardLinkCheckBox.state == NSOnState) {
     flagsMask |= FILE_IS_HARDLINKED;
-    if ([hardLinkStatusPopUp indexOfSelectedItem] == POPUP_FLAG_IS) {
+    if (hardLinkStatusPopUp.indexOfSelectedItem == POPUP_FLAG_IS) {
       desiredResult |= FILE_IS_HARDLINKED;
     }
   }
   
-  if ([packageCheckBox state] == NSOnState) {
+  if (packageCheckBox.state == NSOnState) {
     flagsMask |= FILE_IS_PACKAGE;
-    if ([packageStatusPopUp indexOfSelectedItem] == POPUP_FLAG_IS) {
+    if (packageStatusPopUp.indexOfSelectedItem == POPUP_FLAG_IS) {
       desiredResult |= FILE_IS_PACKAGE;
     }
   }
@@ -752,7 +752,7 @@
 
 
 - (FileItemTest *)selectiveItemTestBasedOnState:(FileItemTest *)subTest {
-  NSUInteger  index = [testTargetPopUp indexOfSelectedItem];
+  NSUInteger  index = testTargetPopUp.indexOfSelectedItem;
   
   if (index == POPUP_FILES_AND_FOLDERS) { 
     return subTest;
@@ -769,56 +769,55 @@
 - (IBAction) updateEnabledState:(id)sender {
   // Note: "sender" is ignored. Always updating all.
   
-  BOOL  targetsOnlyFiles = [testTargetPopUp indexOfSelectedItem] == POPUP_FILES;
+  BOOL  targetsOnlyFiles = testTargetPopUp.indexOfSelectedItem == POPUP_FILES;
   
-  BOOL  nameTestUsed = [nameCheckBox state]==NSOnState;
-  BOOL  pathTestUsed = [pathCheckBox state]==NSOnState;
-  BOOL  hardLinkTestUsed = [hardLinkCheckBox state]==NSOnState;
-  BOOL  packageTestUsed = [packageCheckBox state]==NSOnState;
-  BOOL  typeTestUsed = ( [typeCheckBox state]==NSOnState && targetsOnlyFiles );
-  BOOL  lowerBoundTestUsed = ( [sizeLowerBoundCheckBox state]==NSOnState && targetsOnlyFiles );
-  BOOL  upperBoundTestUsed = ( [sizeUpperBoundCheckBox state]==NSOnState && targetsOnlyFiles );
+  BOOL  nameTestUsed = nameCheckBox.state==NSOnState;
+  BOOL  pathTestUsed = pathCheckBox.state==NSOnState;
+  BOOL  hardLinkTestUsed = hardLinkCheckBox.state==NSOnState;
+  BOOL  packageTestUsed = packageCheckBox.state==NSOnState;
+  BOOL  typeTestUsed = ( typeCheckBox.state==NSOnState && targetsOnlyFiles );
+  BOOL  lowerBoundTestUsed = ( sizeLowerBoundCheckBox.state==NSOnState && targetsOnlyFiles );
+  BOOL  upperBoundTestUsed = ( sizeUpperBoundCheckBox.state==NSOnState && targetsOnlyFiles );
   
   [nameTestControls setEnabled: nameTestUsed];
   [pathTestControls setEnabled: pathTestUsed];
 
-  [hardLinkStatusPopUp setEnabled: hardLinkTestUsed];
-  [packageStatusPopUp setEnabled: packageTestUsed];
+  hardLinkStatusPopUp.enabled = hardLinkTestUsed;
+  packageStatusPopUp.enabled = packageTestUsed;
   
-  [typeCheckBox setEnabled: targetsOnlyFiles];
+  typeCheckBox.enabled = targetsOnlyFiles;
   [typeTestControls setEnabled: typeTestUsed];
   
-  [sizeLowerBoundCheckBox setEnabled: targetsOnlyFiles];
-  [sizeLowerBoundField setEnabled: lowerBoundTestUsed];
-  [sizeLowerBoundUnits setEnabled: lowerBoundTestUsed];
+  sizeLowerBoundCheckBox.enabled = targetsOnlyFiles;
+  sizeLowerBoundField.enabled = lowerBoundTestUsed;
+  sizeLowerBoundUnits.enabled = lowerBoundTestUsed;
 
-  [sizeUpperBoundCheckBox setEnabled: targetsOnlyFiles];
-  [sizeUpperBoundField setEnabled: upperBoundTestUsed];
-  [sizeUpperBoundUnits setEnabled: upperBoundTestUsed];
+  sizeUpperBoundCheckBox.enabled = targetsOnlyFiles;
+  sizeUpperBoundField.enabled = upperBoundTestUsed;
+  sizeUpperBoundUnits.enabled = upperBoundTestUsed;
 
-  [okButton setEnabled:
-     ![self isNameKnownInvalid]
+  okButton.enabled = ![self isNameKnownInvalid]
      && ( ( nameTestUsed && [nameTestControls hasTargets] )
           || ( pathTestUsed && [pathTestControls hasTargets] )
           || ( typeTestUsed && [typeTestControls hasTargets] )
           || lowerBoundTestUsed 
           || upperBoundTestUsed 
           || hardLinkTestUsed
-          || packageTestUsed) ];
+          || packageTestUsed) ;
 }
 
 
 - (void) updateWindowTitle {
-  NSString  *name = [testNameField stringValue];
+  NSString  *name = testNameField.stringValue;
   NSString  *title;
-  if (name == nil || [name length]==0) {
+  if (name == nil || name.length==0) {
     title = NSLocalizedString(@"Unnamed filter test", @"Window title");
   }
   else {
     NSString  *format = NSLocalizedString(@"Filter test - %@", @"Window title");
     title = [NSString stringWithFormat: format, name];
   }
-  [[self window] setTitle: title];
+  self.window.title = title;
 }
 
 
@@ -830,22 +829,22 @@
   // The field editor can be made to give up its first responder status by "brute force" using
   // endEditingFor:. However, this then requires extra work to ensure the state is consistent, and
   // does not seem worth the effort.
-  return ([[self window] makeFirstResponder: [self window]]);
+  return ([self.window makeFirstResponder: self.window]);
 }
 
 
 - (void) textEditingStarted:(NSNotification *)notification {
-  NSWindow  *window = [self window];
+  NSWindow  *window = self.window;
   BOOL  nameFieldIsFirstResponder =
-    ( [[window firstResponder] isKindOfClass: [NSTextView class]] &&
+    ( [window.firstResponder isKindOfClass: [NSTextView class]] &&
       [window fieldEditor: NO forObject: nil] != nil &&
-      [((NSTextView *)[window firstResponder]) delegate] == (id)testNameField );
+      ((NSTextView *)window.firstResponder).delegate == (id)testNameField );
 
   if (nameFieldIsFirstResponder) { 
     // Disable Return key equivalent for OK button while editing is in progress. When the field is
     // non-empty, Return should signal the end of the edit session and enable the OK button, but not
     // directly invoke it.
-    [okButton setKeyEquivalent: @""];
+    okButton.keyEquivalent = @"";
   }
 }
 
@@ -854,14 +853,14 @@
   // still handle the Return key press that may have triggered this event.
   [okButton performSelector: @selector(setKeyEquivalent:)
                  withObject: @"\r" afterDelay: 0.1
-                    inModes: [NSArray arrayWithObjects: NSModalPanelRunLoopMode,
-                                                        NSDefaultRunLoopMode, nil]];
+                    inModes: @[NSModalPanelRunLoopMode,
+                                                        NSDefaultRunLoopMode]];
 }
 
 
 - (BOOL) isNameKnownInvalid {
-  NSString  *currentName = [testNameField stringValue];
-  return [currentName length] == 0 || [currentName isEqualToString: invalidName];
+  NSString  *currentName = testNameField.stringValue;
+  return currentName.length == 0 || [currentName isEqualToString: invalidName];
 }
 
 - (void) invalidNameAlertDidEnd:(NSAlert *)alert
@@ -874,10 +873,10 @@
 
 @implementation MultiMatchControls
 
-- (id) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
-                        targetsView:(NSTableView *)targetsTableViewVal
-                    addTargetButton:(NSButton *)addButton
-                 removeTargetButton:(NSButton *)removeButton {
+- (instancetype) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
+                                  targetsView:(NSTableView *)targetsTableViewVal
+                              addTargetButton:(NSButton *)addButton
+                           removeTargetButton:(NSButton *)removeButton {
   if (self = [super init]) {
     matchPopUpButton = [popUpButton retain];
     targetsView = [targetsTableViewVal retain];
@@ -886,8 +885,8 @@
     
     matchTargets = [[NSMutableArray alloc] initWithCapacity: 4];
     
-    [targetsView setDataSource: self];
-    [targetsView setDelegate: self]; 
+    targetsView.dataSource = self;
+    targetsView.delegate = self;
   }
   
   return self;
@@ -922,7 +921,7 @@
 
 
 - (BOOL) hasTargets {
-  return [matchTargets count] > 0;
+  return matchTargets.count > 0;
 }
 
 - (void) addTarget {
@@ -930,12 +929,12 @@
 }
 
 - (void) removeTarget {
-  NSInteger  selectedRow = [targetsView selectedRow];
+  NSInteger  selectedRow = targetsView.selectedRow;
 
   NSAssert(selectedRow >= 0, @"No row selected");
   [matchTargets removeObjectAtIndex: selectedRow];
 
-  if (selectedRow == [matchTargets count] && selectedRow > 0) {
+  if (selectedRow == matchTargets.count && selectedRow > 0) {
     [targetsView selectRowIndexes: [NSIndexSet indexSetWithIndex: selectedRow - 1] 
              byExtendingSelection: NO];
   }
@@ -956,12 +955,12 @@
 // NSTableSource
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
-  return [matchTargets count];
+  return matchTargets.count;
 }
 
 - (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)column
              row:(NSInteger)row {
-  return [matchTargets objectAtIndex: row];
+  return matchTargets[row];
 }
 
 @end // @implementation MultiMatchControls
@@ -970,10 +969,10 @@
 @implementation MultiMatchControls (PrivateMethods)
 
 - (void) updateEnabledState {
-  [matchPopUpButton setEnabled: enabled];
-  [targetsView setEnabled: enabled];
-  [addTargetButton setEnabled: enabled];
-  [removeTargetButton setEnabled: (enabled && [targetsView numberOfSelectedRows] > 0)];
+  matchPopUpButton.enabled = enabled;
+  targetsView.enabled = enabled;
+  addTargetButton.enabled = enabled;
+  removeTargetButton.enabled = (enabled && targetsView.numberOfSelectedRows > 0);
 }
 
 @end // @implementation MultiMatchControls (PrivateMethods)
@@ -982,20 +981,20 @@
 @implementation StringMatchControls
 
 // Overrides designated initialiser
-- (id) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
-                        targetsView:(NSTableView *)targetsTableViewVal
-                    addTargetButton:(NSButton *)addButton
-                 removeTargetButton:(NSButton *)removeButton {
+- (instancetype) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
+                                  targetsView:(NSTableView *)targetsTableViewVal
+                              addTargetButton:(NSButton *)addButton
+                           removeTargetButton:(NSButton *)removeButton {
   NSAssert(NO, @"Use other initialiser.");
   return nil;
 }
 
-- (id) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
-                        targetsView:(NSTableView *)targetsTableViewVal
-            caseInsensitiveCheckBox:(NSButton *)caseCheckBox
-                    addTargetButton:(NSButton *)addButton
-                 removeTargetButton:(NSButton *)removeButton
-                      windowControl:(FilterTestWindowControl *)windowControlVal {
+- (instancetype) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
+                                  targetsView:(NSTableView *)targetsTableViewVal
+                      caseInsensitiveCheckBox:(NSButton *)caseCheckBox
+                              addTargetButton:(NSButton *)addButton
+                           removeTargetButton:(NSButton *)removeButton
+                                windowControl:(FilterTestWindowControl *)windowControlVal {
   if (self = [super initWithMatchModePopUpButton: popUpButton
                                      targetsView: targetsTableViewVal
                                  addTargetButton: addButton
@@ -1035,7 +1034,7 @@
   [super resetState];
   
   [matchPopUpButton selectItemAtIndex: POPUP_STRING_IS];
-  [caseInsensitiveCheckBox setState: NSOffState];
+  caseInsensitiveCheckBox.state = NSOffState;
 }
 
 
@@ -1047,7 +1046,7 @@
     return;
   }
 
-  NSUInteger  newRow = [matchTargets count];
+  NSUInteger  newRow = matchTargets.count;
   
   [matchTargets addObject: NSLocalizedString(@"New match",
                                              @"Initial match value in FilterTestWindow")];
@@ -1091,7 +1090,7 @@
   [matchTargets addObjectsFromArray: [test matchTargets]];
   [targetsView reloadData];
   
-  [caseInsensitiveCheckBox setState: [test isCaseSensitive] ? NSOffState : NSOnState];
+  caseInsensitiveCheckBox.state = [test isCaseSensitive] ? NSOffState : NSOnState;
 }
 
 
@@ -1101,7 +1100,7 @@
   }
   
   MultiMatchStringTest  *stringTest = nil;
-  switch ([matchPopUpButton indexOfSelectedItem]) {
+  switch (matchPopUpButton.indexOfSelectedItem) {
     case POPUP_STRING_IS: 
       stringTest = [StringEqualityTest alloc]; 
       break;
@@ -1117,7 +1116,7 @@
     default: NSAssert(NO, @"Unexpected matching index.");
   }
       
-  BOOL  caseSensitive = ([caseInsensitiveCheckBox state] == NSOffState);
+  BOOL  caseSensitive = (caseInsensitiveCheckBox.state == NSOffState);
   stringTest = [[stringTest initWithMatchTargets: matchTargets
                                    caseSensitive: caseSensitive] autorelease];
       
@@ -1129,7 +1128,7 @@
 // Delegate methods for NSTable
 
 - (BOOL) control:(NSControl *)control textShouldEndEditing:(NSText *)editor {
-  return [[editor string] length] > 0;
+  return editor.string.length > 0;
 }
 
 
@@ -1140,12 +1139,12 @@
     setObjectValue:(id)object
     forTableColumn:(NSTableColumn *)column
                row:(NSInteger)row {
-  [matchTargets replaceObjectAtIndex: row withObject: object];
+  matchTargets[row] = object;
 }
 
 - (BOOL) tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)column
                row:(NSInteger)row {
-  if (![tableView isEnabled] || ![windowControl tryStopFieldEditor]) {
+  if (!tableView.enabled || ![windowControl tryStopFieldEditor]) {
     return NO;
   }
            
@@ -1168,7 +1167,7 @@
 - (void) updateEnabledState {
   [super updateEnabledState];
   
-  [caseInsensitiveCheckBox setEnabled: enabled];
+  caseInsensitiveCheckBox.enabled = enabled;
   
   if (editInProgress) {
     [addTargetButton setEnabled: NO];
@@ -1194,10 +1193,10 @@
 
 @implementation TypeMatchControls
 
-- (id) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
-                        targetsView:(NSTableView *)targetsTableViewVal
-                    addTargetButton:(NSButton *)addButton
-                 removeTargetButton:(NSButton *)removeButton {
+- (instancetype) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
+                                  targetsView:(NSTableView *)targetsTableViewVal
+                              addTargetButton:(NSButton *)addButton
+                           removeTargetButton:(NSButton *)removeButton {
   if (self = [super initWithMatchModePopUpButton: popUpButton
                                      targetsView: targetsTableViewVal
                                  addTargetButton: addButton
@@ -1231,18 +1230,18 @@
 
 - (void) addTarget {
   NSPopUpButton  *popUp = (NSPopUpButton *)addTargetButton;
-  NSInteger  selectedIndex = [popUp indexOfSelectedItem];
+  NSInteger  selectedIndex = popUp.indexOfSelectedItem;
   if (selectedIndex <= 0) {
     return;
   }
 
   UniformTypeInventory  *typeInventory = [UniformTypeInventory defaultUniformTypeInventory];
 
-  UniformType  *type = [typeInventory uniformTypeForIdentifier: [popUp titleOfSelectedItem]];
+  UniformType  *type = [typeInventory uniformTypeForIdentifier: popUp.titleOfSelectedItem];
   // Restore popup state
   [popUp selectItemAtIndex: POPUP_ADD_TYPE];
 
-  NSUInteger  newRow = [matchTargets count];
+  NSUInteger  newRow = matchTargets.count;
 
   [matchTargets addObject: type];
   [targetsView reloadData];
@@ -1267,7 +1266,7 @@
     return nil;
   }
   
-  BOOL  isStrict = [matchPopUpButton indexOfSelectedItem] == POPUP_TYPE_EQUALS;
+  BOOL  isStrict = matchPopUpButton.indexOfSelectedItem == POPUP_TYPE_EQUALS;
 
   return [[[ItemTypeTest alloc] initWithMatchTargets: matchTargets
                                               strict: isStrict] autorelease];
@@ -1279,7 +1278,7 @@
 
 - (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)column
              row:(NSInteger)row {
-  return [[matchTargets objectAtIndex: row] uniformTypeIdentifier];
+  return [matchTargets[row] uniformTypeIdentifier];
 }
 
 @end // @implementation TypeMatchControls

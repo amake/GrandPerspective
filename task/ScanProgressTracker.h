@@ -14,7 +14,7 @@
   NSUInteger  maxLevels;
 }
 
-- (id) initWithMaxLevel:(int)maxLevels;
+- (instancetype) initWithMaxLevel:(int)maxLevels NS_DESIGNATED_INITIALIZER;
 
 /* Called by the scanning task to indicate how many sub-folders the current folder has. It should be
  * called before descending into any of these sub-folders.

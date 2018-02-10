@@ -10,12 +10,12 @@
 
 
 // Overrides designated initialiser.
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithEventSource: instead.");
   return nil;
 }
 
-- (id) initWithEventSource:(NSObject *)eventSource {
+- (instancetype) initWithEventSource:(NSObject *)eventSource {
   if (self = [super init]) {
     NSNotificationCenter  *nc = [NSNotificationCenter defaultCenter];
     [nc addObserver: self

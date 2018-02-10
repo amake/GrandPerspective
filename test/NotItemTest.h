@@ -7,9 +7,9 @@
   FileItemTest  *subTest;
 }
 
-- (id) initWithSubItemTest:(FileItemTest *)subTest;
+- (instancetype) initWithSubItemTest:(FileItemTest *)subTest NS_DESIGNATED_INITIALIZER;
 
-- (FileItemTest *)subItemTest;
+@property (nonatomic, readonly, strong) FileItemTest *subItemTest;
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict;
 

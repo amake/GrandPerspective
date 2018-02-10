@@ -17,13 +17,13 @@
 }
 
 // Creates default settings.
-- (id) init;
+- (instancetype) init;
 
-- (id) initWithColorMapper:(NSObject <FileItemMapping> *)colorMapper
-              colorPalette:(NSColorList *)colorPalette
-             colorGradient:(float)colorGradient
-                  maskTest:(FileItemTest *)maskTest
-       showPackageContents:(BOOL)showPackageContents;
+- (instancetype) initWithColorMapper:(NSObject <FileItemMapping> *)colorMapper
+                        colorPalette:(NSColorList *)colorPalette
+                       colorGradient:(float)colorGradient
+                            maskTest:(FileItemTest *)maskTest
+                 showPackageContents:(BOOL)showPackageContents NS_DESIGNATED_INITIALIZER;
 
 - (id) copyWithColorMapper:(NSObject <FileItemMapping> *)colorMapper;
 - (id) copyWithColorPalette:(NSColorList *)colorPalette;
@@ -31,10 +31,10 @@
 - (id) copyWithMaskTest:(FileItemTest *)maskTest;
 - (id) copyWithShowPackageContents:(BOOL)showPackageContents;
 
-- (NSObject <FileItemMapping> *)colorMapper;
-- (NSColorList *)colorPalette;
-- (float) colorGradient;
-- (FileItemTest *)maskTest;
-- (BOOL) showPackageContents;
+@property (nonatomic, readonly, strong) NSObject<FileItemMapping> *colorMapper;
+@property (nonatomic, readonly, strong) NSColorList *colorPalette;
+@property (nonatomic, readonly) float colorGradient;
+@property (nonatomic, readonly, strong) FileItemTest *maskTest;
+@property (nonatomic, readonly) BOOL showPackageContents;
 
 @end

@@ -14,7 +14,7 @@
     NSEnumerator  *pathEnum = [colorListPaths objectEnumerator];
     NSString  *path;
     while (path = [pathEnum nextObject]) {
-      NSString  *name = [[path lastPathComponent] stringByDeletingPathExtension];
+      NSString  *name = path.lastPathComponent.stringByDeletingPathExtension;
 
       NSColorList  *colorList = [[NSColorList alloc] initWithName: name fromFile: path];
          
@@ -29,7 +29,7 @@
 
 
 // Overrides designated initialiser.
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     colorListDictionary = [[NSMutableDictionary alloc] initWithCapacity: 8];
   }
@@ -45,7 +45,7 @@
 
 
 - (void) addColorList:(NSColorList *)colorList key:(NSString *)key {
-  [colorListDictionary setObject: colorList forKey: key];
+  colorListDictionary[key] = colorList;
 }
 
 - (void) removeColorListForKey:(NSString *)key {
@@ -54,11 +54,11 @@
 
 
 - (NSArray *)allKeys {
-  return [colorListDictionary allKeys];
+  return colorListDictionary.allKeys;
 }
 
 - (NSColorList *)colorListForKey:(NSString *)key {
-  return [colorListDictionary objectForKey: key];
+  return colorListDictionary[key];
 }
 
 @end

@@ -11,7 +11,7 @@
 
 }
 
-- (id) initWithDirectoryView:(DirectoryView *)dirView
-                   tableView:(NSTableView *)tableView;
+- (instancetype) initWithDirectoryView:(DirectoryView *)dirView
+                             tableView:(NSTableView *)tableView NS_DESIGNATED_INITIALIZER;
 
 @end

@@ -14,6 +14,6 @@
 
 }
 
-- (id) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)scheme;
+- (instancetype) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)scheme NS_DESIGNATED_INITIALIZER;
 
 @end

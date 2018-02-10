@@ -40,7 +40,7 @@
 
 @implementation ItemPathModelView
 
-- (id) initWithPathModel:(ItemPathModel *)pathModelVal {
+- (instancetype) initWithPathModel:(ItemPathModel *)pathModelVal {
   if (self = [super init]) {
     pathModel = [pathModelVal retain];
     pathBuilder = [[ItemPathBuilder alloc] init];
@@ -163,7 +163,7 @@
 }
 
 - (FileItem *)visibleTree {
-  return [fileItemPath objectAtIndex: visibleTreeIndex];
+  return fileItemPath[visibleTreeIndex];
 }
 
 
@@ -178,7 +178,7 @@
 - (FileItem *)selectedFileItemInTree {
   return invisibleSelectedItem != nil
          ? invisibleSelectedItem
-         : [fileItemPath objectAtIndex: selectedItemIndex];
+         : fileItemPath[selectedItemIndex];
 }
 
 
@@ -200,7 +200,7 @@
 
   // May require multiple moves in the wrapped model, as the visible tree there could be inside a
   // package.
-  FileItem  *newVisibleTree = [fileItemPath objectAtIndex: visibleTreeIndex - 1];
+  FileItem  *newVisibleTree = fileItemPath[visibleTreeIndex - 1];
 
   [pathModel suppressVisibleTreeChangedNotifications: YES];
   do {
@@ -225,7 +225,7 @@
   if (value) {
     preferredSelectionDepth = STICK_TO_ENDPOINT;
     
-    [pathModel selectFileItem: [fileItemPath objectAtIndex: lastSelectableItemIndex]];
+    [pathModel selectFileItem: fileItemPath[lastSelectableItemIndex]];
   }
   else {
     // Preferred depth is the current one. The selection does not change.
@@ -257,13 +257,13 @@
   // If preferred depth was sticky, it is not anymore.
   preferredSelectionDepth = selectedItemIndex - 1 - visibleTreeIndex;
   
-  [pathModel selectFileItem: [fileItemPath objectAtIndex: selectedItemIndex - 1]];
+  [pathModel selectFileItem: fileItemPath[selectedItemIndex - 1]];
 }
 
 - (void) moveSelectionDown {
   NSAssert([self canMoveSelectionDown], @"Cannot move selection down.");
   
-  [pathModel selectFileItem: [fileItemPath objectAtIndex: selectedItemIndex + 1]];
+  [pathModel selectFileItem: fileItemPath[selectedItemIndex + 1]];
     
   if (automaticallyStickToEndPoint && ![self canMoveSelectionDown]) {
     // End-point reached. Make depth stick to end-point automatically 
@@ -317,15 +317,15 @@
   else {
     indexToSelect = MIN(visibleTreeIndex + preferredSelectionDepth, lastSelectableItemIndex);
   }
-  [pathModel selectFileItem: [fileItemPath objectAtIndex: indexToSelect]];
+  [pathModel selectFileItem: fileItemPath[indexToSelect]];
 }
 
 
 - (int) indexCorrespondingToItem:(FileItem *)targetItem startingAt:(int)index {
-  NSUInteger  maxIndex = [fileItemPath count] - 1;
+  NSUInteger  maxIndex = fileItemPath.count - 1;
   
   while (YES) {
-    FileItem  *fileItem = [fileItemPath objectAtIndex: index];
+    FileItem  *fileItem = fileItemPath[index];
     
     if (fileItem == targetItem) {
       // Got to the visible tree

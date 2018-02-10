@@ -6,13 +6,13 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  [dict setObject: @"StringSuffixTest" forKey: @"class"];
+  dict[@"class"] = @"StringSuffixTest";
 }
 
 
 - (BOOL) testString:(NSString *)string matches:(NSString *)match {
-  NSUInteger  stringLen = [string length];
-  NSUInteger  matchLen = [match length];
+  NSUInteger  stringLen = string.length;
+  NSUInteger  matchLen = match.length;
   
   if (stringLen < matchLen) {
     return NO;
@@ -35,7 +35,7 @@
 
 
 + (StringTest *)stringTestFromDictionary:(NSDictionary *)dict {
-  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"StringSuffixTest"],
+  NSAssert([dict[@"class"] isEqualToString: @"StringSuffixTest"],
            @"Incorrect value for class in dictionary.");
 
   return [[[StringSuffixTest alloc] initWithPropertiesFromDictionary: dict] autorelease];

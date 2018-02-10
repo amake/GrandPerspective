@@ -15,16 +15,17 @@
 
 }
 
-- (id) initWithSubItemTest:(FileItemTest *)subTest onlyFiles:(BOOL)onlyFiles;
+- (instancetype) initWithSubItemTest:(FileItemTest *)subTest
+                           onlyFiles:(BOOL)onlyFiles NS_DESIGNATED_INITIALIZER;
 
 
-- (FileItemTest *)subItemTest;
+@property (nonatomic, readonly, strong) FileItemTest *subItemTest;
 
 /**
  * Returns yes if "YES" the subtest is only be applied to files; otherwise the
  * subtest is only applied to folders.
  */
-- (BOOL) applyToFilesOnly;
+@property (nonatomic, readonly) BOOL applyToFilesOnly;
 
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict;

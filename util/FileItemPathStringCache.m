@@ -13,7 +13,7 @@
 
 @implementation FileItemPathStringCache
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     addTrailingSlashToDirectoryPaths = NO;
     
@@ -44,12 +44,12 @@
 - (NSString *)pathStringForFileItem:(FileItem *)item {
   DirectoryItem  *parentDirectory = [item parentDirectory];
 
-  while ([cachedFileItems count]) {
-    DirectoryItem  *lastFileItem = [cachedFileItems lastObject];
+  while (cachedFileItems.count) {
+    DirectoryItem  *lastFileItem = cachedFileItems.lastObject;
     
     if (lastFileItem == item) {
       // Found it
-      return [cachedPathStrings lastObject];
+      return cachedPathStrings.lastObject;
     }
     if (lastFileItem == parentDirectory) {
       break;
@@ -66,7 +66,7 @@
     pathString = (comp != nil) ? comp : @"";
   }
   else {
-    if ([cachedFileItems count] == 0) {
+    if (cachedFileItems.count == 0) {
       // Exhausted the cache. Fill it recursively all the way from the root.
       // This way, the condition "lastFileItem==nil" signals that the array
       // is empty.
@@ -75,9 +75,8 @@
 
     // Cache is currently filled to parent directory. Use it to construct
     // new path.
-    pathString = ( (comp != nil) ? [[cachedPathStrings lastObject] 
-                                       stringByAppendingPathComponent: comp] 
-                                 : [cachedPathStrings lastObject] );
+    pathString = (comp != nil) ? [cachedPathStrings.lastObject stringByAppendingPathComponent: comp]
+                               : cachedPathStrings.lastObject;
   }
   
   if ( [item isDirectory] ) {
@@ -126,9 +125,9 @@
   
   if ([item parentDirectory] != nil) {
     [self fillCacheToItem: [item parentDirectory]];
-    pathString = ( (comp != nil) ? [[cachedPathStrings lastObject] 
+    pathString = ( (comp != nil) ? [cachedPathStrings.lastObject 
                                        stringByAppendingPathComponent: comp]
-                                 : [cachedPathStrings lastObject] );
+                                 : cachedPathStrings.lastObject );
   }
   else {
     pathString = (comp != nil) ? comp : @"";

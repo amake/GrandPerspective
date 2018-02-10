@@ -18,6 +18,6 @@
  * "visited" the FileItemTest for which it should determine whether or not the test includes an
  * ItemSizeTest.
  */
-- (BOOL) itemSizeTestFound;
+@property (nonatomic, readonly) BOOL itemSizeTestFound;
 
 @end

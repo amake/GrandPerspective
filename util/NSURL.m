@@ -8,11 +8,11 @@
   
   [self getResourceValue: &isDirectory forKey: NSURLIsDirectoryKey error: &error];
   if (error != nil) {
-    NSLog(@"Failed to obtain directory status for %@: %@", self, [error description]);
+    NSLog(@"Failed to obtain directory status for %@: %@", self, error.description);
     return NO;
   }
   
-  return [isDirectory boolValue];
+  return isDirectory.boolValue;
 }
 
 - (BOOL) isPackage {
@@ -21,11 +21,11 @@
   
   [self getResourceValue: &isPackage forKey: NSURLIsPackageKey error: &error];
   if (error != nil) {
-    NSLog(@"Failed to obtain package status for %@: %@", self, [error description]);
+    NSLog(@"Failed to obtain package status for %@: %@", self, error.description);
     return NO;
   }
   
-  return [isPackage boolValue];
+  return isPackage.boolValue;
 }
 
 - (BOOL) isHardLinked {
@@ -34,11 +34,11 @@
   
   [self getResourceValue: &linkCount forKey: NSURLLinkCountKey error: &error];
   if (error != nil) {
-    NSLog(@"Failed to obtain link count for %@: %@", self, [error description]);
+    NSLog(@"Failed to obtain link count for %@: %@", self, error.description);
     return NO;
   }
   
-  return [linkCount integerValue] > 1;
+  return linkCount.integerValue > 1;
 }
 
 - (CFAbsoluteTime) creationTime {
@@ -47,11 +47,11 @@
   
   [self getResourceValue: &creationTime forKey:NSURLCreationDateKey error: &error];
   if (error != nil) {
-    NSLog(@"Failed to obtain creation time for %@: %@", self, [error description]);
+    NSLog(@"Failed to obtain creation time for %@: %@", self, error.description);
     return NO;
   }
   
-  return [creationTime timeIntervalSinceReferenceDate];
+  return creationTime.timeIntervalSinceReferenceDate;
 }
 
 - (CFAbsoluteTime) modificationTime {
@@ -60,11 +60,11 @@
   
   [self getResourceValue: &modificationTime forKey:NSURLContentModificationDateKey error: &error];
   if (error != nil) {
-    NSLog(@"Failed to obtain modification time for %@: %@", self, [error description]);
+    NSLog(@"Failed to obtain modification time for %@: %@", self, error.description);
     return NO;
   }
   
-  return [modificationTime timeIntervalSinceReferenceDate];
+  return modificationTime.timeIntervalSinceReferenceDate;
 }
 
 - (CFAbsoluteTime) accessTime {
@@ -73,11 +73,11 @@
   
   [self getResourceValue: &accessTime forKey:NSURLContentAccessDateKey error: &error];
   if (error != nil) {
-    NSLog(@"Failed to obtain access time for %@: %@", self, [error description]);
+    NSLog(@"Failed to obtain access time for %@: %@", self, error.description);
     return NO;
   }
   
-  return [accessTime timeIntervalSinceReferenceDate];
+  return accessTime.timeIntervalSinceReferenceDate;
 }
 
 @end

@@ -35,7 +35,7 @@ NSString  *AppFiltersKey = @"GPDefaultFilters";
 }
 
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     NSMutableDictionary  *initialFilterDictionary =
       [NSMutableDictionary dictionaryWithCapacity: 16];
@@ -78,11 +78,11 @@ NSString  *AppFiltersKey = @"GPDefaultFilters";
 
 
 - (Filter *)filterForName:(NSString *)name {
-  return [((NSDictionary *)filtersByName) objectForKey: name];
+  return ((NSDictionary *)filtersByName)[name];
 }
 
 - (Filter *)applicationProvidedFilterForName:(NSString *)name {
-  return [applicationProvidedFilters objectForKey: name];
+  return applicationProvidedFilters[name];
 }
 
 
@@ -90,16 +90,16 @@ NSString  *AppFiltersKey = @"GPDefaultFilters";
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
   NSMutableDictionary  *filtersDict = 
-    [NSMutableDictionary dictionaryWithCapacity: [((NSDictionary *)filtersByName) count]];
+    [NSMutableDictionary dictionaryWithCapacity: ((NSDictionary *)filtersByName).count];
 
   NSString  *name;
   NSEnumerator  *nameEnum = [((NSDictionary *)filtersByName) keyEnumerator];
   
   while ((name = [nameEnum nextObject]) != nil) {
-    Filter  *filter = [((NSDictionary *)filtersByName) objectForKey: name];
+    Filter  *filter = ((NSDictionary *)filtersByName)[name];
 
-    if (filter != [applicationProvidedFilters objectForKey: name]) {
-      [filtersDict setObject: [filter dictionaryForObject] forKey: name];
+    if (filter != applicationProvidedFilters[name]) {
+      filtersDict[name] = [filter dictionaryForObject];
     }
   }
 
@@ -119,10 +119,10 @@ NSString  *AppFiltersKey = @"GPDefaultFilters";
   NSEnumerator  *nameEnum = [storedFilters keyEnumerator];
 
   while (name = [nameEnum nextObject]) {
-    NSDictionary  *storedFilter = [storedFilters objectForKey: name];
+    NSDictionary  *storedFilter = storedFilters[name];
     Filter  *filter = [Filter filterFromDictionary: storedFilter];
     
-    [liveFilters setObject: filter forKey: name];
+    liveFilters[name] = filter;
   }
 }
 

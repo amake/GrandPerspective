@@ -28,7 +28,7 @@
 
 @implementation TreeFilter
 
-- (id) initWithFilterSet:(FilterSet *)filterSetVal {
+- (instancetype) initWithFilterSet:(FilterSet *)filterSetVal {
   if (self = [super init]) {
     filterSet = [filterSetVal retain];
 
@@ -125,16 +125,16 @@
     NSUInteger  i;
   
     // Collect all file items that passed the test
-    for (i = [files count]; i-- > 0; ) {
-      PlainFileItem  *oldFile = [files objectAtIndex: i];
+    for (i = files.count; i-- > 0; ) {
+      PlainFileItem  *oldFile = files[i];
       PlainFileItem  *newFile = (PlainFileItem *)[oldFile duplicateFileItem: newDir];
       
-      [files replaceObjectAtIndex: i withObject: newFile];
+      files[i] = newFile;
     }
   
     // Filter the contents of all directory items
-    for (i = [dirs count]; i-- > 0; ) {
-      DirectoryItem  *oldSubDir = [dirs objectAtIndex: i];
+    for (i = dirs.count; i-- > 0; ) {
+      DirectoryItem  *oldSubDir = dirs[i];
       DirectoryItem  *newSubDir = (DirectoryItem *)[oldSubDir duplicateFileItem: newDir];
       
       [self filterItemTree: oldSubDir into: newSubDir];
@@ -142,7 +142,7 @@
       if (! abort) {
         // Check to prevent inserting corrupt tree when filtering was aborted.
         
-        [dirs replaceObjectAtIndex: i withObject: newSubDir];
+        dirs[i] = newSubDir;
       }
     }
   

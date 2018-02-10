@@ -15,16 +15,14 @@
 
 }
 
-- (id) initWithColorPalette:(NSColorList *)colorPalette;
+- (instancetype) initWithColorPalette:(NSColorList *)colorPalette NS_DESIGNATED_INITIALIZER;
 
-- (void) setColorPalette:(NSColorList *)colorPalette;
-- (NSColorList *)colorPalette;
+@property (nonatomic, strong) NSColorList *colorPalette;
 
 /* Sets the color gradient, which determines how much the color of each rectangle varies. The value
  * should be between 0 (uniform color) and 1 (maximum color difference).
  */
-- (void) setColorGradient:(float)gradient;
-- (float) colorGradient;
+@property (nonatomic) float colorGradient;
 
 - (NSImage *)drawImageOfGradientRectangleWithColor:(NSUInteger)colorIndex
                                             inRect:(NSRect)bounds;

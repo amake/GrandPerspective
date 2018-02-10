@@ -5,13 +5,13 @@
 @implementation PlainFileItem
 
 // Overrides designated initialiser
-- (id) initWithLabel:(NSString *)labelVal
-              parent:(DirectoryItem *)parentVal
-                size:(ITEM_SIZE)sizeVal
-               flags:(UInt8)flagsVal
-        creationTime:(CFAbsoluteTime)creationTimeVal
-    modificationTime:(CFAbsoluteTime)modificationTimeVal
-          accessTime:(CFAbsoluteTime)accessTimeVal {
+- (instancetype) initWithLabel:(NSString *)labelVal
+                        parent:(DirectoryItem *)parentVal
+                          size:(ITEM_SIZE)sizeVal
+                         flags:(UInt8)flagsVal
+                  creationTime:(CFAbsoluteTime)creationTimeVal
+              modificationTime:(CFAbsoluteTime)modificationTimeVal
+                    accessTime:(CFAbsoluteTime)accessTimeVal {
   return [self initWithLabel: labelVal
                       parent: parentVal
                         size: sizeVal
@@ -22,14 +22,14 @@
                   accessTime: accessTimeVal];
 }
 
-- (id) initWithLabel:(NSString *)labelVal
-              parent:(DirectoryItem *)parentVal
-                size:(ITEM_SIZE)sizeVal
-                type:(UniformType *)typeVal
-               flags:(UInt8)flagsVal
-        creationTime:(CFAbsoluteTime)creationTimeVal
-    modificationTime:(CFAbsoluteTime)modificationTimeVal
-          accessTime:(CFAbsoluteTime)accessTimeVal {
+- (instancetype) initWithLabel:(NSString *)labelVal
+                        parent:(DirectoryItem *)parentVal
+                          size:(ITEM_SIZE)sizeVal
+                          type:(UniformType *)typeVal
+                         flags:(UInt8)flagsVal
+                  creationTime:(CFAbsoluteTime)creationTimeVal
+              modificationTime:(CFAbsoluteTime)modificationTimeVal
+                    accessTime:(CFAbsoluteTime)accessTimeVal {
   if (self = [super initWithLabel: labelVal
                            parent: parentVal
                              size: sizeVal

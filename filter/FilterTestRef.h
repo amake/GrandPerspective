@@ -17,11 +17,12 @@
  */
 + (FilterTestRef *)filterTestRefFromDictionary:(NSDictionary *)dict;
 
-- (id) initWithName:(NSString *)name;
-- (id) initWithName:(NSString *)name inverted:(BOOL)inverted;
+- (instancetype) initWithName:(NSString *)name;
+- (instancetype) initWithName:(NSString *)name
+                     inverted:(BOOL)inverted NS_DESIGNATED_INITIALIZER;
 
-- (NSString *)name;
-- (BOOL) isInverted;
+@property (nonatomic, readonly, copy) NSString *name;
+@property (nonatomic, getter=isInverted, readonly) BOOL inverted;
 
 /* Returns a dictionary that represents the object. It can be used for storing the object to
  * preferences.

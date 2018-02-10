@@ -15,13 +15,13 @@ extern NSString  *ObjectRenamedEvent;
 
 }
 
-- (id) initWithCapacity:(unsigned)capacity;
+- (instancetype) initWithCapacity:(unsigned)capacity;
 
-- (id) initWithCapacity:(unsigned)capacity initialContents:(NSDictionary *)contents;
+- (instancetype) initWithCapacity:(unsigned)capacity
+                  initialContents:(NSDictionary *)contents NS_DESIGNATED_INITIALIZER;
 
 
-- (NSNotificationCenter *)notificationCenter;
-- (void) setNotificationCenter:(NSNotificationCenter *)notificationCenter;
+@property (nonatomic, strong) NSNotificationCenter *notificationCenter;
 
 
 /**

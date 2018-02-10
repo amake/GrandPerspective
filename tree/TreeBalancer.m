@@ -20,7 +20,7 @@ NSInteger compareBySize(id item1, id item2, void* context) {
 
 @implementation TreeBalancer
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     tmpArray = [[NSMutableArray alloc] initWithCapacity: 1024];
 
@@ -50,7 +50,7 @@ NSInteger compareBySize(id item1, id item2, void* context) {
 // Note: assumes that array may be modified for sorting!
 - (Item *)createTreeForItems:(NSMutableArray *)items {
 
-  if ([items count]==0) {
+  if (items.count==0) {
     // No items, so nothing needs doing: return immediately.
     return nil;
   }
@@ -82,11 +82,11 @@ NSInteger compareBySize(id item1, id item2, void* context) {
 
       if ([sortedItems peekObject]==nil || // Out of leafs, or
           (branchesGetIndex < numBranches && // orphaned branches exist
-           compareBySize([sortedBranches objectAtIndex:branchesGetIndex],
+           compareBySize(sortedBranches[branchesGetIndex],
                          [sortedItems peekObject], nil) ==
            NSOrderedAscending)) {      // and the branch is smaller.
         if (branchesGetIndex < numBranches) {
-          smallest = [sortedBranches objectAtIndex:branchesGetIndex++];
+          smallest = sortedBranches[branchesGetIndex++];
         }
         else {
           // We're finished building the tree

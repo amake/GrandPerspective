@@ -7,13 +7,13 @@
 @implementation FilterTaskInput
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithOldContext:filterSet: instead");
   return nil;
 }
 
-- (id) initWithTreeContext:(TreeContext *)treeContextVal
-                 filterSet:(FilterSet *)filterSetVal {
+- (instancetype) initWithTreeContext:(TreeContext *)treeContextVal
+                           filterSet:(FilterSet *)filterSetVal {
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
   BOOL  showPackageContentsByDefault =
@@ -24,9 +24,9 @@
                    packagesAsFiles: !showPackageContentsByDefault];
 }
 
-- (id) initWithTreeContext:(TreeContext *)treeContextVal
-                 filterSet:(FilterSet *)filterSetVal
-           packagesAsFiles:(BOOL) packagesAsFilesVal {
+- (instancetype) initWithTreeContext:(TreeContext *)treeContextVal
+                           filterSet:(FilterSet *)filterSetVal
+                     packagesAsFiles:(BOOL) packagesAsFilesVal {
   if (self = [super init]) {
     treeContext = [treeContextVal retain];
     filterSet = [filterSetVal retain];

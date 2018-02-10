@@ -14,13 +14,15 @@
   NSString  *comments;
 }
 
-+ (id) annotatedTreeContext:(TreeContext *)treeContext; 
-+ (id) annotatedTreeContext:(TreeContext *)treeContext comments: (NSString *)comments;
++ (instancetype) annotatedTreeContext:(TreeContext *)treeContext;
++ (instancetype) annotatedTreeContext:(TreeContext *)treeContext
+                             comments:(NSString *)comments;
 
-- (id) initWithTreeContext:(TreeContext *)treeContext;
-- (id) initWithTreeContext:(TreeContext *)treeContext comments:(NSString *)comments;
+- (instancetype) initWithTreeContext:(TreeContext *)treeContext;
+- (instancetype) initWithTreeContext:(TreeContext *)treeContext
+                            comments:(NSString *)comments NS_DESIGNATED_INITIALIZER;
 
-- (TreeContext *)treeContext;
-- (NSString *)comments;
+@property (nonatomic, readonly, strong) TreeContext *treeContext;
+@property (nonatomic, readonly, copy) NSString *comments;
 
 @end

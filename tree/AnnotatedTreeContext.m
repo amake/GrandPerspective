@@ -7,13 +7,13 @@
 
 @implementation AnnotatedTreeContext
 
-+ (id) annotatedTreeContext:(TreeContext *)treeContext {
++ (instancetype) annotatedTreeContext:(TreeContext *)treeContext {
   return (treeContext == nil 
           ? nil
           : [[[AnnotatedTreeContext alloc] initWithTreeContext: treeContext] autorelease]);
 }
 
-+ (id) annotatedTreeContext:(TreeContext *)treeContext 
++ (instancetype) annotatedTreeContext:(TreeContext *)treeContext 
                    comments:(NSString *)comments {
   return (treeContext == nil
           ? nil
@@ -22,15 +22,15 @@
 }
 
 
-- (id) initWithTreeContext:(TreeContext *)treeContextVal {
+- (instancetype) initWithTreeContext:(TreeContext *)treeContextVal {
   FileItemTest  *test = [[treeContextVal filterSet] fileItemTest];
 
   return [self initWithTreeContext: treeContextVal
-                          comments: ((test != nil) ? [test description] : @"")];
+                          comments: ((test != nil) ? test.description : @"")];
 }
 
-- (id) initWithTreeContext:(TreeContext *)treeContextVal
-                  comments:(NSString *)commentsVal {
+- (instancetype) initWithTreeContext:(TreeContext *)treeContextVal
+                            comments:(NSString *)commentsVal {
   if (self = [super init]) {
     NSAssert(treeContextVal != nil, @"TreeContext must be set.");
   

@@ -9,19 +9,19 @@
 @implementation DrawTaskExecutor
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithTreeContext: instead.");
   return nil;
 }
 
 
-- (id) initWithTreeContext:(TreeContext *)treeContextVal {
+- (instancetype) initWithTreeContext:(TreeContext *)treeContextVal {
   return [self initWithTreeContext: treeContextVal 
                    drawingSettings: [[[TreeDrawerSettings alloc] init] autorelease]];
 }
 
-- (id) initWithTreeContext:(TreeContext *)treeContextVal
-           drawingSettings:(TreeDrawerSettings *)settings {
+- (instancetype) initWithTreeContext:(TreeContext *)treeContextVal
+                     drawingSettings:(TreeDrawerSettings *)settings {
   if (self = [super init]) {
     treeContext = [treeContextVal retain];
   

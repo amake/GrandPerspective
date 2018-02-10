@@ -11,19 +11,19 @@
 @implementation TreeDrawer
 
 // Overrides designated initialiser
-- (id) initWithColorPalette:(NSColorList *)colorPaletteVal {
+- (instancetype) initWithColorPalette:(NSColorList *)colorPaletteVal {
   NSAssert(NO, @"Use initWithScanTree: instead.");
   return nil;
 }
 
-- (id) initWithScanTree:(DirectoryItem *)scanTreeVal {
+- (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal {
   TreeDrawerSettings  *defaultSettings = [[[TreeDrawerSettings alloc] init] autorelease];
     
   return [self initWithScanTree: scanTreeVal treeDrawerSettings: defaultSettings];
 }
 
-- (id) initWithScanTree:(DirectoryItem *)scanTreeVal 
-     treeDrawerSettings:(TreeDrawerSettings *)settings {
+- (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal
+               treeDrawerSettings:(TreeDrawerSettings *)settings {
   if (self = [super initWithColorPalette: [settings colorPalette]]) {
     scanTree = [scanTreeVal retain];
   

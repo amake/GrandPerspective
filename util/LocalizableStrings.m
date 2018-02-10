@@ -34,15 +34,15 @@
                             pairTemplate:(NSString *)pairTemplate
                        bootstrapTemplate:(NSString *)bootstrapTemplate
                        repeatingTemplate:(NSString *)repeatingTemplate {
-  if ([items count] == 0) {
+  if (items.count == 0) {
     return @"";
   }
-  else if ([items count] == 1) {
-    return [items objectAtIndex: 0];
+  else if (items.count == 1) {
+    return items[0];
   }
-  else if ([items count] == 2) {
+  else if (items.count == 2) {
     return
-      [NSString stringWithFormat: pairTemplate, [items objectAtIndex: 0], [items objectAtIndex: 1]];
+      [NSString stringWithFormat: pairTemplate, items[0], items[1]];
   }
   else {
     NSEnumerator  *itemEnum = [items reverseObjectEnumerator];

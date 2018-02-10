@@ -8,10 +8,10 @@
   NSString  *path;
 }
 
-- (id) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)context
-                               path:(NSString *)path;
+- (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)context
+                                         path:(NSString *)path NS_DESIGNATED_INITIALIZER;
 
-- (AnnotatedTreeContext *)annotatedTreeContext;
-- (NSString *)path;
+@property (nonatomic, readonly, strong) AnnotatedTreeContext *annotatedTreeContext;
+@property (nonatomic, readonly, copy) NSString *path;
 
 @end

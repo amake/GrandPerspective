@@ -10,8 +10,8 @@
   NSArray  *subTests;
 }
 
-- (id) initWithSubItemTests:(NSArray *)subTests;
+- (instancetype) initWithSubItemTests:(NSArray *)subTests NS_DESIGNATED_INITIALIZER;
 
-- (NSArray *)subItemTests;
+@property (nonatomic, readonly, copy) NSArray *subItemTests;
 
 @end

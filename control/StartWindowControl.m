@@ -8,7 +8,7 @@ NSString*  TaglineFormat = @"tagline-%d";
 
 @implementation StartWindowControl
 
-- (id) initWithMainMenuControl:(MainMenuControl *)mainMenuControlVal {
+- (instancetype) initWithMainMenuControl:(MainMenuControl *)mainMenuControlVal {
   if (self = [super initWithWindowNibName: @"StartWindow"
                                     owner: self]) {
     mainMenuControl = [mainMenuControlVal retain];
@@ -29,17 +29,17 @@ NSString*  TaglineFormat = @"tagline-%d";
   // Show a random tagline
   NSBundle  *mainBundle = [NSBundle mainBundle];
   int  numTaglines =
-    [[mainBundle localizedStringForKey: NumTaglines value: nil table: TaglineTable] intValue];
+    [mainBundle localizedStringForKey: NumTaglines value: nil table: TaglineTable].intValue;
   int  taglineIndex = 1 + arc4random_uniform(numTaglines);
   NSString  *localizedTagLine =
     [mainBundle localizedStringForKey: [NSString stringWithFormat: TaglineFormat, taglineIndex]
                                 value: nil
                                 table: TaglineTable];
-  [tagLine setStringValue: localizedTagLine];
+  tagLine.stringValue = localizedTagLine;
   
-  [recentScansView setDelegate: self];
-  [recentScansView setDataSource: self];
-  [recentScansView setDoubleAction: @selector(repeatRecentScanAction:)];
+  recentScansView.delegate = self;
+  recentScansView.dataSource = self;
+  recentScansView.doubleAction = @selector(repeatRecentScanAction:);
 }
 
 
@@ -47,23 +47,22 @@ NSString*  TaglineFormat = @"tagline-%d";
 // NSTableSource
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
-  return [[[NSDocumentController sharedDocumentController] recentDocumentURLs] count];
+  return [NSDocumentController sharedDocumentController].recentDocumentURLs.count;
 }
 
 - (NSView *)tableView:(NSTableView *)tableView
    viewForTableColumn:(NSTableColumn *)tableColumn
                   row:(NSInteger)row {
   
-  NSURL *docUrl = [[[NSDocumentController sharedDocumentController] recentDocumentURLs]
-                   objectAtIndex: row];
+  NSURL *docUrl = [NSDocumentController sharedDocumentController].recentDocumentURLs[row];
   
   RecentDocumentTableCellView *cellView =
     [tableView makeViewWithIdentifier: @"RecentScanView" owner: self];
 
   cellView.textField.stringValue =
-    [[NSFileManager defaultManager] displayNameAtPath: [docUrl path]];
-  cellView.imageView.image = [[NSWorkspace sharedWorkspace] iconForFile: [docUrl path]];
-  cellView.secondTextField.stringValue = [docUrl path];
+    [[NSFileManager defaultManager] displayNameAtPath: docUrl.path];
+  cellView.imageView.image = [[NSWorkspace sharedWorkspace] iconForFile: docUrl.path];
+  cellView.secondTextField.stringValue = docUrl.path;
   
   return cellView;
 }
@@ -71,29 +70,28 @@ NSString*  TaglineFormat = @"tagline-%d";
 //----------------------------------------------------------------------------
 
 - (IBAction) scanAction:(id)sender {
-  [[self window] close];
+  [self.window close];
 
   [mainMenuControl scanDirectoryView: sender];
 }
 
 - (IBAction) repeatRecentScanAction:(id)sender {
-  [[self window] close];
+  [self.window close];
 
-  NSUInteger row = [recentScansView clickedRow];
-  NSURL *docUrl = [[[NSDocumentController sharedDocumentController] recentDocumentURLs]
-                   objectAtIndex: row];
+  NSUInteger row = recentScansView.clickedRow;
+  NSURL *docUrl = [NSDocumentController sharedDocumentController].recentDocumentURLs[row];
 
-  [mainMenuControl scanFolder: [docUrl path]];
+  [mainMenuControl scanFolder: docUrl.path];
 }
 
 - (IBAction) helpAction:(id)sender {
-  [[self window] close];
+  [self.window close];
 
   [[NSApplication sharedApplication] showHelp: sender];
 }
 
 - (void)cancelOperation:(id)sender {
-  [[self window] close];
+  [self.window close];
 }
 
 // Invoked because the controller is the delegate for the window.

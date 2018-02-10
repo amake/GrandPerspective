@@ -16,8 +16,9 @@
   NSString  *allowedName;
 }
 
-- (id) initWithExistingFilters:(NSDictionary *)allFilters;
-- (id) initWithExistingFilters:(NSDictionary *)allFilters allowedName:(NSString *)name;
+- (instancetype) initWithExistingFilters:(NSDictionary *)allFilters;
+- (instancetype) initWithExistingFilters:(NSDictionary *)allFilters
+                             allowedName:(NSString *)name NS_DESIGNATED_INITIALIZER;
 
 @end // @interface FilterNameValidator
 
@@ -31,11 +32,11 @@
 
 @implementation FilterEditor
 
-- (id) init {
+- (instancetype) init {
   return [self initWithFilterRepository: [FilterRepository defaultInstance]];
 }
 
-- (id) initWithFilterRepository:(FilterRepository *)filterRepositoryVal {
+- (instancetype) initWithFilterRepository:(FilterRepository *)filterRepositoryVal {
   if (self = [super init]) {
     filterWindowControl = nil; // Load it lazily
   
@@ -75,7 +76,7 @@
       NSString  *name = [namedFilter name];
 
       // The nameValidator should have ensured that this check succeeds.
-      NSAssert( [[filterRepository filtersByName] objectForKey: name] == nil,
+      NSAssert( [filterRepository filtersByName][name] == nil,
                 @"Duplicate name check failed.");
       [[filterRepository filtersByNameAsNotifyingDictionary]
           addObject: [namedFilter filter] forKey: name];
@@ -96,7 +97,7 @@
 - (NamedFilter *)editFilterNamed:(NSString *)oldName {
   NSWindow  *editFilterWindow = [self loadEditFilterWindow];
 
-  Filter  *oldFilter = [[filterRepository filtersByName] objectForKey: oldName];
+  Filter  *oldFilter = [filterRepository filtersByName][oldName];
 
   NamedFilter  *oldNamedFilter = 
     [NamedFilter namedFilter: oldFilter name: oldName];
@@ -134,7 +135,7 @@
       // The testNameValidator should have ensured that this check succeeds.
       NSAssert( 
         [newName isEqualToString: oldName] ||
-        [[filterRepository filtersByName] objectForKey: newName] == nil,
+        [filterRepository filtersByName][newName] == nil,
         @"Duplicate name check failed.");
 
       if (! [newName isEqualToString: oldName]) {
@@ -168,7 +169,7 @@
     filterWindowControl = [[FilterWindowControl alloc] init];
   }
   // Return its window. This also ensure that it is loaded before its control is used.
-  return [filterWindowControl window];
+  return filterWindowControl.window;
 }
 
 @end // @implementation FilterEditor (PrivateMethods)
@@ -177,16 +178,17 @@
 @implementation FilterNameValidator
 
 // Overrides designated initialiser.
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithExistingFilters: instead.");
   return nil;
 }
 
-- (id) initWithExistingFilters:(NSDictionary *)allFiltersVal {
+- (instancetype) initWithExistingFilters:(NSDictionary *)allFiltersVal {
   return [self initWithExistingFilters: allFiltersVal allowedName: nil];
 }
 
-- (id) initWithExistingFilters:(NSDictionary *)allFiltersVal allowedName:(NSString *)name {
+- (instancetype) initWithExistingFilters:(NSDictionary *)allFiltersVal
+                             allowedName:(NSString *)name {
   if (self = [super init]) {
     allFilters = [allFiltersVal retain];
     allowedName = [name retain];    
@@ -208,7 +210,7 @@
     return NSLocalizedString(@"The filter must have a name.", @"Alert message");
   }
   else if ( ![allowedName isEqualToString: name] &&
-            [allFilters objectForKey: name] != nil) {
+            allFilters[name] != nil) {
     NSString  *fmt = NSLocalizedString(@"A filter named \"%@\" already exists.",
                                        @"Alert message");
     return [NSString stringWithFormat: fmt, name];

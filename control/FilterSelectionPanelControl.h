@@ -14,8 +14,8 @@
   FilterPopUpControl  *filterPopUpControl;
 }
 
-- (id) init;
-- (id) initWithFilterRepository:(FilterRepository *)filterRepository;
+- (instancetype) init;
+- (instancetype) initWithFilterRepository:(FilterRepository *)filterRepository NS_DESIGNATED_INITIALIZER;
 
 - (IBAction) editFilter:(id)sender;
 - (IBAction) addFilter:(id)sender;
@@ -27,6 +27,6 @@
 
 /* Returns the filter that has been selected.
  */
-- (NamedFilter *)selectedNamedFilter;
+@property (nonatomic, readonly, strong) NamedFilter *selectedNamedFilter;
 
 @end

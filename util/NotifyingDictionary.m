@@ -14,15 +14,16 @@ static NSDictionary  *immutableDict = nil;
 @implementation NotifyingDictionary
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   return [self initWithCapacity:32];
 }
 
-- (id) initWithCapacity:(unsigned)capacity {
+- (instancetype) initWithCapacity:(unsigned)capacity {
   return [self initWithCapacity: capacity initialContents: nil];
 }
 
-- (id) initWithCapacity:(unsigned)capacity initialContents:(NSDictionary *)contents {
+- (instancetype) initWithCapacity:(unsigned)capacity
+                  initialContents:(NSDictionary *)contents {
   if (self = [super init]) {
     if (immutableDict == nil) {
       // Static initialisation
@@ -62,68 +63,63 @@ static NSDictionary  *immutableDict = nil;
 
 
 - (BOOL) addObject:(id)object forKey:(id)key {
-  if ([dict objectForKey: key] != nil) {
+  if (dict[key] != nil) {
     return NO;
   }
   else {
-    [dict setObject: object forKey: key];
+    dict[key] = object;
     [notificationCenter postNotificationName: ObjectAddedEvent
                                       object: self
-                                    userInfo: [NSDictionary dictionaryWithObject: key
-                                                                          forKey: @"key"]];
+                                    userInfo: @{@"key": key}];
     return YES;
   }
 }
 
 - (BOOL) removeObjectForKey:(id)key {
-  if ([dict objectForKey: key] == nil) {
+  if (dict[key] == nil) {
     return NO;
   }
   else {
     [dict removeObjectForKey: key];
     [notificationCenter postNotificationName: ObjectRemovedEvent
                                       object: self
-                                    userInfo: [NSDictionary dictionaryWithObject: key
-                                                                          forKey: @"key"]];
+                                    userInfo: @{@"key": key}];
     return YES;
   }
 }
 
 - (BOOL) updateObject:(id)object forKey:(id)key {
-  id  oldObject = [dict objectForKey: key];
+  id  oldObject = dict[key];
   if (oldObject == nil) {
     return NO;
   }
   else {
     if (oldObject != object) {
       // Object (reference) changed.
-      [dict setObject: object forKey: key];
+      dict[key] = object;
     }
     
     // Fire notification even when reference stayed the same. Object may have
     // been internally modified.
     [notificationCenter postNotificationName: ObjectUpdatedEvent
                                       object: self
-                                    userInfo: [NSDictionary dictionaryWithObject: key
-                                                                          forKey: @"key"]];
+                                    userInfo: @{@"key": key}];
     return YES;
   }
 }
 
 - (BOOL) moveObjectFromKey:(id)oldKey toKey:(id)newKey {
-  id  object = [dict objectForKey: oldKey];
+  id  object = dict[oldKey];
   if (object == nil ||
-      [dict objectForKey: newKey] != nil) {
+      dict[newKey] != nil) {
     return NO;
   }
   else {
     [dict removeObjectForKey: oldKey];
-    [dict setObject: object forKey: newKey];
+    dict[newKey] = object;
     [notificationCenter postNotificationName: ObjectRenamedEvent
                                       object: self
-                                    userInfo: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                              oldKey, @"oldkey",
-                                                              newKey, @"newkey", nil]];
+                                    userInfo: @{@"oldkey": oldKey, @"newkey": newKey}];
     return YES;
   }
 }
@@ -140,7 +136,7 @@ static NSDictionary  *immutableDict = nil;
 }
 
 - (void)forwardInvocation:(NSInvocation *)inv {
-  if ([immutableDict respondsToSelector: [inv selector]]) {
+  if ([immutableDict respondsToSelector: inv.selector]) {
     // Note: testing on "immutableDict", but invoking on "dict"
     [inv invokeWithTarget: dict];
   }

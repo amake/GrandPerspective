@@ -13,13 +13,14 @@
 
 }
 
-- (id) initWithMatchTargets:(NSArray *)matches;
+- (instancetype) initWithMatchTargets:(NSArray *)matches;
 
-- (id) initWithMatchTargets:(NSArray *)matches strict:(BOOL)strict;
+- (instancetype) initWithMatchTargets:(NSArray *)matches
+                               strict:(BOOL)strict NS_DESIGNATED_INITIALIZER;
 
 
-- (NSArray *)matchTargets;
-- (BOOL) isStrict;
+@property (nonatomic, readonly, copy) NSArray *matchTargets;
+@property (nonatomic, getter=isStrict, readonly) BOOL strict;
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict;
 

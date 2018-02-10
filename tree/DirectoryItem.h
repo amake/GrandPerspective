@@ -10,12 +10,12 @@
 
 /* A directory item is initialized without a size. It will be set when its contents are set.
  */
-- (id) initWithLabel:(NSString *)label
-              parent:(DirectoryItem *)parent
-               flags:(UInt8)flags
-        creationTime:(CFAbsoluteTime)creationTime
-    modificationTime:(CFAbsoluteTime)modificationTime
-          accessTime:(CFAbsoluteTime)accessTime;
+- (instancetype) initWithLabel:(NSString *)label
+                        parent:(DirectoryItem *)parent
+                         flags:(UInt8)flags
+                  creationTime:(CFAbsoluteTime)creationTime
+              modificationTime:(CFAbsoluteTime)modificationTime
+                    accessTime:(CFAbsoluteTime)accessTime NS_DESIGNATED_INITIALIZER;
 
 - (void) setDirectoryContents:(Item *)contents;
 
@@ -28,11 +28,11 @@
  */
 - (void) replaceDirectoryContents:(Item *)contents;
 
-- (Item *)getContents;
+@property (nonatomic, getter=getContents, readonly, strong) Item *contents;
 
 /* Returns the item that represents the receiver when package contents should not be shown (i.e.
  * when the directory should be represented by a file).
  */
-- (FileItem *)itemWhenHidingPackageContents;
+@property (nonatomic, readonly, strong) FileItem *itemWhenHidingPackageContents;
 
 @end

@@ -25,10 +25,9 @@
 }
 
 
-- (id) initWithFilterSet:(FilterSet *)filterSet;
+- (instancetype) initWithFilterSet:(FilterSet *)filterSet NS_DESIGNATED_INITIALIZER;
 
-- (BOOL) packagesAsFiles;
-- (void) setPackagesAsFiles:(BOOL) flag;
+@property (nonatomic) BOOL packagesAsFiles;
 
 
 /* Filters the tree. Omits all items from the old tree that should not be descended into according
@@ -46,6 +45,6 @@
  * It can safely be invoked from a different thread than the one that invoked -filterTree: (and not
  * doing so would actually be quite silly).
  */
-- (NSDictionary *)progressInfo;
+@property (nonatomic, readonly, copy) NSDictionary *progressInfo;
 
 @end

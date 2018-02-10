@@ -70,7 +70,7 @@ NSString  *PhysicalFileSize = @"physical";
 @implementation ScanStackFrame
 
 // Overrides super's designated initialiser.
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     // Multiplying sizes specified in TreeConstants.h. As these arrays are being re-used, it is
     // better to make them initially larger to avoid unnecessary resizing.
@@ -112,8 +112,8 @@ NSString  *PhysicalFileSize = @"physical";
 }
 
 - (void) filterSubDirectories:(FilteredTreeGuide *)treeGuide {
-  for (NSUInteger i = [dirs count]; i-- > 0; ) {
-    DirectoryItem  *dirChildItem = [dirs objectAtIndex: i];
+  for (NSUInteger i = dirs.count; i-- > 0; ) {
+    DirectoryItem  *dirChildItem = dirs[i];
 
     if (! [treeGuide includeFileItem: dirChildItem] ) {
       // The directory did not pass the test, so exclude it.
@@ -132,18 +132,18 @@ NSString  *PhysicalFileSize = @"physical";
 
   if (fileSizeMeasureNames == nil) {
     fileSizeMeasureNames =
-      [[NSArray arrayWithObjects: LogicalFileSize, PhysicalFileSize, nil] retain];
+      [@[LogicalFileSize, PhysicalFileSize] retain];
   }
   
   return fileSizeMeasureNames;
 }
 
-- (id) init {
+- (instancetype) init {
   return [self initWithFilterSet: nil];
 }
 
 
-- (id) initWithFilterSet:(FilterSet *)filterSetVal {
+- (instancetype) initWithFilterSet:(FilterSet *)filterSetVal {
   if (self = [super init]) {
     filterSet = [filterSetVal retain];
 
@@ -228,14 +228,14 @@ NSString  *PhysicalFileSize = @"physical";
   // Determine relative path
   NSString  *volumePath = [[treeContext volumeTree] systemPathComponent];
   NSString  *relativePath =
-    [volumePath length] < [path length] ? [path substringFromIndex: [volumePath length]] : @"";
-  if ([relativePath isAbsolutePath]) {
+    volumePath.length < path.length ? [path substringFromIndex: volumePath.length] : @"";
+  if (relativePath.absolutePath) {
     // Strip leading slash.
     relativePath = [relativePath substringFromIndex: 1];
   }
 
   NSFileManager  *manager = [NSFileManager defaultManager];
-  if ([relativePath length] > 0) {
+  if (relativePath.length > 0) {
     NSLog(@"Scanning volume %@ [%@], starting at %@", volumePath,
           [manager displayNameAtPath: volumePath], relativePath);
   }
@@ -304,36 +304,36 @@ NSString  *PhysicalFileSize = @"physical";
   NSURL  *volumeRoot;
   [url getResourceValue: &volumeRoot forKey: NSURLVolumeURLKey error: &error];
   if (error != nil) {
-    NSLog(@"Failed to determine volume root of %@: %@", url, [error description]);
+    NSLog(@"Failed to determine volume root of %@: %@", url, error.description);
   }
 
   NSNumber  *freeSpace;
   [volumeRoot getResourceValue: &freeSpace forKey: NSURLVolumeAvailableCapacityKey error: &error];
   if (error != nil) {
-    NSLog(@"Failed to determine free space for %@: %@", volumeRoot, [error description]);
+    NSLog(@"Failed to determine free space for %@: %@", volumeRoot, error.description);
   }
 
   NSNumber  *volumeSize;
   [volumeRoot getResourceValue: &volumeSize forKey: NSURLVolumeTotalCapacityKey error: &error];
   if (error != nil) {
-    NSLog(@"Failed to determine capacity of %@: %@", volumeRoot, [error description]);
+    NSLog(@"Failed to determine capacity of %@: %@", volumeRoot, error.description);
   }
 
-  return [[[TreeContext alloc] initWithVolumePath: [volumeRoot path]
+  return [[[TreeContext alloc] initWithVolumePath: volumeRoot.path
                                   fileSizeMeasure: fileSizeMeasure
-                                       volumeSize: [volumeSize unsignedLongLongValue]
-                                        freeSpace: [freeSpace unsignedLongLongValue]
+                                       volumeSize: volumeSize.unsignedLongLongValue
+                                        freeSpace: freeSpace.unsignedLongLongValue
                                         filterSet: filterSet] autorelease];
 }
 
 - (void) addToStack:(DirectoryItem *)dirItem URL:(NSURL *)url {
   // Expand stack if required
-  if (dirStackTopIndex + 1 == (int)[dirStack count]) {
+  if (dirStackTopIndex + 1 == (int)dirStack.count) {
     [dirStack addObject: [[[ScanStackFrame alloc] init] autorelease]];
   }
   
   // Add the item to the stack. Overwriting the previous entry.
-  [[dirStack objectAtIndex: ++dirStackTopIndex] initWithDirectoryItem: dirItem URL: url];
+  [dirStack[++dirStackTopIndex] initWithDirectoryItem: dirItem URL: url];
   
   [treeGuide descendIntoDirectory: dirItem];
   [progressTracker processingFolder: dirItem];
@@ -343,7 +343,7 @@ NSString  *PhysicalFileSize = @"physical";
 }
 
 - (ScanStackFrame *)unwindStackToURL:(NSURL *)url {
-  ScanStackFrame  *topDir = (ScanStackFrame *)[dirStack objectAtIndex: dirStackTopIndex];
+  ScanStackFrame  *topDir = (ScanStackFrame *)dirStack[dirStackTopIndex];
   while (! [topDir->url isEqual: url]) {
     // Pop directory from stack. Its contents have been fully scanned so finalize its contents.
     [topDir filterSubDirectories: treeGuide];
@@ -361,7 +361,7 @@ NSString  *PhysicalFileSize = @"physical";
       return nil;
     }
 
-    topDir = (ScanStackFrame *)[dirStack objectAtIndex: --dirStackTopIndex];
+    topDir = (ScanStackFrame *)dirStack[--dirStackTopIndex];
   }
 
   return topDir;
@@ -383,7 +383,7 @@ NSString  *PhysicalFileSize = @"physical";
     }
   }
   
-  NSString  *lastPathComponent = [url lastPathComponent];
+  NSString  *lastPathComponent = url.lastPathComponent;
 
   if (isDirectory) {
     if ([url isPackage]) {
@@ -415,12 +415,12 @@ NSString  *PhysicalFileSize = @"physical";
     [url getResourceValue: &fileSize forKey: fileSizeMeasureKey error: nil];
 
     UniformType  *fileType =
-      [typeInventory uniformTypeForExtension: [lastPathComponent pathExtension]];
+      [typeInventory uniformTypeForExtension: lastPathComponent.pathExtension];
 
     PlainFileItem  *fileChildItem =
       [[PlainFileItem allocWithZone: [parent zone]] initWithLabel: lastPathComponent
                                                            parent: parent->dirItem
-                                                             size: [fileSize unsignedLongLongValue]
+                                                             size: fileSize.unsignedLongLongValue
                                                              type: fileType
                                                             flags: flags
                                                      creationTime: [url creationTime]
@@ -496,18 +496,18 @@ NSString  *PhysicalFileSize = @"physical";
 - (BOOL) visitHardLinkedItemAtURL:(NSURL *)url {
   NSError  *error = nil;
   NSFileManager  *fileManager = [NSFileManager defaultManager];
-  NSDictionary  *fileAttributes = [fileManager attributesOfItemAtPath: [url path] error: &error];
+  NSDictionary  *fileAttributes = [fileManager attributesOfItemAtPath: url.path error: &error];
   NSAssert2(
     error==nil, @"Error getting attributes for %@: %@",
     url, [error description]
   );
-  NSNumber  *fileNumber = [fileAttributes objectForKey: NSFileSystemFileNumber];
+  NSNumber  *fileNumber = fileAttributes[NSFileSystemFileNumber];
 
   if (fileNumber == nil) {
     // Workaround for bug #2243134
     NSLog(
       @"Failed to get file number for the hard-linked file: %@\nCannot establish if the file has been included already, but including it anyway (possibly overestimating the amount of used disk space).",
-      [url path]
+      url.path
     );
     return YES;
   }

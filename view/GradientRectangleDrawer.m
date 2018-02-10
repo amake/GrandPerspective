@@ -10,12 +10,12 @@
 
 @implementation GradientRectangleDrawer
 
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use -initWithColorPalette: instead.");
   return nil;
 }
 
-- (id) initWithColorPalette:(NSColorList *)colorPaletteVal {
+- (instancetype) initWithColorPalette:(NSColorList *)colorPaletteVal {
   if (self = [super init]) {
     [self setColorPalette: colorPaletteVal];
     [self setColorGradient: 0.5f];
@@ -117,21 +117,21 @@
 
 - (UInt32) intValueForColor: (NSColor *)color {
   color = [color colorUsingColorSpaceName: NSDeviceRGBColorSpace];
-  return CFSwapInt32BigToHost(((UInt32)([color redComponent] * 255) & 0xFF) << 24 |
-                              ((UInt32)([color greenComponent] * 255) & 0xFF) << 16 |
-                              ((UInt32)([color blueComponent] * 255) & 0xFF) << 8);
+  return CFSwapInt32BigToHost(((UInt32)(color.redComponent * 255) & 0xFF) << 24 |
+                              ((UInt32)(color.greenComponent * 255) & 0xFF) << 16 |
+                              ((UInt32)(color.blueComponent * 255) & 0xFF) << 8);
 }
 
 
 - (void) drawBasicFilledRect:(NSRect)rect intColor:(UInt32)intColor {
-  UInt32  *data = (UInt32 *)[drawBitmap bitmapData];
+  UInt32  *data = (UInt32 *)drawBitmap.bitmapData;
   
   int  x0 = (int)(rect.origin.x + 0.5f);
   int  y0 = (int)(rect.origin.y + 0.5f); 
   int  height = (int)(rect.origin.y + rect.size.height + 0.5f) - y0;
   int  width = (int)(rect.origin.x + rect.size.width + 0.5f) - x0;
-  int  bitmapWidth = (int)[drawBitmap bytesPerRow] / sizeof(UInt32);
-  int  bitmapHeight = (int)[drawBitmap pixelsHigh];
+  int  bitmapWidth = (int)drawBitmap.bytesPerRow / sizeof(UInt32);
+  int  bitmapHeight = (int)drawBitmap.pixelsHigh;
   
   for (int y = 0; y < height; y++) {
     int  pos = x0 + (bitmapHeight - y0 - y - 1) * bitmapWidth;
@@ -148,7 +148,7 @@
   UInt32  intColor;
   int  gradient;
   
-  UInt32  *data = (UInt32 *)[drawBitmap bitmapData];
+  UInt32  *data = (UInt32 *)drawBitmap.bitmapData;
   UInt32  *pos;
   UInt32  *poslim;
 
@@ -156,8 +156,8 @@
   int  y0 = (int)(rect.origin.y + 0.5f);
   int  width = (int)(rect.origin.x + rect.size.width + 0.5f) - x0;
   int  height = (int)(rect.origin.y + rect.size.height + 0.5f) - y0;
-  int  bitmapWidth = (int)[drawBitmap bytesPerRow] / sizeof(UInt32);
-  int  bitmapHeight = (int)[drawBitmap pixelsHigh];
+  int  bitmapWidth = (int)drawBitmap.bytesPerRow / sizeof(UInt32);
+  int  bitmapHeight = (int)drawBitmap.pixelsHigh;
  
   if (height <= 0 || width <= 0) {
     NSLog(@"Height and width should both be positive: x=%f, y=%f, w=%f, h=%f",
@@ -205,8 +205,8 @@
   NSAssert(colorPalette != nil, @"Color palette must be set.");
   free(gradientColors);
 
-  NSArray  *colorKeys = [colorPalette allKeys];
-  numGradientColors = [colorKeys count];
+  NSArray  *colorKeys = colorPalette.allKeys;
+  numGradientColors = colorKeys.count;
   gradientColors = malloc(sizeof(UInt32) * numGradientColors * 256);
   NSAssert(gradientColors != NULL, @"Failed to malloc gradientColors."); 
   
@@ -215,7 +215,7 @@
   UInt32  *pos = gradientColors;
   
   for (int i = 0; i < numGradientColors; i++) {
-    NSColor  *color = [colorPalette colorWithKey: [colorKeys objectAtIndex: i]];
+    NSColor  *color = [colorPalette colorWithKey: colorKeys[i]];
     
     // Maybe not needed, but there is no harm. It guarantees that getHue:saturation:brightness:alpha
     // can be invoked.
@@ -234,9 +234,9 @@
                                   brightness: brightness * ( 1 - adjust)
                                        alpha: alpha];
                    
-      *pos++ = CFSwapInt32BigToHost(((UInt32)([modColor redComponent] * 255) & 0xFF) << 24 |
-                                    ((UInt32)([modColor greenComponent] * 255) & 0xFF) << 16 |
-                                    ((UInt32)([modColor blueComponent] * 255) & 0xFF) << 8);
+      *pos++ = CFSwapInt32BigToHost(((UInt32)(modColor.redComponent * 255) & 0xFF) << 24 |
+                                    ((UInt32)(modColor.greenComponent * 255) & 0xFF) << 16 |
+                                    ((UInt32)(modColor.blueComponent * 255) & 0xFF) << 8);
     }
     
     // Lighter colors
@@ -260,9 +260,9 @@
                                          alpha: alpha];
       }
       
-      *pos++ = CFSwapInt32BigToHost(((UInt32)([modColor redComponent] * 255) & 0xFF) << 24 |
-                                    ((UInt32)([modColor greenComponent] * 255) & 0xFF) << 16 |
-                                    ((UInt32)([modColor blueComponent] * 255) & 0xFF) << 8);
+      *pos++ = CFSwapInt32BigToHost(((UInt32)(modColor.redComponent * 255) & 0xFF) << 24 |
+                                    ((UInt32)(modColor.greenComponent * 255) & 0xFF) << 16 |
+                                    ((UInt32)(modColor.blueComponent * 255) & 0xFF) << 8);
     }
   }
   

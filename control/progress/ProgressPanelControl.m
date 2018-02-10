@@ -21,12 +21,12 @@ extern NSString  *EstimatedProgressKey;
 
 @implementation ProgressPanelControl
 
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithTaskExecutor: instead.");
   return nil;
 }
 
-- (id) initWithTaskExecutor:(NSObject <TaskExecutor> *)taskExecutorVal {
+- (instancetype) initWithTaskExecutor:(NSObject <TaskExecutor> *)taskExecutorVal {
   if (self = [super initWithWindowNibName: @"ProgressPanel" owner: self]) {
     taskExecutor = [taskExecutorVal retain];
     
@@ -60,7 +60,7 @@ extern NSString  *EstimatedProgressKey;
   [self updateProgressDetails: @""];
   [self updateProgressSummary: 0];
   
-  [[self window] setTitle: [self windowTitle]];
+  self.window.title = [self windowTitle];
 }
 
 
@@ -77,8 +77,8 @@ extern NSString  *EstimatedProgressKey;
   cancelCallback = [callback retain];
   cancelCallbackSelector = selector;
 
-  [[self window] center];
-  [[self window] orderFront: self];
+  [self.window center];
+  [self.window orderFront: self];
 
   [self updateProgressDetails: [self pathFromTaskInput: taskInput]];
   [self updateProgressSummary: 0];
@@ -94,7 +94,7 @@ extern NSString  *EstimatedProgressKey;
   [cancelCallback release];
   cancelCallback = nil;
   
-  [[self window] close];
+  [self.window close];
 
   taskRunning = NO; 
 }
@@ -118,9 +118,9 @@ extern NSString  *EstimatedProgressKey;
 
   NSDictionary  *dict = [self progressInfo];
   if (dict != nil) {
-    [self updateProgressDetails: [dict objectForKey: CurrentFolderPathKey]];
-    [self updateProgressSummary: [[dict objectForKey: NumFoldersProcessedKey] intValue]];
-    [self updateProgressEstimate: [[dict objectForKey: EstimatedProgressKey] floatValue]];
+    [self updateProgressDetails: dict[CurrentFolderPathKey]];
+    [self updateProgressSummary: [dict[NumFoldersProcessedKey] intValue]];
+    [self updateProgressEstimate: [dict[EstimatedProgressKey] floatValue]];
   }
 
   // Schedule another update 
@@ -129,14 +129,14 @@ extern NSString  *EstimatedProgressKey;
 
 
 - (void) updateProgressDetails:(NSString *)currentPath {
-  [progressDetails setStringValue: 
+  progressDetails.stringValue =
                      (currentPath != nil)
                      ? [NSString stringWithFormat: detailsFormat, currentPath]
-                     : @""];
+                     : @"";
 }
 
 - (void) updateProgressSummary:(int)numProcessed {
-  [progressSummary setStringValue: [NSString stringWithFormat: summaryFormat, numProcessed]];
+  progressSummary.stringValue = [NSString stringWithFormat: summaryFormat, numProcessed];
 }
 
 - (void) updateProgressEstimate:(float)progressEstimate {

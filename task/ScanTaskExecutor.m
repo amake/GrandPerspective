@@ -7,7 +7,7 @@
 
 @implementation ScanTaskExecutor
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     taskLock = [[NSLock alloc] init];
     treeBuilder = nil;
@@ -45,9 +45,9 @@
   
   if (scanResult != nil) {
     NSLog(@"Done scanning: %d folders scanned (%d skipped) in %.2fs.",
-            [[[self progressInfo] objectForKey: NumFoldersProcessedKey] intValue],
-            [[[self progressInfo] objectForKey: NumFoldersSkippedKey] intValue],
-            -[startTime timeIntervalSinceNow]);
+            [[self progressInfo][NumFoldersProcessedKey] intValue],
+            [[self progressInfo][NumFoldersSkippedKey] intValue],
+            -startTime.timeIntervalSinceNow);
   }
   else {
     NSLog(@"Scanning aborted.");

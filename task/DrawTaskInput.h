@@ -10,14 +10,14 @@
   NSRect  bounds;
 }
 
-- (id) initWithVisibleTree: (FileItem *)visibleTree
-                treeInView: (FileItem *)treeInView
-             layoutBuilder: (TreeLayoutBuilder *)layoutBuilder
-                    bounds: (NSRect) bounds;
+- (instancetype) initWithVisibleTree:(FileItem *)visibleTree
+                          treeInView:(FileItem *)treeInView
+                       layoutBuilder:(TreeLayoutBuilder *)layoutBuilder
+                              bounds:(NSRect) bounds NS_DESIGNATED_INITIALIZER;
 
-- (FileItem *)visibleTree;
-- (FileItem *)treeInView;
-- (TreeLayoutBuilder *)layoutBuilder;
-- (NSRect) bounds;
+@property (nonatomic, readonly, strong) FileItem *visibleTree;
+@property (nonatomic, readonly, strong) FileItem *treeInView;
+@property (nonatomic, readonly, strong) TreeLayoutBuilder *layoutBuilder;
+@property (nonatomic, readonly) NSRect bounds;
 
 @end

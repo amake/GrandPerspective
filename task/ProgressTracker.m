@@ -11,7 +11,7 @@ NSString  *EstimatedProgressKey = @"estimatedProgress";
 
 @implementation ProgressTracker
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     mutex = [[NSLock alloc] init];
     directoryStack = [[NSMutableArray alloc] initWithCapacity: 16];
@@ -67,16 +67,10 @@ NSString  *EstimatedProgressKey = @"estimatedProgress";
   NSDictionary  *dict;
 
   [mutex lock];
-  dict = [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSNumber numberWithUnsignedInteger: numFoldersProcessed],
-            NumFoldersProcessedKey,
-            [NSNumber numberWithUnsignedInteger: numFoldersSkipped],
-            NumFoldersSkippedKey,
-            [[directoryStack lastObject] path],
-            CurrentFolderPathKey,
-            [NSNumber numberWithFloat: [self estimatedProgress]],
-            EstimatedProgressKey,
-            nil];
+  dict = @{NumFoldersProcessedKey: @(numFoldersProcessed),
+           NumFoldersSkippedKey: @(numFoldersSkipped),
+           CurrentFolderPathKey: [directoryStack.lastObject path],
+           EstimatedProgressKey: @([self estimatedProgress])};
   [mutex unlock];
 
   return dict;
@@ -92,7 +86,7 @@ NSString  *EstimatedProgressKey = @"estimatedProgress";
 @implementation ProgressTracker (ProtectedMethods)
 
 - (void) _processingFolder:(DirectoryItem *)dirItem {
-  if ([directoryStack count] == 0) {
+  if (directoryStack.count == 0) {
     // Find the root of the tree
     DirectoryItem  *root = dirItem;
     DirectoryItem  *parent = nil;

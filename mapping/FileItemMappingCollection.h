@@ -12,13 +12,13 @@
 
 + (FileItemMappingCollection *)defaultFileItemMappingCollection;
 
-- (id) initWithDictionary:(NSMutableDictionary *)dictionary;
+- (instancetype) initWithDictionary:(NSMutableDictionary *)dictionary NS_DESIGNATED_INITIALIZER;
 
 - (void) addFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)scheme
                               key:(NSString *)key;
 - (void) removeFileItemMappingSchemeForKey:(NSString *)key;
 
-- (NSArray*) allKeys;
+@property (nonatomic, readonly, copy) NSArray *allKeys;
 - (NSObject <FileItemMappingScheme> *)fileItemMappingSchemeForKey:(NSString *)key;
 
 @end

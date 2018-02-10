@@ -66,22 +66,22 @@ extern NSString  *DateTimeFormat;
 
 /* Returns YES iff the writing task was aborted externally (i.e. using -abort).
  */
-- (BOOL) aborted;
+@property (nonatomic, readonly) BOOL aborted;
 
 /* Returns details of the error iff there was an error when carrying out the writing task.
  */
-- (NSError *)error;
+@property (nonatomic, readonly, copy) NSError *error;
 
 /* Returns a dictionary containing information about the progress of the ongoing tree-writing task.
  *
  * It can safely be invoked from a different thread than the one that invoked -writeTree:toFile:
  * (and not doing so would actually be quite silly).
  */
-- (NSDictionary *)progressInfo;
+@property (nonatomic, readonly, copy) NSDictionary *progressInfo;
 
 /* Formatter used to create (locale-independent) string reprentations for time values.
  */
-+ (CFDateFormatterRef) timeFormatter;
++ (CFDateFormatterRef) timeFormatter CF_RETURNS_NOT_RETAINED;
 
 /* Formatter used to create (locale-independent) string reprentations for time values. Has same
  * format as timeFormatter.

@@ -12,7 +12,7 @@
 @interface FiltersWindowControl (PrivateMethods)
 
 // Returns the non-localized name of the selected available filter (if any).
-- (NSString *)selectedFilterName;
+@property (nonatomic, readonly, copy) NSString *selectedFilterName;
 
 - (void) selectFilterNamed:(NSString *)name;
 
@@ -32,13 +32,13 @@
 
 @implementation FiltersWindowControl
 
-- (id) init {
+- (instancetype) init {
   return [self initWithFilterRepository: [FilterRepository defaultInstance]];
 }
 
 // Special case: should not cover (override) super's designated initialiser in
 // NSWindowController's case
-- (id) initWithFilterRepository:(FilterRepository *)filterRepositoryVal {
+- (instancetype) initWithFilterRepository:(FilterRepository *)filterRepositoryVal {
   if (self = [super initWithWindowNibName: @"FiltersWindow" owner: self]) {
     filterRepository = [filterRepositoryVal retain];
 
@@ -66,8 +66,8 @@
              object: repositoryFiltersByName];
 
     filterNames =
-      [[NSMutableArray alloc] initWithCapacity: [[filterRepository filtersByName] count] + 8];
-    [filterNames addObjectsFromArray: [[filterRepository filtersByName] allKeys]];
+      [[NSMutableArray alloc] initWithCapacity: [filterRepository filtersByName].count + 8];
+    [filterNames addObjectsFromArray: [filterRepository filtersByName].allKeys];
     [filterNames sortUsingSelector: @selector(compare:)];
     
     filterNameToSelect = nil;
@@ -92,18 +92,18 @@
 
 
 - (IBAction) okAction:(id)sender {
-  [[self window] close];
+  [self.window close];
 }
 
 - (void)cancelOperation:(id)sender {
-  [[self window] close];
+  [self.window close];
 }
 
 - (IBAction) addFilterToRepository:(id)sender {
   NamedFilter  *newFilter = [filterEditor newNamedFilter];
   
   [self selectFilterNamed: [newFilter name]];
-  [[self window] makeFirstResponder: filterView];
+  [self.window makeFirstResponder: filterView];
 }
 
 - (IBAction) editFilterInRepository:(id)sender {
@@ -128,18 +128,18 @@
   
   [alert addButtonWithTitle: REMOVE_BUTTON_TITLE];
   [alert addButtonWithTitle: CANCEL_BUTTON_TITLE];
-  [alert setMessageText: [NSString stringWithFormat: fmt, localizedName]];
-  [alert setInformativeText: infoMsg];
+  alert.messageText = [NSString stringWithFormat: fmt, localizedName];
+  alert.informativeText = infoMsg;
 
-  [alert beginSheetModalForWindow: [self window]
+  [alert beginSheetModalForWindow: self.window
                     modalDelegate: self
                    didEndSelector: @selector(confirmFilterRemovalAlertDidEnd:returnCode:contextInfo:)
                       contextInfo: filterName];
 }
 
 - (void) windowDidLoad {
-  [filterView setDelegate: self];
-  [filterView setDataSource: self];
+  filterView.delegate = self;
+  filterView.dataSource = self;
       
   [self updateWindowState];
 }
@@ -149,12 +149,12 @@
 // NSTableSource
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
-  return [filterNames count];
+  return filterNames.count;
 }
 
 - (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)column
              row:(NSInteger)row {
-  NSString  *filterName = [filterNames objectAtIndex: row];
+  NSString  *filterName = filterNames[row];
   NSBundle  *mainBundle = [NSBundle mainBundle];
   return [mainBundle localizedStringForKey: filterName value: nil table: @"Names"];
 
@@ -174,8 +174,8 @@
 @implementation FiltersWindowControl (PrivateMethods)
 
 - (NSString *)selectedFilterName {
-  NSInteger  index = [filterView selectedRow];
-  return (index < 0) ? nil : [filterNames objectAtIndex: index];
+  NSInteger  index = filterView.selectedRow;
+  return (index < 0) ? nil : filterNames[index];
 }
 
 
@@ -192,17 +192,16 @@
 - (void) updateWindowState {
   NSString  *filterName = [self selectedFilterName];
   
-  [editFilterButton setEnabled: (filterName != nil) ];
+  editFilterButton.enabled = (filterName != nil) ;
   
-  [removeFilterButton setEnabled: 
-     (filterName != nil &&
+  removeFilterButton.enabled = (filterName != nil &&
         ( [filterRepository applicationProvidedFilterForName: filterName] !=
-          [filterRepository filterForName: filterName] ))];
+          [filterRepository filterForName: filterName] ));
 }
 
 
 - (void) filterAddedToRepository:(NSNotification *)notification {
-  NSString  *name = [[notification userInfo] objectForKey: @"key"];
+  NSString  *name = notification.userInfo[@"key"];
   NSString  *selectedName = [self selectedFilterName];
 
   [filterNames addObject: name];
@@ -221,7 +220,7 @@
 
 
 - (void) filterRemovedFromRepository:(NSNotification *)notification {
-  NSString  *name = [[notification userInfo] objectForKey: @"key"];
+  NSString  *name = notification.userInfo[@"key"];
   NSString  *selectedName = [self selectedFilterName];
 
   NSUInteger  index = [filterNames indexOfObject: name];
@@ -249,15 +248,15 @@
 
 
 - (void) filterRenamedInRepository:(NSNotification *)notification {
-  NSString  *oldName = [[notification userInfo] objectForKey: @"oldkey"];
-  NSString  *newName = [[notification userInfo] objectForKey: @"newkey"];
+  NSString  *oldName = notification.userInfo[@"oldkey"];
+  NSString  *newName = notification.userInfo[@"newkey"];
 
   NSUInteger  index = [filterNames indexOfObject: oldName];
   NSAssert(index != NSNotFound, @"Filter not found.");
 
   NSString  *selectedName = [self selectedFilterName];
 
-  [filterNames replaceObjectAtIndex: index withObject: newName];
+  filterNames[index] = newName;
   [filterNames sortUsingSelector: @selector(compare:)];
   [filterView reloadData];
     

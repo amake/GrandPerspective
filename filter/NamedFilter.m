@@ -15,12 +15,12 @@
 
 
 // Overrides designated initialiser.
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithFilter:name: instead.");
   return nil;
 }
 
-- (id) initWithFilter:(Filter *)filterVal name:(NSString *)nameVal {
+- (instancetype) initWithFilter:(Filter *)filterVal name:(NSString *)nameVal {
   if (self = [super init]) {
     filter = [filterVal retain];
     name = [nameVal retain];

@@ -18,10 +18,10 @@
   SEL  cancelCallbackSelector;
 }
 
-- (id) initWithTaskExecutor:(NSObject <TaskExecutor> *)taskExecutor;
+- (instancetype) initWithTaskExecutor:(NSObject <TaskExecutor> *)taskExecutor NS_DESIGNATED_INITIALIZER;
 
 
-- (NSObject <TaskExecutor> *)taskExecutor;
+@property (nonatomic, readonly, strong) NSObject<TaskExecutor> *taskExecutor;
 
 
 /* Signals that a task has started execution. It also provides the callback method that should be
@@ -50,11 +50,11 @@
 
 @interface ProgressPanelControl (AbstractMethods)
 
-- (NSString *)windowTitle;
-- (NSString *)progressDetailsFormat;
-- (NSString *)progressSummaryFormat;
+@property (nonatomic, readonly, copy) NSString *windowTitle;
+@property (nonatomic, readonly, copy) NSString *progressDetailsFormat;
+@property (nonatomic, readonly, copy) NSString *progressSummaryFormat;
 
 - (NSString *)pathFromTaskInput:(id)taskInput;
-- (NSDictionary *)progressInfo;
+@property (nonatomic, readonly, copy) NSDictionary *progressInfo;
 
 @end

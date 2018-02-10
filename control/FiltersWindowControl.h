@@ -22,8 +22,8 @@
   NSString  *filterNameToSelect;
 }
 
-- (id) init;
-- (id) initWithFilterRepository:(FilterRepository *)filterRepository;
+- (instancetype) init;
+- (instancetype) initWithFilterRepository:(FilterRepository *)filterRepository NS_DESIGNATED_INITIALIZER;
 
 - (IBAction) okAction:(id)sender;
 

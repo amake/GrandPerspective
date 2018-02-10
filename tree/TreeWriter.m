@@ -93,7 +93,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   NSMutableString  *buf = nil;
   
   NSUInteger  i;
-  NSUInteger  numCharsInVal = [s length];
+  NSUInteger  numCharsInVal = s.length;
   NSUInteger  numCharsInBuf = 0;
   
   for (i = 0; i < numCharsInVal; i++) {
@@ -177,7 +177,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
 @implementation TreeWriter
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     dataBuffer = malloc(BUFFER_SIZE);
 
@@ -208,7 +208,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
   [progressTracker startingTask];
   
-  file = fopen( [filename UTF8String], "w");
+  file = fopen( filename.UTF8String, "w");
   if (file == NULL) {
     return NO;
   }
@@ -284,9 +284,9 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
     static NSDateFormatter *timeFmt = nil;
     if (timeFmt == nil) {
         timeFmt = [[NSDateFormatter alloc] init];
-        [timeFmt setLocale: [NSLocale localeWithLocaleIdentifier: @"en_US_POSIX"]];
-        [timeFmt setDateFormat: DateTimeFormat];
-        [timeFmt setTimeZone: [NSTimeZone timeZoneForSecondsFromGMT: 0]];
+        timeFmt.locale = [NSLocale localeWithLocaleIdentifier: @"en_US_POSIX"];
+        timeFmt.dateFormat = DateTimeFormat;
+        timeFmt.timeZone = [NSTimeZone timeZoneForSecondsFromGMT: 0];
     }
     return timeFmt;
 }
@@ -297,7 +297,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 @implementation TreeWriter (PrivateMethods) 
 
 - (void) appendScanDumpElement:(AnnotatedTreeContext *)annotatedTree {
-  NSString  *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleVersion"];
+  NSString  *appVersion = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
 
   [self appendString: 
     [NSString stringWithFormat: @"<%@ %@=\"%@\" %@=\"%@\">\n", 
@@ -337,7 +337,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
 
 - (void) appendScanCommentsElement:(NSString *)comments {
-  if ([comments length] == 0) {
+  if (comments.length == 0) {
     return;
   }
 
@@ -504,8 +504,8 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   }
 
   NSData  *newData = [s dataUsingEncoding: NSUTF8StringEncoding];
-  const void  *newDataBytes = [newData bytes];
-  NSUInteger  numToAppend = [newData length];
+  const void  *newDataBytes = newData.bytes;
+  NSUInteger  numToAppend = newData.length;
   NSUInteger  newDataPos = 0;
   
   while (numToAppend > 0) {

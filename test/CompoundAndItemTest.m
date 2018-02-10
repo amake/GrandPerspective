@@ -8,17 +8,17 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  [dict setObject: @"CompoundAndItemTest" forKey: @"class"];
+  dict[@"class"] = @"CompoundAndItemTest";
 }
 
 
 - (BOOL) testFileItem:(FileItem *)item context:(id)context {
-  NSInteger  max = [subTests count];
+  NSInteger  max = subTests.count;
   NSInteger  i = 0;
   BOOL  applicable = NO;
   
   while (i < max) {
-    TestResult  result = [[subTests objectAtIndex: i++] testFileItem: item context: context];
+    TestResult  result = [subTests[i++] testFileItem: item context: context];
       
     if (result == TEST_FAILED) {
       // Short-circuit evaluation
@@ -50,7 +50,7 @@
 
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict {
-  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"CompoundAndItemTest"],
+  NSAssert([dict[@"class"] isEqualToString: @"CompoundAndItemTest"],
            @"Incorrect value for class in dictionary.");
 
   return [[[CompoundAndItemTest alloc] initWithPropertiesFromDictionary: dict] autorelease];

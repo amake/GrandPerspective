@@ -11,7 +11,7 @@
 
 @implementation WindowManager
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     titleLookup = [[NSMutableDictionary alloc] initWithCapacity: 8];
     
@@ -28,7 +28,7 @@
 
 - (void) addWindow:(NSWindow *)window usingTitle:(NSString *)title {
   nextWindowPosition = [window cascadeTopLeftFromPoint: nextWindowPosition]; 
-  [window setTitle: [self makeTitleUnique: title]];
+  window.title = [self makeTitleUnique: title];
 }
 
 @end
@@ -39,11 +39,10 @@
 - (NSString *) makeTitleUnique: (NSString *)title {
   NSString*  strippedTitle = [self stripTitle: title];
 
-  NSNumber*  count = [titleLookup objectForKey: strippedTitle];
-  NSUInteger  newCount = (count == nil) ? 1 : [count unsignedIntegerValue] + 1;
+  NSNumber*  count = titleLookup[strippedTitle];
+  NSUInteger  newCount = (count == nil) ? 1 : count.unsignedIntegerValue + 1;
 
-  [titleLookup setObject: [NSNumber numberWithUnsignedInteger: newCount]
-                  forKey: strippedTitle];
+  titleLookup[strippedTitle] = @(newCount);
     
   if (newCount == 1) {
     // First use of this (base) title
@@ -54,7 +53,7 @@
     // This title has been used before. Append the count to make it unique.
     
     NSMutableString*  uniqueTitle =
-      [NSMutableString stringWithCapacity: [strippedTitle length] + 5];
+      [NSMutableString stringWithCapacity: strippedTitle.length + 5];
                                       
     [uniqueTitle setString: strippedTitle];
     [uniqueTitle appendFormat: @" [%lu]", (unsigned long)newCount];
@@ -65,7 +64,7 @@
 
 
 - (NSString *)stripTitle:(NSString *)title {
-  NSUInteger  pos = [title length];
+  NSUInteger  pos = title.length;
   NSCharacterSet*  digitSet = [NSCharacterSet decimalDigitCharacterSet]; 
 
   if ( pos-- == 0 ||

@@ -11,7 +11,7 @@
 
 }
 
-- (id) initWithMainMenuControl:(MainMenuControl *)mainMenuControl;
+- (instancetype) initWithMainMenuControl:(MainMenuControl *)mainMenuControl NS_DESIGNATED_INITIALIZER;
 
 - (IBAction) scanAction:(id)sender;
 - (IBAction) helpAction:(id)sender;

@@ -13,20 +13,20 @@
 
 @implementation SaveImageDialogControl
 
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use -initWithDirectoryViewControl: instead");
   return nil;
 }
 
 // Special case: should not cover (override) super's designated initialiser in NSWindowController's
 // case
-- (id) initWithDirectoryViewControl: (DirectoryViewControl*)dirViewControlVal {
+- (instancetype) initWithDirectoryViewControl:(DirectoryViewControl *)dirViewControlVal {
          
   if (self = [super initWithWindowNibName: @"SaveImageDialog" owner: self]) {
     dirViewControl = [dirViewControlVal retain];
     
     // Trigger loading of window.
-    [self window];
+    self.window;
   }
 
   return self;
@@ -45,18 +45,18 @@
   [[NSNotificationCenter defaultCenter] addObserver: self
                                            selector: @selector(windowWillClose:)
                                                name: NSWindowWillCloseNotification
-                                             object: [self window]];
+                                             object: self.window];
 
-  [[self window] center];
-  [[self window] makeKeyAndOrderFront: self];
+  [self.window center];
+  [self.window makeKeyAndOrderFront: self];
 
-  NSRect  bounds = [[dirViewControl directoryView] bounds];
+  NSRect  bounds = [dirViewControl directoryView].bounds;
   // Setting string value directly instead of using setIntValue, as the latter adds a decimal
   // separator. Even worse, the reverse operation using intValue to retrieve the integer value can
   // give a different number.
   // On my system, the following happened on OS X 10.11: 1920 -> "1.920" -> 1
-  [widthField setStringValue: [NSString stringWithFormat: @"%d", (int)bounds.size.width]];
-  [heightField setStringValue: [NSString stringWithFormat: @"%d", (int)bounds.size.height]];
+  widthField.stringValue = [NSString stringWithFormat: @"%d", (int)bounds.size.width];
+  heightField.stringValue = [NSString stringWithFormat: @"%d", (int)bounds.size.height];
 }
 
 
@@ -76,12 +76,12 @@
 
 
 - (IBAction)cancelSaveImage:(id)sender {
-  [[self window] close];
+  [self.window close];
 }
 
 
 - (IBAction)saveImage:(id)sender {
-  [[self window] close];
+  [self.window close];
 
   // Retrieve the desired size of the image.
   // Note: Cannot rely on valueEntered: for making sure that the size is valid. The action event is
@@ -92,11 +92,11 @@
 
   // Get a filename for the image.
   NSSavePanel  *savePanel = [NSSavePanel savePanel]; 
-  [savePanel setAllowedFileTypes: [NSArray arrayWithObject: @"tiff"]];
+  savePanel.allowedFileTypes = @[@"tiff"];
   [savePanel setTitle: NSLocalizedString( @"Save image", @"Title of save panel") ];
   
   if ([savePanel runModal] == NSModalResponseOK) {
-    NSURL  *destURL = [savePanel URL];
+    NSURL  *destURL = savePanel.URL;
     
     // Draw the image.
     DirectoryView  *dirView = [dirViewControl directoryView];
@@ -110,7 +110,7 @@
                                                   inRect: bounds];
     
     // Save the image.
-    NSBitmapImageRep  *imageBitmap = (NSBitmapImageRep *)[[image representations] objectAtIndex: 0];
+    NSBitmapImageRep  *imageBitmap = (NSBitmapImageRep *)image.representations[0];
     NSData  *imageData = [imageBitmap representationUsingType: NSTIFFFileType
                                                    properties: @{}];
 

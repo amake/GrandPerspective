@@ -12,9 +12,9 @@
   SEL  callbackSelector; 
 }
 
-- (id) initWithProgressPanel:(ProgressPanelControl *)progressPanel
-                    callback:(NSObject *)callback
-                    selector:(SEL)selector;
+- (instancetype) initWithProgressPanel:(ProgressPanelControl *)progressPanel
+                              callback:(NSObject *)callback
+                              selector:(SEL)selector NS_DESIGNATED_INITIALIZER;
          
 - (void) taskDone:(id)result;
 
@@ -24,12 +24,12 @@
 @implementation VisibleAsynchronousTaskManager
 
 // Overrides super's designated initialiser.
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use -initWithProgressPanel: instead.");
   return nil;
 }
 
-- (id) initWithProgressPanel:(ProgressPanelControl *)panelControl {
+- (instancetype) initWithProgressPanel:(ProgressPanelControl *)panelControl {
   if (self = [super init]) {
     progressPanelControl = [panelControl retain];
     
@@ -87,14 +87,14 @@
 @implementation CallbackHandler
 
 // Overrides super's designated initialiser.
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use -initWithProgressPanel:callback:selector instead.");
   return nil;
 }
 
-- (id) initWithProgressPanel:(ProgressPanelControl *)panelControl
-                    callback:(NSObject *)callbackVal
-                    selector:(SEL)selector {
+- (instancetype) initWithProgressPanel:(ProgressPanelControl *)panelControl
+                              callback:(NSObject *)callbackVal
+                              selector:(SEL)selector {
 
   if (self = [super init]) {
     progressPanelControl = [panelControl retain];

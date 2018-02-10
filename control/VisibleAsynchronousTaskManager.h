@@ -14,7 +14,7 @@
 
 }
 
-- (id) initWithProgressPanel:(ProgressPanelControl *)panelControl;
+- (instancetype) initWithProgressPanel:(ProgressPanelControl *)panelControl NS_DESIGNATED_INITIALIZER;
 
 - (void) dispose;
 

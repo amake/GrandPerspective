@@ -12,7 +12,7 @@
 - (void) addColorList:(NSColorList *)colorList key:(NSString *)key;
 - (void) removeColorListForKey:(NSString *)key;
 
-- (NSArray *)allKeys;
+@property (nonatomic, readonly, copy) NSArray *allKeys;
 - (NSColorList *)colorListForKey:(NSString *)key;
 
 @end

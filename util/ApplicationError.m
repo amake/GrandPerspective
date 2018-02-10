@@ -4,36 +4,35 @@
 @implementation ApplicationError
 
 // Overrides designated initialiser
-- (id) initWithDomain:(NSString *)domain
-                 code:(NSInteger)code
-             userInfo:(NSDictionary *)userInfo {
+- (instancetype) initWithDomain:(NSString *)domain
+                           code:(NSInteger)code
+                       userInfo:(NSDictionary *)userInfo {
   NSAssert(NO, @"Use initWithCode:userInfo instead.");
   return nil;
 }
 
-- (id) initWithLocalizedDescription:(NSString *)descr {
+- (instancetype) initWithLocalizedDescription:(NSString *)descr {
   return [self initWithCode: -1 localizedDescription: descr];
 }
 
-- (id) initWithCode:(int)code localizedDescription:(NSString *)descr {
+- (instancetype) initWithCode:(int)code localizedDescription:(NSString *)descr {
   return [self initWithCode: code
-                   userInfo: [NSDictionary dictionaryWithObject: descr
-                                                         forKey: NSLocalizedDescriptionKey]];
+                   userInfo: @{NSLocalizedDescriptionKey: descr}];
 }
 
-- (id) initWithCode:(int)code userInfo:(NSDictionary *)userInfo {
+- (instancetype) initWithCode:(int)code userInfo:(NSDictionary *)userInfo {
   return [super initWithDomain: @"Application" code: code userInfo: userInfo];
 }
 
-+ (id) errorWithLocalizedDescription:(NSString *)descr {
++ (instancetype) errorWithLocalizedDescription:(NSString *)descr {
   return [[[ApplicationError alloc] initWithLocalizedDescription: descr] autorelease];
 }
 
-+ (id) errorWithCode:(int)code localizedDescription:(NSString *)descr {
++ (instancetype) errorWithCode:(int)code localizedDescription:(NSString *)descr {
   return [[[ApplicationError alloc] initWithCode: code localizedDescription: descr] autorelease];
 }
 
-+ (id) errorWithCode:(int)code userInfo:(NSDictionary *)userInfo {
++ (instancetype) errorWithCode:(int)code userInfo:(NSDictionary *)userInfo {
   return [[[ApplicationError alloc] initWithCode: code userInfo: userInfo] autorelease];
 }
 

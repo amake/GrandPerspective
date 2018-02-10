@@ -13,8 +13,8 @@
 
 }
 
-- (id) initWithStringTest:(StringTest *)stringTest;
+- (instancetype) initWithStringTest:(StringTest *)stringTest NS_DESIGNATED_INITIALIZER;
 
-- (StringTest *)stringTest;
+@property (nonatomic, readonly, strong) StringTest *stringTest;
 
 @end

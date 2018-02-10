@@ -11,8 +11,7 @@
   NSMutableArray  *tmpArray;
 }
 
-- (void) setExcludeZeroSizedItems:(BOOL)flag;
-- (BOOL) excludeZeroSizedItems;
+@property (nonatomic) BOOL excludeZeroSizedItems;
 
 // Note: assumes that array may be modified for sorting!
 - (Item *)createTreeForItems:(NSMutableArray *)items;

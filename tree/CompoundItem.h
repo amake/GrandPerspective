@@ -10,11 +10,11 @@
 
 /* Both items must be non-nil.
  */
-- (id) initWithFirst:(Item *)first second:(Item *)second;
+- (instancetype) initWithFirst:(Item *)first second:(Item *)second NS_DESIGNATED_INITIALIZER;
 
-- (Item *)getFirst;
+@property (nonatomic, getter=getFirst, readonly, strong) Item *first;
 
-- (Item *)getSecond;
+@property (nonatomic, getter=getSecond, readonly, strong) Item *second;
 
 
 /* Replaces the first item. The item must have the same size as the original one (otherwise the

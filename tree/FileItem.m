@@ -25,9 +25,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   static NSArray  *fileSizeMeasureBaseNames = nil;
   
   if (fileSizeMeasureBaseNames == nil) {
-    fileSizeMeasureBaseNames = 
-    [[NSArray arrayWithObjects: FileSizeUnitSystemBase2, FileSizeUnitSystemBase10, nil] 
-     retain];
+    fileSizeMeasureBaseNames = [@[FileSizeUnitSystemBase2, FileSizeUnitSystemBase10] retain];
   }
   
   return fileSizeMeasureBaseNames;
@@ -46,7 +44,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 }
 
 // Overrides super's designated initialiser.
-- (id) initWithItemSize:(ITEM_SIZE) sizeVal {
+- (instancetype) initWithItemSize:(ITEM_SIZE) sizeVal {
   return [self initWithLabel: @""
                       parent: nil
                         size: sizeVal
@@ -57,13 +55,13 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 }
 
 
-- (id) initWithLabel:(NSString *)labelVal
-              parent:(DirectoryItem *)parentVal
-                size:(ITEM_SIZE)sizeVal
-               flags:(UInt8)flagsVal
-        creationTime:(CFAbsoluteTime)creationTimeVal
-    modificationTime:(CFAbsoluteTime)modificationTimeVal
-          accessTime:(CFAbsoluteTime)accessTimeVal {
+- (instancetype) initWithLabel:(NSString *)labelVal
+                        parent:(DirectoryItem *)parentVal
+                          size:(ITEM_SIZE)sizeVal
+                         flags:(UInt8)flagsVal
+                  creationTime:(CFAbsoluteTime)creationTimeVal
+              modificationTime:(CFAbsoluteTime)modificationTimeVal
+                    accessTime:(CFAbsoluteTime)accessTimeVal {
   if (self = [super initWithItemSize: sizeVal]) {
     label = [labelVal retain];
 
@@ -206,7 +204,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
       dotRange.location // Keep only the digits before the decimal point.
     );
 
-    [s deleteCharactersInRange:NSMakeRange(delPos, [s length] - delPos)];
+    [s deleteCharactersInRange:NSMakeRange(delPos, s.length - delPos)];
     
     if (dotRange.location < delPos) {
       // The dot is still visible, so localize it
@@ -250,7 +248,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   [comp replaceOccurrencesOfString: @":"
                         withString: @"/"
                            options: NSLiteralSearch
-                             range: NSMakeRange(0, [comp length])];
+                             range: NSMakeRange(0, comp.length)];
   return comp;
 }
 
@@ -261,7 +259,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   [comp replaceOccurrencesOfString: @"/"
                         withString: @":"
                            options: NSLiteralSearch
-                             range: NSMakeRange(0, [comp length])];
+                             range: NSMakeRange(0, comp.length)];
   return comp;
 }
 
@@ -297,7 +295,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   if (decimalSeparator == nil) {
     NSNumberFormatter  *numFormat = [[[NSNumberFormatter alloc] init] autorelease];
     [numFormat setLocalizesFormat: YES];
-    decimalSeparator = [[numFormat decimalSeparator] retain];
+    decimalSeparator = [numFormat.decimalSeparator retain];
   }
 
   return decimalSeparator;

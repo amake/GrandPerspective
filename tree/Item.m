@@ -38,11 +38,11 @@ static NSZone  *dedicatedSharedZone = nil;
 
 
 // Overrides super's designated initialiser.
-- (id) init {
+- (instancetype) init {
   return [self initWithItemSize:0];
 }
 
-- (id) initWithItemSize:(ITEM_SIZE)sizeVal {
+- (instancetype) initWithItemSize:(ITEM_SIZE)sizeVal {
   if (self = [super init]) {
     size = sizeVal;
   }

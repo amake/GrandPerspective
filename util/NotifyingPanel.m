@@ -14,10 +14,10 @@ NSString  *FirstResponderChangedEvent = @"firstResponderChanged";
 @implementation NotifyingPanel
 
 // Overrides designated initialiser
-- (id)initWithContentRect:(NSRect)contentRect
-                styleMask:(NSWindowStyleMask)styleMask
-                  backing:(NSBackingStoreType)backingType
-                    defer:(BOOL)flag {
+- (instancetype)initWithContentRect:(NSRect)contentRect
+                          styleMask:(NSWindowStyleMask)styleMask
+                            backing:(NSBackingStoreType)backingType
+                              defer:(BOOL)flag {
   if (self = [super initWithContentRect: contentRect
                               styleMask: styleMask
                                 backing: backingType
@@ -70,7 +70,7 @@ NSString  *FirstResponderChangedEvent = @"firstResponderChanged";
 
 - (void) windowFirstResponderChanged_:(NSNotification *)notification {
   SEL  sel = @selector(windowFirstResponderChanged:);
-  id  target = [[self delegate] respondsToSelector: sel] ? [self delegate] : self;
+  id  target = [self.delegate respondsToSelector: sel] ? self.delegate : self;
 
   // Notify the delegate (if it exists and has implemented the method). 
   // Otherwise just call own method, which can then be overriden if need be.

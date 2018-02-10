@@ -57,7 +57,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
 @implementation DirectoryView
 
-- (id) initWithFrame:(NSRect)frame {
+- (instancetype) initWithFrame:(NSRect)frame {
   if (self = [super initWithFrame:frame]) {
     layoutBuilder = [[TreeLayoutBuilder alloc] init];
     pathDrawer = [[ItemPathDrawer alloc] init];
@@ -119,19 +119,19 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   [nc addObserver: self
          selector: @selector(windowMainStatusChanged:)
              name: NSWindowDidBecomeMainNotification
-           object: [self window]];
+           object: self.window];
   [nc addObserver: self
          selector: @selector(windowMainStatusChanged:)
              name: NSWindowDidResignMainNotification
-           object: [self window]];
+           object: self.window];
   [nc addObserver: self
          selector: @selector(windowKeyStatusChanged:)
              name: NSWindowDidBecomeKeyNotification
-           object: [self window]];
+           object: self.window];
   [nc addObserver: self
          selector: @selector(windowKeyStatusChanged:)
              name: NSWindowDidResignKeyNotification
-           object: [self window]];
+           object: self.window];
           
   [self visiblePathLockingChanged: nil];
   [self setNeedsDisplay: YES];
@@ -153,7 +153,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   return [selectedItemLocator locationForItemAtEndOfPath: itemPath
                                           startingAtTree: [self treeInView]
                                       usingLayoutBuilder: layoutBuilder
-                                                  bounds: [self bounds]];
+                                                  bounds: self.bounds];
 }
 
 - (NSImage *)imageInViewForItemAtEndOfPath:(NSArray *)itemPath {
@@ -277,9 +277,9 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
     return;
   }
   
-  if (treeImage != nil && !NSEqualSizes([treeImage size], [self bounds].size)) {
+  if (treeImage != nil && !NSEqualSizes(treeImage.size, self.bounds.size)) {
     // Scale the existing image for the new size
-    [treeImage setSize: [self bounds].size];
+    treeImage.size = self.bounds.size;
     
     // Indicate that the scaling has taken place, so that a new image will be
     // created.
@@ -295,7 +295,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
       [[DrawTaskInput alloc] initWithVisibleTree: [pathModelView visibleTree]
                                       treeInView: [self treeInView]
                                    layoutBuilder: layoutBuilder
-                                          bounds: [self bounds]];
+                                          bounds: self.bounds];
     [drawTaskManager asynchronouslyRunTaskWithInput: drawInput
                                            callback: self
                                            selector: @selector(itemTreeImageReady:)];
@@ -312,7 +312,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
       [pathDrawer drawVisiblePath: pathModelView
                    startingAtTree: [self treeInView]
                usingLayoutBuilder: layoutBuilder
-                           bounds: [self bounds]];
+                           bounds: self.bounds];
     }
   }
 }
@@ -336,8 +336,8 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
 
 - (BOOL)performKeyEquivalent:(NSEvent *)theEvent {
-  int  flags = [theEvent modifierFlags] & NSDeviceIndependentModifierFlagsMask;
-  NSString  *chars = [theEvent characters];
+  int  flags = theEvent.modifierFlags & NSDeviceIndependentModifierFlagsMask;
+  NSString  *chars = theEvent.characters;
   
   if ([chars isEqualToString: @"]"]) {
     if (flags == NSCommandKeyMask) {
@@ -390,7 +390,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
 
 - (void) scrollWheel: (NSEvent *)theEvent {
-  scrollWheelDelta += [theEvent deltaY];
+  scrollWheelDelta += theEvent.deltaY;
   
   if (scrollWheelDelta > 0) {
     if (! [self canMoveFocusDown]) {
@@ -422,7 +422,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 - (void) mouseDown:(NSEvent *)theEvent {
   ItemPathModel  *pathModel = [pathModelView pathModel];
 
-  if ([[self window] acceptsMouseMovedEvents] &&
+  if (self.window.acceptsMouseMovedEvents &&
       [pathModel lastFileItem] == [pathModel visibleTree]) {
     // Although the visible path is following the mouse, the visible path is empty. This can either
     // mean that the view only shows a single file item or, more likely, the view did not yet
@@ -447,7 +447,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
     [pathModel setVisiblePathLocking: NO];
   }
 
-  NSPoint  loc = [theEvent locationInWindow];
+  NSPoint  loc = theEvent.locationInWindow;
   [self updateSelectedItem: [self convertPoint: loc fromView: nil]];
 
   if (!wasLocked) {
@@ -472,17 +472,17 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
     return;
   }
   
-  if (! ([[self window] isMainWindow] && [[self window] isKeyWindow])) {
+  if (! (self.window.mainWindow && self.window.keyWindow)) {
     // Only handle mouseMoved events when the window is main and key. 
     return;
   }
   
-  NSPoint  loc = [[self window] mouseLocationOutsideOfEventStream];
+  NSPoint  loc = self.window.mouseLocationOutsideOfEventStream;
   // Note: not using the location returned by [theEvent locationInWindow] as this is incorrect after
   // the drawer has been clicked on.
 
   NSPoint  mouseLoc = [self convertPoint: loc fromView: nil];
-  BOOL isInside = [self mouse: mouseLoc inRect: [self bounds]];
+  BOOL isInside = [self mouse: mouseLoc inRect: self.bounds];
 
   if (isInside) {
     [self updateSelectedItem: mouseLoc];
@@ -637,14 +637,14 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 - (void) updateAcceptMouseMovedEvents {
   BOOL  letPathFollowMouse = 
     ( ![[pathModelView pathModel] isVisiblePathLocked] 
-      && [[self window] isMainWindow] 
-      && [[self window] isKeyWindow] );
+      && self.window.mainWindow
+      && self.window.keyWindow );
       
-  [[self window] setAcceptsMouseMovedEvents: letPathFollowMouse];
+  self.window.acceptsMouseMovedEvents = letPathFollowMouse;
 
   if (letPathFollowMouse) {
     // Ensures that the view also receives the mouse moved events.
-    [[self window] makeFirstResponder: self];
+    [self.window makeFirstResponder: self];
   }
 }
 
@@ -687,7 +687,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   [pathModelView selectItemAtPoint: point 
                     startingAtTree: [self treeInView]
                 usingLayoutBuilder: layoutBuilder
-                            bounds: [self bounds]];
+                            bounds: self.bounds];
   // Redrawing in response to any changes will happen when the change notification is received.
 }
 

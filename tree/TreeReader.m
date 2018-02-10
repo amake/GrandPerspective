@@ -71,13 +71,13 @@ NSString  *AttributeNameKey = @"name";
 
 @interface TreeReader (PrivateMethods) 
 
-- (NSXMLParser *)parser;
-- (TreeBalancer *)treeBalancer;
-- (ObjectPool *)dirsArrayPool;
-- (ObjectPool *)filesArrayPool;
+@property (nonatomic, readonly, strong) NSXMLParser *parser;
+@property (nonatomic, readonly, strong) TreeBalancer *treeBalancer;
+@property (nonatomic, readonly, strong) ObjectPool *dirsArrayPool;
+@property (nonatomic, readonly, strong) ObjectPool *filesArrayPool;
 
-- (FilterTestRepository *)filterTestRepository;
-- (NSMutableArray *)mutableUnboundFilterTests;
+@property (nonatomic, readonly, strong) FilterTestRepository *filterTestRepository;
+@property (nonatomic, readonly, copy) NSMutableArray *mutableUnboundFilterTests;
 
 - (void) setParseError:(NSError *)error;
 
@@ -95,10 +95,10 @@ NSString  *AttributeNameKey = @"name";
   SEL  successSelector;
 }
 
-- (id) initWithElement:(NSString *)elementName
-                reader:(TreeReader *)reader
-              callback:(id) callback
-             onSuccess:(SEL)successSelector;
+- (instancetype) initWithElement:(NSString *)elementName
+                          reader:(TreeReader *)reader
+                        callback:(id) callback
+                       onSuccess:(SEL)successSelector NS_DESIGNATED_INITIALIZER;
 
 
 /* Generic callback method for when a child handler completes successfully. Subclasses should define
@@ -129,7 +129,7 @@ NSString  *AttributeNameKey = @"name";
 
 /* Called when the end of the element represented by this handler is encountered.
  */
-- (id) objectForElement;
+@property (nonatomic, readonly, strong) id objectForElement;
 
 /* Should be called when the handler encounters an error (i.e. so it should not be called when the
  * parser has signalled an error). It will abort the parsing.
@@ -259,11 +259,11 @@ NSString  *AttributeNameKey = @"name";
   NSMutableArray  *dirs;
 }
 
-- (id) initWithElement:(NSString *)elementName
-                reader:(TreeReader *)reader
-              callback:(id)callback
-             onSuccess:(SEL)successSelector
-                parent:(DirectoryItem *)parent;
+- (instancetype) initWithElement:(NSString *)elementName
+                          reader:(TreeReader *)reader
+                        callback:(id)callback
+                       onSuccess:(SEL)successSelector
+                          parent:(DirectoryItem *)parent NS_DESIGNATED_INITIALIZER;
 
 - (void) handler:(ElementHandler *)handler
            finishedParsingFolderElement:(DirectoryItem *) dirItem;
@@ -287,11 +287,11 @@ NSString  *AttributeNameKey = @"name";
   PlainFileItem  *fileItem;
 }
 
-- (id) initWithElement:(NSString *)elementName
-                reader:(TreeReader *)reader
-              callback:(id)callback
-             onSuccess:(SEL)successSelector
-                parent:(DirectoryItem *)parent;
+- (instancetype) initWithElement:(NSString *)elementName
+                          reader:(TreeReader *)reader
+                        callback:(id)callback
+                       onSuccess:(SEL)successSelector
+                          parent:(DirectoryItem *)parent NS_DESIGNATED_INITIALIZER;
 
 @end // @interface FileElementHandler
 
@@ -299,10 +299,10 @@ NSString  *AttributeNameKey = @"name";
 @interface AttributeParseException : NSException {
 }
 
-- (id) initWithAttributeName:(NSString *)attribName
-         reason:(NSString *)reason;
+- (instancetype) initWithAttributeName:(NSString *)attribName
+                   reason:(NSString *)reason NS_DESIGNATED_INITIALIZER;
          
-+ (id) exceptionWithAttributeName:(NSString *)attribName
++ (instancetype) exceptionWithAttributeName:(NSString *)attribName
          reason:(NSString *)reason;
 
 @end // @interface AttributeParseException
@@ -310,11 +310,11 @@ NSString  *AttributeNameKey = @"name";
 
 @implementation TreeReader
 
-- (id) init {
+- (instancetype) init {
   return [self initWithFilterTestRepository: [FilterTestRepository defaultInstance]];
 }
 
-- (id) initWithFilterTestRepository:(FilterTestRepository *)repository {
+- (instancetype) initWithFilterTestRepository:(FilterTestRepository *)repository {
   if (self = [super init]) {
     testRepository = [repository retain];
   
@@ -368,7 +368,7 @@ NSString  *AttributeNameKey = @"name";
   }
 
   parser = [[NSXMLParser alloc] initWithData: data];
-  [parser setDelegate: self];
+  parser.delegate = self;
   
   [tree release];
   tree = nil;
@@ -480,7 +480,7 @@ didStartElement:(NSString *)elementName
 // Handler callback methods
 
 - (void) handler:(ElementHandler *)handler failedParsingElement:(NSError *)parseError {
-  [parser setDelegate: self];
+  parser.delegate = self;
   
   [self setParseError: parseError];
   
@@ -491,7 +491,7 @@ didStartElement:(NSString *)elementName
 
 - (void) handler:(ElementHandler *)handler
            finishedParsingScanDumpElement:(AnnotatedTreeContext *)treeVal {
-  [parser setDelegate: self];
+  parser.delegate = self;
   
   tree = [treeVal retain];
     
@@ -537,15 +537,15 @@ didStartElement:(NSString *)elementName
     error = 
       [[ApplicationError alloc] initWithLocalizedDescription:
           [NSString stringWithFormat: PARSE_ERROR_MSG,
-                      [parser lineNumber],
-                      [parseError localizedDescription]]];
+                      parser.lineNumber,
+                      parseError.localizedDescription]];
   }
 }
 
 
 
 - (void) processingFolder:(DirectoryItem *)dirItem {
-  [progressTracker processingFolder: dirItem processedLines: [parser lineNumber]];
+  [progressTracker processingFolder: dirItem processedLines: parser.lineNumber];
 }
 
 - (void) processedFolder:(DirectoryItem *)dirItem {
@@ -564,10 +564,10 @@ didStartElement:(NSString *)elementName
 
 @implementation ElementHandler
 
-- (id) initWithElement:(NSString *)elementNameVal
-                reader:(TreeReader *)readerVal
-              callback:(id)callbackVal
-             onSuccess:(SEL)successSelectorVal {
+- (instancetype) initWithElement:(NSString *)elementNameVal
+                          reader:(TreeReader *)readerVal
+                        callback:(id)callbackVal
+                       onSuccess:(SEL)successSelectorVal {
   if (self = [super init]) {
     elementName = [elementNameVal retain];
     
@@ -577,7 +577,7 @@ didStartElement:(NSString *)elementName
 
     successSelector = successSelectorVal;
     
-    [[reader parser] setDelegate: self];
+    [reader parser].delegate = self;
   }
   
   return self;
@@ -629,7 +629,7 @@ didStartElement:(NSString *)childElement
 // Handler callback methods
 
 - (void) handler:(ElementHandler *)handler failedParsingElement:(NSError *)parseError {
-  [[reader parser] setDelegate: self];
+  [reader parser].delegate = self;
   
   [callback handler: self failedParsingElement: parseError];
 
@@ -637,7 +637,7 @@ didStartElement:(NSString *)childElement
 }
 
 - (void) handler:(ElementHandler *)handler finishedParsingElement:(id)result {
-  [[reader parser] setDelegate: self];
+  [reader parser].delegate = self;
 
   [handler release];
 }
@@ -681,7 +681,7 @@ didStartElement:(NSString *)childElement
 - (void) handlerAttributeParseError:(NSException *)ex {
   NSString  *details = 
     [NSString stringWithFormat: ATTR_PARSE_ERROR_MSG,
-     [[ex userInfo] objectForKey: AttributeNameKey], [ex reason]];
+     ex.userInfo[AttributeNameKey], ex.reason];
        
   [self handlerError: details];
 }
@@ -691,7 +691,7 @@ didStartElement:(NSString *)childElement
 // Attribute parsing helper methods
 
 - (NSString *)getStringAttributeValue:(NSString *)name from:(NSDictionary *)attribs {
-  NSString  *value = [attribs objectForKey: name];
+  NSString  *value = attribs[name];
 
   if (value != nil) {
     return value;
@@ -705,7 +705,7 @@ didStartElement:(NSString *)childElement
 - (NSString *)getStringAttributeValue:(NSString *)name
                                  from:(NSDictionary *)attribs
                          defaultValue:(NSString *)defVal {
-  NSString  *value = [attribs objectForKey: name];
+  NSString  *value = attribs[name];
 
   return (value != nil) ? value : defVal;
 }
@@ -720,7 +720,7 @@ didStartElement:(NSString *)childElement
 - (ITEM_SIZE) getItemSizeAttributeValue:(NSString *)name
                                    from:(NSDictionary *)attribs
                            defaultValue:(ITEM_SIZE) defVal {
-  NSString  *stringValue = [attribs objectForKey: name];
+  NSString  *stringValue = attribs[name];
 
   return (stringValue != nil) ? [self parseItemSizeAttribute: name value: stringValue] : defVal;
 }
@@ -734,7 +734,7 @@ didStartElement:(NSString *)childElement
 - (NSDate *)getDateAttributeValue:(NSString *)name
                              from:(NSDictionary *)attribs
                      defaultValue:(NSDate *)defVal {
-  NSString  *stringValue = [attribs objectForKey: name];
+  NSString  *stringValue = attribs[name];
 
   return (stringValue != nil) ? [self parseDateAttribute: name value: stringValue] : defVal;
 }
@@ -748,7 +748,7 @@ didStartElement:(NSString *)childElement
 - (int) getIntegerAttributeValue:(NSString *)name
                             from:(NSDictionary *)attribs
                     defaultValue:(int)defVal {
-  NSString  *stringValue = [attribs objectForKey: name];
+  NSString  *stringValue = attribs[name];
 
   return (stringValue != nil) ? [self parseIntegerAttribute: name value: stringValue] : defVal;
 }
@@ -761,7 +761,7 @@ didStartElement:(NSString *)childElement
 - (BOOL) getBooleanAttributeValue:(NSString *)name
                              from:(NSDictionary *)attribs
                      defaultValue:(BOOL)defVal {
-  NSString  *stringValue = [attribs objectForKey: name];
+  NSString  *stringValue = attribs[name];
   
   return (stringValue != nil) ? [self parseBooleanAttribute: name value: stringValue] : defVal;
 }
@@ -776,7 +776,7 @@ didStartElement:(NSString *)childElement
 - (CFAbsoluteTime) getTimeAttributeValue:(NSString *)name
                                     from:(NSDictionary *)attribs
                             defaultValue:(CFAbsoluteTime)defVal {
-  NSString  *stringValue = [attribs objectForKey: name];
+  NSString  *stringValue = attribs[name];
   
   return (stringValue != nil) ? [self parseTimeAttribute: name value: stringValue] : defVal;
 }
@@ -794,7 +794,7 @@ didStartElement:(NSString *)childElement
 
   ITEM_SIZE  size = 0;
   NSUInteger  i = 0;
-  NSUInteger  len = [stringValue length];
+  NSUInteger  len = stringValue.length;
   while (i < len) {
     unichar  ch = [stringValue characterAtIndex: i++];
     
@@ -819,8 +819,8 @@ didStartElement:(NSString *)childElement
     static NSDateFormatter *descriptionFormat = nil;
     if (descriptionFormat == nil) {
         descriptionFormat = [[NSDateFormatter alloc] init];
-        [descriptionFormat setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
-        [descriptionFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss X"];
+        descriptionFormat.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        descriptionFormat.dateFormat = @"yyyy-MM-dd HH:mm:ss X";
     }
     dateValue = [descriptionFormat dateFromString: stringValue];
   }
@@ -838,7 +838,7 @@ didStartElement:(NSString *)childElement
   // Note: Explicitly releasing scanner to minimise use of autorelease pool.
   NSScanner  *scanner = [[NSScanner alloc] initWithString: stringValue];
   int  intValue;
-  BOOL  ok  = ( [scanner scanInt: &intValue] && [scanner isAtEnd] );
+  BOOL  ok  = ( [scanner scanInt: &intValue] && scanner.atEnd );
   [scanner release];
      
   if (! ok) {
@@ -851,7 +851,7 @@ didStartElement:(NSString *)childElement
 }
 
 - (BOOL) parseBooleanAttribute:(NSString *)name value:(NSString *)value {
-  NSString  *lcValue = [value lowercaseString];
+  NSString  *lcValue = value.lowercaseString;
   
   if ([lcValue isEqualToString: @"true"] ||
       [lcValue isEqualToString: @"1"]) {
@@ -876,8 +876,8 @@ didStartElement:(NSString *)childElement
     static NSDateFormatter *enGBFormat = nil;
     if (enGBFormat == nil) {
       enGBFormat = [[NSDateFormatter alloc] init];
-      [enGBFormat setLocale: [NSLocale localeWithLocaleIdentifier: @"en_US_POSIX"]];
-      [enGBFormat setDateFormat: @"dd/MM/yyyy HH:mm"];
+      enGBFormat.locale = [NSLocale localeWithLocaleIdentifier: @"en_US_POSIX"];
+      enGBFormat.dateFormat = @"dd/MM/yyyy HH:mm";
     }
     timeValue = [enGBFormat dateFromString: stringValue];
   }
@@ -887,8 +887,8 @@ didStartElement:(NSString *)childElement
     static NSDateFormatter *enGBCommaFormat = nil;
     if (enGBCommaFormat == nil) {
       enGBCommaFormat = [[NSDateFormatter alloc] init];
-      [enGBCommaFormat setLocale: [NSLocale localeWithLocaleIdentifier: @"en_US_POSIX"]];
-      [enGBCommaFormat setDateFormat: @"dd/MM/yyyy, HH:mm"];
+      enGBCommaFormat.locale = [NSLocale localeWithLocaleIdentifier: @"en_US_POSIX"];
+      enGBCommaFormat.dateFormat = @"dd/MM/yyyy, HH:mm";
     }
     timeValue = [enGBCommaFormat dateFromString:stringValue];
   }
@@ -907,10 +907,10 @@ didStartElement:(NSString *)childElement
 
 @implementation ScanDumpElementHandler 
 
-- (id) initWithElement:(NSString *)elementNameVal
-                reader:(TreeReader *)readerVal
-              callback:(id)callbackVal
-             onSuccess:(SEL)successSelectorVal {
+- (instancetype) initWithElement:(NSString *)elementNameVal
+                          reader:(TreeReader *)readerVal
+                        callback:(id)callbackVal
+                       onSuccess:(SEL)successSelectorVal {
   if (self = [super initWithElement: elementNameVal
                              reader: readerVal
                            callback: callbackVal
@@ -974,10 +974,10 @@ didStartElement:(NSString *)childElement
 
 @implementation ScanInfoElementHandler 
 
-- (id) initWithElement:(NSString *)elementNameVal
-                reader:(TreeReader *)readerVal
-              callback:(id)callbackVal
-             onSuccess:(SEL)successSelectorVal {
+- (instancetype) initWithElement:(NSString *)elementNameVal
+                          reader:(TreeReader *)readerVal
+                        callback:(id)callbackVal
+                       onSuccess:(SEL)successSelectorVal {
   if (self = [super initWithElement: elementNameVal
                              reader: readerVal
                            callback: callbackVal
@@ -1115,10 +1115,10 @@ didStartElement:(NSString *)childElement
 
 @implementation ScanCommentsElementHandler 
 
-- (id) initWithElement:(NSString *)elementNameVal
-                reader:(TreeReader *)readerVal
-              callback:(id)callbackVal
-             onSuccess:(SEL)successSelectorVal {
+- (instancetype) initWithElement:(NSString *)elementNameVal
+                          reader:(TreeReader *)readerVal
+                        callback:(id)callbackVal
+                       onSuccess:(SEL)successSelectorVal {
   if (self = [super initWithElement: elementNameVal
                              reader: readerVal
                            callback: callbackVal
@@ -1149,10 +1149,10 @@ didStartElement:(NSString *)childElement
 
 @implementation FilterSetElementHandler 
 
-- (id) initWithElement:(NSString *)elementNameVal
-                reader:(TreeReader *)readerVal
-              callback:(id)callbackVal
-             onSuccess:(SEL)successSelectorVal {
+- (instancetype) initWithElement:(NSString *)elementNameVal
+                          reader:(TreeReader *)readerVal
+                        callback:(id)callbackVal
+                       onSuccess:(SEL)successSelectorVal {
   if (self = [super initWithElement: elementNameVal
                              reader: readerVal
                            callback: callbackVal
@@ -1206,10 +1206,10 @@ didStartElement:(NSString *)childElement
 
 @implementation FilterElementHandler 
 
-- (id) initWithElement:(NSString *)elementNameVal
-                reader:(TreeReader *)readerVal
-              callback:(id)callbackVal
-             onSuccess:(SEL)successSelectorVal {
+- (instancetype) initWithElement:(NSString *)elementNameVal
+                          reader:(TreeReader *)readerVal
+                        callback:(id)callbackVal
+                       onSuccess:(SEL)successSelectorVal {
   if (self = [super initWithElement: elementNameVal
                              reader: readerVal
                            callback: callbackVal
@@ -1269,10 +1269,10 @@ didStartElement:(NSString *)childElement
 
 @implementation FilterTestElementHandler 
 
-- (id) initWithElement:(NSString *)elementNameVal
-                reader:(TreeReader *)readerVal
-              callback:(id)callbackVal
-             onSuccess:(SEL)successSelectorVal {
+- (instancetype) initWithElement:(NSString *)elementNameVal
+                          reader:(TreeReader *)readerVal
+                        callback:(id)callbackVal
+                       onSuccess:(SEL)successSelectorVal {
   if (self = [super initWithElement: elementNameVal
                              reader: readerVal
                            callback: callbackVal
@@ -1313,19 +1313,19 @@ didStartElement:(NSString *)childElement
 @implementation FolderElementHandler 
 
 // Overrides designated initialiser.
-- (id) initWithElement:(NSString *)elementNameVal
-                reader:(TreeReader *)readerVal
-              callback:(id)callbackVal
-             onSuccess:(SEL)successSelectorVal {
+- (instancetype) initWithElement:(NSString *)elementNameVal
+                          reader:(TreeReader *)readerVal
+                        callback:(id)callbackVal
+                       onSuccess:(SEL)successSelectorVal {
   NSAssert(NO, @"Invoke with parent argument.");
   return nil;
 }
 
-- (id) initWithElement:(NSString *)elementNameVal
-                reader:(TreeReader *)readerVal
-              callback:(id)callbackVal
-             onSuccess:(SEL)successSelectorVal
-                parent:(DirectoryItem *)parentVal {
+- (instancetype) initWithElement:(NSString *)elementNameVal
+                          reader:(TreeReader *)readerVal
+                        callback:(id)callbackVal
+                       onSuccess:(SEL)successSelectorVal
+                          parent:(DirectoryItem *)parentVal {
   if (self = [super initWithElement: elementNameVal
                              reader: readerVal
                            callback: callbackVal
@@ -1450,19 +1450,19 @@ didStartElement:(NSString *)childElement
 @implementation FileElementHandler 
 
 // Overrides designated initialiser.
-- (id) initWithElement:(NSString *)elementNameVal
-                reader:(TreeReader *)readerVal
-              callback:(id)callbackVal
-             onSuccess:(SEL)successSelectorVal {
+- (instancetype) initWithElement:(NSString *)elementNameVal
+                          reader:(TreeReader *)readerVal
+                        callback:(id)callbackVal
+                       onSuccess:(SEL)successSelectorVal {
   NSAssert(NO, @"Invoke with parent argument.");
   return nil;
 }
 
-- (id) initWithElement:(NSString *)elementNameVal
-                reader:(TreeReader *)readerVal
-              callback:(id)callbackVal
-             onSuccess:(SEL)successSelectorVal
-                parent:(DirectoryItem *)parentVal {
+- (instancetype) initWithElement:(NSString *)elementNameVal
+                          reader:(TreeReader *)readerVal
+                        callback:(id)callbackVal
+                       onSuccess:(SEL)successSelectorVal
+                          parent:(DirectoryItem *)parentVal {
   if (self = [super initWithElement: elementNameVal
                              reader: readerVal
                            callback: callbackVal
@@ -1493,7 +1493,7 @@ didStartElement:(NSString *)childElement
     ITEM_SIZE  size = [self getItemSizeAttributeValue: SizeAttr from: attribs];
     
     UniformTypeInventory  *typeInventory = [UniformTypeInventory defaultUniformTypeInventory];
-    UniformType  *fileType = [typeInventory uniformTypeForExtension: [name pathExtension]];
+    UniformType  *fileType = [typeInventory uniformTypeForExtension: name.pathExtension];
 
     CFAbsoluteTime  creationTime = [self getTimeAttributeValue: CreatedAttr from: attribs];
     CFAbsoluteTime  modificationTime = [self getTimeAttributeValue: ModifiedAttr from: attribs];
@@ -1524,23 +1524,22 @@ didStartElement:(NSString *)childElement
 @implementation AttributeParseException 
 
 // Overrides designated initialiser.
-- (id) initWithName:(NSString *)name
-             reason:(NSString *)reason
-           userInfo:(NSDictionary *)userInfo {
+- (instancetype) initWithName:(NSString *)name
+                       reason:(NSString *)reason
+                     userInfo:(NSDictionary *)userInfo {
   NSAssert(NO, @"Use -initWithAttributeName:reason: instead.");
   return nil;
 }
 
-- (id) initWithAttributeName:(NSString *)attribName reason:(NSString *)reason {
-  NSDictionary  *userInfo = [NSDictionary dictionaryWithObject: attribName
-                                                        forKey: AttributeNameKey];
+- (instancetype) initWithAttributeName:(NSString *)attribName reason:(NSString *)reason {
+  NSDictionary  *userInfo = @{AttributeNameKey: attribName};
 
   return [super initWithName: @"AttributeParseException"
                       reason: reason
                     userInfo: userInfo];
 }
 
-+ (id) exceptionWithAttributeName: (NSString *)attribName reason: (NSString *)reason {
++ (instancetype) exceptionWithAttributeName:(NSString *)attribName reason:(NSString *)reason {
   return [[[AttributeParseException alloc] initWithAttributeName: attribName
                                                           reason: reason] autorelease];
 }

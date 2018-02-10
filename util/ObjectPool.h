@@ -15,11 +15,11 @@
 
 /* Creates a pool with an unlimited capacity.
  */
-- (id) init;
+- (instancetype) init;
 
 /* Creates a pool with the given maximum size. It will never hold more than "maxSize" objects.
  */
-- (id) initWithCapacity: (int) maxSize;
+- (instancetype) initWithCapacity:(int) maxSize NS_DESIGNATED_INITIALIZER;
 
 
 /* Gets an object. It returns an object from the pool if it is non-empty. Otherwise it creates a new

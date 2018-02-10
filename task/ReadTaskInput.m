@@ -4,12 +4,12 @@
 @implementation ReadTaskInput
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithPath: instead");
   return nil;
 }
 
-- (id) initWithPath:(NSString *)pathVal {
+- (instancetype) initWithPath:(NSString *)pathVal {
   if (self = [super init]) {
     path = [pathVal retain];
   }

@@ -23,7 +23,7 @@
 }
 
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     valueToTag = [[NSMutableDictionary alloc] initWithCapacity: 64];
     tagToValue = [[NSMutableDictionary alloc] initWithCapacity: 64];
@@ -48,20 +48,20 @@
     return nil;
   }
 
-  id  tag = [valueToTag objectForKey: value];
+  id  tag = valueToTag[value];
  
   if (tag == nil) {
-    tag = [NSNumber numberWithUnsignedInteger: nextTag++];
+    tag = @(nextTag++);
 
-    [valueToTag setObject: tag forKey: value];
-    [tagToValue setObject: value forKey: tag];
+    valueToTag[value] = tag;
+    tagToValue[tag] = value;
   }
   
   return tag;
 }
 
 - (id) reverseTransformedValue:(id) tag {
-  id  value = [tagToValue objectForKey: tag];
+  id  value = tagToValue[tag];
   
   NSAssert(value != nil, @"Unknown tag value.");
   
@@ -96,8 +96,8 @@
   // Find location where to insert item so that list remains sorted by localized name
   // Note: Using linear search, which is OK as long as list is relatively small.
   int  index = 0;
-  while (index < [popUp numberOfItems]) {
-    NSString  *otherName = [[popUp itemAtIndex: index] title];
+  while (index < popUp.numberOfItems) {
+    NSString  *otherName = [popUp itemAtIndex: index].title;
     if ([localizedName compare: otherName] == NSOrderedAscending) {
       break;
     }
@@ -105,7 +105,7 @@
   }
   
   [popUp insertItemWithTitle: localizedName atIndex: index];
-  [[popUp itemAtIndex: index] setTag: tag];
+  [popUp itemAtIndex: index].tag = tag;
   
   if (select) {
     [popUp selectItemAtIndex: index];
@@ -114,7 +114,7 @@
 
 
 - (NSString *)nameForTag:(NSUInteger)tag {
-  return [self reverseTransformedValue: [NSNumber numberWithUnsignedInteger: tag]];
+  return [self reverseTransformedValue: @(tag)];
 }
 
 /* Returns the tag for the locale-independent name.

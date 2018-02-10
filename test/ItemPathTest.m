@@ -10,7 +10,7 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  [dict setObject: @"ItemPathTest" forKey: @"class"];
+  dict[@"class"] = @"ItemPathTest";
 }
 
 
@@ -42,7 +42,7 @@
 
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict {
-  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"ItemPathTest"],
+  NSAssert([dict[@"class"] isEqualToString: @"ItemPathTest"],
            @"Incorrect value for class in dictionary.");
 
   return [[[ItemPathTest alloc] initWithPropertiesFromDictionary: dict] autorelease];

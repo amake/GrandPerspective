@@ -14,15 +14,15 @@
   UniformType  *type;
 }
 
-- (id) initWithLabel:(NSString *)label
-              parent:(DirectoryItem *)parent
-                size:(ITEM_SIZE)size
-                type:(UniformType *)type
-               flags:(UInt8)flags
-        creationTime:(CFAbsoluteTime)creationTime
-    modificationTime:(CFAbsoluteTime)modificationTime
-          accessTime:(CFAbsoluteTime)accessTime;
+- (instancetype) initWithLabel:(NSString *)label
+                        parent:(DirectoryItem *)parent
+                          size:(ITEM_SIZE)size
+                          type:(UniformType *)type
+                         flags:(UInt8)flags
+                  creationTime:(CFAbsoluteTime)creationTime
+              modificationTime:(CFAbsoluteTime)modificationTime
+                    accessTime:(CFAbsoluteTime)accessTime NS_DESIGNATED_INITIALIZER;
 
-- (UniformType *)uniformType;
+@property (nonatomic, readonly, strong) UniformType *uniformType;
 
 @end

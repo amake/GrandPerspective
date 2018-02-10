@@ -79,14 +79,13 @@
 
 - (IBAction) testDoubleClicked:(id)sender;
 
-- (id) initWithTestRepository:(FilterTestRepository *)testRepository;
+- (instancetype) initWithTestRepository:(FilterTestRepository *)testRepository NS_DESIGNATED_INITIALIZER;
 
-- (void) setAllowEmptyFilter:(BOOL)flag;
-- (BOOL) allowEmptyFilter;
+@property (nonatomic) BOOL allowEmptyFilter;
 
 /* Returns the name of the filter, given the current window state.
  */
-- (NSString *)filterName;
+@property (nonatomic, readonly, copy) NSString *filterName;
 
 - (void) setNameValidator:(NSObject<NameValidator> *)validator;
 

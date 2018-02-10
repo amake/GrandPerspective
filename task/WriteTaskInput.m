@@ -4,13 +4,13 @@
 @implementation WriteTaskInput
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithAnnotatedTreeContext:path: instead");
   return nil;
 }
 
-- (id) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)context
-                               path:(NSString *)pathVal {
+- (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)context
+                                         path:(NSString *)pathVal {
   if (self = [super init]) {
     treeContext = [context retain];
     path = [pathVal retain];

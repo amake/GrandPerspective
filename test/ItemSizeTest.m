@@ -7,21 +7,21 @@
 @implementation ItemSizeTest
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithLowerBound:upperBound: instead.");
   return nil;
 }
 
-- (id) initWithLowerBound:(ITEM_SIZE)lowerBoundVal {
+- (instancetype) initWithLowerBound:(ITEM_SIZE)lowerBoundVal {
   return [self initWithLowerBound: lowerBoundVal upperBound: ULONG_LONG_MAX];
 }
 
-- (id) initWithUpperBound:(ITEM_SIZE)upperBoundVal {
+- (instancetype) initWithUpperBound:(ITEM_SIZE)upperBoundVal {
   return [self initWithLowerBound: 0 upperBound: upperBoundVal];
 }
 
-- (id) initWithLowerBound:(ITEM_SIZE)lowerBoundVal
-               upperBound:(ITEM_SIZE)upperBoundVal {
+- (instancetype) initWithLowerBound:(ITEM_SIZE)lowerBoundVal
+                         upperBound:(ITEM_SIZE)upperBoundVal {
   if (self = [super init]) {
     lowerBound = lowerBoundVal;
     upperBound = upperBoundVal;
@@ -34,14 +34,14 @@
 /* Note: Special case. Does not call own designated initialiser. It should be overridden and only
  * called by initialisers with the same signature.
  */
-- (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     id  object;
     
-    object = [dict objectForKey: @"lowerBound"];
+    object = dict[@"lowerBound"];
     lowerBound = (object == nil) ? 0 : [object unsignedLongLongValue];
      
-    object = [dict objectForKey: @"upperBound"];
+    object = dict[@"upperBound"];
     upperBound = (object == nil) ? ULONG_LONG_MAX : [object unsignedLongLongValue];
   }
   
@@ -51,15 +51,13 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  [dict setObject: @"ItemSizeTest" forKey: @"class"];
+  dict[@"class"] = @"ItemSizeTest";
   
   if ([self hasLowerBound]) {
-    [dict setObject: [NSNumber numberWithUnsignedLongLong: lowerBound]
-             forKey: @"lowerBound"];
+    dict[@"lowerBound"] = @(lowerBound);
   }
   if ([self hasUpperBound]) {
-    [dict setObject: [NSNumber numberWithUnsignedLongLong: upperBound]
-             forKey: @"upperBound"];
+    dict[@"upperBound"] = @(upperBound);
   }
 }
 
@@ -129,7 +127,7 @@
 
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict {
-  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"ItemSizeTest"],
+  NSAssert([dict[@"class"] isEqualToString: @"ItemSizeTest"],
            @"Incorrect value for class in dictionary.");
 
   return [[[ItemSizeTest alloc] initWithPropertiesFromDictionary: dict] autorelease];

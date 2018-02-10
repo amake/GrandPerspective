@@ -44,7 +44,7 @@
 /* Returns YES iff the test applies (also) to directories. Returns NO otherwise, i.e. when the test
  * only applies to files and returns TEST_NOT_APPLICABLE for directory items.
  */
-- (BOOL) appliesToDirectories;
+@property (nonatomic, readonly) BOOL appliesToDirectories;
 
 - (void) acceptFileItemTestVisitor:(NSObject <FileItemTestVisitor> *)visitor;
 
@@ -54,7 +54,7 @@
 
 // Helper methods for storing and restoring objects from preferences. These are meant to be used and
 // overridden by subclasses, and should not be called directly.
-- (id) initWithPropertiesFromDictionary:(NSDictionary *)dict;
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict;
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict;
 
 @end // @interface FileItemTest (ProtectedMethods)

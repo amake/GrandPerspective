@@ -23,7 +23,7 @@
 
   // Align the path with the tree, as the path may contain invisible items not part of the tree.
   drawPathIndex = 0;
-  while ([drawPath objectAtIndex: drawPathIndex] != treeRoot) {
+  while (drawPath[drawPathIndex] != treeRoot) {
     drawPathIndex++;
     
     NSAssert(drawPathIndex < [drawPath count], @"treeRoot not found in path.");
@@ -52,7 +52,7 @@
 
     NSBezierPath  *path = [NSBezierPath bezierPathWithRect: prevRect];
     
-    [path setLineWidth: (highlightPathEndPoint ? 3 : 2)];
+    path.lineWidth = (highlightPathEndPoint ? 3 : 2);
     [path stroke];
   }
 
@@ -67,7 +67,7 @@
     outerRect = rect;
   }
            
-  if (drawPathIndex >= [drawPath count] || [drawPath objectAtIndex: drawPathIndex] != item) {
+  if (drawPathIndex >= drawPath.count || drawPath[drawPathIndex] != item) {
     return NO;
   }
   drawPathIndex++;
@@ -93,7 +93,7 @@
                                       prevRect.size.height + 2);
         NSBezierPath  *path = [NSBezierPath bezierPathWithRect: drawRect];
 
-        [path setLineWidth: 2];
+        path.lineWidth = 2;
         [path stroke];
       }
 

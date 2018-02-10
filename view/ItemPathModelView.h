@@ -55,15 +55,14 @@
   BOOL  automaticallyStickToEndPoint;
 }
 
-- (id) initWithPathModel:(ItemPathModel *)pathModel;
+- (instancetype) initWithPathModel:(ItemPathModel *)pathModel NS_DESIGNATED_INITIALIZER;
 
 /* Returns the path model that is wrapped by this view.
  */
-- (ItemPathModel *)pathModel;
+@property (nonatomic, readonly, copy) ItemPathModel *pathModel;
 
 
-- (void) setShowPackageContents:(BOOL)showPackageContents;
-- (BOOL) showPackageContents;
+@property (nonatomic) BOOL showPackageContents;
 
 - (void) selectItemAtPoint:(NSPoint) point
             startingAtTree:(FileItem *)treeRoot
@@ -73,11 +72,11 @@
 
 /* Returns the volume tree. It is the same as that of the underlying model.
  */
-- (DirectoryItem *)volumeTree;
+@property (nonatomic, readonly, strong) DirectoryItem *volumeTree;
 
 /* Returns the root of the scanned tree. It is the same as that of the underlying model.
  */
-- (DirectoryItem *)scanTree;
+@property (nonatomic, readonly, strong) DirectoryItem *scanTree;
 
 /* Returns the root of the visible tree. The visible tree is the part of the volume tree whose
  * treemap is drawn.
@@ -85,7 +84,7 @@
  * It may differ from the visible tree of the item path model that is wrapped. The reason is that
  * the visible tree never moves inside a package when package contents are not shown.
  */
-- (FileItem *)visibleTree;
+@property (nonatomic, readonly, strong) FileItem *visibleTree;
 
 /* Returns the selected file item.
  *
@@ -100,44 +99,42 @@
  * case, it will be returned by the view whereas the underlying model will not have a selection (as
  * its selected item should always be part of the visible path).
  */
-- (FileItem *)selectedFileItem;
+@property (nonatomic, readonly, strong) FileItem *selectedFileItem;
 
 /* Returns the selected file item, as it appears in the tree. It can differ from the one returned by
  * -selectedFileItem, as the latter method may return a stand-in for the item in the tree (e.g. it
  * may represent a directory that is a package as a plain file).
  */
-- (FileItem *)selectedFileItemInTree;
+@property (nonatomic, readonly, strong) FileItem *selectedFileItemInTree;
 
 
 /* Returns YES if the selected file item is inside the visible tree.
  */
-- (BOOL) isSelectedFileItemVisible;
+@property (nonatomic, getter=isSelectedFileItemVisible, readonly) BOOL selectedFileItemVisible;
 
 
 /* Returns YES iff the visible tree can be moved up a level. The constraints on up movement are the
  * same as that of the underlying path model.
  */
-- (BOOL) canMoveVisibleTreeUp;
+@property (nonatomic, readonly) BOOL canMoveVisibleTreeUp;
 
 /* Returns YES iff the visible tree can be moved down a level. Down movement is more constrained
  * than down movement of the visible tree in the underlying path model, as the visible tree cannot
  * move inside a package when package contents are hidden.
  */
-- (BOOL) canMoveVisibleTreeDown;
+@property (nonatomic, readonly) BOOL canMoveVisibleTreeDown;
 
 - (void) moveVisibleTreeUp;
 
 - (void) moveVisibleTreeDown;
 
 
-- (BOOL) selectionSticksToEndPoint;
-- (void) setSelectionSticksToEndPoint:(BOOL)value;
+@property (nonatomic) BOOL selectionSticksToEndPoint;
 
-- (BOOL) selectionSticksAutomaticallyToEndPoint;
-- (void) setSelectionSticksAutomaticallyToEndPoint:(BOOL)value;
+@property (nonatomic) BOOL selectionSticksAutomaticallyToEndPoint;
 
-- (BOOL) canMoveSelectionUp;
-- (BOOL) canMoveSelectionDown;
+@property (nonatomic, readonly) BOOL canMoveSelectionUp;
+@property (nonatomic, readonly) BOOL canMoveSelectionDown;
 - (void) moveSelectionUp;
 - (void) moveSelectionDown;
 

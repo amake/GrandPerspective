@@ -85,7 +85,7 @@
 @implementation MappingByExtension
 
 - (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
-  return [[[item systemPathComponent] pathExtension] hash];
+  return [item systemPathComponent].pathExtension.hash;
 }
 
 @end // @implementation MappingByExtension
@@ -94,7 +94,7 @@
 @implementation MappingByFilename
 
 - (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
-  return [[item systemPathComponent] hash];
+  return [item systemPathComponent].hash;
 }
 
 @end // @implementation MappingByFilename
@@ -103,7 +103,7 @@
 @implementation MappingByDirectoryName
 
 - (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
-  return [[[item parentDirectory] systemPathComponent] hash];
+  return [[item parentDirectory] systemPathComponent].hash;
 }
 
 @end // @implementation MappingByDirectoryName 
@@ -113,7 +113,7 @@
 
 - (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
   if (depth == 0) {
-    return [[item label] hash];
+    return [item label].hash;
   }
 
   DirectoryItem  *dir = [item parentDirectory];
@@ -125,12 +125,12 @@
     }
   }
 
-  return [[dir label] hash];
+  return [dir label].hash;
 }
 
 - (NSUInteger) hashForFileItem:(PlainFileItem *)item inTree:(FileItem *)treeRoot {
   if (item == treeRoot) {
-    return [[item label] hash];
+    return [item label].hash;
   }
   
   DirectoryItem  *dir = [item parentDirectory]; 
@@ -141,7 +141,7 @@
     NSAssert(dir != nil, @"Failed to encounter treeRoot");
   }
   
-  return [[oldDir label] hash];
+  return [oldDir label].hash;
 }
 
 @end // @implementation MappingByTopDirectoryName 
@@ -182,11 +182,11 @@
 }
 
 // Overrides super's designated initialiser.
-- (id) init {
+- (instancetype) init {
   return [self initWithDictionary: [NSMutableDictionary dictionaryWithCapacity: 8]];
 }
 
-- (id) initWithDictionary:(NSMutableDictionary *)dictionary {
+- (instancetype) initWithDictionary:(NSMutableDictionary *)dictionary {
   if (self = [super init]) {
     schemesDictionary = [dictionary retain];
   }
@@ -201,7 +201,7 @@
 
 - (void) addFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)scheme
                               key:(NSString *)key {
-  [schemesDictionary setObject: scheme forKey: key];
+  schemesDictionary[key] = scheme;
 }
 
 - (void) removeFileItemMappingSchemeForKey:(NSString *)key {
@@ -209,11 +209,11 @@
 }
 
 - (NSArray *)allKeys {
-  return [schemesDictionary allKeys];
+  return schemesDictionary.allKeys;
 }
 
 - (NSObject <FileItemMappingScheme> *)fileItemMappingSchemeForKey:(NSString *)key {
-  return [schemesDictionary objectForKey: key];
+  return schemesDictionary[key];
 }
 
 @end // @implementation FileItemMappingCollection

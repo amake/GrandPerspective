@@ -36,7 +36,7 @@ extern NSString  *UniformTypesRankingKey;
  */
 - (void) observeUniformTypeInventory:(UniformTypeInventory *)typeInventory;
 
-- (NSArray *)rankedUniformTypes;
+@property (nonatomic, readonly, copy) NSArray *rankedUniformTypes;
 
 /* Updates the ranking of the uniform types.
  *
@@ -65,6 +65,6 @@ extern NSString  *UniformTypesRankingKey;
  *
  * Note: This list is calculated dynamically, so it should be invoked with a little bit of care.
  */
-- (NSArray *)undominatedRankedUniformTypes;
+@property (nonatomic, readonly, copy) NSArray *undominatedRankedUniformTypes;
 
 @end

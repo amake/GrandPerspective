@@ -16,23 +16,23 @@
   FileItemTest  *fileItemTest;
 }
 
-+ (id) filterSet;
++ (instancetype) filterSet;
 
 /* Creates a new filter set for the given filter.
  *
  * The default filter and filter test repositories are used.
  */
-+ (id) filterSetWithNamedFilter:(NamedFilter *)namedFilter
-                 unboundFilters:(NSMutableArray *)unboundFilters
-                   unboundTests:(NSMutableArray *)unboundTests;
++ (instancetype) filterSetWithNamedFilter:(NamedFilter *)namedFilter
+                           unboundFilters:(NSMutableArray *)unboundFilters
+                             unboundTests:(NSMutableArray *)unboundTests;
 
 /* Creates a new filter set for the given filters.
  *
  * The default filter and filter test repositories are used.
  */
-+ (id) filterSetWithNamedFilters:(NSArray *)namedFilters
-                  unboundFilters:(NSMutableArray *)unboundFilters
-                    unboundTests:(NSMutableArray *)unboundTests;
++ (instancetype) filterSetWithNamedFilters:(NSArray *)namedFilters
+                            unboundFilters:(NSMutableArray *)unboundFilters
+                              unboundTests:(NSMutableArray *)unboundTests;
 
 /* Creates a new filter set for the given filters.
  *
@@ -43,24 +43,24 @@
  * their filter tests. In this case, it is best if the filter test resembles the original filter set
  * as much as possible).
  */
-+ (id) filterSetWithNamedFilters:(NSArray *)namedFilters
-                filterRepository:(FilterRepository *)filterRepository
-                  testRepository:(FilterTestRepository *)testRepository
-                  unboundFilters:(NSMutableArray *)unboundFilters
-                    unboundTests:(NSMutableArray *)unboundTests;
++ (instancetype) filterSetWithNamedFilters:(NSArray *)namedFilters
+                          filterRepository:(FilterRepository *)filterRepository
+                            testRepository:(FilterTestRepository *)testRepository
+                            unboundFilters:(NSMutableArray *)unboundFilters
+                              unboundTests:(NSMutableArray *)unboundTests;
 
 
 /* Initialises an empty filter set.
  */
-- (id) init;
+- (instancetype) init;
 
 /* Designated initialiser. It should not be called directly. Use the public initialiser methods and
  * factory methods instead.
  *
  * The "filters" array is assumed to be immutable. This is the caller's responsibility.
  */
-- (id) initWithNamedFilters:(NSArray *)filters
-               fileItemTest:(FileItemTest *)fileItemTest;
+- (instancetype) initWithNamedFilters:(NSArray *)filters
+                         fileItemTest:(FileItemTest *)fileItemTest NS_DESIGNATED_INITIALIZER;
 
 
 /* Creates an updated set of filters. See
@@ -92,15 +92,15 @@
 - (FilterSet *)filterSetWithAddedNamedFilter:(NamedFilter *)filter
                                 unboundTests:(NSMutableArray *)unboundTests;
 
-- (NSUInteger) numFilters;
+@property (nonatomic, readonly) NSUInteger numFilters;
 
 /* Returns an array of NamedFilters.
  */
-- (NSArray *)filters;
+@property (nonatomic, readonly, copy) NSArray *filters;
 
 /* The item test corresponding to the filter set. It is instantiated when the set is created and
  * immutable. It is not affected by any subsequent changes to filters and filter tests.
  */
-- (FileItemTest *)fileItemTest;
+@property (nonatomic, readonly, strong) FileItemTest *fileItemTest;
 
 @end // @interface FilterSet

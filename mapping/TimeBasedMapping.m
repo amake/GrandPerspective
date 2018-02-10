@@ -23,8 +23,8 @@ const int  secondsPerDay = 60 * 60 * 24;
 const int  minTimeDelta = 60;
 
 
-- (id) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)schemeVal
-                                tree:(DirectoryItem *)tree {
+- (instancetype) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)schemeVal
+                                          tree:(DirectoryItem *)tree {
   if (self = [super initWithFileItemMappingScheme: schemeVal]) {
     [self initTimeBounds: tree];
   }

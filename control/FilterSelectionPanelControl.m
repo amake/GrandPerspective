@@ -8,20 +8,20 @@
 
 @interface FilterSelectionPanelControl (PrivateMethods)
 
-- (FilterEditor *)filterEditor;
+@property (nonatomic, readonly, strong) FilterEditor *filterEditor;
 
 @end // @interface FilterSelectionPanelControl
 
 
 @implementation FilterSelectionPanelControl
 
-- (id) init {
+- (instancetype) init {
   return [self initWithFilterRepository: [FilterRepository defaultInstance]];
 }
 
 // Special case: should not cover (override) super's designated initialiser in NSWindowController's
 // case
-- (id) initWithFilterRepository:(FilterRepository *)filterRepositoryVal {
+- (instancetype) initWithFilterRepository:(FilterRepository *)filterRepositoryVal {
   if (self = [super initWithWindowNibName: @"FilterSelectionPanel" owner: self]) {
     filterRepository = [filterRepositoryVal retain];
 
@@ -73,7 +73,7 @@
 - (NamedFilter *)selectedNamedFilter {
   NSString  *name = [filterPopUpControl selectedFilterName];
 
-  Filter  *filter = [[filterRepository filtersByName] objectForKey: name];
+  Filter  *filter = [filterRepository filtersByName][name];
   // Filter should always exist, as pop-up control is observing the filter repository.
   NSAssert(filter != nil, @"Unexpected nil filter");
 

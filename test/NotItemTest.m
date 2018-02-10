@@ -6,12 +6,12 @@
 @implementation NotItemTest
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithSubItemTest: instead.");
   return nil;
 }
 
-- (id) initWithSubItemTest:(FileItemTest *)subTestVal {
+- (instancetype) initWithSubItemTest:(FileItemTest *)subTestVal {
   if (self = [super init]) {
     subTest = [subTestVal retain];
   }
@@ -29,9 +29,9 @@
 /* Note: Special case. Does not call own designated initialiser. It should be overridden and only
  * called by initialisers with the same signature.
  */
-- (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
-    NSDictionary  *subTestDict = [dict objectForKey: @"subTest"];
+    NSDictionary  *subTestDict = dict[@"subTest"];
     
     subTest = [[FileItemTest fileItemTestFromDictionary: subTestDict] retain];
   }
@@ -42,9 +42,9 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  [dict setObject: @"NotItemTest" forKey: @"class"];
+  dict[@"class"] = @"NotItemTest";
 
-  [dict setObject: [subTest dictionaryForObject] forKey: @"subTest"];
+  dict[@"subTest"] = [subTest dictionaryForObject];
 }
 
 
@@ -73,12 +73,12 @@
 - (NSString *)description {
   NSString  *fmt = NSLocalizedStringFromTable(@"not (%@)" , @"Tests", @"NOT-test with 1: sub test");
 
-  return [NSString stringWithFormat: fmt, [subTest description]];
+  return [NSString stringWithFormat: fmt, subTest.description];
 }
 
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict {
-  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"NotItemTest"],
+  NSAssert([dict[@"class"] isEqualToString: @"NotItemTest"],
            @"Incorrect value for class in dictionary.");
 
   return [[[NotItemTest alloc] initWithPropertiesFromDictionary: dict] autorelease];

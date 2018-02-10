@@ -45,14 +45,12 @@ extern NSString  *PhysicalFileSize;
 
 + (NSArray *)fileSizeMeasureNames;
 
-- (id) init;
-- (id) initWithFilterSet:(FilterSet *)filterSet;
+- (instancetype) init;
+- (instancetype) initWithFilterSet:(FilterSet *)filterSet NS_DESIGNATED_INITIALIZER;
 
-- (BOOL) packagesAsFiles;
-- (void) setPackagesAsFiles:(BOOL)flag;
+@property (nonatomic) BOOL packagesAsFiles;
 
-- (NSString *)fileSizeMeasure;
-- (void) setFileSizeMeasure:(NSString *)measure;
+@property (nonatomic, copy) NSString *fileSizeMeasure;
 
 /* Construct the tree for the given folder.
  */
@@ -65,6 +63,6 @@ extern NSString  *PhysicalFileSize;
  * It can safely be invoked from a different thread than the one that invoked -buildTreeForPath:
  * (and not doing so would actually be quite silly).
  */
-- (NSDictionary *)progressInfo;
+@property (nonatomic, readonly, copy) NSDictionary *progressInfo;
 
 @end

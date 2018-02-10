@@ -64,12 +64,12 @@ extern NSString  *EstimatedProgressKey;
 /* Returns a dictionary with progress statistics. This thread-safe and can be invoked from a
  * different thread than the one that carries out the task.
  */
-- (NSDictionary *)progressInfo;
+@property (nonatomic, readonly, copy) NSDictionary *progressInfo;
 
 /* Returns the number of folders processed sofar. This method is not thread-safe and should only be
  * invoked from the thread that does the processing.
  */
-- (NSUInteger) numFoldersProcessed;
+@property (nonatomic, readonly) NSUInteger numFoldersProcessed;
 
 @end
 
@@ -96,6 +96,6 @@ extern NSString  *EstimatedProgressKey;
  * progressInfo:. It can be assumed that the caller will have obtained the mutex lock, so this does
  * not need to be obtained here.
  */
-- (float) estimatedProgress;
+@property (nonatomic, readonly) float estimatedProgress;
 
 @end

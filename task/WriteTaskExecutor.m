@@ -6,7 +6,7 @@
 
 @implementation WriteTaskExecutor
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     taskLock = [[NSLock alloc] init];
     treeWriter = nil;

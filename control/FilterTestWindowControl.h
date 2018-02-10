@@ -90,7 +90,7 @@
 - (IBAction) cancelAction:(id)sender;
 - (IBAction) okAction:(id)sender;
 
-- (NSString *)fileItemTestName;
+@property (nonatomic, readonly, copy) NSString *fileItemTestName;
 
 - (void) setNameValidator:(NSObject<NameValidator> *)validator;
 

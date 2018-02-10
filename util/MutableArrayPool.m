@@ -4,12 +4,12 @@
 @implementation MutableArrayPool
 
 // Overrides designated initialiser.
-- (id) initWithCapacity:(int)maxSizeVal {
+- (instancetype) initWithCapacity:(int)maxSizeVal {
   return [self initWithCapacity: maxSizeVal initialArrayCapacity: 16];
 }
 
-- (id) initWithCapacity:(int)maxSizeVal
-   initialArrayCapacity:(int)initialArraySize {
+- (instancetype) initWithCapacity:(int)maxSizeVal
+             initialArrayCapacity:(int)initialArraySize {
   if (self = [super initWithCapacity: maxSizeVal]) {
     initialArrayCapacity = initialArraySize;
   }

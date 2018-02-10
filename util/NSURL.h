@@ -1,10 +1,10 @@
 #import <Foundation/Foundation.h>
 
 @interface NSURL (HelperMethods)
-- (BOOL) isDirectory;
-- (BOOL) isPackage;
-- (BOOL) isHardLinked;
-- (CFAbsoluteTime) creationTime;
-- (CFAbsoluteTime) modificationTime;
-- (CFAbsoluteTime) accessTime;
+@property (nonatomic, getter=isDirectory, readonly) BOOL directory;
+@property (nonatomic, getter=isPackage, readonly) BOOL package;
+@property (nonatomic, getter=isHardLinked, readonly) BOOL hardLinked;
+@property (nonatomic, readonly) CFAbsoluteTime creationTime;
+@property (nonatomic, readonly) CFAbsoluteTime modificationTime;
+@property (nonatomic, readonly) CFAbsoluteTime accessTime;
 @end

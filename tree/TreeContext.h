@@ -47,67 +47,66 @@ extern NSString  *FileItemDeletedEvent;
 
 /* Creates a new tree context, with the scan time set to "now".
  */
-- (id) initWithVolumePath:(NSString *)volumePath
-          fileSizeMeasure:(NSString *)fileSizeMeasure
-               volumeSize:(unsigned long long)volumeSize
-                freeSpace:(unsigned long long)freeSpace
-                filterSet:(FilterSet *)filterSet;
+- (instancetype) initWithVolumePath:(NSString *)volumePath
+                    fileSizeMeasure:(NSString *)fileSizeMeasure
+                         volumeSize:(unsigned long long)volumeSize
+                          freeSpace:(unsigned long long)freeSpace
+                          filterSet:(FilterSet *)filterSet;
          
 /* Creates a new tree context. 
  *
  * Note: The returned object is not yet fully ready. A volume-tree skeleton is created, but still
  * needs to be finalised. The scanTree still needs to be set using -setScanTree.
  */
-- (id) initWithVolumePath:(NSString *)volumePath
-          fileSizeMeasure:(NSString *)fileSizeMeasure
-               volumeSize:(unsigned long long)volumeSize
-                freeSpace:(unsigned long long)freeSpace
-                filterSet:(FilterSet *)filterSet
-                 scanTime:(NSDate *)scanTime;
+- (instancetype) initWithVolumePath:(NSString *)volumePath
+                    fileSizeMeasure:(NSString *)fileSizeMeasure
+                         volumeSize:(unsigned long long)volumeSize
+                          freeSpace:(unsigned long long)freeSpace
+                          filterSet:(FilterSet *)filterSet
+                           scanTime:(NSDate *)scanTime NS_DESIGNATED_INITIALIZER;
 
 
 /* Sets the scan tree. This finalises the volume tree. The parent of the scan tree should be that
  * returned by -scanTreeParent.
  */
-- (void) setScanTree:(DirectoryItem *)scanTree;
 
 /* The parent (to be) for the scan tree.
  */
-- (DirectoryItem *)scanTreeParent;
+@property (nonatomic, readonly, strong) DirectoryItem *scanTreeParent;
 
 
-- (DirectoryItem *)volumeTree;
-- (DirectoryItem *)scanTree;
+@property (nonatomic, readonly, strong) DirectoryItem *volumeTree;
+@property (nonatomic, strong) DirectoryItem *scanTree;
 
 /* The size of the volume (in bytes)
  */
-- (unsigned long long) volumeSize;
+@property (nonatomic, readonly) unsigned long long volumeSize;
 
 /* The free space of the volume at the time of the scan (as claimed by the system).
  */
-- (unsigned long long) freeSpace;
+@property (nonatomic, readonly) unsigned long long freeSpace;
 
 /* The miscellaneous used space
  */
-- (unsigned long long) miscUsedSpace;
+@property (nonatomic, readonly) unsigned long long miscUsedSpace;
 
 /* The space that has been freed using -deleteSelectedFileItem since the scan.
  */
-- (unsigned long long) freedSpace;
+@property (nonatomic, readonly) unsigned long long freedSpace;
 
 /* The number of freed files
  */
-- (unsigned long long) freedFiles;
+@property (nonatomic, readonly) unsigned long long freedFiles;
 
-- (NSString *)fileSizeMeasure;
+@property (nonatomic, readonly, copy) NSString *fileSizeMeasure;
 
-- (NSDate *)scanTime;
+@property (nonatomic, readonly, copy) NSDate *scanTime;
 
 /* A string representation for the scan time.
  */
-- (NSString *)stringForScanTime;
+@property (nonatomic, readonly, copy) NSString *stringForScanTime;
 
-- (FilterSet *)filterSet;
+@property (nonatomic, readonly, strong) FilterSet *filterSet;
 
 
 - (void) deleteSelectedFileItem:(ItemPathModelView *)path;
@@ -117,13 +116,13 @@ extern NSString  *FileItemDeletedEvent;
  *
  * It should only be called in response to a TreeItemReplacedEvent. It will return "nil" otherwise.
  */
-- (FileItem *)replacedFileItem;
+@property (nonatomic, readonly, strong) FileItem *replacedFileItem;
 
 /* Returns the item that replaces the item that is being replaced.
  *
  * It should only be called in response to a TreeItemReplacedEvent. It will return "nil" otherwise.
  */
-- (FileItem *)replacingFileItem;
+@property (nonatomic, readonly, strong) FileItem *replacingFileItem;
 
 
 /* Obtains a read lock on the tree. This is required before reading, e.g. traversing, (parts of) the

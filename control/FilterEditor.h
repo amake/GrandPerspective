@@ -16,14 +16,14 @@
   FilterWindowControl  *filterWindowControl;
 }
 
-- (id) init;
-- (id) initWithFilterRepository:(FilterRepository *)filterRepository;
+- (instancetype) init;
+- (instancetype) initWithFilterRepository:(FilterRepository *)filterRepository NS_DESIGNATED_INITIALIZER;
 
 /* Edits a new filter. It returns the new filter, or "nil" if the action was cancelled. It updates
  * the repository. The repository's NotifyingDictionary will fire an "objectAdded" event in
  * response.
  */
-- (NamedFilter *)newNamedFilter;
+@property (nonatomic, readonly, strong) NamedFilter *newNamedFilter;
 
 /* Edits an existing filter with the given name. The filter should exist in the filter repository.
  * It returns the modified filter, or "nil" if the action was cancelled. It updates the filter in

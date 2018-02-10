@@ -14,13 +14,13 @@
 
 /* Returns dictionary which can subsequently be modified.
  */
-- (NotifyingDictionary *)filtersByNameAsNotifyingDictionary;
+@property (nonatomic, readonly, strong) NotifyingDictionary *filtersByNameAsNotifyingDictionary;
 
 /* Returns dictionary as an NSDictionary, which is useful if the dictionary does not need to be
  * modified. Note, the dictionary can still be modified by casting it to NotifyingDictionary. This
  * is only a convenience method.
  */
-- (NSDictionary *)filtersByName;
+@property (nonatomic, readonly, copy) NSDictionary *filtersByName;
 
 - (Filter *)filterForName:(NSString *)name;
 

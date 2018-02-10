@@ -8,12 +8,12 @@
 
 }
 
-- (id) initWithLocalizedDescription:(NSString *)descr;
-- (id) initWithCode:(int)code localizedDescription:(NSString *)descr;
-- (id) initWithCode:(int)code userInfo:(NSDictionary *)userInfo;
+- (instancetype) initWithLocalizedDescription:(NSString *)descr;
+- (instancetype) initWithCode:(int)code localizedDescription:(NSString *)descr;
+- (instancetype) initWithCode:(int)code userInfo:(NSDictionary *)userInfo NS_DESIGNATED_INITIALIZER;
 
-+ (id) errorWithLocalizedDescription:(NSString *)descr;
-+ (id) errorWithCode:(int)code localizedDescription:(NSString *)descr;
-+ (id) errorWithCode:(int)code userInfo:(NSDictionary *)userInfo;
++ (instancetype) errorWithLocalizedDescription:(NSString *)descr;
++ (instancetype) errorWithCode:(int)code localizedDescription:(NSString *)descr;
++ (instancetype) errorWithCode:(int)code userInfo:(NSDictionary *)userInfo;
 
 @end

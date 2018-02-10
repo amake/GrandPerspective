@@ -7,7 +7,7 @@
 
 @implementation FilterTaskExecutor
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     taskLock = [[NSLock alloc] init];
     treeFilter = nil;

@@ -27,12 +27,12 @@ enum {
 @implementation AsynchronousTaskManager
 
 // Overrides super's designated initialiser.
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use -initWithTaskExecutor: instead.");
   return nil;
 }
 
-- (id) initWithTaskExecutor:(NSObject<TaskExecutor> *)executorVal {
+- (instancetype) initWithTaskExecutor:(NSObject<TaskExecutor> *)executorVal {
   if (self = [super init]) {
     executor = [executorVal retain];
   
@@ -69,7 +69,7 @@ enum {
 
   alive = NO;
 
-  if ([workLock condition] == BACKGROUND_THREAD_BUSY) {
+  if (workLock.condition == BACKGROUND_THREAD_BUSY) {
     // Abort task
     [executor abortTask];
   }
@@ -91,7 +91,7 @@ enum {
 - (void) abortTask {
   [settingsLock lock];
 
-  if ([workLock condition] == BACKGROUND_THREAD_BUSY) {
+  if (workLock.condition == BACKGROUND_THREAD_BUSY) {
     // Abort task
     [executor abortTask];
   }
@@ -117,7 +117,7 @@ enum {
   }
   nextTaskCallbackSelector = selector;
 
-  if ([workLock condition] == BACKGROUND_THREAD_BUSY) {
+  if (workLock.condition == BACKGROUND_THREAD_BUSY) {
     // Abort task
     [executor abortTask];
   }
@@ -183,7 +183,7 @@ enum {
     [settingsLock unlock];
     
     [pool release];
-  } while ([workLock condition] != BACKGROUND_THREAD_SHUTDOWN);
+  } while (workLock.condition != BACKGROUND_THREAD_SHUTDOWN);
 
   NSLog(@"Thread terminated.");
 }

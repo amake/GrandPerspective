@@ -14,8 +14,8 @@
   CFAbsoluteTime  nowTime;
 }
 
-- (id) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)scheme
-                                tree:(DirectoryItem *)tree;
+- (instancetype) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)scheme
+                                          tree:(DirectoryItem *)tree NS_DESIGNATED_INITIALIZER;
 
 @end // @interface TimeBasedMapping
 

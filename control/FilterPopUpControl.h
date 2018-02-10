@@ -20,17 +20,16 @@ extern NSString  *SelectedFilterUpdated;
   NSNotificationCenter  *notificationCenter;
 }
 
-- (id) initWithPopUpButton:(NSPopUpButton *)popUpButton;
+- (instancetype) initWithPopUpButton:(NSPopUpButton *)popUpButton;
 
-- (id) initWithPopUpButton:(NSPopUpButton *)popUpButton 
-          filterRepository:(FilterRepository *)filterRepository;
+- (instancetype) initWithPopUpButton:(NSPopUpButton *)popUpButton
+                    filterRepository:(FilterRepository *)filterRepository NS_DESIGNATED_INITIALIZER;
 
-- (NSNotificationCenter *)notificationCenter; 
-- (void) setNotificationCenter:(NSNotificationCenter *)notificationCenter; 
+@property (nonatomic, strong) NSNotificationCenter *notificationCenter;
 
 /* Returns the locale-independent name of the selected filter.
  */
-- (NSString *)selectedFilterName;
+@property (nonatomic, readonly, copy) NSString *selectedFilterName;
 
 /* Selects the filter with the given locale-independent name.
  */

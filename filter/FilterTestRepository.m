@@ -44,7 +44,7 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
 }
 
 
-- (id) init {
+- (instancetype) init {
   if (self = [super init]) {
     NSMutableDictionary  *initialTestDictionary = [NSMutableDictionary dictionaryWithCapacity: 16];
     
@@ -88,11 +88,11 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
 
 
 - (FileItemTest *)fileItemTestForName:(NSString *)name {
-  return [((NSDictionary *)testsByName) objectForKey: name];
+  return ((NSDictionary *)testsByName)[name];
 }
 
 - (FileItemTest *)applicationProvidedTestForName:(NSString *)name {
-  return [applicationProvidedTests objectForKey: name];
+  return applicationProvidedTests[name];
 }
 
 
@@ -100,16 +100,16 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
   NSMutableDictionary  *testsDict = 
-    [NSMutableDictionary dictionaryWithCapacity: [((NSDictionary *)testsByName) count]];
+    [NSMutableDictionary dictionaryWithCapacity: ((NSDictionary *)testsByName).count];
 
   NSString  *name;
   NSEnumerator  *nameEnum = [((NSDictionary *)testsByName) keyEnumerator];
 
   while ((name = [nameEnum nextObject]) != nil) {
-    FileItemTest  *fileItemTest = [((NSDictionary *)testsByName) objectForKey: name];
+    FileItemTest  *fileItemTest = ((NSDictionary *)testsByName)[name];
 
-    if (fileItemTest != [applicationProvidedTests objectForKey: name]) {
-      [testsDict setObject: [fileItemTest dictionaryForObject] forKey: name];
+    if (fileItemTest != applicationProvidedTests[name]) {
+      testsDict[name] = [fileItemTest dictionaryForObject];
     }
   }
     
@@ -131,10 +131,10 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
   NSEnumerator  *nameEnum = [testDicts keyEnumerator];
 
   while (name = [nameEnum nextObject]) {
-    NSDictionary  *filterTestDict = [testDicts objectForKey: name];
+    NSDictionary  *filterTestDict = testDicts[name];
     FileItemTest  *fileItemTest = [FileItemTest fileItemTestFromDictionary: filterTestDict];
     
-    [testsByNameVal setObject: fileItemTest forKey: name];
+    testsByNameVal[name] = fileItemTest;
   }
 }
 
@@ -148,7 +148,7 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
 
   while ((fileItemTestDict = [fileItemTestDictEnum nextObject]) != nil) {
     FileItemTest  *fileItemTest = [FileItemTest fileItemTestFromDictionary: fileItemTestDict];
-    NSString  *name = [fileItemTestDict objectForKey: @"name"];
+    NSString  *name = fileItemTestDict[@"name"];
     
     // Update tests stored by older versions of GrandPerspective (pre 0.9.12).
     [sizeTestFinder reset];
@@ -168,7 +168,7 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
                                                            onlyFiles: YES] autorelease];
     }
 
-    [testsByNameVal setObject: fileItemTest forKey: name];
+    testsByNameVal[name] = fileItemTest;
   }
 }
 

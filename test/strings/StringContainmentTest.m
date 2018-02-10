@@ -6,7 +6,7 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  [dict setObject: @"StringContainmentTest" forKey: @"class"];
+  dict[@"class"] = @"StringContainmentTest";
 }
 
 
@@ -26,7 +26,7 @@
 
 
 + (StringTest *)stringTestFromDictionary:(NSDictionary *)dict {
-  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"StringContainmentTest"],
+  NSAssert([dict[@"class"] isEqualToString: @"StringContainmentTest"],
            @"Incorrect value for class in dictionary.");
 
   return [[[StringContainmentTest alloc] initWithPropertiesFromDictionary: dict] autorelease];

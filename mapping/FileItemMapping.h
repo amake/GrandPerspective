@@ -11,7 +11,7 @@
  */
 @protocol FileItemMapping
 
-- (NSObject <FileItemMappingScheme> *)fileItemMappingScheme;
+@property (nonatomic, readonly, strong) NSObject<FileItemMappingScheme> *fileItemMappingScheme;
 
 /* Calculates a hash value for a file item in a tree, when the item is encountered while traversing
  * the tree. The calculation may use the "depth" of the file item relative to the root of the tree,
@@ -33,7 +33,7 @@
  * needed. For each these values, the method -descriptionForHash will provide a short descriptive
  * string.
  */
-- (BOOL) canProvideLegend;
+@property (nonatomic, readonly) BOOL canProvideLegend;
 
 @end
 
@@ -48,6 +48,6 @@
  */
 - (NSString *)descriptionForHash:(NSUInteger)hash;
 
-- (NSString *)descriptionForRemainingHashes;
+@property (nonatomic, readonly, copy) NSString *descriptionForRemainingHashes;
 
 @end

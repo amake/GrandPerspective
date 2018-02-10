@@ -8,7 +8,7 @@
   
 }
 
-- (id) initWithEnumerator:(NSEnumerator *)enumerator;
+- (instancetype) initWithEnumerator:(NSEnumerator *)enumerator NS_DESIGNATED_INITIALIZER;
 
 - (id) nextObject;
 

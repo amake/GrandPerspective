@@ -17,11 +17,10 @@
   NSLock  *settingsLock;
 }
 
-- (id) initWithTreeContext:(TreeContext *)treeContext;
-- (id) initWithTreeContext:(TreeContext *)treeContext
-           drawingSettings:(TreeDrawerSettings *)settings;
+- (instancetype) initWithTreeContext:(TreeContext *)treeContext;
+- (instancetype) initWithTreeContext:(TreeContext *)treeContext
+                     drawingSettings:(TreeDrawerSettings *)settings NS_DESIGNATED_INITIALIZER;
 
-- (TreeDrawerSettings *)treeDrawerSettings;
-- (void) setTreeDrawerSettings:(TreeDrawerSettings *)settings;
+@property (nonatomic, strong) TreeDrawerSettings *treeDrawerSettings;
 
 @end

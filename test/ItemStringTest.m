@@ -6,12 +6,12 @@
 @implementation ItemStringTest
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithStringTest: instead.");
   return nil;
 }
 
-- (id) initWithStringTest:(StringTest *)stringTestVal {
+- (instancetype) initWithStringTest:(StringTest *)stringTestVal {
   if (self = [super init]) {
     stringTest = [stringTestVal retain];
   }
@@ -28,9 +28,9 @@
 /* Note: Special case. Does not call own designated initialiser. It should be overridden and only
  * called by initialisers with the same signature.
  */
-- (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
-    NSDictionary  *stringTestDict = [dict objectForKey: @"stringTest"];
+    NSDictionary  *stringTestDict = dict[@"stringTest"];
     
     stringTest = [[StringTest stringTestFromDictionary: stringTestDict] retain];
   }
@@ -41,7 +41,7 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  [dict setObject: [stringTest dictionaryForObject] forKey: @"stringTest"];
+  dict[@"stringTest"] = [stringTest dictionaryForObject];
 }
 
 

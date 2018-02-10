@@ -62,15 +62,14 @@
   
 }
 
-- (id) initWithFileItemTest:(FileItemTest *)itemTest;
-- (id) initWithFileItemTest:(FileItemTest *)itemTest packagesAsFiles:(BOOL) packagesAsFiles;
+- (instancetype) initWithFileItemTest:(FileItemTest *)itemTest;
+- (instancetype) initWithFileItemTest:(FileItemTest *)itemTest
+                      packagesAsFiles:(BOOL) packagesAsFiles NS_DESIGNATED_INITIALIZER;
 
 
-- (BOOL) packagesAsFiles;
-- (void) setPackagesAsFiles: (BOOL) flag;
+@property (nonatomic) BOOL packagesAsFiles;
 
-- (FileItemTest *)fileItemTest;
-- (void) setFileItemTest:(FileItemTest *)test;
+@property (nonatomic, strong) FileItemTest *fileItemTest;
 
 
 /* Returns "nil" iff the file item should be ignored (because it did not pass the filter test).

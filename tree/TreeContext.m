@@ -47,17 +47,17 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
 @implementation TreeContext
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithVolumePath:scanPath:fileSizeMeasure:... instead.");
   return nil;
 }
 
 
-- (id) initWithVolumePath:(NSString *)volumePath
-          fileSizeMeasure:(NSString *)fileSizeMeasureVal
-               volumeSize:(unsigned long long)volumeSizeVal
-                freeSpace:(unsigned long long)freeSpaceVal
-                filterSet:(FilterSet *)filterSetVal {
+- (instancetype) initWithVolumePath:(NSString *)volumePath
+                    fileSizeMeasure:(NSString *)fileSizeMeasureVal
+                         volumeSize:(unsigned long long)volumeSizeVal
+                          freeSpace:(unsigned long long)freeSpaceVal
+                          filterSet:(FilterSet *)filterSetVal {
   return [self initWithVolumePath: volumePath
                   fileSizeMeasure: fileSizeMeasureVal
                        volumeSize: volumeSizeVal 
@@ -66,12 +66,12 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
                          scanTime: [NSDate date]];
 }
 
-- (id) initWithVolumePath:(NSString *)volumePath
-          fileSizeMeasure:(NSString *)fileSizeMeasureVal
-               volumeSize:(unsigned long long)volumeSizeVal
-                freeSpace:(unsigned long long)freeSpaceVal
-                filterSet:(FilterSet *)filterSetVal
-                 scanTime:(NSDate *)scanTimeVal {
+- (instancetype) initWithVolumePath:(NSString *)volumePath
+                    fileSizeMeasure:(NSString *)fileSizeMeasureVal
+                         volumeSize:(unsigned long long)volumeSizeVal
+                          freeSpace:(unsigned long long)freeSpaceVal
+                          filterSet:(FilterSet *)filterSetVal
+                           scanTime:(NSDate *)scanTimeVal {
   if (self = [super init]) {
     volumeTree = [[DirectoryItem alloc] initWithLabel: volumePath
                                                parent: nil
@@ -253,8 +253,8 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   static NSDateFormatter *format = nil;
   if (format == nil) {
     format = [[NSDateFormatter alloc] init];
-    [format setTimeStyle:NSDateFormatterMediumStyle];
-    [format setDateStyle:NSDateFormatterMediumStyle];
+    format.timeStyle = NSDateFormatterMediumStyle;
+    format.dateStyle = NSDateFormatterMediumStyle;
   }
   return [format stringFromDate:scanTime];
 }
@@ -435,14 +435,14 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   
   // Get the items in the path (from the underlying path model). 
   NSArray  *itemsInPath = [[pathModelView pathModel] itemPath];
-  NSUInteger  i = [itemsInPath count] - 1;
-  while ([itemsInPath objectAtIndex: i] != selectedItem) {
+  NSUInteger  i = itemsInPath.count - 1;
+  while (itemsInPath[i] != selectedItem) {
     NSAssert(i > 0, @"Item not found.");
     i--;
   }
 
   // Found the item. Return the one just above it in the path. 
-  return [itemsInPath objectAtIndex: i-1];
+  return itemsInPath[i - 1];
 }
 
 

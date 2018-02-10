@@ -9,16 +9,16 @@
 @implementation FilteredTreeGuide
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   return [self initWithFileItemTest: nil];
 }
 
-- (id) initWithFileItemTest:(FileItemTest *)itemTestVal {
+- (instancetype) initWithFileItemTest:(FileItemTest *)itemTestVal {
   return [self initWithFileItemTest: itemTestVal packagesAsFiles: NO];
 }
 
-- (id) initWithFileItemTest:(FileItemTest *)itemTestVal
-            packagesAsFiles:(BOOL)packagesAsFilesVal {
+- (instancetype) initWithFileItemTest:(FileItemTest *)itemTestVal
+                      packagesAsFiles:(BOOL)packagesAsFilesVal {
   if (self = [super init]) {
     itemTest = nil;
     testUsesSize = NO;

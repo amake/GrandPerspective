@@ -50,28 +50,26 @@ extern NSString  *ColorMappingChangedEvent;
 // from the nib file (which invokes the generic initWithFrame: method).
 - (void) postInitWithPathModelView:(ItemPathModelView *)pathModelView;
 
-- (ItemPathModelView *)pathModelView;
-- (FileItem *)treeInView;
+@property (nonatomic, readonly, strong) ItemPathModelView *pathModelView;
+@property (nonatomic, readonly, strong) FileItem *treeInView;
 
 - (NSRect) locationInViewForItemAtEndOfPath:(NSArray *)itemPath;
 - (NSImage *)imageInViewForItemAtEndOfPath:(NSArray *)itemPath;
 
-- (TreeDrawerSettings *)treeDrawerSettings;
-- (void) setTreeDrawerSettings:(TreeDrawerSettings *)settings;
+@property (nonatomic, strong) TreeDrawerSettings *treeDrawerSettings;
 
-- (BOOL) showEntireVolume;
-- (void) setShowEntireVolume:(BOOL)flag;
+@property (nonatomic) BOOL showEntireVolume;
 
-- (TreeLayoutBuilder *)layoutBuilder;
+@property (nonatomic, readonly, strong) TreeLayoutBuilder *layoutBuilder;
 
-- (BOOL) canZoomIn;
-- (BOOL) canZoomOut;
+@property (nonatomic, readonly) BOOL canZoomIn;
+@property (nonatomic, readonly) BOOL canZoomOut;
 
 - (void) zoomIn;
 - (void) zoomOut;
 
-- (BOOL) canMoveFocusUp;
-- (BOOL) canMoveFocusDown;
+@property (nonatomic, readonly) BOOL canMoveFocusUp;
+@property (nonatomic, readonly) BOOL canMoveFocusDown;
 
 - (void) moveFocusUp;
 - (void) moveFocusDown;

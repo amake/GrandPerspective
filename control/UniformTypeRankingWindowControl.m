@@ -12,11 +12,11 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
   BOOL  dominated;
 }
 
-- (id) initWithUniformType:(UniformType *)type dominated:(BOOL)dominated;
+- (instancetype) initWithUniformType:(UniformType *)type
+                           dominated:(BOOL)dominated NS_DESIGNATED_INITIALIZER;
 
-- (UniformType *)uniformType;
-- (BOOL) isDominated;
-- (void) setDominated:(BOOL)flag;
+@property (nonatomic, readonly, strong) UniformType *uniformType;
+@property (nonatomic, getter=isDominated) BOOL dominated;
 
 @end // @interface TypeCell
 
@@ -41,17 +41,17 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
 @implementation UniformTypeRankingWindowControl
 
-- (id) init {
+- (instancetype) init {
   return [self initWithUniformTypeRanking: [UniformTypeRanking defaultUniformTypeRanking]];
 }
 
 // Special case: should not cover (override) super's designated initialiser in NSWindowController's
 // case
-- (id) initWithUniformTypeRanking: (UniformTypeRanking *)typeRankingVal {
+- (instancetype) initWithUniformTypeRanking: (UniformTypeRanking *)typeRankingVal {
   if (self = [super initWithWindowNibName: @"UniformTypeRankingWindow" owner: self]) {
     typeRanking = [typeRankingVal retain];
     typeCells =
-      [[NSMutableArray arrayWithCapacity: [[typeRanking rankedUniformTypes] count]] retain];
+      [[NSMutableArray arrayWithCapacity: [typeRanking rankedUniformTypes].count] retain];
 
     updateTypeList = YES;
   }
@@ -68,10 +68,10 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
 
 - (void) windowDidLoad {
-  [typesTable setDelegate: self];
-  [typesTable setDataSource: self];
+  typesTable.delegate = self;
+  typesTable.dataSource = self;
   
-  [typesTable registerForDraggedTypes: [NSArray arrayWithObject: InternalTableDragType]];
+  [typesTable registerForDraggedTypes: @[InternalTableDragType]];
 }
 
 
@@ -86,7 +86,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 }
 
 - (IBAction) moveToTopAction:(id)sender {
-  NSInteger  i = [typesTable selectedRow];
+  NSInteger  i = typesTable.selectedRow;
   
   while (i > 0) {
     [self moveCellUpFromIndex: i];
@@ -97,10 +97,10 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 }
 
 - (IBAction) moveToBottomAction:(id)sender {
-  NSInteger  i = [typesTable selectedRow];
+  NSInteger  i = typesTable.selectedRow;
   NSAssert(i >= 0, @"No row selected");
   
-  NSUInteger  max_i = [typeCells count] - 1;
+  NSUInteger  max_i = typeCells.count - 1;
   while (i < max_i) {
     [self moveCellDownFromIndex: i];
     i++;
@@ -110,10 +110,10 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 }
 
 - (IBAction) moveToRevealAction:(id)sender {
-  NSInteger  i = [typesTable selectedRow];
+  NSInteger  i = typesTable.selectedRow;
   NSAssert(i >= 0, @"No row selected");
 
-  while (i > 0 && [[typeCells objectAtIndex: i] isDominated]) {
+  while (i > 0 && [typeCells[i] isDominated]) {
     [self moveCellUpFromIndex: i];
     i--;
   }
@@ -122,11 +122,11 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 }
 
 - (IBAction) moveToHideAction:(id)sender {
-  NSInteger  i = [typesTable selectedRow];
+  NSInteger  i = typesTable.selectedRow;
   NSAssert(i >= 0, @"No row selected");
 
-  NSUInteger  max_i = [typeCells count] - 1;
-  while (i < max_i && ![[typeCells objectAtIndex: i] isDominated]) {
+  NSUInteger  max_i = typeCells.count - 1;
+  while (i < max_i && ![typeCells[i] isDominated]) {
     [self moveCellDownFromIndex: i];
     i++;
   }
@@ -135,7 +135,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 }
 
 - (IBAction) moveUpAction:(id)sender {
-  NSInteger  i = [typesTable selectedRow];
+  NSInteger  i = typesTable.selectedRow;
   NSAssert(i >= 0, @"No row selected");
   
   if (i > 0) {
@@ -147,10 +147,10 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 }
 
 - (IBAction) moveDownAction:(id)sender {
-  NSInteger  i = [typesTable selectedRow];
+  NSInteger  i = typesTable.selectedRow;
   NSAssert(i >= 0, @"No row selected");
 
-  NSUInteger  max_i = [typeCells count] - 1;
+  NSUInteger  max_i = typeCells.count - 1;
   if (i < max_i) {
     [self moveCellDownFromIndex: i];
     i++;
@@ -162,10 +162,10 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
 - (IBAction) showTypeDescriptionChanged:(id)sender {
   NSButton  *button = sender;
-  if ([button state] == NSOffState) {
+  if (button.state == NSOffState) {
     [typeDescriptionDrawer close];
   }
-  else if ([button state] == NSOnState) {
+  else if (button.state == NSOnState) {
     [typeDescriptionDrawer open];
   }
 }
@@ -193,12 +193,12 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 // NSTableSource
 
 - (NSInteger) numberOfRowsInTableView: (NSTableView *)tableView {
-  return [typeCells count];
+  return typeCells.count;
 }
 
 - (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)column
              row:(NSInteger)row {
-  return [[[typeCells objectAtIndex: row] uniformType] uniformTypeIdentifier];
+  return [[typeCells[row] uniformType] uniformTypeIdentifier];
 }
 
 
@@ -206,10 +206,10 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
      toPasteboard:(NSPasteboard *)pboard {
 
   // Get the source row number of the type that is being dragged.
-  NSNumber  *rowNum = [NSNumber numberWithUnsignedInteger: [rowIndexes firstIndex]];
+  NSNumber  *rowNum = @(rowIndexes.firstIndex);
   NSData  *data = [NSKeyedArchiver archivedDataWithRootObject: rowNum];
 
-  [pboard declareTypes: [NSArray arrayWithObject: InternalTableDragType] owner: self];
+  [pboard declareTypes: @[InternalTableDragType] owner: self];
   [pboard setData: data forType: InternalTableDragType];
 
   return YES;
@@ -270,7 +270,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
                row:(NSInteger)row {
   NSAssert2(row < [typeCells count], @"%ld >= %ld", row, [typeCells count]);
 
-  TypeCell  *typeCell = [typeCells objectAtIndex: row];
+  TypeCell  *typeCell = typeCells[row];
   NSString  *uti = [[typeCell uniformType] uniformTypeIdentifier];
 
   NSMutableAttributedString  *cellValue = 
@@ -279,7 +279,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
   if ([typeCell isDominated]) {
     [cellValue addAttribute: NSForegroundColorAttributeName
                       value: [NSColor grayColor]
-                      range: NSMakeRange(0, [cellValue length])];
+                      range: NSMakeRange(0, cellValue.length)];
   }
   
   [cell setAttributedStringValue: cellValue];
@@ -317,7 +317,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
 // Commits changes made in the window to the uniform type ranking.
 - (void) commitChangedTypeList {
-  NSMutableArray  *newRanking = [NSMutableArray arrayWithCapacity: [typeCells count]];
+  NSMutableArray  *newRanking = [NSMutableArray arrayWithCapacity: typeCells.count];
     
   NSEnumerator  *typeCellEnum = [typeCells objectEnumerator];
   TypeCell  *typeCell;
@@ -330,7 +330,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
 
 - (void) closeWindow {
-  [[self window] close];
+  [self.window close];
   
   // Force update of the type list again when the window appears again. This ensures that any
   // changes are undone if the user closed the window by pressing "Cancel".
@@ -339,45 +339,45 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
 
 - (void) updateWindowState {
-  NSInteger  i = [typesTable selectedRow];
-  NSUInteger  numCells =  [typeCells count];
+  NSInteger  i = typesTable.selectedRow;
+  NSUInteger  numCells =  typeCells.count;
   
   NSAssert(i >= 0 && i < numCells, @"Invalid selected type.");
   
-  TypeCell  *typeCell = [typeCells objectAtIndex: i];
+  TypeCell  *typeCell = typeCells[i];
   
-  [revealButton setEnabled: [typeCell isDominated]];
-  [hideButton setEnabled: ( ![typeCell isDominated] && (i < numCells -1) ) ];
+  revealButton.enabled = [typeCell isDominated];
+  hideButton.enabled = ( ![typeCell isDominated] && (i < numCells -1) ) ;
 
-  [moveUpButton setEnabled: i > 0];
-  [moveToTopButton setEnabled: i > 0];
+  moveUpButton.enabled = i > 0;
+  moveToTopButton.enabled = i > 0;
 
-  [moveDownButton setEnabled: i < numCells - 1];
-  [moveToBottomButton setEnabled: i < numCells - 1];
+  moveDownButton.enabled = i < numCells - 1;
+  moveToBottomButton.enabled = i < numCells - 1;
   
   UniformType  *type = [typeCell uniformType];
   
-  [typeIdentifierField setStringValue: [type uniformTypeIdentifier]];
+  typeIdentifierField.stringValue = [type uniformTypeIdentifier];
   
   NSString  *descr = [type description];
-  [typeDescriptionField setStringValue: (descr != nil) ? descr : @""];
+  typeDescriptionField.stringValue = (descr != nil) ? descr : @"";
 
   NSMutableString  *conformsTo = [NSMutableString stringWithCapacity: 64];
   NSEnumerator  *parentEnum = [[type parentTypes] objectEnumerator];
   UniformType  *parentType;
   while (parentType = [parentEnum nextObject]) {
-    if ([conformsTo length] > 0) {
+    if (conformsTo.length > 0) {
       [conformsTo appendString: @", "];
     }
     [conformsTo appendString: [parentType uniformTypeIdentifier]];
   }
-  [typeConformsToField setStringValue: conformsTo];
+  typeConformsToField.stringValue = conformsTo;
 }
 
 
 - (void) moveCellUpFromIndex:(NSUInteger)index {
-  TypeCell  *upCell = [typeCells objectAtIndex: index];
-  TypeCell  *downCell = [typeCells objectAtIndex: index - 1];
+  TypeCell  *upCell = typeCells[index];
+  TypeCell  *downCell = typeCells[index - 1];
   
   // Swap the cells
   [typeCells exchangeObjectAtIndex: index withObjectAtIndex: index - 1];
@@ -393,7 +393,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
       NSUInteger  max_i = index - 1;
       BOOL  dominated = NO;
       while (i < max_i && !dominated) {
-        UniformType  *higherType = [[typeCells objectAtIndex: i] uniformType];
+        UniformType  *higherType = [typeCells[i] uniformType];
         
         if ([ancestors containsObject: higherType]) {
           dominated = YES;
@@ -437,7 +437,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
   NSData  *data = [pboard dataForType: InternalTableDragType];
   NSNumber  *rowNum = [NSKeyedUnarchiver unarchiveObjectWithData: data];
   
-  return [rowNum unsignedIntegerValue];
+  return rowNum.unsignedIntegerValue;
 }
 
 @end // @implementation UniformTypeRankingWindowControl (PrivateMethods)
@@ -445,7 +445,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
 @implementation TypeCell
 
-- (id) initWithUniformType:(UniformType *)typeVal dominated:(BOOL)dominatedVal {
+- (instancetype) initWithUniformType:(UniformType *)typeVal dominated:(BOOL)dominatedVal {
   if (self = [super init]) {
     type = [typeVal retain];
     dominated = dominatedVal;

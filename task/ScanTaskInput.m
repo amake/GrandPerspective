@@ -6,14 +6,14 @@
 @implementation ScanTaskInput
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithPath:fileSizeMeasure:filterSet instead");
   return nil;
 }
 
-- (id) initWithPath:(NSString *)path
-    fileSizeMeasure:(NSString *)fileSizeMeasureVal
-          filterSet:(FilterSet *)filterSetVal {
+- (instancetype) initWithPath:(NSString *)path
+              fileSizeMeasure:(NSString *)fileSizeMeasureVal
+                    filterSet:(FilterSet *)filterSetVal {
 
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
@@ -26,10 +26,10 @@
             packagesAsFiles: !showPackageContentsByDefault];
 }
          
-- (id) initWithPath:(NSString *)path 
-    fileSizeMeasure:(NSString *)fileSizeMeasureVal
-          filterSet:(FilterSet *)filterSetVal
-    packagesAsFiles:(BOOL) packagesAsFilesVal {
+- (instancetype) initWithPath:(NSString *)path
+              fileSizeMeasure:(NSString *)fileSizeMeasureVal
+                    filterSet:(FilterSet *)filterSetVal
+              packagesAsFiles:(BOOL) packagesAsFilesVal {
   if (self = [super init]) {
     pathToScan = [path retain];
     fileSizeMeasure = [fileSizeMeasureVal retain];

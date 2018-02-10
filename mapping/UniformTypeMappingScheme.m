@@ -26,12 +26,12 @@
 
 @implementation UniformTypeMappingScheme
 
-- (id) init {
+- (instancetype) init {
   return [self initWithUniformTypeRanking: [UniformTypeRanking defaultUniformTypeRanking]];
 
 }
 
-- (id) initWithUniformTypeRanking: (UniformTypeRanking *)typeRankingVal {
+- (instancetype) initWithUniformTypeRanking: (UniformTypeRanking *)typeRankingVal {
   if (self = [super init]) {
     typeRanking = [typeRankingVal retain];
     
@@ -83,7 +83,7 @@
 
 @implementation MappingByUniformType
 
-- (id) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)schemeVal {
+- (instancetype) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)schemeVal {
 
   if (self = [super initWithFileItemMappingScheme: schemeVal]) {
     hashForUTICache = [[NSMutableDictionary dictionaryWithCapacity: 16] retain];
@@ -117,23 +117,22 @@
   }
   
   NSString  *uti = [type uniformTypeIdentifier];
-  NSNumber  *hash = [hashForUTICache objectForKey: uti];
+  NSNumber  *hash = hashForUTICache[uti];
   if (hash != nil) {
-    return [hash intValue];
+    return hash.intValue;
   }
     
   NSSet  *ancestorTypes = [type ancestorTypes];
   NSUInteger  utiIndex = 0;
   
-  while (utiIndex < [orderedTypes count]) {
-    UniformType  *orderedType = [orderedTypes objectAtIndex: utiIndex];
+  while (utiIndex < orderedTypes.count) {
+    UniformType  *orderedType = orderedTypes[utiIndex];
   
     if (type == orderedType || [ancestorTypes containsObject: orderedType]) {
       // Found the first type in the list that the file item conforms to.
       
       // Add it to the cache for next time.
-      [hashForUTICache setObject: [NSNumber numberWithUnsignedInteger: utiIndex]
-                          forKey: uti];
+      hashForUTICache[uti] = @(utiIndex);
       return utiIndex;
     }
     
@@ -153,11 +152,11 @@
 // Implementation of informal LegendProvidingFileItemMapping protocol
 
 - (NSString *)descriptionForHash:(NSUInteger)hash {
-  if (hash >= [orderedTypes count]) {
+  if (hash >= orderedTypes.count) {
     return nil;
   }
   
-  UniformType  *type = [orderedTypes objectAtIndex: hash];
+  UniformType  *type = orderedTypes[hash];
   
   NSString  *descr = [type description];
    

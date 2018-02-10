@@ -65,10 +65,10 @@ static BOOL appHasDeletePermission;
 
 // Special case: should not cover (override) super's designated initialiser in NSWindowController's
 // case
-- (id) init {
+- (instancetype) init {
   if (self = [super initWithWindowNibName: @"PreferencesPanel" owner: self]) {
     // Trigger loading of the window
-    [self window];
+    self.window;
   }
 
   return self;
@@ -119,18 +119,18 @@ static BOOL appHasDeletePermission;
   [filterPopUpControl selectFilterNamed: [userDefaults stringForKey: DefaultFilterName]];
 
   UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
-  [defaultFilterPopUp setTag: [[tagMaker transformedValue: DefaultFilterName] intValue]];
+  defaultFilterPopUp.tag = [[tagMaker transformedValue: DefaultFilterName] intValue];
   
-  [fileDeletionConfirmationCheckBox setState:
-     [userDefaults boolForKey: ConfirmFileDeletionKey] ? NSOnState : NSOffState];
-  [showPackageContentsByDefaultCheckBox setState:
-     [userDefaults boolForKey: ShowPackageContentsByDefaultKey] ? NSOnState : NSOffState];
-  [showEntireVolumeByDefaultCheckBox setState:
-     [userDefaults boolForKey: ShowEntireVolumeByDefaultKey] ? NSOnState : NSOffState];
+  fileDeletionConfirmationCheckBox.state =
+    [userDefaults boolForKey: ConfirmFileDeletionKey] ? NSOnState : NSOffState;
+  showPackageContentsByDefaultCheckBox.state =
+    [userDefaults boolForKey: ShowPackageContentsByDefaultKey] ? NSOnState : NSOffState;
+  showEntireVolumeByDefaultCheckBox.state =
+    [userDefaults boolForKey: ShowEntireVolumeByDefaultKey] ? NSOnState : NSOffState;
 
   [self updateButtonState];
   
-  [[self window] center];
+  [self.window center];
 }
 
 
@@ -139,8 +139,8 @@ static BOOL appHasDeletePermission;
   UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
 
   NSPopUpButton  *popUp = sender;
-  NSString  *name = [tagMaker nameForTag: [[popUp selectedItem] tag]];
-  NSString  *key = [tagMaker nameForTag: [popUp tag]];
+  NSString  *name = [tagMaker nameForTag: popUp.selectedItem.tag];
+  NSString  *key = [tagMaker nameForTag: popUp.tag];
 
   [userDefaults setObject: name forKey: key];
   
@@ -184,7 +184,7 @@ static BOOL appHasDeletePermission;
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
   // Associate the pop-up with its key in the preferences by their tag.
-  [popUp setTag: [[tagMaker transformedValue: key] intValue]];
+  popUp.tag = [[tagMaker transformedValue: key] intValue];
 
   // Initialise the pop-up with its (localized) content
   [popUp removeAllItems];
@@ -203,9 +203,9 @@ static BOOL appHasDeletePermission;
 
 - (void) updateButtonState {
   UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
-  NSString  *name = [tagMaker nameForTag: [[fileDeletionPopUp selectedItem] tag]];
+  NSString  *name = [tagMaker nameForTag: fileDeletionPopUp.selectedItem.tag];
 
-  [fileDeletionConfirmationCheckBox setEnabled: ![name isEqualToString: DeleteNothing]];
+  fileDeletionConfirmationCheckBox.enabled = ![name isEqualToString: DeleteNothing];
 }
 
 /* Check if the application has permission to delete files. The assumption is that the application
@@ -239,8 +239,8 @@ static BOOL appHasDeletePermission;
     NSLog(@"entitlements = %@", entitlements);
 
     canDelete = (
-      ![entitlements objectForKey: @"com.apple.security.app-sandbox"] ||
-      [entitlements objectForKey: @"com.apple.security.files.user-selected.read-write"]
+      !entitlements[@"com.apple.security.app-sandbox"] ||
+      entitlements[@"com.apple.security.files.user-selected.read-write"]
     );
   }
 

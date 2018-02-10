@@ -3,18 +3,18 @@
 
 @implementation FilterTest
 
-+ (id) filterTestWithName:(NSString *)name fileItemTest:(FileItemTest *)test {
++ (instancetype) filterTestWithName:(NSString *)name fileItemTest:(FileItemTest *)test {
   return [[[FilterTest alloc] initWithName: name fileItemTest: test] autorelease];
 }
 
 // Overrides designated initialiser.
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithName:fileItemTest: instead.");
   return nil;
 }
 
 // Designated initialiser.
-- (id) initWithName:(NSString *)nameVal fileItemTest:(FileItemTest *)testVal {
+- (instancetype) initWithName:(NSString *)nameVal fileItemTest:(FileItemTest *)testVal {
   if (self = [super init]) {
     name = [nameVal retain];
     test = [testVal retain];

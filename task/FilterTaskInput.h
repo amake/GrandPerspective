@@ -10,16 +10,16 @@
   FilterSet  *filterSet;
 }
 
-- (id) initWithTreeContext:(TreeContext *)context
-                 filterSet:(FilterSet *)filterSet;
+- (instancetype) initWithTreeContext:(TreeContext *)context
+                           filterSet:(FilterSet *)filterSet;
 
-- (id) initWithTreeContext:(TreeContext *)context 
-                 filterSet:(FilterSet *)test
-           packagesAsFiles:(BOOL) packagesAsFiles;
+- (instancetype) initWithTreeContext:(TreeContext *)context
+                           filterSet:(FilterSet *)test
+                     packagesAsFiles:(BOOL) packagesAsFiles NS_DESIGNATED_INITIALIZER;
 
 
-- (TreeContext *)treeContext;
-- (FilterSet *)filterSet;
-- (BOOL) packagesAsFiles;
+@property (nonatomic, readonly, strong) TreeContext *treeContext;
+@property (nonatomic, readonly, strong) FilterSet *filterSet;
+@property (nonatomic, readonly) BOOL packagesAsFiles;
 
 @end

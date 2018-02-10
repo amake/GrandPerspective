@@ -8,11 +8,12 @@
   FileItemTest  *test;
 }
 
-+ (id) filterTestWithName:(NSString *)name fileItemTest:(FileItemTest *)test;
++ (instancetype) filterTestWithName:(NSString *)name fileItemTest:(FileItemTest *)test;
 
-- (id) initWithName:(NSString *)name fileItemTest:(FileItemTest *)test;
+- (instancetype) initWithName:(NSString *)name
+                 fileItemTest:(FileItemTest *)test NS_DESIGNATED_INITIALIZER;
 
-- (NSString *)name;
-- (FileItemTest *)fileItemTest;
+@property (nonatomic, readonly, copy) NSString *name;
+@property (nonatomic, readonly, strong) FileItemTest *fileItemTest;
 
 @end

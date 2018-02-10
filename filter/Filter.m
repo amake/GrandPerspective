@@ -10,22 +10,22 @@
 
 @implementation Filter
 
-+ (id) filter {
++ (instancetype) filter {
   return [[[Filter alloc] init] autorelease];
 }
 
-+ (id) filterWithFilterTests:(NSArray *)filterTests {
++ (instancetype) filterWithFilterTests:(NSArray *)filterTests {
   return [[[Filter alloc] initWithFilterTests: filterTests] autorelease];
 }
 
-+ (id) filterWithFilter:(Filter *)filter {
++ (instancetype) filterWithFilter:(Filter *)filter {
   return [[[Filter alloc] initWithFilter: filter] autorelease];
 }
 
 
 + (Filter *)filterFromDictionary:(NSDictionary *)dict {
-  NSArray  *storedFilterTests = [dict objectForKey: @"tests"];
-  NSMutableArray  *testRefs = [NSMutableArray arrayWithCapacity: [storedFilterTests count]];
+  NSArray  *storedFilterTests = dict[@"tests"];
+  NSMutableArray  *testRefs = [NSMutableArray arrayWithCapacity: storedFilterTests.count];
     
   NSEnumerator  *testEnum = [storedFilterTests objectEnumerator];
   NSDictionary  *storedFilterTest;
@@ -38,15 +38,15 @@
 }
 
 
-- (id) init {
-  return [self initWithFilterTests: [NSArray array]];
+- (instancetype) init {
+  return [self initWithFilterTests: @[]];
 }
 
-- (id) initWithFilter:(Filter *)filter {
+- (instancetype) initWithFilter:(Filter *)filter {
   return [self initWithFilterTests: [filter filterTests]];
 }
 
-- (id) initWithFilterTests:(NSArray *)filterTestsVal {
+- (instancetype) initWithFilterTests:(NSArray *)filterTestsVal {
   if (self = [super init]) {
     filterTests = [[NSArray alloc] initWithArray: filterTestsVal];
   }
@@ -63,7 +63,7 @@
 
 
 - (NSUInteger) numFilterTests {
-  return [filterTests count];
+  return filterTests.count;
 }
 
 - (NSArray *)filterTests {
@@ -71,7 +71,7 @@
 }
 
 - (FilterTestRef *)filterTestAtIndex:(NSUInteger)index {
-  return [filterTests objectAtIndex: index];
+  return filterTests[index];
 }
 
 - (FilterTestRef *)filterTestWithName:(NSString *)testName {
@@ -99,7 +99,7 @@
 
 - (FileItemTest *)createFileItemTestFromRepository:(FilterTestRepository *)repository
                                       unboundTests:(NSMutableArray *)unboundTests {
-  NSMutableArray  *subTests = [NSMutableArray arrayWithCapacity: [filterTests count]];
+  NSMutableArray  *subTests = [NSMutableArray arrayWithCapacity: filterTests.count];
 
   NSEnumerator  *filterTestEnum = [filterTests objectEnumerator];
   FilterTestRef  *filterTest;
@@ -119,11 +119,11 @@
     }
   }
 
-  if ([subTests count] == 0) {
+  if (subTests.count == 0) {
     return nil;
   }
-  else if ([subTests count] == 1) {
-    return [subTests objectAtIndex: 0];
+  else if (subTests.count == 1) {
+    return subTests[0];
   }
   else {
     return [[[CompoundOrItemTest alloc] initWithSubItemTests: subTests] autorelease];
@@ -131,14 +131,14 @@
 }
 
 - (NSDictionary *)dictionaryForObject {
-  NSMutableArray  *storedTests = [NSMutableArray arrayWithCapacity: [filterTests count]];
+  NSMutableArray  *storedTests = [NSMutableArray arrayWithCapacity: filterTests.count];
   NSEnumerator  *testEnum = [filterTests objectEnumerator];
   FilterTestRef  *testRef;
   while (testRef = [testEnum nextObject]) {
     [storedTests addObject: [testRef dictionaryForObject]];
   }
   
-  return [NSDictionary dictionaryWithObjectsAndKeys: storedTests, @"tests", nil];
+  return @{@"tests": storedTests};
 }
 
 @end // @implementation Filter

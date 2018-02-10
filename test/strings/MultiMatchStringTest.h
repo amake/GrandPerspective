@@ -12,10 +12,11 @@
 
 }
 
-- (id) initWithMatchTargets:(NSArray *)matches;
-- (id) initWithMatchTargets:(NSArray *)matches caseSensitive:(BOOL)caseFlag;
+- (instancetype) initWithMatchTargets:(NSArray *)matches;
+- (instancetype) initWithMatchTargets:(NSArray *)matches
+                        caseSensitive:(BOOL)caseFlag NS_DESIGNATED_INITIALIZER;
 
-- (NSArray *)matchTargets;
-- (BOOL) isCaseSensitive;
+@property (nonatomic, readonly, copy) NSArray *matchTargets;
+@property (nonatomic, getter=isCaseSensitive, readonly) BOOL caseSensitive;
 
 @end

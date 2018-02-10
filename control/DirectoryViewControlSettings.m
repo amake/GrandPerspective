@@ -4,7 +4,7 @@
 
 @implementation DirectoryViewControlSettings
 
-- (id) init {
+- (instancetype) init {
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
 
   return 
@@ -18,13 +18,13 @@
                                               [userDefaults floatForKey: DefaultViewWindowHeight])];
 }
 
-- (id) initWithColorMappingKey:(NSString *)colorMappingKeyVal 
-               colorPaletteKey:(NSString *)colorPaletteKeyVal
-                      maskName:(NSString *)maskNameVal
-                   maskEnabled:(BOOL)maskEnabledVal
-              showEntireVolume:(BOOL)showEntireVolumeVal
-           showPackageContents:(BOOL)showPackageContentsVal
-              unzoomedViewSize:(NSSize)unzoomedViewSizeVal {
+- (instancetype) initWithColorMappingKey:(NSString *)colorMappingKeyVal
+                         colorPaletteKey:(NSString *)colorPaletteKeyVal
+                                maskName:(NSString *)maskNameVal
+                             maskEnabled:(BOOL)maskEnabledVal
+                        showEntireVolume:(BOOL)showEntireVolumeVal
+                     showPackageContents:(BOOL)showPackageContentsVal
+                        unzoomedViewSize:(NSSize)unzoomedViewSizeVal {
   if (self = [super init]) {
     colorMappingKey = [colorMappingKeyVal retain];
     colorPaletteKey = [colorPaletteKeyVal retain];

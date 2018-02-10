@@ -27,18 +27,15 @@
   BOOL  abort;
 }
 
-- (id) initWithScanTree:(DirectoryItem *)scanTree;
-- (id) initWithScanTree:(DirectoryItem *)scanTree
-     treeDrawerSettings:(TreeDrawerSettings *)settings;
+- (instancetype) initWithScanTree:(DirectoryItem *)scanTree;
+- (instancetype) initWithScanTree:(DirectoryItem *)scanTree
+               treeDrawerSettings:(TreeDrawerSettings *)settings NS_DESIGNATED_INITIALIZER;
 
-- (void) setMaskTest:(FileItemTest *)mask;
-- (FileItemTest *)maskTest;
+@property (nonatomic, strong) FileItemTest *maskTest;
 
-- (void) setColorMapper:(NSObject <FileItemMapping> *)colorMapper;
-- (NSObject <FileItemMapping> *)colorMapper;
+@property (nonatomic, strong) NSObject<FileItemMapping> *colorMapper;
 
-- (void) setShowPackageContents:(BOOL)showPackageContents;
-- (BOOL) showPackageContents;
+@property (nonatomic) BOOL showPackageContents;
 
 // Updates the drawer according to the given settings.
 - (void) updateSettings:(TreeDrawerSettings *)settings;

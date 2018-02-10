@@ -17,7 +17,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
  * Note: To properly allow subclassing, this method should maybe be moved to the public interface.
  * However, this is currently not relevant, as this class is not subclassed.
  */
-- (id) initByCopying: (ItemPathModel *)source;
+- (instancetype) initByCopying: (ItemPathModel *)source;
 
 /* Registers the model for all events that it wants to be notified about.
  */
@@ -56,12 +56,12 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 
 
 // Overrides super's designated initialiser.
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use -initWithTreeContext: instead.");
   return nil;
 }
 
-- (id) initWithTreeContext: (TreeContext *)treeContextVal {
+- (instancetype) initWithTreeContext:(TreeContext *)treeContextVal {
   if (self = [super init]) {
     treeContext = [treeContextVal retain];
   
@@ -134,23 +134,23 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 }
 
 - (DirectoryItem *)volumeTree {
-  return [path objectAtIndex: 0];
+  return path[0];
 }
 
 - (DirectoryItem *)scanTree {
-  return [path objectAtIndex: scanTreeIndex];
+  return path[scanTreeIndex];
 }
 
 - (FileItem *)visibleTree {
-  return [path objectAtIndex: visibleTreeIndex];
+  return path[visibleTreeIndex];
 }
 
 - (FileItem *)selectedFileItem {
-  return [path objectAtIndex: selectedItemIndex];
+  return path[selectedItemIndex];
 }
 
 - (FileItem *)lastFileItem {
-  return [path objectAtIndex: lastFileItemIndex];
+  return path[lastFileItemIndex];
 }
 
 
@@ -219,7 +219,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 - (BOOL) clearVisiblePath {
   NSAssert(!visiblePathLocked, @"Cannot clear path when locked.");
 
-  NSUInteger  num = [path count] - visibleTreeIndex - 1;
+  NSUInteger  num = path.count - visibleTreeIndex - 1;
 
   if (num > 0) {
     [path removeObjectsInRange: NSMakeRange(visibleTreeIndex + 1, num)];
@@ -241,10 +241,10 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
   [path addObject: nextItem]; 
 
   if (! [nextItem isVirtual]) {
-    NSAssert([((FileItem *)nextItem) parentDirectory] == [path objectAtIndex: lastFileItemIndex],
+    NSAssert([((FileItem *)nextItem) parentDirectory] == path[lastFileItemIndex],
              @"Path parent inconsistency.");
   
-    lastFileItemIndex = [path count] - 1;
+    lastFileItemIndex = path.count - 1;
   }
 }
 
@@ -271,7 +271,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 
   do {
     visibleTreeIndex--;
-  } while ([[path objectAtIndex:visibleTreeIndex] isVirtual]);
+  } while ([path[visibleTreeIndex] isVirtual]);
   
   [self postVisibleTreeChanged];
 }
@@ -281,7 +281,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 
   do {
     visibleTreeIndex++;
-  } while ([[path objectAtIndex:visibleTreeIndex] isVirtual]);
+  } while ([path[visibleTreeIndex] isVirtual]);
   
   if (selectedItemIndex < visibleTreeIndex) {
     // Ensure that the selected file item is always in the visible path
@@ -297,7 +297,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
   NSUInteger  oldSelectedItemIndex = selectedItemIndex;
   selectedItemIndex = lastFileItemIndex;
   
-  while ( [path objectAtIndex: selectedItemIndex] != fileItem ) {
+  while ( path[selectedItemIndex] != fileItem ) {
     selectedItemIndex--;
     
     NSAssert(selectedItemIndex >= 0, @"Item not found.");
@@ -328,7 +328,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
  * (that does not make much sense for copy-initialisation). So subclasses that have their own member
  * fields will have to extend this method.
  */
-- (id) initByCopying: (ItemPathModel *)source {
+- (instancetype) initByCopying: (ItemPathModel *)source {
   if (self = [super init]) {
     treeContext = [source->treeContext retain];
     path = [[NSMutableArray alloc] initWithArray: source->path];
@@ -360,15 +360,15 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
   FileItem  *replacingItem = [treeContext replacingFileItem];
 
   // Check if all items in the path are still valid
-  for (NSUInteger i = [path count]; i-- > 0; ) {
-    Item  *item = [path objectAtIndex: i];
+  for (NSUInteger i = path.count; i-- > 0; ) {
+    Item  *item = path[i];
     if (item == replacedItem) {
-      if (i != [path count] - 1) {
+      if (i != path.count - 1) {
         // The replaced item was not the last in the path, so clear the rest. This needs to be done
         // carefully, as the visible tree and selection may actually be inside the bit that is to be
         // removed.
 
-        [path removeObjectsInRange: NSMakeRange(i + 1, [path count] - i - 1)];
+        [path removeObjectsInRange: NSMakeRange(i + 1, path.count - i - 1)];
         
         while (visibleTreeIndex > i) {
           visibleTreeIndex = i;
@@ -385,7 +385,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
         }
       }
 
-      [path replaceObjectAtIndex: i withObject: replacingItem];
+      path[i] = replacingItem;
       if (i == selectedItemIndex) {
         [self postSelectedItemChanged];
       }
@@ -437,7 +437,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 
 
 - (BOOL) buildPathToFileItem:(FileItem *)targetItem {
-  Item  *lastItem = [path lastObject];
+  Item  *lastItem = path.lastObject;
   
   if ([lastItem isVirtual]) {
     // Can only extend from a file item.
@@ -457,15 +457,15 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
   }
   
   // Extend the path, starting from the top-level items.
-  while ([items count] > 0) {
-    if (! [self extendVisiblePathToFileItem: [items lastObject]]) {
+  while (items.count > 0) {
+    if (! [self extendVisiblePathToFileItem: items.lastObject]) {
       break;
     }
 
     [items removeLastObject];
   }
   
-  return [items count] == 0;
+  return items.count == 0;
 }
 
 
@@ -476,8 +476,8 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 
   NSUInteger  i = start;
   while (i <= end) {
-    if (![[path objectAtIndex:i] isVirtual]) {
-      [array addObject: [path objectAtIndex:i]];
+    if (![path[i] isVirtual]) {
+      [array addObject: path[i]];
     }
     i++;
   }
@@ -490,7 +490,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
                              similar:(BOOL)similar {
   NSAssert(!visiblePathLocked, @"Cannot extend path when locked.");
   
-  Item  *pathEndPoint = [path lastObject];
+  Item  *pathEndPoint = path.lastObject;
   if ([pathEndPoint isVirtual] || 
       ! [((FileItem *)pathEndPoint) isDirectory]) {
     // Can only extend from a DirectoryItem
@@ -507,7 +507,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
   }
   
   NSAssert(! [[path lastObject] isVirtual], @"Unexpected virtual endpoint.");
-  lastFileItemIndex = [path count] - 1;
+  lastFileItemIndex = path.count - 1;
 
   return YES;
 }

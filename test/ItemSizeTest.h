@@ -13,18 +13,18 @@
 
 }
 
-- (id) initWithLowerBound:(ITEM_SIZE)lowerBound;
+- (instancetype) initWithLowerBound:(ITEM_SIZE)lowerBound;
 
-- (id) initWithUpperBound:(ITEM_SIZE)upperBound;
+- (instancetype) initWithUpperBound:(ITEM_SIZE)upperBound;
 
-- (id) initWithLowerBound:(ITEM_SIZE)lowerBound
-               upperBound:(ITEM_SIZE)upperBound;
+- (instancetype) initWithLowerBound:(ITEM_SIZE)lowerBound
+                         upperBound:(ITEM_SIZE)upperBound NS_DESIGNATED_INITIALIZER;
 
-- (BOOL) hasLowerBound;
-- (BOOL) hasUpperBound;
+@property (nonatomic, readonly) BOOL hasLowerBound;
+@property (nonatomic, readonly) BOOL hasUpperBound;
 
-- (ITEM_SIZE) lowerBound;
-- (ITEM_SIZE) upperBound;
+@property (nonatomic, readonly) unsigned long long lowerBound;
+@property (nonatomic, readonly) unsigned long long upperBound;
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict;
 

@@ -7,12 +7,12 @@
 @implementation ItemFlagsTest
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithFlagsMask:desiredResult: instead.");
   return nil;
 }
 
-- (id) initWithFlagsMask:(UInt8)mask desiredResult:(UInt8)result {
+- (instancetype) initWithFlagsMask:(UInt8)mask desiredResult:(UInt8)result {
   if (self = [super init]) {
     flagsMask = mask;
     desiredResult = result;
@@ -26,14 +26,14 @@
 /* Note: Special case. Does not call own designated initialiser. It should be overridden and only
  * called by initialisers with the same signature.
  */
-- (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     id  object;
     
-    object = [dict objectForKey: @"flagsMask"];
+    object = dict[@"flagsMask"];
     flagsMask = (object == nil) ? 0 : [object unsignedCharValue];
      
-    object = [dict objectForKey: @"desiredResult"];
+    object = dict[@"desiredResult"];
     desiredResult = (object == nil) ? 0 : [object unsignedCharValue];
   }
   
@@ -44,10 +44,10 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  [dict setObject: @"ItemFlagsTest" forKey: @"class"];
+  dict[@"class"] = @"ItemFlagsTest";
   
-  [dict setObject: [NSNumber numberWithUnsignedChar: flagsMask] forKey: @"flagsMask"];
-  [dict setObject: [NSNumber numberWithUnsignedChar: desiredResult] forKey: @"desiredResult"];
+  dict[@"flagsMask"] = @(flagsMask);
+  dict[@"desiredResult"] = @(desiredResult);
 }
 
 
@@ -120,7 +120,7 @@
 
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict {
-  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"ItemFlagsTest"],
+  NSAssert([dict[@"class"] isEqualToString: @"ItemFlagsTest"],
            @"Incorrect value for class in dictionary.");
 
   return [[[ItemFlagsTest alloc] initWithPropertiesFromDictionary: dict] autorelease];

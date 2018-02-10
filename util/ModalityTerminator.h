@@ -6,7 +6,7 @@
 
 + (ModalityTerminator *)modalityTerminatorForEventSource:(NSObject *)source;
 
-- (id) initWithEventSource:(NSObject *)eventSource;
+- (instancetype) initWithEventSource:(NSObject *)eventSource NS_DESIGNATED_INITIALIZER;
 
 - (void) abortModalAction:(NSNotification *)notification;
 - (void) stopModalAction:(NSNotification *)notification;

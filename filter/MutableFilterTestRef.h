@@ -10,8 +10,7 @@
   BOOL  canToggleInverted;
 }
 
-- (void) setCanToggleInverted:(BOOL)flag;
-- (BOOL) canToggleInverted;
+@property (nonatomic) BOOL canToggleInverted;
 
 - (void) toggleInverted;
 

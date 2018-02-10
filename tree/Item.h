@@ -25,12 +25,12 @@
  */
 + (BOOL) disposeZoneAfterUse:(NSZone *)zone;
 
-- (id) initWithItemSize:(ITEM_SIZE)size;
+- (instancetype) initWithItemSize:(ITEM_SIZE)size NS_DESIGNATED_INITIALIZER;
 
-- (ITEM_SIZE) itemSize;
-- (FILE_COUNT) numFiles;
+@property (nonatomic, readonly) unsigned long long itemSize;
+@property (nonatomic, readonly) unsigned long long numFiles;
 
 // An item is virtual if it is not a file item (i.e. a file or directory).
-- (BOOL) isVirtual;
+@property (nonatomic, getter=isVirtual, readonly) BOOL virtual;
 
 @end

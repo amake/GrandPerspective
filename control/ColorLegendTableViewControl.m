@@ -40,30 +40,30 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 
 @implementation ColorLegendTableViewControl
 
-- (id) initWithDirectoryView:(DirectoryView *)dirViewVal
-                   tableView:(NSTableView *)tableViewVal {
+- (instancetype) initWithDirectoryView:(DirectoryView *)dirViewVal
+                             tableView:(NSTableView *)tableViewVal {
   if (self = [super init]) {
     dirView = [dirViewVal retain];
     tableView = [tableViewVal retain];
     
-    NSArray  *columns = [tableView tableColumns];
+    NSArray  *columns = tableView.tableColumns;
     
-    NSTableColumn  *imageColumn = [columns objectAtIndex: 0];
-    [imageColumn setIdentifier: ColorImageColumnIdentifier];
+    NSTableColumn  *imageColumn = columns[0];
+    imageColumn.identifier = ColorImageColumnIdentifier;
     [imageColumn setEditable: NO];
 
     NSImageCell  *imageCell = [[NSImageCell alloc] initImageCell: nil];
-    [imageColumn setDataCell: imageCell];
+    imageColumn.dataCell = imageCell;
     
-    NSTableColumn  *descrColumn = [columns objectAtIndex: 1];
-    [descrColumn setIdentifier: ColorDescriptionColumnIdentifier];
+    NSTableColumn  *descrColumn = columns[1];
+    descrColumn.identifier = ColorDescriptionColumnIdentifier;
     [descrColumn setEditable: NO];
     
     colorImages = nil;
     [self makeColorImages];
     [self updateDescriptionColumnWidth];
     
-    [tableView setDataSource: self];
+    tableView.dataSource = self;
     
     ItemPathModelView  *pathModelView = [dirView pathModelView];
     
@@ -109,15 +109,15 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 // Partial implementation of NSTableDataSource interface
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
-  return [colorImages count];
+  return colorImages.count;
 }
 
 - (id) tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)column
              row:(int)row {
-  if ([column identifier] == ColorImageColumnIdentifier) {
-    return [colorImages objectAtIndex: row];
+  if (column.identifier == ColorImageColumnIdentifier) {
+    return colorImages[row];
   }
-  else if ([column identifier] == ColorDescriptionColumnIdentifier) {
+  else if (column.identifier == ColorDescriptionColumnIdentifier) {
     return [self descriptionForRow: row];
   }
   else {
@@ -135,7 +135,7 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
   if ([colorMapper canProvideLegend]) {
     LegendProvidingFileItemMapping  *legendProvider = (LegendProvidingFileItemMapping *)colorMapper;
   
-    if (row < [colorImages count] - 1) {
+    if (row < colorImages.count - 1) {
       return [legendProvider descriptionForHash: row];
     }
     else {
@@ -158,12 +158,12 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
   GradientRectangleDrawer  *drawer = 
     [[[GradientRectangleDrawer alloc] initWithColorPalette: colorPalette] autorelease];
   
-  NSUInteger  numColors = [[colorPalette allKeys] count];
+  NSUInteger  numColors = colorPalette.allKeys.count;
   [colorImages release];
   colorImages = [[NSMutableArray alloc] initWithCapacity: numColors];
 
   NSTableColumn  *imageColumn = [tableView tableColumnWithIdentifier: ColorImageColumnIdentifier];
-  NSRect  bounds = NSMakeRect(0, 0, [imageColumn width], [tableView rowHeight]);
+  NSRect  bounds = NSMakeRect(0, 0, imageColumn.width, tableView.rowHeight);
 
   int  i = 0;
   while (i < numColors) {
@@ -175,15 +175,15 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 - (void) updateDescriptionColumnWidth {
   NSTableColumn  *descrColumn =
     [tableView tableColumnWithIdentifier: ColorDescriptionColumnIdentifier];
-  NSCell  *dataCell = [descrColumn dataCell];
+  NSCell  *dataCell = descrColumn.dataCell;
   
   // TODO: Determine if more attributes need to be provided for sizeWithAttributes: to always return
   // the right width. So far, it appears as if the font is all that is needed.
   NSDictionary  *attribs = 
-    [[[NSDictionary alloc] initWithObjectsAndKeys: [dataCell font], NSFontAttributeName, nil]
+    [[[NSDictionary alloc] initWithObjectsAndKeys: dataCell.font, NSFontAttributeName, nil]
      autorelease];
 
-  NSUInteger  numColors = [colorImages count];
+  NSUInteger  numColors = colorImages.count;
   NSUInteger  i = 0;
   float  maxWidth = 0;
   while (i < numColors) {
@@ -204,8 +204,8 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
   // TODO: Is there a way to get the exact value dynamically?
   maxWidth += 6;
   
-  [descrColumn setMaxWidth: maxWidth];
-  [descrColumn setWidth: maxWidth];
+  descrColumn.maxWidth = maxWidth;
+  descrColumn.width = maxWidth;
 }
 
 

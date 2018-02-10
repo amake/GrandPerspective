@@ -11,7 +11,7 @@
  * have two "%@" arguments. The first for the description of the first sub-test, and the second for
  * the second sub-test.
  */
-- (NSString *)bootstrapDescriptionTemplate;
+@property (nonatomic, readonly, copy) NSString *bootstrapDescriptionTemplate;
 
 /* Not implemented. Needs to be provided by subclass.
  *
@@ -20,7 +20,7 @@
  * the second for the description of the remaining sub-tests. The template will be applied
  * iteratively.
  */
-- (NSString *)repeatingDescriptionTemplate;
+@property (nonatomic, readonly, copy) NSString *repeatingDescriptionTemplate;
 
 @end // CompoundItemTest (PrivateMethods) 
 
@@ -28,12 +28,12 @@
 @implementation CompoundItemTest
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithSubItemTests: instead.");
   return nil;
 }
 
-- (id) initWithSubItemTests:(NSArray*)subTestsVal {
+- (instancetype) initWithSubItemTests:(NSArray*)subTestsVal {
   if (self = [super init]) {
     NSAssert([subTestsVal count] >= 2, @"Compound test should have two or more sub-tests");
   
@@ -54,11 +54,11 @@
 /* Note: Special case. Does not call own designated initialiser. It should be overridden and only
  * called by initialisers with the same signature.
  */
-- (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
-    NSArray  *subTestDicts = [dict objectForKey: @"subTests"];
+    NSArray  *subTestDicts = dict[@"subTests"];
     
-    NSMutableArray  *tmpSubTests = [NSMutableArray arrayWithCapacity: [subTestDicts count]];
+    NSMutableArray  *tmpSubTests = [NSMutableArray arrayWithCapacity: subTestDicts.count];
     NSEnumerator  *subTestsDictsEnum = [subTestDicts objectEnumerator];
     NSDictionary  *subTestDict;
     while ((subTestDict = [subTestsDictsEnum nextObject]) != nil) {
@@ -75,7 +75,7 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  NSMutableArray  *subTestsDicts = [NSMutableArray arrayWithCapacity: [subTests count]];
+  NSMutableArray  *subTestsDicts = [NSMutableArray arrayWithCapacity: subTests.count];
   NSEnumerator  *subTestsEnum = [subTests objectEnumerator];
   FileItemTest  *subTest;
 
@@ -83,7 +83,7 @@
     [subTestsDicts addObject: [subTest dictionaryForObject]];
   }
 
-  [dict setObject: subTestsDicts forKey: @"subTests"];
+  dict[@"subTests"] = subTestsDicts;
 }
 
 
@@ -97,11 +97,11 @@
 }
 
 - (BOOL) appliesToDirectories {
-  NSUInteger  max = [subTests count];
+  NSUInteger  max = subTests.count;
   NSUInteger  i = 0;
   
   while (i < max) {
-    if ([[subTests objectAtIndex: i++] appliesToDirectories]) {
+    if ([subTests[i++] appliesToDirectories]) {
       return YES;
     }
   }

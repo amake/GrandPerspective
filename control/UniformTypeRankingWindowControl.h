@@ -42,6 +42,6 @@
 - (IBAction) showTypeDescriptionChanged:(id)sender;
 
 
-- (id) initWithUniformTypeRanking:(UniformTypeRanking *)typeRanking;
+- (instancetype) initWithUniformTypeRanking:(UniformTypeRanking *)typeRanking NS_DESIGNATED_INITIALIZER;
 
 @end

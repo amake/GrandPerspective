@@ -17,7 +17,7 @@
  * Furthermore, the descriptionFormat should somehow indicate whether or not the matching is
  * case-sensitive.
  */
-- (NSString *)descriptionFormat;
+@property (nonatomic, readonly, copy) NSString *descriptionFormat;
 
 @end
 
@@ -25,16 +25,16 @@
 @implementation MultiMatchStringTest
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithMatchTargets: instead.");
   return nil;
 }
 
-- (id) initWithMatchTargets:(NSArray *)matchesVal {
+- (instancetype) initWithMatchTargets:(NSArray *)matchesVal {
   return [self initWithMatchTargets: matchesVal caseSensitive: YES];
 }
   
-- (id) initWithMatchTargets:(NSArray *)matchesVal caseSensitive:(BOOL)caseFlag {
+- (instancetype) initWithMatchTargets:(NSArray *)matchesVal caseSensitive:(BOOL)caseFlag {
   if (self = [super init]) {
     NSAssert([matchesVal count] >= 1, @"There must at least be one possible match.");
 
@@ -58,14 +58,14 @@
  * Note: Special case. Does not call own designated initialiser. It should be overridden and only
  * called by initialisers with the same signature.
  */
-- (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
-    NSArray  *tmpMatches = [dict objectForKey: @"matches"];
+    NSArray  *tmpMatches = dict[@"matches"];
     
     // Make the array immutable
     matches = [[NSArray alloc] initWithArray: tmpMatches];
     
-    caseSensitive = [[dict objectForKey: @"caseSensitive"] boolValue];
+    caseSensitive = [dict[@"caseSensitive"] boolValue];
   }
   
   return self;
@@ -74,9 +74,9 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  [dict setObject: matches forKey: @"matches"];
+  dict[@"matches"] = matches;
   
-  [dict setObject: [NSNumber numberWithBool: caseSensitive] forKey: @"caseSensitive"];
+  dict[@"caseSensitive"] = @(caseSensitive);
 }
 
 
@@ -99,9 +99,9 @@
 
 
 - (BOOL) testString:(NSString *)string {
-  NSUInteger  i = [matches count];
+  NSUInteger  i = matches.count;
   while (i-- > 0) {
-    if ([self testString: string matches: [matches objectAtIndex: i]]) {
+    if ([self testString: string matches: matches[i]]) {
       return YES;
     }
   }

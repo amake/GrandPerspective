@@ -4,11 +4,11 @@
 @implementation PeekingEnumerator
 
 // Overrides super's designated initialiser.
-- (id) init {
+- (instancetype) init {
   return [self initWithEnumerator:nil]; // nil value -> empty enumerator.
 }
 
-- (id) initWithEnumerator:(NSEnumerator *)enumVal {
+- (instancetype) initWithEnumerator:(NSEnumerator *)enumVal {
   if (self = [super init]) {
     enumerator = [enumVal retain];
 

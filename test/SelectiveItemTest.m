@@ -6,12 +6,13 @@
 @implementation SelectiveItemTest
 
 // Overrides designated initialiser
-- (id) init {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithSubItemTest:onlyFiles: instead.");
   return nil;
 }
 
-- (id) initWithSubItemTest:(FileItemTest *)subTestVal onlyFiles:(BOOL)onlyFilesVal {
+- (instancetype) initWithSubItemTest:(FileItemTest *)subTestVal
+                           onlyFiles:(BOOL)onlyFilesVal {
   if (self = [super init]) {
     subTest = [subTestVal retain];
     
@@ -31,12 +32,12 @@
 /* Note: Special case. Does not call own designated initialiser. It should be overridden and only
  * called by initialisers with the same signature.
  */
-- (id) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
-    NSDictionary  *subTestDict = [dict objectForKey: @"subTest"];
+    NSDictionary  *subTestDict = dict[@"subTest"];
     
     subTest = [[FileItemTest fileItemTestFromDictionary: subTestDict] retain];
-    onlyFiles = [[dict objectForKey: @"onlyFiles"] boolValue];
+    onlyFiles = [dict[@"onlyFiles"] boolValue];
   }
   
   return self;
@@ -45,9 +46,9 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  [dict setObject: @"SelectiveItemTest" forKey: @"class"];
-  [dict setObject: [subTest dictionaryForObject] forKey: @"subTest"];
-  [dict setObject: [NSNumber numberWithBool: onlyFiles] forKey: @"onlyFiles"];
+  dict[@"class"] = @"SelectiveItemTest";
+  dict[@"subTest"] = [subTest dictionaryForObject];
+  dict[@"onlyFiles"] = @(onlyFiles);
 }
 
 
@@ -61,7 +62,7 @@
 
 
 - (TestResult) testFileItem:(FileItem *)item context:(id) context {
-  if ([item isDirectory] == onlyFiles) {
+  if (item.directory == onlyFiles) {
     // Test should not be applied to this type of item.
     return TEST_NOT_APPLICABLE;
   }
@@ -86,12 +87,12 @@
                        : NSLocalizedStringFromTable(@"folders: %@", @"Tests",
                                                     @"Selective test with 1: sub test"));
   
-  return [NSString stringWithFormat: format, [subTest description]];
+  return [NSString stringWithFormat: format, subTest.description];
 }
 
 
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict { 
-  NSAssert([[dict objectForKey: @"class"] isEqualToString: @"SelectiveItemTest"],
+  NSAssert([dict[@"class"] isEqualToString: @"SelectiveItemTest"],
            @"Incorrect value for class in dictionary.");
 
   return [[[SelectiveItemTest alloc] initWithPropertiesFromDictionary: dict] autorelease];

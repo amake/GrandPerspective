@@ -52,12 +52,12 @@ extern NSString  *VisiblePathLockingChangedEvent;
 
 + (id) pathWithTreeContext:(TreeContext *)treeContext;
 
-- (id) initWithTreeContext:(TreeContext *)treeContext;
+- (instancetype) initWithTreeContext:(TreeContext *)treeContext NS_DESIGNATED_INITIALIZER;
 
 
 /* Returns the file items in the path.
  */
-- (NSArray *)fileItemPath;
+@property (nonatomic, readonly, copy) NSArray *fileItemPath;
 
 /* Returns the file items in the path using the provided array.
  */
@@ -69,37 +69,37 @@ extern NSString  *VisiblePathLockingChangedEvent;
  * Note: For efficiency returns its own array instead of a copy. The contents may change. This does
  * not matter if it is used directly, but otherwise, it should be copied before retaining it.
  */
-- (NSArray *)itemPath;
+@property (nonatomic, readonly, copy) NSArray *itemPath;
 
 /* Returns all items in the path up until the selected item.
  *
  * Note: It creates a new array, which will not change when the selection changes.
  */
-- (NSArray *)itemPathToSelectedFileItem;
+@property (nonatomic, readonly, copy) NSArray *itemPathToSelectedFileItem;
 
 
-- (TreeContext *)treeContext;
+@property (nonatomic, readonly, strong) TreeContext *treeContext;
 
 /* Returns the volume tree.
  */
-- (DirectoryItem *)volumeTree;
+@property (nonatomic, readonly, strong) DirectoryItem *volumeTree;
 
 /* Returns the root of the scanned tree.
  */
-- (DirectoryItem *)scanTree;
+@property (nonatomic, readonly, strong) DirectoryItem *scanTree;
 
 /* Returns the root of the visible tree. The visible tree is the part of the volume tree whose
  * treemap is drawn.
  */
-- (FileItem *)visibleTree;
+@property (nonatomic, readonly, strong) FileItem *visibleTree;
 
 /* Returns the selected file item. It is always part of the visible path.
  */
-- (FileItem *)selectedFileItem;
+@property (nonatomic, readonly, strong) FileItem *selectedFileItem;
 
 /* Returns the last file item on the path.
  */
-- (FileItem *)lastFileItem;
+@property (nonatomic, readonly, strong) FileItem *lastFileItem;
 
 /* Selects the given file item. It should be an item that is already on the path. If it is not yet
  * on the visible part of the path, the visible tree will be moved up so that the selected item will
@@ -107,14 +107,14 @@ extern NSString  *VisiblePathLockingChangedEvent;
  */
 - (void) selectFileItem:(FileItem *)fileItem;
 
-- (BOOL) isVisiblePathLocked;
+@property (nonatomic, getter=isVisiblePathLocked, readonly) BOOL visiblePathLocked;
 - (void) setVisiblePathLocking:(BOOL)value;
 
 - (void) suppressSelectedItemChangedNotifications:(BOOL)option;
 - (void) suppressVisibleTreeChangedNotifications:(BOOL)option;
 
 
-- (BOOL) clearVisiblePath;
+@property (nonatomic, readonly) BOOL clearVisiblePath;
 - (void) extendVisiblePath:(Item *)nextItem;
 
 /* Attemps to extend the path with a file item equal to the specified one.
@@ -132,8 +132,8 @@ extern NSString  *VisiblePathLockingChangedEvent;
  */
 - (BOOL) extendVisiblePathToSimilarFileItem:(FileItem *)item;
 
-- (BOOL) canMoveVisibleTreeUp;
-- (BOOL) canMoveVisibleTreeDown;
+@property (nonatomic, readonly) BOOL canMoveVisibleTreeUp;
+@property (nonatomic, readonly) BOOL canMoveVisibleTreeDown;
 - (void) moveVisibleTreeUp;
 - (void) moveVisibleTreeDown;
 

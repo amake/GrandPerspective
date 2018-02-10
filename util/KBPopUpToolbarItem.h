@@ -19,6 +19,5 @@
 	NSImage *smallImage;
 	NSImage *regularImage;
 }
-- (void)setMenu:(NSMenu *)menu;
-- (NSMenu *)menu;
+@property (nonatomic, copy) NSMenu *menu;
 @end

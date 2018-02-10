@@ -3,18 +3,17 @@
 
 @interface NSSegmentedCell (PrivateMethods)
 
-- (void) setSegmentStyle:(int)style;
-- (int) segmentStyle;
+@property (nonatomic) int segmentStyle;
 
 - (void) _setSegmentedCellStyle:(int)style;
-- (int) _segmentedCellStyle;
+@property (nonatomic, readonly) int _segmentedCellStyle;
 
 @end
 
 
 @implementation ToolbarSegmentedCell
 
-- (id) initWithSegmentedCell:(NSSegmentedCell *)cell {
+- (instancetype) initWithSegmentedCell:(NSSegmentedCell *)cell {
   if (self = [super init]) {
     // Copy all settings. 
     //
@@ -36,11 +35,11 @@
     // be changed from the NIB file, using Interface Builder. This could be useful for localizers,
     // e.g. changing the order of the segments to better match the label of the control.
   
-    [self setTrackingMode: [cell trackingMode]];
+    self.trackingMode = cell.trackingMode;
   
-    [self setSegmentCount: [cell segmentCount]];
+    self.segmentCount = cell.segmentCount;
     
-    NSUInteger  i = [self segmentCount];
+    NSUInteger  i = self.segmentCount;
     while (i-- > 0) {
       [self setWidth:   [cell widthForSegment: i]     forSegment: i];
       [self setImage:   [cell imageForSegment: i]     forSegment: i];
@@ -53,7 +52,7 @@
     
     if ( [self respondsToSelector: @selector(setSegmentStyle:)] &&
          [cell respondsToSelector: @selector(segmentStyle)] ) {
-      [self setSegmentStyle: [cell segmentStyle]];
+      self.segmentStyle = cell.segmentStyle;
     }
     else if ( [self respondsToSelector: @selector(_setSegmentedCellStyle:)] &&
               [cell respondsToSelector: @selector(_segmentedCellStyle)] ) {

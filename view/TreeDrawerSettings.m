@@ -14,7 +14,7 @@
 @implementation TreeDrawerSettings
 
 // Creates default settings.
-- (id) init {
+- (instancetype) init {
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
   return 
@@ -26,11 +26,11 @@
 }
 
 
-- (id) initWithColorMapper:(NSObject <FileItemMapping> *)colorMapperVal
-              colorPalette:(NSColorList *)colorPaletteVal
-             colorGradient:(float)colorGradientVal
-                  maskTest:(FileItemTest *)maskTestVal
-       showPackageContents:(BOOL)showPackageContentsVal {
+- (instancetype) initWithColorMapper:(NSObject <FileItemMapping> *)colorMapperVal
+                        colorPalette:(NSColorList *)colorPaletteVal
+                       colorGradient:(float)colorGradientVal
+                            maskTest:(FileItemTest *)maskTestVal
+                 showPackageContents:(BOOL)showPackageContentsVal {
   if (self = [super init]) {
     colorMapper = [colorMapperVal retain];
     colorPalette = [colorPaletteVal retain];

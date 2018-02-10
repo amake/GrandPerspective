@@ -21,7 +21,7 @@
 }
 
 - (NSString *)pathFromTaskInput:(id)taskInput {
-  return [[[[taskInput annotatedTreeContext] treeContext] scanTree] path];
+  return [[[taskInput annotatedTreeContext] treeContext] scanTree].path;
 }
 
 - (NSDictionary *)progressInfo {
