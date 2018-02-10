@@ -114,7 +114,7 @@
 
 
 - (NSString *)nameForTag:(NSUInteger)tag {
-  return [self reverseTransformedValue: [NSNumber numberWithInteger: tag]];
+  return [self reverseTransformedValue: [NSNumber numberWithUnsignedInteger: tag]];
 }
 
 /* Returns the tag for the locale-independent name.

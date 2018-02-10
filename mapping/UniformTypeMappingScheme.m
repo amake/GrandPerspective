@@ -132,7 +132,7 @@
       // Found the first type in the list that the file item conforms to.
       
       // Add it to the cache for next time.
-      [hashForUTICache setObject: [NSNumber numberWithInteger: utiIndex]
+      [hashForUTICache setObject: [NSNumber numberWithUnsignedInteger: utiIndex]
                           forKey: uti];
       return utiIndex;
     }
