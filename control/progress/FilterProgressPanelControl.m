@@ -3,6 +3,7 @@
 #import "FilterTaskExecutor.h"
 #import "FilterTaskInput.h"
 #import "TreeContext.h"
+#import "DirectoryItem.h"
 
 
 @implementation FilterProgressPanelControl

@@ -17,6 +17,7 @@
 
 - (instancetype) initWithMatchTargets:(NSArray *)matches
                                strict:(BOOL)strict NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict NS_DESIGNATED_INITIALIZER;
 
 
 @property (nonatomic, readonly, copy) NSArray *matchTargets;

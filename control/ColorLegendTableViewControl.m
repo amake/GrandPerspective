@@ -40,6 +40,12 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
 
 @implementation ColorLegendTableViewControl
 
+// Overrides designated initialiser
+- (instancetype) init {
+  NSAssert(NO, @"Use initWithDirectoryView:tableView: instead.");
+  return [self initWithDirectoryView: nil tableView: nil];
+}
+
 - (instancetype) initWithDirectoryView:(DirectoryView *)dirViewVal
                              tableView:(NSTableView *)tableViewVal {
   if (self = [super init]) {

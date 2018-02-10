@@ -8,12 +8,12 @@
 
 @implementation ScanProgressTracker
 
-// Override super's designated initializer
+// Override super's designated initialiser
 - (instancetype) init {
   return [self initWithMaxLevel: NUM_PROGRESS_ESTIMATE_LEVELS];
 }
 
-// Designated initializer
+// Designated initialiser
 - (instancetype) initWithMaxLevel:(int)maxLevelsVal {
   if (self = [super init]) {
     maxLevels = maxLevelsVal;

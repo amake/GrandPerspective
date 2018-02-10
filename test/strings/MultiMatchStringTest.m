@@ -27,7 +27,7 @@
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithMatchTargets: instead.");
-  return nil;
+  return [self initWithMatchTargets: nil];
 }
 
 - (instancetype) initWithMatchTargets:(NSArray *)matchesVal {
@@ -46,30 +46,25 @@
   return self;
 }
 
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+  if (self = [super initWithPropertiesFromDictionary: dict]) {
+    NSArray  *tmpMatches = dict[@"matches"];
+
+    // Make the array immutable
+    matches = [[NSArray alloc] initWithArray: tmpMatches];
+
+    caseSensitive = [dict[@"caseSensitive"] boolValue];
+  }
+
+  return self;
+}
+
 - (void) dealloc {
   [matches release];
 
   [super dealloc];
 }
 
-
-/* Initialiser used when the test is restored from a dictionary.
- *
- * Note: Special case. Does not call own designated initialiser. It should be overridden and only
- * called by initialisers with the same signature.
- */
-- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
-  if (self = [super initWithPropertiesFromDictionary: dict]) {
-    NSArray  *tmpMatches = dict[@"matches"];
-    
-    // Make the array immutable
-    matches = [[NSArray alloc] initWithArray: tmpMatches];
-    
-    caseSensitive = [dict[@"caseSensitive"] boolValue];
-  }
-  
-  return self;
-}
 
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];

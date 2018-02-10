@@ -32,14 +32,22 @@
 
 @implementation FiltersWindowControl
 
+// Override designated initialisers
+- (instancetype) initWithWindow:(NSWindow *)window {
+  NSAssert(NO, @"Use init instead");
+  return [self init];
+}
+- (instancetype) initWithCoder:(NSCoder *)coder {
+  NSAssert(NO, @"Use init instead");
+  return [self init];
+}
+
 - (instancetype) init {
   return [self initWithFilterRepository: [FilterRepository defaultInstance]];
 }
 
-// Special case: should not cover (override) super's designated initialiser in
-// NSWindowController's case
 - (instancetype) initWithFilterRepository:(FilterRepository *)filterRepositoryVal {
-  if (self = [super initWithWindowNibName: @"FiltersWindow" owner: self]) {
+  if (self = [super initWithWindow: nil]) {
     filterRepository = [filterRepositoryVal retain];
 
     filterEditor = [[FilterEditor alloc] initWithFilterRepository: filterRepository];
@@ -88,6 +96,11 @@
   [filterNameToSelect release];
   
   [super dealloc];
+}
+
+
+- (NSString *)windowNibName {
+  return @"FiltersWindow";
 }
 
 

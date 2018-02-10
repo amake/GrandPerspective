@@ -30,7 +30,7 @@
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithSubItemTests: instead.");
-  return nil;
+  return [self initWithSubItemTests: nil];
 }
 
 - (instancetype) initWithSubItemTests:(NSArray*)subTestsVal {
@@ -44,16 +44,6 @@
   return self;
 }
 
-- (void) dealloc {
-  [subTests release];
-  
-  [super dealloc];
-}
-
-
-/* Note: Special case. Does not call own designated initialiser. It should be overridden and only
- * called by initialisers with the same signature.
- */
 - (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSArray  *subTestDicts = dict[@"subTests"];
@@ -71,6 +61,13 @@
   
   return self;
 }
+
+- (void) dealloc {
+  [subTests release];
+
+  [super dealloc];
+}
+
 
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];

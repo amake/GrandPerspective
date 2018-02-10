@@ -19,7 +19,7 @@
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithMatchTargets: instead.");
-  return nil;
+  return [self initWithMatchTargets: nil];
 }
 
 - (instancetype) initWithMatchTargets:(NSArray *)matchesVal {
@@ -37,17 +37,6 @@
   return self;
 }
 
-
-- (void) dealloc {
-  [matches release];
-  
-  [super dealloc];
-}
-
-
-/* Note: Special case. Does not call own designated initialiser. It should be overridden and only
- * called by initialisers with the same signature.
- */
 - (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSArray  *utis = dict[@"matches"];
@@ -75,6 +64,12 @@
   }
   
   return self;
+}
+
+- (void) dealloc {
+  [matches release];
+
+  [super dealloc];
 }
 
 

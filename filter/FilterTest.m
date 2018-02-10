@@ -10,7 +10,7 @@
 // Overrides designated initialiser.
 - (instancetype) init {
   NSAssert(NO, @"Use initWithName:fileItemTest: instead.");
-  return nil;
+  return [self initWithName: nil fileItemTest: nil];
 }
 
 // Designated initialiser.

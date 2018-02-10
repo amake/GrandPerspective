@@ -180,7 +180,7 @@
 // Overrides designated initialiser.
 - (instancetype) init {
   NSAssert(NO, @"Use initWithExistingFilters: instead.");
-  return nil;
+  return [self initWithExistingFilters: nil];
 }
 
 - (instancetype) initWithExistingFilters:(NSDictionary *)allFiltersVal {

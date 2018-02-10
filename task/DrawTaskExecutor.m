@@ -11,7 +11,7 @@
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithTreeContext: instead.");
-  return nil;
+  return [self initWithTreeContext: nil];
 }
 
 

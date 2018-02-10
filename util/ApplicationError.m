@@ -8,7 +8,7 @@
                            code:(NSInteger)code
                        userInfo:(NSDictionary *)userInfo {
   NSAssert(NO, @"Use initWithCode:userInfo instead.");
-  return nil;
+  return [self initWithCode: 0 userInfo: nil];
 }
 
 - (instancetype) initWithLocalizedDescription:(NSString *)descr {

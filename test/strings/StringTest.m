@@ -28,23 +28,17 @@
   return nil;
 }
 
+- (instancetype) init {
+  return [super init];
+}
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+  return [super init];
+}
+
 @end
 
 
 @implementation StringTest (ProtectedMethods)
-
-/* Initialiser used when the test is restored from a dictionary.
- *
- * Note: Special case. Does not call own designated initialiser. It should be overridden and only
- * called by initialisers with the same signature.
- */
-- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
-  if (self = [super init]) {
-    // void
-  }
-  
-  return self;
-}
 
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   // void

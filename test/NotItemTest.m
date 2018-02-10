@@ -8,7 +8,7 @@
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithSubItemTest: instead.");
-  return nil;
+  return [self initWithSubItemTest: nil];
 }
 
 - (instancetype) initWithSubItemTest:(FileItemTest *)subTestVal {
@@ -19,16 +19,6 @@
   return self;
 }
 
-- (void) dealloc {
-  [subTest release];
-  
-  [super dealloc];
-}
-
-
-/* Note: Special case. Does not call own designated initialiser. It should be overridden and only
- * called by initialisers with the same signature.
- */
 - (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSDictionary  *subTestDict = dict[@"subTest"];
@@ -38,6 +28,13 @@
   
   return self;
 }
+
+- (void) dealloc {
+  [subTest release];
+
+  [super dealloc];
+}
+
 
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];

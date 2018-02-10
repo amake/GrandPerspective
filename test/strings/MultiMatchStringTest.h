@@ -15,6 +15,7 @@
 - (instancetype) initWithMatchTargets:(NSArray *)matches;
 - (instancetype) initWithMatchTargets:(NSArray *)matches
                         caseSensitive:(BOOL)caseFlag NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, readonly, copy) NSArray *matchTargets;
 @property (nonatomic, getter=isCaseSensitive, readonly) BOOL caseSensitive;

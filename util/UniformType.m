@@ -5,7 +5,7 @@
 // Overrides super's designated initialiser.
 - (instancetype) init {
   NSAssert(NO, @"Use initWithUniformTypeIdentifier:description:parents instead.");
-  return nil;
+  return [self initWithUniformTypeIdentifier: nil description: nil parents: nil];
 }
 
 

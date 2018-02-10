@@ -1,5 +1,7 @@
 #import "WriteProgressPanelControl.h"
 
+#import "FileItem.h"
+#import "DirectoryItem.h"
 #import "WriteTaskExecutor.h"
 #import "WriteTaskInput.h"
 #import "TreeContext.h"

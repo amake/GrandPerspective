@@ -26,7 +26,7 @@ NSString  *SelectedFilterUpdated = @"selectedFilterUpdated";
 
 - (instancetype) init {
   NSAssert(NO, @"Use initWithPopUpButton: instead.");
-  return nil;
+  return [self initWithPopUpButton: nil];
 }
 
 - (instancetype) initWithPopUpButton:(NSPopUpButton *)popUpButtonVal {

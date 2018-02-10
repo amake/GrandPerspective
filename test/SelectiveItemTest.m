@@ -1,6 +1,7 @@
 #import "SelectiveItemTest.h"
 
 #import "FileItemTestVisitor.h"
+#import "FileItem.h"
 
 
 @implementation SelectiveItemTest
@@ -8,7 +9,7 @@
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithSubItemTest:onlyFiles: instead.");
-  return nil;
+  return [self initWithSubItemTest: nil onlyFiles: YES];
 }
 
 - (instancetype) initWithSubItemTest:(FileItemTest *)subTestVal
@@ -22,16 +23,6 @@
   return self;
 }
 
-- (void) dealloc {
-  [subTest release];
-  
-  [super dealloc];
-}
-
-
-/* Note: Special case. Does not call own designated initialiser. It should be overridden and only
- * called by initialisers with the same signature.
- */
 - (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSDictionary  *subTestDict = dict[@"subTest"];
@@ -42,6 +33,13 @@
   
   return self;
 }
+
+- (void) dealloc {
+  [subTest release];
+
+  [super dealloc];
+}
+
 
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
@@ -62,7 +60,7 @@
 
 
 - (TestResult) testFileItem:(FileItem *)item context:(id) context {
-  if (item.directory == onlyFiles) {
+  if (item.isDirectory == onlyFiles) {
     // Test should not be applied to this type of item.
     return TEST_NOT_APPLICABLE;
   }

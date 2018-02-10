@@ -12,7 +12,7 @@
 
 - (instancetype) init {
   NSAssert(NO, @"Use -initWithColorPalette: instead.");
-  return nil;
+  return [self initWithColorPalette: nil];
 }
 
 - (instancetype) initWithColorPalette:(NSColorList *)colorPaletteVal {

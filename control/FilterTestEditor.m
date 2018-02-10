@@ -182,7 +182,7 @@
 // Overrides designated initialiser.
 - (instancetype) init {
   NSAssert(NO, @"Use initWithExistingTests: instead.");
-  return nil;
+  return [self initWithExistingTests: nil];
 }
 
 - (instancetype) initWithExistingTests:(NSDictionary *)allTestsVal {

@@ -7,6 +7,9 @@
 }
 
 + (StringTest *)stringTestFromDictionary:(NSDictionary *)dict;
+
+- (instancetype) init NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict NS_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -24,9 +27,6 @@
 
 @interface StringTest (ProtectedMethods)
 
-// Helper methods for storing and restoring objects from preferences. These are meant to be used and
-// overridden by subclasses, and should not be called directly.
-- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict;
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict;
 
 @end // @interface StringTest (ProtectedMethods)

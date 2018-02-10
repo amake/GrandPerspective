@@ -3,6 +3,13 @@
 
 @implementation StatefulFileItemMapping
 
+// Overrides designated initialiser
+- (instancetype) init {
+  NSAssert(NO, @"Use initWithFileItemMappingScheme: instead.");
+  return [self initWithFileItemMappingScheme: nil];
+}
+
+
 - (instancetype) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)schemeVal {
   if (self = [super init]) {
     scheme = [schemeVal retain];

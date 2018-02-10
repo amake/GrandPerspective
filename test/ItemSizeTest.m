@@ -9,7 +9,7 @@
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithLowerBound:upperBound: instead.");
-  return nil;
+  return [self initWithLowerBound: 0 upperBound: 0];
 }
 
 - (instancetype) initWithLowerBound:(ITEM_SIZE)lowerBoundVal {
@@ -30,10 +30,6 @@
   return self;
 }
 
-
-/* Note: Special case. Does not call own designated initialiser. It should be overridden and only
- * called by initialisers with the same signature.
- */
 - (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     id  object;

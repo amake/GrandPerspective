@@ -12,13 +12,6 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 
 @interface ItemPathModel (PrivateMethods)
 
-/* Initialiser used to implement copying.
- *
- * Note: To properly allow subclassing, this method should maybe be moved to the public interface.
- * However, this is currently not relevant, as this class is not subclassed.
- */
-- (instancetype) initByCopying: (ItemPathModel *)source;
-
 /* Registers the model for all events that it wants to be notified about.
  */
 - (void) observeEvents;
@@ -58,7 +51,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 // Overrides super's designated initialiser.
 - (instancetype) init {
   NSAssert(NO, @"Use -initWithTreeContext: instead.");
-  return nil;
+  return [self initWithTreeContext: nil];
 }
 
 - (instancetype) initWithTreeContext:(TreeContext *)treeContextVal {
@@ -82,6 +75,29 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
     lastNotifiedSelectedItem = nil;
     lastNotifiedVisibleTree = nil;
     
+    [self observeEvents];
+  }
+
+  return self;
+}
+
+/* Note: this is the designated initialiser when instantiating via a copy. Subclasses that define
+ * their own member fields will have to extend this.
+ */
+- (instancetype) initByCopying: (ItemPathModel *)source {
+  if (self = [super init]) {
+    treeContext = [source->treeContext retain];
+    path = [[NSMutableArray alloc] initWithArray: source->path];
+
+    visibleTreeIndex = source->visibleTreeIndex;
+    scanTreeIndex = source->scanTreeIndex;
+    selectedItemIndex = source->selectedItemIndex;
+    lastFileItemIndex = source->lastFileItemIndex;
+
+    visiblePathLocked = source->visiblePathLocked;
+    lastNotifiedSelectedItem = nil;
+    lastNotifiedVisibleTree = nil;
+
     [self observeEvents];
   }
 
@@ -323,30 +339,6 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 
 
 @implementation ItemPathModel (PrivateMethods)
-
-/* Note: this initialisation method does not invoke the designated initialiser of its own class
- * (that does not make much sense for copy-initialisation). So subclasses that have their own member
- * fields will have to extend this method.
- */
-- (instancetype) initByCopying: (ItemPathModel *)source {
-  if (self = [super init]) {
-    treeContext = [source->treeContext retain];
-    path = [[NSMutableArray alloc] initWithArray: source->path];
-
-    visibleTreeIndex = source->visibleTreeIndex;
-    scanTreeIndex = source->scanTreeIndex;
-    selectedItemIndex = source->selectedItemIndex;
-    lastFileItemIndex = source->lastFileItemIndex;
-    
-    visiblePathLocked = source->visiblePathLocked;
-    lastNotifiedSelectedItem = nil;
-    lastNotifiedVisibleTree = nil;
-    
-    [self observeEvents];
-  }
-
-  return self; 
-}
 
 - (void) observeEvents {
   [[NSNotificationCenter defaultCenter] addObserver: self

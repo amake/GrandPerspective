@@ -564,6 +564,11 @@ didStartElement:(NSString *)elementName
 
 @implementation ElementHandler
 
+- (instancetype) init {
+  NSAssert(NO, @"Use initWithElement:reader:callback:onSuccess: instead");
+  return [self initWithElement: nil reader: nil callback: nil onSuccess: nil];
+}
+
 - (instancetype) initWithElement:(NSString *)elementNameVal
                           reader:(TreeReader *)readerVal
                         callback:(id)callbackVal
@@ -1318,7 +1323,7 @@ didStartElement:(NSString *)childElement
                         callback:(id)callbackVal
                        onSuccess:(SEL)successSelectorVal {
   NSAssert(NO, @"Invoke with parent argument.");
-  return nil;
+  return [self initWithElement: nil reader: nil callback: nil onSuccess: nil parent: nil];
 }
 
 - (instancetype) initWithElement:(NSString *)elementNameVal
@@ -1455,7 +1460,7 @@ didStartElement:(NSString *)childElement
                         callback:(id)callbackVal
                        onSuccess:(SEL)successSelectorVal {
   NSAssert(NO, @"Invoke with parent argument.");
-  return nil;
+  return [self initWithElement: nil reader: nil callback: nil onSuccess: nil parent: nil];
 }
 
 - (instancetype) initWithElement:(NSString *)elementNameVal
@@ -1528,7 +1533,7 @@ didStartElement:(NSString *)childElement
                        reason:(NSString *)reason
                      userInfo:(NSDictionary *)userInfo {
   NSAssert(NO, @"Use -initWithAttributeName:reason: instead.");
-  return nil;
+  return [self initWithAttributeName: nil reason: nil];
 }
 
 - (instancetype) initWithAttributeName:(NSString *)attribName reason:(NSString *)reason {

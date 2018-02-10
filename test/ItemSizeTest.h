@@ -19,6 +19,7 @@
 
 - (instancetype) initWithLowerBound:(ITEM_SIZE)lowerBound
                          upperBound:(ITEM_SIZE)upperBound NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, readonly) BOOL hasLowerBound;
 @property (nonatomic, readonly) BOOL hasUpperBound;

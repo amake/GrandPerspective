@@ -176,10 +176,8 @@
   return defaultInstance;
 }
 
-// Special case: should not cover (override) super's designated initialiser in NSWindowController's
-// case
 - (instancetype) init {
-  if (self = [super initWithWindowNibName: @"FilterTestWindow" owner: self]) {
+  if (self = [super initWithWindow: nil]) {
     testName = nil;
     nameValidator = nil;
     invalidName = nil;
@@ -202,6 +200,10 @@
   [super dealloc];
 }
 
+
+- (NSString *)windowNibName {
+  return @"FilterTestWindow";
+}
 
 - (void) windowDidLoad {
   nameTestControls =
@@ -873,6 +875,13 @@
 
 @implementation MultiMatchControls
 
+// Overrides designated initialiser
+- (instancetype) init {
+  NSAssert(NO, @"Use initWithMatchModePopUpButton:... instead");
+  return [self initWithMatchModePopUpButton: nil targetsView: nil addTargetButton: nil
+                         removeTargetButton: nil];
+}
+
 - (instancetype) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton
                                   targetsView:(NSTableView *)targetsTableViewVal
                               addTargetButton:(NSButton *)addButton
@@ -986,7 +995,8 @@
                               addTargetButton:(NSButton *)addButton
                            removeTargetButton:(NSButton *)removeButton {
   NSAssert(NO, @"Use other initialiser.");
-  return nil;
+  return [self initWithMatchModePopUpButton: nil targetsView: nil addTargetButton: nil
+                         removeTargetButton: nil];
 }
 
 - (instancetype) initWithMatchModePopUpButton:(NSPopUpButton *)popUpButton

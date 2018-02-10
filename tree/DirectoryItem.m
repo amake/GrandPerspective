@@ -15,7 +15,8 @@
               modificationTime:(CFAbsoluteTime)modificationTime
                     accessTime:(CFAbsoluteTime)accessTime {
   NSAssert(NO, @"Initialize without size.");
-  return nil;
+  return [self initWithLabel: nil parent: nil flags: 0 creationTime: 0 modificationTime: 0
+                  accessTime: 0];
 }
 
 

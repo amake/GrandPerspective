@@ -21,13 +21,18 @@ extern NSString  *EstimatedProgressKey;
 
 @implementation ProgressPanelControl
 
-- (instancetype) init {
+// Override designated initialisers
+- (instancetype) initWithWindow:(NSWindow *)window {
   NSAssert(NO, @"Use initWithTaskExecutor: instead.");
-  return nil;
+  return [self initWithTaskExecutor: nil];
+}
+- (instancetype) initWithCoder:(NSCoder *)coder {
+  NSAssert(NO, @"Use initWithTaskExecutor: instead.");
+  return [self initWithTaskExecutor: nil];
 }
 
 - (instancetype) initWithTaskExecutor:(NSObject <TaskExecutor> *)taskExecutorVal {
-  if (self = [super initWithWindowNibName: @"ProgressPanel" owner: self]) {
+  if (self = [super initWithWindow: nil]) {
     taskExecutor = [taskExecutorVal retain];
     
     refreshRate = [[NSUserDefaults standardUserDefaults] floatForKey: ProgressPanelRefreshRateKey];
@@ -55,6 +60,10 @@ extern NSString  *EstimatedProgressKey;
   [super dealloc]; 
 }
 
+
+- (NSString *)windowNibName {
+  return @"ProgressPanel";
+}
 
 - (void) windowDidLoad {
   [self updateProgressDetails: @""];

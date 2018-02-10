@@ -897,7 +897,7 @@ static MainMenuControl  *singletonInstance = nil;
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithReadTaskInput: instead.");
-  return nil;
+  return [self initWithWindowManager: nil readTaskInput: nil];
 }
 
 - (instancetype) initWithWindowManager:(WindowManager *)windowManagerVal
@@ -967,7 +967,7 @@ static MainMenuControl  *singletonInstance = nil;
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithWriteTaskInput: instead.");
-  return nil;
+  return [self initWithWriteTaskInput: nil];
 }
 
 - (instancetype) initWithWriteTaskInput:(WriteTaskInput *)taskInputVal {
@@ -1024,7 +1024,7 @@ static MainMenuControl  *singletonInstance = nil;
 // Overrides designated initialiser.
 - (instancetype) init {
   NSAssert(NO, @"Use initWithWindowManager: instead.");
-  return nil;
+  return [self initWithWindowManager: nil];
 }
 
 - (instancetype) initWithWindowManager:(WindowManager *)windowManagerVal {
@@ -1082,7 +1082,7 @@ static MainMenuControl  *singletonInstance = nil;
 // Overrides designated initialiser.
 - (instancetype) initWithWindowManager:(WindowManager *)windowManagerVal {
   NSAssert(NO, @"Use initWithWindowManager:targetPath:settings instead.");
-  return nil;
+  return [self initWithWindowManager: nil targetPath: nil settings: nil];
 }
 
 - (instancetype) initWithWindowManager:(WindowManager *)windowManagerVal

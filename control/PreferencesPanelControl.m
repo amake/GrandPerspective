@@ -63,12 +63,10 @@ static BOOL appHasDeletePermission;
   return appHasDeletePermission;
 }
 
-// Special case: should not cover (override) super's designated initialiser in NSWindowController's
-// case
 - (instancetype) init {
-  if (self = [super initWithWindowNibName: @"PreferencesPanel" owner: self]) {
+  if (self = [super initWithWindow: nil]) {
     // Trigger loading of the window
-    self.window;
+    [self window];
   }
 
   return self;
@@ -80,6 +78,10 @@ static BOOL appHasDeletePermission;
   [super dealloc];
 }
 
+
+- (NSString *)windowNibName {
+  return @"PreferencesPanel";
+}
 
 - (void) windowDidLoad {
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];

@@ -657,13 +657,23 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 
 @implementation ToolbarItemMenu
 
+// Override designated initialisers
+- (instancetype)initWithTitle:(NSString *)string action:(SEL)selector
+                keyEquivalent:(NSString *)charCode {
+  NSAssert(NO, @"Use initWithTitle: instead");
+  return [self initWithTitle: nil];
+}
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+  NSAssert(NO, @"Use initWithTitle: instead");
+  return [self initWithTitle: nil];
+}
+
 - (instancetype) initWithTitle:(NSString *)title {
   return [self initWithTitle: title target: nil];
 }
 
 - (instancetype) initWithTitle:(NSString *)title target:(id)target {
-  if (self = [super init]) {
-    self.title = title;
+  if (self = [super initWithTitle: title action: nil keyEquivalent: @""]) {
     self.target = target; // Using target for setting target of subitems.
     
     NSMenu  *submenu = [[[NSMenu alloc] initWithTitle: title] autorelease];
@@ -689,6 +699,12 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 
 
 @implementation ValidatingToolbarItem
+
+// Overrides designated initialiser
+- (instancetype) initWithItemIdentifier:(NSString *)identifier {
+  NSAssert(NO, @"Use initWithItemIdentifier:validator:... instead");
+  return [self initWithItemIdentifier: nil validator: nil validationSelector: nil];
+}
 
 - (instancetype) initWithItemIdentifier:(NSString *)identifier
                               validator:(NSObject *)validatorVal
@@ -716,6 +732,12 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 
 
 @implementation SelectorObject
+
+// Overrides designated initialiser
+- (instancetype) init {
+  NSAssert(NO, @"Use initWithSelector: instead");
+  return [self initWithSelector: nil];
+}
 
 - (instancetype) initWithSelector:(SEL)selectorVal {
   if (self = [super init]) {

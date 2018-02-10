@@ -49,6 +49,17 @@
   return nil;
 }
 
+// Implements (one of the) designated initialisers
+- (instancetype) init {
+  return [super init];
+}
+
+/* Initialiser used when the test is restored from a dictionary.
+ */
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
+  return [super init];
+}
+
 
 - (NSDictionary *)dictionaryForObject {
   NSMutableDictionary  *dict = [NSMutableDictionary dictionaryWithCapacity: 8];
@@ -62,19 +73,6 @@
 
 
 @implementation FileItemTest (ProtectedMethods)
-
-/* Initialiser used when the test is restored from a dictionary.
- *
- * Note: Special case. Does not call own designated initialiser. It should be overridden and only
- * called by initialisers with the same signature.
- */
-- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
-  if (self = [super init]) {
-    // void
-  }
-  
-  return self;
-}
 
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   // void

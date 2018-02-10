@@ -13,6 +13,25 @@
 
 @implementation ToolbarSegmentedCell
 
+// Override designated initialisers
+- (instancetype) init {
+  NSAssert(NO, @"Use initWithSegmentedCell: instead");
+  return [self initWithSegmentedCell: nil];
+}
+- (instancetype) initTextCell:(NSString *)string {
+  NSAssert(NO, @"Use initWithSegmentedCell: instead");
+  return [self initWithSegmentedCell: nil];
+
+}
+- (instancetype) initImageCell:(nullable NSImage *)image {
+  NSAssert(NO, @"Use initWithSegmentedCell: instead");
+  return [self initWithSegmentedCell: nil];
+}
+- (instancetype) initWithCoder:(NSCoder *)coder {
+  NSAssert(NO, @"Use initWithSegmentedCell: instead");
+  return [self initWithSegmentedCell: nil];
+}
+
 - (instancetype) initWithSegmentedCell:(NSSegmentedCell *)cell {
   if (self = [super init]) {
     // Copy all settings. 

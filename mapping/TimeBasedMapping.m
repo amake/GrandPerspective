@@ -22,6 +22,11 @@ const int  secondsPerDay = 60 * 60 * 24;
 // Set minimum time granularity to a minute 
 const int  minTimeDelta = 60;
 
+// Overrides designated initialiser
+- (instancetype) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)schemeVal {
+  NSAssert(NO, @"Use other initialiser instead");
+  return [self initWithFileItemMappingScheme: nil tree: nil];
+}
 
 - (instancetype) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)schemeVal
                                           tree:(DirectoryItem *)tree {

@@ -49,7 +49,8 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithVolumePath:scanPath:fileSizeMeasure:... instead.");
-  return nil;
+  return
+    [self initWithVolumePath: nil fileSizeMeasure: nil volumeSize: 0 freeSpace: 0 filterSet: nil];
 }
 
 

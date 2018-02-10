@@ -15,14 +15,22 @@
 
 @implementation FilterSelectionPanelControl
 
+// Override designated initialisers
+- (instancetype) initWithWindow:(NSWindow *)window {
+  NSAssert(NO, @"Use init instead");
+  return [self init];
+}
+- (instancetype) initWithCoder:(NSCoder *)coder {
+  NSAssert(NO, @"Use init instead");
+  return [self init];
+}
+
 - (instancetype) init {
   return [self initWithFilterRepository: [FilterRepository defaultInstance]];
 }
 
-// Special case: should not cover (override) super's designated initialiser in NSWindowController's
-// case
 - (instancetype) initWithFilterRepository:(FilterRepository *)filterRepositoryVal {
-  if (self = [super initWithWindowNibName: @"FilterSelectionPanel" owner: self]) {
+  if (self = [super initWithWindow: nil]) {
     filterRepository = [filterRepositoryVal retain];
 
     filterEditor = nil; // Load it lazily
@@ -38,6 +46,10 @@
   [super dealloc];
 }
 
+
+- (NSString *)windowNibName {
+  return @"FilterSelectionPanel";
+}
 
 - (void) windowDidLoad {
   filterPopUpControl = [[FilterPopUpControl alloc] initWithPopUpButton: filterPopUp

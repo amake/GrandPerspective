@@ -9,7 +9,7 @@
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithOldContext:filterSet: instead");
-  return nil;
+  return [self initWithTreeContext: nil filterSet: nil];
 }
 
 - (instancetype) initWithTreeContext:(TreeContext *)treeContextVal

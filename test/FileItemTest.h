@@ -22,6 +22,13 @@
 @interface FileItemTest : NSObject {
 }
 
+- (instancetype) init NS_DESIGNATED_INITIALIZER;
+
+/* Initialiser when restoring object from preferences. It is meant to be subclassed and should not
+ * be invoked directly.
+ */
+- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict NS_DESIGNATED_INITIALIZER;
+
 + (FileItemTest *)fileItemTestFromDictionary:(NSDictionary *)dict;
 
 /* Returns a dictionary that represents the test. It can be used for storing object to preferences.
@@ -52,9 +59,9 @@
 
 @interface FileItemTest (ProtectedMethods)
 
-// Helper methods for storing and restoring objects from preferences. These are meant to be used and
-// overridden by subclasses, and should not be called directly.
-- (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict;
+/* Helper method for storing object to preferences. It is meant overridden by subclasses and should
+ * not be called directly.
+ */
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict;
 
 @end // @interface FileItemTest (ProtectedMethods)

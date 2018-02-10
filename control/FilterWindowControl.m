@@ -65,14 +65,22 @@ NSString  *MatchColumn = @"match";
 
 @implementation FilterWindowControl
 
+// Override designated initialisers
+- (instancetype) initWithWindow:(NSWindow *)window {
+  NSAssert(NO, @"Use init instead");
+  return [self init];
+}
+- (instancetype) initWithCoder:(NSCoder *)coder {
+  NSAssert(NO, @"Use init instead");
+  return [self init];
+}
+
 - (instancetype) init {
   return [self initWithTestRepository: [FilterTestRepository defaultInstance]];
 }
 
-// Special case: should not cover (override) super's designated initialiser in
-// NSWindowController's case
 - (instancetype) initWithTestRepository:(FilterTestRepository *)testRepositoryVal {
-  if (self = [super initWithWindowNibName: @"FilterWindow" owner: self]) {
+  if (self = [super initWithWindow: nil]) {
     testRepository = [testRepositoryVal retain];
     NotifyingDictionary  *repositoryTestsByName = 
       [testRepository testsByNameAsNotifyingDictionary];
@@ -134,6 +142,9 @@ NSString  *MatchColumn = @"match";
   [super dealloc];
 }
 
+- (NSString *)windowNibName {
+  return @"FilterWindow";
+}
 
 - (void) windowDidLoad {
   filterTestsView.delegate = self;

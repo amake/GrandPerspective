@@ -13,20 +13,24 @@
 
 @implementation SaveImageDialogControl
 
-- (instancetype) init {
-  NSAssert(NO, @"Use -initWithDirectoryViewControl: instead");
-  return nil;
+// Override designated initialisers
+- (instancetype) initWithWindow:(NSWindow *)window {
+  NSAssert(NO, @"Use  initWithDirectoryViewControl: instead");
+  return [self initWithDirectoryViewControl: nil];
+}
+- (instancetype) initWithCoder:(NSCoder *)coder {
+  NSAssert(NO, @"Use  initWithDirectoryViewControl: instead");
+  return [self initWithDirectoryViewControl: nil];
 }
 
-// Special case: should not cover (override) super's designated initialiser in NSWindowController's
-// case
+
 - (instancetype) initWithDirectoryViewControl:(DirectoryViewControl *)dirViewControlVal {
          
-  if (self = [super initWithWindowNibName: @"SaveImageDialog" owner: self]) {
+  if (self = [super initWithWindow: nil]) {
     dirViewControl = [dirViewControlVal retain];
     
     // Trigger loading of window.
-    self.window;
+    [self window];
   }
 
   return self;
@@ -40,6 +44,10 @@
   [super dealloc];
 }
 
+
+- (NSString *)windowNibName {
+  return @"SaveImageDialog";
+}
 
 - (void) windowDidLoad {
   [[NSNotificationCenter defaultCenter] addObserver: self

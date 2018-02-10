@@ -9,7 +9,7 @@
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithFlagsMask:desiredResult: instead.");
-  return nil;
+  return [self initWithFlagsMask: 0 desiredResult: 0];
 }
 
 - (instancetype) initWithFlagsMask:(UInt8)mask desiredResult:(UInt8)result {
@@ -22,10 +22,6 @@
 
 }
 
-
-/* Note: Special case. Does not call own designated initialiser. It should be overridden and only
- * called by initialisers with the same signature.
- */
 - (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     id  object;

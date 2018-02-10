@@ -13,7 +13,7 @@
 // Overrides designated initialiser
 - (instancetype) initWithColorPalette:(NSColorList *)colorPaletteVal {
   NSAssert(NO, @"Use initWithScanTree: instead.");
-  return nil;
+  return [self initWithScanTree: nil];
 }
 
 - (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal {

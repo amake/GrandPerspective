@@ -166,6 +166,16 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 @implementation DirectoryViewControl
 
+// Override designated initialisers
+- (instancetype) initWithWindow:(NSWindow *)window {
+  NSAssert(NO, @"Use initWithAnnotatedTreeContext: instead");
+  return [self initWithAnnotatedTreeContext: nil];
+}
+- (instancetype) initWithCoder:(NSCoder *)coder {
+  NSAssert(NO, @"Use initWithAnnotatedTreeContext: instead");
+  return [self initWithAnnotatedTreeContext: nil];
+}
+
 - (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)annTreeContext {
   ItemPathModel  *pathModel = 
     [[[ItemPathModel alloc] initWithTreeContext: [annTreeContext treeContext]] autorelease];
@@ -180,8 +190,6 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 }
 
 
-// Special case: should not cover (override) super's designated initialiser in
-// NSWindowController's case
 - (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)annTreeContext
                                     pathModel:(ItemPathModel *)pathModel
                                      settings:(DirectoryViewControlSettings *)settings {
@@ -195,7 +203,7 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
                                     pathModel:(ItemPathModel *)pathModel
                                      settings:(DirectoryViewControlSettings *)settings
                              filterRepository:(FilterRepository *)filterRepositoryVal {
-  if (self = [super initWithWindowNibName: @"DirectoryViewWindow" owner: self]) {
+  if (self = [super initWithWindow: nil]) {
     treeContext = [[annTreeContext treeContext] retain];
     NSAssert([pathModel volumeTree] == [treeContext volumeTree], @"Tree mismatch");
     initialComments = [[annTreeContext comments] retain];
@@ -242,6 +250,11 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   [invisiblePathName release];
   
   [super dealloc];
+}
+
+
+- (NSString *)windowNibName {
+  return @"DirectoryViewWindow";
 }
 
 
@@ -1218,6 +1231,12 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 @implementation ItemInFocusControls
 
+// Overrides designated initialiser
+- (instancetype) init {
+  NSAssert(NO, @"Use initWithPathTextView:... instead");
+  return [self initWithPathTextView: nil titleField: nil exactSizeField: nil sizeField: nil];
+}
+
 - (instancetype) initWithPathTextView:(NSTextView *)pathTextViewVal
                            titleField:(NSTextField *)titleFieldVal
                        exactSizeField:(NSTextField *)exactSizeFieldVal
@@ -1307,6 +1326,17 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 @implementation SelectedItemFocusControls
 
+// Overrides designated initialiser
+- (instancetype) initWithPathTextView:(NSTextView *)textView
+                           titleField:(NSTextField *)titleField
+                       exactSizeField:(NSTextField *)exactSizeField
+                            sizeField:(NSTextField *)sizeField {
+  NSAssert(NO, @"Use other initialiser instead");
+  return [self initWithPathTextView: nil titleField: nil exactSizeField: nil sizeField: nil
+                  creationTimeField: nil modificationTimeField: nil accessTimeField: nil];
+}
+
+
 - (instancetype) initWithPathTextView:(NSTextView *)textViewVal
                            titleField:(NSTextField *)titleFieldVal
                        exactSizeField:(NSTextField *)exactSizeFieldVal
@@ -1364,6 +1394,12 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 
 @implementation DirectoryViewPreviewItem
+
+// Overrides designated initialiser
+- (instancetype) init {
+  NSAssert(NO, @"Use initWithPathToSelectedItem: instead");
+  return [self initWithPathToSelectedItem: nil];
+}
 
 - (instancetype) initWithPathToSelectedItem:(NSArray *)pathToSelectedItemVal {
   if (self = [super init]) {

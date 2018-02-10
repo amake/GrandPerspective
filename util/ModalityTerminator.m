@@ -12,7 +12,7 @@
 // Overrides designated initialiser.
 - (instancetype) init {
   NSAssert(NO, @"Use initWithEventSource: instead.");
-  return nil;
+  return [self initWithEventSource: nil];
 }
 
 - (instancetype) initWithEventSource:(NSObject *)eventSource {

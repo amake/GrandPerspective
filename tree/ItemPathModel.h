@@ -54,6 +54,9 @@ extern NSString  *VisiblePathLockingChangedEvent;
 
 - (instancetype) initWithTreeContext:(TreeContext *)treeContext NS_DESIGNATED_INITIALIZER;
 
+/* Initialiser used to implement copying.
+ */
+- (instancetype) initByCopying:(ItemPathModel *)source NS_DESIGNATED_INITIALIZER;
 
 /* Returns the file items in the path.
  */

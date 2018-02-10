@@ -6,7 +6,7 @@
 // Overrides designated initialiser
 - (instancetype) init {
   NSAssert(NO, @"Use initWithAnnotatedTreeContext:path: instead");
-  return nil;
+  return [self initWithAnnotatedTreeContext: nil path: nil];
 }
 
 - (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)context
