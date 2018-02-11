@@ -69,7 +69,7 @@ NSString  *EstimatedProgressKey = @"estimatedProgress";
   [mutex lock];
   dict = @{NumFoldersProcessedKey: @(numFoldersProcessed),
            NumFoldersSkippedKey: @(numFoldersSkipped),
-           CurrentFolderPathKey: [directoryStack.lastObject path],
+           CurrentFolderPathKey: [directoryStack.lastObject path] ?: @"",
            EstimatedProgressKey: @([self estimatedProgress])};
   [mutex unlock];
 
