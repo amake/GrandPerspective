@@ -13,12 +13,12 @@
 
 
 - (BOOL) testFileItem:(FileItem *)item context:(id) context {
-  NSUInteger  max = subTests.count;
+  NSUInteger  max = self.subItemTests.count;
   NSUInteger  i = 0;
   BOOL  applicable = NO;
   
   while (i < max) {
-    TestResult  result = [subTests[i++] testFileItem: item context: context];
+    TestResult  result = [self.subItemTests[i++] testFileItem: item context: context];
       
     if (result == TEST_PASSED) {
       // Short-circuit evaluation.

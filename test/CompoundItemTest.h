@@ -7,7 +7,6 @@
  * (Abstract) compound item test.
  */
 @interface CompoundItemTest : FileItemTest  {
-  NSArray  *subTests;
 }
 
 - (instancetype) initWithSubItemTests:(NSArray *)subTests NS_DESIGNATED_INITIALIZER;

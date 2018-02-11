@@ -7,10 +7,6 @@
  * Item size test.
  */
 @interface ItemSizeTest : FileItemTest  {
-
-  ITEM_SIZE  lowerBound;
-  ITEM_SIZE  upperBound;
-
 }
 
 - (instancetype) initWithLowerBound:(ITEM_SIZE)lowerBound;

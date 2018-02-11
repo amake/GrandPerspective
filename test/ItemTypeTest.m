@@ -22,16 +22,16 @@
   return [self initWithMatchTargets: nil];
 }
 
-- (instancetype) initWithMatchTargets:(NSArray *)matchesVal {
-  return [self initWithMatchTargets: matchesVal strict: NO];
+- (instancetype) initWithMatchTargets:(NSArray *)matches {
+  return [self initWithMatchTargets: matches strict: NO];
 }
 
-- (instancetype) initWithMatchTargets:(NSArray *)matchesVal strict:(BOOL)strictVal {
+- (instancetype) initWithMatchTargets:(NSArray *)matches strict:(BOOL)strict {
   if (self = [super init]) {
     // Make the array immutable
-    matches = [[NSArray alloc] initWithArray: matchesVal];
+    _matchTargets = [[NSArray alloc] initWithArray: matches];
 
-    strict = strictVal;
+    _strict = strict;
   }
   
   return self;
@@ -58,16 +58,16 @@
     }
     
     // Make the array immutable
-    matches = [[NSArray alloc] initWithArray: tmpMatches];
+    _matchTargets = [[NSArray alloc] initWithArray: tmpMatches];
     
-    strict = [dict[@"strict"] boolValue];
+    _strict = [dict[@"strict"] boolValue];
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [matches release];
+  [_matchTargets release];
 
   [super dealloc];
 }
@@ -78,16 +78,7 @@
   
   dict[@"class"] = @"ItemTypeTest";
   dict[@"matches"] = [self matchesAsStrings];
-  dict[@"strict"] = @(strict);
-}
-
-
-- (NSArray *)matchTargets {
-  return matches;
-}
-
-- (BOOL) isStrict {
-  return strict;
+  dict[@"strict"] = @(self.strict);
 }
 
 
@@ -98,11 +89,11 @@
   }
   
   UniformType  *type = [((PlainFileItem *)item) uniformType];
-  NSSet  *ancestorTypes = strict ? nil : [type ancestorTypes];
+  NSSet  *ancestorTypes = self.isStrict ? nil : [type ancestorTypes];
     
-  NSUInteger  i = matches.count;
+  NSUInteger  i = self.matchTargets.count;
   while (i-- > 0) {
-    UniformType  *matchType = matches[i];
+    UniformType  *matchType = self.matchTargets[i];
     if (type == matchType || [ancestorTypes containsObject: matchType]) {
       return TEST_PASSED;
     }
@@ -122,7 +113,7 @@
 
 - (NSString *)description {
   NSString  *matchesDescr = descriptionForMatches( [self matchesAsStrings] );
-  NSString  *format = (strict
+  NSString  *format = (self.isStrict
                        ? NSLocalizedStringFromTable(
                            @"type equals %@", @"Tests",
                            @"Filetype test with 1: match targets")
@@ -147,13 +138,13 @@
 @implementation ItemTypeTest (PrivateMethods)
 
 - (NSArray *)matchesAsStrings {
-  NSUInteger  numMatches = matches.count;
+  NSUInteger  numMatches = self.matchTargets.count;
   NSMutableArray  *utis = [NSMutableArray arrayWithCapacity: numMatches];
 
   NSUInteger  i = 0;
   while (i < numMatches) {
     [utis addObject: 
-       [((UniformType *)matches[i]) uniformTypeIdentifier]];
+       [((UniformType *)self.matchTargets[i]) uniformTypeIdentifier]];
     i++;
   }
   

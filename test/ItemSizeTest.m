@@ -12,19 +12,19 @@
   return [self initWithLowerBound: 0 upperBound: 0];
 }
 
-- (instancetype) initWithLowerBound:(ITEM_SIZE)lowerBoundVal {
-  return [self initWithLowerBound: lowerBoundVal upperBound: ULONG_LONG_MAX];
+- (instancetype) initWithLowerBound:(ITEM_SIZE)lowerBound {
+  return [self initWithLowerBound: lowerBound upperBound: ULONG_LONG_MAX];
 }
 
-- (instancetype) initWithUpperBound:(ITEM_SIZE)upperBoundVal {
-  return [self initWithLowerBound: 0 upperBound: upperBoundVal];
+- (instancetype) initWithUpperBound:(ITEM_SIZE)upperBound {
+  return [self initWithLowerBound: 0 upperBound: upperBound];
 }
 
-- (instancetype) initWithLowerBound:(ITEM_SIZE)lowerBoundVal
-                         upperBound:(ITEM_SIZE)upperBoundVal {
+- (instancetype) initWithLowerBound:(ITEM_SIZE)lowerBound
+                         upperBound:(ITEM_SIZE)upperBound {
   if (self = [super init]) {
-    lowerBound = lowerBoundVal;
-    upperBound = upperBoundVal;
+    _lowerBound = lowerBound;
+    _upperBound = upperBound;
   }
   
   return self;
@@ -35,10 +35,10 @@
     id  object;
     
     object = dict[@"lowerBound"];
-    lowerBound = (object == nil) ? 0 : [object unsignedLongLongValue];
+    _lowerBound = (object == nil) ? 0 : [object unsignedLongLongValue];
      
     object = dict[@"upperBound"];
-    upperBound = (object == nil) ? ULONG_LONG_MAX : [object unsignedLongLongValue];
+    _upperBound = (object == nil) ? ULONG_LONG_MAX : [object unsignedLongLongValue];
   }
   
   return self;
@@ -50,34 +50,27 @@
   dict[@"class"] = @"ItemSizeTest";
   
   if ([self hasLowerBound]) {
-    dict[@"lowerBound"] = @(lowerBound);
+    dict[@"lowerBound"] = @(self.lowerBound);
   }
   if ([self hasUpperBound]) {
-    dict[@"upperBound"] = @(upperBound);
+    dict[@"upperBound"] = @(self.upperBound);
   }
 }
 
 
 - (BOOL) hasLowerBound {
-  return (lowerBound > 0);
+  return self.lowerBound > 0;
 }
 
 - (BOOL) hasUpperBound {
-  return (upperBound < ULONG_LONG_MAX);
+  return self.upperBound < ULONG_LONG_MAX;
 }
 
-- (ITEM_SIZE) lowerBound {
-  return lowerBound;
-}
 
-- (ITEM_SIZE) upperBound {
-  return upperBound;
-}
-
-                                    
 - (TestResult) testFileItem:(FileItem *)item context:(id) context {
   return
-    ([item itemSize] >= lowerBound && [item itemSize] <= upperBound) ? TEST_PASSED : TEST_FAILED;
+    ([item itemSize] >= self.lowerBound &&
+     [item itemSize] <= self.upperBound) ? TEST_PASSED : TEST_FAILED;
 }
 
 - (BOOL) appliesToDirectories {
@@ -96,15 +89,15 @@
         NSLocalizedStringFromTable(@"size is between %@ and %@", @"Tests",
                                    @"Size test with 1: lower bound, and 2: upper bound");
       return [NSString stringWithFormat: fmt, 
-                [FileItem stringForFileItemSize: lowerBound],
-                [FileItem stringForFileItemSize: upperBound]];
+                [FileItem stringForFileItemSize: self.lowerBound],
+                [FileItem stringForFileItemSize: self.upperBound]];
     }
     else {
       NSString  *fmt = 
         NSLocalizedStringFromTable(@"size is larger than %@", @"Tests",
                                    @"Size test with 1: lower bound");
       
-      return [NSString stringWithFormat: fmt, [FileItem stringForFileItemSize:lowerBound]];
+      return [NSString stringWithFormat: fmt, [FileItem stringForFileItemSize: self.lowerBound]];
     }
   }
   else {
@@ -112,7 +105,7 @@
       NSString  *fmt = 
         NSLocalizedStringFromTable(@"size is smaller than %@", @"Tests",
                                    @"Size test with 1: upper bound");
-      return [NSString stringWithFormat: fmt, [FileItem stringForFileItemSize: upperBound]];
+      return [NSString stringWithFormat: fmt, [FileItem stringForFileItemSize: self.upperBound]];
     }
     else {
       return NSLocalizedStringFromTable(@"any size", @"Tests",
@@ -130,5 +123,3 @@
 }
 
 @end // @implementation ItemSizeTest
-
-

@@ -15,7 +15,7 @@
 
 
 - (TestResult) testFileItem:(FileItem *)item context:(id) context {
-  return [stringTest testString: [item pathComponent]] ? TEST_PASSED : TEST_FAILED;
+  return [self.stringTest testString: [item pathComponent]] ? TEST_PASSED : TEST_FAILED;
 }
 
 - (BOOL) appliesToDirectories {
@@ -32,7 +32,7 @@
     NSLocalizedStringFromTable(@"name" , @"Tests",
                                @"A filename as the subject of a string test");
 
-  return [stringTest descriptionWithSubject: subject];
+  return [self.stringTest descriptionWithSubject: subject];
 }
 
 

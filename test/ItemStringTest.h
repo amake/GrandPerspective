@@ -8,9 +8,6 @@
  * (Abstract) item string-based test.
  */
 @interface ItemStringTest : FileItemTest  {
-
-  StringTest  *stringTest;
-
 }
 
 - (instancetype) initWithStringTest:(StringTest *)stringTest NS_DESIGNATED_INITIALIZER;

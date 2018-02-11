@@ -4,7 +4,6 @@
 
 
 @interface NotItemTest : FileItemTest {
-  FileItemTest  *subTest;
 }
 
 - (instancetype) initWithSubItemTest:(FileItemTest *)subTest NS_DESIGNATED_INITIALIZER;

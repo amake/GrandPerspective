@@ -5,24 +5,20 @@
 
 - (instancetype) init {
   if (self = [super init]) {
-    itemSizeTestFound = NO;
+    _itemSizeTestFound = NO;
   }
   
   return self;
 }
 
-
+// Limited "setter"
 - (void) reset {
-  itemSizeTestFound = NO;
-}
-
-- (BOOL) itemSizeTestFound {
-  return itemSizeTestFound;
+  _itemSizeTestFound = NO;
 }
 
 
 - (void) visitItemSizeTest:(ItemSizeTest *)test {
-  itemSizeTestFound = YES;
+  _itemSizeTestFound = YES;
 }
 
 @end

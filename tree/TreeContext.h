@@ -14,20 +14,8 @@ extern NSString  *FileItemDeletedEvent;
 
 
 @interface TreeContext : NSObject {
-  unsigned long long  volumeSize;
-  unsigned long long  freeSpace;
-  unsigned long long  freedSpace;
-  unsigned long long  freedFiles;
-
-  DirectoryItem  *volumeTree;
   DirectoryItem  *usedSpaceItem;
-  DirectoryItem  *scanTree;
   FileItem  *miscUsedSpaceItem;
-  
-  NSDate  *scanTime;
-  NSString  *fileSizeMeasure;
-  
-  FilterSet  *filterSet;
   
   FileItem  *replacedItem;
   FileItem  *replacingItem;
@@ -82,7 +70,9 @@ extern NSString  *FileItemDeletedEvent;
  */
 @property (nonatomic, readonly) unsigned long long volumeSize;
 
-/* The free space of the volume at the time of the scan (as claimed by the system).
+/* The free space of the volume at the time of the scan (as claimed by the system). The free space
+ * in the volume tree may be less. The latter is reduced if not doing so would cause the size of
+ * scanned files plus the free space to be more than the volume size.
  */
 @property (nonatomic, readonly) unsigned long long freeSpace;
 

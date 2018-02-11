@@ -33,12 +33,12 @@
   return [self initWithSubItemTests: nil];
 }
 
-- (instancetype) initWithSubItemTests:(NSArray*)subTestsVal {
+- (instancetype) initWithSubItemTests:(NSArray*)subItemTests {
   if (self = [super init]) {
-    NSAssert([subTestsVal count] >= 2, @"Compound test should have two or more sub-tests");
+    NSAssert([subItemTests count] >= 2, @"Compound test should have two or more sub-tests");
   
     // Make the array immutable
-    subTests = [[NSArray alloc] initWithArray:subTestsVal];
+    _subItemTests = [[NSArray alloc] initWithArray: subItemTests];
   }
   
   return self;
@@ -56,14 +56,14 @@
     }
     
     // Make the array immutable
-    subTests = [[NSArray alloc] initWithArray: tmpSubTests];
+    _subItemTests = [[NSArray alloc] initWithArray: tmpSubTests];
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [subTests release];
+  [_subItemTests release];
 
   [super dealloc];
 }
@@ -72,8 +72,8 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  NSMutableArray  *subTestsDicts = [NSMutableArray arrayWithCapacity: subTests.count];
-  NSEnumerator  *subTestsEnum = [subTests objectEnumerator];
+  NSMutableArray  *subTestsDicts = [NSMutableArray arrayWithCapacity: self.subItemTests.count];
+  NSEnumerator  *subTestsEnum = [self.subItemTests objectEnumerator];
   FileItemTest  *subTest;
 
   while ((subTest = [subTestsEnum nextObject]) != nil) {
@@ -84,21 +84,17 @@
 }
 
 
-- (NSArray *)subItemTests {
-  return subTests;
-}
-
 - (BOOL) testFileItem:(FileItem *)item {
   NSAssert(NO, @"This method must be overridden.");
   return NO;
 }
 
 - (BOOL) appliesToDirectories {
-  NSUInteger  max = subTests.count;
+  NSUInteger  max = self.subItemTests.count;
   NSUInteger  i = 0;
   
   while (i < max) {
-    if ([subTests[i++] appliesToDirectories]) {
+    if ([self.subItemTests[i++] appliesToDirectories]) {
       return YES;
     }
   }
@@ -107,7 +103,7 @@
 
 
 - (NSString *)description {
-  return [LocalizableStrings localizedEnumerationString: subTests
+  return [LocalizableStrings localizedEnumerationString: self.subItemTests
                                            pairTemplate: [self bootstrapDescriptionTemplate]
                                       bootstrapTemplate: [self bootstrapDescriptionTemplate]
                                       repeatingTemplate: [self repeatingDescriptionTemplate]];

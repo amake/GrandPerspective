@@ -13,7 +13,7 @@
 
 - (instancetype) initWithStringTest:(StringTest *)stringTestVal {
   if (self = [super init]) {
-    stringTest = [stringTestVal retain];
+    _stringTest = [stringTestVal retain];
   }
   return self;
 }
@@ -22,14 +22,14 @@
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSDictionary  *stringTestDict = dict[@"stringTest"];
     
-    stringTest = [[StringTest stringTestFromDictionary: stringTestDict] retain];
+    _stringTest = [[StringTest stringTestFromDictionary: stringTestDict] retain];
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [stringTest release];
+  [_stringTest release];
 
   [super dealloc];
 }
@@ -38,13 +38,9 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  dict[@"stringTest"] = [stringTest dictionaryForObject];
+  dict[@"stringTest"] = [self.stringTest dictionaryForObject];
 }
 
-
-- (StringTest *)stringTest {
-  return stringTest;
-}
 
 - (BOOL) testFileItem:(FileItem *)item {
   NSAssert(NO, @"This method must be overridden.");

@@ -10,8 +10,6 @@
  * scan, e.g. "My harddrive just before upgrading to Snow Leopard".
  */
 @interface AnnotatedTreeContext : NSObject {
-  TreeContext  *treeContext;
-  NSString  *comments;
 }
 
 + (instancetype) annotatedTreeContext:(TreeContext *)treeContext;

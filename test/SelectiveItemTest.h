@@ -7,12 +7,6 @@
  * A test that applies to only files or only folders, but not both.
  */
 @interface SelectiveItemTest : FileItemTest {
-
-  FileItemTest  *subTest;
-
-  // Controls if the subtest targets only files or only folders.
-  BOOL  onlyFiles;
-
 }
 
 - (instancetype) initWithSubItemTest:(FileItemTest *)subTest
@@ -22,8 +16,8 @@
 @property (nonatomic, readonly, strong) FileItemTest *subItemTest;
 
 /**
- * Returns yes if "YES" the subtest is only be applied to files; otherwise the
- * subtest is only applied to folders.
+ * Returns yes if "YES" the subtest is only be applied to files; otherwise the subtest is only
+ * applied to folders.
  */
 @property (nonatomic, readonly) BOOL applyToFilesOnly;
 

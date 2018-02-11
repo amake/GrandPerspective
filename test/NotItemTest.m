@@ -11,9 +11,9 @@
   return [self initWithSubItemTest: nil];
 }
 
-- (instancetype) initWithSubItemTest:(FileItemTest *)subTestVal {
+- (instancetype) initWithSubItemTest:(FileItemTest *)subItemTest {
   if (self = [super init]) {
-    subTest = [subTestVal retain];
+    _subItemTest = [subItemTest retain];
   }
 
   return self;
@@ -23,14 +23,14 @@
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSDictionary  *subTestDict = dict[@"subTest"];
     
-    subTest = [[FileItemTest fileItemTestFromDictionary: subTestDict] retain];
+    _subItemTest = [[FileItemTest fileItemTestFromDictionary: subTestDict] retain];
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [subTest release];
+  [_subItemTest release];
 
   [super dealloc];
 }
@@ -41,17 +41,12 @@
   
   dict[@"class"] = @"NotItemTest";
 
-  dict[@"subTest"] = [subTest dictionaryForObject];
-}
-
-
-- (FileItemTest *)subItemTest {
-  return subTest;
+  dict[@"subTest"] = [self.subItemTest dictionaryForObject];
 }
 
 
 - (TestResult) testFileItem:(FileItem *)item context:(id) context {
-  TestResult  result = [subTest testFileItem: item context: context];
+  TestResult  result = [self.subItemTest testFileItem: item context: context];
   
   return (result == TEST_NOT_APPLICABLE
           ? TEST_NOT_APPLICABLE
@@ -59,7 +54,7 @@
 }
 
 - (BOOL) appliesToDirectories {
-  return [subTest appliesToDirectories];
+  return [self.subItemTest appliesToDirectories];
 }
 
 - (void) acceptFileItemTestVisitor:(NSObject <FileItemTestVisitor> *)visitor {
@@ -70,7 +65,7 @@
 - (NSString *)description {
   NSString  *fmt = NSLocalizedStringFromTable(@"not (%@)" , @"Tests", @"NOT-test with 1: sub test");
 
-  return [NSString stringWithFormat: fmt, subTest.description];
+  return [NSString stringWithFormat: fmt, self.subItemTest.description];
 }
 
 

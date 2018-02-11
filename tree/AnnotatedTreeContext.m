@@ -13,8 +13,8 @@
           : [[[AnnotatedTreeContext alloc] initWithTreeContext: treeContext] autorelease]);
 }
 
-+ (instancetype) annotatedTreeContext:(TreeContext *)treeContext 
-                   comments:(NSString *)comments {
++ (instancetype) annotatedTreeContext:(TreeContext *)treeContext
+                             comments:(NSString *)comments {
   return (treeContext == nil
           ? nil
           : [[[AnnotatedTreeContext alloc] initWithTreeContext: treeContext comments: comments]
@@ -34,34 +34,25 @@
                           comments: ((test != nil) ? test.description : @"")];
 }
 
-- (instancetype) initWithTreeContext:(TreeContext *)treeContextVal
-                            comments:(NSString *)commentsVal {
+- (instancetype) initWithTreeContext:(TreeContext *)treeContext
+                            comments:(NSString *)comments {
   if (self = [super init]) {
-    NSAssert(treeContextVal != nil, @"TreeContext must be set.");
+    NSAssert(treeContext != nil, @"TreeContext must be set.");
   
-    treeContext = [treeContextVal retain];
+    _treeContext = [treeContext retain];
     
     // Create a copy of the string, to ensure it is immutable.
-    comments = commentsVal != nil ? [NSString stringWithString: commentsVal] : @"";
-    [comments retain];
+    _comments = comments != nil ? [NSString stringWithString: comments] : @"";
+    [_comments retain];
   }
   return self;
 }
 
 - (void) dealloc {
-  [treeContext release];
-  [comments release];
+  [_treeContext release];
+  [_comments release];
 
   [super dealloc];
-}
-
-
-- (TreeContext *)treeContext {
-  return treeContext;
-}
-
-- (NSString *)comments {
-  return comments;
 }
 
 @end

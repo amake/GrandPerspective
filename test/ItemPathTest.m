@@ -21,7 +21,7 @@
   // provided by the FileItemPathStringCache class. This way, path items do not constantly need to
   // be rebuilt from scratch, nor do they need to be maintained longer than needed.
   
-  return [stringTest testString: path] ? TEST_PASSED : TEST_FAILED;
+  return [self.stringTest testString: path] ? TEST_PASSED : TEST_FAILED;
 }
 
 - (BOOL) appliesToDirectories {
@@ -37,7 +37,7 @@
   NSString  *subject = NSLocalizedStringFromTable(@"path" , @"Tests",
                                                   @"A pathname as the subject of a string test");
 
-  return [stringTest descriptionWithSubject: subject];
+  return [self.stringTest descriptionWithSubject: subject];
 }
 
 

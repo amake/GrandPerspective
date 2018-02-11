@@ -7,7 +7,6 @@
  * one of its subtests.
  */
 @interface ItemSizeTestFinder : BasicFileItemTestVisitor {
-  BOOL  itemSizeTestFound;
 }
 
 /* Resets the finder so that it can be used on a new test.

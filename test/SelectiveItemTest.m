@@ -12,12 +12,12 @@
   return [self initWithSubItemTest: nil onlyFiles: YES];
 }
 
-- (instancetype) initWithSubItemTest:(FileItemTest *)subTestVal
-                           onlyFiles:(BOOL)onlyFilesVal {
+- (instancetype) initWithSubItemTest:(FileItemTest *)subItemTest
+                           onlyFiles:(BOOL)onlyFiles {
   if (self = [super init]) {
-    subTest = [subTestVal retain];
-    
-    onlyFiles = onlyFilesVal;
+    _subItemTest = [subItemTest retain];
+
+    _applyToFilesOnly = onlyFiles;
   }
   
   return self;
@@ -27,15 +27,15 @@
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSDictionary  *subTestDict = dict[@"subTest"];
     
-    subTest = [[FileItemTest fileItemTestFromDictionary: subTestDict] retain];
-    onlyFiles = [dict[@"onlyFiles"] boolValue];
+    _subItemTest = [[FileItemTest fileItemTestFromDictionary: subTestDict] retain];
+    _applyToFilesOnly = [dict[@"onlyFiles"] boolValue];
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [subTest release];
+  [_subItemTest release];
 
   [super dealloc];
 }
@@ -45,31 +45,22 @@
   [super addPropertiesToDictionary: dict];
   
   dict[@"class"] = @"SelectiveItemTest";
-  dict[@"subTest"] = [subTest dictionaryForObject];
-  dict[@"onlyFiles"] = @(onlyFiles);
-}
-
-
-- (FileItemTest *)subItemTest {
-  return subTest;
-}
-
-- (BOOL) applyToFilesOnly {
-  return onlyFiles;
+  dict[@"subTest"] = [self.subItemTest dictionaryForObject];
+  dict[@"onlyFiles"] = @(self.applyToFilesOnly);
 }
 
 
 - (TestResult) testFileItem:(FileItem *)item context:(id) context {
-  if (item.isDirectory == onlyFiles) {
+  if (item.isDirectory == self.applyToFilesOnly) {
     // Test should not be applied to this type of item.
     return TEST_NOT_APPLICABLE;
   }
   
-  return [subTest testFileItem: item context: context] ? TEST_PASSED : TEST_FAILED;
+  return [self.subItemTest testFileItem: item context: context] ? TEST_PASSED : TEST_FAILED;
 }
 
 - (BOOL) appliesToDirectories {
-  return !onlyFiles;
+  return !self.applyToFilesOnly;
 }
 
 
@@ -79,13 +70,13 @@
 
 
 - (NSString *)description {
-  NSString  *format = (onlyFiles
+  NSString  *format = (self.applyToFilesOnly
                        ? NSLocalizedStringFromTable(@"files: %@", @"Tests",
                                                     @"Selective test with 1: sub test")
                        : NSLocalizedStringFromTable(@"folders: %@", @"Tests",
                                                     @"Selective test with 1: sub test"));
   
-  return [NSString stringWithFormat: format, subTest.description];
+  return [NSString stringWithFormat: format, self.subItemTest.description];
 }
 
 

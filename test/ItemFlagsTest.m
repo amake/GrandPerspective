@@ -14,8 +14,8 @@
 
 - (instancetype) initWithFlagsMask:(UInt8)mask desiredResult:(UInt8)result {
   if (self = [super init]) {
-    flagsMask = mask;
-    desiredResult = result;
+    _flagsMask = mask;
+    _desiredResult = result;
   }
   
   return self;
@@ -27,10 +27,10 @@
     id  object;
     
     object = dict[@"flagsMask"];
-    flagsMask = (object == nil) ? 0 : [object unsignedCharValue];
+    _flagsMask = (object == nil) ? 0 : [object unsignedCharValue];
      
     object = dict[@"desiredResult"];
-    desiredResult = (object == nil) ? 0 : [object unsignedCharValue];
+    _desiredResult = (object == nil) ? 0 : [object unsignedCharValue];
   }
   
   return self;
@@ -42,22 +42,13 @@
   
   dict[@"class"] = @"ItemFlagsTest";
   
-  dict[@"flagsMask"] = @(flagsMask);
-  dict[@"desiredResult"] = @(desiredResult);
-}
-
-
-- (UInt8) flagsMask {
-  return flagsMask;
-}
-
-- (UInt8) desiredResult {
-  return desiredResult;
+  dict[@"flagsMask"] = @(self.flagsMask);
+  dict[@"desiredResult"] = @(self.desiredResult);
 }
 
 
 - (TestResult) testFileItem:(FileItem *)item context:(id)context {
-  return ([item fileItemFlags] & flagsMask) == desiredResult ? TEST_PASSED : TEST_FAILED;
+  return ([item fileItemFlags] & self.flagsMask) == self.desiredResult ? TEST_PASSED : TEST_FAILED;
 }
 
 - (BOOL) appliesToDirectories {
@@ -81,8 +72,8 @@
     (@"%@ and %@", @"Tests",
      @"AND-test for flags sub tests with 1: subtest, 2: one or more sub tests");
   
-  if (flagsMask & FILE_IS_HARDLINKED) {
-    if (desiredResult & FILE_IS_HARDLINKED) {
+  if (self.flagsMask & FILE_IS_HARDLINKED) {
+    if (self.desiredResult & FILE_IS_HARDLINKED) {
       sub = NSLocalizedStringFromTable(@"item is hard-linked", @"Tests",
                                        @"File/folder flags sub test");
     }
@@ -93,8 +84,8 @@
     s = sub;
   }
   
-  if (flagsMask & FILE_IS_PACKAGE) {
-    if (desiredResult & FILE_IS_PACKAGE) {
+  if (self.flagsMask & FILE_IS_PACKAGE) {
+    if (self.desiredResult & FILE_IS_PACKAGE) {
       sub = NSLocalizedStringFromTable(@"item is a package", @"Tests",
                                        @"File/folder flags sub test");
     }
@@ -105,7 +96,7 @@
 
     if ( s == nil ) {
       s = sub;
-    } 
+    }
     else {
       s = [NSString stringWithFormat: andFormat, s, sub];
     }
