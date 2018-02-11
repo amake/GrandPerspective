@@ -24,36 +24,23 @@
                    packagesAsFiles: !showPackageContentsByDefault];
 }
 
-- (instancetype) initWithTreeContext:(TreeContext *)treeContextVal
-                           filterSet:(FilterSet *)filterSetVal
-                     packagesAsFiles:(BOOL) packagesAsFilesVal {
+- (instancetype) initWithTreeContext:(TreeContext *)treeContext
+                           filterSet:(FilterSet *)filterSet
+                     packagesAsFiles:(BOOL) packagesAsFiles {
   if (self = [super init]) {
-    treeContext = [treeContextVal retain];
-    filterSet = [filterSetVal retain];
+    _treeContext = [treeContext retain];
+    _filterSet = [filterSet retain];
     
-    packagesAsFiles = packagesAsFilesVal;
+    packagesAsFiles = packagesAsFiles;
   }
   return self;
 }
 
 - (void) dealloc {
-  [treeContext release];
-  [filterSet release];
+  [_treeContext release];
+  [_filterSet release];
   
   [super dealloc];
-}
-
-
-- (TreeContext *)treeContext {
-  return treeContext;
-}
-
-- (FilterSet *)filterSet {
-  return filterSet;
-}
-
-- (BOOL) packagesAsFiles {
-  return packagesAsFiles;
 }
 
 @end

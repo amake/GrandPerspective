@@ -5,7 +5,6 @@
 
 
 @interface Item : NSObject {
-  ITEM_SIZE  size;
 }
 
 
@@ -27,8 +26,11 @@
 
 - (instancetype) initWithItemSize:(ITEM_SIZE)size NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, readonly) unsigned long long itemSize;
-@property (nonatomic, readonly) unsigned long long numFiles;
+/* Item size should not be changed once it is set. It is not "readonly" to enable DirectoryItem
+ * subclass to set it later (once it knows its size).
+ */
+@property (nonatomic) ITEM_SIZE itemSize;
+@property (nonatomic, readonly) FILE_COUNT numFiles;
 
 // An item is virtual if it is not a file item (i.e. a file or directory).
 @property (nonatomic, getter=isVirtual, readonly) BOOL virtual;

@@ -55,33 +55,37 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 }
 
 
-- (instancetype) initWithLabel:(NSString *)labelVal
-                        parent:(DirectoryItem *)parentVal
-                          size:(ITEM_SIZE)sizeVal
-                         flags:(UInt8)flagsVal
-                  creationTime:(CFAbsoluteTime)creationTimeVal
-              modificationTime:(CFAbsoluteTime)modificationTimeVal
-                    accessTime:(CFAbsoluteTime)accessTimeVal {
-  if (self = [super initWithItemSize: sizeVal]) {
-    label = [labelVal retain];
+- (instancetype) initWithLabel:(NSString *)label
+                        parent:(DirectoryItem *)parent
+                          size:(ITEM_SIZE)size
+                         flags:(UInt8)fileItemFlags
+                  creationTime:(CFAbsoluteTime)creationTime
+              modificationTime:(CFAbsoluteTime)modificationTime
+                    accessTime:(CFAbsoluteTime)accessTime {
+  if (self = [super initWithItemSize: size]) {
+    _label = [label retain];
 
-    parent = parentVal; // not retaining it, as it is not owned.
-    flags = flagsVal;
+    _parentDirectory = parent; // not retaining it, as it is not owned.
+    _fileItemFlags = fileItemFlags;
     
-    creationTime = creationTimeVal;
-    modificationTime = modificationTimeVal;
-    accessTime = accessTimeVal;
+    _creationTime = creationTime;
+    _modificationTime = modificationTime;
+    _accessTime = accessTime;
   }
   return self;
 }
   
 - (void) dealloc {
-  if (parent==nil) {
+  if (_parentDirectory==nil) {
     NSLog(@"FileItem-dealloc (root)");
   }
-  [label release];
+  [_label release];
 
   [super dealloc];
+}
+
+- (DirectoryItem *)parentDirectory {
+  return _parentDirectory;
 }
 
 
@@ -92,20 +96,12 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
 
 - (NSString *)description {
-  return [NSString stringWithFormat:@"FileItem(%@, %qu)", label, size];
+  return [NSString stringWithFormat:@"FileItem(%@, %qu)", self.label, self.itemSize];
 }
 
 
 - (FILE_COUNT) numFiles {
   return 1;
-}
-
-- (NSString *)label {
-  return label;
-}
-
-- (DirectoryItem *)parentDirectory {
-  return parent;
 }
 
 - (BOOL) isAncestorOfFileItem:(FileItem *)fileItem {
@@ -125,33 +121,16 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 }
 
 
-- (CFAbsoluteTime) creationTime {
-  return creationTime;
-}
-
-- (CFAbsoluteTime) modificationTime {
-  return modificationTime;
-}
-
-- (CFAbsoluteTime) accessTime {
-  return accessTime;
-}
-
-
-- (UInt8) fileItemFlags {
-  return flags;
-}
-
 - (BOOL) isPhysical {
-  return (flags & FILE_IS_NOT_PHYSICAL) == 0;
+  return (self.fileItemFlags & FILE_IS_NOT_PHYSICAL) == 0;
 }
 
 - (BOOL) isHardLinked {
-  return (flags & FILE_IS_HARDLINKED) != 0;
+  return (self.fileItemFlags & FILE_IS_HARDLINKED) != 0;
 }
 
 - (BOOL) isPackage {
-  return (flags & FILE_IS_PACKAGE) != 0;
+  return (self.fileItemFlags & FILE_IS_PACKAGE) != 0;
 }
 
 
@@ -160,7 +139,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
     return nil;
   }
 
-  return [FileItem friendlyPathComponentFor: label];
+  return [FileItem friendlyPathComponentFor: self.label];
 }
 
 - (NSString *)path {
@@ -270,7 +249,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
 - (NSString *)systemPathComponent {
   // Only physical items contribute to the path.
-  return [self isPhysical] ? label : nil;
+  return [self isPhysical] ? self.label : nil;
 }
     
 @end // @implementation FileItem (ProtectedMethods)
@@ -320,14 +299,14 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   NSString  *comp = useFileSystemRepresentation ? [self systemPathComponent] : [self pathComponent];
   
   if (comp != nil) {
-    return ( (parent != nil) 
-             ? [[parent constructPath: useFileSystemRepresentation]
+    return ( (self.parentDirectory != nil)
+             ? [[self.parentDirectory constructPath: useFileSystemRepresentation]
                   stringByAppendingPathComponent: comp] 
              : comp );
   }
   else {
-    return ( (parent != nil) 
-             ? [parent constructPath: useFileSystemRepresentation] 
+    return ( (self.parentDirectory != nil)
+             ? [self.parentDirectory constructPath: useFileSystemRepresentation]
              : @"" );
   }
 }

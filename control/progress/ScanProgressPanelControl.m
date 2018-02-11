@@ -20,7 +20,7 @@
 }
 
 - (NSString *)pathFromTaskInput:(id)taskInput {
-  return [taskInput pathToScan];
+  return [taskInput path];
 }
 
 - (NSDictionary *)progressInfo {

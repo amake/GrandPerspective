@@ -41,7 +41,7 @@
   
   NSDate  *startTime = [NSDate date];
   
-  TreeContext*  scanResult = [treeBuilder buildTreeForPath: [myInput pathToScan]];
+  TreeContext*  scanResult = [treeBuilder buildTreeForPath: [myInput path]];
   
   if (scanResult != nil) {
     NSLog(@"Done scanning: %d folders scanned (%d skipped) in %.2fs.",

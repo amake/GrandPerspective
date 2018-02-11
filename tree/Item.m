@@ -42,21 +42,22 @@ static NSZone  *dedicatedSharedZone = nil;
   return [self initWithItemSize:0];
 }
 
-- (instancetype) initWithItemSize:(ITEM_SIZE)sizeVal {
+- (instancetype) initWithItemSize:(ITEM_SIZE)itemSize {
   if (self = [super init]) {
-    size = sizeVal;
+    _itemSize = itemSize;
   }
   
   return self;
 }
 
 
-- (ITEM_SIZE) itemSize {
-  return size;
-}
-
 - (FILE_COUNT) numFiles {
   return 0;
+}
+
+- (void) setItemSize:(ITEM_SIZE)itemSize {
+  NSAssert(_itemSize == 0, @"Cannot change itemSize after it has been set");
+  _itemSize = itemSize;
 }
 
 
@@ -66,7 +67,7 @@ static NSZone  *dedicatedSharedZone = nil;
 
 
 - (NSString *)description {
-  return [NSString stringWithFormat:@"Item(size=%qu)", size];
+  return [NSString stringWithFormat:@"Item(size=%qu)", self.itemSize];
 }
 
 @end

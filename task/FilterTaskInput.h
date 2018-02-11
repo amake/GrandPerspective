@@ -5,9 +5,6 @@
 
 
 @interface FilterTaskInput : NSObject {
-  BOOL  packagesAsFiles;
-  TreeContext  *treeContext;
-  FilterSet  *filterSet;
 }
 
 - (instancetype) initWithTreeContext:(TreeContext *)context

@@ -1047,10 +1047,10 @@ didStartElement:(NSString *)childElement
     }
   }
   else if ([childElement isEqualToString: FilterSetElem]) {
-    if ([tree scanTree] != nil) {
+    if (tree.scanTree != nil) {
       [self handlerError: FILTER_AFTER_FOLDER_MSG];
     }
-    else if ([[tree filterSet] numFilters] > 0) {
+    else if (tree.filterSet.numFilters > 0) {
       [self handlerError: [NSString stringWithFormat: MULTIPLE_ELEM_MSG, FilterSetElem]];
     }
     else {
@@ -1063,7 +1063,7 @@ didStartElement:(NSString *)childElement
     }
   }
   else if ([childElement isEqualToString: FolderElem]) {
-    if ([[tree scanTree] getContents] != nil) {
+    if (tree.scanTree.contents != nil) {
       [self handlerError: MULTIPLE_ROOT_FOLDER_MSG];
     }
     else {
@@ -1072,7 +1072,7 @@ didStartElement:(NSString *)childElement
                          reader: reader
                        callback: self
                       onSuccess: @selector(handler:finishedParsingFolderElement:)
-                         parent: [tree scanTreeParent]]
+                         parent: tree.scanTreeParent]
        handleAttributes: attribs];
     }
   }

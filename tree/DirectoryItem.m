@@ -20,28 +20,28 @@
 }
 
 
-- (instancetype) initWithLabel:(NSString *)labelVal
-                        parent:(DirectoryItem *)parentVal
-                         flags:(UInt8) flagsVal
-                  creationTime:(CFAbsoluteTime)creationTimeVal
-              modificationTime:(CFAbsoluteTime)modificationTimeVal
-                    accessTime:(CFAbsoluteTime)accessTimeVal {
+- (instancetype) initWithLabel:(NSString *)label
+                        parent:(DirectoryItem *)parent
+                         flags:(UInt8) flags
+                  creationTime:(CFAbsoluteTime)creationTime
+              modificationTime:(CFAbsoluteTime)modificationTime
+                    accessTime:(CFAbsoluteTime)accessTime {
   
-  if (self = [super initWithLabel: labelVal
-                           parent: parentVal
+  if (self = [super initWithLabel: label
+                           parent: parent
                              size: 0
-                            flags: flagsVal
-                     creationTime: creationTimeVal
-                 modificationTime: modificationTimeVal
-                       accessTime: accessTimeVal]) {
-    contents = nil;
+                            flags: flags
+                     creationTime: creationTime
+                 modificationTime: modificationTime
+                       accessTime: accessTime]) {
+    _contents = nil;
   }
   return self;
 }
 
 
 - (void) dealloc {
-  [contents release];
+  [_contents release];
 
   [super dealloc];
 }
@@ -49,32 +49,33 @@
 
 - (FileItem *)duplicateFileItem:(DirectoryItem *)newParent {
   return [[[DirectoryItem allocWithZone: [newParent zone]] 
-              initWithLabel: label
+              initWithLabel: self.label
                      parent: newParent
-                      flags: flags
-               creationTime: creationTime
-           modificationTime: modificationTime
-                 accessTime: accessTime
+                      flags: self.fileItemFlags
+               creationTime: self.creationTime
+           modificationTime: self.modificationTime
+                 accessTime: self.accessTime
             ] autorelease];
 }
 
 
-- (void) setDirectoryContents:(Item *)contentsVal {
-  NSAssert(contents == nil, @"Contents should only be set once.");
+// Special "setter" with additional constraints
+- (void) setDirectoryContents:(Item *)contents {
+  NSAssert(_contents == nil, @"Contents should only be set once.");
   
-  contents = [contentsVal retain];
+  _contents = [contents retain];
   if (contents != nil) {
-    size = [contents itemSize];
+    self.itemSize = contents.itemSize;
   }
 }
 
-
+// Special "setter" with additional constraints
 - (void) replaceDirectoryContents:(Item *)newItem {
-  NSAssert([newItem itemSize] == [contents itemSize], @"Sizes must be equal.");
+  NSAssert(newItem.itemSize == self.contents.itemSize, @"Sizes must be equal.");
   
-  if (contents != newItem) {
-    [contents release];
-    contents = [newItem retain];
+  if (_contents != newItem) {
+    [_contents release];
+    _contents = [newItem retain];
   }
 }
 
@@ -86,14 +87,14 @@
   
     // Note: This item is short-lived, so it is allocated in the default zone.
     return [[[PlainFileItem alloc]
-             initWithLabel: label
-                    parent: parent
-                      size: size
+             initWithLabel: self.label
+                    parent: self.parentDirectory
+                      size: self.itemSize
                       type: fileType
-                     flags: flags
-              creationTime: creationTime
-          modificationTime: modificationTime
-                accessTime: accessTime
+                     flags: self.fileItemFlags
+              creationTime: self.creationTime
+          modificationTime: self.modificationTime
+                accessTime: self.accessTime
               ] autorelease];
   }
   else {
@@ -104,20 +105,16 @@
 
 - (NSString *)description {
   return [NSString stringWithFormat:
-          @"DirectoryItem(%@, %qu, %@)", label, size, contents.description];
+          @"DirectoryItem(%@, %qu, %@)", self.label, self.itemSize, self.contents.description];
 }
 
 
 - (FILE_COUNT) numFiles {
-  return [contents numFiles];
+  return self.contents.numFiles;
 }
 
 - (BOOL) isDirectory {
   return YES;
-}
-
-- (Item *)getContents {
-  return contents;
 }
 
 @end // @implementation DirectoryItem

@@ -124,7 +124,7 @@
   [treeGuide descendIntoDirectory: newDir];
   [progressTracker processingFolder: oldDir];
 
-  [self flattenAndFilterSiblings: [oldDir getContents] directoryItems: dirs fileItems: files];
+  [self flattenAndFilterSiblings: oldDir.contents directoryItems: dirs fileItems: files];
 
   if (!abort) { // Break recursion when task has been aborted.
     NSUInteger  i;
@@ -189,8 +189,8 @@
   }
 
   if ([item isVirtual]) {
-    [self flattenAndFilterSiblings: [((CompoundItem *)item) getFirst]];
-    [self flattenAndFilterSiblings: [((CompoundItem *)item) getSecond]];
+    [self flattenAndFilterSiblings: ((CompoundItem *)item).first];
+    [self flattenAndFilterSiblings: ((CompoundItem *)item).second];
   }
   else {
     FileItem  *fileItem = (FileItem *)item;

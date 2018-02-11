@@ -285,10 +285,10 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   if ([containingItem isVirtual]) {
     CompoundItem  *compoundItem = (CompoundItem *)containingItem;
     
-    if ([compoundItem getFirst] == replacedItem) {
+    if (compoundItem.first == replacedItem) {
       [compoundItem replaceFirst: replacingItem];
     }
-    else if ([compoundItem getSecond] == replacedItem) {
+    else if (compoundItem.second == replacedItem) {
       [compoundItem replaceSecond: replacingItem];
     }
     else {
@@ -298,8 +298,8 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   else {
     DirectoryItem  *dirItem = (DirectoryItem *)containingItem;
   
-    NSAssert([dirItem isDirectory], @"Expected a DirectoryItem.");
-    NSAssert([dirItem getContents] == replacedItem, @"Selected item not found.");
+    NSAssert(dirItem.isDirectory, @"Expected a DirectoryItem.");
+    NSAssert(dirItem.contents == replacedItem, @"Selected item not found.");
     
     [dirItem replaceDirectoryContents: replacingItem];
   } 
@@ -464,8 +464,8 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
 
 - (void) updateFreedSpaceForDeletedItem:(Item *)item; {
   if ( [item isVirtual] ) {
-    [self updateFreedSpaceForDeletedItem: [((CompoundItem *)item) getFirst]];
-    [self updateFreedSpaceForDeletedItem: [((CompoundItem *)item) getSecond]];
+    [self updateFreedSpaceForDeletedItem: ((CompoundItem *)item).first];
+    [self updateFreedSpaceForDeletedItem: ((CompoundItem *)item).second];
   }
   else {
     FileItem  *fileItem = (FileItem *)item;
@@ -477,7 +477,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
     // than the size of the "freed space" block that replaces all files that have been deleted.
 
     if ( [fileItem isDirectory] ) {
-      [self updateFreedSpaceForDeletedItem: [((DirectoryItem *)item) getContents]];
+      [self updateFreedSpaceForDeletedItem: ((DirectoryItem *)item).contents];
     }
     else {
       if ([fileItem isPhysical] ) {

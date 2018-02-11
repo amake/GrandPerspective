@@ -13,42 +13,25 @@
                             bounds: NSMakeRect(0, 0, 0, 0)];
 }
 
-- (instancetype) initWithVisibleTree:(FileItem *)visibleTreeVal
-                          treeInView:(FileItem *)treeInViewVal
-                       layoutBuilder:(TreeLayoutBuilder *)layoutBuilderVal
-                              bounds:(NSRect) boundsVal {
+- (instancetype) initWithVisibleTree:(FileItem *)visibleTree
+                          treeInView:(FileItem *)treeInView
+                       layoutBuilder:(TreeLayoutBuilder *)layoutBuilder
+                              bounds:(NSRect) bounds {
   if (self = [super init]) {
-    visibleTree = [visibleTreeVal retain];
-    treeInView = [treeInViewVal retain];
-    layoutBuilder = [layoutBuilderVal retain];
-    bounds = boundsVal;
+    _visibleTree = [visibleTree retain];
+    _treeInView = [treeInView retain];
+    _layoutBuilder = [layoutBuilder retain];
+    _bounds = bounds;
   }
   return self;
 }
 
 - (void) dealloc {
-  [visibleTree release];
-  [treeInView release];
-  [layoutBuilder release];
+  [_visibleTree release];
+  [_treeInView release];
+  [_layoutBuilder release];
   
   [super dealloc];
-}
-
-
-- (FileItem *)visibleTree {
-  return visibleTree;
-}
-
-- (FileItem *)treeInView {
-  return treeInView;
-}
-
-- (TreeLayoutBuilder *)layoutBuilder {
-  return layoutBuilder;
-}
-
-- (NSRect) bounds {
-  return bounds;
 }
 
 @end

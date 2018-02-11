@@ -3,16 +3,16 @@
 
 @implementation CompoundItem
 
-+ (Item *)compoundItemWithFirst:(Item *)firstVal second:(Item *)secondVal {
-  if (firstVal != nil && secondVal != nil) {
-    return [[[CompoundItem allocWithZone: [firstVal zone]] initWithFirst: firstVal
-                                                                  second: secondVal] autorelease];
++ (Item *)compoundItemWithFirst:(Item *)first second:(Item *)second {
+  if (first != nil && second != nil) {
+    return [[[CompoundItem allocWithZone: [first zone]] initWithFirst: first
+                                                                  second: second] autorelease];
   }
-  if (firstVal != nil) {
-    return firstVal;
+  if (first != nil) {
+    return first;
   }
-  if (secondVal != nil) {
-    return secondVal;
+  if (second != nil) {
+    return second;
   }
   return nil;
 }
@@ -24,12 +24,12 @@
   return [self initWithFirst: nil second: nil];
 }
 
-- (instancetype) initWithFirst:(Item *)firstVal second:(Item *)secondVal {
-  NSAssert(firstVal != nil && secondVal != nil, @"Both values must be non nil.");
+- (instancetype) initWithFirst:(Item *)first second:(Item *)second {
+  NSAssert(first != nil && second != nil, @"Both values must be non nil.");
   
-  if (self = [super initWithItemSize:([firstVal itemSize] + [secondVal itemSize])]) {
-    first = [firstVal retain];
-    second = [secondVal retain];
+  if (self = [super initWithItemSize:([first itemSize] + [second itemSize])]) {
+    _first = [first retain];
+    _second = [second retain];
     numFiles = [first numFiles] + [second numFiles];
   }
 
@@ -38,15 +38,15 @@
 
 
 - (void) dealloc {
-  [first release];
-  [second release];
+  [_first release];
+  [_second release];
   
   [super dealloc];
 }
 
 
 - (NSString *)description {
-  return [NSString stringWithFormat:@"CompoundItem(%@, %@)", first, second];
+  return [NSString stringWithFormat:@"CompoundItem(%@, %@)", self.first, self.second];
 }
 
 
@@ -59,30 +59,23 @@
 }
 
 
-- (Item*) getFirst {
-  return first;
-}
-
-- (Item*) getSecond {
-  return second;
-}
-
-
+// Custom "setter", which enforces that size remains the same
 - (void) replaceFirst:(Item *)newItem {
-  NSAssert([newItem itemSize] == [first itemSize], @"Sizes must be equal.");
+  NSAssert([newItem itemSize] == [_first itemSize], @"Sizes must be equal.");
   
-  if (first != newItem) {
-    [first release];
-    first = [newItem retain];
+  if (_first != newItem) {
+    [_first release];
+    _first = [newItem retain];
   }
 }
 
+// Custom "setter", which enforces that size remains the same
 - (void) replaceSecond:(Item *)newItem {
-  NSAssert([newItem itemSize] == [second itemSize], @"Sizes must be equal.");
+  NSAssert([newItem itemSize] == [_second itemSize], @"Sizes must be equal.");
   
-  if (second != newItem) {
-    [second release];
-    second = [newItem retain];
+  if (_second != newItem) {
+    [_second release];
+    _second = [newItem retain];
   }
 }
 

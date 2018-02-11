@@ -4,8 +4,6 @@
 @class AnnotatedTreeContext;
 
 @interface WriteTaskInput : NSObject {
-  AnnotatedTreeContext  *treeContext;
-  NSString  *path;
 }
 
 - (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)context

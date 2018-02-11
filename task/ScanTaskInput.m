@@ -27,41 +27,24 @@
 }
          
 - (instancetype) initWithPath:(NSString *)path
-              fileSizeMeasure:(NSString *)fileSizeMeasureVal
-                    filterSet:(FilterSet *)filterSetVal
-              packagesAsFiles:(BOOL) packagesAsFilesVal {
+              fileSizeMeasure:(NSString *)fileSizeMeasure
+                    filterSet:(FilterSet *)filterSet
+              packagesAsFiles:(BOOL) packagesAsFiles {
   if (self = [super init]) {
-    pathToScan = [path retain];
-    fileSizeMeasure = [fileSizeMeasureVal retain];
-    filterSet = [filterSetVal retain];
-    packagesAsFiles = packagesAsFilesVal;
+    _path = [path retain];
+    _fileSizeMeasure = [fileSizeMeasure retain];
+    _filterSet = [filterSet retain];
+    _packagesAsFiles = packagesAsFiles;
   }
   return self;
 }
 
 - (void) dealloc {
-  [pathToScan release];
-  [fileSizeMeasure release];
-  [filterSet release];
+  [_path release];
+  [_fileSizeMeasure release];
+  [_filterSet release];
   
   [super dealloc];
-}
-
-
-- (NSString *) pathToScan {
-  return pathToScan;
-}
-
-- (NSString *) fileSizeMeasure {
-  return fileSizeMeasure;
-}
-
-- (FilterSet *) filterSet {
-  return filterSet;
-}
-
-- (BOOL) packagesAsFiles {
-  return packagesAsFiles;
 }
 
 @end

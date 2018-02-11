@@ -489,7 +489,7 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
     return NO;
   }
   
-  Item  *contents = [((DirectoryItem *)pathEndPoint) getContents];
+  Item  *contents = ((DirectoryItem *)pathEndPoint).contents;
   if (contents == nil ||
       ! [self extendVisiblePathToFileItem: target
                                   similar: similar
@@ -516,12 +516,12 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
     
     if ([self extendVisiblePathToFileItem: target
                                   similar: similar
-                                 fromItem: [compoundItem getFirst]]) {
+                                 fromItem: compoundItem.first]) {
       return YES; 
     }
     if ([self extendVisiblePathToFileItem: target
                                   similar: similar
-                                 fromItem: [compoundItem getSecond]]) {
+                                 fromItem: compoundItem.second]) {
       return YES;
     }
   }

@@ -41,8 +41,8 @@
     
   if ( [traverser descendIntoItem: root atRect: rect depth: depth] ) {
     if ([root isVirtual]) {
-      Item  *sub1 = [((CompoundItem *)root) getFirst];
-      Item  *sub2 = [((CompoundItem *)root) getSecond];
+      Item  *sub1 = ((CompoundItem *)root).first;
+      Item  *sub2 = ((CompoundItem *)root).second;
     
       float  ratio = ([root itemSize]>0) ? ([sub1 itemSize]/(float)[root itemSize]) : 0.50;
       NSRect  rect1;
@@ -59,7 +59,7 @@
       [self layoutItemTree:sub2 inRect: rect2 traverser: traverser depth: depth];
     }
     else if ( [((FileItem *)root) isDirectory] ) { 
-      Item*  sub = [((DirectoryItem *)root) getContents];		
+      Item  *sub = ((DirectoryItem *)root).contents;
 
       if (sub != nil) {
         [self layoutItemTree: sub inRect: rect traverser: traverser depth: depth+1];

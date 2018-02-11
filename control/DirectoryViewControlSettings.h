@@ -2,16 +2,6 @@
 
 
 @interface DirectoryViewControlSettings : NSObject {
-  NSString  *colorMappingKey;
-  NSString  *colorPaletteKey;
-  NSString  *maskName;
-  BOOL  maskEnabled;
-  BOOL  showEntireVolume;
-  BOOL  showPackageContents;
-  
-  // The window's size when it is unzoomed. This is considered its real size setting. When the
-  // window is zoomed, the maximum size is only a temporary state.
-  NSSize  unzoomedViewSize;
 }
 
 - (instancetype) initWithColorMappingKey:(NSString *)colorMappingKey
@@ -34,7 +24,9 @@
 
 @property (nonatomic) BOOL showPackageContents;
 
-@property (nonatomic, readonly) NSSize unzoomedViewSize;
-- (void) setunzoomedViewSize:(NSSize)size;
+/* The window's size when it is unzoomed. This is considered its real size setting. When the
+ * window is zoomed, the maximum size is only a temporary state.
+ */
+@property (nonatomic) NSSize unzoomedViewSize;
 
 @end

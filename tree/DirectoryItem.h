@@ -4,7 +4,6 @@
 
 
 @interface DirectoryItem : FileItem {
-  Item  *contents;
 }
 
 
@@ -28,7 +27,7 @@
  */
 - (void) replaceDirectoryContents:(Item *)contents;
 
-@property (nonatomic, getter=getContents, readonly, strong) Item *contents;
+@property (nonatomic, readonly, strong) Item *contents;
 
 /* Returns the item that represents the receiver when package contents should not be shown (i.e.
  * when the directory should be represented by a file).

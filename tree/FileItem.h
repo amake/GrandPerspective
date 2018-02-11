@@ -14,18 +14,8 @@
 @class DirectoryItem;
 
 @interface FileItem : Item {
-  /* The label of the item. For physical file items this is the system representation of its path
-   * component. For other non-physical items, it is a non-localized string identifier.
-   */
-  NSString  *label;
-  DirectoryItem  *parent;
-
-  // Bitmask for storing boolean properties of the file
-  UInt8  flags;
-  
-  CFAbsoluteTime  creationTime;
-  CFAbsoluteTime  modificationTime;
-  CFAbsoluteTime  accessTime;
+  // Cannot synthesize weak properties apparently
+  DirectoryItem *_parentDirectory;
 }
 
 /* The supported values for the fileSizeUnitSystem preference. These affect how the file size
@@ -54,10 +44,12 @@
  */
 - (FileItem *)duplicateFileItem:(DirectoryItem *)newParent;
 
-
+/* The label of the item. For physical file items this is the system representation of its path
+ * component. For other non-physical items, it is a non-localized string identifier.
+ */
 @property (nonatomic, readonly, copy) NSString *label;
 
-@property (nonatomic, readonly, strong) DirectoryItem *parentDirectory;
+@property (nonatomic, readonly, weak) DirectoryItem *parentDirectory;
 
 - (BOOL) isAncestorOfFileItem:(FileItem *)fileItem;
   

@@ -3,8 +3,6 @@
 #import "Item.h"
 
 @interface CompoundItem : Item {
-  Item  *first;
-  Item  *second;
   FILE_COUNT  numFiles;
 }
 
@@ -12,9 +10,9 @@
  */
 - (instancetype) initWithFirst:(Item *)first second:(Item *)second NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, getter=getFirst, readonly, strong) Item *first;
+@property (nonatomic, readonly, strong) Item *first;
 
-@property (nonatomic, getter=getSecond, readonly, strong) Item *second;
+@property (nonatomic, readonly, strong) Item *second;
 
 
 /* Replaces the first item. The item must have the same size as the original one (otherwise the

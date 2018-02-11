@@ -4,10 +4,6 @@
 @class TreeLayoutBuilder;
 
 @interface DrawTaskInput : NSObject {
-  FileItem  *visibleTree;
-  FileItem  *treeInView;
-  TreeLayoutBuilder  *layoutBuilder;
-  NSRect  bounds;
 }
 
 - (instancetype) initWithVisibleTree:(FileItem *)visibleTree

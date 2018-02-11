@@ -425,7 +425,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   }
   [self appendString: @">\n"];  
   
-  [self dumpItemContents: [dirItem getContents]];
+  [self dumpItemContents: dirItem.contents];
   
   [self appendString: [NSString stringWithFormat: @"</%@>\n", FolderElem]];
   
@@ -474,8 +474,8 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   }
   
   if ([item isVirtual]) {
-    [self dumpItemContents: [((CompoundItem *)item) getFirst]];
-    [self dumpItemContents: [((CompoundItem *)item) getSecond]];
+    [self dumpItemContents: ((CompoundItem *)item).first];
+    [self dumpItemContents: ((CompoundItem *)item).second];
   }
   else {
     FileItem  *fileItem = (FileItem *)item;

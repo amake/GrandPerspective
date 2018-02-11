@@ -9,22 +9,18 @@
   return [self initWithPath: nil];
 }
 
-- (instancetype) initWithPath:(NSString *)pathVal {
+- (instancetype) initWithPath:(NSString *)path {
   if (self = [super init]) {
-    path = [pathVal retain];
+    _path = [path retain];
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [path release];
+  [_path release];
   
   [super dealloc];
-}
-
-- (NSString *)path {
-  return path;
 }
 
 @end

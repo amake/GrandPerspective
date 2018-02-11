@@ -18,103 +18,32 @@
                                               [userDefaults floatForKey: DefaultViewWindowHeight])];
 }
 
-- (instancetype) initWithColorMappingKey:(NSString *)colorMappingKeyVal
-                         colorPaletteKey:(NSString *)colorPaletteKeyVal
-                                maskName:(NSString *)maskNameVal
-                             maskEnabled:(BOOL)maskEnabledVal
-                        showEntireVolume:(BOOL)showEntireVolumeVal
-                     showPackageContents:(BOOL)showPackageContentsVal
-                        unzoomedViewSize:(NSSize)unzoomedViewSizeVal {
+- (instancetype) initWithColorMappingKey:(NSString *)colorMappingKey
+                         colorPaletteKey:(NSString *)colorPaletteKey
+                                maskName:(NSString *)maskName
+                             maskEnabled:(BOOL)maskEnabled
+                        showEntireVolume:(BOOL)showEntireVolume
+                     showPackageContents:(BOOL)showPackageContents
+                        unzoomedViewSize:(NSSize)unzoomedViewSize {
   if (self = [super init]) {
-    colorMappingKey = [colorMappingKeyVal retain];
-    colorPaletteKey = [colorPaletteKeyVal retain];
-    maskName = [maskNameVal retain];
-    maskEnabled = maskEnabledVal;
-    showEntireVolume = showEntireVolumeVal;
-    showPackageContents = showPackageContentsVal;
-    unzoomedViewSize = unzoomedViewSizeVal;
+    _colorMappingKey = [colorMappingKey retain];
+    _colorPaletteKey = [colorPaletteKey retain];
+    _maskName = [maskName retain];
+    _fileItemMaskEnabled = maskEnabled;
+    _showEntireVolume = showEntireVolume;
+    _showPackageContents = showPackageContents;
+    _unzoomedViewSize = unzoomedViewSize;
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [colorMappingKey release];
-  [colorPaletteKey release];
-  [maskName release];
+  [_colorMappingKey release];
+  [_colorPaletteKey release];
+  [_maskName release];
 
   [super dealloc];
-}
-
-
-- (NSString *)colorMappingKey {
-  return colorMappingKey;
-}
-
-- (void) setColorMappingKey:(NSString *)key {
-  if (key != colorMappingKey) {
-    [colorMappingKey release];
-    colorMappingKey = [key retain];
-  }
-}
-
-
-- (NSString *)colorPaletteKey {
-  return colorPaletteKey;
-}
-- (void) setColorPaletteKey:(NSString *)key {
-  if (key != colorPaletteKey) {
-    [colorPaletteKey release];
-    colorPaletteKey = [key retain];
-  }
-}
-
-
-- (NSString *)maskName {
-  return maskName;
-}
-
-- (void) setMaskName:(NSString *)maskNameVal {
-  if (maskNameVal != maskName) {
-    [maskName release];
-    maskName = [maskNameVal retain];
-  }
-}
-
-
-- (BOOL) fileItemMaskEnabled {
-  return maskEnabled;
-}
-
-- (void) setFileItemMaskEnabled:(BOOL)flag {
-  maskEnabled = flag;
-}
-
-
-- (BOOL) showEntireVolume {
-  return showEntireVolume;
-}
-
-- (void) setShowEntireVolume:(BOOL)flag {
-  showEntireVolume = flag;
-}
-
-
-- (BOOL) showPackageContents {
-  return showPackageContents;
-}
-
-- (void) setShowPackageContents:(BOOL)flag {
-  showPackageContents = flag;
-}
-
-
-- (NSSize) unzoomedViewSize {
-  return unzoomedViewSize;
-}
-
-- (void) setunzoomedViewSize:(NSSize)size {
-  unzoomedViewSize = size;
 }
 
 @end

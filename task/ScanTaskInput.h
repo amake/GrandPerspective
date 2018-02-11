@@ -4,10 +4,6 @@
 
 
 @interface ScanTaskInput : NSObject {
-  BOOL  packagesAsFiles;
-  NSString  *pathToScan;
-  NSString  *fileSizeMeasure;
-  FilterSet  *filterSet;
 }
 
 - (instancetype) initWithPath:(NSString *)path
@@ -19,7 +15,7 @@
                     filterSet:(FilterSet *)filterSet
               packagesAsFiles:(BOOL) packagesAsFiles NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, readonly, copy) NSString *pathToScan;
+@property (nonatomic, readonly, copy) NSString *path;
 @property (nonatomic, readonly, copy) NSString *fileSizeMeasure;
 @property (nonatomic, readonly, strong) FilterSet *filterSet;
 @property (nonatomic, readonly) BOOL packagesAsFiles;

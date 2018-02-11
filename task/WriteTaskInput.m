@@ -10,28 +10,20 @@
 }
 
 - (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)context
-                                         path:(NSString *)pathVal {
+                                         path:(NSString *)path {
   if (self = [super init]) {
-    treeContext = [context retain];
-    path = [pathVal retain];
+    _annotatedTreeContext = [context retain];
+    _path = [path retain];
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [treeContext release];
-  [path release];
+  [_annotatedTreeContext release];
+  [_path release];
   
   [super dealloc];
-}
-
-- (AnnotatedTreeContext *)annotatedTreeContext {
-  return treeContext;
-}
-
-- (NSString *)path {
-  return path;
 }
 
 @end

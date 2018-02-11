@@ -153,8 +153,8 @@ const int  minTimeDelta = 60;
 
 - (void) visitItemToDetermineTimeBounds:(Item *)item {
   if ([item isVirtual]) {
-    [self visitItemToDetermineTimeBounds: [((CompoundItem *)item) getFirst]];
-    [self visitItemToDetermineTimeBounds: [((CompoundItem *)item) getSecond]];
+    [self visitItemToDetermineTimeBounds: ((CompoundItem *)item).first];
+    [self visitItemToDetermineTimeBounds: ((CompoundItem *)item).second];
   }
   else {
     FileItem  *fileItem = (FileItem *)item;
@@ -174,7 +174,7 @@ const int  minTimeDelta = 60;
     }
     
     if ([fileItem isDirectory]) {
-      [self visitItemToDetermineTimeBounds: [((DirectoryItem *)fileItem) getContents]];
+      [self visitItemToDetermineTimeBounds: ((DirectoryItem *)fileItem).contents];
     }
   }
 }

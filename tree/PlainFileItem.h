@@ -11,7 +11,6 @@
  * in its implementation of -uniformType.
  */
 @interface PlainFileItem : FileItem {
-  UniformType  *type;
 }
 
 - (instancetype) initWithLabel:(NSString *)label

@@ -5,66 +5,61 @@
 @implementation PlainFileItem
 
 // Overrides designated initialiser
-- (instancetype) initWithLabel:(NSString *)labelVal
-                        parent:(DirectoryItem *)parentVal
-                          size:(ITEM_SIZE)sizeVal
-                         flags:(UInt8)flagsVal
-                  creationTime:(CFAbsoluteTime)creationTimeVal
-              modificationTime:(CFAbsoluteTime)modificationTimeVal
-                    accessTime:(CFAbsoluteTime)accessTimeVal {
-  return [self initWithLabel: labelVal
-                      parent: parentVal
-                        size: sizeVal
+- (instancetype) initWithLabel:(NSString *)label
+                        parent:(DirectoryItem *)parent
+                          size:(ITEM_SIZE)size
+                         flags:(UInt8)flags
+                  creationTime:(CFAbsoluteTime)creationTime
+              modificationTime:(CFAbsoluteTime)modificationTime
+                    accessTime:(CFAbsoluteTime)accessTime {
+  return [self initWithLabel: label
+                      parent: parent
+                        size: size
                         type: nil
-                       flags: flagsVal
-                creationTime: creationTimeVal
-            modificationTime: modificationTimeVal
-                  accessTime: accessTimeVal];
+                       flags: flags
+                creationTime: creationTime
+            modificationTime: modificationTime
+                  accessTime: accessTime];
 }
 
-- (instancetype) initWithLabel:(NSString *)labelVal
-                        parent:(DirectoryItem *)parentVal
-                          size:(ITEM_SIZE)sizeVal
-                          type:(UniformType *)typeVal
-                         flags:(UInt8)flagsVal
-                  creationTime:(CFAbsoluteTime)creationTimeVal
-              modificationTime:(CFAbsoluteTime)modificationTimeVal
-                    accessTime:(CFAbsoluteTime)accessTimeVal {
-  if (self = [super initWithLabel: labelVal
-                           parent: parentVal
-                             size: sizeVal
-                            flags: flagsVal
-                     creationTime: creationTimeVal
-                 modificationTime: modificationTimeVal
-                       accessTime: accessTimeVal]) {
-    type = [typeVal retain];
+- (instancetype) initWithLabel:(NSString *)label
+                        parent:(DirectoryItem *)parent
+                          size:(ITEM_SIZE)size
+                          type:(UniformType *)type
+                         flags:(UInt8)flags
+                  creationTime:(CFAbsoluteTime)creationTime
+              modificationTime:(CFAbsoluteTime)modificationTime
+                    accessTime:(CFAbsoluteTime)accessTime {
+  if (self = [super initWithLabel: label
+                           parent: parent
+                             size: size
+                            flags: flags
+                     creationTime: creationTime
+                 modificationTime: modificationTime
+                       accessTime: accessTime]) {
+    _uniformType = [type retain];
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [type release];
+  [_uniformType release];
   
   [super dealloc];
 }
 
 
 - (FileItem *)duplicateFileItem:(DirectoryItem *)newParent {
-  return [[[PlainFileItem allocWithZone: [newParent zone]] initWithLabel: label
+  return [[[PlainFileItem allocWithZone: [newParent zone]] initWithLabel: self.label
                                                                   parent: newParent
-                                                                    size: size
-                                                                    type: type
-                                                                   flags: flags
-                                                            creationTime: creationTime
-                                                        modificationTime: modificationTime
-                                                              accessTime: accessTime]
+                                                                    size: self.itemSize
+                                                                    type: self.uniformType
+                                                                   flags: self.fileItemFlags
+                                                            creationTime: self.creationTime
+                                                        modificationTime: self.modificationTime
+                                                              accessTime: self.accessTime]
           autorelease];
-}
-
-
-- (UniformType *)uniformType {
-  return type;
 }
 
 @end
