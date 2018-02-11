@@ -636,18 +636,18 @@
 
 
 - (void) updateStateBasedOnItemFlagsTest:(ItemFlagsTest *)test {
-  if ([test flagsMask] & FILE_IS_HARDLINKED) {
+  if ([test flagsMask] & FileItemIsHardlinked) {
     hardLinkCheckBox.state = NSOnState;
     
     [hardLinkStatusPopUp selectItemAtIndex:
-      ([test desiredResult] & FILE_IS_HARDLINKED) ? POPUP_FLAG_IS : POPUP_FLAG_IS_NOT];
+      ([test desiredResult] & FileItemIsHardlinked) ? POPUP_FLAG_IS : POPUP_FLAG_IS_NOT];
   }
   
-  if ([test flagsMask] & FILE_IS_PACKAGE) {
+  if ([test flagsMask] & FileItemIsPackage) {
     packageCheckBox.state = NSOnState;
     
     [packageStatusPopUp selectItemAtIndex: 
-      ([test desiredResult] & FILE_IS_PACKAGE) ? POPUP_FLAG_IS : POPUP_FLAG_IS_NOT];
+      ([test desiredResult] & FileItemIsPackage) ? POPUP_FLAG_IS : POPUP_FLAG_IS_NOT];
   }
 }
 
@@ -726,20 +726,20 @@
 
 
 - (ItemFlagsTest *)itemFlagsTestBasedOnState {
-  UInt8  flagsMask = 0;
-  UInt8  desiredResult = 0;
+  FileItemOptions  flagsMask = 0;
+  FileItemOptions  desiredResult = 0;
   
   if (hardLinkCheckBox.state == NSOnState) {
-    flagsMask |= FILE_IS_HARDLINKED;
+    flagsMask |= FileItemIsHardlinked;
     if (hardLinkStatusPopUp.indexOfSelectedItem == POPUP_FLAG_IS) {
-      desiredResult |= FILE_IS_HARDLINKED;
+      desiredResult |= FileItemIsHardlinked;
     }
   }
   
   if (packageCheckBox.state == NSOnState) {
-    flagsMask |= FILE_IS_PACKAGE;
+    flagsMask |= FileItemIsPackage;
     if (packageStatusPopUp.indexOfSelectedItem == POPUP_FLAG_IS) {
-      desiredResult |= FILE_IS_PACKAGE;
+      desiredResult |= FileItemIsPackage;
     }
   }
   

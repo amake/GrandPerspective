@@ -84,7 +84,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
     
     usedSpaceItem = [[DirectoryItem alloc] initWithLabel: UsedSpace
                                                   parent: _volumeTree
-                                                   flags: FILE_IS_NOT_PHYSICAL
+                                                   flags: FileItemIsNotPhysical
                                             creationTime: 0
                                         modificationTime: 0
                                               accessTime: 0];
@@ -182,7 +182,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   FileItem  *freeSpaceItem = [[[FileItem alloc] initWithLabel: FreeSpace
                                                        parent: self.volumeTree
                                                          size: actualFreeSpace
-                                                        flags: FILE_IS_NOT_PHYSICAL
+                                                        flags: FileItemIsNotPhysical
                                                  creationTime: 0
                                              modificationTime: 0
                                                    accessTime: 0
@@ -191,7 +191,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   miscUsedSpaceItem = [[[FileItem alloc] initWithLabel: MiscUsedSpace
                                                 parent: usedSpaceItem
                                                   size: miscUsedSize
-                                                 flags: FILE_IS_NOT_PHYSICAL
+                                                 flags: FileItemIsNotPhysical
                                           creationTime: 0
                                       modificationTime: 0
                                             accessTime: 0
@@ -232,7 +232,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   replacingItem = [[FileItem alloc] initWithLabel: FreedSpace
                                            parent: [replacedItem parentDirectory]
                                              size: [replacedItem itemSize]
-                                            flags: FILE_IS_NOT_PHYSICAL
+                                            flags: FileItemIsNotPhysical
                                      creationTime: 0
                                  modificationTime: 0
                                        accessTime: 0];

@@ -17,7 +17,7 @@
                         parent:(DirectoryItem *)parent
                           size:(ITEM_SIZE)size
                           type:(UniformType *)type
-                         flags:(UInt8)flags
+                         flags:(FileItemOptions)flags
                   creationTime:(CFAbsoluteTime)creationTime
               modificationTime:(CFAbsoluteTime)modificationTime
                     accessTime:(CFAbsoluteTime)accessTime NS_DESIGNATED_INITIALIZER;

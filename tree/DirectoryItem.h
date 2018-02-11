@@ -11,7 +11,7 @@
  */
 - (instancetype) initWithLabel:(NSString *)label
                         parent:(DirectoryItem *)parent
-                         flags:(UInt8)flags
+                         flags:(FileItemOptions)flags
                   creationTime:(CFAbsoluteTime)creationTime
               modificationTime:(CFAbsoluteTime)modificationTime
                     accessTime:(CFAbsoluteTime)accessTime NS_DESIGNATED_INITIALIZER;

@@ -12,7 +12,7 @@
   return [self initWithFlagsMask: 0 desiredResult: 0];
 }
 
-- (instancetype) initWithFlagsMask:(UInt8)mask desiredResult:(UInt8)result {
+- (instancetype) initWithFlagsMask:(FileItemOptions)mask desiredResult:(FileItemOptions)result {
   if (self = [super init]) {
     _flagsMask = mask;
     _desiredResult = result;
@@ -72,8 +72,8 @@
     (@"%@ and %@", @"Tests",
      @"AND-test for flags sub tests with 1: subtest, 2: one or more sub tests");
   
-  if (self.flagsMask & FILE_IS_HARDLINKED) {
-    if (self.desiredResult & FILE_IS_HARDLINKED) {
+  if (self.flagsMask & FileItemIsHardlinked) {
+    if (self.desiredResult & FileItemIsHardlinked) {
       sub = NSLocalizedStringFromTable(@"item is hard-linked", @"Tests",
                                        @"File/folder flags sub test");
     }
@@ -84,8 +84,8 @@
     s = sub;
   }
   
-  if (self.flagsMask & FILE_IS_PACKAGE) {
-    if (self.desiredResult & FILE_IS_PACKAGE) {
+  if (self.flagsMask & FileItemIsPackage) {
+    if (self.desiredResult & FileItemIsPackage) {
       sub = NSLocalizedStringFromTable(@"item is a package", @"Tests",
                                        @"File/folder flags sub test");
     }

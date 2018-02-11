@@ -6,9 +6,12 @@
  */
 // Note: Using "NOT_PHYSICAL" as a mask as opposed to "PHYSICAL" so that a set bit signals an
 // exceptional setting.
-#define FILE_IS_NOT_PHYSICAL 0x01
-#define FILE_IS_HARDLINKED 0x02
-#define FILE_IS_PACKAGE 0x04
+typedef NS_OPTIONS(UInt8, FileItemOptions) {
+  FileItemIsPlain = 0,
+  FileItemIsNotPhysical = 0x01,
+  FileItemIsHardlinked = 0x02,
+  FileItemIsPackage = 0x04
+};
 
 
 @class DirectoryItem;
@@ -30,11 +33,11 @@
 
 - (instancetype) initWithLabel:(NSString *)label
                         parent:(DirectoryItem *)parent
-                          size:(ITEM_SIZE) size
-                         flags:(UInt8) flags
-                  creationTime:(CFAbsoluteTime) creationTime
-              modificationTime:(CFAbsoluteTime) modificationTime
-                    accessTime:(CFAbsoluteTime) accessTime NS_DESIGNATED_INITIALIZER;
+                          size:(ITEM_SIZE)size
+                         flags:(FileItemOptions)flags
+                  creationTime:(CFAbsoluteTime)creationTime
+              modificationTime:(CFAbsoluteTime)modificationTime
+                    accessTime:(CFAbsoluteTime)accessTime NS_DESIGNATED_INITIALIZER;
 
 
 /* Creates a duplicate item, for use in a new tree (so with a new parent).
@@ -74,7 +77,7 @@
 /* Bit-mask flags. Lower-level representation for the file's physical, hard-linked, and package
  * status.
  */
-@property (nonatomic, readonly) UInt8 fileItemFlags;
+@property (nonatomic, readonly) FileItemOptions fileItemFlags;
 
 /* Returns YES iff the file item is physical, i.e. it is an actual file on the file system. A file
  * item that is not physical may for example represent the free space on a volume.

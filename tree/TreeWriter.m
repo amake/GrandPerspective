@@ -404,7 +404,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
   NSString  *nameVal = escapedXML([dirItem systemPathComponent], ATTRIBUTE_ESCAPE_CHARS);
   
-  UInt8  flags = [dirItem fileItemFlags];
+  FileItemOptions  flags = [dirItem fileItemFlags];
   NSString  *createdVal = [TreeWriter stringForTime: [dirItem creationTime]];
   NSString  *modifiedVal = [TreeWriter stringForTime: [dirItem modificationTime]];
   NSString  *accessedVal = [TreeWriter stringForTime: [dirItem accessTime]];
@@ -442,7 +442,7 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
 
 - (void) appendFileElement:(FileItem *)fileItem {
   NSString  *nameVal = escapedXML([fileItem systemPathComponent], ATTRIBUTE_ESCAPE_CHARS);
-  UInt8  flags = [fileItem fileItemFlags];
+  FileItemOptions  flags = [fileItem fileItemFlags];
   NSString  *createdVal = [TreeWriter stringForTime: [fileItem creationTime]];
   NSString  *modifiedVal = [TreeWriter stringForTime: [fileItem modificationTime]];
   NSString  *accessedVal = [TreeWriter stringForTime: [fileItem accessTime]];

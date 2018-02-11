@@ -246,12 +246,12 @@ NSString  *PhysicalFileSize = @"physical";
   
   // Get the properties
   NSURL  *treeRootURL = [NSURL fileURLWithPath: path];
-  UInt8  flags = 0;
+  FileItemOptions  flags = 0;
   if ([treeRootURL isPackage]) {
-    flags |= FILE_IS_PACKAGE;
+    flags |= FileItemIsPackage;
   }
   if ([treeRootURL isHardLinked]) {
-    flags |= FILE_IS_HARDLINKED;
+    flags |= FileItemIsHardlinked;
   }
 
   DirectoryItem  *scanTree = [ScanTreeRoot allocWithZone: [Item zoneForTree]];
@@ -368,12 +368,12 @@ NSString  *PhysicalFileSize = @"physical";
 }
 
 - (BOOL) visitItemAtURL:(NSURL *)url parent:(ScanStackFrame *)parent {
-  UInt8  flags = 0;
+  FileItemOptions  flags = 0;
   BOOL  visitDescendants = YES;
   BOOL  isDirectory = [url isDirectory];
 
   if ([url isHardLinked]) {
-    flags |= FILE_IS_HARDLINKED;
+    flags |= FileItemIsHardlinked;
 
     if (![self visitHardLinkedItemAtURL: url]) {
       // Do not visit descendants if the item was a directory
@@ -387,7 +387,7 @@ NSString  *PhysicalFileSize = @"physical";
 
   if (isDirectory) {
     if ([url isPackage]) {
-      flags |= FILE_IS_PACKAGE;
+      flags |= FileItemIsPackage;
     }
     
     DirectoryItem  *dirChildItem =

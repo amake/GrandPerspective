@@ -10,7 +10,7 @@
 - (instancetype) initWithLabel:(NSString *)label
                         parent:(DirectoryItem *)parent
                           size:(ITEM_SIZE)size
-                         flags:(UInt8)flags
+                         flags:(FileItemOptions)flags
                   creationTime:(CFAbsoluteTime)creationTime
               modificationTime:(CFAbsoluteTime)modificationTime
                     accessTime:(CFAbsoluteTime)accessTime {
@@ -22,7 +22,7 @@
 
 - (instancetype) initWithLabel:(NSString *)label
                         parent:(DirectoryItem *)parent
-                         flags:(UInt8) flags
+                         flags:(FileItemOptions)flags
                   creationTime:(CFAbsoluteTime)creationTime
               modificationTime:(CFAbsoluteTime)modificationTime
                     accessTime:(CFAbsoluteTime)accessTime {

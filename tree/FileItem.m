@@ -58,7 +58,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 - (instancetype) initWithLabel:(NSString *)label
                         parent:(DirectoryItem *)parent
                           size:(ITEM_SIZE)size
-                         flags:(UInt8)fileItemFlags
+                         flags:(FileItemOptions)fileItemFlags
                   creationTime:(CFAbsoluteTime)creationTime
               modificationTime:(CFAbsoluteTime)modificationTime
                     accessTime:(CFAbsoluteTime)accessTime {
@@ -122,15 +122,15 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 
 
 - (BOOL) isPhysical {
-  return (self.fileItemFlags & FILE_IS_NOT_PHYSICAL) == 0;
+  return (self.fileItemFlags & FileItemIsNotPhysical) == 0;
 }
 
 - (BOOL) isHardLinked {
-  return (self.fileItemFlags & FILE_IS_HARDLINKED) != 0;
+  return (self.fileItemFlags & FileItemIsHardlinked) != 0;
 }
 
 - (BOOL) isPackage {
-  return (self.fileItemFlags & FILE_IS_PACKAGE) != 0;
+  return (self.fileItemFlags & FileItemIsPackage) != 0;
 }
 
 
