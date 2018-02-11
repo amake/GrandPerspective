@@ -17,10 +17,11 @@ NSString  *FreedSpace = @"freed";
 NSString  *FileItemDeletedEvent = @"fileItemDeleted";
 NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
 
-
-#define IDLE      100
-#define READING   101
-#define WRITING   102
+typedef NS_ENUM(NSInteger, LockConditionEnum) {
+  ConditionIdle = 100,
+  ConditionReading = 101,
+  ConditionWriting = 102
+};
 
 
 @interface TreeContext (PrivateMethods)
@@ -107,7 +108,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
                                                object: self];
         
     mutex = [[NSLock alloc] init];
-    lock = [[NSConditionLock alloc] initWithCondition: IDLE];
+    lock = [[NSConditionLock alloc] initWithCondition: ConditionIdle];
     numReaders = 0;
     numWaitingReaders = 0;
     numWaitingWriters = 0;
@@ -287,10 +288,10 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
     // Already in READING state
     numReaders++;
   }
-  else if ([lock tryLockWhenCondition: IDLE]) {
+  else if ([lock tryLockWhenCondition: ConditionIdle]) {
     // Was in IDLE state, start reading
     numReaders++;
-    [lock unlockWithCondition: READING];
+    [lock unlockWithCondition: ConditionReading];
   }
   else {
     // Currently in WRITE state, so will have to wait.
@@ -300,7 +301,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   [mutex unlock];
   
   if (wait) {
-    [lock lockWhenCondition: READING];
+    [lock lockWhenCondition: ConditionReading];
     // We are now allowed to read.
    
     [mutex lock];
@@ -309,7 +310,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
     [mutex unlock];
      
     // Give up lock, allowing other readers to wake up as well.
-    [lock unlockWithCondition: READING];
+    [lock unlockWithCondition: ConditionReading];
   }
 }
 
@@ -318,18 +319,18 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   numReaders--;
   
   if (numReaders == 0) {
-    [lock lockWhenCondition: READING]; // Immediately succeeds.
+    [lock lockWhenCondition: ConditionReading]; // Immediately succeeds.
     
     if (numWaitingReaders > 0) {
       // Although there is no need for waiting readers in the READING state, this can happen if
       // waiting readers are not woken up quickly enough.
-      [lock unlockWithCondition: READING];
+      [lock unlockWithCondition: ConditionReading];
     }
     else if (numWaitingWriters > 0) {
-      [lock unlockWithCondition: WRITING];
+      [lock unlockWithCondition: ConditionWriting];
     }
     else {
-      [lock unlockWithCondition: IDLE];
+      [lock unlockWithCondition: ConditionIdle];
     }
   }
   
@@ -340,7 +341,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   BOOL  wait = NO;
 
   [mutex lock];
-  if ([lock tryLockWhenCondition: IDLE]) {
+  if ([lock tryLockWhenCondition: ConditionIdle]) {
     // Was in IDLE state, start writing
     
     // Note: Not releasing lock, to ensure that no other thread starts reading or writing.
@@ -357,7 +358,7 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   [mutex unlock];
   
   if (wait) {
-    [lock lockWhenCondition: WRITING];
+    [lock lockWhenCondition: ConditionWriting];
     // We are now in the WRITING state.
    
     [mutex lock];
@@ -372,13 +373,13 @@ NSString  *FileItemDeletedHandledEvent = @"fileItemDeletedHandled";
   [mutex lock]; 
 
   if (numWaitingReaders > 0) {
-    [lock unlockWithCondition: READING];
+    [lock unlockWithCondition: ConditionReading];
   }
   else if (numWaitingWriters > 0) {
-    [lock unlockWithCondition: WRITING];
+    [lock unlockWithCondition: ConditionWriting];
   }
   else {
-    [lock unlockWithCondition: IDLE];
+    [lock unlockWithCondition: ConditionIdle];
   }
   
   [mutex unlock];

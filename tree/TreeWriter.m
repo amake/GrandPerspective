@@ -69,26 +69,26 @@ NSString  *DateTimeFormat = @"yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
 #define WRITING_BUFFER_FAILED \
    NSLocalizedString(@"Failed to write entire buffer.", @"Error message")
 
+typedef NS_OPTIONS(NSUInteger, CharacterOptions) {
+  CharAmpersand = 0x01,
+  CharLessThan = 0x02,
+  CharDoubleQuote = 0x04,
+  CharWhitespace = 0x08,
+  // All non-printing ASCII characters (this excludes whitespace)
+  CharNonPrinting = 0x10
+};
 
-#define  CHAR_AMPERSAND     0x01
-#define  CHAR_LESSTHAN      0x02
-#define  CHAR_DOUBLEQUOTE   0x04
-#define  CHAR_WHITESPACE    0x08
-// All non-printing ASCII characters (this excludes whitespace)
-#define  CHAR_NON_PRINTING  0x10
-
-#define  ATTRIBUTE_ESCAPE_CHARS  (CHAR_AMPERSAND | CHAR_LESSTHAN \
-                                  | CHAR_DOUBLEQUOTE | CHAR_WHITESPACE \
-                                  | CHAR_NON_PRINTING)
-#define  CHARDATA_ESCAPE_CHARS   (CHAR_AMPERSAND | CHAR_LESSTHAN \
-                                  | CHAR_NON_PRINTING)
+#define  ATTRIBUTE_ESCAPE_CHARS \
+  (CharAmpersand | CharLessThan | CharDoubleQuote | CharWhitespace | CharNonPrinting)
+#define  CHARDATA_ESCAPE_CHARS \
+  (CharAmpersand | CharLessThan | CharNonPrinting)
 
 
 /* Escapes the string so that it can be used a valid XML attribute value or valid XML character
  * data. The characters that are escaped are specified by a mask, which must reflect the context
  * where the string is to be used.
  */
-NSString *escapedXML(NSString *s, int escapeCharMask) {
+NSString *escapedXML(NSString *s, CharacterOptions escapeCharMask) {
   // Lazily construct buffer. Only use it when needed.
   NSMutableString  *buf = nil;
   
@@ -99,23 +99,23 @@ NSString *escapedXML(NSString *s, int escapeCharMask) {
   for (i = 0; i < numCharsInVal; i++) {
     unichar  c = [s characterAtIndex: i];
     NSString  *r = nil;
-    if (c == '&' && (escapeCharMask & CHAR_AMPERSAND)!=0 ) {
+    if (c == '&' && (escapeCharMask & CharAmpersand) != 0) {
       r = @"&amp;";
     }
-    else if (c == '<' && (escapeCharMask & CHAR_LESSTHAN)!=0 ) {
+    else if (c == '<' && (escapeCharMask & CharLessThan) != 0) {
       r = @"&lt;";
     }
-    else if (c == '"' && (escapeCharMask & CHAR_DOUBLEQUOTE)!=0) {
+    else if (c == '"' && (escapeCharMask & CharDoubleQuote) != 0) {
       r = @"&quot;";
     }
     else if (c < 0x20) {
       if (c == 0x09 || c == 0x0a || c == 0x0d) {
         // White space
-        if ((escapeCharMask & CHAR_WHITESPACE) != 0) {
+        if ((escapeCharMask & CharWhitespace) != 0) {
           r = @" ";
         }
       } else {
-        if ((escapeCharMask & CHAR_NON_PRINTING) != 0) {
+        if ((escapeCharMask & CharNonPrinting) != 0) {
           // Some files can have names with non-printing characters. Just do something to ensure
           // that the XML data can be loaded correctly. However, no attempt is made to enable a
           // reversible transformation. Such names should be discouraged not supported.
