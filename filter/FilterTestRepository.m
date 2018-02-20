@@ -11,9 +11,6 @@
 // The key for storing user tests
 NSString  *UserTestsKey = @"filterTests";
 
-// The old (pre 1.1.1) key for storing user tests (as an array)
-NSString  *UserTestsKey_Array = @"fileItemTests";
-
 // The key for storing application-provided tests
 NSString  *AppTestsKey = @"GPDefaultFilterTests";
 
@@ -22,11 +19,6 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
 
 - (void) addStoredTestsFromDictionary:(NSDictionary *)testDicts
                           toLiveTests:(NSMutableDictionary *)testsByName;
-
-/* Handles reading of tests from old user preferences (pre 1.1.1)
- */
-- (void) addStoredTestsFromArray:(NSArray *)testDicts
-                     toLiveTests:(NSMutableDictionary *)testsByName;
 
 @end
 
@@ -59,8 +51,6 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
     NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
     [self addStoredTestsFromDictionary: [userDefaults dictionaryForKey: UserTestsKey]
                            toLiveTests: initialTestDictionary];
-    [self addStoredTestsFromArray: [userDefaults arrayForKey: UserTestsKey_Array]
-                      toLiveTests: initialTestDictionary];
 
     // Store tests in a NotifyingDictionary
     _testsByName =
@@ -111,8 +101,6 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
   }
     
   [userDefaults setObject: testsDict forKey: UserTestsKey];
-  // Ensure that the old key, which has been superseded, is removed.
-  [userDefaults removeObjectForKey: UserTestsKey_Array];
 
   [userDefaults synchronize];
 }
