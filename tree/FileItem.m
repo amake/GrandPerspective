@@ -84,10 +84,6 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   [super dealloc];
 }
 
-- (DirectoryItem *)parentDirectory {
-  return _parentDirectory;
-}
-
 
 - (FileItem *)duplicateFileItem:(DirectoryItem *)newParent {
   NSAssert(NO, @"-duplicateFileItem: called on (abstract) FileItem.");
