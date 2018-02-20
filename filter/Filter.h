@@ -14,8 +14,6 @@
  * obtained using -createFileItemTestFromRepository:.
  */
 @interface Filter : NSObject {
-  // Array containing FilterTestRefs
-  NSArray  *filterTests;
  }
 
 + (instancetype) filter;

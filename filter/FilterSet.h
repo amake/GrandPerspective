@@ -10,10 +10,6 @@
  * any of its filters.
  */
 @interface FilterSet : NSObject {
-  // Array of NamedFilters
-  NSArray  *filters;
-  
-  FileItemTest  *fileItemTest;
 }
 
 + (instancetype) filterSet;

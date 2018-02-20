@@ -6,10 +6,12 @@
  * disabled when it is not appropriate (given the filter test it represents).
  */
 @interface MutableFilterTestRef : FilterTestRef {
-  // Can the inverted state be changed?
-  BOOL  canToggleInverted;
+  // Using own toggle instead of manipulating private property of parent class
+  BOOL  invertedToggle;
 }
 
+/* Can the inverted state be changed?
+ */
 @property (nonatomic) BOOL canToggleInverted;
 
 - (void) toggleInverted;

@@ -53,15 +53,16 @@ NSString  *AppFiltersKey = @"GPDefaultFilters";
              toLiveFilters: initialFilterDictionary];
 
     // Store filters in a NotifyingDictionary
-    filtersByName = [[NotifyingDictionary alloc] initWithCapacity: 16
-                                                  initialContents: initialFilterDictionary];
+    _filtersByName =
+      (NSDictionary *)[[NotifyingDictionary alloc] initWithCapacity: 16
+                                                    initialContents: initialFilterDictionary];
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [filtersByName release];
+  [_filtersByName release];
   [applicationProvidedFilters release];
 
   [super dealloc];
@@ -69,16 +70,12 @@ NSString  *AppFiltersKey = @"GPDefaultFilters";
 
 
 - (NotifyingDictionary *)filtersByNameAsNotifyingDictionary {
-  return filtersByName;
-}
-
-- (NSDictionary *)filtersByName {
-  return (NSDictionary *)filtersByName;
+  return (NotifyingDictionary *)self.filtersByName;
 }
 
 
 - (Filter *)filterForName:(NSString *)name {
-  return ((NSDictionary *)filtersByName)[name];
+  return self.filtersByName[name];
 }
 
 - (Filter *)applicationProvidedFilterForName:(NSString *)name {
@@ -90,13 +87,13 @@ NSString  *AppFiltersKey = @"GPDefaultFilters";
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
   NSMutableDictionary  *filtersDict = 
-    [NSMutableDictionary dictionaryWithCapacity: ((NSDictionary *)filtersByName).count];
+    [NSMutableDictionary dictionaryWithCapacity: self.filtersByName.count];
 
   NSString  *name;
-  NSEnumerator  *nameEnum = [((NSDictionary *)filtersByName) keyEnumerator];
+  NSEnumerator  *nameEnum = [self.filtersByName keyEnumerator];
   
   while ((name = [nameEnum nextObject]) != nil) {
-    Filter  *filter = ((NSDictionary *)filtersByName)[name];
+    Filter  *filter = self.filtersByName[name];
 
     if (filter != applicationProvidedFilters[name]) {
       filtersDict[name] = [filter dictionaryForObject];

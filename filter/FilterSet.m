@@ -50,9 +50,7 @@
                             testRepository:(FilterTestRepository *)testRepository
                             unboundFilters:(NSMutableArray *)unboundFilters
                               unboundTests:(NSMutableArray *)unboundTests {
-  // Clone to ensure immutability
-  NSArray  *clonedNamedFilters = [NSArray arrayWithArray: namedFilters];
-  return [[[FilterSet alloc] initWithNamedFilters: clonedNamedFilters
+  return [[[FilterSet alloc] initWithNamedFilters: namedFilters
                                  filterRepository: filterRepository
                                    testRepository: testRepository
                                    unboundFilters: unboundFilters
@@ -68,18 +66,19 @@
 
 /* Designated initialiser.
  */
-- (instancetype) initWithNamedFilters:(NSArray *)filtersVal
-               fileItemTest:(FileItemTest *)fileItemTestVal {
+- (instancetype) initWithNamedFilters:(NSArray *)filters
+                         fileItemTest:(FileItemTest *)fileItemTest {
   if (self = [super init]) {
-    filters = [filtersVal retain];
-    fileItemTest = [fileItemTestVal retain];
+    // Copy to ensure immutability
+    _filters = [[filters copy] retain];
+    _fileItemTest = [fileItemTest retain];
   }
   return self;
 }
 
 - (void) dealloc {
-  [filters release];
-  [fileItemTest release];
+  [_filters release];
+  [_fileItemTest release];
   
   [super dealloc];
 }
@@ -97,7 +96,7 @@
                                       testRepository:(FilterTestRepository *)testRepository
                                       unboundFilters:(NSMutableArray *)unboundFilters
                                         unboundTests:(NSMutableArray *)unboundTests {
-  return [[[FilterSet alloc] initWithNamedFilters: filters
+  return [[[FilterSet alloc] initWithNamedFilters: self.filters
                                  filterRepository: filterRepository
                                    testRepository: testRepository
                                    unboundFilters: unboundFilters
@@ -106,46 +105,37 @@
 
 - (FilterSet *)filterSetWithAddedNamedFilter:(NamedFilter *)filter
                                 unboundTests:(NSMutableArray *)unboundTests {
-  NSMutableArray  *newFilters = [NSMutableArray arrayWithCapacity: filters.count+1];
+  NSMutableArray  *newFilters = [NSMutableArray arrayWithCapacity: self.numFilters + 1];
     
-  [newFilters addObjectsFromArray: filters];
+  [newFilters addObjectsFromArray: self.filters];
   [newFilters addObject: filter];
 
   FileItemTest  *testForNewFilter = [[filter filter] createFileItemTestUnboundTests: unboundTests];
 
   // Construct new file item test by combining test for new filter with existing file item test.
   FileItemTest  *newFileItemTest;
-  if (fileItemTest == nil) {
+  if (self.fileItemTest == nil) {
     newFileItemTest = testForNewFilter;
   } else if (testForNewFilter == nil) {
-    newFileItemTest = fileItemTest;
+    newFileItemTest = self.fileItemTest;
   } else {
     newFileItemTest =
-      [[CompoundAndItemTest alloc] initWithSubItemTests: @[fileItemTest, testForNewFilter]];
+      [[CompoundAndItemTest alloc] initWithSubItemTests: @[self.fileItemTest, testForNewFilter]];
   }
 
   return [[[FilterSet alloc] initWithNamedFilters: newFilters
                                      fileItemTest: newFileItemTest] autorelease];
 }
 
-- (FileItemTest *)fileItemTest {
-  return fileItemTest;
-}
-
 
 - (NSUInteger) numFilters {
-  return filters.count;
+  return self.filters.count;
 }
-
-- (NSArray *)filters {
-  return [NSArray arrayWithArray: filters];
-}
-
 
 - (NSString *)description {
   NSMutableString  *descr = [NSMutableString stringWithCapacity: 32];
   
-  NSEnumerator  *filterEnum = [filters objectEnumerator];
+  NSEnumerator  *filterEnum = [self.filters objectEnumerator];
   NamedFilter  *namedFilter;
 
   while (namedFilter = [filterEnum nextObject]) {
@@ -191,9 +181,8 @@
       }
     }
 
-    FileItemTest  *filterTest =
-    [filter createFileItemTestFromRepository: testRepository
-                                unboundTests: unboundTests];
+    FileItemTest  *filterTest = [filter createFileItemTestFromRepository: testRepository
+                                                            unboundTests: unboundTests];
     if (filterTest != nil) {
       [filterTests addObject: filterTest];
     } else {

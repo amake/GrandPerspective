@@ -4,10 +4,6 @@
  * the MutableFilterTestRef subclass are not.
  */
 @interface FilterTestRef : NSObject {
-  NSString  *name;
-
-  // Is the test inverted?
-  BOOL  inverted;
 }
 
 + (id) filterTestWithName:(NSString *)name;

@@ -20,31 +20,23 @@
   return [self initWithFilter: nil name: nil];
 }
 
-- (instancetype) initWithFilter:(Filter *)filterVal name:(NSString *)nameVal {
+- (instancetype) initWithFilter:(Filter *)filter name:(NSString *)name {
   if (self = [super init]) {
-    filter = [filterVal retain];
-    name = [nameVal retain];
+    _filter = [filter retain];
+    _name = [name retain];
   }
   return self;
 }
 
 - (void) dealloc {
-  [filter release];
-  [name release];
+  [_filter release];
+  [_name release];
   
   [super dealloc];
 }
 
-- (Filter *)filter {
-  return filter;
-}
-
-- (NSString *)name {
-  return name;
-}
-
 - (NSString *)localizedName {
-  return [[NSBundle mainBundle] localizedStringForKey: name value: nil table: @"Names"];
+  return [[NSBundle mainBundle] localizedStringForKey: self.name value: nil table: @"Names"];
 }
 
 @end

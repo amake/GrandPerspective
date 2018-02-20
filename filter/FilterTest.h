@@ -4,8 +4,6 @@
 @class FileItemTest;
 
 @interface FilterTest : NSObject {
-  NSString  *name;
-  FileItemTest  *test;
 }
 
 + (instancetype) filterTestWithName:(NSString *)name fileItemTest:(FileItemTest *)test;

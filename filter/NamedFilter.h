@@ -4,8 +4,6 @@
 @class Filter;
 
 @interface NamedFilter : NSObject {
-  Filter  *filter;
-  NSString  *name;
 }
 
 + (NamedFilter *)emptyFilterWithName:(NSString *)name;

@@ -63,15 +63,16 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
                       toLiveTests: initialTestDictionary];
 
     // Store tests in a NotifyingDictionary
-    testsByName = [[NotifyingDictionary alloc] initWithCapacity: 16
-                                                initialContents: initialTestDictionary];
+    _testsByName =
+      (NSDictionary *)[[NotifyingDictionary alloc] initWithCapacity: 16
+                                                    initialContents: initialTestDictionary];
   }
   
   return self;
 }
 
 - (void) dealloc {
-  [testsByName release];
+  [_testsByName release];
   [applicationProvidedTests release];
 
   [super dealloc];
@@ -79,16 +80,12 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
 
 
 - (NotifyingDictionary *)testsByNameAsNotifyingDictionary {
-  return testsByName;
-}
-
-- (NSDictionary *)testsByName {
-  return (NSDictionary *)testsByName;
+  return (NotifyingDictionary *)self.testsByName;
 }
 
 
 - (FileItemTest *)fileItemTestForName:(NSString *)name {
-  return ((NSDictionary *)testsByName)[name];
+  return self.testsByName[name];
 }
 
 - (FileItemTest *)applicationProvidedTestForName:(NSString *)name {
@@ -100,13 +97,13 @@ NSString  *AppTestsKey = @"GPDefaultFilterTests";
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
   NSMutableDictionary  *testsDict = 
-    [NSMutableDictionary dictionaryWithCapacity: ((NSDictionary *)testsByName).count];
+    [NSMutableDictionary dictionaryWithCapacity: self.testsByName.count];
 
   NSString  *name;
-  NSEnumerator  *nameEnum = [((NSDictionary *)testsByName) keyEnumerator];
+  NSEnumerator  *nameEnum = [self.testsByName keyEnumerator];
 
   while ((name = [nameEnum nextObject]) != nil) {
-    FileItemTest  *fileItemTest = ((NSDictionary *)testsByName)[name];
+    FileItemTest  *fileItemTest = self.testsByName[name];
 
     if (fileItemTest != applicationProvidedTests[name]) {
       testsDict[name] = [fileItemTest dictionaryForObject];

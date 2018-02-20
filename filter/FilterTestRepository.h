@@ -4,8 +4,6 @@
 @class FileItemTest;
 
 @interface FilterTestRepository : NSObject {
-  NotifyingDictionary  *testsByName;
-
   // Contains the tests provided by the application.
   NSDictionary  *applicationProvidedTests;
 }

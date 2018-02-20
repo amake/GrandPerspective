@@ -29,33 +29,24 @@
   return [self initWithName: nameVal inverted: NO];
 }
 
-- (instancetype) initWithName:(NSString *)nameVal inverted:(BOOL)invertedVal {
+- (instancetype) initWithName:(NSString *)name inverted:(BOOL)inverted {
   if (self = [super init]) {
-    name = [[NSString alloc] initWithString: nameVal]; // Ensure it's immutable
-    inverted = invertedVal;
+    _name = [[NSString alloc] initWithString: name]; // Ensure it's immutable
+    _inverted = inverted;
   }
 
   return self;
 }
 
 - (void) dealloc {
-  [name release];
+  [_name release];
   
   [super dealloc];
 }
 
 
-- (NSString *) name {
-  return name;
-}
-
-- (BOOL) isInverted {
-  return inverted;
-}
-
-
 - (NSDictionary *)dictionaryForObject {
-  return @{@"inverted": @(inverted), @"name": name};
+  return @{@"inverted": @(self.isInverted), @"name": self.name};
 }
 
 @end // @implementation FilterTestRef

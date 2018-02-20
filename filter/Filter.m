@@ -46,9 +46,10 @@
   return [self initWithFilterTests: [filter filterTests]];
 }
 
-- (instancetype) initWithFilterTests:(NSArray *)filterTestsVal {
+- (instancetype) initWithFilterTests:(NSArray *)filterTests {
   if (self = [super init]) {
-    filterTests = [[NSArray alloc] initWithArray: filterTestsVal];
+    // Copy to ensure immutability
+    _filterTests = [[NSArray alloc] initWithArray: filterTests];
   }
 
   return self;
@@ -56,26 +57,22 @@
 
 
 - (void) dealloc {
-  [filterTests release];
+  [_filterTests release];
 
   [super dealloc];
 }
 
 
 - (NSUInteger) numFilterTests {
-  return filterTests.count;
-}
-
-- (NSArray *)filterTests {
-  return filterTests;
+  return self.filterTests.count;
 }
 
 - (FilterTestRef *)filterTestAtIndex:(NSUInteger)index {
-  return filterTests[index];
+  return self.filterTests[index];
 }
 
 - (FilterTestRef *)filterTestWithName:(NSString *)testName {
-  NSEnumerator  *filterTestEnum = [filterTests objectEnumerator];
+  NSEnumerator  *filterTestEnum = [self.filterTests objectEnumerator];
   FilterTestRef  *filterTest;
 
   while (filterTest = [filterTestEnum nextObject]) {
@@ -87,7 +84,7 @@
 }
 
 - (NSUInteger) indexOfFilterTest:(FilterTestRef *)test {
-  return [filterTests indexOfObject: test];
+  return [self.filterTests indexOfObject: test];
 }
 
 
@@ -99,9 +96,9 @@
 
 - (FileItemTest *)createFileItemTestFromRepository:(FilterTestRepository *)repository
                                       unboundTests:(NSMutableArray *)unboundTests {
-  NSMutableArray  *subTests = [NSMutableArray arrayWithCapacity: filterTests.count];
+  NSMutableArray  *subTests = [NSMutableArray arrayWithCapacity: self.numFilterTests];
 
-  NSEnumerator  *filterTestEnum = [filterTests objectEnumerator];
+  NSEnumerator  *filterTestEnum = [self.filterTests objectEnumerator];
   FilterTestRef  *filterTest;
 
   while (filterTest = [filterTestEnum nextObject]) {
@@ -131,8 +128,8 @@
 }
 
 - (NSDictionary *)dictionaryForObject {
-  NSMutableArray  *storedTests = [NSMutableArray arrayWithCapacity: filterTests.count];
-  NSEnumerator  *testEnum = [filterTests objectEnumerator];
+  NSMutableArray  *storedTests = [NSMutableArray arrayWithCapacity: self.numFilterTests];
+  NSEnumerator  *testEnum = [self.filterTests objectEnumerator];
   FilterTestRef  *testRef;
   while (testRef = [testEnum nextObject]) {
     [storedTests addObject: [testRef dictionaryForObject]];
