@@ -6,9 +6,9 @@
 @interface ItemTypeTest : FileItemTest {
 }
 
-- (instancetype) initWithMatchTargets:(NSArray *)matches;
+- (instancetype) initWithMatchTargets:(NSArray *)matchTargets;
 
-- (instancetype) initWithMatchTargets:(NSArray *)matches
+- (instancetype) initWithMatchTargets:(NSArray *)matchTargets
                                strict:(BOOL)strict NS_DESIGNATED_INITIALIZER;
 - (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict NS_DESIGNATED_INITIALIZER;
 

@@ -10,23 +10,23 @@
 }
 
 
-- (BOOL) testString:(NSString *)string matches:(NSString *)match {
+- (BOOL) testString:(NSString *)string matches:(NSString *)matchTarget {
   NSUInteger  stringLen = string.length;
-  NSUInteger  matchLen = match.length;
+  NSUInteger  matchTargetLen = matchTarget.length;
   
-  if (stringLen < matchLen) {
+  if (stringLen < matchTargetLen) {
     return NO;
   }
   else {
-    return [string compare: match
-                   options: (caseSensitive ? 0 : NSCaseInsensitiveSearch)
-                     range: NSMakeRange( stringLen - matchLen, matchLen)
+    return [string compare: matchTarget
+                   options: (self.isCaseSensitive ? 0 : NSCaseInsensitiveSearch)
+                     range: NSMakeRange(stringLen - matchTargetLen, matchTargetLen)
             ] == NSOrderedSame;
   }
 }
 
 - (NSString *)descriptionFormat {
-  return caseSensitive
+  return self.isCaseSensitive
     ? NSLocalizedStringFromTable(@"%@ enDs with %@", @"Tests",
                                  @"Case-sensitive string test with 1: subject, and 2: match targets")
     : NSLocalizedStringFromTable(@"%@ ends with %@", @"Tests",

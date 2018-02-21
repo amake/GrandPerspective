@@ -10,17 +10,17 @@
 }
 
 
-- (BOOL) testString:(NSString *)string matches:(NSString *)match {
-  if (caseSensitive) {
-    return [string isEqualToString: match];
+- (BOOL) testString:(NSString *)string matches:(NSString *)matchTarget {
+  if (self.isCaseSensitive) {
+    return [string isEqualToString: matchTarget];
   }
   else {
-    return [string caseInsensitiveCompare: match] == NSOrderedSame;
+    return [string caseInsensitiveCompare: matchTarget] == NSOrderedSame;
   }
 }
 
 - (NSString *)descriptionFormat {
-  return caseSensitive
+  return self.isCaseSensitive
     ? NSLocalizedStringFromTable(@"%@ eQuals %@", @"Tests",
                                  @"Case-sensitive string test with 1: subject, and 2: match targets")
     : NSLocalizedStringFromTable(@"%@ equals %@", @"Tests",

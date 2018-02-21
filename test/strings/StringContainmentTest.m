@@ -10,14 +10,14 @@
 }
 
 
-- (BOOL) testString:(NSString *)string matches:(NSString *)match {
-  return [string rangeOfString: match
-                       options: (caseSensitive ? 0 : NSCaseInsensitiveSearch)
-          ].location != NSNotFound;
+- (BOOL) testString:(NSString *)string matches:(NSString *)matchTarget {
+  return [string rangeOfString: matchTarget
+                       options: self.isCaseSensitive ? 0 : NSCaseInsensitiveSearch].location
+            != NSNotFound;
 }
 
 - (NSString *)descriptionFormat {
-  return caseSensitive
+  return self.isCaseSensitive
     ? NSLocalizedStringFromTable(@"%@ conTains %@", @"Tests",
                                  @"Case-sensitive string test with 1: subject, and 2: match targets")
     : NSLocalizedStringFromTable(@"%@ contains %@", @"Tests",

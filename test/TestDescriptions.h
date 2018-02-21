@@ -1,4 +1,4 @@
 #import <Cocoa/Cocoa.h>
 
 
-NSString *descriptionForMatches(NSArray *matches);
+NSString *descriptionForMatchTargets(NSArray *matchTargets);

@@ -9,7 +9,9 @@
 
 @interface ItemTypeTest (PrivateMethods)
 
-@property (nonatomic, readonly, copy) NSArray *matchesAsStrings;
+/* Note, this property constructs a new array on each invocation.
+ */
+@property (nonatomic, readonly, copy) NSArray *matchTargetsAsStrings;
 
 @end
 
@@ -22,14 +24,14 @@
   return [self initWithMatchTargets: nil];
 }
 
-- (instancetype) initWithMatchTargets:(NSArray *)matches {
-  return [self initWithMatchTargets: matches strict: NO];
+- (instancetype) initWithMatchTargets:(NSArray *)matchTargets {
+  return [self initWithMatchTargets: matchTargets strict: NO];
 }
 
-- (instancetype) initWithMatchTargets:(NSArray *)matches strict:(BOOL)strict {
+- (instancetype) initWithMatchTargets:(NSArray *)matchTargets strict:(BOOL)strict {
   if (self = [super init]) {
     // Make the array immutable
-    _matchTargets = [[NSArray alloc] initWithArray: matches];
+    _matchTargets = [[NSArray alloc] initWithArray: matchTargets];
 
     _strict = strict;
   }
@@ -40,14 +42,14 @@
 - (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict {
   if (self = [super initWithPropertiesFromDictionary: dict]) {
     NSArray  *utis = dict[@"matches"];
-    NSUInteger  numMatches = utis.count;
+    NSUInteger  numMatchTargets = utis.count;
 
     UniformTypeInventory  *typeInventory = [UniformTypeInventory defaultUniformTypeInventory];
 
-    NSMutableArray  *tmpMatches = [NSMutableArray arrayWithCapacity: numMatches];
+    NSMutableArray  *tmpMatches = [NSMutableArray arrayWithCapacity: numMatchTargets];
     
     NSUInteger  i = 0;
-    while (i < numMatches) {
+    while (i < numMatchTargets) {
       UniformType  *type = [typeInventory uniformTypeForIdentifier: utis[i]];
         
       if (type != nil) {
@@ -77,7 +79,7 @@
   [super addPropertiesToDictionary: dict];
   
   dict[@"class"] = @"ItemTypeTest";
-  dict[@"matches"] = [self matchesAsStrings];
+  dict[@"matches"] = self.matchTargetsAsStrings;
   dict[@"strict"] = @(self.strict);
 }
 
@@ -112,7 +114,7 @@
 
 
 - (NSString *)description {
-  NSString  *matchesDescr = descriptionForMatches( [self matchesAsStrings] );
+  NSString  *matchTargetsDescr = descriptionForMatchTargets(self.matchTargetsAsStrings);
   NSString  *format = (self.isStrict
                        ? NSLocalizedStringFromTable(
                            @"type equals %@", @"Tests",
@@ -121,7 +123,7 @@
                            @"type conforms to %@", @"Tests",
                            @"Filetype test with 1: match targets"));
   
-  return [NSString stringWithFormat: format, matchesDescr];
+  return [NSString stringWithFormat: format, matchTargetsDescr];
 }
 
 
@@ -137,14 +139,13 @@
 
 @implementation ItemTypeTest (PrivateMethods)
 
-- (NSArray *)matchesAsStrings {
-  NSUInteger  numMatches = self.matchTargets.count;
-  NSMutableArray  *utis = [NSMutableArray arrayWithCapacity: numMatches];
+- (NSArray *)matchTargetsAsStrings {
+  NSUInteger  numMatchTargets = self.matchTargets.count;
+  NSMutableArray  *utis = [NSMutableArray arrayWithCapacity: numMatchTargets];
 
   NSUInteger  i = 0;
-  while (i < numMatches) {
-    [utis addObject: 
-       [((UniformType *)self.matchTargets[i]) uniformTypeIdentifier]];
+  while (i < numMatchTargets) {
+    [utis addObject: ((UniformType *)self.matchTargets[i]).uniformTypeIdentifier];
     i++;
   }
   

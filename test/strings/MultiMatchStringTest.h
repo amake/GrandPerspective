@@ -6,15 +6,11 @@
  * (Abstract) string test with one or more possible matches.
  */
 @interface MultiMatchStringTest : StringTest {
-
-  NSArray  *matches;
-  BOOL  caseSensitive;
-
 }
 
-- (instancetype) initWithMatchTargets:(NSArray *)matches;
-- (instancetype) initWithMatchTargets:(NSArray *)matches
-                        caseSensitive:(BOOL)caseFlag NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithMatchTargets:(NSArray *)matchTargets;
+- (instancetype) initWithMatchTargets:(NSArray *)matchTargets
+                        caseSensitive:(BOOL)caseSensitive NS_DESIGNATED_INITIALIZER;
 - (instancetype) initWithPropertiesFromDictionary:(NSDictionary *)dict NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, readonly, copy) NSArray *matchTargets;

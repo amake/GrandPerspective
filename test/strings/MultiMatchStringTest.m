@@ -7,7 +7,7 @@
 
 /* Not implemented. Needs to be provided by subclass.
  */
-- (BOOL) testString:(NSString *)string matches:(NSString *)match;
+- (BOOL) testString:(NSString *)string matches:(NSString *)matchTarget;
 
 /* Not implemented. Needs to be provided by subclass.
  *
@@ -30,17 +30,17 @@
   return [self initWithMatchTargets: nil];
 }
 
-- (instancetype) initWithMatchTargets:(NSArray *)matchesVal {
-  return [self initWithMatchTargets: matchesVal caseSensitive: YES];
+- (instancetype) initWithMatchTargets:(NSArray *)matchTargets {
+  return [self initWithMatchTargets: matchTargets caseSensitive: YES];
 }
   
-- (instancetype) initWithMatchTargets:(NSArray *)matchesVal caseSensitive:(BOOL)caseFlag {
+- (instancetype) initWithMatchTargets:(NSArray *)matchTargets caseSensitive:(BOOL)caseSensitive {
   if (self = [super init]) {
-    NSAssert([matchesVal count] >= 1, @"There must at least be one possible match.");
+    NSAssert([matchTargets count] >= 1, @"There must at least be one possible match.");
 
     // Make the array immutable
-    matches = [[NSArray alloc] initWithArray: matchesVal];
-    caseSensitive = caseFlag;
+    _matchTargets = [[NSArray alloc] initWithArray: matchTargets];
+    _caseSensitive = caseSensitive;
   }
   
   return self;
@@ -51,16 +51,16 @@
     NSArray  *tmpMatches = dict[@"matches"];
 
     // Make the array immutable
-    matches = [[NSArray alloc] initWithArray: tmpMatches];
+    _matchTargets = [[NSArray alloc] initWithArray: tmpMatches];
 
-    caseSensitive = [dict[@"caseSensitive"] boolValue];
+    _caseSensitive = [dict[@"caseSensitive"] boolValue];
   }
 
   return self;
 }
 
 - (void) dealloc {
-  [matches release];
+  [_matchTargets release];
 
   [super dealloc];
 }
@@ -69,9 +69,9 @@
 - (void) addPropertiesToDictionary:(NSMutableDictionary *)dict {
   [super addPropertiesToDictionary: dict];
   
-  dict[@"matches"] = matches;
+  dict[@"matches"] = self.matchTargets;
   
-  dict[@"caseSensitive"] = @(caseSensitive);
+  dict[@"caseSensitive"] = @(self.isCaseSensitive);
 }
 
 
@@ -84,19 +84,10 @@
 }
 
 
-- (NSArray *)matchTargets {
-  return matches;
-}
-
-- (BOOL) isCaseSensitive {
-  return caseSensitive;
-}
-
-
 - (BOOL) testString:(NSString *)string {
-  NSUInteger  i = matches.count;
+  NSUInteger  i = self.matchTargets.count;
   while (i-- > 0) {
-    if ([self testString: string matches: matches[i]]) {
+    if ([self testString: string matches: self.matchTargets[i]]) {
       return YES;
     }
   }
@@ -109,10 +100,9 @@
   // Note: Whether or not the matching is case-sensitive is not indicated here.
   // This is the responsibility of the descriptionFormat method. 
 
-  NSString  *matchesDescr = descriptionForMatches( matches );
-  NSString  *format = [self descriptionFormat];
-  
-  return [NSString stringWithFormat: format, subject, matchesDescr];
+  NSString  *matchTargetsDescr = descriptionForMatchTargets(self.matchTargets);
+
+  return [NSString stringWithFormat: self.descriptionFormat, subject, matchTargetsDescr];
 }
 
 @end // @implementation MultiMatchStringTest
