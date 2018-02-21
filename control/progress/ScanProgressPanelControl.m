@@ -20,11 +20,11 @@
 }
 
 - (NSString *)pathFromTaskInput:(id)taskInput {
-  return [taskInput path];
+  return ((ScanTaskInput *)taskInput).path;
 }
 
 - (NSDictionary *)progressInfo {
-  return  [((ScanTaskExecutor *)taskExecutor) progressInfo];
+  return  ((ScanTaskExecutor *)taskExecutor).progressInfo;
 }
 
 @end // @implementation ScanProgressPanelControl

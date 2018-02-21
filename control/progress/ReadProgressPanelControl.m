@@ -22,7 +22,7 @@
 }
 
 - (NSDictionary *)progressInfo {
-  return  [((ReadTaskExecutor *)taskExecutor) progressInfo];
+  return  ((ReadTaskExecutor *)taskExecutor).progressInfo;
 }
 
 @end

@@ -21,11 +21,11 @@
 }
 
 - (NSString *)pathFromTaskInput:(id)taskInput {
-  return [[taskInput treeContext] scanTree].path;
+  return ((FilterTaskInput *)taskInput).treeContext.scanTree.path;
 }
 
 - (NSDictionary *)progressInfo {
-  return  [((FilterTaskExecutor *)taskExecutor) progressInfo];
+  return  ((FilterTaskExecutor *)taskExecutor).progressInfo;
 }
 
 @end

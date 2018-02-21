@@ -4,7 +4,6 @@
 
 
 @interface ScanProgressPanelControl : ProgressPanelControl {
-
 }
 
 @end

@@ -4,7 +4,6 @@
 
 
 @interface FilterProgressPanelControl : ProgressPanelControl {
-
 }
 
 @end

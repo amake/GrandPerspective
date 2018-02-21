@@ -8,8 +8,6 @@
   IBOutlet NSTextField  *progressSummary;
   
   NSTimeInterval  refreshRate;
-  NSString  *detailsFormat;
-  NSString  *summaryFormat;
   
   BOOL  taskRunning;
   NSObject <TaskExecutor>  *taskExecutor;

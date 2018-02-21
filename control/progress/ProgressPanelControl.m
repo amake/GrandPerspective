@@ -40,9 +40,6 @@ extern NSString  *EstimatedProgressKey;
       NSLog(@"Invalid value for progressPanelRefreshRate.");
       refreshRate = 1;
     }
-    
-    detailsFormat = [[self progressDetailsFormat] retain];
-    summaryFormat = [[self progressSummaryFormat] retain];
   }
   
   return self;
@@ -51,9 +48,6 @@ extern NSString  *EstimatedProgressKey;
 
 - (void) dealloc {
   [taskExecutor release];
-  
-  [detailsFormat release];
-  [summaryFormat release];
 
   NSAssert(cancelCallback==nil, @"cancelCallback not nil.");
   
@@ -139,13 +133,14 @@ extern NSString  *EstimatedProgressKey;
 
 - (void) updateProgressDetails:(NSString *)currentPath {
   progressDetails.stringValue =
-                     (currentPath != nil)
-                     ? [NSString stringWithFormat: detailsFormat, currentPath]
-                     : @"";
+    (currentPath != nil)
+    ? [NSString stringWithFormat: self.progressDetailsFormat, currentPath]
+    : @"";
 }
 
 - (void) updateProgressSummary:(int)numProcessed {
-  progressSummary.stringValue = [NSString stringWithFormat: summaryFormat, numProcessed];
+  progressSummary.stringValue =
+    [NSString stringWithFormat: self.progressSummaryFormat, numProcessed];
 }
 
 - (void) updateProgressEstimate:(float)progressEstimate {

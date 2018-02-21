@@ -4,7 +4,6 @@
 
 
 @interface WriteProgressPanelControl : ProgressPanelControl {
-
 }
 
 @end
