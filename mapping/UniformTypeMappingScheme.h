@@ -6,9 +6,6 @@
 @class UniformTypeRanking;
 
 @interface UniformTypeMappingScheme : NSObject <FileItemMappingScheme> {
-
-  UniformTypeRanking  *typeRanking;
-
 }
 
 - (instancetype) initWithUniformTypeRanking:(UniformTypeRanking *)typeRanking NS_DESIGNATED_INITIALIZER;

@@ -10,7 +10,8 @@
  */
 @interface StatefulFileItemMapping : NSObject <FileItemMapping> {
 
-  NSObject <FileItemMappingScheme>  *scheme;
+  // Backing field for property defined by FileItemMapping
+  NSObject <FileItemMappingScheme>  *_scheme;
 
 }
 

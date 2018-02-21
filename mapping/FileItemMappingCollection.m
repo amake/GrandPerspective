@@ -43,12 +43,12 @@
   // treeRoot; When package contents are hidden, a stand-in item is used for directory items that
   // are packages.
   
-  FileItem  *fileItem = [item parentDirectory];
-  FileItem  *itemToMatch = [treeRoot parentDirectory];
+  FileItem  *fileItem = item.parentDirectory;
+  FileItem  *itemToMatch = treeRoot.parentDirectory;
   NSUInteger  depth = 0;
   
   while (fileItem != itemToMatch) {
-    fileItem = [fileItem parentDirectory];
+    fileItem = fileItem.parentDirectory;
     depth++;
     
     NSAssert(fileItem != nil, @"Failed to encounter treeRoot");
@@ -85,7 +85,7 @@
 @implementation MappingByExtension
 
 - (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
-  return [item systemPathComponent].pathExtension.hash;
+  return item.systemPathComponent.pathExtension.hash;
 }
 
 @end // @implementation MappingByExtension
@@ -94,7 +94,7 @@
 @implementation MappingByFilename
 
 - (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
-  return [item systemPathComponent].hash;
+  return item.systemPathComponent.hash;
 }
 
 @end // @implementation MappingByFilename
@@ -103,7 +103,7 @@
 @implementation MappingByDirectoryName
 
 - (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
-  return [[item parentDirectory] systemPathComponent].hash;
+  return item.parentDirectory.systemPathComponent.hash;
 }
 
 @end // @implementation MappingByDirectoryName 
@@ -113,35 +113,35 @@
 
 - (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
   if (depth == 0) {
-    return [item label].hash;
+    return item.label.hash;
   }
 
-  DirectoryItem  *dir = [item parentDirectory];
+  DirectoryItem  *dir = item.parentDirectory;
   if (depth > 1) {
     NSUInteger  i = depth - 2;
 
     while (i-- > 0) {
-      dir = [dir parentDirectory];
+      dir = dir.parentDirectory;
     }
   }
 
-  return [dir label].hash;
+  return dir.label.hash;
 }
 
 - (NSUInteger) hashForFileItem:(PlainFileItem *)item inTree:(FileItem *)treeRoot {
   if (item == treeRoot) {
-    return [item label].hash;
+    return item.label.hash;
   }
   
-  DirectoryItem  *dir = [item parentDirectory]; 
+  DirectoryItem  *dir = item.parentDirectory;
   DirectoryItem  *oldDir = dir;
   while (dir != treeRoot) {
     oldDir = dir;
-    dir = [dir parentDirectory];
+    dir = dir.parentDirectory;
     NSAssert(dir != nil, @"Failed to encounter treeRoot");
   }
   
-  return [oldDir label].hash;
+  return oldDir.label.hash;
 }
 
 @end // @implementation MappingByTopDirectoryName 

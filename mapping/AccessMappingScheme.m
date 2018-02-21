@@ -23,7 +23,7 @@
 @implementation MappingByAccess
 
 - (CFAbsoluteTime) timeForFileItem:(FileItem *)fileItem {
-  return [fileItem accessTime];
+  return fileItem.accessTime;
 }
 
 @end // @implementation MappingByAccess

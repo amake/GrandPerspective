@@ -10,23 +10,23 @@
 }
 
 
-- (instancetype) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)schemeVal {
+- (instancetype) initWithFileItemMappingScheme:(NSObject <FileItemMappingScheme> *)scheme {
   if (self = [super init]) {
-    scheme = [schemeVal retain];
+    _scheme = [scheme retain];
   } 
   
   return self;
 }
 
 - (void) dealloc {
-  [scheme release];
+  [_scheme release];
 
   [super dealloc];
 }
 
 
 - (NSObject <FileItemMappingScheme> *)fileItemMappingScheme {
-  return scheme;
+  return _scheme;
 }
 
 

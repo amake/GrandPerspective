@@ -31,9 +31,9 @@
 
 }
 
-- (instancetype) initWithUniformTypeRanking: (UniformTypeRanking *)typeRankingVal {
+- (instancetype) initWithUniformTypeRanking: (UniformTypeRanking *)typeRanking {
   if (self = [super init]) {
-    typeRanking = [typeRankingVal retain];
+    _uniformTypeRanking = [typeRanking retain];
     
     NSNotificationCenter  *nc = [NSNotificationCenter defaultCenter];
 
@@ -49,14 +49,9 @@
 - (void) dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver: self];
   
-  [typeRanking release];
+  [_uniformTypeRanking release];
   
   [super dealloc];
-}
-
-
-- (UniformTypeRanking *)uniformTypeRanking {
-  return typeRanking;
 }
 
 
@@ -109,7 +104,7 @@
 // Implementation of FileItemMapping protocol
 
 - (NSUInteger) hashForFileItem:(PlainFileItem *)item atDepth:(NSUInteger)depth {
-  UniformType  *type = [item uniformType];
+  UniformType  *type = item.uniformType;
   
   if (type == nil) {
     // Unknown type

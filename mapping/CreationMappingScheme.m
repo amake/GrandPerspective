@@ -23,7 +23,7 @@
 @implementation MappingByCreation
 
 - (CFAbsoluteTime) timeForFileItem:(FileItem *)fileItem {
-  return [fileItem creationTime];
+  return fileItem.creationTime;
 }
 
 @end // @implementation MappingByCreation

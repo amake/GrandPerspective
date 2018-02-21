@@ -24,7 +24,7 @@
 @implementation MappingByModification
 
 - (CFAbsoluteTime) timeForFileItem:(FileItem *)fileItem {
-  return [fileItem modificationTime];
+  return fileItem.modificationTime;
 }
 
 @end // @implementation MappingByModification
