@@ -20,9 +20,6 @@
 
   IBOutlet NSTextField  *filterNameField;
 
-  IBOutlet NSTextView  *testDescriptionView;
-  IBOutlet NSDrawer  *testDescriptionDrawer;
-
   IBOutlet NSButton  *okButton;
 
   IBOutlet NSButton  *removeTestFromRepositoryButton;
@@ -50,9 +47,6 @@
 
   NSMutableArray  *filterTests;
   NSMutableArray  *availableTests;
-
-  // Locale-independent name of currently selected test.
-  NSString  *selectedTestName;
   
   // Indicates iff an "okPerformed", "cancelPerformed" or "closePerformed" notification has been
   // fired already.
@@ -74,8 +68,6 @@
 - (IBAction) addTestToFilter:(id)sender;
 - (IBAction) removeTestFromFilter:(id)sender;
 - (IBAction) removeAllTestsFromFilter:(id)sender;
-
-- (IBAction) showTestDescriptionChanged:(id)sender;
 
 - (IBAction) testDoubleClicked:(id)sender;
 

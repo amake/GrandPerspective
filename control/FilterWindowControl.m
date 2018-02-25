@@ -39,7 +39,6 @@ NSString  *MatchColumn = @"match";
 
 - (void) testAddedToRepository:(NSNotification *)notification;
 - (void) testRemovedFromRepository:(NSNotification *)notification;
-- (void) testUpdatedInRepository:(NSNotification *)notification;
 - (void) testRenamedInRepository:(NSNotification *)notification;
 
 - (void) updateWindowState:(NSNotification *)notification;
@@ -96,10 +95,6 @@ NSString  *MatchColumn = @"match";
                name: ObjectRemovedEvent
              object: repositoryTestsByName];
     [nc addObserver: self
-           selector: @selector(testUpdatedInRepository:)
-               name: ObjectUpdatedEvent
-             object: repositoryTestsByName];
-    [nc addObserver: self
            selector: @selector(testRenamedInRepository:)
                name: ObjectRenamedEvent
              object: repositoryTestsByName];
@@ -136,9 +131,7 @@ NSString  *MatchColumn = @"match";
   
   [nameValidator release];
   [invalidName release];
-  
-  [selectedTestName release];
-  
+
   [super dealloc];
 }
 
@@ -354,16 +347,6 @@ NSString  *MatchColumn = @"match";
   [self updateWindowState: nil];
 }
 
-- (IBAction) showTestDescriptionChanged:(id)sender {
-  NSButton  *button = sender;
-  if (button.state == NSOffState) {
-    [testDescriptionDrawer close];
-  }
-  else if (button.state == NSOnState) {
-    [testDescriptionDrawer open];
-  }
-}
-
 - (IBAction) testDoubleClicked:(id)sender {
   MutableFilterTestRef  *filterTest = [self selectedFilterTest];
   if (filterTest != nil && [filterTest canToggleInverted]) {
@@ -426,6 +409,29 @@ NSString  *MatchColumn = @"match";
     NSString  *name = availableTests[row];
 
     [cell setEnabled: [self indexOfTestInFilterNamed: name] == NSNotFound];
+  }
+}
+
+- (NSString *)tableView:(NSTableView *)tableView
+         toolTipForCell:(NSCell *)cell
+                   rect:(NSRectPointer)rect
+            tableColumn:(NSTableColumn *)tableColumn
+                    row:(NSInteger)row
+          mouseLocation:(NSPoint)mouseLocation {
+  NSString  *name = nil;
+  if (tableView == filterTestsView) {
+    name = ((MutableFilterTestRef *)filterTests[row]).name;
+  }
+  else if (tableView == availableTestsView) {
+    name = availableTests[row];
+  }
+
+  if (name != nil) {
+    FileItemTest  *selectedTest = [testRepository testsByName][name];
+    return selectedTest.description;
+  }
+  else {
+    return nil;
   }
 }
 
@@ -626,19 +632,6 @@ NSString  *MatchColumn = @"match";
 }
 
 
-- (void) testUpdatedInRepository:(NSNotification *)notification {
-  NSString  *testName = notification.userInfo[@"key"];
-
-  if ([selectedTestName isEqualToString: testName]) {
-    // Invalidate the selected test description text (as it may have changed).
-    [selectedTestName release];
-    selectedTestName = nil;
-  }
-  
-  [self updateWindowState: nil];
-}
-
-
 - (void) testRenamedInRepository:(NSNotification *)notification {
   NSString  *oldTestName = notification.userInfo[@"oldkey"];
   NSString  *newTestName = notification.userInfo[@"newkey"];
@@ -701,48 +694,33 @@ NSString  *MatchColumn = @"match";
   BOOL  availableTestsHighlighted = ( firstResponder == availableTestsView );
 
   // Find out which test (if any) is currently highlighted.
-  NSString  *newSelectedTestName = nil;
+  NSString  *selectedTestName = nil;
 
   if (filterTestsHighlighted) {
-    newSelectedTestName = [selectedFilterTest name];
+    selectedTestName = [selectedFilterTest name];
   }
   else if (availableTestsHighlighted) {
-    newSelectedTestName = selectedAvailableTestName;
+    selectedTestName = selectedAvailableTestName;
   }
   
-  FileItemTest  *newSelectedTest = [testRepository testsByName][newSelectedTestName];
+  FileItemTest  *selectedTest = [testRepository testsByName][selectedTestName];
 
-  // If highlighted test changed, update the description text view
-  if (newSelectedTestName != selectedTestName) { 
-    [selectedTestName release];
-    selectedTestName = [newSelectedTestName retain];
-
-    if (newSelectedTest != nil) {
-      testDescriptionView.string = newSelectedTest.description;
-    }
-    else {
-      testDescriptionView.string = @"";
-    }
-  }
-  
   // Update enabled status of buttons with context-dependent actions.
-  BOOL  availableTestHighlighted =
-          ( selectedAvailableTestName != nil && availableTestsHighlighted );
+  BOOL  availableTestHighlighted = selectedAvailableTestName != nil && availableTestsHighlighted;
 
   editTestInRepositoryButton.enabled = availableTestHighlighted;
-  // Cannot remove an application-provided tess (it would automatically re-appear anyway).
-  removeTestFromRepositoryButton.enabled =
-    (availableTestHighlighted &&
-      (newSelectedTest != [testRepository applicationProvidedTestForName: 
-                                            selectedAvailableTestName]));
+  // Cannot remove an application-provided test (it would automatically re-appear anyway).
+  removeTestFromRepositoryButton.enabled = (
+    availableTestHighlighted &&
+    selectedTest != [testRepository applicationProvidedTestForName: selectedAvailableTestName]
+  );
 
   addTestToFilterButton.enabled = availableTestHighlighted;
   removeTestFromFilterButton.enabled = selectedFilterTest != nil && filterTestsHighlighted;
 
-  BOOL  nonEmptyFilter = (filterTests.count > 0);
+  BOOL  nonEmptyFilter = filterTests.count > 0;
 
   removeAllTestsFromFilterButton.enabled = nonEmptyFilter;
-  
   okButton.enabled = (nonEmptyFilter || allowEmptyFilter) && ![self isNameKnownInvalid];
 }
 
