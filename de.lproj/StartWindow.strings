@@ -1,0 +1,27 @@
+/* Class = "NSButtonCell"; title = "Scan Other Folder"; ObjectID = "Cd8-ae-UVZ"; */
+"Cd8-ae-UVZ.title" = "Scanne anderes Verzeichnis";
+
+/* Class = "NSButtonCell"; title = "Help"; ObjectID = "JEp-c0-ZgQ"; */
+"JEp-c0-ZgQ.title" = "Hilfe";
+
+/* Class = "NSTextFieldCell"; title = "or"; ObjectID = "NMl-pA-jdd"; */
+"NMl-pA-jdd.title" = "oder";
+
+/* Class = "NSWindow"; title = "Welcome"; ObjectID = "QvC-M9-y7g"; */
+"QvC-M9-y7g.title" = "Willkommen";
+
+/* Class = "NSTextFieldCell"; title = "Path"; ObjectID = "UhX-F8-bW1"; */
+"UhX-F8-bW1.title" = "Pfad";
+
+/* Class = "NSTextFieldCell"; title = "Repeat a recent scan"; ObjectID = "aI9-me-id8"; */
+"aI9-me-id8.title" = "Wiederhole einen vorhergehenden Scan";
+
+/* Class = "NSTextFieldCell"; placeholderString = "Foldername"; ObjectID = "duM-ug-7fu"; */
+"duM-ug-7fu.placeholderString" = "Verzeichnisname";
+
+/* Class = "NSTextFieldCell"; title = "Folder"; ObjectID = "duM-ug-7fu"; */
+"duM-ug-7fu.title" = "Verzeichnis";
+
+/* Class = "NSTextFieldCell"; title = "graphically shows your disk usage"; ObjectID = "lT6-9A-q8Z"; */
+"lT6-9A-q8Z.title" = "Grafische Anzeige der Festplattennutzung";
+

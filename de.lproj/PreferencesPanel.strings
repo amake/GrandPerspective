@@ -1,0 +1,54 @@
+/* Class = "NSWindow"; title = "Preferences"; ObjectID = "6"; */
+"6.title" = "Voreinstellungen";
+
+/* Class = "NSBox"; title = "Display"; ObjectID = "29"; */
+"29.title" = "Anzeige";
+
+/* Class = "NSBox"; title = "Info"; ObjectID = "57"; */
+"57.title" = "Info";
+
+/* Class = "NSBox"; title = "Actions"; ObjectID = "72"; */
+"72.title" = "Aktionen";
+
+/* Class = "NSMenuItem"; title = "Files and folders"; ObjectID = "78"; */
+"78.title" = "Dateien und Verzeichnisse";
+
+/* Class = "NSMenuItem"; title = "Close old window"; ObjectID = "153"; */
+"153.title" = "Schließe altes Fenster";
+
+/* Class = "NSTextFieldCell"; title = "Palette:"; ObjectID = "167"; */
+"167.title" = "Farbpalette:";
+
+/* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "171"; */
+"171.title" = "Zeige Inhalt von Package Dateien";
+
+/* Class = "NSTextFieldCell"; title = "Color by:"; ObjectID = "172"; */
+"172.title" = "Farbanzeige in Bezug zu:";
+
+/* Class = "NSTextFieldCell"; title = "File size measure:"; ObjectID = "174"; */
+"174.title" = "Dateigrößeneinheit:";
+
+/* Class = "NSButtonCell"; title = "Always require confirmation"; ObjectID = "176"; */
+"176.title" = "Immer um Erlaubnis fragen";
+
+/* Class = "NSTextFieldCell"; title = "Enable deletion of:"; ObjectID = "177"; */
+"177.title" = "Erlaube löschen von:";
+
+/* Class = "NSTextFieldCell"; title = "After full rescan:"; ObjectID = "178"; */
+"178.title" = "Nach vollem Rescan:";
+
+/* Class = "NSTextFieldCell"; title = "Filter:"; ObjectID = "181"; */
+"181.title" = "Filter:";
+
+/* Class = "NSTextFieldCell"; title = "Rescan action:"; ObjectID = "189"; */
+"189.title" = "Rescan Aktion:";
+
+/* Class = "NSMenuItem"; title = "Rescan folder in view"; ObjectID = "193"; */
+"193.title" = "Neuer Scan im gleicher Ansicht";
+
+/* Class = "NSButtonCell"; title = "Show entire volume"; ObjectID = "199"; */
+"199.title" = "Zeige verbleibendes Restgröße";
+
+/* Class = "NSTextFieldCell"; title = "File size unit system:"; ObjectID = "214"; */
+"214.title" = "Datei Größeneinheit:";
+

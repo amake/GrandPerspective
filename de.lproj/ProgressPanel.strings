@@ -1,0 +1,9 @@
+/* Class = "NSWindow"; title = "Task in progress"; ObjectID = "6"; */
+"6.title" = "Aufgabe noch in Arbeit";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "29"; */
+"29.title" = "Abbrechen";
+
+/* Class = "NSTextFieldCell"; title = "Execution summary"; ObjectID = "30"; */
+"30.title" = "Zusammenfassung Ausführung";
+

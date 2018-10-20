@@ -1,0 +1,75 @@
+/* Toolbar action */
+"Delete" = "Entfernen";
+
+/* Toolbar action */
+"Drawer" = "Slider";
+
+/* Label for focus controls */
+"Focus" = "Auswahl";
+
+/* Menu item */
+"Hide Toolbar" = "Toolbar ausblenden";
+
+/* Toolbar action */
+"Move focus down" = "Auswahl verkleinern";
+
+/* Toolbar action */
+"Move focus up" = "Auswahl vergrößern";
+
+/* Tooltip */
+"Move to trash" = "In Papierkorb verschieben";
+
+/* Toolbar action */
+"Open" = "Öffne";
+
+/* Tooltip */
+"Open with Finder" = "Öffne im Finder";
+
+/* Tooltip */
+"Open/close drawer" = "Öffne/Schließe Slider";
+
+/* Tooltip */
+"Preview item in Quick Look panel" = "Öffne im Schnellvorschaumodus";
+
+/* Toolbar action */
+"Quick Look" = "Schnellvorschau";
+
+/* Toolbar action */
+"Rescan" = "Wiederhole Scan";
+
+/* Toolbar action */
+"Rescan all" = "Wiederhole alle Scans";
+
+/* Toolbar action */
+"Rescan folder in view" = "Wiederhole Scan in aktueller Ansicht";
+
+/* Toolbar action */
+"Rescan selected" = "Wiederhole ausgewählten Scan";
+
+/* Tooltip */
+"Rescan view data" = "Wiederhole Ansicht Datei";
+
+/* Toolbar action */
+"Reset focus" = "Resete Auswahl";
+
+/* Toolbar action */
+"Reset zoom" = "Resete Zoom";
+
+/* Toolbar action */
+"Reveal" = "Zeige";
+
+/* Tooltip */
+"Reveal in Finder" = "Zeige im Finder";
+
+/* Menu item */
+"Show Toolbar" = "Toolbar einblenden";
+
+/* Label for zooming controls */
+"Zoom" = "Zoom";
+
+/* Toolbar action */
+"Zoom in" = "Zoom vergrößern";
+
+/* Toolbar action */
+"Zoom out" = "Zoom verkleinern";
+
