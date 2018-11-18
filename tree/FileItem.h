@@ -18,7 +18,7 @@ typedef NS_OPTIONS(UInt8, FileItemOptions) {
 
 @interface FileItem : Item {
   // Cannot synthesize weak properties apparently
-  DirectoryItem *_parentDirectory;
+  __weak DirectoryItem *_parentDirectory;
 }
 
 /* The supported values for the fileSizeUnitSystem preference. These affect how the file size
