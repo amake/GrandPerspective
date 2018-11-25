@@ -24,6 +24,11 @@ extern NSString  *PhysicalFileSize;
   NSString  *fileSizeMeasure;
   BOOL  useLogicalFileSize;
 
+  // In case logical file sizes are used, tracks total physical size.
+  ITEM_SIZE  totalPhysicalSize;
+  // In case logical file sizes are used, tracks how many files are actually smaller than reported.
+  int  numOverestimatedFiles;
+
   BOOL  abort;
   FilteredTreeGuide  *treeGuide;
   TreeBalancer  *treeBalancer;
@@ -64,5 +69,9 @@ extern NSString  *PhysicalFileSize;
  * (and not doing so would actually be quite silly).
  */
 @property (nonatomic, readonly, copy) NSDictionary *progressInfo;
+
+/* An alert in case a warning should be shown to the user regarding the scan results.
+ */
+@property (nonatomic, readonly, strong) NSAlert *informativeAlert;
 
 @end

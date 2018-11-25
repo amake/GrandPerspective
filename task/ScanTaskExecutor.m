@@ -2,6 +2,7 @@
 
 #import "TreeBuilder.h"
 #import "ScanTaskInput.h"
+#import "ScanTaskOutput.h"
 #import "ProgressTracker.h"
 
 
@@ -41,9 +42,9 @@
   
   NSDate  *startTime = [NSDate date];
   
-  TreeContext*  scanResult = [treeBuilder buildTreeForPath: [myInput path]];
+  TreeContext*  scanTree = [treeBuilder buildTreeForPath: [myInput path]];
   
-  if (scanResult != nil) {
+  if (scanTree != nil) {
     NSLog(@"Done scanning: %d folders scanned (%d skipped) in %.2fs.",
             [[self progressInfo][NumFoldersProcessedKey] intValue],
             [[self progressInfo][NumFoldersSkippedKey] intValue],
@@ -52,6 +53,9 @@
   else {
     NSLog(@"Scanning aborted.");
   }
+
+  ScanTaskOutput  *scanResult =
+    [ScanTaskOutput scanTaskOutput: scanTree alert: [treeBuilder informativeAlert]];
   
   [taskLock lock];
   [treeBuilder release];

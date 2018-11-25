@@ -789,6 +789,13 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   return fileDeletionTargetNames;
 }
 
+- (void) showInformativeAlert:(NSAlert *)alert {
+  [alert beginSheetModalForWindow: self.window
+                    modalDelegate: self
+                   didEndSelector: @selector(informativeAlertDidEnd:returnCode:contextInfo:)
+                      contextInfo: nil];
+}
+
 #pragma mark - Quick Look panel support
 
 - (BOOL)acceptsPreviewPanelControl:(QLPreviewPanel *)panel {

@@ -159,4 +159,6 @@ extern NSString  *DeleteFilesAndFolders;
 
 + (NSArray *)fileDeletionTargetNames;
 
+- (void) showInformativeAlert:(NSAlert *)alert;
+
 @end

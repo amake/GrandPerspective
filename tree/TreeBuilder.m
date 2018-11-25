@@ -10,6 +10,7 @@
 #import "FilteredTreeGuide.h"
 #import "TreeBalancer.h"
 #import "NSURL.h"
+#import "ControlConstants.h"
 
 #import "ScanProgressTracker.h"
 #import "UniformTypeInventory.h"
@@ -51,6 +52,12 @@ NSString  *PhysicalFileSize = @"physical";
 
 @end // @interface ScanStackFrame
 
+@interface TreeBuilder ()
+
+// Re-declare to allow writing internally
+@property (nonatomic, readwrite, strong) NSAlert *informativeAlert;
+
+@end
 
 @interface TreeBuilder (PrivateMethods)
 
@@ -63,6 +70,8 @@ NSString  *PhysicalFileSize = @"physical";
 - (BOOL) visitHardLinkedItemAtURL:(NSURL *)url;
 
 - (int) determineNumSubFoldersFor:(NSURL *)url;
+
+- (NSAlert *)createInformativeAlert:(DirectoryItem *)scanTree;
 
 @end // @interface TreeBuilder (PrivateMethods)
 
@@ -163,6 +172,8 @@ NSString  *PhysicalFileSize = @"physical";
     
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
     debugLogEnabled = [args boolForKey: @"logAll"] || [args boolForKey: @"logScanning"];
+
+    _informativeAlert = nil;
   }
   return self;
 }
@@ -181,6 +192,8 @@ NSString  *PhysicalFileSize = @"physical";
   [progressTracker release];
   
   [dirStack release];
+
+  [_informativeAlert release];
   
   [super dealloc];
 }
@@ -253,6 +266,11 @@ NSString  *PhysicalFileSize = @"physical";
     flags |= FileItemIsHardlinked;
   }
 
+  totalPhysicalSize = 0;
+  numOverestimatedFiles = 0;
+  [_informativeAlert release];
+  _informativeAlert = nil;
+
   DirectoryItem  *scanTree = [ScanTreeRoot allocWithZone: [Item zoneForTree]];
   [[scanTree initWithLabel: relativePath
                     parent: [treeContext scanTreeParent]
@@ -271,9 +289,10 @@ NSString  *PhysicalFileSize = @"physical";
   if (! ok) {
     return nil;
   }
-  
+
   [treeContext setScanTree: scanTree];
-  
+  _informativeAlert = [[self createInformativeAlert: scanTree] retain];
+
   return treeContext;
 }
 
@@ -419,9 +438,12 @@ NSString  *PhysicalFileSize = @"physical";
       [url getResourceValue: &logicalFileSize forKey: NSURLTotalFileSizeKey error: nil];
 
       fileSize = logicalFileSize.unsignedLongLongValue;
+      totalPhysicalSize += physicalFileSize.unsignedLongLongValue;
+
       if (fileSize > physicalFileSize.unsignedLongLongValue) {
         NSLog(@"Warning: logical file size larger than physical file size for %@ (%llu > %llu)",
               url, fileSize, physicalFileSize.unsignedLongLongValue);
+        numOverestimatedFiles++;
       }
     }
     else {
@@ -552,6 +574,39 @@ NSString  *PhysicalFileSize = @"physical";
   }
 
   return numSubDirs;
+}
+
+- (NSAlert *)createInformativeAlert:(DirectoryItem *)scanTree {
+  NSAlert *alert = nil;
+  if (useLogicalFileSize) {
+    if ([scanTree itemSize] > totalPhysicalSize) {
+      alert = [[[NSAlert alloc] init] autorelease];
+
+      alert.messageText = NSLocalizedString
+        (@"The reported total size is larger than the actual size on disk", @"Alert message");
+      NSString *fmt = NSLocalizedString
+        (@"The actual (physical) size is %.1f%% of the reported (logical) size. Consider rescanning using the Physical file size measure",
+         @"Alert message");
+      float percentage = (100.0 * totalPhysicalSize) / [scanTree itemSize];
+      [alert setInformativeText: [NSString stringWithFormat: fmt, percentage]];
+    } else if (numOverestimatedFiles > 0) {
+      alert = [[[NSAlert alloc] init] autorelease];
+
+      alert.messageText = NSLocalizedString
+        (@"The reported size of some files is larger than their actual size on disk",
+         @"Alert message");
+      NSString *fmt = NSLocalizedString
+        (@"For %d files the reported (logical) size is larger than their actual (physical) size. Consider rescanning using the Physical file size measure",
+         @"Alert message");
+      [alert setInformativeText: [NSString stringWithFormat: fmt, numOverestimatedFiles]];
+    }
+  }
+
+  if (alert) {
+    [alert addButtonWithTitle: OK_BUTTON_TITLE];
+  }
+
+  return alert;
 }
 
 @end // @implementation TreeBuilder (PrivateMethods)

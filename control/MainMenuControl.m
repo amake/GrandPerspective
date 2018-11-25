@@ -27,6 +27,7 @@
 #import "VisibleAsynchronousTaskManager.h"
 #import "ScanProgressPanelControl.h"
 #import "ScanTaskInput.h"
+#import "ScanTaskOutput.h"
 #import "ScanTaskExecutor.h"
 #import "FilterProgressPanelControl.h"
 #import "FilterTaskInput.h"
@@ -88,9 +89,12 @@ NSString  *RescanVisible = @"rescan visible";
 
 - (instancetype) initWithWindowManager:(WindowManager *)windowManager NS_DESIGNATED_INITIALIZER;
 
-- (void) createWindowForTree:(TreeContext *)treeContext;
-- (void) createWindowForAnnotatedTree:(AnnotatedTreeContext *)annTreeContext;
+// Various callback entry points
+- (DirectoryViewControl *)createWindowForScanResult:(ScanTaskOutput *)scanResult;
+- (DirectoryViewControl *)createWindowForTree:(TreeContext *)treeContext;
+- (DirectoryViewControl *)createWindowForAnnotatedTree:(AnnotatedTreeContext *)annTreeContext;
 
+// Factory helper method to create DirectoryViewControl instance. Designed to be overridden.
 - (DirectoryViewControl *)createDirectoryViewControlForAnnotatedTree: 
                             (AnnotatedTreeContext *)annTreeContext;
 
@@ -728,7 +732,7 @@ static MainMenuControl  *singletonInstance = nil;
   windowCreator.addToRecentScans = YES;
   [scanTaskManager asynchronouslyRunTaskWithInput: input
                                          callback: windowCreator
-                                         selector: @selector(createWindowForTree:)];
+                                         selector: @selector(createWindowForScanResult:)];
 }
 
 /* Used to implement various Rescan commands. The new view is derived from the
@@ -766,7 +770,7 @@ static MainMenuControl  *singletonInstance = nil;
     
   [scanTaskManager asynchronouslyRunTaskWithInput: input
                                          callback: windowCreator
-                                         selector: @selector(createWindowForTree:)];
+                                         selector: @selector(createWindowForScanResult:)];
 }
 
 
@@ -1042,14 +1046,23 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-- (void) createWindowForTree:(TreeContext *)treeContext {
-  [self createWindowForAnnotatedTree: [AnnotatedTreeContext annotatedTreeContext: treeContext]];
+- (DirectoryViewControl *)createWindowForScanResult:(ScanTaskOutput *)scanResult {
+  DirectoryViewControl *control = [self createWindowForTree: [scanResult treeContext]];
+  if ([scanResult alert]) {
+    [control showInformativeAlert: [scanResult alert]];
+  }
+  return control;
 }
 
-- (void) createWindowForAnnotatedTree:(AnnotatedTreeContext *)annTreeContext {
+- (DirectoryViewControl *)createWindowForTree:(TreeContext *)treeContext {
+  return
+    [self createWindowForAnnotatedTree: [AnnotatedTreeContext annotatedTreeContext: treeContext]];
+}
+
+- (DirectoryViewControl *)createWindowForAnnotatedTree:(AnnotatedTreeContext *)annTreeContext {
   if (annTreeContext == nil) {
     // Reading failed or cancelled. Don't create a window.
-    return;
+    return nil;
   }
   
   if (self.addToRecentScans) {
@@ -1067,10 +1080,12 @@ static MainMenuControl  *singletonInstance = nil;
   
   // Force loading (and showing) of the window.
   [windowManager addWindow: dirViewControl.window usingTitle: title];
+
+  return dirViewControl;
 }
 
-- (DirectoryViewControl *) createDirectoryViewControlForAnnotatedTree:
-                             (AnnotatedTreeContext *)annTreeContext {
+- (DirectoryViewControl *)createDirectoryViewControlForAnnotatedTree:
+                            (AnnotatedTreeContext *)annTreeContext {
   return [[[DirectoryViewControl alloc] initWithAnnotatedTreeContext: annTreeContext] autorelease];
 }
 

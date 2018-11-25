@@ -139,6 +139,7 @@
 		AAA8724C111492E600ED5112 /* ScanTreeRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA8724B111492E600ED5112 /* ScanTreeRoot.m */; };
 		AAAB9A700EF3D38F00B3C482 /* RevealInFinder.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAB9A6E0EF3D38F00B3C482 /* RevealInFinder.png */; };
 		AAAB9A710EF3D38F00B3C482 /* OpenWithFinder.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAB9A6F0EF3D38F00B3C482 /* OpenWithFinder.png */; };
+		AAAEEEA521AAE3C800B7C024 /* ScanTaskOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAEEEA421AAE3C800B7C024 /* ScanTaskOutput.m */; };
 		AAB52EBB0E4F8DFE00BF7B20 /* ObjectPool.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB52EBA0E4F8DFE00BF7B20 /* ObjectPool.m */; };
 		AAB52EC30E520E7A00BF7B20 /* MutableArrayPool.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB52EC20E520E7A00BF7B20 /* MutableArrayPool.m */; };
 		AAC26BC10A8CAF4800F2DA33 /* DrawTaskExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BB30A8CAF4800F2DA33 /* DrawTaskExecutor.m */; };
@@ -454,6 +455,8 @@
 		AAAB9A3E0EF3C25A00B3C482 /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Toolbar.strings; sourceTree = "<group>"; };
 		AAAB9A6E0EF3D38F00B3C482 /* RevealInFinder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RevealInFinder.png; path = Images/RevealInFinder.png; sourceTree = "<group>"; };
 		AAAB9A6F0EF3D38F00B3C482 /* OpenWithFinder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OpenWithFinder.png; path = Images/OpenWithFinder.png; sourceTree = "<group>"; };
+		AAAEEEA321AAE3C800B7C024 /* ScanTaskOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScanTaskOutput.h; path = task/ScanTaskOutput.h; sourceTree = "<group>"; };
+		AAAEEEA421AAE3C800B7C024 /* ScanTaskOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScanTaskOutput.m; path = task/ScanTaskOutput.m; sourceTree = "<group>"; };
 		AAB52EB90E4F8DFE00BF7B20 /* ObjectPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectPool.h; path = util/ObjectPool.h; sourceTree = "<group>"; };
 		AAB52EBA0E4F8DFE00BF7B20 /* ObjectPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectPool.m; path = util/ObjectPool.m; sourceTree = "<group>"; };
 		AAB52EC10E520E7A00BF7B20 /* MutableArrayPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MutableArrayPool.h; path = util/MutableArrayPool.h; sourceTree = "<group>"; };
@@ -972,6 +975,8 @@
 				AAC26BBF0A8CAF4800F2DA33 /* ScanTaskExecutor.m */,
 				AA8FEA0A0B6BFBB40049FF42 /* ScanTaskInput.h */,
 				AA8FEA0B0B6BFBB40049FF42 /* ScanTaskInput.m */,
+				AAAEEEA321AAE3C800B7C024 /* ScanTaskOutput.h */,
+				AAAEEEA421AAE3C800B7C024 /* ScanTaskOutput.m */,
 				AA7A7F0F0E4F342100EB366E /* ReadTaskExecutor.h */,
 				AA7A7F100E4F342100EB366E /* ReadTaskExecutor.m */,
 				AA7A7F0B0E4F339D00EB366E /* ReadTaskInput.h */,
@@ -1219,6 +1224,7 @@
 				AA0CDE711544995C0018D583 /* TimeBasedMapping.m in Sources */,
 				AA0CDE7415487FF60018D583 /* CreationMappingScheme.m in Sources */,
 				AA0CDE77154882BF0018D583 /* ModificationMappingScheme.m in Sources */,
+				AAAEEEA521AAE3C800B7C024 /* ScanTaskOutput.m in Sources */,
 				AA5FE4D8154D56DC0050856C /* AccessMappingScheme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
