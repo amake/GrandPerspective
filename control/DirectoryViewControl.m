@@ -35,6 +35,9 @@ NSString  *DeleteNothing = @"delete nothing";
 NSString  *OnlyDeleteFiles = @"only delete files";
 NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
+NSString  *ViewWillOpenEvent = @"viewWillOpen";
+NSString  *ViewWillCloseEvent = @"viewWillClose";
+
 
 #define NOTE_IT_MAY_NOT_EXIST_ANYMORE \
   NSLocalizedString(\
@@ -445,6 +448,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
   
   [self.window makeFirstResponder: mainView];
   [self.window makeKeyAndOrderFront: self];
+
+  [nc postNotificationName: ViewWillOpenEvent object: self];
   
   [initialSettings release];
   initialSettings = nil;
@@ -475,6 +480,8 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 
 // Invoked because the controller is the delegate for the window.
 - (void) windowWillClose:(NSNotification *)notification {
+  [[NSNotificationCenter defaultCenter]
+   postNotificationName: ViewWillCloseEvent object: self];
   [self autorelease];
 }
 

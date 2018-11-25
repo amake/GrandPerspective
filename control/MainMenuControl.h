@@ -20,7 +20,9 @@
   FiltersWindowControl  *filtersWindowControl;
   UniformTypeRankingWindowControl  *uniformTypeWindowControl;
   
-  BOOL  showWelcomeWindowAfterLaunch;
+  BOOL  showWelcomeWindow;
+  // The number of open directory view windows
+  int  viewCount;
 }
 
 + (MainMenuControl *)singletonInstance;

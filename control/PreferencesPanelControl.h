@@ -6,6 +6,7 @@ extern NSString  *ConfirmFileDeletionKey;
 extern NSString  *ConfirmFolderDeletionKey;
 extern NSString  *DefaultRescanActionKey;
 extern NSString  *RescanBehaviourKey;
+extern NSString  *ActionAfterClosingLastViewKey;
 extern NSString  *FileSizeMeasureKey;
 extern NSString  *FileSizeUnitSystemKey;
 extern NSString  *DefaultColorMappingKey;

@@ -1,10 +1,13 @@
 #import <Cocoa/Cocoa.h>
 
-
+// Deletion options
 extern NSString  *DeleteNothing;
 extern NSString  *OnlyDeleteFiles;
 extern NSString  *DeleteFilesAndFolders;
 
+// Notifications when opening and closing views
+extern NSString  *ViewWillOpenEvent;
+extern NSString  *ViewWillCloseEvent;
 
 @class DirectoryItem;
 @class DirectoryView;

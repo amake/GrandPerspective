@@ -50,12 +50,19 @@
 
 #import "NSURL.h"
 
+// Possible behaviors after performing a rescan
 NSString  *RescanClosesOldWindow = @"close old window";
 NSString  *RescanKeepsOldWindow = @"keep old window";
 NSString  *RescanReusesOldWindow = @"reuse old window"; // Not (yet?) supported
 
+// Possible behaviors when initiating a rescan
 NSString  *RescanAll = @"rescan all";
 NSString  *RescanVisible = @"rescan visible";
+
+// Possible behaviors when the last directory view window is closed
+NSString  *AfterClosingLastViewQuit = @"quit";
+NSString  *AfterClosingLastViewShowWelcome = @"show welcome";
+NSString  *AfterClosingLastViewDoNothing = @"do nothing";
 
 @interface ReadTaskCallback : NSObject {
   WindowManager  *windowManager;
@@ -115,7 +122,9 @@ NSString  *RescanVisible = @"rescan visible";
 
 @interface MainMenuControl (PrivateMethods)
 
+- (void) showWelcomeWindowAfterDelay:(NSTimeInterval) delay;
 - (void) showWelcomeWindow;
+
 - (void) scanFolderUsingFilter:(BOOL)useFilter;
 - (void) scanFolder:(NSString *)path namedFilter:(NamedFilter *)filter;
 - (void) scanFolder:(NSString *)path filterSet:(FilterSet *)filterSet;
@@ -141,6 +150,9 @@ NSString  *RescanVisible = @"rescan visible";
 /* Creates window title based on scan location, scan time and filter (if any).
  */
 + (NSString *)windowTitleForDirectoryView:(DirectoryViewControl *)control;
+
+- (void) viewWillOpen:(NSNotification *)notification;
+- (void) viewWillClose:(NSNotification *)notification;
 
 @end // @interface MainMenuControl (PrivateMethods)
 
@@ -250,8 +262,18 @@ static MainMenuControl  *singletonInstance = nil;
     filterSelectionPanelControl = nil;
     filtersWindowControl = nil;
     uniformTypeWindowControl = nil;
+
+    viewCount = 0;
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(viewWillOpen:)
+                                                 name: ViewWillOpenEvent
+                                               object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(viewWillClose:)
+                                                 name: ViewWillCloseEvent
+                                               object: nil];
     
-    showWelcomeWindowAfterLaunch = YES; // Default
+    showWelcomeWindow = YES; // Default
   }
   
   singletonInstance = self;
@@ -292,13 +314,13 @@ static MainMenuControl  *singletonInstance = nil;
   if (targetExists) {
     if (isDirectory) {
       [self scanFolder: filename namedFilter: nil];
-      showWelcomeWindowAfterLaunch = NO;
+      showWelcomeWindow = NO;
       // Loading is done asynchronously, so starting a scan is assumed a successful action
       return YES;
     }
     else if ([filename.pathExtension.lowercaseString isEqualToString: @"gpscan"]) {
       [self loadScanDataFromFile: filename];
-      showWelcomeWindowAfterLaunch = NO;
+      showWelcomeWindow = NO;
       // Loading is done asynchronously, so starting a load is assumed a successful action
       return YES;
     }
@@ -323,20 +345,10 @@ static MainMenuControl  *singletonInstance = nil;
 - (void) applicationDidFinishLaunching:(NSNotification *)notification {
   NSApp.servicesProvider = self;
   
-  if (showWelcomeWindowAfterLaunch) {
+  if (showWelcomeWindow) {
     NSTimeInterval delay = [[NSUserDefaults standardUserDefaults] 
                               floatForKey: DelayBeforeWelcomeWindowAfterStartupKey];
-
-    if (delay == 0) {
-      [self showWelcomeWindow];
-    } else if (delay > 0) {
-      // Set a watchdog. If it times out before service activity is detected, show welcome window
-      [NSTimer scheduledTimerWithTimeInterval: delay
-                                       target: self
-                                     selector: @selector(showWelcomeWindow)
-                                     userInfo: nil
-                                      repeats: NO];
-    }
+    [self showWelcomeWindowAfterDelay: delay];
   }
 }
 
@@ -353,7 +365,7 @@ static MainMenuControl  *singletonInstance = nil;
 // Service method for handling dock drags.
 - (void)scanFolder:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
   NSLog(@"scanFolder:userData:error:");
-  showWelcomeWindowAfterLaunch = NO; // Do not automatically pop-up scan dialog
+  showWelcomeWindow = NO; // Do not automatically show welcome window
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
@@ -376,7 +388,7 @@ static MainMenuControl  *singletonInstance = nil;
 // Service method for handling dock drags.
 - (void)loadScanData:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
   NSLog(@"loadScanData:userData:error:");
-  showWelcomeWindowAfterLaunch = NO; // Do not automatically pop-up scan dialog
+  showWelcomeWindow = NO; // Do not automatically show welcome window
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
@@ -654,21 +666,38 @@ static MainMenuControl  *singletonInstance = nil;
 
 @implementation MainMenuControl (PrivateMethods)
 
-- (void) showWelcomeWindow {
-  // Check flag again. It may have changed after the watchdog was started.
-  if (showWelcomeWindowAfterLaunch) {
-    // During initial delay after start-up no service invocation was received. Assume that
-    // application was started normally and pop-up welcome window. This works okay as long as the
-    // time-out is long enough that service invocations happen before it, but short enough for
-    // user to have initiated any interaction.
-    StartWindowControl  *startWindowControl =
-      [[[StartWindowControl alloc] initWithMainMenuControl: self] autorelease];
-
-    // Show modal window. The controller will close it and end the modal session.
-    [NSApp runModalForWindow: startWindowControl.window];
+- (void) showWelcomeWindowAfterDelay:(NSTimeInterval) delay {
+  showWelcomeWindow = YES;
+  if (delay == 0) {
+    [self showWelcomeWindow];
+  } else if (delay > 0) {
+    // Set a watchdog. If it times out before service activity is detected, show welcome window
+    [NSTimer scheduledTimerWithTimeInterval: delay
+                                     target: self
+                                   selector: @selector(showWelcomeWindow)
+                                   userInfo: nil
+                                    repeats: NO];
   }
 }
-       
+
+- (void) showWelcomeWindow {
+  // Check flag again. It may have changed after the watchdog was started.
+  if (!showWelcomeWindow) {
+    // Do not show window after all. This is used to prevent showing the window when the
+    // application was started via a service invocation or dock drop. It is needed because the
+    // actual request is only received after the control has been constructed. During its
+    // construction, the application does not yet know how it was started and whether it should show
+    // the welcome window.
+    return;
+  }
+
+  StartWindowControl  *startWindowControl =
+    [[[StartWindowControl alloc] initWithMainMenuControl: self] autorelease];
+
+  // Show modal window. The controller will close it and end the modal session.
+  [NSApp runModalForWindow: startWindowControl.window];
+}
+
 - (void) scanFolderUsingFilter:(BOOL)useFilter {
   NSOpenPanel  *openPanel = [NSOpenPanel openPanel];
   [openPanel setCanChooseFiles: NO];
@@ -891,6 +920,38 @@ static MainMenuControl  *singletonInstance = nil;
     return [NSString stringWithFormat: @"%@ - %@", scanPath, scanTime];
   }
   return [NSString stringWithFormat: @"%@ - %@ - %@", scanPath, scanTime, filterSet.description];
+}
+
+- (void) viewWillOpen:(NSNotification *)notification {
+  viewCount++;
+  NSLog(@"num views = %d", viewCount);
+}
+
+- (void) viewWillClose:(NSNotification *)notification {
+  viewCount--;
+  NSLog(@"num views = %d", viewCount);
+
+  if (viewCount == 0) {
+    NSString  *action = [[NSUserDefaults standardUserDefaults]
+                         stringForKey: ActionAfterClosingLastViewKey];
+    if ([action isEqualToString: AfterClosingLastViewQuit]) {
+      NSLog(@"Auto-quitting application");
+      [[NSApplication sharedApplication] performSelectorOnMainThread: @selector(terminate:)
+                                                          withObject: nil
+                                                       waitUntilDone: NO];
+    }
+    else if ([action isEqualToString: AfterClosingLastViewShowWelcome]) {
+      [self performSelectorOnMainThread: @selector(showWelcomeWindow)
+                             withObject: nil
+                          waitUntilDone: NO];
+    }
+    else if ([action isEqualToString: AfterClosingLastViewDoNothing]) {
+      // void
+    }
+    else {
+      NSLog(@"Unrecognized action: %@", action);
+    }
+  }
 }
 
 @end // @implementation MainMenuControl (PrivateMethods)
