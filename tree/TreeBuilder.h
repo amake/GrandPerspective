@@ -22,8 +22,8 @@ extern NSString  *PhysicalFileSize;
   FilterSet  *filterSet;
 
   NSString  *fileSizeMeasure;
-  NSURLResourceKey  fileSizeMeasureKey;
-  
+  BOOL  useLogicalFileSize;
+
   BOOL  abort;
   FilteredTreeGuide  *treeGuide;
   TreeBalancer  *treeBalancer;

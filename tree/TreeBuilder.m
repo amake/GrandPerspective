@@ -131,8 +131,7 @@ NSString  *PhysicalFileSize = @"physical";
   static NSArray  *fileSizeMeasureNames = nil;
 
   if (fileSizeMeasureNames == nil) {
-    fileSizeMeasureNames =
-      [@[LogicalFileSize, PhysicalFileSize] retain];
+    fileSizeMeasureNames = [@[LogicalFileSize, PhysicalFileSize] retain];
   }
   
   return fileSizeMeasureNames;
@@ -202,10 +201,10 @@ NSString  *PhysicalFileSize = @"physical";
 
 - (void) setFileSizeMeasure:(NSString *)measure {
   if ([measure isEqualToString: LogicalFileSize]) {
-    fileSizeMeasureKey = NSURLTotalFileSizeKey;
+    useLogicalFileSize = YES;
   }
   else if ([measure isEqualToString: PhysicalFileSize]) {
-    fileSizeMeasureKey = NSURLTotalFileAllocatedSizeKey;
+    useLogicalFileSize = NO;
   }
   else {
     NSAssert(NO, @"Invalid file size measure.");
@@ -411,8 +410,23 @@ NSString  *PhysicalFileSize = @"physical";
     [dirChildItem release];
   }
   else { // A file node.
-    NSNumber  *fileSize;
-    [url getResourceValue: &fileSize forKey: fileSizeMeasureKey error: nil];
+    NSNumber  *physicalFileSize;
+    [url getResourceValue: &physicalFileSize forKey: NSURLTotalFileAllocatedSizeKey error: nil];
+    ITEM_SIZE  fileSize;
+
+    if (useLogicalFileSize) {
+      NSNumber  *logicalFileSize;
+      [url getResourceValue: &logicalFileSize forKey: NSURLTotalFileSizeKey error: nil];
+
+      fileSize = logicalFileSize.unsignedLongLongValue;
+      if (fileSize > physicalFileSize.unsignedLongLongValue) {
+        NSLog(@"Warning: logical file size larger than physical file size for %@ (%llu > %llu)",
+              url, fileSize, physicalFileSize.unsignedLongLongValue);
+      }
+    }
+    else {
+      fileSize = physicalFileSize.unsignedLongLongValue;
+    }
 
     UniformType  *fileType =
       [typeInventory uniformTypeForExtension: lastPathComponent.pathExtension];
@@ -420,7 +434,7 @@ NSString  *PhysicalFileSize = @"physical";
     PlainFileItem  *fileChildItem =
       [[PlainFileItem allocWithZone: [parent zone]] initWithLabel: lastPathComponent
                                                            parent: parent->dirItem
-                                                             size: fileSize.unsignedLongLongValue
+                                                             size: fileSize
                                                              type: fileType
                                                             flags: flags
                                                      creationTime: [url creationTime]
@@ -454,7 +468,9 @@ NSString  *PhysicalFileSize = @"physical";
                                                        NSURLContentModificationDateKey,
                                                        NSURLContentAccessDateKey,
                                                        NSURLLinkCountKey,
-                                                       NSURLIsPackageKey
+                                                       NSURLIsPackageKey,
+                                                       NSURLTotalFileSizeKey,
+                                                       NSURLTotalFileAllocatedSizeKey
                                                       ]
                                             options: 0
                                        errorHandler: nil];
