@@ -29,6 +29,7 @@
 
 + (NSArray *)rescanActionNames;
 + (NSArray *)rescanBehaviourNames;
++ (NSArray *)noViewsBehaviourNames;
 
 + (void) reportUnboundFilters:(NSArray *)unboundFilters;
 + (void) reportUnboundTests:(NSArray *)unboundTests;

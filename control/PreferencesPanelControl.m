@@ -13,8 +13,8 @@
 NSString  *FileDeletionTargetsKey = @"fileDeletionTargets";
 NSString  *ConfirmFileDeletionKey = @"confirmFileDeletion";
 NSString  *DefaultRescanActionKey = @"defaultRescanAction";
-NSString  *ActionAfterClosingLastViewKey = @"actionAfterClosingLastView";
 NSString  *RescanBehaviourKey = @"rescanBehaviour";
+NSString  *NoViewsBehaviourKey = @"noViewsBehaviour";
 NSString  *FileSizeMeasureKey = @"fileSizeMeasure";
 NSString  *FileSizeUnitSystemKey = @"fileSizeUnitSystem";
 NSString  *DefaultColorMappingKey = @"defaultColorMapping";
@@ -97,6 +97,9 @@ static BOOL appHasDeletePermission;
   [self setupPopUp: rescanBehaviourPopUp
                key: RescanBehaviourKey
            content: [MainMenuControl rescanBehaviourNames]];
+  [self setupPopUp: noViewsBehaviourPopUp
+               key: NoViewsBehaviourKey
+           content: [MainMenuControl noViewsBehaviourNames]];
   [self setupPopUp: fileSizeMeasurePopUp
                key: FileSizeMeasureKey
            content: [TreeBuilder fileSizeMeasureNames]];

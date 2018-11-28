@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="15G22010" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
@@ -15,6 +15,7 @@
                 <outlet property="fileDeletionPopUp" destination="77" id="81"/>
                 <outlet property="fileSizeMeasurePopUp" destination="59" id="71"/>
                 <outlet property="fileSizeUnitSystemPopUp" destination="204" id="215"/>
+                <outlet property="noViewsBehaviourPopUp" destination="isv-0g-Zc5" id="VeA-Rq-n83"/>
                 <outlet property="rescanActionPopUp" destination="190" id="197"/>
                 <outlet property="rescanBehaviourPopUp" destination="150" id="159"/>
                 <outlet property="showEntireVolumeByDefaultCheckBox" destination="198" id="203"/>
@@ -27,22 +28,22 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="6" userLabel="Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="225" y="399" width="386" height="474"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1001"/>
+            <rect key="contentRect" x="225" y="399" width="392" height="502"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="386" height="431"/>
-            <value key="maxSize" type="size" width="480" height="474"/>
+            <value key="maxSize" type="size" width="480" height="520"/>
             <view key="contentView" id="5">
-                <rect key="frame" x="0.0" y="0.0" width="386" height="474"/>
+                <rect key="frame" x="0.0" y="0.0" width="392" height="502"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box verticalHuggingPriority="249" title="Display" translatesAutoresizingMaskIntoConstraints="NO" id="29">
-                        <rect key="frame" x="17" y="16" width="352" height="183"/>
+                        <rect key="frame" x="17" y="16" width="358" height="180"/>
                         <view key="contentView" id="Xs8-gY-Ijv">
-                            <rect key="frame" x="2" y="2" width="348" height="166"/>
+                            <rect key="frame" x="2" y="2" width="354" height="163"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="44">
-                                    <rect key="frame" x="139" y="132" width="192" height="26"/>
+                                    <rect key="frame" x="145" y="129" width="192" height="26"/>
                                     <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="46" id="165">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="menu"/>
@@ -57,7 +58,7 @@
                                     </connections>
                                 </popUpButton>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="52">
-                                    <rect key="frame" x="139" y="102" width="192" height="26"/>
+                                    <rect key="frame" x="145" y="99" width="192" height="26"/>
                                     <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="51" id="166">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="menu"/>
@@ -72,7 +73,7 @@
                                     </connections>
                                 </popUpButton>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="55">
-                                    <rect key="frame" x="18" y="109" width="117" height="14"/>
+                                    <rect key="frame" x="18" y="106" width="123" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Palette:" id="167">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -80,7 +81,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="108">
-                                    <rect key="frame" x="18" y="18" width="312" height="18"/>
+                                    <rect key="frame" x="18" y="18" width="318" height="18"/>
                                     <buttonCell key="cell" type="check" title="Show package contents" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="171">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -90,7 +91,7 @@
                                     </connections>
                                 </button>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="110">
-                                    <rect key="frame" x="18" y="139" width="117" height="14"/>
+                                    <rect key="frame" x="18" y="136" width="123" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Color by:" id="172">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -98,7 +99,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="180">
-                                    <rect key="frame" x="18" y="78" width="117" height="14"/>
+                                    <rect key="frame" x="18" y="75" width="123" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Filter:" id="181">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -106,7 +107,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <popUpButton verticalHuggingPriority="752" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="182">
-                                    <rect key="frame" x="139" y="72" width="192" height="26"/>
+                                    <rect key="frame" x="145" y="69" width="192" height="26"/>
                                     <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="185" id="183">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="menu"/>
@@ -121,7 +122,7 @@
                                     </connections>
                                 </popUpButton>
                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="198">
-                                    <rect key="frame" x="18" y="38" width="312" height="21"/>
+                                    <rect key="frame" x="18" y="38" width="318" height="18"/>
                                     <buttonCell key="cell" type="check" title="Show entire volume" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="199">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -163,17 +164,161 @@
                                 <constraint firstItem="182" firstAttribute="leading" secondItem="180" secondAttribute="trailing" constant="8" symbolic="YES" id="zoU-i8-618"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </box>
+                    <box title="Actions" translatesAutoresizingMaskIntoConstraints="NO" id="72">
+                        <rect key="frame" x="17" y="302" width="358" height="191"/>
+                        <view key="contentView" id="W9I-Z0-0oj">
+                            <rect key="frame" x="2" y="2" width="354" height="174"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <popUpButton horizontalHuggingPriority="251" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="77">
+                                    <rect key="frame" x="145" y="140" width="192" height="26"/>
+                                    <popUpButtonCell key="cell" type="push" title="Files and folders" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="78" id="175">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="menu"/>
+                                        <menu key="menu" title="OtherViews" id="74">
+                                            <items>
+                                                <menuItem title="Files and folders" state="on" id="78"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                    <connections>
+                                        <action selector="popUpValueChanged:" target="-2" id="89"/>
+                                    </connections>
+                                </popUpButton>
+                                <button translatesAutoresizingMaskIntoConstraints="NO" id="80">
+                                    <rect key="frame" x="145" y="118" width="191" height="18"/>
+                                    <buttonCell key="cell" type="check" title="Always require confirmation" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="176">
+                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="valueChanged:" target="-2" id="84"/>
+                                    </connections>
+                                </button>
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
+                                    <rect key="frame" x="18" y="147" width="123" height="14"/>
+                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Enable deletion of:" id="177">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="148">
+                                    <rect key="frame" x="18" y="55" width="123" height="14"/>
+                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="After full rescan:" id="178">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="150">
+                                    <rect key="frame" x="145" y="48" width="192" height="26"/>
+                                    <popUpButtonCell key="cell" type="push" title="Close old window" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="153" id="179">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="menu"/>
+                                        <menu key="menu" title="OtherViews" id="152">
+                                            <items>
+                                                <menuItem title="Close old window" state="on" id="153"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                    <connections>
+                                        <action selector="popUpValueChanged:" target="-2" id="158"/>
+                                    </connections>
+                                </popUpButton>
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="188">
+                                    <rect key="frame" x="18" y="84" width="123" height="14"/>
+                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Rescan action:" id="189">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="190">
+                                    <rect key="frame" x="145" y="78" width="192" height="26"/>
+                                    <popUpButtonCell key="cell" type="push" title="Rescan folder in view" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="193" id="191">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="menu"/>
+                                        <menu key="menu" title="OtherViews" id="192">
+                                            <items>
+                                                <menuItem title="Rescan folder in view" state="on" id="193"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                    <connections>
+                                        <action selector="popUpValueChanged:" target="-2" id="196"/>
+                                    </connections>
+                                </popUpButton>
+                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="isv-0g-Zc5" userLabel="No Views Behaviour Pop Up">
+                                    <rect key="frame" x="145" y="17" width="192" height="26"/>
+                                    <popUpButtonCell key="cell" type="push" title="Terminate application" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Rrr-CG-7lo" id="uQu-HI-31i">
+                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="menu"/>
+                                        <menu key="menu" id="USA-od-F2s">
+                                            <items>
+                                                <menuItem title="Terminate application" state="on" id="Rrr-CG-7lo"/>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                    <connections>
+                                        <action selector="popUpValueChanged:" target="-1" id="i4Y-8a-qc7"/>
+                                    </connections>
+                                </popUpButton>
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3C1-MS-QCY">
+                                    <rect key="frame" x="18" y="23" width="123" height="14"/>
+                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="After closing last view:" id="KFu-2k-t7Z">
+                                        <font key="font" metaFont="smallSystem"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="190" firstAttribute="width" secondItem="150" secondAttribute="width" id="0dm-80-NOV"/>
+                                <constraint firstItem="77" firstAttribute="width" secondItem="80" secondAttribute="width" id="1tV-lY-NBT"/>
+                                <constraint firstItem="3C1-MS-QCY" firstAttribute="leading" secondItem="W9I-Z0-0oj" secondAttribute="leading" constant="20" symbolic="YES" id="56F-fm-3qB"/>
+                                <constraint firstItem="188" firstAttribute="centerY" secondItem="190" secondAttribute="centerY" id="5WQ-Lm-EPb"/>
+                                <constraint firstAttribute="bottom" secondItem="isv-0g-Zc5" secondAttribute="bottom" constant="20" symbolic="YES" id="6hE-KI-vrL"/>
+                                <constraint firstItem="148" firstAttribute="leading" secondItem="W9I-Z0-0oj" secondAttribute="leading" constant="20" symbolic="YES" id="Bkd-PV-H7X"/>
+                                <constraint firstItem="3C1-MS-QCY" firstAttribute="centerY" secondItem="isv-0g-Zc5" secondAttribute="centerY" id="EmZ-F0-ZPQ"/>
+                                <constraint firstItem="85" firstAttribute="width" secondItem="188" secondAttribute="width" id="HwC-Ft-9Gb"/>
+                                <constraint firstItem="77" firstAttribute="leading" secondItem="85" secondAttribute="trailing" constant="8" symbolic="YES" id="LKB-Q6-HXp"/>
+                                <constraint firstAttribute="trailing" secondItem="77" secondAttribute="trailing" constant="20" symbolic="YES" id="P4D-IU-WN8"/>
+                                <constraint firstItem="77" firstAttribute="height" secondItem="190" secondAttribute="height" id="R8e-oF-PdP"/>
+                                <constraint firstItem="188" firstAttribute="leading" secondItem="W9I-Z0-0oj" secondAttribute="leading" constant="20" symbolic="YES" id="Xa9-cK-y1Y"/>
+                                <constraint firstItem="190" firstAttribute="height" secondItem="150" secondAttribute="height" id="Yx4-Ui-V2q"/>
+                                <constraint firstAttribute="trailing" secondItem="190" secondAttribute="trailing" constant="20" symbolic="YES" id="ZcI-5u-jIw"/>
+                                <constraint firstItem="85" firstAttribute="leading" secondItem="W9I-Z0-0oj" secondAttribute="leading" constant="20" symbolic="YES" id="ZuO-N8-75i"/>
+                                <constraint firstItem="77" firstAttribute="leading" secondItem="80" secondAttribute="leading" id="cKe-qc-edi"/>
+                                <constraint firstItem="190" firstAttribute="leading" secondItem="188" secondAttribute="trailing" constant="8" symbolic="YES" id="cPq-rM-www"/>
+                                <constraint firstItem="isv-0g-Zc5" firstAttribute="leading" secondItem="3C1-MS-QCY" secondAttribute="trailing" constant="8" symbolic="YES" id="dwx-Fs-iFW"/>
+                                <constraint firstItem="188" firstAttribute="width" secondItem="148" secondAttribute="width" id="ezn-1O-eo0"/>
+                                <constraint firstItem="isv-0g-Zc5" firstAttribute="width" secondItem="150" secondAttribute="width" id="fO0-I8-C5G"/>
+                                <constraint firstItem="isv-0g-Zc5" firstAttribute="top" secondItem="150" secondAttribute="bottom" constant="10" symbolic="YES" id="g5b-d0-aXh"/>
+                                <constraint firstItem="148" firstAttribute="centerY" secondItem="150" secondAttribute="centerY" id="gil-r5-8Fu"/>
+                                <constraint firstItem="80" firstAttribute="top" secondItem="77" secondAttribute="bottom" constant="9" id="h4r-2e-GIN"/>
+                                <constraint firstItem="3C1-MS-QCY" firstAttribute="width" secondItem="148" secondAttribute="width" id="hEw-uq-SrO"/>
+                                <constraint firstItem="150" firstAttribute="top" secondItem="190" secondAttribute="bottom" constant="9" id="hMR-cV-hY5"/>
+                                <constraint firstItem="77" firstAttribute="top" secondItem="W9I-Z0-0oj" secondAttribute="top" constant="10" id="itc-8E-2A6"/>
+                                <constraint firstItem="85" firstAttribute="centerY" secondItem="77" secondAttribute="centerY" id="kIr-nY-ElR"/>
+                                <constraint firstItem="80" firstAttribute="width" secondItem="190" secondAttribute="width" id="s9H-Ka-4RO"/>
+                                <constraint firstItem="150" firstAttribute="leading" secondItem="148" secondAttribute="trailing" constant="8" symbolic="YES" id="sto-KT-OSW"/>
+                                <constraint firstAttribute="trailing" secondItem="isv-0g-Zc5" secondAttribute="trailing" constant="20" symbolic="YES" id="tkT-22-5d8"/>
+                                <constraint firstAttribute="trailing" secondItem="150" secondAttribute="trailing" constant="20" symbolic="YES" id="u7a-3r-nxS"/>
+                                <constraint firstAttribute="trailing" secondItem="80" secondAttribute="trailing" constant="20" symbolic="YES" id="vNY-k8-Z3f"/>
+                                <constraint firstItem="190" firstAttribute="top" secondItem="80" secondAttribute="bottom" constant="18" id="vOi-d4-3kM"/>
+                            </constraints>
+                        </view>
                     </box>
                     <box title="Info" translatesAutoresizingMaskIntoConstraints="NO" id="57">
-                        <rect key="frame" x="17" y="203" width="352" height="98"/>
+                        <rect key="frame" x="17" y="200" width="358" height="98"/>
                         <view key="contentView" id="2cE-6p-LKq">
-                            <rect key="frame" x="2" y="2" width="348" height="81"/>
+                            <rect key="frame" x="2" y="2" width="354" height="81"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="59">
-                                    <rect key="frame" x="139" y="47" width="192" height="26"/>
+                                    <rect key="frame" x="145" y="47" width="192" height="26"/>
                                     <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="61" id="173">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="menu"/>
@@ -188,7 +333,7 @@
                                     </connections>
                                 </popUpButton>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="204">
-                                    <rect key="frame" x="139" y="17" width="192" height="26"/>
+                                    <rect key="frame" x="145" y="17" width="192" height="26"/>
                                     <popUpButtonCell key="cell" type="push" title="Item1" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="207" id="205">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="menu"/>
@@ -203,7 +348,7 @@
                                     </connections>
                                 </popUpButton>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="64">
-                                    <rect key="frame" x="18" y="54" width="117" height="14"/>
+                                    <rect key="frame" x="18" y="54" width="123" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="File size measure:" id="174">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -211,7 +356,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="213">
-                                    <rect key="frame" x="18" y="24" width="117" height="14"/>
+                                    <rect key="frame" x="18" y="24" width="123" height="14"/>
                                     <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="File size unit system:" id="214">
                                         <font key="font" metaFont="smallSystem"/>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -236,126 +381,6 @@
                                 <constraint firstItem="59" firstAttribute="centerY" secondItem="64" secondAttribute="centerY" id="xce-jm-XCw"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </box>
-                    <box title="Actions" translatesAutoresizingMaskIntoConstraints="NO" id="72">
-                        <rect key="frame" x="17" y="305" width="352" height="160"/>
-                        <view key="contentView" id="W9I-Z0-0oj">
-                            <rect key="frame" x="2" y="2" width="348" height="143"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <popUpButton horizontalHuggingPriority="251" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="77">
-                                    <rect key="frame" x="139" y="109" width="192" height="26"/>
-                                    <popUpButtonCell key="cell" type="push" title="Files and folders" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="78" id="175">
-                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="menu"/>
-                                        <menu key="menu" title="OtherViews" id="74">
-                                            <items>
-                                                <menuItem title="Files and folders" state="on" id="78"/>
-                                            </items>
-                                        </menu>
-                                    </popUpButtonCell>
-                                    <connections>
-                                        <action selector="popUpValueChanged:" target="-2" id="89"/>
-                                    </connections>
-                                </popUpButton>
-                                <button translatesAutoresizingMaskIntoConstraints="NO" id="80">
-                                    <rect key="frame" x="139" y="87" width="191" height="18"/>
-                                    <buttonCell key="cell" type="check" title="Always require confirmation" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="176">
-                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="valueChanged:" target="-2" id="84"/>
-                                    </connections>
-                                </button>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="85">
-                                    <rect key="frame" x="18" y="116" width="117" height="14"/>
-                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Enable deletion of:" id="177">
-                                        <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="148">
-                                    <rect key="frame" x="18" y="24" width="117" height="14"/>
-                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="After full rescan:" id="178">
-                                        <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="150">
-                                    <rect key="frame" x="139" y="17" width="192" height="26"/>
-                                    <popUpButtonCell key="cell" type="push" title="Close old window" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="153" id="179">
-                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="menu"/>
-                                        <menu key="menu" title="OtherViews" id="152">
-                                            <items>
-                                                <menuItem title="Close old window" state="on" id="153"/>
-                                            </items>
-                                        </menu>
-                                    </popUpButtonCell>
-                                    <connections>
-                                        <action selector="popUpValueChanged:" target="-2" id="158"/>
-                                    </connections>
-                                </popUpButton>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="188">
-                                    <rect key="frame" x="18" y="54" width="117" height="14"/>
-                                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Rescan action:" id="189">
-                                        <font key="font" metaFont="smallSystem"/>
-                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
-                                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="190">
-                                    <rect key="frame" x="139" y="47" width="192" height="26"/>
-                                    <popUpButtonCell key="cell" type="push" title="Rescan folder in view" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="193" id="191">
-                                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="menu"/>
-                                        <menu key="menu" title="OtherViews" id="192">
-                                            <items>
-                                                <menuItem title="Rescan folder in view" state="on" id="193"/>
-                                            </items>
-                                        </menu>
-                                    </popUpButtonCell>
-                                    <connections>
-                                        <action selector="popUpValueChanged:" target="-2" id="196"/>
-                                    </connections>
-                                </popUpButton>
-                            </subviews>
-                            <constraints>
-                                <constraint firstItem="190" firstAttribute="width" secondItem="150" secondAttribute="width" id="0dm-80-NOV"/>
-                                <constraint firstItem="77" firstAttribute="width" secondItem="80" secondAttribute="width" id="1tV-lY-NBT"/>
-                                <constraint firstItem="188" firstAttribute="centerY" secondItem="190" secondAttribute="centerY" id="5WQ-Lm-EPb"/>
-                                <constraint firstAttribute="bottom" secondItem="150" secondAttribute="bottom" constant="20" symbolic="YES" id="7Ub-N2-Ipx"/>
-                                <constraint firstItem="148" firstAttribute="leading" secondItem="W9I-Z0-0oj" secondAttribute="leading" constant="20" symbolic="YES" id="Bkd-PV-H7X"/>
-                                <constraint firstItem="85" firstAttribute="width" secondItem="188" secondAttribute="width" id="HwC-Ft-9Gb"/>
-                                <constraint firstItem="77" firstAttribute="leading" secondItem="85" secondAttribute="trailing" constant="8" symbolic="YES" id="LKB-Q6-HXp"/>
-                                <constraint firstAttribute="trailing" secondItem="77" secondAttribute="trailing" constant="20" symbolic="YES" id="P4D-IU-WN8"/>
-                                <constraint firstItem="77" firstAttribute="height" secondItem="190" secondAttribute="height" id="R8e-oF-PdP"/>
-                                <constraint firstItem="188" firstAttribute="leading" secondItem="W9I-Z0-0oj" secondAttribute="leading" constant="20" symbolic="YES" id="Xa9-cK-y1Y"/>
-                                <constraint firstItem="190" firstAttribute="height" secondItem="150" secondAttribute="height" id="Yx4-Ui-V2q"/>
-                                <constraint firstAttribute="trailing" secondItem="190" secondAttribute="trailing" constant="20" symbolic="YES" id="ZcI-5u-jIw"/>
-                                <constraint firstItem="85" firstAttribute="leading" secondItem="W9I-Z0-0oj" secondAttribute="leading" constant="20" symbolic="YES" id="ZuO-N8-75i"/>
-                                <constraint firstItem="77" firstAttribute="leading" secondItem="80" secondAttribute="leading" id="cKe-qc-edi"/>
-                                <constraint firstItem="190" firstAttribute="leading" secondItem="188" secondAttribute="trailing" constant="8" symbolic="YES" id="cPq-rM-www"/>
-                                <constraint firstItem="188" firstAttribute="width" secondItem="148" secondAttribute="width" id="ezn-1O-eo0"/>
-                                <constraint firstItem="148" firstAttribute="centerY" secondItem="150" secondAttribute="centerY" id="gil-r5-8Fu"/>
-                                <constraint firstItem="80" firstAttribute="top" secondItem="77" secondAttribute="bottom" constant="9" id="h4r-2e-GIN"/>
-                                <constraint firstItem="150" firstAttribute="top" secondItem="190" secondAttribute="bottom" constant="9" id="hMR-cV-hY5"/>
-                                <constraint firstItem="77" firstAttribute="top" secondItem="W9I-Z0-0oj" secondAttribute="top" constant="10" id="itc-8E-2A6"/>
-                                <constraint firstItem="85" firstAttribute="centerY" secondItem="77" secondAttribute="centerY" id="kIr-nY-ElR"/>
-                                <constraint firstItem="80" firstAttribute="width" secondItem="190" secondAttribute="width" id="s9H-Ka-4RO"/>
-                                <constraint firstItem="150" firstAttribute="leading" secondItem="148" secondAttribute="trailing" constant="8" symbolic="YES" id="sto-KT-OSW"/>
-                                <constraint firstAttribute="trailing" secondItem="150" secondAttribute="trailing" constant="20" symbolic="YES" id="u7a-3r-nxS"/>
-                                <constraint firstAttribute="trailing" secondItem="80" secondAttribute="trailing" constant="20" symbolic="YES" id="vNY-k8-Z3f"/>
-                                <constraint firstItem="190" firstAttribute="top" secondItem="80" secondAttribute="bottom" constant="18" id="vOi-d4-3kM"/>
-                            </constraints>
-                        </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
                 <constraints>
@@ -377,6 +402,7 @@
                     <constraint firstAttribute="bottom" secondItem="29" secondAttribute="bottom" priority="999" constant="20" id="uN4-iD-c34"/>
                 </constraints>
             </view>
+            <point key="canvasLocation" x="129" y="151"/>
         </window>
     </objects>
 </document>

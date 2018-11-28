@@ -57,7 +57,7 @@
 	<string>2.0.0</string>
 	<key>GPApplicationDefaults</key>
 	<dict>
-		<key>actionAfterClosingLastView</key>
+		<key>noViewsBehaviour</key>
 		<string>show welcome</string>
 		<key>confirmFileDeletion</key>
 		<true/>

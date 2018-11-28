@@ -86,3 +86,10 @@
 
 "close old window" = "Close old window";
 "keep old window" = "Keep old window";
+
+
+/* The names of the supported behaviours after the last view is closed. */
+
+"quit" = "Terminate application";
+"show welcome" = "Show welcome window";
+"do nothing" = "Do nothing";

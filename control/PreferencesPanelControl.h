@@ -6,7 +6,7 @@ extern NSString  *ConfirmFileDeletionKey;
 extern NSString  *ConfirmFolderDeletionKey;
 extern NSString  *DefaultRescanActionKey;
 extern NSString  *RescanBehaviourKey;
-extern NSString  *ActionAfterClosingLastViewKey;
+extern NSString  *NoViewsBehaviourKey;
 extern NSString  *FileSizeMeasureKey;
 extern NSString  *FileSizeUnitSystemKey;
 extern NSString  *DefaultColorMappingKey;
@@ -34,6 +34,8 @@ extern NSString  *DelayBeforeWelcomeWindowAfterStartupKey;
   
   IBOutlet NSPopUpButton  *rescanActionPopUp;
   IBOutlet NSPopUpButton  *rescanBehaviourPopUp;
+
+  IBOutlet NSPopUpButton  *noViewsBehaviourPopUp;
   
   IBOutlet NSPopUpButton  *fileSizeMeasurePopUp;
   IBOutlet NSPopUpButton  *fileSizeUnitSystemPopUp;

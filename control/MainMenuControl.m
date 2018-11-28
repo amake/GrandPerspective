@@ -200,6 +200,11 @@ static MainMenuControl  *singletonInstance = nil;
   return @[RescanClosesOldWindow, RescanKeepsOldWindow];
 }
 
++ (NSArray *)noViewsBehaviourNames {
+  return
+    @[AfterClosingLastViewDoNothing, AfterClosingLastViewShowWelcome, AfterClosingLastViewQuit];
+}
+
 + (void) reportUnboundFilters:(NSArray *)unboundFilters {
   NSString  *format =
     NSLocalizedString(@"Failed to update one or more filters:\n%@", @"Alert message");
@@ -932,8 +937,7 @@ static MainMenuControl  *singletonInstance = nil;
   NSLog(@"num views = %d", viewCount);
 
   if (viewCount == 0) {
-    NSString  *action = [[NSUserDefaults standardUserDefaults]
-                         stringForKey: ActionAfterClosingLastViewKey];
+    NSString  *action = [[NSUserDefaults standardUserDefaults] stringForKey: NoViewsBehaviourKey];
     if ([action isEqualToString: AfterClosingLastViewQuit]) {
       NSLog(@"Auto-quitting application");
       [[NSApplication sharedApplication] performSelectorOnMainThread: @selector(terminate:)
