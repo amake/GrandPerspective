@@ -122,8 +122,12 @@ NSString  *AfterClosingLastViewDoNothing = @"do nothing";
 
 @interface MainMenuControl (PrivateMethods)
 
+// Show welcome window after delay. This may be aborted by setting showWelcomeWindow to NO
 - (void) showWelcomeWindowAfterDelay:(NSTimeInterval) delay;
+- (void) showWelcomeWindowAfterDelay; // Only for use by showWelcomeWindowAfterDelay:
+
 - (void) showWelcomeWindow;
+- (void) hideWelcomeWindow;
 
 - (void) scanFolderUsingFilter:(BOOL)useFilter;
 - (void) scanFolder:(NSString *)path namedFilter:(NamedFilter *)filter;
@@ -267,6 +271,7 @@ static MainMenuControl  *singletonInstance = nil;
     filterSelectionPanelControl = nil;
     filtersWindowControl = nil;
     uniformTypeWindowControl = nil;
+    startWindowControl = nil;
 
     viewCount = 0;
     [[NSNotificationCenter defaultCenter] addObserver: self
@@ -303,11 +308,12 @@ static MainMenuControl  *singletonInstance = nil;
   [readTaskManager dispose];
   [readTaskManager release];
   
+  [startWindowControl release];
   [preferencesPanelControl release];
   [filterSelectionPanelControl release];
   [filtersWindowControl release];
   [uniformTypeWindowControl release];
-  
+
   [super dealloc];
 }
 
@@ -318,14 +324,20 @@ static MainMenuControl  *singletonInstance = nil;
   
   if (targetExists) {
     if (isDirectory) {
-      [self scanFolder: filename namedFilter: nil];
+      // Prevent window from showing if this action triggered the application to start
       showWelcomeWindow = NO;
+      // Close window if window was showing already (e.g. because application was started normally)
+      [self hideWelcomeWindow];
+
+      [self scanFolder: filename namedFilter: nil];
       // Loading is done asynchronously, so starting a scan is assumed a successful action
       return YES;
     }
     else if ([filename.pathExtension.lowercaseString isEqualToString: @"gpscan"]) {
-      [self loadScanDataFromFile: filename];
       showWelcomeWindow = NO;
+      [self hideWelcomeWindow];
+
+      [self loadScanDataFromFile: filename];
       // Loading is done asynchronously, so starting a load is assumed a successful action
       return YES;
     }
@@ -371,6 +383,7 @@ static MainMenuControl  *singletonInstance = nil;
 - (void)scanFolder:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
   NSLog(@"scanFolder:userData:error:");
   showWelcomeWindow = NO; // Do not automatically show welcome window
+  [self hideWelcomeWindow]; // Close it if it was already showing
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
@@ -394,6 +407,7 @@ static MainMenuControl  *singletonInstance = nil;
 - (void)loadScanData:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
   NSLog(@"loadScanData:userData:error:");
   showWelcomeWindow = NO; // Do not automatically show welcome window
+  [self hideWelcomeWindow]; // Close it if it was already showing
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
@@ -679,13 +693,14 @@ static MainMenuControl  *singletonInstance = nil;
     // Set a watchdog. If it times out before service activity is detected, show welcome window
     [NSTimer scheduledTimerWithTimeInterval: delay
                                      target: self
-                                   selector: @selector(showWelcomeWindow)
+                                   selector: @selector(showWelcomeWindowAfterDelay)
                                    userInfo: nil
                                     repeats: NO];
   }
 }
 
-- (void) showWelcomeWindow {
+// Called by watchdog set by showWelcomeWindowAfterDelay:. Not intended to be invoked elsewhere.
+- (void) showWelcomeWindowAfterDelay {
   // Check flag again. It may have changed after the watchdog was started.
   if (!showWelcomeWindow) {
     // Do not show window after all. This is used to prevent showing the window when the
@@ -696,11 +711,22 @@ static MainMenuControl  *singletonInstance = nil;
     return;
   }
 
-  StartWindowControl  *startWindowControl =
-    [[[StartWindowControl alloc] initWithMainMenuControl: self] autorelease];
+  [self showWelcomeWindow];
+}
+
+- (void) showWelcomeWindow {
+  if (startWindowControl == nil) {
+    startWindowControl = [[StartWindowControl alloc] initWithMainMenuControl: self];
+  }
 
   // Show modal window. The controller will close it and end the modal session.
   [NSApp runModalForWindow: startWindowControl.window];
+}
+
+- (void) hideWelcomeWindow {
+  if (startWindowControl != nil && startWindowControl.window.visible) {
+    [startWindowControl.window close];
+  }
 }
 
 - (void) scanFolderUsingFilter:(BOOL)useFilter {

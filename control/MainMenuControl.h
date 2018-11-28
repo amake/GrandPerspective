@@ -6,6 +6,7 @@
 @class UniformTypeRankingWindowControl;
 @class FilterSelectionPanelControl;
 @class PreferencesPanelControl;
+@class StartWindowControl;
 
 @interface MainMenuControl : NSObject {
   WindowManager  *windowManager;
@@ -14,7 +15,8 @@
   VisibleAsynchronousTaskManager  *filterTaskManager;
   VisibleAsynchronousTaskManager  *writeTaskManager;
   VisibleAsynchronousTaskManager  *readTaskManager;
-  
+
+  StartWindowControl  *startWindowControl;
   PreferencesPanelControl  *preferencesPanelControl;
   FilterSelectionPanelControl  *filterSelectionPanelControl;
   FiltersWindowControl  *filtersWindowControl;
