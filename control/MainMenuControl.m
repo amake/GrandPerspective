@@ -717,6 +717,8 @@ static MainMenuControl  *singletonInstance = nil;
 - (void) showWelcomeWindow {
   if (startWindowControl == nil) {
     startWindowControl = [[StartWindowControl alloc] initWithMainMenuControl: self];
+  } else {
+    [startWindowControl changeTagLine];
   }
 
   // Show modal window. The controller will close it and end the modal session.

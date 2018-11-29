@@ -6,6 +6,12 @@ NSString*  TaglineTable = @"Taglines";
 NSString*  NumTaglines = @"num-taglines";
 NSString*  TaglineFormat = @"tagline-%d";
 
+@interface StartWindowControl (PrivateMethods)
+
+- (void) setTagLineField;
+
+@end // @interface StartWindowControl (PrivateMethods)
+
 @implementation StartWindowControl
 
 // Override designated initialisers
@@ -21,6 +27,13 @@ NSString*  TaglineFormat = @"tagline-%d";
 - (instancetype) initWithMainMenuControl:(MainMenuControl *)mainMenuControlVal {
   if (self = [super initWithWindow: nil]) {
     mainMenuControl = [mainMenuControlVal retain];
+
+    numTagLines = [[NSBundle mainBundle] localizedStringForKey: NumTaglines
+                                                         value: @"1"
+                                                         table: TaglineTable].intValue;
+
+    // Show a random tagline
+    tagLineIndex = arc4random_uniform(numTagLines);
   }
   return self;
 }
@@ -39,20 +52,11 @@ NSString*  TaglineFormat = @"tagline-%d";
 - (void)windowDidLoad {
   [super windowDidLoad];
   
-  // Show a random tagline
-  NSBundle  *mainBundle = [NSBundle mainBundle];
-  int  numTaglines =
-    [mainBundle localizedStringForKey: NumTaglines value: nil table: TaglineTable].intValue;
-  int  taglineIndex = 1 + arc4random_uniform(numTaglines);
-  NSString  *localizedTagLine =
-    [mainBundle localizedStringForKey: [NSString stringWithFormat: TaglineFormat, taglineIndex]
-                                value: nil
-                                table: TaglineTable];
-  tagLine.stringValue = localizedTagLine;
-  
   recentScansView.delegate = self;
   recentScansView.dataSource = self;
   recentScansView.doubleAction = @selector(repeatRecentScanAction:);
+
+  [self setTagLineField];
 }
 
 
@@ -103,7 +107,7 @@ NSString*  TaglineFormat = @"tagline-%d";
   [[NSApplication sharedApplication] showHelp: sender];
 }
 
-- (void)cancelOperation:(id)sender {
+- (void) cancelOperation:(id)sender {
   [self.window close];
 }
 
@@ -112,5 +116,26 @@ NSString*  TaglineFormat = @"tagline-%d";
   [NSApp stopModal];
 }
 
+- (void) changeTagLine {
+  tagLineIndex = (tagLineIndex + 1) % numTagLines;
+  [self setTagLineField];
+}
+
 @end
+
+
+@implementation StartWindowControl (PrivateMethods)
+
+- (void) setTagLineField {
+  NSString  *tagLineKey = [NSString stringWithFormat: TaglineFormat, tagLineIndex + 1];
+  NSString  *localizedTagLine = [[NSBundle mainBundle] localizedStringForKey: tagLineKey
+                                                                       value: nil
+                                                                       table: TaglineTable];
+  // Nil-check to avoid problems if tag lines are not properly localized
+  if (localizedTagLine != nil) {
+    tagLine.stringValue = localizedTagLine;
+  }
+}
+
+@end // @interface StartWindowControl (PrivateMethods)
 
