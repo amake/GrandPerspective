@@ -182,6 +182,9 @@
 /* Label in Focus panel */
 "Folder in view:" = "Getoonde map:";
 
+/* Alert message */
+"For %d files the reported (logical) size is larger than their actual (physical) size. Consider rescanning using the Physical file size measure" = "De geraporteerde (intrinsieke) grootte van %d bestanden is groter dan de werkelijke (fysische) grootte. Overweeg of u wilt herlezen met de Intrinsieke bestandsgrootte maat";
+
 /* File size unit for gigabytes. */
 "GB" = "GB";
 
@@ -291,6 +294,9 @@
 "TB" = "TB";
 
 /* Alert message */
+"The actual (physical) size is %.1f%% of the reported (logical) size. Consider rescanning using the Physical file size measure" = "De werkelijke (fysische) grootte is %.1f%% van de geraporteerde (intrinsieke) grootte. Overweeg of u wilt herlezen met de Intrinsieke bestandsgrootte maat";
+
+/* Alert message */
 "The filter must have a name." = "De filter moet een naam hebben.";
 
 /* Alert informative text */
@@ -298,6 +304,12 @@
 
 /* Alert informative text */
 "The filter will be replaced by the default filter with this name." = "De filter zal worden vervangen door de standaard filter met dezelfde naam.";
+
+/* Alert message */
+"The reported size of some files is larger than their actual size on disk" = "De geraporteerde grootte van sommige bestanden is groter dan de werkelijke benodigde opslagruimte";
+
+/* Alert message */
+"The reported total size is larger than the actual size on disk" = "De geraporteerde totale grootte is groter dan de werkelijke gebruikte opslagruimte";
 
 /* Alert informative text */
 "The resulting file is valid but incomplete." = "Het bestand is geldig maar incompleet.";

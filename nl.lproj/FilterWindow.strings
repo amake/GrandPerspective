@@ -34,15 +34,9 @@
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "179"; */
 "179.title" = "Annuleer";
 
-/* Class = "NSButtonCell"; title = "Describe the selected test"; ObjectID = "180"; */
-"180.title" = "Beschrijf de geselecteerde test";
-
 /* Class = "NSButtonCell"; title = ">>"; ObjectID = "182"; */
 "182.title" = ">>";
 
 /* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "183"; */
 "183.title" = "Naam:";
-
-/* Class = "NSTextFieldCell"; title = "Description of the test:"; ObjectID = "185"; */
-"185.title" = "Beschrijving van de test:";
 

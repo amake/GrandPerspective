@@ -101,6 +101,9 @@
 "delete nothing" = "Niets";
 
 /* (No Commment) */
+"do nothing" = "Doe niets";
+
+/* (No Commment) */
 "extension" = "Extensie";
 
 /* (No Commment) */
@@ -140,10 +143,16 @@
 "physical" = "Fysisch";
 
 /* (No Commment) */
+"quit" = "Sluit programma";
+
+/* (No Commment) */
 "rescan all" = "Alles herlezen";
 
 /* (No Commment) */
 "rescan visible" = "Map in venster herlezen";
+
+/* (No Commment) */
+"show welcome" = "Toon Welkom venster";
 
 /* (No Commment) */
 "top folder" = "Buitenste map";

@@ -91,3 +91,9 @@
 /* Class = "NSTextFieldCell"; title = "File size unit system:"; ObjectID = "214"; */
 "214.title" = "Bestandsgrootte eenheidstelsel:";
 
+/* Class = "NSTextFieldCell"; title = "After closing last view:"; ObjectID = "KFu-2k-t7Z"; */
+"KFu-2k-t7Z.title" = "Na sluiten laatste venster:";
+
+/* Class = "NSMenuItem"; title = "Terminate application"; ObjectID = "Rrr-CG-7lo"; */
+"Rrr-CG-7lo.title" = "Sluit programma";
+
