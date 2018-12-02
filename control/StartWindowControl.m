@@ -107,10 +107,6 @@ NSString*  TaglineFormat = @"tagline-%d";
   [[NSApplication sharedApplication] showHelp: sender];
 }
 
-- (IBAction) quitAction:(id)sender {
-  [[NSApplication sharedApplication] terminate: self];
-}
-
 - (void) cancelOperation:(id)sender {
   [self.window close];
 }
