@@ -424,10 +424,12 @@ static MainMenuControl  *singletonInstance = nil;
 - (BOOL) validateMenuItem:(NSMenuItem *)item {
   SEL  action = item.action;
 
-  if ( action == @selector(toggleToolbarShown:) ) {
-    NSWindow  *window = [NSApplication sharedApplication].mainWindow;
+  NSWindow  *window = [NSApplication sharedApplication].mainWindow;
+  BOOL  mainWindowIsDirectoryView =
+    [window.windowController isMemberOfClass:[DirectoryViewControl class]];
 
-    if (window == nil) {
+  if ( action == @selector(toggleToolbarShown:) ) {
+    if (!mainWindowIsDirectoryView) {
       return NO;
     }
     item.title = window.toolbar.visible
@@ -446,7 +448,7 @@ static MainMenuControl  *singletonInstance = nil;
        action == @selector(saveDirectoryViewImage:) ||
        action == @selector(rescan:) ||
        action == @selector(filterDirectoryView:) ) {
-    return ([NSApplication sharedApplication].mainWindow != nil);
+    return mainWindowIsDirectoryView;
   }
   
   return YES;
