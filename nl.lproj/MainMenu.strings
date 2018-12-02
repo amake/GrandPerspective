@@ -16,12 +16,6 @@
 /* Class = "NSMenu"; title = "MainMenu"; ObjectID = "29"; */
 "29.title" = "MainMenu";
 
-/* Class = "NSMenuItem"; title = "GrandPerspective"; ObjectID = "56"; */
-"56.title" = "GrandPerspective";
-
-/* Class = "NSMenu"; title = "GrandPerspective"; ObjectID = "57"; */
-"57.title" = "GrandPerspective";
-
 /* Class = "NSMenuItem"; title = "About GrandPerspective"; ObjectID = "58"; */
 "58.title" = "Over GrandPerspective";
 

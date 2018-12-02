@@ -4,38 +4,14 @@
 /* Class = "NSBox"; title = "Display"; ObjectID = "29"; */
 "29.title" = "Weergave";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "45"; */
-"45.title" = "OtherViews";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "46"; */
-"46.title" = "Item1";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "51"; */
-"51.title" = "Item1";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "53"; */
-"53.title" = "OtherViews";
-
 /* Class = "NSBox"; title = "Info"; ObjectID = "57"; */
 "57.title" = "Info";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "61"; */
-"61.title" = "Item1";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "62"; */
-"62.title" = "OtherViews";
 
 /* Class = "NSBox"; title = "Actions"; ObjectID = "72"; */
 "72.title" = "Acties";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "74"; */
-"74.title" = "OtherViews";
-
 /* Class = "NSMenuItem"; title = "Files and folders"; ObjectID = "78"; */
 "78.title" = "Bestanden en folders";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "152"; */
-"152.title" = "OtherViews";
 
 /* Class = "NSMenuItem"; title = "Close old window"; ObjectID = "153"; */
 "153.title" = "Oude venster sluiten";
@@ -64,29 +40,14 @@
 /* Class = "NSTextFieldCell"; title = "Filter:"; ObjectID = "181"; */
 "181.title" = "Filter:";
 
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "184"; */
-"184.title" = "OtherViews";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "185"; */
-"185.title" = "Item1";
-
 /* Class = "NSTextFieldCell"; title = "Rescan action:"; ObjectID = "189"; */
 "189.title" = "Herlees gedrag:";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "192"; */
-"192.title" = "OtherViews";
 
 /* Class = "NSMenuItem"; title = "Rescan folder in view"; ObjectID = "193"; */
 "193.title" = "Map in venster herlezen";
 
 /* Class = "NSButtonCell"; title = "Show entire volume"; ObjectID = "199"; */
 "199.title" = "Toon gehele opslagmedium";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "206"; */
-"206.title" = "OtherViews";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "207"; */
-"207.title" = "Item1";
 
 /* Class = "NSTextFieldCell"; title = "File size unit system:"; ObjectID = "214"; */
 "214.title" = "Bestandsgrootte eenheidstelsel:";
