@@ -326,8 +326,6 @@ static MainMenuControl  *singletonInstance = nil;
     if (isDirectory) {
       // Prevent window from showing if this action triggered the application to start
       showWelcomeWindow = NO;
-      // Close window if window was showing already (e.g. because application was started normally)
-      [self hideWelcomeWindow];
 
       [self scanFolder: filename namedFilter: nil];
       // Loading is done asynchronously, so starting a scan is assumed a successful action
@@ -335,7 +333,6 @@ static MainMenuControl  *singletonInstance = nil;
     }
     else if ([filename.pathExtension.lowercaseString isEqualToString: @"gpscan"]) {
       showWelcomeWindow = NO;
-      [self hideWelcomeWindow];
 
       [self loadScanDataFromFile: filename];
       // Loading is done asynchronously, so starting a load is assumed a successful action
@@ -383,7 +380,6 @@ static MainMenuControl  *singletonInstance = nil;
 - (void)scanFolder:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
   NSLog(@"scanFolder:userData:error:");
   showWelcomeWindow = NO; // Do not automatically show welcome window
-  [self hideWelcomeWindow]; // Close it if it was already showing
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
@@ -407,7 +403,6 @@ static MainMenuControl  *singletonInstance = nil;
 - (void)loadScanData:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
   NSLog(@"loadScanData:userData:error:");
   showWelcomeWindow = NO; // Do not automatically show welcome window
-  [self hideWelcomeWindow]; // Close it if it was already showing
 
   NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
   if (path == nil) {
@@ -781,6 +776,8 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 - (void) scanFolder:(NSString *)path filterSet:(FilterSet *)filterSet {
+  [self hideWelcomeWindow]; // Auto-close window if it was showing
+
   NSString  *fileSizeMeasure =
     [[NSUserDefaults standardUserDefaults] stringForKey: FileSizeMeasureKey];
 
@@ -836,6 +833,8 @@ static MainMenuControl  *singletonInstance = nil;
 
 
 - (void) loadScanDataFromFile:(NSString *)path {
+  [self hideWelcomeWindow]; // Auto-close window if it was showing
+
   ReadTaskInput  *input = [[[ReadTaskInput alloc] initWithPath: path] autorelease];
 
   ReadTaskCallback  *callback = 
