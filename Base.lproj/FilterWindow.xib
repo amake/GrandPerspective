@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="15G19009" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="15G22010" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
@@ -17,7 +17,6 @@
                 <outlet property="removeAllTestsFromFilterButton" destination="73" id="74"/>
                 <outlet property="removeTestFromFilterButton" destination="23" id="46"/>
                 <outlet property="removeTestFromRepositoryButton" destination="25" id="45"/>
-                <outlet property="testDescriptionDrawer" destination="8" id="55"/>
                 <outlet property="window" destination="5" id="52"/>
             </connections>
         </customObject>
@@ -70,7 +69,7 @@
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                                         </tableHeaderCell>
-                                                        <imageCell key="dataCell" controlSize="small" refusesFirstResponder="YES" alignment="left" image="A3344F56-2DF8-4D8F-9BC9-C0609EB0C399" id="135"/>
+                                                        <imageCell key="dataCell" controlSize="small" refusesFirstResponder="YES" alignment="left" image="26B013A5-5A13-4D2F-AE3C-1A058E6B278A" id="135"/>
                                                     </tableColumn>
                                                     <tableColumn identifier="name" editable="NO" width="177" minWidth="10" maxWidth="3.4028229999999999e+38" id="133">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
@@ -302,17 +301,9 @@ Gw
                 <outlet property="delegate" destination="-2" id="70"/>
             </connections>
         </window>
-        <drawer preferredEdge="minY" leadingOffset="15" trailingOffset="15" id="8" userLabel="Drawer">
-            <size key="contentSize" width="520" height="121"/>
-            <size key="minContentSize" width="100" height="92"/>
-            <size key="maxContentSize" width="600" height="400"/>
-            <connections>
-                <outlet property="parentWindow" destination="5" id="9"/>
-            </connections>
-        </drawer>
     </objects>
     <resources>
-        <image name="A3344F56-2DF8-4D8F-9BC9-C0609EB0C399" width="17" height="17">
+        <image name="26B013A5-5A13-4D2F-AE3C-1A058E6B278A" width="17" height="17">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
