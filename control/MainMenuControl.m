@@ -721,8 +721,7 @@ static MainMenuControl  *singletonInstance = nil;
     [startWindowControl changeTagLine];
   }
 
-  // Show modal window. The controller will close it and end the modal session.
-  [NSApp runModalForWindow: startWindowControl.window];
+  [startWindowControl showWindow: nil];
 }
 
 - (void) hideWelcomeWindow {
