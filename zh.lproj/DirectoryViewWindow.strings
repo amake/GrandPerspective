@@ -10,30 +10,6 @@
 /* Class = "NSTabViewItem"; label = "Focus"; ObjectID = "97"; */
 "97.label" = "聚焦";
 
-/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "207"; */
-"207.title" = "元件2";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "208"; */
-"208.title" = "其它视图";
-
-/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "209"; */
-"209.title" = "元件3";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "210"; */
-"210.title" = "元件1";
-
-/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "222"; */
-"222.title" = "元件3";
-
-/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "223"; */
-"223.title" = "元件2";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "224"; */
-"224.title" = "元件1";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "225"; */
-"225.title" = "其它视图";
-
 /* Class = "NSTextFieldCell"; title = "Time of scan:"; ObjectID = "909"; */
 "909.title" = "扫描总时间:";
 
@@ -46,38 +22,20 @@
 /* Class = "NSTextFieldCell"; title = "Initial free space:"; ObjectID = "912"; */
 "912.title" = "原先可用空间:";
 
-/* Class = "NSTextFieldCell"; title = "00:00:00 28-12-88"; ObjectID = "914"; */
-"914.title" = "00:00:00 28-12-88";
-
 /* Class = "NSTextFieldCell"; title = "Physical"; ObjectID = "915"; */
 "915.title" = "实质";
 
 /* Class = "NSTextFieldCell"; title = "Filter1"; ObjectID = "916"; */
 "916.title" = "过滤1";
 
-/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "917"; */
-"917.title" = "888.88 MB";
-
 /* Class = "NSTextFieldCell"; title = "Volume size:"; ObjectID = "918"; */
 "918.title" = "磁盘大小:";
-
-/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "919"; */
-"919.title" = "888.8 MB";
-
-/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "920"; */
-"920.title" = "888.8 MB";
 
 /* Class = "NSTextFieldCell"; title = "Miscellaneous used space:"; ObjectID = "921"; */
 "921.title" = "繁杂已用空间";
 
-/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "922"; */
-"922.title" = "888.8 MB";
-
 /* Class = "NSTextFieldCell"; title = "Freed space:"; ObjectID = "923"; */
 "923.title" = "已释放空间";
-
-/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "924"; */
-"924.title" = "888.8 MB";
 
 /* Class = "NSTextFieldCell"; title = "Volume name"; ObjectID = "925"; */
 "925.title" = "磁盘名称";
@@ -87,12 +45,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Number of scanned files:"; ObjectID = "927"; */
 "927.title" = "已扫描文件总数:";
-
-/* Class = "NSTextFieldCell"; title = "1234567890"; ObjectID = "928"; */
-"928.title" = "1234567890";
-
-/* Class = "NSTextFieldCell"; title = "1234567890"; ObjectID = "929"; */
-"929.title" = "1234567890";
 
 /* Class = "NSTextFieldCell"; title = "Number of deleted files:"; ObjectID = "930"; */
 "930.title" = "已删除文件总数:";
@@ -115,53 +67,14 @@
 /* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "939"; */
 "939.title" = "显示组件内容";
 
-/* Class = "NSTextFieldCell"; title = "XXXX in view:"; ObjectID = "940"; */
-"940.title" = "XXXX 在视图：";
-
-/* Class = "NSTextFieldCell"; title = "0 bytes"; ObjectID = "941"; */
-"941.title" = "0 bytes";
-
-/* Class = "NSTextFieldCell"; title = "0 bytes"; ObjectID = "942"; */
-"942.title" = "0 bytes";
-
-/* Class = "NSTextFieldCell"; title = "Selected XXXX:"; ObjectID = "943"; */
-"943.title" = "选择的XXXX:";
-
-/* Class = "NSTextFieldCell"; title = "(888.8 MB)"; ObjectID = "944"; */
-"944.title" = "(888.8 MB)";
-
-/* Class = "NSTextFieldCell"; title = "(888.8 MB)"; ObjectID = "945"; */
-"945.title" = "(888.8 MB)";
-
 /* Class = "NSTextFieldCell"; title = "File type:"; ObjectID = "946"; */
 "946.title" = "文件种类:";
 
 /* Class = "NSTextFieldCell"; title = "File type identifier"; ObjectID = "947"; */
 "947.title" = "文件种类识别码";
 
-/* Class = "NSTextFieldCell"; title = "System/Font/Text"; ObjectID = "948"; */
-"948.title" = "系统／字体／文本";
-
 /* Class = "NSTextFieldCell"; title = "Size"; ObjectID = "949"; */
 "949.title" = "大小";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "952"; */
-"952.title" = "文本元件";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "953"; */
-"953.title" = "文本元件";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "966"; */
-"966.title" = "其它视图";
-
-/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "967"; */
-"967.title" = "元件1";
-
-/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "968"; */
-"968.title" = "元件2";
-
-/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "969"; */
-"969.title" = "元件3";
 
 /* Class = "NSTextFieldCell"; title = "Created:"; ObjectID = "974"; */
 "974.title" = "创建:";
@@ -169,15 +82,6 @@
 /* Class = "NSTextFieldCell"; title = "Modified:"; ObjectID = "976"; */
 "976.title" = "更改:";
 
-/* Class = "NSTextFieldCell"; title = "01/01/2001 12:00:00"; ObjectID = "978"; */
-"978.title" = "01/01/2001 12:00:00";
-
-/* Class = "NSTextFieldCell"; title = "01/01/2001 12:00:00"; ObjectID = "980"; */
-"980.title" = "01/01/2001 12:00:00";
-
 /* Class = "NSTextFieldCell"; title = "Accessed:"; ObjectID = "984"; */
 "984.title" = "访问:";
-
-/* Class = "NSTextFieldCell"; title = "01/01/2001 12:00:00"; ObjectID = "986"; */
-"986.title" = "01/01/2001 12:00:00";
 

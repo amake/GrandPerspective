@@ -1,153 +1,153 @@
-/* (No Commment) */
-"Audio" = "Audio";
-
-/* (No Commment) */
-"BlueSkyTulips" = "Blauer Himmel Tulpen";
-
-/* (No Commment) */
-"Bujumbura" = "Bujumbura";
-
-/* (No Commment) */
-"CoffeeBeans" = "Kaffeebohnen";
-
-/* (No Commment) */
-"Daytona" = "Daytona Beach";
-
-/* (No Commment) */
-"FengShui" = "Feng Shui";
-
-/* (No Commment) */
-"FlyingGeese" = "Magenta magic";
-
-/* (No Commment) */
-"GreenEggs" = "Green eggs";
-
-/* (No Commment) */
-"Hard-linked items" = "Hardlinked Einträge";
-
-/* (No Commment) */
-"Heatmap-12" = "Heatmap 12";
-
-/* (No Commment) */
-"Heatmap-23" = "Heatmap 23";
-
-/* (No Commment) */
-"Huge files" = "Riesige Dateien";
-
-/* (No Commment) */
-"Images" = "Bilder";
-
-/* (No Commment) */
-"LagoonNebula" = "Lagoon nebula";
-
-/* (No Commment) */
-"Large files" = "Große Dateien";
-
-/* (No Commment) */
-"Medium files" = "Mittelgroße Dateien";
-
-/* (No Commment) */
-"Monaco" = "Monaco";
-
-/* (No Commment) */
-"MossAndLichen" = "Moss und lichen";
-
-/* (No Commment) */
-"No hard-links" = "Keine Hardlinked";
-
-/* (No Commment) */
-"No version control" = "Keine Versionskontrolle";
-
-/* (No Commment) */
-"OliveSunset" = "Olive Sunset";
-
-/* (No Commment) */
-"OrigamiMice" = "Origami mice";
-
-/* (No Commment) */
-"Packages" = "Packages";
-
-/* (No Commment) */
-"Rainbow" = "Regenbogen";
-
-/* (No Commment) */
-"Small files" = "Kleine Dateien";
-
-/* (No Commment) */
-"Tiny files" = "Kleinste Dateien";
-
-/* (No Commment) */
-"Version control" = "Versionskontrolle";
-
-/* (No Commment) */
+/* (No Comment) */
 "access" = "Letzter Zugriff";
 
-/* (No Commment) */
+/* (No Comment) */
+"Audio" = "Audio";
+
+/* The names of the file size base types. */
 "base-2" = "Binär";
 
-/* (No Commment) */
+/* (No Comment) */
 "base-10" = "Dezimal";
 
-/* (No Commment) */
+/* (No Comment) */
+"BlueSkyTulips" = "Blauer Himmel Tulpen";
+
+/* (No Comment) */
+"Bujumbura" = "Bujumbura";
+
+/* The names of the supported rescan behaviours. */
 "close old window" = "Altes Fenster schließen";
 
-/* (No Commment) */
+/* (No Comment) */
+"CoffeeBeans" = "Kaffeebohnen";
+
+/* (No Comment) */
 "creation" = "Erstellt";
 
-/* (No Commment) */
+/* (No Comment) */
+"Daytona" = "Daytona Beach";
+
+/* (No Comment) */
 "delete files and folders" = "Dateien und Verzeichnisse";
 
-/* (No Commment) */
+/* The names of the supported file-deletion targets. */
 "delete nothing" = "Nichts";
 
-/* (No Commment) */
+/* (No Comment) */
 "extension" = "Erweiterung";
 
-/* (No Commment) */
+/* (No Comment) */
+"FengShui" = "Feng Shui";
+
+/* (No Comment) */
+"FlyingGeese" = "Magenta magic";
+
+/* (No Comment) */
 "folder" = "Verzeichnis";
 
-/* (No Commment) */
+/* The names of the "special" files in the viewer. */
 "free" = "Freier Speicherplatz";
 
-/* (No Commment) */
+/* (No Comment) */
 "freed" = "Befreiter Speicherplatz";
 
-/* (No Commment) */
+/* (No Comment) */
+"GreenEggs" = "Green eggs";
+
+/* (No Comment) */
+"Hard-linked items" = "Hardlinked Einträge";
+
+/* (No Comment) */
+"Heatmap-12" = "Heatmap 12";
+
+/* (No Comment) */
+"Heatmap-23" = "Heatmap 23";
+
+/* (No Comment) */
+"Huge files" = "Riesige Dateien";
+
+/* (No Comment) */
+"Images" = "Bilder";
+
+/* (No Comment) */
 "keep old window" = "Altes Fenster behalten";
 
-/* (No Commment) */
+/* (No Comment) */
+"LagoonNebula" = "Lagoon nebula";
+
+/* (No Comment) */
+"Large files" = "Große Dateien";
+
+/* The names of the various color mapping schemes. */
 "level" = "Level";
 
-/* (No Commment) */
+/* The names of the file size types. */
 "logical" = "Logisch";
 
-/* (No Commment) */
+/* (No Comment) */
+"Medium files" = "Mittelgroße Dateien";
+
+/* (No Comment) */
 "misc used" = "Sonstig verwendeter Speicherplatz";
 
-/* (No Commment) */
+/* (No Comment) */
 "modification" = "Letzte Änderung";
 
-/* (No Commment) */
+/* (No Comment) */
+"Monaco" = "Monaco";
+
+/* (No Comment) */
+"MossAndLichen" = "Moss und lichen";
+
+/* (No Comment) */
 "name" = "Name";
 
-/* (No Commment) */
+/* The names of the various filters. */
+"No hard-links" = "Keine Hardlinked";
+
+/* (No Comment) */
+"No version control" = "Keine Versionskontrolle";
+
+/* (No Comment) */
 "nothing" = "Nichts";
 
-/* (No Commment) */
+/* The names of the various color palettes. */
+"OliveSunset" = "Olive Sunset";
+
+/* (No Comment) */
 "only delete files" = "Dateien";
 
-/* (No Commment) */
+/* (No Comment) */
+"OrigamiMice" = "Origami mice";
+
+/* (No Comment) */
+"Packages" = "Packages";
+
+/* (No Comment) */
 "physical" = "Physisch";
 
-/* (No Commment) */
+/* (No Comment) */
+"Rainbow" = "Regenbogen";
+
+/* The names of the supported rescan actions. */
 "rescan all" = "Voller Rescan";
 
-/* (No Commment) */
+/* (No Comment) */
 "rescan visible" = "Neu scannen des aktuellen Verzeichnisses";
 
-/* (No Commment) */
+/* (No Comment) */
+"Small files" = "Kleine Dateien";
+
+/* The names of the various filter tests. */
+"Tiny files" = "Kleinste Dateien";
+
+/* (No Comment) */
 "top folder" = "Oberstes Verzeichnis";
 
-/* (No Commment) */
+/* (No Comment) */
 "uniform type" = "Datei Typ";
+
+/* (No Comment) */
+"Version control" = "Versionskontrolle";
 

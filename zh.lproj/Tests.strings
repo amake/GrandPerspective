@@ -1,44 +1,44 @@
+/* AND-test with 1: sub test, and 2: another sub test */
+"(%@) and (%@)" = "(%1$@)与(%2$@)";
+
+/* AND-test with 1: sub test, and 2: two or more other sub tests */
+"(%@) and %@" = "(%1$@)与%2$@";
+
+/* OR-test with 1: sub test, and 2: another sub test */
+"(%@) or (%@)" = "(%1$@)或(%2$@)";
+
+/* OR-test with 1: sub test, and 2: two or more other sub tests */
+"(%@) or %@" = "(%1$@)或%2$@";
+
 /* AND-test for flags sub tests with 1: subtest, 2: one or more sub tests */
 "%@ and %@" = "%1$@ 与 %2$@";
 
 /* String test with 1: subject, and 2: match targets */
 "%@ contains %@" = "%1$@ 包含 %2$@";
 
-/* Case-sensitive string test with 1: subject, and 2: match targets */
-"%@ eQuals %@" = "%1$@ 等于 %2$@";
+/* String test with 1: subject, and 2: match targets */
+"%@ ends with %@" = "%1$@以%2$@结束";
 
 /* Case-sensitive string test with 1: subject, and 2: match targets */
 "%@ enDs with %@" = "%1$@以%2$@结束";
 
 /* String test with 1: subject, and 2: match targets */
-"%@ ends with %@" = "%1$@以%2$@结束";
-
-/* String test with 1: subject, and 2: match targets */
 "%@ equals %@" = "%1$@等于%2$@";
+
+/* Case-sensitive string test with 1: subject, and 2: match targets */
+"%@ eQuals %@" = "%1$@ 等于 %2$@";
 
 /* Pair of match targets with 1: a target match, and 2: another target match */
 "%@ or %@" = "%1$@或%2$@";
 
-/* Case-sensitive string test with 1: subject, and 2: match targets */
-"%@ starTs with %@" = "%1$@以%2$@开始";
-
 /* String test with 1: subject, and 2: match targets */
 "%@ starts with %@" = "%1$@以%2$@开始";
 
+/* Case-sensitive string test with 1: subject, and 2: match targets */
+"%@ starTs with %@" = "%1$@以%2$@开始";
+
 /* Three or more match targets with 1: a target match, and 2: two or more other target matches */
 "%@, %@" = "%1$@, %2$@";
-
-/* AND-test with 1: sub test, and 2: two or more other sub tests */
-"(%@) and %@" = "(%1$@)与%2$@";
-
-/* AND-test with 1: sub test, and 2: another sub test */
-"(%@) and (%@)" = "(%1$@)与(%2$@)";
-
-/* OR-test with 1: sub test, and 2: two or more other sub tests */
-"(%@) or %@" = "(%1$@)或%2$@";
-
-/* OR-test with 1: sub test, and 2: another sub test */
-"(%@) or (%@)" = "(%1$@)或(%2$@)";
 
 /* Size test without any bounds */
 "any size" = "任何大小";

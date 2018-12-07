@@ -10,30 +10,6 @@
 /* Class = "NSTabViewItem"; label = "Focus"; ObjectID = "97"; */
 "97.label" = "Odak";
 
-/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "207"; */
-"207.title" = "Item2";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "208"; */
-"208.title" = "OtherViews";
-
-/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "209"; */
-"209.title" = "Item3";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "210"; */
-"210.title" = "Item1";
-
-/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "222"; */
-"222.title" = "Item3";
-
-/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "223"; */
-"223.title" = "Item2";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "224"; */
-"224.title" = "Item1";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "225"; */
-"225.title" = "OtherViews";
-
 /* Class = "NSTextFieldCell"; title = "Time of scan:"; ObjectID = "909"; */
 "909.title" = "Tarama zamanı:";
 
@@ -46,38 +22,20 @@
 /* Class = "NSTextFieldCell"; title = "Initial free space:"; ObjectID = "912"; */
 "912.title" = "Başlangıçtaki boş alan:";
 
-/* Class = "NSTextFieldCell"; title = "00:00:00 28-12-88"; ObjectID = "914"; */
-"914.title" = "00:00:00 28-12-88";
-
 /* Class = "NSTextFieldCell"; title = "Physical"; ObjectID = "915"; */
 "915.title" = "Fiziksel";
 
 /* Class = "NSTextFieldCell"; title = "Filter1"; ObjectID = "916"; */
 "916.title" = "Filtre1";
 
-/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "917"; */
-"917.title" = "888.8 MB";
-
 /* Class = "NSTextFieldCell"; title = "Volume size:"; ObjectID = "918"; */
 "918.title" = "Hacim boyutu:";
-
-/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "919"; */
-"919.title" = "888.8 MB";
-
-/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "920"; */
-"920.title" = "888.8 MB";
 
 /* Class = "NSTextFieldCell"; title = "Miscellaneous used space:"; ObjectID = "921"; */
 "921.title" = "Diğer kullanılmış alanlar:";
 
-/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "922"; */
-"922.title" = "888.8 MB";
-
 /* Class = "NSTextFieldCell"; title = "Freed space:"; ObjectID = "923"; */
 "923.title" = "Serbest bırakılmış alan:";
-
-/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "924"; */
-"924.title" = "888.8 MB";
 
 /* Class = "NSTextFieldCell"; title = "Volume name"; ObjectID = "925"; */
 "925.title" = "Hacim adı";
@@ -87,12 +45,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Number of scanned files:"; ObjectID = "927"; */
 "927.title" = "Taranan dosya sayısı:";
-
-/* Class = "NSTextFieldCell"; title = "1234567890"; ObjectID = "928"; */
-"928.title" = "1234567890";
-
-/* Class = "NSTextFieldCell"; title = "1234567890"; ObjectID = "929"; */
-"929.title" = "1234567890";
 
 /* Class = "NSTextFieldCell"; title = "Number of deleted files:"; ObjectID = "930"; */
 "930.title" = "Silinen dosya sayısı:";
@@ -115,53 +67,14 @@
 /* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "939"; */
 "939.title" = "Tüm paket içeriğini göster";
 
-/* Class = "NSTextFieldCell"; title = "XXXX in view:"; ObjectID = "940"; */
-"940.title" = "Görüntüdeki XXXX:";
-
-/* Class = "NSTextFieldCell"; title = "0 bytes"; ObjectID = "941"; */
-"941.title" = "0 bytes";
-
-/* Class = "NSTextFieldCell"; title = "0 bytes"; ObjectID = "942"; */
-"942.title" = "0 bytes";
-
-/* Class = "NSTextFieldCell"; title = "Selected XXXX:"; ObjectID = "943"; */
-"943.title" = "Seçilmiş XXXX:";
-
-/* Class = "NSTextFieldCell"; title = "(888.8 MB)"; ObjectID = "944"; */
-"944.title" = "(888.8 MB)";
-
-/* Class = "NSTextFieldCell"; title = "(888.8 MB)"; ObjectID = "945"; */
-"945.title" = "(888.8 MB)";
-
 /* Class = "NSTextFieldCell"; title = "File type:"; ObjectID = "946"; */
 "946.title" = "Dosya Türü:";
 
 /* Class = "NSTextFieldCell"; title = "File type identifier"; ObjectID = "947"; */
 "947.title" = "Dosya türü tanımlayıcısı";
 
-/* Class = "NSTextFieldCell"; title = "System/Font/Text"; ObjectID = "948"; */
-"948.title" = "System/Font/Text";
-
 /* Class = "NSTextFieldCell"; title = "Size"; ObjectID = "949"; */
 "949.title" = "Boyut";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "952"; */
-"952.title" = "Yazı Hücresi";
-
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "953"; */
-"953.title" = "Yazı Hücresi";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "966"; */
-"966.title" = "OtherViews";
-
-/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "967"; */
-"967.title" = "Item 1";
-
-/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "968"; */
-"968.title" = "Item 2";
-
-/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "969"; */
-"969.title" = "Item 3";
 
 /* Class = "NSTextFieldCell"; title = "Created:"; ObjectID = "974"; */
 "974.title" = "Yaratıldı:";
@@ -169,15 +82,6 @@
 /* Class = "NSTextFieldCell"; title = "Modified:"; ObjectID = "976"; */
 "976.title" = "Değiştirildi:";
 
-/* Class = "NSTextFieldCell"; title = "01/01/2001 12:00:00"; ObjectID = "978"; */
-"978.title" = "2000-01-01 12:00:00";
-
-/* Class = "NSTextFieldCell"; title = "01/01/2001 12:00:00"; ObjectID = "980"; */
-"980.title" = "2000-01-01 12:00:00";
-
 /* Class = "NSTextFieldCell"; title = "Accessed:"; ObjectID = "984"; */
 "984.title" = "Erişildi:";
-
-/* Class = "NSTextFieldCell"; title = "01/01/2001 12:00:00"; ObjectID = "986"; */
-"986.title" = "2000-01-01 12:00:00";
 

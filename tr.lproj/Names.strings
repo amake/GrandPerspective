@@ -1,153 +1,153 @@
-/* (No Commment) */
-"Audio" = "Ses";
-
-/* (No Commment) */
-"BlueSkyTulips" = "Mavi gökyüzü laleleri";
-
-/* (No Commment) */
-"Bujumbura" = "Bujumbura";
-
-/* (No Commment) */
-"CoffeeBeans" = "Kahve taneleri";
-
-/* (No Commment) */
-"Daytona" = "Daytona Sahili";
-
-/* (No Commment) */
-"FengShui" = "Feng Shui";
-
-/* (No Commment) */
-"FlyingGeese" = "Fuşya sihiri";
-
-/* (No Commment) */
-"GreenEggs" = "Yeşil yumurtalar";
-
-/* (No Commment) */
-"Hard-linked items" = "Sabit bağlantılılar";
-
-/* (No Commment) */
-"Heatmap-12" = "Sıcaklık haritası 12";
-
-/* (No Commment) */
-"Heatmap-23" = "Sıcaklık haritası 23";
-
-/* (No Commment) */
-"Huge files" = "Çok büyük dosyalar";
-
-/* (No Commment) */
-"Images" = "Kopyalar";
-
-/* (No Commment) */
-"LagoonNebula" = "Deniz kulağı nebula";
-
-/* (No Commment) */
-"Large files" = "Büyük dosyalar";
-
-/* (No Commment) */
-"Medium files" = "Orta büyüklükteki dosyalar";
-
-/* (No Commment) */
-"Monaco" = "Monako";
-
-/* (No Commment) */
-"MossAndLichen" = "Yosun ve liken";
-
-/* (No Commment) */
-"No hard-links" = "Sabit bağlantı yok";
-
-/* (No Commment) */
-"No version control" = "Versiyon denetimi yok ";
-
-/* (No Commment) */
-"OliveSunset" = "Akdeniz günbatımı";
-
-/* (No Commment) */
-"OrigamiMice" = "Origami faresi";
-
-/* (No Commment) */
-"Packages" = "Paketler";
-
-/* (No Commment) */
-"Rainbow" = "Gökkuşağı";
-
-/* (No Commment) */
-"Small files" = "Küçük dosyalar";
-
-/* (No Commment) */
-"Tiny files" = "Çok küçük dosyalar";
-
-/* (No Commment) */
-"Version control" = "Versiyon denetimi";
-
-/* (No Commment) */
+/* (No Comment) */
 "access" = "Son erişim";
 
-/* (No Commment) */
+/* (No Comment) */
+"Audio" = "Ses";
+
+/* The names of the file size base types. */
 "base-2" = "İkilik";
 
-/* (No Commment) */
+/* (No Comment) */
 "base-10" = "Ondalık";
 
-/* (No Commment) */
+/* (No Comment) */
+"BlueSkyTulips" = "Mavi gökyüzü laleleri";
+
+/* (No Comment) */
+"Bujumbura" = "Bujumbura";
+
+/* The names of the supported rescan behaviours. */
 "close old window" = "Eski pencereyi kapat";
 
-/* (No Commment) */
+/* (No Comment) */
+"CoffeeBeans" = "Kahve taneleri";
+
+/* (No Comment) */
 "creation" = "Oluşturma";
 
-/* (No Commment) */
+/* (No Comment) */
+"Daytona" = "Daytona Sahili";
+
+/* (No Comment) */
 "delete files and folders" = "Dosyalar ve klasörler";
 
-/* (No Commment) */
+/* The names of the supported file-deletion targets. */
 "delete nothing" = "Hiç bir şey";
 
-/* (No Commment) */
+/* (No Comment) */
 "extension" = "Uzantı";
 
-/* (No Commment) */
+/* (No Comment) */
+"FengShui" = "Feng Shui";
+
+/* (No Comment) */
+"FlyingGeese" = "Fuşya sihiri";
+
+/* (No Comment) */
 "folder" = "Klasör";
 
-/* (No Commment) */
+/* The names of the "special" files in the viewer. */
 "free" = "Boş alan";
 
-/* (No Commment) */
+/* (No Comment) */
 "freed" = "Boşaltılan alan";
 
-/* (No Commment) */
+/* (No Comment) */
+"GreenEggs" = "Yeşil yumurtalar";
+
+/* (No Comment) */
+"Hard-linked items" = "Sabit bağlantılılar";
+
+/* (No Comment) */
+"Heatmap-12" = "Sıcaklık haritası 12";
+
+/* (No Comment) */
+"Heatmap-23" = "Sıcaklık haritası 23";
+
+/* (No Comment) */
+"Huge files" = "Çok büyük dosyalar";
+
+/* (No Comment) */
+"Images" = "Kopyalar";
+
+/* (No Comment) */
 "keep old window" = "Eski pencereyi koru";
 
-/* (No Commment) */
+/* (No Comment) */
+"LagoonNebula" = "Deniz kulağı nebula";
+
+/* (No Comment) */
+"Large files" = "Büyük dosyalar";
+
+/* The names of the various color mapping schemes. */
 "level" = "Seviye";
 
-/* (No Commment) */
+/* The names of the file size types. */
 "logical" = "Mantıksal";
 
-/* (No Commment) */
+/* (No Comment) */
+"Medium files" = "Orta büyüklükteki dosyalar";
+
+/* (No Comment) */
 "misc used" = "Karışık kullanılan alan";
 
-/* (No Commment) */
+/* (No Comment) */
 "modification" = "Son değişiklik";
 
-/* (No Commment) */
+/* (No Comment) */
+"Monaco" = "Monako";
+
+/* (No Comment) */
+"MossAndLichen" = "Yosun ve liken";
+
+/* (No Comment) */
 "name" = "İsim";
 
-/* (No Commment) */
+/* The names of the various filters. */
+"No hard-links" = "Sabit bağlantı yok";
+
+/* (No Comment) */
+"No version control" = "Versiyon denetimi yok ";
+
+/* (No Comment) */
 "nothing" = "Hiç bir şey";
 
-/* (No Commment) */
+/* The names of the various color palettes. */
+"OliveSunset" = "Akdeniz günbatımı";
+
+/* (No Comment) */
 "only delete files" = "Dosyalar";
 
-/* (No Commment) */
+/* (No Comment) */
+"OrigamiMice" = "Origami faresi";
+
+/* (No Comment) */
+"Packages" = "Paketler";
+
+/* (No Comment) */
 "physical" = "Fiziksel";
 
-/* (No Commment) */
+/* (No Comment) */
+"Rainbow" = "Gökkuşağı";
+
+/* The names of the supported rescan actions. */
 "rescan all" = "Tam tekrar tarama";
 
-/* (No Commment) */
+/* (No Comment) */
 "rescan visible" = "Görüntüdeki klasörü tekrar tara";
 
-/* (No Commment) */
+/* (No Comment) */
+"Small files" = "Küçük dosyalar";
+
+/* The names of the various filter tests. */
+"Tiny files" = "Çok küçük dosyalar";
+
+/* (No Comment) */
 "top folder" = "En üst klasör";
 
-/* (No Commment) */
+/* (No Comment) */
 "uniform type" = "Dosya türü";
+
+/* (No Comment) */
+"Version control" = "Versiyon denetimi";
 

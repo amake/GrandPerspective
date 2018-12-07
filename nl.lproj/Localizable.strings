@@ -58,10 +58,10 @@
 /* File size unit for bytes. */
 "B" = "B";
 
-/* (No Commment) */
+/* Alert panel button */
 "Cancel" = "Annuleer";
 
-/* (No Commment) */
+/* Alert panel button */
 "Delete" = "Verwijder";
 
 /* Alert message */
@@ -113,11 +113,6 @@
 "Expected unsigned integer value." = "Positief geheel getal verwacht.";
 
 /* Alert message */
-"Failed to bind one or more filter tests:
-%@" = "Het is niet gelukt de volgende filtertesten te initialiseren:
-%@";
-
-/* Alert message */
 "Failed to delete the file \"%@\"" = "Het verwijderen van het bestand \"%@\" is mislukt";
 
 /* Alert message */
@@ -153,11 +148,6 @@
 /* Alert message (with filename arg) */
 "Failed to save the scan data to \"%@\"" = "Het opslaan van de data naar \"%@\" is mislukt";
 
-/* Alert message */
-"Failed to update one or more filters:
-%@" = "Het bijwerken van één of meer filters is mislukt:
-%@";
-
 /* Error message */
 "Failed to write entire buffer." = "Het wegschrijven van de gehele buffer inhoud is mislukt.";
 
@@ -187,6 +177,9 @@
 
 /* File size unit for gigabytes. */
 "GB" = "GB";
+
+/* File size unit for kilobytes. */
+"kB" = "kB";
 
 /* Legend for Level mapping scheme. */
 "Level %d" = "Nivo %d";
@@ -221,8 +214,11 @@
 /* Alert additional informative text */
 "Note: The package is hard-linked. It will take up space until all links to it are deleted." = "Het pakket is een harde link. Deze zal ruimte innemen totdat alle links verwijderd zijn.";
 
-/* (No Commment) */
+/* Alert panel button */
 "OK" = "OK";
+
+/* Misc. description for File type mapping scheme. */
+"other file types" = "overige bestandstypes";
 
 /* Legend for Level mapping scheme. */
 "Outermost level" = "Buitenste nivo";
@@ -242,7 +238,7 @@
 /* Message in progress panel while loading data */
 "Reading %@" = "Laden van %@";
 
-/* (No Commment) */
+/* Alert panel button */
 "Remove" = "Verwijder";
 
 /* Alert message */
@@ -338,6 +334,9 @@
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "Deze filters bestaan niet meer. Hun oorspronkelijke definitie zal daarom gebruikt worden.";
 
+/* Description for 'unknown' UTI. */
+"unknown file type" = "onbekend bestandstype";
+
 /* Window title */
 "Unnamed filter" = "Filter - ?";
 
@@ -346,13 +345,4 @@
 
 /* Parse error */
 "Unrecognized value." = "Waarde onbekend.";
-
-/* File size unit for kilobytes. */
-"kB" = "kB";
-
-/* Misc. description for File type mapping scheme. */
-"other file types" = "overige bestandstypes";
-
-/* Description for 'unknown' UTI. */
-"unknown file type" = "onbekend bestandstype";
 

@@ -58,10 +58,10 @@
 /* File size unit for bytes. */
 "B" = "B";
 
-/* (No Commment) */
+/* Alert panel button */
 "Cancel" = "取消";
 
-/* (No Commment) */
+/* Alert panel button */
 "Delete" = "删除";
 
 /* Alert message */
@@ -113,10 +113,6 @@
 "Expected unsigned integer value." = "预期无符号整数值";
 
 /* Alert message */
-"Failed to bind one or more filter tests:
-%@" = "绑定一个或多个过滤测试失败:";
-
-/* Alert message */
 "Failed to delete the file \"%@\"" = "删除文件\"%@\"失败";
 
 /* Alert message */
@@ -152,10 +148,6 @@
 /* Alert message (with filename arg) */
 "Failed to save the scan data to \"%@\"" = "保存扫描信息至\"%@\"失败";
 
-/* Alert message */
-"Failed to update one or more filters:
-%@" = "更新一个或更多过滤失败";
-
 /* Error message */
 "Failed to write entire buffer." = "写至整个缓冲失败。";
 
@@ -182,6 +174,9 @@
 
 /* File size unit for gigabytes. */
 "GB" = "GB";
+
+/* File size unit for kilobytes. */
+"kB" = "kB";
 
 /* Legend for Level mapping scheme. */
 "Level %d" = "阶段%d";
@@ -216,8 +211,11 @@
 /* Alert additional informative text */
 "Note: The package is hard-linked. It will take up space until all links to it are deleted." = "注意:组件是软链接。它将会占据空间直到它的全部链接被删除.";
 
-/* (No Commment) */
+/* Alert panel button */
 "OK" = "OK";
+
+/* Misc. description for File type mapping scheme. */
+"other file types" = "其它文件类型";
 
 /* Legend for Level mapping scheme. */
 "Outermost level" = "最外层";
@@ -237,7 +235,7 @@
 /* Message in progress panel while loading data */
 "Reading %@" = "读取 %@";
 
-/* (No Commment) */
+/* Alert panel button */
 "Remove" = "去掉";
 
 /* Alert message */
@@ -324,6 +322,9 @@
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "这些过滤不再存在。 旧的定义将会被使用。";
 
+/* Description for 'unknown' UTI. */
+"unknown file type" = "未知文件类型";
+
 /* Window title */
 "Unnamed filter" = "未命名的过滤";
 
@@ -332,13 +333,4 @@
 
 /* Parse error */
 "Unrecognized value." = "Unrecognized value.";
-
-/* File size unit for kilobytes. */
-"kB" = "kB";
-
-/* Misc. description for File type mapping scheme. */
-"other file types" = "其它文件类型";
-
-/* Description for 'unknown' UTI. */
-"unknown file type" = "未知文件类型";
 

@@ -4,9 +4,6 @@
 /* Class = "NSBox"; title = "Available filters"; ObjectID = "3"; */
 "3.title" = "Mevcut Filtreler";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "12"; */
-"12.title" = "Yazı Hücresi";
-
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "14"; */
 "14.title" = "Tamam";
 

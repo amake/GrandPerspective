@@ -16,12 +16,6 @@
 /* Class = "NSMenu"; title = "MainMenu"; ObjectID = "29"; */
 "29.title" = "AnaMenü";
 
-/* Class = "NSMenuItem"; title = "GrandPerspective"; ObjectID = "56"; */
-"56.title" = "GrandPerspective";
-
-/* Class = "NSMenu"; title = "GrandPerspective"; ObjectID = "57"; */
-"57.title" = "GrandPerspective";
-
 /* Class = "NSMenuItem"; title = "About GrandPerspective"; ObjectID = "58"; */
 "58.title" = "GrandPerspective Hakkında";
 
@@ -136,9 +130,9 @@
 /* Class = "NSMenu"; title = "Services"; ObjectID = "426"; */
 "426.title" = "Hizmetler";
 
-/* Class = "NSMenu"; title = "Scan Recent"; ObjectID = "HXb-90-KwJ"; */
-"HXb-90-KwJ.title" = "Son Günlerdekini Tara";
-
 /* Class = "NSMenuItem"; title = "Scan Recent"; ObjectID = "hUr-J9-FbH"; */
 "hUr-J9-FbH.title" = "Son Günlerdekini Tara";
+
+/* Class = "NSMenu"; title = "Scan Recent"; ObjectID = "HXb-90-KwJ"; */
+"HXb-90-KwJ.title" = "Son Günlerdekini Tara";
 

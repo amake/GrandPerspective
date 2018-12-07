@@ -1,8 +1,20 @@
+/* Class = "NSTextFieldCell"; title = "Repeat a recent scan"; ObjectID = "aI9-me-id8"; */
+"aI9-me-id8.title" = "重复一个最近的扫描";
+
 /* Class = "NSButtonCell"; title = "Scan Other Folder"; ObjectID = "Cd8-ae-UVZ"; */
 "Cd8-ae-UVZ.title" = "扫描其它文件夹";
 
+/* Class = "NSTextFieldCell"; placeholderString = "Foldername"; ObjectID = "duM-ug-7fu"; */
+"duM-ug-7fu.placeholderString" = "文件夹名称";
+
+/* Class = "NSTextFieldCell"; title = "Folder"; ObjectID = "duM-ug-7fu"; */
+"duM-ug-7fu.title" = "文件夹";
+
 /* Class = "NSButtonCell"; title = "Help"; ObjectID = "JEp-c0-ZgQ"; */
 "JEp-c0-ZgQ.title" = "帮助";
+
+/* Class = "NSTextFieldCell"; title = "graphically shows your disk usage"; ObjectID = "lT6-9A-q8Z"; */
+"lT6-9A-q8Z.title" = "图形显示你的磁盘用法";
 
 /* Class = "NSTextFieldCell"; title = "or"; ObjectID = "NMl-pA-jdd"; */
 "NMl-pA-jdd.title" = "或";
@@ -12,16 +24,4 @@
 
 /* Class = "NSTextFieldCell"; title = "Path"; ObjectID = "UhX-F8-bW1"; */
 "UhX-F8-bW1.title" = "路径";
-
-/* Class = "NSTextFieldCell"; title = "Repeat a recent scan"; ObjectID = "aI9-me-id8"; */
-"aI9-me-id8.title" = "重复一个最近的扫描";
-
-/* Class = "NSTextFieldCell"; placeholderString = "Foldername"; ObjectID = "duM-ug-7fu"; */
-"duM-ug-7fu.placeholderString" = "文件夹名称";
-
-/* Class = "NSTextFieldCell"; title = "Folder"; ObjectID = "duM-ug-7fu"; */
-"duM-ug-7fu.title" = "文件夹";
-
-/* Class = "NSTextFieldCell"; title = "graphically shows your disk usage"; ObjectID = "lT6-9A-q8Z"; */
-"lT6-9A-q8Z.title" = "图形显示你的磁盘用法";
 

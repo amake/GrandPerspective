@@ -58,10 +58,10 @@
 /* File size unit for bytes. */
 "B" = "B";
 
-/* (No Commment) */
+/* Alert panel button */
 "Cancel" = "Vazgeç";
 
-/* (No Commment) */
+/* Alert panel button */
 "Delete" = "Sil";
 
 /* Alert message */
@@ -113,11 +113,6 @@
 "Expected unsigned integer value." = "İşaretsiz tamsayı değeri bekleniyordu.";
 
 /* Alert message */
-"Failed to bind one or more filter tests:
-%@" = "Bir ya da daha fazla filtreli denemeyi bağlama hatası:
-%@";
-
-/* Alert message */
 "Failed to delete the file \"%@\"" = "\"%@\" dosyasını silerken hata oluştu";
 
 /* Alert message */
@@ -153,11 +148,6 @@
 /* Alert message (with filename arg) */
 "Failed to save the scan data to \"%@\"" = "Tarama verisini  \"%@\"'a kaydederken hata oluştu.";
 
-/* Alert message */
-"Failed to update one or more filters:
-%@" = "Bir ya da daha fazla filtreyi güncellerken hata oluştu:
-%@";
-
 /* Error message */
 "Failed to write entire buffer." = "Tampon alanın tamamını yazarken hata oluştu.";
 
@@ -184,6 +174,9 @@
 
 /* File size unit for gigabytes. */
 "GB" = "GB";
+
+/* File size unit for kilobytes. */
+"kB" = "kB";
 
 /* Legend for Level mapping scheme. */
 "Level %d" = "Seviye %d";
@@ -218,8 +211,11 @@
 /* Alert additional informative text */
 "Note: The package is hard-linked. It will take up space until all links to it are deleted." = "Not: Paket sabit bağlantılı. Buna olan tüm bağlantılar silinene kadar yer işgal etmeye devam edecektir.";
 
-/* (No Commment) */
+/* Alert panel button */
 "OK" = "Tamam";
+
+/* Misc. description for File type mapping scheme. */
+"other file types" = "diğer dosya türleri";
 
 /* Legend for Level mapping scheme. */
 "Outermost level" = "En dış seviye";
@@ -239,7 +235,7 @@
 /* Message in progress panel while loading data */
 "Reading %@" = "Okuyor %@";
 
-/* (No Commment) */
+/* Alert panel button */
 "Remove" = "Kaldır";
 
 /* Alert message */
@@ -326,6 +322,9 @@
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "Filtreler artık bulunmuyorlar. Bunu yerine bunların eski tanımları kullanılacaktır.";
 
+/* Description for 'unknown' UTI. */
+"unknown file type" = "bilinmeyen dosya türü";
+
 /* Window title */
 "Unnamed filter" = "İsimsiz filtre";
 
@@ -334,13 +333,4 @@
 
 /* Parse error */
 "Unrecognized value." = "Tanımlanamayan değer.";
-
-/* File size unit for kilobytes. */
-"kB" = "kB";
-
-/* Misc. description for File type mapping scheme. */
-"other file types" = "diğer dosya türleri";
-
-/* Description for 'unknown' UTI. */
-"unknown file type" = "bilinmeyen dosya türü";
 

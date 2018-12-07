@@ -58,10 +58,10 @@
 /* File size unit for bytes. */
 "B" = "B";
 
-/* (No Commment) */
+/* Alert panel button */
 "Cancel" = "Abbrechen";
 
-/* (No Commment) */
+/* Alert panel button */
 "Delete" = "Löschen";
 
 /* Alert message */
@@ -113,10 +113,6 @@
 "Expected unsigned integer value." = "Fließkommawert unsigned erwartet.";
 
 /* Alert message */
-"Failed to bind one or more filter tests:
-%@" = "Fehlgeschlagen: Anwendung einer oder mehrerer Filterprüfungen: %@";
-
-/* Alert message */
 "Failed to delete the file \"%@\"" = "Fehlgeschlagen: Löschen von Datei \"%@\"";
 
 /* Alert message */
@@ -152,10 +148,6 @@
 /* Alert message (with filename arg) */
 "Failed to save the scan data to \"%@\"" = "Fehlgeschlagen: Speichern der Scan Datei in \"%@\"";
 
-/* Alert message */
-"Failed to update one or more filters:
-%@" = "Fehlgeschlagen: Aktualisieren einer oder mehrerer Filer: %@";
-
 /* Error message */
 "Failed to write entire buffer." = "Fehlgeschlagen: Pufferspeicher schreiben";
 
@@ -182,6 +174,9 @@
 
 /* File size unit for gigabytes. */
 "GB" = "GB";
+
+/* File size unit for kilobytes. */
+"kB" = "kB";
 
 /* Legend for Level mapping scheme. */
 "Level %d" = "Level %d";
@@ -216,8 +211,11 @@
 /* Alert additional informative text */
 "Note: The package is hard-linked. It will take up space until all links to it are deleted." = "Achtung: Diese Package Datei ist hardlinked. Dies wird Speicherplatz verbrauchen, es sei denn alle Links zu ihr werden gelöscht.";
 
-/* (No Commment) */
+/* Alert panel button */
 "OK" = "OK";
+
+/* Misc. description for File type mapping scheme. */
+"other file types" = "Anderer Dateityp";
 
 /* Legend for Level mapping scheme. */
 "Outermost level" = "Äußerster Level";
@@ -237,7 +235,7 @@
 /* Message in progress panel while loading data */
 "Reading %@" = "Lese %@";
 
-/* (No Commment) */
+/* Alert panel button */
 "Remove" = "Entferne";
 
 /* Alert message */
@@ -324,6 +322,9 @@
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "Dieser Filter existiert nicht mehr. Stattdessen wird dessen alte Definition verwendet.";
 
+/* Description for 'unknown' UTI. */
+"unknown file type" = "Unbekannter Dateityp";
+
 /* Window title */
 "Unnamed filter" = "Unbenannter Filter";
 
@@ -332,13 +333,4 @@
 
 /* Parse error */
 "Unrecognized value." = "Unbekannter Wert";
-
-/* File size unit for kilobytes. */
-"kB" = "kB";
-
-/* Misc. description for File type mapping scheme. */
-"other file types" = "Anderer Dateityp";
-
-/* Description for 'unknown' UTI. */
-"unknown file type" = "Unbekannter Dateityp";
 
