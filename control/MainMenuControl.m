@@ -957,12 +957,10 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (void) viewWillOpen:(NSNotification *)notification {
   viewCount++;
-  NSLog(@"num views = %d", viewCount);
 }
 
 - (void) viewWillClose:(NSNotification *)notification {
   viewCount--;
-  NSLog(@"num views = %d", viewCount);
 
   if (viewCount == 0) {
     NSString  *action = [[NSUserDefaults standardUserDefaults] stringForKey: NoViewsBehaviourKey];

@@ -441,8 +441,10 @@ NSString  *PhysicalFileSize = @"physical";
       totalPhysicalSize += physicalFileSize.unsignedLongLongValue;
 
       if (fileSize > physicalFileSize.unsignedLongLongValue) {
-        NSLog(@"Warning: logical file size larger than physical file size for %@ (%llu > %llu)",
-              url, fileSize, physicalFileSize.unsignedLongLongValue);
+        if (debugLogEnabled) {
+          NSLog(@"Warning: logical file size larger than physical file size for %@ (%llu > %llu)",
+                url, fileSize, physicalFileSize.unsignedLongLongValue);
+        }
         numOverestimatedFiles++;
       }
     }
