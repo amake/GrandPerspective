@@ -35,18 +35,36 @@ For example, the logical size of a simple ASCII text file is the number of chara
 which represents the space that a file actually takes up on disk. 
 A file's physical size can be the same as its logical size, but is typically slightly larger due to the way files are stored.
 For example, a file with a logical size of ten bytes may, depending on the file system, have a physical size of 1024 bytes.
+<br><br>
 It is also possible for the physical size to be <em>smaller</em> than the logical size.
-This can happen when the file is stored using HFS+ compression.
+Actual storage may be less for:
+<ul>
+<li>
+<b>Files stored using HFS+ compression</b>.
 In fact, very small files can then even have a physical size of <em>zero bytes</em>.
 This happens when their content can be stored entirely as part of the file's metadata.
 Such a file is then invisible in the <a href="Views.html">view window</a>.
 </li>
+<li>
+<b>Sparse files in the APFS file system</b>.
+Sparse files are used to efficiently store data that may contain many empty blocks.
+A typical use case is a data volume used by a Virtual Machine or Docker container.
+The logical size of such files can be very large, yet they require relatively little storage space when these volumes are largely empty.
+</li>
+<li>
+<b>Online-only Dropbox files</b>
+These files are part of Dropbox Smart Synch feature.
+They appear in the Dropbox folder on your computer, but their content is stored remotely.
+These files therefore take up less space on your drive than the actual content.
+</li>
+</ul>
+</li>
 </ul>
 
 <p>
-Which file size measure you select is a matter of taste.
+Which file size measure to use is partially a matter of taste and may also depend on the situation.
 Physical size best shows how much space is freed up when you delete a file but exposes more details of the underlying file system.
-The reported file sizes differ most for small files and for files stored using HFS+ compression.
+The reported file sizes differ most for small files, for files stored using HFS+ compression, for sparse files, and Dropbox online-only files.
 </p>
 
 <h2>File size unit systems</h2>

@@ -34,18 +34,36 @@ De intrinsieke grootte van een tekstbestand is bijvoorbeeld gelijk aan het aanta
 deze maat is gebaseerd op de ruimte die een bestand inneemt op schijf. 
 De fysische grootte van een bestand kan hetzelfde zijn als de intrinsieke grootte, maar is typisch iets groter. Dit wordt veroorzaakt door de manier waarop een schijf ingericht is.
 Een bestand met een intrinsieke grootte van tien bytes kan bijvoorbeeld, afhankelijk van het soort bestandssysteem, een fysische grootte hebben van 1024 bytes.
+<br><br>
 Het is ook mogelijk dat de fysische grootte <em>kleiner</em> is dan de intrinsieke grootte.
-Dit kan gebeuren wanneer het bestand opgeslagen is met behulp van HFS+ compressie.
+Dit kan het geval zijn voor:
+<ul>
+<li>
+<b>Bestanden die zijn opgeslagen met behulp van HFS+ compressie</b>.
 In dit geval kunnen kleine bestanden zelfs een fysische grootte van <em>nul bytes</em> hebben.
 Dit gebeurt wanneer de gehele inhoud opgeslagen kan worden als deel van de metadata van het bestand.
 Zo'n bestand is dan onzichtbaar in het <a href="Views.html">overzicht venster</a>.
 </li>
+<li>
+<b>Sparse-bestanden binnen het APFS bestandssysteem</b>.
+Sparse-bestanden worden gebruikt om efficient data met veel lege blokken op te slaan.
+Een typische toepassing is een bestandsvolume voor een Virtuele Machine of een Docker container.
+De logische grootte van zo'n volume kan erg groot zijn, maar weinig opslagruimte in gebruik nemen wanneer het betreffende volume grotendeels leeg is.
+</li>
+<li>
+<b>Online-only Dropbox bestanden</b>
+Deze bestanden maken onderdeel uit van de Dropbox Smart Synch functionaliteit.
+Ze zijn beschikbaar binnen de Dropbox map op uw computer maar de inhoud is online opgeslagen.
+Deze bestanden nemen daardoor minder ruimte in op uw schijf dan hun intrinsieke grootte.
+</li>
+</ul>
+</li>
 </ul>
 
 <p>
-Welke type bestandsgrootte u kiest is een kwestie van smaak.
+Welke type bestandsgrootte u kiest is deels een kwestie van smaak en hangt ook af van de situatie.
 De fysische grootte geeft het beste aan hoeveel ruimte beschikbaar komt wanneer u een bestand verwijdert maar legt ook meer implementatie details van het bestandssysteem bloot.
-De gerapporteerde bestandsgroottes verschillen het meeste voor kleine bestanden en bestanden die opgeslagen zijn met behulp van HFS+ compressie.
+De gerapporteerde bestandsgroottes verschillen het meeste voor kleine bestanden,  bestanden die opgeslagen zijn met behulp van HFS+ compressie, sparse-bestanden, en online-only Dropbox bestanden.
 </p>
 
 <h2>Bestandsgrootte eenheidssystemen</h2>
