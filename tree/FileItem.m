@@ -76,9 +76,6 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 }
   
 - (void) dealloc {
-  if (_parentDirectory==nil) {
-    NSLog(@"FileItem-dealloc (root)");
-  }
   [_label release];
 
   [super dealloc];
