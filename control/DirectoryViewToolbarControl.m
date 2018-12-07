@@ -605,11 +605,20 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 
 
 - (void) moveFocusUp:(id)sender {
-  [[dirViewControl directoryView] moveFocusUp];
+  // Check if we are really allowed to move the focus up. Disabling of the toolbar control may be
+  // lagging. This can in particular happen when the path is not locked and the mouses moves
+  // outside the directory view
+  if ([self validateAction: _cmd]) {
+    [[dirViewControl directoryView] moveFocusUp];
+  }
 }
 
 - (void) moveFocusDown:(id)sender {
-  [[dirViewControl directoryView] moveFocusDown];
+  // Check if we are really allowed to move the focus down. Disabling of the toolbar control may be
+  // lagging.
+  if ([self validateAction: _cmd]) {
+    [[dirViewControl directoryView] moveFocusDown];
+  }
 }
 
 - (void) resetFocus:(id)sender {
