@@ -356,6 +356,9 @@ NSString  *PhysicalFileSize = @"physical";
   
   [treeGuide descendIntoDirectory: dirItem];
   [progressTracker processingFolder: dirItem];
+  if (debugLogEnabled) {
+    NSLog(@"Scanning %@", url);
+  }
   if (dirStackTopIndex < NUM_SCAN_PROGRESS_ESTIMATE_LEVELS) {
     [progressTracker setNumSubFolders: [self determineNumSubFoldersFor: url]];
   }
