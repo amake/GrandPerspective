@@ -157,6 +157,9 @@ NSString  *AfterClosingLastViewDoNothing = @"do nothing";
 
 - (void) viewWillOpen:(NSNotification *)notification;
 - (void) viewWillClose:(NSNotification *)notification;
+- (void) readTaskAborted:(NSNotification *)notification;
+- (void) scanTaskAborted:(NSNotification *)notification;
+- (void) checkShowWelcomeWindow;
 
 @end // @interface MainMenuControl (PrivateMethods)
 
@@ -281,6 +284,14 @@ static MainMenuControl  *singletonInstance = nil;
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(viewWillClose:)
                                                  name: ViewWillCloseEvent
+                                               object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(readTaskAborted:)
+                                                 name: ReadTaskAbortedEvent
+                                               object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(scanTaskAborted:)
+                                                 name: ScanTaskAbortedEvent
                                                object: nil];
     
     showWelcomeWindow = YES; // Default
@@ -961,7 +972,19 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (void) viewWillClose:(NSNotification *)notification {
   viewCount--;
+  [self checkShowWelcomeWindow];
+}
 
+- (void) readTaskAborted:(NSNotification *)notification {
+  [self checkShowWelcomeWindow];
+}
+
+- (void) scanTaskAborted:(NSNotification *)notification {
+  [self checkShowWelcomeWindow];
+}
+
+// Note: This method may be called from another thead than the main one.
+- (void) checkShowWelcomeWindow {
   if (viewCount == 0) {
     NSString  *action = [[NSUserDefaults standardUserDefaults] stringForKey: NoViewsBehaviourKey];
     if ([action isEqualToString: AfterClosingLastViewQuit]) {

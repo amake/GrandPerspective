@@ -4,6 +4,9 @@
 
 @class TreeBuilder;
 
+
+extern NSString  *ScanTaskAbortedEvent;
+
 @interface ScanTaskExecutor : NSObject <TaskExecutor> {
   TreeBuilder  *treeBuilder;
   

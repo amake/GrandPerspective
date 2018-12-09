@@ -4,6 +4,9 @@
 
 @class TreeReader;
 
+
+extern NSString  *ReadTaskAbortedEvent;
+
 @interface ReadTaskExecutor : NSObject <TaskExecutor> {
   TreeReader  *treeReader;
   

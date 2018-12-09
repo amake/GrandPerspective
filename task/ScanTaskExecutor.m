@@ -6,6 +6,8 @@
 #import "ProgressTracker.h"
 
 
+NSString  *ScanTaskAbortedEvent = @"scanTaskAborted";
+
 @implementation ScanTaskExecutor
 
 - (instancetype) init {
@@ -54,6 +56,7 @@
   }
   else {
     NSLog(@"Scanning aborted.");
+    [[NSNotificationCenter defaultCenter] postNotificationName: ScanTaskAbortedEvent object: self];
   }
 
   [taskLock lock];
