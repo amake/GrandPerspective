@@ -2,6 +2,7 @@
 
 #import "DirectoryItem.h"
 
+#import "AlertMessage.h"
 #import "ControlConstants.h"
 #import "LocalizableStrings.h"
 #import "DirectoryViewControl.h"
@@ -1164,9 +1165,16 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (DirectoryViewControl *)createWindowForScanResult:(ScanTaskOutput *)scanResult {
   DirectoryViewControl *control = [self createWindowForTree: [scanResult treeContext]];
-  if ([scanResult alert]) {
-    [control showInformativeAlert: [scanResult alert]];
+
+  if (scanResult.alert) {
+    NSAlert  *alert = [[[NSAlert alloc] init] autorelease];
+    alert.messageText = scanResult.alert.messageText;
+    alert.informativeText = scanResult.alert.informativeText;
+    [alert addButtonWithTitle: OK_BUTTON_TITLE];
+
+    [control showInformativeAlert: alert];
   }
+
   return control;
 }
 

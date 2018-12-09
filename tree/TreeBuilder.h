@@ -6,6 +6,7 @@ extern NSString  *LogicalFileSize;
 extern NSString  *PhysicalFileSize;
 
 
+@class AlertMessage;
 @class FilteredTreeGuide;
 @class TreeBalancer;
 @class UniformTypeInventory;
@@ -71,7 +72,10 @@ extern NSString  *PhysicalFileSize;
 @property (nonatomic, readonly, copy) NSDictionary *progressInfo;
 
 /* An alert in case a warning should be shown to the user regarding the scan results.
+ *
+ * Note: This class does not directly create an instance of an NSAlert. That should always be done
+ * on the main thread to avoid exceptions.
  */
-@property (nonatomic, readonly, strong) NSAlert *informativeAlert;
+@property (nonatomic, readonly, strong) AlertMessage *alertMessage;
 
 @end

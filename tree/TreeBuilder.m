@@ -1,5 +1,6 @@
 #import "TreeBuilder.h"
 
+#import "AlertMessage.h"
 #import "TreeConstants.h"
 #import "PlainFileItem.h"
 #import "DirectoryItem.h"
@@ -71,7 +72,7 @@ NSString  *PhysicalFileSize = @"physical";
 
 - (int) determineNumSubFoldersFor:(NSURL *)url;
 
-- (NSAlert *)createInformativeAlert:(DirectoryItem *)scanTree;
+- (AlertMessage *)createAlertMessage:(DirectoryItem *)scanTree;
 
 @end // @interface TreeBuilder (PrivateMethods)
 
@@ -173,7 +174,7 @@ NSString  *PhysicalFileSize = @"physical";
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
     debugLogEnabled = [args boolForKey: @"logAll"] || [args boolForKey: @"logScanning"];
 
-    _informativeAlert = nil;
+    _alertMessage = nil;
   }
   return self;
 }
@@ -193,7 +194,7 @@ NSString  *PhysicalFileSize = @"physical";
   
   [dirStack release];
 
-  [_informativeAlert release];
+  [_alertMessage release];
   
   [super dealloc];
 }
@@ -268,8 +269,8 @@ NSString  *PhysicalFileSize = @"physical";
 
   totalPhysicalSize = 0;
   numOverestimatedFiles = 0;
-  [_informativeAlert release];
-  _informativeAlert = nil;
+  [_alertMessage release];
+  _alertMessage = nil;
 
   DirectoryItem  *scanTree = [ScanTreeRoot allocWithZone: [Item zoneForTree]];
   [[scanTree initWithLabel: relativePath
@@ -291,7 +292,7 @@ NSString  *PhysicalFileSize = @"physical";
   }
 
   [treeContext setScanTree: scanTree];
-  _informativeAlert = [[self createInformativeAlert: scanTree] retain];
+  _alertMessage = [[self createAlertMessage: scanTree] retain];
 
   return treeContext;
 }
@@ -578,37 +579,33 @@ NSString  *PhysicalFileSize = @"physical";
   return numSubDirs;
 }
 
-- (NSAlert *)createInformativeAlert:(DirectoryItem *)scanTree {
-  NSAlert *alert = nil;
+- (AlertMessage *)createAlertMessage:(DirectoryItem *)scanTree {
   if (useLogicalFileSize) {
     if ([scanTree itemSize] > totalPhysicalSize) {
-      alert = [[[NSAlert alloc] init] autorelease];
-
+      AlertMessage  *alert = [[[AlertMessage alloc] init] autorelease];
       alert.messageText = NSLocalizedString
         (@"The reported total size is larger than the actual size on disk", @"Alert message");
       NSString *fmt = NSLocalizedString
         (@"The actual (physical) size is %.1f%% of the reported (logical) size. Consider rescanning using the Physical file size measure",
          @"Alert message");
       float percentage = (100.0 * totalPhysicalSize) / [scanTree itemSize];
-      [alert setInformativeText: [NSString stringWithFormat: fmt, percentage]];
-    } else if (numOverestimatedFiles > 0) {
-      alert = [[[NSAlert alloc] init] autorelease];
+      alert.informativeText = [NSString stringWithFormat: fmt, percentage];
+      return alert;
+    }
 
+    if (numOverestimatedFiles > 0) {
+      AlertMessage  *alert = [[[AlertMessage alloc] init] autorelease];
       alert.messageText = NSLocalizedString
         (@"The reported size of some files is larger than their actual size on disk",
          @"Alert message");
       NSString *fmt = NSLocalizedString
         (@"For %d files the reported (logical) size is larger than their actual (physical) size. Consider rescanning using the Physical file size measure",
          @"Alert message");
-      [alert setInformativeText: [NSString stringWithFormat: fmt, numOverestimatedFiles]];
+      alert.informativeText = [NSString stringWithFormat: fmt, numOverestimatedFiles];
+      return alert;
     }
   }
-
-  if (alert) {
-    [alert addButtonWithTitle: OK_BUTTON_TITLE];
-  }
-
-  return alert;
+  return nil;
 }
 
 @end // @implementation TreeBuilder (PrivateMethods)

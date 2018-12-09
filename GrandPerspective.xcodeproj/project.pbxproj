@@ -148,6 +148,7 @@
 		AAC26BC70A8CAF4800F2DA33 /* FilterTaskInput.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BB90A8CAF4800F2DA33 /* FilterTaskInput.m */; };
 		AAC26BCD0A8CAF4800F2DA33 /* ScanTaskExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BBF0A8CAF4800F2DA33 /* ScanTaskExecutor.m */; };
 		AAC9B6490B7FA94A002B3ECE /* GrandPerspectiveHelp in Resources */ = {isa = PBXBuildFile; fileRef = AAC9B6340B7FA94A002B3ECE /* GrandPerspectiveHelp */; };
+		AAD50FCE21BDB30F00784BBF /* AlertMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD50FCD21BDB30F00784BBF /* AlertMessage.m */; };
 		AAD85B9D1CD92FD300B3AF28 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD85B9C1CD92FD300B3AF28 /* Security.framework */; };
 		AAD8DFB30B077ED20060DADA /* PreferencesPanelControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD8DFB20B077ED20060DADA /* PreferencesPanelControl.m */; };
 		AADD34930B8B902000AC2C97 /* Tests.strings in Resources */ = {isa = PBXBuildFile; fileRef = AADD34910B8B902000AC2C97 /* Tests.strings */; };
@@ -473,6 +474,8 @@
 		AAC26BBE0A8CAF4800F2DA33 /* ScanTaskExecutor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ScanTaskExecutor.h; path = task/ScanTaskExecutor.h; sourceTree = "<group>"; };
 		AAC26BBF0A8CAF4800F2DA33 /* ScanTaskExecutor.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ScanTaskExecutor.m; path = task/ScanTaskExecutor.m; sourceTree = "<group>"; };
 		AAC9B6350B7FA94A002B3ECE /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = English.lproj/GrandPerspectiveHelp; sourceTree = "<group>"; };
+		AAD50FCC21BDB30F00784BBF /* AlertMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AlertMessage.h; path = util/AlertMessage.h; sourceTree = "<group>"; };
+		AAD50FCD21BDB30F00784BBF /* AlertMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AlertMessage.m; path = util/AlertMessage.m; sourceTree = "<group>"; };
 		AAD6855008D9FE600096C6C1 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		AAD6ACAE0B8A43D400624F9F /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AAD702B51CE9C305005AA800 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -762,6 +765,8 @@
 		AA6178720A38B8E600B8AB16 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				AAD50FCC21BDB30F00784BBF /* AlertMessage.h */,
+				AAD50FCD21BDB30F00784BBF /* AlertMessage.m */,
 				AA1049BF1511582C003C041C /* Compatibility.h */,
 				AA3B40DE0D1AF2B70070E889 /* UniqueTagsTransformer.h */,
 				AA3B40DF0D1AF2B70070E889 /* UniqueTagsTransformer.m */,
@@ -1153,6 +1158,7 @@
 				AA6E27A40D7AE95E00D5FBBA /* ColorLegendTableViewControl.m in Sources */,
 				AA8A38080D7B437300DB872C /* FileItemMappingCollection.m in Sources */,
 				AA8A380A0D7B437300DB872C /* FileItemMappingScheme.m in Sources */,
+				AAD50FCE21BDB30F00784BBF /* AlertMessage.m in Sources */,
 				AA7BF5BB1E61E44000A42F0F /* SelectedItemLocator.m in Sources */,
 				AA7BF5B81E61E28900A42F0F /* ItemPathModelView.m in Sources */,
 				AA8A380C0D7B437300DB872C /* StatefulFileItemMapping.m in Sources */,

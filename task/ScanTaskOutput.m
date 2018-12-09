@@ -1,10 +1,11 @@
 #import "ScanTaskOutput.h"
 
+#import "AlertMessage.h"
 #import "TreeContext.h"
 
 @implementation ScanTaskOutput
 
-+ (instancetype) scanTaskOutput:(TreeContext *)treeContext alert:(NSAlert *)alert {
++ (instancetype) scanTaskOutput:(TreeContext *)treeContext alert:(AlertMessage *)alert {
   return [[[ScanTaskOutput alloc] initWithTreeContext: treeContext alert: alert] autorelease];
 }
 
@@ -14,7 +15,7 @@
   return [self initWithTreeContext: nil alert: nil];
 }
 
-- (instancetype) initWithTreeContext:(TreeContext *)treeContext alert:(NSAlert *)alert {
+- (instancetype) initWithTreeContext:(TreeContext *)treeContext alert:(AlertMessage *)alert {
   if (self = [super init]) {
     NSAssert(treeContext != nil, @"TreeContext must be set.");
 

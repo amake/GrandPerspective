@@ -1,15 +1,16 @@
 #import <Foundation/Foundation.h>
 
+@class AlertMessage;
 @class TreeContext;
 
 @interface ScanTaskOutput : NSObject {
 }
 
-+ (instancetype) scanTaskOutput:(TreeContext *)treeContext alert:(NSAlert *)alert;
++ (instancetype) scanTaskOutput:(TreeContext *)treeContext alert:(AlertMessage *)alert;
 
-- (instancetype) initWithTreeContext:(TreeContext *)treeContext alert:(NSAlert *)alert;
+- (instancetype) initWithTreeContext:(TreeContext *)treeContext alert:(AlertMessage *)alert;
 
 @property (nonatomic, readonly, strong) TreeContext *treeContext;
-@property (nonatomic, readonly, strong) NSAlert *alert;
+@property (nonatomic, readonly, strong) AlertMessage *alert;
 
 @end
