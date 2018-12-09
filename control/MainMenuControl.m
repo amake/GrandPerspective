@@ -159,7 +159,7 @@ NSString  *AfterClosingLastViewDoNothing = @"do nothing";
 - (void) viewWillClose:(NSNotification *)notification;
 - (void) readTaskAborted:(NSNotification *)notification;
 - (void) scanTaskAborted:(NSNotification *)notification;
-- (void) checkShowWelcomeWindow;
+- (void) checkShowWelcomeWindow:(BOOL)allowAutoQuit;
 
 @end // @interface MainMenuControl (PrivateMethods)
 
@@ -972,26 +972,28 @@ static MainMenuControl  *singletonInstance = nil;
 
 - (void) viewWillClose:(NSNotification *)notification {
   viewCount--;
-  [self checkShowWelcomeWindow];
+  [self checkShowWelcomeWindow: YES];
 }
 
 - (void) readTaskAborted:(NSNotification *)notification {
-  [self checkShowWelcomeWindow];
+  [self checkShowWelcomeWindow: NO];
 }
 
 - (void) scanTaskAborted:(NSNotification *)notification {
-  [self checkShowWelcomeWindow];
+  [self checkShowWelcomeWindow: NO];
 }
 
 // Note: This method may be called from another thead than the main one.
-- (void) checkShowWelcomeWindow {
+- (void) checkShowWelcomeWindow:(BOOL)allowAutoQuit {
   if (viewCount == 0) {
     NSString  *action = [[NSUserDefaults standardUserDefaults] stringForKey: NoViewsBehaviourKey];
     if ([action isEqualToString: AfterClosingLastViewQuit]) {
-      NSLog(@"Auto-quitting application");
-      [[NSApplication sharedApplication] performSelectorOnMainThread: @selector(terminate:)
-                                                          withObject: nil
-                                                       waitUntilDone: NO];
+      if (allowAutoQuit) {
+        NSLog(@"Auto-quitting application after last view has closed");
+        [[NSApplication sharedApplication] performSelectorOnMainThread: @selector(terminate:)
+                                                            withObject: nil
+                                                         waitUntilDone: NO];
+      }
     }
     else if ([action isEqualToString: AfterClosingLastViewShowWelcome]) {
       [self performSelectorOnMainThread: @selector(showWelcomeWindow)
