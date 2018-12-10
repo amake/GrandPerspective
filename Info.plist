@@ -82,7 +82,7 @@
 		<key>fileDeletionTargets</key>
 		<string>delete nothing</string>
 		<key>fileSizeMeasure</key>
-		<string>logical</string>
+		<string>physical</string>
 		<key>fileSizeUnitSystem</key>
 		<string>base-2</string>
 		<key>logAll</key>
