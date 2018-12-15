@@ -87,4 +87,3 @@
 
 /* Filetype test with 1: match targets */
 "type equals %@" = "type equals %@";
-
