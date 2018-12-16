@@ -34,8 +34,11 @@
 /* Message in progress panel while scanning */
 "%d folders scanned" = "%d folders scanned";
 
-/* Exact file size (in bytes). */
+/* Exact file size (in bytes) */
 "%qu bytes" = "%qu bytes";
+
+/* Tally folder size (in number of files) */
+"%qu files" = "%qu files";
 
 /* Alert message */
 "A filter named \"%@\" already exists." = "A filter named \"%@\" already exists.";
@@ -178,6 +181,9 @@
 /* Label in Focus panel */
 "Folder in view:" = "Folder in view:";
 
+/* Alert message */
+"For %d files the reported (logical) size is larger than their actual (physical) size. Consider rescanning using the Physical file size measure" = "For %d files the reported (logical) size is larger than their actual (physical) size. Consider rescanning using the Physical file size measure";
+
 /* File size unit for gigabytes. */
 "GB" = "GB";
 
@@ -293,6 +299,9 @@
 "TB" = "TB";
 
 /* Alert message */
+"The actual (physical) size is %.1f%% of the reported (logical) size. Consider rescanning using the Physical file size measure" = "The actual (physical) size is %.1f%% of the reported (logical) size. Consider rescanning using the Physical file size measure";
+
+/* Alert message */
 "The filter must have a name." = "The filter must have a name.";
 
 /* Alert informative text */
@@ -300,6 +309,12 @@
 
 /* Alert informative text */
 "The filter will be replaced by the default filter with this name." = "The filter will be replaced by the default filter with this name.";
+
+/* Alert message */
+"The reported size of some files is larger than their actual size on disk" = "The reported size of some files is larger than their actual size on disk";
+
+/* Alert message */
+"The reported total size is larger than the actual size on disk" = "The reported total size is larger than the actual size on disk";
 
 /* Alert informative text */
 "The resulting file is valid but incomplete." = "The resulting file is valid but incomplete.";

@@ -13,11 +13,11 @@
 /* Case-sensitive string test with 1: subject, and 2: match targets */
 "%@ enDs with %@" = "%1$@ enDs with %2$@";
 
-/* String test with 1: subject, and 2: match targets */
-"%@ equals %@" = "%1$@ equals %2$@";
-
 /* Case-sensitive string test with 1: subject, and 2: match targets */
 "%@ eQuals %@" = "%1$@ eQuals %2$@";
+
+/* String test with 1: subject, and 2: match targets */
+"%@ equals %@" = "%1$@ equals %2$@";
 
 /* Pair of match targets with 1: a target match, and 2: another target match */
 "%@ or %@" = "%1$@ or %2$@";
@@ -87,3 +87,4 @@
 
 /* Filetype test with 1: match targets */
 "type equals %@" = "type equals %@";
+
