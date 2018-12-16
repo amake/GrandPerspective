@@ -119,6 +119,9 @@
 /* File size type */
 "physical" = "Physical";
 
+/* File size type */
+"tally" = "Tally";
+
 
 /* File size base type */
 "base-2" = "Binary";

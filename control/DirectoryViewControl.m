@@ -39,6 +39,8 @@ NSString  *ViewWillOpenEvent = @"viewWillOpen";
 NSString  *ViewWillCloseEvent = @"viewWillClose";
 
 
+extern NSString  *TallyFileSizeName;
+
 #define NOTE_IT_MAY_NOT_EXIST_ANYMORE \
   NSLocalizedString(\
     @"A possible reason is that it does not exist anymore.", \
@@ -99,6 +101,8 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   NSTextField  *exactSizeField;
   NSTextField  *sizeField;
 }
+
+@property (nonatomic) BOOL usesTallyFileSize;
 
 - (instancetype) initWithPathTextView:(NSTextView *)textView
                            titleField:(NSTextField *)titleField
@@ -210,6 +214,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
     treeContext = [[annTreeContext treeContext] retain];
     NSAssert([pathModel volumeTree] == [treeContext volumeTree], @"Tree mismatch");
     initialComments = [[annTreeContext comments] retain];
+    usesTallyFileSize = [treeContext.fileSizeMeasure isEqualToString: TallyFileSizeName];
     
     pathModelView = [[ItemPathModelView alloc] initWithPathModel: pathModel];
     initialSettings = [settings retain];
@@ -360,8 +365,14 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   colorLegendControl = 
     [[ColorLegendTableViewControl alloc] initWithDirectoryView: mainView 
                                                      tableView: colorLegendTable];
-    
-  showEntireVolumeCheckBox.state = [initialSettings showEntireVolume] ? NSOnState : NSOffState;
+
+  if (usesTallyFileSize) {
+    // Never show the entire volume when using the tally file size measure. It does not make sense.
+    showEntireVolumeCheckBox.state = NSOffState;
+    showEntireVolumeCheckBox.enabled = NO;
+  } else {
+    showEntireVolumeCheckBox.state = [initialSettings showEntireVolume] ? NSOnState : NSOffState;
+  }
   showPackageContentsCheckBox.state = [initialSettings showPackageContents] ? NSOnState : NSOffState;
   
   //---------------------------------------------------------------- 
@@ -382,6 +393,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
                   titleField: visibleFolderTitleField
               exactSizeField: visibleFolderExactSizeField
                    sizeField: visibleFolderSizeField];
+  visibleFolderFocusControls.usesTallyFileSize = usesTallyFileSize;
 
   selectedItemFocusControls = 
     [[SelectedItemFocusControls alloc]
@@ -392,6 +404,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
            creationTimeField: selectedItemCreationTimeField
        modificationTimeField: selectedItemModificationTimeField
              accessTimeField: selectedItemAccessTimeField];
+  selectedItemFocusControls.usesTallyFileSize = usesTallyFileSize;
 
   //---------------------------------------------------------------- 
   // Miscellaneous initialisation
@@ -1049,7 +1062,12 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
     return nil;
   }
   
-  NSString  *itemSizeString = [FileItem stringForFileItemSize: [selectedItem itemSize]];
+  NSString  *itemSizeString;
+  if (usesTallyFileSize) {
+    itemSizeString = [NSString stringWithFormat: @"%qu", selectedItem.itemSize];
+  } else {
+    itemSizeString = [FileItem stringForFileItemSize: selectedItem.itemSize];
+  }
   itemSizeField.stringValue = itemSizeString;
 
   NSString  *itemPath;
@@ -1225,19 +1243,21 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
     [mainBundle localizedStringForKey: [userDefaults stringForKey: FileSizeUnitSystemKey]
                                 value: nil
                                 table: @"Names"]];
-  
-  unsigned long long  scanTreeSize = [scanTree itemSize];
-  unsigned long long  freeSpace = [treeContext freeSpace];
-  unsigned long long  volumeSize = [volumeTree itemSize];
-  unsigned long long  miscUsedSpace = [treeContext miscUsedSpace];
 
-  volumeSizeField.stringValue = [FileItem stringForFileItemSize: volumeSize];
-  treeSizeField.stringValue = [FileItem stringForFileItemSize: scanTreeSize];
-  miscUsedSpaceField.stringValue = [FileItem stringForFileItemSize: miscUsedSpace];
-  freeSpaceField.stringValue = [FileItem stringForFileItemSize: freeSpace];
-  freedSpaceField.stringValue = [FileItem stringForFileItemSize: [treeContext freedSpace]];
-  numScannedFilesField.stringValue = [NSString stringWithFormat: @"%qu", [scanTree numFiles]];
-  numDeletedFilesField.stringValue = [NSString stringWithFormat: @"%qu", [treeContext freedFiles]];
+  volumeSizeField.stringValue = [FileItem stringForFileItemSize: volumeTree.itemSize];
+  if (usesTallyFileSize) {
+    treeSizeField.stringValue = @"-";
+    miscUsedSpaceField.stringValue = @"-";
+    freeSpaceField.stringValue = @"-";
+    freedSpaceField.stringValue = @"-";
+  } else {
+    treeSizeField.stringValue = [FileItem stringForFileItemSize: scanTree.itemSize];
+    miscUsedSpaceField.stringValue = [FileItem stringForFileItemSize: treeContext.miscUsedSpace];
+    freeSpaceField.stringValue = [FileItem stringForFileItemSize: treeContext.freeSpace];
+    freedSpaceField.stringValue = [FileItem stringForFileItemSize: treeContext.freedSpace];
+  }
+  numScannedFilesField.stringValue = [NSString stringWithFormat: @"%qu", scanTree.numFiles];
+  numDeletedFilesField.stringValue = [NSString stringWithFormat: @"%qu", treeContext.freedFiles];
 }
 
 @end // @implementation DirectoryViewControl (PrivateMethods)
@@ -1284,7 +1304,11 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 
 
 - (void) showFileItem:(FileItem *)item {
-  NSString  *sizeString = [FileItem stringForFileItemSize: [item itemSize]];
+  NSString  *sizeString = nil;
+  if (!self.usesTallyFileSize) {
+    sizeString = [FileItem stringForFileItemSize: item.itemSize];
+  }
+
   NSString  *itemPath = 
     ( [item isPhysical]
       ? [item path] 
@@ -1300,9 +1324,20 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   titleField.stringValue = [self titleForFileItem: item];
   
   pathTextView.string = pathString;
-  exactSizeField.stringValue = [FileItem exactStringForFileItemSize: [item itemSize]];
-  sizeField.stringValue = [NSString stringWithFormat: @"(%@)", sizeString];
-       
+  if (self.usesTallyFileSize) {
+    exactSizeField.stringValue = @"";
+    if (item.itemSize > 1) {
+      sizeField.stringValue = [NSString stringWithFormat: @"%qu %@",
+                               item.itemSize,
+                               NSLocalizedString(@"files", @"The tally unit size")];
+    } else {
+      sizeField.stringValue = @"";
+    }
+  } else {
+    exactSizeField.stringValue = [FileItem exactStringForFileItemSize: [item itemSize]];
+    sizeField.stringValue = [NSString stringWithFormat: @"(%@)", sizeString];
+  }
+
   // Use the color of the size fields to show if the item is hard-linked.
   NSColor *sizeFieldColor = [item isHardLinked] ? [NSColor darkGrayColor] : titleField.textColor;
   exactSizeField.textColor = sizeFieldColor;

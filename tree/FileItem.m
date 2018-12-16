@@ -150,7 +150,7 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
   if (filesize < bytesUnit) {
     // Definitely don't want a decimal point here
     NSString  *byteSizeUnit = NSLocalizedString(@"B", @"File size unit for bytes.");
-    return [NSString stringWithFormat:@"%qu %@", filesize, byteSizeUnit];
+    return [NSString stringWithFormat: @"%qu %@", filesize, byteSizeUnit];
   }
 
   double  n = (double)filesize / bytesUnit;

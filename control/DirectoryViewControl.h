@@ -81,6 +81,7 @@ extern NSString  *ViewWillCloseEvent;
 
   ItemPathModelView  *pathModelView;
   TreeContext  *treeContext;
+  BOOL  usesTallyFileSize;
   
   FilterRepository  *filterRepository;
 
