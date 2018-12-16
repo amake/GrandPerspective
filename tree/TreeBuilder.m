@@ -17,8 +17,10 @@
 #import "UniformTypeInventory.h"
 
 
-NSString  *LogicalFileSize = @"logical";
-NSString  *PhysicalFileSize = @"physical";
+NSString  *LogicalFileSizeName = @"logical";
+NSString  *PhysicalFileSizeName = @"physical";
+NSString  *TallyFileSizeName = @"tally";
+
 
 /* Use smaller bounds given the extra scan cost needed to determine the number of directories
  * at each level used for tracking progress.
@@ -141,7 +143,7 @@ NSString  *PhysicalFileSize = @"physical";
   static NSArray  *fileSizeMeasureNames = nil;
 
   if (fileSizeMeasureNames == nil) {
-    fileSizeMeasureNames = [@[LogicalFileSize, PhysicalFileSize] retain];
+    fileSizeMeasureNames = [@[LogicalFileSizeName, PhysicalFileSizeName, TallyFileSizeName] retain];
   }
   
   return fileSizeMeasureNames;
@@ -169,7 +171,7 @@ NSString  *PhysicalFileSize = @"physical";
     
     dirStack = [[NSMutableArray alloc] initWithCapacity: 16];
     
-    [self setFileSizeMeasure: LogicalFileSize];
+    [self setFileSizeMeasure: LogicalFileSizeName];
     
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
     debugLogEnabled = [args boolForKey: @"logAll"] || [args boolForKey: @"logScanning"];
@@ -188,7 +190,7 @@ NSString  *PhysicalFileSize = @"physical";
   [typeInventory release];
   
   [hardLinkedFileNumbers release];
-  [fileSizeMeasure release];
+  [fileSizeMeasureName release];
   
   [progressTracker release];
   
@@ -210,23 +212,26 @@ NSString  *PhysicalFileSize = @"physical";
 
 
 - (NSString *)fileSizeMeasure {
-  return fileSizeMeasure;
+  return fileSizeMeasureName;
 }
 
 - (void) setFileSizeMeasure:(NSString *)measure {
-  if ([measure isEqualToString: LogicalFileSize]) {
-    useLogicalFileSize = YES;
+  if ([measure isEqualToString: LogicalFileSizeName]) {
+    fileSizeMeasure = LogicalFileSize;
   }
-  else if ([measure isEqualToString: PhysicalFileSize]) {
-    useLogicalFileSize = NO;
+  else if ([measure isEqualToString: PhysicalFileSizeName]) {
+    fileSizeMeasure = PhysicalFileSize;
+  }
+  else if ([measure isEqualToString: TallyFileSizeName]) {
+    fileSizeMeasure = TallyFileSize;
   }
   else {
     NSAssert(NO, @"Invalid file size measure.");
   }
   
-  if (measure != fileSizeMeasure) {
-    [fileSizeMeasure release];
-    fileSizeMeasure = [measure retain];
+  if (measure != fileSizeMeasureName) {
+    [fileSizeMeasureName release];
+    fileSizeMeasureName = [measure retain];
   }
 }
 
@@ -339,7 +344,7 @@ NSString  *PhysicalFileSize = @"physical";
   }
 
   return [[[TreeContext alloc] initWithVolumePath: volumeRoot.path
-                                  fileSizeMeasure: fileSizeMeasure
+                                  fileSizeMeasure: fileSizeMeasureName
                                        volumeSize: volumeSize.unsignedLongLongValue
                                         freeSpace: freeSpace.unsignedLongLongValue
                                         filterSet: filterSet] autorelease];
@@ -437,23 +442,28 @@ NSString  *PhysicalFileSize = @"physical";
     [url getResourceValue: &physicalFileSize forKey: NSURLTotalFileAllocatedSizeKey error: nil];
     ITEM_SIZE  fileSize;
 
-    if (useLogicalFileSize) {
-      NSNumber  *logicalFileSize;
-      [url getResourceValue: &logicalFileSize forKey: NSURLTotalFileSizeKey error: nil];
+    switch (fileSizeMeasure) {
+      case LogicalFileSize: {
+        NSNumber  *logicalFileSize;
+        [url getResourceValue: &logicalFileSize forKey: NSURLTotalFileSizeKey error: nil];
 
-      fileSize = logicalFileSize.unsignedLongLongValue;
-      totalPhysicalSize += physicalFileSize.unsignedLongLongValue;
+        fileSize = logicalFileSize.unsignedLongLongValue;
+        totalPhysicalSize += physicalFileSize.unsignedLongLongValue;
 
-      if (fileSize > physicalFileSize.unsignedLongLongValue) {
-        if (debugLogEnabled) {
-          NSLog(@"Warning: logical file size larger than physical file size for %@ (%llu > %llu)",
-                url, fileSize, physicalFileSize.unsignedLongLongValue);
+        if (fileSize > physicalFileSize.unsignedLongLongValue) {
+          if (debugLogEnabled) {
+            NSLog(@"Warning: logical file size larger than physical file size for %@ (%llu > %llu)",
+                  url, fileSize, physicalFileSize.unsignedLongLongValue);
+          }
+          numOverestimatedFiles++;
         }
-        numOverestimatedFiles++;
+        break;
       }
-    }
-    else {
-      fileSize = physicalFileSize.unsignedLongLongValue;
+      case PhysicalFileSize:
+        fileSize = physicalFileSize.unsignedLongLongValue;
+        break;
+      case TallyFileSize:
+        fileSize = 1;
     }
 
     UniformType  *fileType =
@@ -583,7 +593,7 @@ NSString  *PhysicalFileSize = @"physical";
 }
 
 - (AlertMessage *)createAlertMessage:(DirectoryItem *)scanTree {
-  if (useLogicalFileSize) {
+  if (fileSizeMeasure == LogicalFileSize) {
     if ([scanTree itemSize] > totalPhysicalSize) {
       AlertMessage  *alert = [[[AlertMessage alloc] init] autorelease];
       alert.messageText = NSLocalizedString

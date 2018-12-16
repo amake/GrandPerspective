@@ -1012,8 +1012,9 @@ didStartElement:(NSString *)childElement
     NSDate  *scanTime = [self getDateAttributeValue: ScanTimeAttr from: attribs];
     NSString  *sizeMeasure = [self getStringAttributeValue: FileSizeMeasureAttr from: attribs];
 
-    if (! ( [sizeMeasure isEqualToString: LogicalFileSize] ||
-            [sizeMeasure isEqualToString: PhysicalFileSize] ) ) {
+    if (! ([sizeMeasure isEqualToString: LogicalFileSizeName] ||
+           [sizeMeasure isEqualToString: PhysicalFileSizeName] ||
+           [sizeMeasure isEqualToString: TallyFileSizeName]) ) {
       NSException  *ex = 
         [AttributeParseException exceptionWithAttributeName: FileSizeMeasureAttr
                                                      reason: UNRECOGNIZED_VALUE_MSG];

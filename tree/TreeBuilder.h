@@ -2,9 +2,15 @@
 
 #import "FileItem.h"
 
-extern NSString  *LogicalFileSize;
-extern NSString  *PhysicalFileSize;
+extern NSString  *LogicalFileSizeName;
+extern NSString  *PhysicalFileSizeName;
+extern NSString  *TallyFileSizeName;
 
+typedef NS_ENUM(NSInteger, FileSizeEnum) {
+  LogicalFileSize = 1,
+  PhysicalFileSize = 2,
+  TallyFileSize = 3
+};
 
 @class AlertMessage;
 @class FilteredTreeGuide;
@@ -22,8 +28,8 @@ extern NSString  *PhysicalFileSize;
 @interface TreeBuilder : NSObject {
   FilterSet  *filterSet;
 
-  NSString  *fileSizeMeasure;
-  BOOL  useLogicalFileSize;
+  NSString  *fileSizeMeasureName;
+  FileSizeEnum  fileSizeMeasure;
 
   // In case logical file sizes are used, tracks total physical size.
   ITEM_SIZE  totalPhysicalSize;
