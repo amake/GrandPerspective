@@ -388,7 +388,7 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-// Service method for handling dock drags.
+// Service method (which handles requests from Finder's Services menu, amongst others)
 - (void)scanFolder:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
   NSLog(@"scanFolder:userData:error:");
   showWelcomeWindow = NO; // Do not automatically show welcome window
@@ -411,7 +411,7 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-// Service method for handling dock drags.
+// Service method (which handles requests from Finder's Services menu, amongst others)
 - (void)loadScanData:(NSPasteboard *)pboard userData:(NSString *)userData error:(NSString **)error {
   NSLog(@"loadScanData:userData:error:");
   showWelcomeWindow = NO; // Do not automatically show welcome window
