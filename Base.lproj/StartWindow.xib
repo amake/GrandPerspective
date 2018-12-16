@@ -96,23 +96,24 @@
                                                     <rect key="frame" x="1" y="0.0" width="237" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                     <subviews>
-                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Drk-8s-Oop">
+                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Drk-8s-Oop">
                                                             <rect key="frame" x="3" y="5" width="32" height="32"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="32" id="N1V-Gu-X8z"/>
+                                                                <constraint firstAttribute="height" constant="32" id="Odv-QZ-bvX"/>
+                                                            </constraints>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="rqY-cX-rdM"/>
                                                         </imageView>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vVr-c4-9k2">
-                                                            <rect key="frame" x="41" y="20" width="1000" height="17"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vVr-c4-9k2">
+                                                            <rect key="frame" x="41" y="20" width="195" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Folder" placeholderString="Foldername" id="duM-ug-7fu">
                                                                 <font key="font" metaFont="systemBold"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cs2-bm-ufr">
-                                                            <rect key="frame" x="41" y="5" width="1000" height="14"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cs2-bm-ufr">
+                                                            <rect key="frame" x="41" y="5" width="195" height="14"/>
                                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Path" id="UhX-F8-bW1">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -120,6 +121,17 @@
                                                             </textFieldCell>
                                                         </textField>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="cs2-bm-ufr" firstAttribute="leading" secondItem="vVr-c4-9k2" secondAttribute="leading" id="6HE-iJ-qXk"/>
+                                                        <constraint firstAttribute="trailing" secondItem="vVr-c4-9k2" secondAttribute="trailing" constant="3" id="BHf-id-hKZ"/>
+                                                        <constraint firstItem="Drk-8s-Oop" firstAttribute="leading" secondItem="nug-Ae-tPj" secondAttribute="leading" constant="3" id="LrI-ou-fAj"/>
+                                                        <constraint firstItem="cs2-bm-ufr" firstAttribute="top" secondItem="vVr-c4-9k2" secondAttribute="bottom" constant="1" id="MM5-eG-LNr"/>
+                                                        <constraint firstItem="Drk-8s-Oop" firstAttribute="top" secondItem="nug-Ae-tPj" secondAttribute="top" constant="3" id="Q0G-TE-gEE"/>
+                                                        <constraint firstAttribute="trailing" secondItem="cs2-bm-ufr" secondAttribute="trailing" constant="3" id="WIN-Ch-k7R"/>
+                                                        <constraint firstItem="vVr-c4-9k2" firstAttribute="top" secondItem="Drk-8s-Oop" secondAttribute="top" id="gXs-ma-TWz"/>
+                                                        <constraint firstItem="vVr-c4-9k2" firstAttribute="leading" secondItem="Drk-8s-Oop" secondAttribute="trailing" constant="8" id="sHs-JZ-vfZ"/>
+                                                        <constraint firstItem="cs2-bm-ufr" firstAttribute="width" secondItem="vVr-c4-9k2" secondAttribute="width" id="v1R-EH-CP7"/>
+                                                    </constraints>
                                                     <connections>
                                                         <outlet property="imageView" destination="Drk-8s-Oop" id="QFj-pB-lg8"/>
                                                         <outlet property="secondTextField" destination="cs2-bm-ufr" id="e37-o9-ORD"/>
