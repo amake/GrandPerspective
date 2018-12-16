@@ -118,12 +118,11 @@ typedef NS_OPTIONS(UInt8, FileItemOptions) {
 
 
 /* Returns a short string, approximating the given size. E.g. "1.23 MB"
+ *
+ * Note: This method assumes that the file size measure is "bytes". It should not be used, for
+ * example, when the tally file size measure is used.
  */
 + (NSString *)stringForFileItemSize:(ITEM_SIZE)size;
-
-/* Returns a string, specifying the file size exactly. E.g. "12345678 bytes"
- */
-+ (NSString *)exactStringForFileItemSize:(ITEM_SIZE)size;
 
 /* Returns a string for the provided time.
  */

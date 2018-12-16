@@ -90,6 +90,9 @@ extern NSString  *TallyFileSizeName;
 - (void) fileSizeUnitSystemChanged;
 - (void) updateInfoPanelValues;
 
++ (NSString *)tallySizeStringForFileItem:(FileItem *)item;
++ (NSString *)exactSizeStringForFileItem:(FileItem *)item;
+
 @end
 
 
@@ -1064,7 +1067,7 @@ extern NSString  *TallyFileSizeName;
   
   NSString  *itemSizeString;
   if (usesTallyFileSize) {
-    itemSizeString = [NSString stringWithFormat: @"%qu", selectedItem.itemSize];
+    itemSizeString = [DirectoryViewControl tallySizeStringForFileItem: selectedItem];
   } else {
     itemSizeString = [FileItem stringForFileItemSize: selectedItem.itemSize];
   }
@@ -1260,6 +1263,22 @@ extern NSString  *TallyFileSizeName;
   numDeletedFilesField.stringValue = [NSString stringWithFormat: @"%qu", treeContext.freedFiles];
 }
 
++ (NSString *)tallySizeStringForFileItem:(FileItem *)item {
+  if (item.itemSize == 1) {
+    return @"";
+  }
+
+  NSString  *format = NSLocalizedString(@"%qu files", @"Tally folder size (in number of files)");
+
+  return [NSString stringWithFormat: format, item.itemSize];
+}
+
++ (NSString *)exactSizeStringForFileItem:(FileItem *)item {
+  NSString  *format = NSLocalizedString(@"%qu bytes", @"Exact file size (in bytes)");
+
+  return [NSString stringWithFormat: format, item.itemSize];
+}
+
 @end // @implementation DirectoryViewControl (PrivateMethods)
 
 
@@ -1304,10 +1323,9 @@ extern NSString  *TallyFileSizeName;
 
 
 - (void) showFileItem:(FileItem *)item {
-  NSString  *sizeString = nil;
-  if (!self.usesTallyFileSize) {
-    sizeString = [FileItem stringForFileItemSize: item.itemSize];
-  }
+  NSString  *sizeString = (self.usesTallyFileSize
+                           ? [DirectoryViewControl tallySizeStringForFileItem: item]
+                           : [FileItem stringForFileItemSize: item.itemSize]);
 
   NSString  *itemPath = 
     ( [item isPhysical]
@@ -1326,15 +1344,9 @@ extern NSString  *TallyFileSizeName;
   pathTextView.string = pathString;
   if (self.usesTallyFileSize) {
     exactSizeField.stringValue = @"";
-    if (item.itemSize > 1) {
-      sizeField.stringValue = [NSString stringWithFormat: @"%qu %@",
-                               item.itemSize,
-                               NSLocalizedString(@"files", @"The tally unit size")];
-    } else {
-      sizeField.stringValue = @"";
-    }
+    sizeField.stringValue = sizeString;
   } else {
-    exactSizeField.stringValue = [FileItem exactStringForFileItemSize: [item itemSize]];
+    exactSizeField.stringValue = [DirectoryViewControl exactSizeStringForFileItem: item];
     sizeField.stringValue = [NSString stringWithFormat: @"(%@)", sizeString];
   }
 

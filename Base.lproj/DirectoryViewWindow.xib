@@ -875,17 +875,17 @@ Bla</string>
                         <rect key="frame" x="0.0" y="15" width="640" height="465"/>
                     </customView>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="88">
-                        <rect key="frame" x="55" y="1" width="586" height="14"/>
+                        <rect key="frame" x="4" y="1" width="574" height="14"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="System/Font/Text" usesSingleLineMode="YES" id="948">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="91">
-                        <rect key="frame" x="-1" y="1" width="52" height="13"/>
+                    <textField horizontalHuggingPriority="500" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="91">
+                        <rect key="frame" x="582" y="1" width="52" height="13"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="48" id="7l5-Hb-YGU"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="48" id="7l5-Hb-YGU"/>
                         </constraints>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Size" usesSingleLineMode="YES" id="949">
                             <font key="font" metaFont="label"/>
@@ -897,13 +897,13 @@ Bla</string>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="88" secondAttribute="bottom" constant="1" id="4Ko-gV-IXB"/>
                     <constraint firstItem="86" firstAttribute="top" secondItem="81" secondAttribute="top" id="5gF-Z3-NNR"/>
+                    <constraint firstItem="88" firstAttribute="leading" secondItem="81" secondAttribute="leading" constant="6" id="5nx-bV-NDm"/>
                     <constraint firstAttribute="trailing" secondItem="86" secondAttribute="trailing" id="7nI-eD-spe"/>
-                    <constraint firstItem="88" firstAttribute="leading" secondItem="91" secondAttribute="trailing" constant="8" symbolic="YES" id="A81-ee-3Hd"/>
-                    <constraint firstItem="91" firstAttribute="leading" secondItem="81" secondAttribute="leading" constant="1" id="Yl9-Ym-kdz"/>
-                    <constraint firstAttribute="trailing" secondItem="88" secondAttribute="trailing" constant="1" id="cuM-bJ-zMQ"/>
+                    <constraint firstAttribute="trailing" secondItem="91" secondAttribute="trailing" constant="8" id="M6P-d2-tAU"/>
+                    <constraint firstItem="91" firstAttribute="leading" secondItem="88" secondAttribute="trailing" constant="8" symbolic="YES" id="V7H-G9-Hbc"/>
                     <constraint firstItem="86" firstAttribute="leading" secondItem="81" secondAttribute="leading" id="fLP-RC-r5y"/>
+                    <constraint firstAttribute="bottom" secondItem="91" secondAttribute="bottom" constant="1" id="p0N-Lm-50z"/>
                     <constraint firstItem="88" firstAttribute="top" secondItem="86" secondAttribute="bottom" id="qTM-CM-67k"/>
-                    <constraint firstAttribute="bottom" secondItem="91" secondAttribute="bottom" constant="1" id="wuo-Ix-el2"/>
                 </constraints>
             </view>
             <connections>

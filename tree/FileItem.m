@@ -195,13 +195,6 @@ NSString*  FileSizeUnitSystemBase10 = @"base-10";
 }
 
 
-+ (NSString *)exactStringForFileItemSize:(ITEM_SIZE)filesize {
-  NSString  *format = NSLocalizedString(@"%qu bytes", @"Exact file size (in bytes).");
-
-  return [NSString stringWithFormat: format, filesize ];
-}
-
-
 + (NSString *)stringForTime:(CFAbsoluteTime)absTime {
   if (absTime == 0) {
     return @"";
