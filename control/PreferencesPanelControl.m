@@ -229,6 +229,12 @@ static BOOL appHasDeletePermission;
   SecCodeRef  me;
   CFDictionaryRef  dynamicInfo;
 
+  NSLog(@"Trying to establish application entitlements");
+
+  // On Mojave this invocation results in the following log messages:
+  //  [logging-persist] cannot open file at line 42249 of [95fbac39ba]
+  //  [logging-persist] os_unix.c:42249: (0) open(/var/db/DetachedSignatures) - Undefined error: 0
+  // Hopefully this will be fixed/resolved in a future version of macOS.
   err = SecCodeCopySelf(kSecCSDefaultFlags, &me);
 
   if (err != errSecSuccess) {
