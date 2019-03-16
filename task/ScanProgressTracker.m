@@ -1,5 +1,7 @@
 #import "ScanProgressTracker.h"
 
+#import "DirectoryItem.h"
+
 @interface ScanProgressTracker (PrivateMethods)
 
 - (void) processedOrSkippedFolder:(DirectoryItem *)dirItem;
@@ -77,8 +79,6 @@
     fraction /= numSubFolders[i];
     i++;
   }
-  NSAssert(progress >= 0, @"Progress should be positive");
-  NSAssert(progress <= 100, @"Progress should be less than 100");
 
   return progress;
 }
@@ -90,9 +90,13 @@
 
 - (void) processedOrSkippedFolder:(DirectoryItem *)dirItem {
   if (level > 0 && level <= maxLevels) {
-    numSubFoldersProcessed[level - 1] += 1;
-    NSAssert(numSubFoldersProcessed[level - 1] <= numSubFolders[level - 1],
-             @"More sub-folders processed than expected.");
+    if (numSubFoldersProcessed[level - 1] < numSubFolders[level - 1]) {
+      numSubFoldersProcessed[level - 1] += 1;
+    } else {
+      // This can happen if a new folder is created while the scan is in progress. Ignore it to
+      // avoid overestimation of progress.
+      NSLog(@"More sub-folders processed than expected at %@", [[dirItem parentDirectory] path]);
+    }
   }
 }
 
