@@ -1100,7 +1100,7 @@ extern NSString  *TallyFileSizeName;
         
       if (relativeItemPath.length > visibleLen) {
         [attributedPath addAttribute: NSForegroundColorAttributeName
-                               value: [NSColor darkGrayColor]
+                               value: [NSColor secondaryLabelColor]
                                range: NSMakeRange(0, relativeItemPath.length - visibleLen)];
       }
         
