@@ -477,20 +477,13 @@ extern NSString  *TallyFileSizeName;
 
 // Invoked because the controller is the delegate for the window.
 - (void) windowDidBecomeMain:(NSNotification *)notification {
-  // Change window's background color (which should only affect the statusbar)
-  self.window.backgroundColor = [NSColor lightGrayColor];
+  [itemSizeField setTextColor: NSColor.labelColor];
+  [itemPathField setTextColor: NSColor.labelColor];
 }
 
 - (void) windowDidResignMain:(NSNotification *)notification {
-  CGFloat  h, s, b, a;
-  
-  [[self.window.backgroundColor colorUsingColorSpaceName: NSDeviceRGBColorSpace]
-      getHue: &h saturation: &s brightness: &b alpha: &a];
-
-  NSColor  *inactiveBackgroundColor =
-    [NSColor colorWithDeviceHue: h saturation: s brightness: 1 - 0.5 * (1-b) alpha: a];
-
-  self.window.backgroundColor = inactiveBackgroundColor;
+  [itemSizeField setTextColor: NSColor.secondaryLabelColor];
+  [itemPathField setTextColor: NSColor.secondaryLabelColor];
 }
 
 
