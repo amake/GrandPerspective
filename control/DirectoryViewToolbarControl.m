@@ -135,9 +135,10 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
   // Not retaining it. It needs to be deallocated when the window is closed.
   dirViewControl = dirViewWindow.windowController;
   
-  // Replace the cells, so that they always remain at normal size.
-  zoomControls.cell = [[[ToolbarSegmentedCell alloc] initWithSegmentedCell: zoomControls.cell] autorelease];
-  focusControls.cell = [[[ToolbarSegmentedCell alloc] initWithSegmentedCell: focusControls.cell] autorelease];
+  // Set all images to template so that they also look good in Dark Mode. Somehow it does not
+  // suffice to set Render As to "Template Image" in the image asset.
+  [zoomControls.cell setImagesToTemplate];
+  [focusControls.cell setImagesToTemplate];
 
   // Disable auto-layout for toolbar controls. This is apparantly needed for the toolbar to be layed
   // out correctly.

@@ -933,7 +933,7 @@ Bla</string>
                 <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="536">
                     <rect key="frame" x="18" y="18" width="86" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="950">
+                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="950" customClass="ToolbarSegmentedCell">
                         <font key="font" metaFont="system"/>
                         <segments>
                             <segment image="ZoomIn" width="26" tag="100"/>
@@ -954,7 +954,7 @@ Bla</string>
                 <segmentedControl verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="543">
                     <rect key="frame" x="18" y="18" width="86" height="24"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="951">
+                    <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="momentary" id="951" customClass="ToolbarSegmentedCell">
                         <font key="font" metaFont="system"/>
                         <segments>
                             <segment image="FocusDown" width="26" tag="103"/>
