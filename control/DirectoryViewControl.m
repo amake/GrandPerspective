@@ -1093,7 +1093,7 @@ extern NSString  *TallyFileSizeName;
         [[[NSMutableAttributedString alloc] initWithString: relativeItemPath] autorelease];
 
       NSUInteger  visibleLen = itemPath.length - invisiblePathName.length;
-      if (visibleLen > 0) {
+      if (visibleLen > 0 && invisiblePathName.length > 0) {
         // Let the path separator also be part of the invisible path.
         visibleLen--;
       }
