@@ -4,7 +4,7 @@
 <title>Bestandsgrootte maten</title>
 <link href="HelpStyle.css" rel="stylesheet" media="all">
 <meta name="description" content="Beschrijft de bestandsgrootte maten die ondersteund worden en legt uit hoe deze gekozen kunnen worden.">
-<meta name="keywords" content="bestand, grootte, maat, intrinsiek, fysisch, eenheid, binair, decimaal">
+<meta name="keywords" content="bestand, grootte, maat, intrinsiek, fysisch, aantal, eenheid, binair, decimaal">
 </head>
 <body>
 
@@ -16,54 +16,68 @@
 </div>
 
 <p>
-De grootte van elke rechthoek in een <a href="Views.html">overzicht venster</a> is evenredig met de grootte van het bestand dat het vertegenwoordigd.
-U kunt de bestandsgrootte maat en het eenheidssysteem dat gebruikt wordt veranderen via de GrandPerspective <a href="Preferences.html">Voorkeuren</a>.
+De grootte van elke rechthoek in een <a href="Views.html">overzicht venster</a> is evenredig met de grootte van het bestand dat het vertegenwoordigt.
+Er zijn verschillende manieren om de grootte van een bestand te meten.
+De bestandsgrootte maat die GrandPerspective gebruikt wanneer het een nieuwe map inleest is te kiezen via het <a href="Preferences.html">Voorkeuren</a> venster.
 </p>
 
 <h2>Bestandsgrootte maten</h2>
 
 <p>
-GrandPerspective ondersteunt twee verschillende bestandsgrootte maten:
+GrandPerspective ondersteunt de volgende bestandsgrootte maten:
 
 <ul>
-<li><b>Intrinsiek</b>,
-deze maat is gebaseerd op de grootte van de inhoud van een bestand. 
+<li><b>Intrinsiek</b>.
+Deze maat is gebaseerd op de grootte van de inhoud van een bestand.
 De intrinsieke grootte van een tekstbestand is bijvoorbeeld gelijk aan het aantal tekens (inclusief spaties en regelonderbrekingen) die het bevat.</li>
 
-<li><b>Fysisch</b>,
-deze maat is gebaseerd op de ruimte die een bestand inneemt op schijf. 
-De fysische grootte van een bestand kan hetzelfde zijn als de intrinsieke grootte, maar is typisch iets groter. Dit wordt veroorzaakt door de manier waarop een schijf ingericht is.
-Een bestand met een intrinsieke grootte van tien bytes kan bijvoorbeeld, afhankelijk van het soort bestandssysteem, een fysische grootte hebben van 1024 bytes.
-<br><br>
-Het is ook mogelijk dat de fysische grootte <em>kleiner</em> is dan de intrinsieke grootte.
-Dit kan het geval zijn voor:
+<li><b>Fysisch</b>.
+Deze maat is gebaseerd op de ruimte die een bestand inneemt op schijf.
+De fysische grootte van een bestand is typisch iets groter dan de intrinsieke grootte.
+Dit wordt veroorzaakt door de manier waarop een schijf ingericht is.
+Een bestand met een intrinsieke grootte van tien bytes kan bijvoorbeeld een fysische grootte hebben van 4096 bytes.
+</li>
+
+<li><b>Aantal</b>.
+Hier telt slechts het aantal bestanden.
+Ieder bestand heeft grootte "ŽŽn" onafhankelijk van de ruimte die het inneemt.
+De grootte van een map komt daarom overeen met het aantal bestanden die het bevat.
+</li>
+</ul>
+
+<p>
+Welke type bestandsgrootte u kiest is deels een kwestie van smaak maar hangt ook af van de situatie.
+De Fysische grootte geeft het beste aan hoeveel ruimte beschikbaar komt wanneer u een bestand verwijdert maar legt ook meer implementatie details van het bestandssysteem bloot.
+De Intrinsieke grootte geeft het beste weer hoe groot de inhoud is van een bestand, maar kan af en toe de benodigde schijfruimte ernstig overschatten.
+Dit kan gebeuren in de volgende gevallen:
+</p>
+
 <ul>
 <li>
-<b>Bestanden die zijn opgeslagen met behulp van HFS+ compressie</b>.
+Bestanden die zijn opgeslagen met behulp van HFS+ compressie.
 In dit geval kunnen kleine bestanden zelfs een fysische grootte van <em>nul bytes</em> hebben.
 Dit gebeurt wanneer de gehele inhoud opgeslagen kan worden als deel van de metadata van het bestand.
 Zo'n bestand is dan onzichtbaar in het <a href="Views.html">overzicht venster</a>.
 </li>
+
 <li>
-<b>Sparse-bestanden binnen het APFS bestandssysteem</b>.
+Sparse-bestanden binnen het APFS bestandssysteem.
 Sparse-bestanden worden gebruikt om efficient data met veel lege blokken op te slaan.
 Een typische toepassing is een bestandsvolume voor een Virtuele Machine of een Docker container.
 De logische grootte van zo'n volume kan erg groot zijn, maar weinig opslagruimte in gebruik nemen wanneer het betreffende volume grotendeels leeg is.
 </li>
+
 <li>
-<b>Online-only Dropbox bestanden</b>
+Online-only Dropbox bestanden.
 Deze bestanden maken onderdeel uit van de Dropbox Smart Synch functionaliteit.
 Ze zijn beschikbaar binnen de Dropbox map op uw computer maar de inhoud is online opgeslagen.
 Deze bestanden nemen daardoor minder ruimte in op uw schijf dan hun intrinsieke grootte.
 </li>
 </ul>
-</li>
-</ul>
 
 <p>
-Welke type bestandsgrootte u kiest is deels een kwestie van smaak en hangt ook af van de situatie.
-De fysische grootte geeft het beste aan hoeveel ruimte beschikbaar komt wanneer u een bestand verwijdert maar legt ook meer implementatie details van het bestandssysteem bloot.
-De gerapporteerde bestandsgroottes verschillen het meeste voor kleine bestanden,  bestanden die opgeslagen zijn met behulp van HFS+ compressie, sparse-bestanden, en online-only Dropbox bestanden.
+De Aantal bestandsgrootte maat is bruikbaar in uitzonderlijke situaties.
+Bijvoorbeeld wanneer u mappen wilt vinden die veel (mogelijke kleine) bestanden bevatten.
 </p>
 
 <h2>Bestandsgrootte eenheidssystemen</h2>
