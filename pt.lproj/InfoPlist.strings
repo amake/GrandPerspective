@@ -1,0 +1,6 @@
+/* Localized versions of Info.plist keys */
+
+CFBundleName = "GrandPerspective";
+CFBundleDisplayName = "GrandPerspective";
+NSHumanReadableCopyright = "Copyright © Eriban Software, 2005-2019";
+CFBundleGetInfoString = "4 Aug 2019";

@@ -1,0 +1,99 @@
+
+/* Class = "NSWindow"; title = "Preferences"; ObjectID = "6"; */
+"6.title" = "Preferences";
+
+/* Class = "NSBox"; title = "Display"; ObjectID = "29"; */
+"29.title" = "Display";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "45"; */
+"45.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "46"; */
+"46.title" = "Item1";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "51"; */
+"51.title" = "Item1";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "53"; */
+"53.title" = "OtherViews";
+
+/* Class = "NSBox"; title = "Info"; ObjectID = "57"; */
+"57.title" = "Info";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "61"; */
+"61.title" = "Item1";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "62"; */
+"62.title" = "OtherViews";
+
+/* Class = "NSBox"; title = "Actions"; ObjectID = "72"; */
+"72.title" = "Actions";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "74"; */
+"74.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Files and folders"; ObjectID = "78"; */
+"78.title" = "Files and folders";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "152"; */
+"152.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Close old window"; ObjectID = "153"; */
+"153.title" = "Close old window";
+
+/* Class = "NSTextFieldCell"; title = "Palette:"; ObjectID = "167"; */
+"167.title" = "Palette:";
+
+/* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "171"; */
+"171.title" = "Show package contents";
+
+/* Class = "NSTextFieldCell"; title = "Color by:"; ObjectID = "172"; */
+"172.title" = "Color by:";
+
+/* Class = "NSTextFieldCell"; title = "File size measure:"; ObjectID = "174"; */
+"174.title" = "File size measure:";
+
+/* Class = "NSButtonCell"; title = "Always require confirmation"; ObjectID = "176"; */
+"176.title" = "Always require confirmation";
+
+/* Class = "NSTextFieldCell"; title = "Enable deletion of:"; ObjectID = "177"; */
+"177.title" = "Enable deletion of:";
+
+/* Class = "NSTextFieldCell"; title = "After full rescan:"; ObjectID = "178"; */
+"178.title" = "After full rescan:";
+
+/* Class = "NSTextFieldCell"; title = "Filter:"; ObjectID = "181"; */
+"181.title" = "Filter:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "184"; */
+"184.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "185"; */
+"185.title" = "Item1";
+
+/* Class = "NSTextFieldCell"; title = "Rescan action:"; ObjectID = "189"; */
+"189.title" = "Rescan action:";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "192"; */
+"192.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Rescan folder in view"; ObjectID = "193"; */
+"193.title" = "Rescan folder in view";
+
+/* Class = "NSButtonCell"; title = "Show entire volume"; ObjectID = "199"; */
+"199.title" = "Show entire volume";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "206"; */
+"206.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "207"; */
+"207.title" = "Item1";
+
+/* Class = "NSTextFieldCell"; title = "File size unit system:"; ObjectID = "214"; */
+"214.title" = "File size unit system:";
+
+/* Class = "NSTextFieldCell"; title = "After closing last view:"; ObjectID = "KFu-2k-t7Z"; */
+"KFu-2k-t7Z.title" = "After closing last view:";
+
+/* Class = "NSMenuItem"; title = "Terminate application"; ObjectID = "Rrr-CG-7lo"; */
+"Rrr-CG-7lo.title" = "Terminate application";
