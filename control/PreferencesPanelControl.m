@@ -57,7 +57,8 @@ static BOOL appHasDeletePermission;
 
 // Thread-safe initialisation
 + (void)initialize {
-  appHasDeletePermission = [PreferencesPanelControl doesAppHaveFileDeletePermission];
+  // TODO: Re-enable once this works again.
+  appHasDeletePermission = YES; // [PreferencesPanelControl doesAppHaveFileDeletePermission];
 }
 
 + (BOOL) appHasDeletePermission {
@@ -242,6 +243,7 @@ static BOOL appHasDeletePermission;
     return canDelete;
   }
 
+  // On Catalina the invocation below results in a crash.
   err = SecCodeCopySigningInformation(me, (SecCSFlags) kSecCSDynamicInformation, &dynamicInfo);
   if (err != errSecSuccess) {
     NSLog(@"Failed to successfully invoke SecCodeCopySigningInformation -> %d", err);
