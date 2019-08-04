@@ -518,9 +518,10 @@ NSString  *TallyFileSizeName = @"tally";
   @try {
     for (NSURL *fileURL in directoryEnumerator) {
       NSURL  *parentURL = nil;
-      [fileURL getResourceValue: &parentURL forKey: NSURLParentDirectoryURLKey error: nil];
+      [fileURL getParentURL: &parentURL];
 
       ScanStackFrame  *parent = [self unwindStackToURL: parentURL];
+      NSAssert1(parent != nil, @"Unwind failure at %@", fileURL);
 
       if (![self visitItemAtURL: fileURL parent: parent]) {
         [directoryEnumerator skipDescendants];

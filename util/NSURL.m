@@ -80,4 +80,27 @@
   return accessTime.timeIntervalSinceReferenceDate;
 }
 
+- (void) getParentURL:(out NSURL* _Nullable *_Nonnull)parentURL {
+  *parentURL = [self URLByDeletingLastPathComponent];
+
+//  // Unfortunately, the code below is still not robust enough. On Catalina, for files inside
+//  // "/System/Volumes/Data" the parent URL that is returned is "file:///". Therefore disabling
+//  // it for now.
+//
+//  NSError  *error = nil;
+//
+//  [self getResourceValue: parentURL forKey: NSURLParentDirectoryURLKey error: &error];
+//  if (error != nil) {
+//    NSLog(@"Failed to obtain parent URL for %@: %@", self, error.description);
+//  }
+//  if (*parentURL == nil) {
+//    NSLog(@"Warning: parent URL is nil for %@", self);
+//
+//    // Try to construct parent URL by stripping last path component from own path
+//    NSURL  *parent = [self URLByDeletingLastPathComponent];
+//    NSLog(@"Setting parent to %@", parent);
+//    *parentURL = parent;
+//  }
+}
+
 @end

@@ -7,4 +7,6 @@
 @property (nonatomic, readonly) CFAbsoluteTime creationTime;
 @property (nonatomic, readonly) CFAbsoluteTime modificationTime;
 @property (nonatomic, readonly) CFAbsoluteTime accessTime;
+
+- (void) getParentURL:(out NSURL* _Nullable *_Nonnull)parentURL;
 @end
