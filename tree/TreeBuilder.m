@@ -425,12 +425,22 @@ NSString  *TallyFileSizeName = @"tally";
                                                  modificationTime: [url modificationTime]
                                                        accessTime: [url accessTime]];
 
+    // Explicitly check if the path is the System Data volume. We do not want to scan its contents
+    // to prevent its contents from being scanned twice (as they also appear inside the root via
+    // firmlinks). Ideally, we use a more generic mechanism for this, similar to how hardlinks are
+    // handled, but there does not yet seem to be an API to support this.
+    BOOL isDataVolume = (
+                         [lastPathComponent isEqualToString: @"Data"] &&
+                         [[dirChildItem path] isEqualToString: @"/System/Volumes/Data"]
+                        );
+
     // Only add directories that should be scanned (this does not necessarily mean that it has
     // passed the filter test already)
-    if ( [treeGuide shouldDescendIntoDirectory: dirChildItem] ) {
+    if ( !isDataVolume && [treeGuide shouldDescendIntoDirectory: dirChildItem] ) {
       [parent->dirs addObject: dirChildItem];
       [self addToStack: dirChildItem URL: url];
     } else {
+      NSLog(@"Skipping scan of %@", url);
       [progressTracker skippedFolder: dirChildItem];
       visitDescendants = NO;
     }
