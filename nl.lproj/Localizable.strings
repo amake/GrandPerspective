@@ -271,6 +271,12 @@
 /* Title of progress panel. */
 "Scanning in progress" = "Bezig met inlezen";
 
+/* Solitairy entry in Start window */
+"Select Folder" = "Selecteer Map";
+
+/* Entry in Start window, alongside other options */
+"Select Other Folder" = "Selecteer Andere Map";
+
 /* Label in Focus panel */
 "Selected area:" = "Geselecteerd gebied:";
 
