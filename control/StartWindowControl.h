@@ -17,7 +17,7 @@
 
 - (IBAction) scanAction:(id)sender;
 - (IBAction) helpAction:(id)sender;
-- (IBAction) repeatRecentScanAction:(id)sender;
+- (IBAction) scanActionAfterDoubleClick:(id)sender;
 
 - (void) changeTagLine;
 

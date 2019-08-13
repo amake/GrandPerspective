@@ -9,6 +9,7 @@ NSString*  TaglineFormat = @"tagline-%d";
 @interface StartWindowControl (PrivateMethods)
 
 - (void) setTagLineField;
+- (void) startScan:(NSInteger)selectedRow sender:(id)sender;
 
 @end // @interface StartWindowControl (PrivateMethods)
 
@@ -54,7 +55,7 @@ NSString*  TaglineFormat = @"tagline-%d";
   
   recentScansView.delegate = self;
   recentScansView.dataSource = self;
-  recentScansView.doubleAction = @selector(repeatRecentScanAction:);
+  recentScansView.doubleAction = @selector(scanActionAfterDoubleClick:);
 
   [self setTagLineField];
 }
@@ -64,41 +65,46 @@ NSString*  TaglineFormat = @"tagline-%d";
 // NSTableSource
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView *)tableView {
-  return [NSDocumentController sharedDocumentController].recentDocumentURLs.count;
+  return [NSDocumentController sharedDocumentController].recentDocumentURLs.count + 1;
 }
 
 - (NSView *)tableView:(NSTableView *)tableView
    viewForTableColumn:(NSTableColumn *)tableColumn
                   row:(NSInteger)row {
   
-  NSURL *docUrl = [NSDocumentController sharedDocumentController].recentDocumentURLs[row];
-  
   RecentDocumentTableCellView *cellView =
     [tableView makeViewWithIdentifier: @"RecentScanView" owner: self];
 
-  cellView.textField.stringValue =
-    [[NSFileManager defaultManager] displayNameAtPath: docUrl.path];
-  cellView.imageView.image = [[NSWorkspace sharedWorkspace] iconForFile: docUrl.path];
-  cellView.secondTextField.stringValue = docUrl.path;
-  
+  NSInteger  numRecent = [NSDocumentController sharedDocumentController].recentDocumentURLs.count;
+
+  if (row < numRecent) {
+    NSURL *docUrl = [NSDocumentController sharedDocumentController].recentDocumentURLs[row];
+
+    cellView.textField.stringValue =
+      [[NSFileManager defaultManager] displayNameAtPath: docUrl.path];
+    cellView.imageView.image = [[NSWorkspace sharedWorkspace] iconForFile: docUrl.path];
+    cellView.secondTextField.stringValue = docUrl.path;
+  } else {
+    NSString  *msg = ((numRecent > 0) ?
+                      NSLocalizedString(@"Select Other Folder",
+                                        @"Entry in Start window, alongside other options") :
+                      NSLocalizedString(@"Select Folder", @"Solitairy entry in Start window"));
+
+    cellView.textField.stringValue = msg;
+    cellView.secondTextField.stringValue = @"...";
+  }
+
   return cellView;
 }
 
 //----------------------------------------------------------------------------
 
 - (IBAction) scanAction:(id)sender {
-  [self.window close];
-
-  [mainMenuControl scanDirectoryView: sender];
+  [self startScan: recentScansView.selectedRow sender: sender];
 }
 
-- (IBAction) repeatRecentScanAction:(id)sender {
-  [self.window close];
-
-  NSUInteger row = recentScansView.clickedRow;
-  NSURL *docUrl = [NSDocumentController sharedDocumentController].recentDocumentURLs[row];
-
-  [mainMenuControl scanFolder: docUrl.path];
+- (IBAction) scanActionAfterDoubleClick:(id)sender {
+  [self startScan: recentScansView.clickedRow sender: sender];
 }
 
 - (IBAction) helpAction:(id)sender {
@@ -134,6 +140,22 @@ NSString*  TaglineFormat = @"tagline-%d";
   // Nil-check to avoid problems if tag lines are not properly localized
   if (localizedTagLine != nil) {
     tagLine.stringValue = localizedTagLine;
+  }
+}
+
+- (void) startScan:(NSInteger)selectedRow sender:(id)sender {
+  [self.window close];
+
+  NSDocumentController  *controller = [NSDocumentController sharedDocumentController];
+
+  if (selectedRow >= 0 && selectedRow < controller.recentDocumentURLs.count) {
+    // Scan selected folder
+    NSURL *docUrl = controller.recentDocumentURLs[selectedRow];
+
+    [mainMenuControl scanFolder: docUrl.path];
+  } else {
+    // Let user select the folder to scan
+    [mainMenuControl scanDirectoryView: sender];
   }
 }
 
