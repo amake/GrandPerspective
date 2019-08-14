@@ -1,75 +1,72 @@
 /* Toolbar action */
-"Delete" = "Delete";
+"Delete" = "Apagar";
 
 /* Toolbar action */
-"Drawer" = "Drawer";
+"Drawer" = "Inspetor";
 
 /* Label for focus controls */
-"Focus" = "Focus";
+"Focus" = "Foco";
 
 /* Menu item */
-"Hide Toolbar" = "Hide Toolbar";
+"Hide Toolbar" = "Ocultar a Barra de Ferramentas";
 
 /* Toolbar action */
-"Move focus down" = "Move focus down";
+"Move focus down" = "Mover o foco para baixo";
 
 /* Toolbar action */
-"Move focus up" = "Move focus up";
+"Move focus up" = "Mover o foco para cima";
 
 /* Tooltip */
-"Move to trash" = "Move to trash";
+"Move to trash" = "Mover para o lixo";
 
 /* Toolbar action */
-"Open" = "Open";
+"Open" = "Abrir";
 
 /* Tooltip */
-"Open with Finder" = "Open with Finder";
+"Open with Finder" = "Abrir com finder";
 
 /* Tooltip */
-"Open/close drawer" = "Open/close drawer";
+"Open/close drawer" = "Abrir/Fechar inspetor";
 
 /* Tooltip */
-"Preview item in Quick Look panel" = "Preview item in Quick Look panel";
+"Preview item in Quick Look panel" = "Pré-Visualizar no Painel de Visualização Rápida";
 
 /* Toolbar action */
-"Quick Look" = "Quick Look";
+"Quick Look" = "Visualização Rápida";
 
 /* Toolbar action */
-"Rescan" = "Rescan";
+"Rescan" = "Re-Examinar";
 
 /* Toolbar action */
-"Rescan all" = "Rescan all";
+"Rescan all" = "Re-Examinar tudo";
 
 /* Toolbar action */
-"Rescan folder in view" = "Rescan folder in view";
-
-/* Toolbar action */
-"Rescan selected" = "Rescan selected";
+"Rescan selected" = "Re-Examinar selecionado";
 
 /* Tooltip */
 "Rescan view data" = "Rescan view data";
 
 /* Toolbar action */
-"Reset focus" = "Reset focus";
+"Reset focus" = "Restaurar o foco";
 
 /* Toolbar action */
-"Reset zoom" = "Reset zoom";
+"Reset zoom" = "Restaurar o zoom";
 
 /* Toolbar action */
-"Reveal" = "Reveal";
+"Reveal" = "Mostrar";
 
 /* Tooltip */
-"Reveal in Finder" = "Reveal in Finder";
+"Reveal in Finder" = "Mostar no Finder";
 
 /* Menu item */
-"Show Toolbar" = "Show Toolbar";
+"Show Toolbar" = "Mostrar Barra de Ferramentas";
 
 /* Label for zooming controls */
 "Zoom" = "Zoom";
 
 /* Toolbar action */
-"Zoom in" = "Zoom in";
+"Zoom in" = "Ampliar";
 
 /* Toolbar action */
-"Zoom out" = "Zoom out";
+"Zoom out" = "Reduzir";
 

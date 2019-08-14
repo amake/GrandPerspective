@@ -471,7 +471,6 @@
 		AAA857FC22F7643200DB3BE5 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Taglines.strings; sourceTree = "<group>"; };
 		AAA857FD22F7643200DB3BE5 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Tests.strings; sourceTree = "<group>"; };
 		AAA857FE22F7643300DB3BE5 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Toolbar.strings; sourceTree = "<group>"; };
-		AAA857FF22F7643300DB3BE5 /* pt */ = {isa = PBXFileReference; lastKnownFileType = folder; name = pt; path = pt.lproj/GrandPerspectiveHelp; sourceTree = "<group>"; };
 		AAA8724A111492E600ED5112 /* ScanTreeRoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScanTreeRoot.h; path = tree/ScanTreeRoot.h; sourceTree = "<group>"; };
 		AAA8724B111492E600ED5112 /* ScanTreeRoot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ScanTreeRoot.m; path = tree/ScanTreeRoot.m; sourceTree = "<group>"; };
 		AAAB9A3E0EF3C25A00B3C482 /* nl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Toolbar.strings; sourceTree = "<group>"; };
@@ -1514,7 +1513,6 @@
 			children = (
 				AA311D380B88B48900BD4132 /* nl */,
 				AA0DD93422F6F5BA00D9F9B9 /* en */,
-				AAA857FF22F7643300DB3BE5 /* pt */,
 			);
 			name = GrandPerspectiveHelp;
 			sourceTree = "<group>";
