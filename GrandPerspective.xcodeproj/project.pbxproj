@@ -493,24 +493,6 @@
 		AAC26BB90A8CAF4800F2DA33 /* FilterTaskInput.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = FilterTaskInput.m; path = task/FilterTaskInput.m; sourceTree = "<group>"; };
 		AAC26BBE0A8CAF4800F2DA33 /* ScanTaskExecutor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ScanTaskExecutor.h; path = task/ScanTaskExecutor.h; sourceTree = "<group>"; };
 		AAC26BBF0A8CAF4800F2DA33 /* ScanTaskExecutor.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ScanTaskExecutor.m; path = task/ScanTaskExecutor.m; sourceTree = "<group>"; };
-		AAC46E5B21DE64A600E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainMenu.strings; sourceTree = "<group>"; };
-		AAC46E5C21DE64A600E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/DirectoryViewWindow.strings; sourceTree = "<group>"; };
-		AAC46E5D21DE64A600E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/FiltersWindow.strings; sourceTree = "<group>"; };
-		AAC46E5E21DE64A600E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/FilterWindow.strings; sourceTree = "<group>"; };
-		AAC46E5F21DE64A600E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/FilterSelectionPanel.strings; sourceTree = "<group>"; };
-		AAC46E6021DE64A600E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/FilterTestWindow.strings; sourceTree = "<group>"; };
-		AAC46E6121DE64A600E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/PreferencesPanel.strings; sourceTree = "<group>"; };
-		AAC46E6221DE64A700E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/UniformTypeRankingWindow.strings; sourceTree = "<group>"; };
-		AAC46E6321DE64A700E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/SaveImageDialog.strings; sourceTree = "<group>"; };
-		AAC46E6421DE64A700E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/StartWindow.strings; sourceTree = "<group>"; };
-		AAC46E6521DE64A700E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/ProgressPanel.strings; sourceTree = "<group>"; };
-		AAC46E6621DE64A700E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AAC46E6721DE64A700E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Names.strings; sourceTree = "<group>"; };
-		AAC46E6821DE64A700E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		AAC46E6921DE64A700E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/PopUpMenu.strings; sourceTree = "<group>"; };
-		AAC46E6A21DE64A800E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Taglines.strings; sourceTree = "<group>"; };
-		AAC46E6B21DE64A800E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Tests.strings; sourceTree = "<group>"; };
-		AAC46E6C21DE64A800E77A21 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Toolbar.strings; sourceTree = "<group>"; };
 		AAD50FCC21BDB30F00784BBF /* AlertMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AlertMessage.h; path = util/AlertMessage.h; sourceTree = "<group>"; };
 		AAD50FCD21BDB30F00784BBF /* AlertMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AlertMessage.m; path = util/AlertMessage.m; sourceTree = "<group>"; };
 		AAD6855008D9FE600096C6C1 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
@@ -1088,7 +1070,6 @@
 			knownRegions = (
 				nl,
 				Base,
-				fr,
 				zh,
 				tr,
 				de,
@@ -1291,7 +1272,6 @@
 				AA37C9E51FAFA5070032D799 /* zh */,
 				AA62F2AC1FC1D8260089E127 /* tr */,
 				AAE311D0217B7B4F002A3CCE /* de */,
-				AAC46E6621DE64A700E77A21 /* fr */,
 				AA0DD93522F6F5BA00D9F9B9 /* en */,
 				AAA857F822F7643200DB3BE5 /* pt */,
 			);
@@ -1305,7 +1285,6 @@
 				AA37C9F31FAFA50B0032D799 /* zh */,
 				AA62F2B01FC1D8270089E127 /* tr */,
 				AAE311D4217B7B50002A3CCE /* de */,
-				AAC46E6C21DE64A800E77A21 /* fr */,
 				AA0DD93B22F6F5BA00D9F9B9 /* en */,
 				AAA857FE22F7643300DB3BE5 /* pt */,
 			);
@@ -1319,7 +1298,6 @@
 				AA37C9F11FAFA50A0032D799 /* zh */,
 				AA62F2B21FC1D8270089E127 /* tr */,
 				AAE311D1217B7B4F002A3CCE /* de */,
-				AAC46E6921DE64A700E77A21 /* fr */,
 				AA0DD93822F6F5BA00D9F9B9 /* en */,
 				AAA857FB22F7643200DB3BE5 /* pt */,
 			);
@@ -1334,7 +1312,6 @@
 				AA37C9EE1FAFA50A0032D799 /* zh */,
 				AA62F2B51FC1D8280089E127 /* tr */,
 				AAE311D5217B7B50002A3CCE /* de */,
-				AAC46E5D21DE64A600E77A21 /* fr */,
 				AAA857EF22F7643200DB3BE5 /* pt */,
 			);
 			name = FiltersWindow.xib;
@@ -1348,7 +1325,6 @@
 				AA37C9EC1FAFA5090032D799 /* zh */,
 				AA62F2A81FC1D8240089E127 /* tr */,
 				AAE311D3217B7B50002A3CCE /* de */,
-				AAC46E5E21DE64A600E77A21 /* fr */,
 				AAA857F022F7643200DB3BE5 /* pt */,
 			);
 			name = FilterWindow.xib;
@@ -1362,7 +1338,6 @@
 				AA37C9EB1FAFA5090032D799 /* zh */,
 				AA62F2AF1FC1D8260089E127 /* tr */,
 				AAE311D2217B7B50002A3CCE /* de */,
-				AAC46E6021DE64A600E77A21 /* fr */,
 				AAA857F222F7643200DB3BE5 /* pt */,
 			);
 			name = FilterTestWindow.xib;
@@ -1376,7 +1351,6 @@
 				AA37C9E81FAFA5080032D799 /* zh */,
 				AA62F2AB1FC1D8250089E127 /* tr */,
 				AAE311D8217B7B51002A3CCE /* de */,
-				AAC46E6221DE64A700E77A21 /* fr */,
 				AAA857F422F7643200DB3BE5 /* pt */,
 			);
 			name = UniformTypeRankingWindow.xib;
@@ -1390,7 +1364,6 @@
 				AA37C9EA1FAFA5090032D799 /* zh */,
 				AA62F2AE1FC1D8260089E127 /* tr */,
 				AAE311D9217B7B51002A3CCE /* de */,
-				AAC46E5F21DE64A600E77A21 /* fr */,
 				AAA857F122F7643200DB3BE5 /* pt */,
 			);
 			name = FilterSelectionPanel.xib;
@@ -1403,7 +1376,6 @@
 				AA37C9E41FAFA5070032D799 /* zh */,
 				AA62F2A71FC1D8240089E127 /* tr */,
 				AAE311CB217B7B4E002A3CCE /* de */,
-				AAC46E6A21DE64A800E77A21 /* fr */,
 				AA0DD93922F6F5BA00D9F9B9 /* en */,
 				AAA857FC22F7643200DB3BE5 /* pt */,
 			);
@@ -1417,7 +1389,6 @@
 				AA37C9F51FAFA50B0032D799 /* zh */,
 				AA62F2A91FC1D8250089E127 /* tr */,
 				AAE311CD217B7B4E002A3CCE /* de */,
-				AAC46E6821DE64A700E77A21 /* fr */,
 				AA0DD93622F6F5BA00D9F9B9 /* en */,
 				AAA857FA22F7643200DB3BE5 /* pt */,
 			);
@@ -1432,7 +1403,6 @@
 				AA37C9EF1FAFA50A0032D799 /* zh */,
 				AA62F2B81FC1D8290089E127 /* tr */,
 				AAE311D6217B7B51002A3CCE /* de */,
-				AAC46E5C21DE64A600E77A21 /* fr */,
 				AAA857EE22F7643200DB3BE5 /* pt */,
 			);
 			name = DirectoryViewWindow.xib;
@@ -1446,7 +1416,6 @@
 				AA37C9F41FAFA50B0032D799 /* zh */,
 				AA62F2B71FC1D8290089E127 /* tr */,
 				AAE311DB217B7B52002A3CCE /* de */,
-				AAC46E5B21DE64A600E77A21 /* fr */,
 				AAA857ED22F7643100DB3BE5 /* pt */,
 			);
 			name = MainMenu.xib;
@@ -1460,7 +1429,6 @@
 				AA37C9E71FAFA5080032D799 /* zh */,
 				AA62F2B41FC1D8280089E127 /* tr */,
 				AAE311CC217B7B4E002A3CCE /* de */,
-				AAC46E6121DE64A600E77A21 /* fr */,
 				AAA857F322F7643200DB3BE5 /* pt */,
 			);
 			name = PreferencesPanel.xib;
@@ -1474,7 +1442,6 @@
 				AA37C9E61FAFA5080032D799 /* zh */,
 				AA62F2AA1FC1D8250089E127 /* tr */,
 				AAE311DC217B7B52002A3CCE /* de */,
-				AAC46E6321DE64A700E77A21 /* fr */,
 				AAA857F522F7643200DB3BE5 /* pt */,
 			);
 			name = SaveImageDialog.xib;
@@ -1488,7 +1455,6 @@
 				AA37C9ED1FAFA5090032D799 /* zh */,
 				AA62F2B31FC1D8280089E127 /* tr */,
 				AAE311DA217B7B52002A3CCE /* de */,
-				AAC46E6521DE64A700E77A21 /* fr */,
 				AAA857F722F7643200DB3BE5 /* pt */,
 			);
 			name = ProgressPanel.xib;
@@ -1501,7 +1467,6 @@
 				AA37C9F01FAFA50A0032D799 /* zh */,
 				AA62F2B11FC1D8270089E127 /* tr */,
 				AAE311D7217B7B51002A3CCE /* de */,
-				AAC46E6721DE64A700E77A21 /* fr */,
 				AA0DD93722F6F5BA00D9F9B9 /* en */,
 				AAA857F922F7643200DB3BE5 /* pt */,
 			);
@@ -1524,7 +1489,6 @@
 				AA37C9F21FAFA50A0032D799 /* zh */,
 				AA62F2AD1FC1D8260089E127 /* tr */,
 				AAE311CF217B7B4F002A3CCE /* de */,
-				AAC46E6B21DE64A800E77A21 /* fr */,
 				AA0DD93A22F6F5BA00D9F9B9 /* en */,
 				AAA857FD22F7643200DB3BE5 /* pt */,
 			);
@@ -1539,7 +1503,6 @@
 				AA37C9E91FAFA5080032D799 /* zh */,
 				AA62F2B61FC1D8290089E127 /* tr */,
 				AAE311CE217B7B4F002A3CCE /* de */,
-				AAC46E6421DE64A700E77A21 /* fr */,
 				AAA857F622F7643200DB3BE5 /* pt */,
 			);
 			name = StartWindow.xib;
