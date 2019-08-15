@@ -274,6 +274,12 @@
 /* Title of progress panel. */
 "Scanning in progress" = "Exame em progresso";
 
+/* Solitairy entry in Start window */
+"Select Folder" = "Selecionar pasta";
+
+/* Entry in Start window, alongside other options */
+"Select Other Folder" = "Analisar outra pasta";
+
 /* Label in Focus panel */
 "Selected area:" = "Área selecionada:";
 

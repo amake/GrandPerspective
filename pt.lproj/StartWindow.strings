@@ -1,3 +1,6 @@
+/* Class = "NSButtonCell"; title = "Scan"; ObjectID = "Cd8-ae-UVZ"; */
+"Cd8-ae-UVZ.title" = "Analisar";
+
 /* Class = "NSTextFieldCell"; placeholderString = "Foldername"; ObjectID = "duM-ug-7fu"; */
 "duM-ug-7fu.placeholderString" = "Nome da Pasta";
 
