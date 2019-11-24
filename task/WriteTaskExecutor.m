@@ -1,5 +1,6 @@
 #import "WriteTaskExecutor.h"
 
+#import "RawTreeWriter.h"
 #import "XmlTreeWriter.h"
 #import "WriteTaskInput.h"
 
@@ -23,6 +24,12 @@
 }
 
 
+- (TreeWriter *)createTreeWriter {
+  NSAssert(NO, @"This method should be overridden.");
+  return nil;
+}
+
+
 - (void) prepareToRunTask {
   // Can be ignored because a one-shot object is used for running the task.
 }
@@ -33,7 +40,7 @@
   WriteTaskInput  *myInput = input;
 
   [taskLock lock];
-  treeWriter = [[XmlTreeWriter alloc] init];
+  treeWriter = [[self createTreeWriter] retain];
   [taskLock unlock];
 
   id  result = nil;
@@ -67,6 +74,23 @@
   [taskLock unlock];
   
   return dict;
+}
+
+@end
+
+
+@implementation RawWriteTaskExecutor
+
+- (TreeWriter *)createTreeWriter {
+  return [[[RawTreeWriter alloc] init] autorelease];
+}
+
+@end
+
+@implementation XmlWriteTaskExecutor
+
+- (TreeWriter *)createTreeWriter {
+  return [[[XmlTreeWriter alloc] init] autorelease];
 }
 
 @end

@@ -15,4 +15,26 @@
  */
 @property (nonatomic, readonly, copy) NSDictionary *progressInfo;
 
+/* Abstract method that should create the tree writer to use.
+ */
+- (TreeWriter *)createTreeWriter;
+
+@end
+
+@interface RawWriteTaskExecutor : WriteTaskExecutor {
+}
+
+/* Creates a RawTreeWriter.
+ */
+- (TreeWriter *)createTreeWriter;
+
+@end
+
+@interface XmlWriteTaskExecutor : WriteTaskExecutor {
+}
+
+/* Creates an XmlTreeWriter.
+ */
+- (TreeWriter *)createTreeWriter;
+
 @end

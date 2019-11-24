@@ -13,8 +13,9 @@
   
   VisibleAsynchronousTaskManager  *scanTaskManager;
   VisibleAsynchronousTaskManager  *filterTaskManager;
-  VisibleAsynchronousTaskManager  *writeTaskManager;
-  VisibleAsynchronousTaskManager  *readTaskManager;
+  VisibleAsynchronousTaskManager  *rawWriteTaskManager;
+  VisibleAsynchronousTaskManager  *xmlWriteTaskManager;
+  VisibleAsynchronousTaskManager  *xmlReadTaskManager;
 
   StartWindowControl  *startWindowControl;
   PreferencesPanelControl  *preferencesPanelControl;
@@ -55,8 +56,12 @@
 - (IBAction) duplicateDirectoryView:(id)sender;
 - (IBAction) twinDirectoryView:(id)sender;
 
+// Saves and loads XML scan data
 - (IBAction) saveScanData:(id)sender;
 - (IBAction) loadScanData:(id)sender;
+
+// Saves scan data as text
+- (IBAction) saveScanDataAsText:(id)sender;
 
 - (IBAction) saveDirectoryViewImage:(id)sender;
 

@@ -136,6 +136,8 @@ NSString  *AfterClosingLastViewDoNothing = @"do nothing";
 - (void) rescanItem:(FileItem *)item deriveFrom:(DirectoryViewControl *)oldControl;
 
 - (void) loadScanDataFromFile:(NSString *)path;
+- (void) saveScanDataToFile:(NSSavePanel *)savePanel
+           usingTaskManager:(VisibleAsynchronousTaskManager *)taskManager;
 
 - (void) duplicateCurrentWindowSharingPath:(BOOL)sharePathModel;
 
@@ -254,21 +256,29 @@ static MainMenuControl  *singletonInstance = nil;
     filterTaskManager =
       [[VisibleAsynchronousTaskManager alloc] initWithProgressPanel: filterProgressPanelControl];
           
-    ProgressPanelControl  *writeProgressPanelControl = 
+    ProgressPanelControl  *xmlWriteProgressPanelControl =
       [[[WriteProgressPanelControl alloc] 
-        initWithTaskExecutor: [[[WriteTaskExecutor alloc] init] autorelease]
+        initWithTaskExecutor: [[[XmlWriteTaskExecutor alloc] init] autorelease]
        ] autorelease];
 
-    writeTaskManager =
-      [[VisibleAsynchronousTaskManager alloc] initWithProgressPanel: writeProgressPanelControl];
-          
-    ProgressPanelControl  *readProgressPanelControl = 
+    xmlWriteTaskManager =
+      [[VisibleAsynchronousTaskManager alloc] initWithProgressPanel: xmlWriteProgressPanelControl];
+
+    ProgressPanelControl  *rawWriteProgressPanelControl =
+      [[[WriteProgressPanelControl alloc]
+        initWithTaskExecutor: [[[RawWriteTaskExecutor alloc] init] autorelease]
+       ] autorelease];
+
+    rawWriteTaskManager =
+      [[VisibleAsynchronousTaskManager alloc] initWithProgressPanel: rawWriteProgressPanelControl];
+
+    ProgressPanelControl  *xmlReadProgressPanelControl =
       [[[ReadProgressPanelControl alloc] 
         initWithTaskExecutor: [[[ReadTaskExecutor alloc] init] autorelease]
        ] autorelease];
 
-    readTaskManager =
-      [[VisibleAsynchronousTaskManager alloc] initWithProgressPanel: readProgressPanelControl];
+    xmlReadTaskManager =
+      [[VisibleAsynchronousTaskManager alloc] initWithProgressPanel: xmlReadProgressPanelControl];
     
     // Lazily load the optional panels and windows
     preferencesPanelControl = nil;
@@ -314,11 +324,11 @@ static MainMenuControl  *singletonInstance = nil;
   [filterTaskManager dispose];
   [filterTaskManager release];
   
-  [writeTaskManager dispose];
-  [writeTaskManager release];
+  [xmlWriteTaskManager dispose];
+  [xmlWriteTaskManager release];
 
-  [readTaskManager dispose];
-  [readTaskManager release];
+  [xmlReadTaskManager dispose];
+  [xmlReadTaskManager release];
   
   [startWindowControl release];
   [preferencesPanelControl release];
@@ -458,6 +468,7 @@ static MainMenuControl  *singletonInstance = nil;
        
        action == @selector(saveScanData:) ||
        action == @selector(saveDirectoryViewImage:) ||
+       action == @selector(saveScanDataAsText:) ||
        action == @selector(rescan:) ||
        action == @selector(filterDirectoryView:) ) {
     return mainWindowIsDirectoryView;
@@ -580,32 +591,11 @@ static MainMenuControl  *singletonInstance = nil;
 
 
 - (IBAction) saveScanData:(id)sender {
-  DirectoryViewControl  *dirViewControl =
-    [NSApplication sharedApplication].mainWindow.windowController;
-    
-  NSSavePanel  *savePanel = [NSSavePanel savePanel]; 
+  NSSavePanel  *savePanel = [NSSavePanel savePanel];
   savePanel.allowedFileTypes = @[@"gpscan"];
   [savePanel setTitle: NSLocalizedString(@"Save scan data", @"Title of save panel") ];
-  
-  if ([savePanel runModal] == NSModalResponseOK) {
-    NSURL  *destURL = savePanel.URL;
-    
-    if (destURL.fileURL) {
-      WriteTaskInput  *input = 
-        [[[WriteTaskInput alloc] initWithAnnotatedTreeContext: [dirViewControl annotatedTreeContext]
-                                                         path: destURL.path]
-         autorelease];
-           
-      WriteTaskCallback  *callback =
-        [[[WriteTaskCallback alloc] initWithWriteTaskInput: input] autorelease];
-    
-      [writeTaskManager asynchronouslyRunTaskWithInput: input
-                                              callback: callback
-                                              selector: @selector(writeTaskCompleted:)];
-    } else {
-      NSLog(@"Destination '%@' is not a file?", destURL);
-    }
-  }
+
+  [self saveScanDataToFile: savePanel usingTaskManager: xmlWriteTaskManager];
 }
 
 
@@ -623,6 +613,15 @@ static MainMenuControl  *singletonInstance = nil;
       NSLog(@"Source '%@' is not a file?", sourceURL); 
     }
   }
+}
+
+
+- (IBAction) saveScanDataAsText:(id)sender {
+  NSSavePanel  *savePanel = [NSSavePanel savePanel];
+  savePanel.allowedFileTypes = @[@"txt", @"text", @"tsv"];
+  [savePanel setTitle: NSLocalizedString(@"Save scan data as text", @"Title of save panel") ];
+
+  [self saveScanDataToFile: savePanel usingTaskManager: rawWriteTaskManager];
 }
 
 
@@ -855,9 +854,35 @@ static MainMenuControl  *singletonInstance = nil;
     [[[ReadTaskCallback alloc] initWithWindowManager: windowManager readTaskInput: input]
      autorelease];
     
-  [readTaskManager asynchronouslyRunTaskWithInput: input
+  [xmlReadTaskManager asynchronouslyRunTaskWithInput: input
                                          callback: callback
                                          selector: @selector(readTaskCompleted:)];
+}
+
+- (void) saveScanDataToFile:(NSSavePanel *)savePanel
+           usingTaskManager:(VisibleAsynchronousTaskManager *)taskManager {
+  DirectoryViewControl  *dirViewControl =
+    [NSApplication sharedApplication].mainWindow.windowController;
+
+  if ([savePanel runModal] == NSModalResponseOK) {
+    NSURL  *destURL = savePanel.URL;
+
+    if (destURL.fileURL) {
+      WriteTaskInput  *input =
+        [[[WriteTaskInput alloc] initWithAnnotatedTreeContext: [dirViewControl annotatedTreeContext]
+                                                         path: destURL.path]
+       autorelease];
+
+      WriteTaskCallback  *callback =
+        [[[WriteTaskCallback alloc] initWithWriteTaskInput: input] autorelease];
+
+      [taskManager asynchronouslyRunTaskWithInput: input
+                                         callback: callback
+                                         selector: @selector(writeTaskCompleted:)];
+    } else {
+      NSLog(@"Destination '%@' is not a file?", destURL);
+    }
+  }
 }
 
 

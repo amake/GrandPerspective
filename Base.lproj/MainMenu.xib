@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -109,22 +109,27 @@
                             <menuItem isSeparatorItem="YES" id="327">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Save Scan Data..." keyEquivalent="s" id="339">
-                                <connections>
-                                    <action selector="saveScanData:" target="222" id="342"/>
-                                </connections>
-                            </menuItem>
                             <menuItem title="Load Scan Data..." keyEquivalent="o" id="340">
                                 <connections>
                                     <action selector="loadScanData:" target="222" id="343"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Save Scan Data..." keyEquivalent="s" id="339">
+                                <connections>
+                                    <action selector="saveScanData:" target="222" id="342"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="341">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Save Image of View..." id="324">
+                            <menuItem title="Export As Image..." id="324">
                                 <connections>
                                     <action selector="saveDirectoryViewImage:" target="222" id="325"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Export As Text..." id="hJw-Fc-daG">
+                                <connections>
+                                    <action selector="saveScanDataAsText:" target="-1" id="Cjb-FT-Bj9"/>
                                 </connections>
                             </menuItem>
                         </items>
