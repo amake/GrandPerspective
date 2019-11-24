@@ -59,10 +59,6 @@ extern NSString  *DateTimeFormat;
 
 @interface TreeWriter (ProtectedMethods)
 
-/* Formatter used to create (locale-independent) string reprentations for time values.
- */
-+ (CFDateFormatterRef) timeFormatter CF_RETURNS_NOT_RETAINED;
-
 /* Formatter used to create (locale-independent) string reprentations for time values. Has same
  * format as timeFormatter.
  */

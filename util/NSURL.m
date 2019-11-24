@@ -45,7 +45,7 @@
   NSDate  *creationTime;
   NSError  *error = nil;
   
-  [self getResourceValue: &creationTime forKey:NSURLCreationDateKey error: &error];
+  [self getResourceValue: &creationTime forKey: NSURLCreationDateKey error: &error];
   if (error != nil) {
     NSLog(@"Failed to obtain creation time for %@: %@", self, error.description);
     return NO;
@@ -58,7 +58,7 @@
   NSDate  *modificationTime;
   NSError  *error = nil;
   
-  [self getResourceValue: &modificationTime forKey:NSURLContentModificationDateKey error: &error];
+  [self getResourceValue: &modificationTime forKey: NSURLContentModificationDateKey error: &error];
   if (error != nil) {
     NSLog(@"Failed to obtain modification time for %@: %@", self, error.description);
     return NO;
@@ -71,7 +71,7 @@
   NSDate  *accessTime;
   NSError  *error = nil;
   
-  [self getResourceValue: &accessTime forKey:NSURLContentAccessDateKey error: &error];
+  [self getResourceValue: &accessTime forKey: NSURLContentAccessDateKey error: &error];
   if (error != nil) {
     NSLog(@"Failed to obtain access time for %@: %@", self, error.description);
     return NO;

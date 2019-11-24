@@ -101,28 +101,6 @@ NSLocalizedString(@"Failed to write entire buffer.", @"Error message")
 
 @implementation TreeWriter (ProtectedMethods)
 
-+ (CFDateFormatterRef) timeFormatter {
-  static CFDateFormatterRef dateFormatter = NULL;
-
-  if (dateFormatter == NULL) {
-    // Lazily create formatter
-    dateFormatter = CFDateFormatterCreate(kCFAllocatorDefault,
-                                          NULL,
-                                          kCFDateFormatterNoStyle,
-                                          kCFDateFormatterNoStyle);
-    // Fix the format so that output is locale independent.
-    // Was originally "en_GB" locale, but in OS X 10.11 this went from
-    //   dd/MM/yyyy HH:mm
-    // to
-    //   dd/MM/yyyy, HH:mm
-    // which broke parsing saved scans in some situations and also left out
-    // timezone information. We now use a safer representation.
-    CFDateFormatterSetFormat(dateFormatter, (CFStringRef)DateTimeFormat);
-  }
-
-  return dateFormatter;
-}
-
 + (NSDateFormatter *)nsTimeFormatter {
   static NSDateFormatter *timeFmt = nil;
   if (timeFmt == nil) {
@@ -138,9 +116,7 @@ NSLocalizedString(@"Failed to write entire buffer.", @"Error message")
   if (time == 0) {
     return nil;
   } else {
-    return
-    [(NSString *)CFDateFormatterCreateStringWithAbsoluteTime(NULL, [self timeFormatter], time)
-     autorelease];
+    return [[self nsTimeFormatter] stringFromDate: [NSDate dateWithTimeIntervalSince1970: time]];
   }
 }
 
