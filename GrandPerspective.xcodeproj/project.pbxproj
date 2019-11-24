@@ -90,7 +90,7 @@
 		AA819B421D5F9A7D003C7139 /* ScanProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA819B3F1D5F9A7D003C7139 /* ScanProgressTracker.m */; };
 		AA819B431D5F9A7D003C7139 /* TreeVisitingProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA819B411D5F9A7D003C7139 /* TreeVisitingProgressTracker.m */; };
 		AA819B461D5FA0A5003C7139 /* ReadProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AA819B451D5FA0A5003C7139 /* ReadProgressTracker.m */; };
-		AA837DBF0E29ECE5005384E0 /* TreeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = AA837DBE0E29ECE5005384E0 /* TreeWriter.m */; };
+		AA837DBF0E29ECE5005384E0 /* XmlTreeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = AA837DBE0E29ECE5005384E0 /* XmlTreeWriter.m */; };
 		AA837E740E2D171D005384E0 /* TreeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = AA837E730E2D171D005384E0 /* TreeReader.m */; };
 		AA83A34010F0D329002542E4 /* MutableFilterTestRef.m in Sources */ = {isa = PBXBuildFile; fileRef = AA83A33F10F0D329002542E4 /* MutableFilterTestRef.m */; };
 		AA83A46F10F14280002542E4 /* NamedFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = AA83A46E10F14280002542E4 /* NamedFilter.m */; };
@@ -167,6 +167,7 @@
 		AAF951B10EDEE2E100844FD5 /* DirectoryViewToolbarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF951B00EDEE2E100844FD5 /* DirectoryViewToolbarControl.m */; };
 		AAF952CD0EE043C900844FD5 /* ZoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF952CB0EE043C900844FD5 /* ZoomOut.png */; };
 		AAF952CE0EE043C900844FD5 /* ZoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF952CC0EE043C900844FD5 /* ZoomIn.png */; };
+		AAFB1194238ABF3B00D616C3 /* TreeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFB1193238ABF3B00D616C3 /* TreeWriter.m */; };
 		AAFDC49C0A892AE200DB84D7 /* VisibleAsynchronousTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFDC49A0A892AE200DB84D7 /* VisibleAsynchronousTaskManager.m */; };
 /* End PBXBuildFile section */
 
@@ -370,8 +371,8 @@
 		AA819B411D5F9A7D003C7139 /* TreeVisitingProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TreeVisitingProgressTracker.m; path = task/TreeVisitingProgressTracker.m; sourceTree = "<group>"; };
 		AA819B441D5FA0A5003C7139 /* ReadProgressTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReadProgressTracker.h; path = task/ReadProgressTracker.h; sourceTree = "<group>"; };
 		AA819B451D5FA0A5003C7139 /* ReadProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReadProgressTracker.m; path = task/ReadProgressTracker.m; sourceTree = "<group>"; };
-		AA837DBD0E29ECE5005384E0 /* TreeWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeWriter.h; path = tree/TreeWriter.h; sourceTree = "<group>"; };
-		AA837DBE0E29ECE5005384E0 /* TreeWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TreeWriter.m; path = tree/TreeWriter.m; sourceTree = "<group>"; };
+		AA837DBD0E29ECE5005384E0 /* XmlTreeWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XmlTreeWriter.h; path = tree/XmlTreeWriter.h; sourceTree = "<group>"; };
+		AA837DBE0E29ECE5005384E0 /* XmlTreeWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XmlTreeWriter.m; path = tree/XmlTreeWriter.m; sourceTree = "<group>"; };
 		AA837E720E2D171D005384E0 /* TreeReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeReader.h; path = tree/TreeReader.h; sourceTree = "<group>"; };
 		AA837E730E2D171D005384E0 /* TreeReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TreeReader.m; path = tree/TreeReader.m; sourceTree = "<group>"; };
 		AA83A33E10F0D329002542E4 /* MutableFilterTestRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MutableFilterTestRef.h; path = filter/MutableFilterTestRef.h; sourceTree = "<group>"; };
@@ -555,6 +556,8 @@
 		AAF952CB0EE043C900844FD5 /* ZoomOut.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ZoomOut.png; path = Images/ZoomOut.png; sourceTree = "<group>"; };
 		AAF952CC0EE043C900844FD5 /* ZoomIn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ZoomIn.png; path = Images/ZoomIn.png; sourceTree = "<group>"; };
 		AAF9F7D30B30118C00FA4C51 /* ControlConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ControlConstants.h; path = control/ControlConstants.h; sourceTree = "<group>"; };
+		AAFB1192238ABF3B00D616C3 /* TreeWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TreeWriter.h; path = tree/TreeWriter.h; sourceTree = "<group>"; };
+		AAFB1193238ABF3B00D616C3 /* TreeWriter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TreeWriter.m; path = tree/TreeWriter.m; sourceTree = "<group>"; };
 		AAFDC4990A892AE200DB84D7 /* VisibleAsynchronousTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleAsynchronousTaskManager.h; path = control/VisibleAsynchronousTaskManager.h; sourceTree = "<group>"; };
 		AAFDC49A0A892AE200DB84D7 /* VisibleAsynchronousTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VisibleAsynchronousTaskManager.m; path = control/VisibleAsynchronousTaskManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -743,8 +746,10 @@
 				AA6013200A5AFCC500DEBCB8 /* TreeFilter.m */,
 				AA6013230A5AFCC500DEBCB8 /* TreeBuilder.h */,
 				AA6013220A5AFCC500DEBCB8 /* TreeBuilder.m */,
-				AA837DBD0E29ECE5005384E0 /* TreeWriter.h */,
-				AA837DBE0E29ECE5005384E0 /* TreeWriter.m */,
+				AAFB1192238ABF3B00D616C3 /* TreeWriter.h */,
+				AAFB1193238ABF3B00D616C3 /* TreeWriter.m */,
+				AA837DBD0E29ECE5005384E0 /* XmlTreeWriter.h */,
+				AA837DBE0E29ECE5005384E0 /* XmlTreeWriter.m */,
 				AA837E720E2D171D005384E0 /* TreeReader.h */,
 				AA837E730E2D171D005384E0 /* TreeReader.m */,
 				AA6013240A5AFCC500DEBCB8 /* TreeBalancer.h */,
@@ -1207,7 +1212,7 @@
 				AA9A8B16200D481A0048206A /* NSURL.m in Sources */,
 				AA9881BD0DF57C6B00A6EA33 /* StringSuffixTest.m in Sources */,
 				AA9882BF0DF71B8900A6EA33 /* ItemSizeTestFinder.m in Sources */,
-				AA837DBF0E29ECE5005384E0 /* TreeWriter.m in Sources */,
+				AA837DBF0E29ECE5005384E0 /* XmlTreeWriter.m in Sources */,
 				AA837E740E2D171D005384E0 /* TreeReader.m in Sources */,
 				AA7A7E0D0E4EE29D00EB366E /* WriteTaskInput.m in Sources */,
 				AA7A7E110E4EE3DA00EB366E /* WriteTaskExecutor.m in Sources */,
@@ -1252,6 +1257,7 @@
 				AA524627110203070018897B /* FilterTestWindowControl.m in Sources */,
 				AA524628110203070018897B /* FilterWindowControl.m in Sources */,
 				AA52462F1102031D0018897B /* UniformTypeRankingWindowControl.m in Sources */,
+				AAFB1194238ABF3B00D616C3 /* TreeWriter.m in Sources */,
 				AAA8724C111492E600ED5112 /* ScanTreeRoot.m in Sources */,
 				AA1A92651170579600217CF6 /* KBPopUpToolbarItem.m in Sources */,
 				AA0CDE711544995C0018D583 /* TimeBasedMapping.m in Sources */,

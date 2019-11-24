@@ -17,7 +17,7 @@
 
 #import "TreeBuilder.h"
 #import "TreeBalancer.h"
-#import "TreeWriter.h"
+#import "XmlTreeWriter.h"
 
 #import "ReadProgressTracker.h"
 

@@ -1,6 +1,6 @@
 #import "WriteTaskExecutor.h"
 
-#import "TreeWriter.h"
+#import "XmlTreeWriter.h"
 #import "WriteTaskInput.h"
 
 
@@ -33,7 +33,7 @@
   WriteTaskInput  *myInput = input;
 
   [taskLock lock];
-  treeWriter = [[TreeWriter alloc] init];
+  treeWriter = [[XmlTreeWriter alloc] init];
   [taskLock unlock];
 
   id  result = nil;

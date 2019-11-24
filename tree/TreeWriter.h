@@ -1,57 +1,15 @@
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
-
-// XML elements
-extern NSString  *ScanDumpElem;
-extern NSString  *ScanInfoElem;
-extern NSString  *ScanCommentsElem;
-extern NSString  *FilterSetElem;
-extern NSString  *FilterElem;
-extern NSString  *FilterTestElem;
-extern NSString  *FolderElem;
-extern NSString  *FileElem;
-
-// XML attributes of GrandPerspectiveScanDump
-extern NSString  *AppVersionAttr;
-extern NSString  *FormatVersionAttr;
-
-// XML attributes of GrandPerspectiveScanInfo
-extern NSString  *VolumePathAttr;
-extern NSString  *VolumeSizeAttr;
-extern NSString  *FreeSpaceAttr;
-extern NSString  *ScanTimeAttr;
-extern NSString  *FileSizeMeasureAttr;
-
-// XML attributes of FilterTest
-extern NSString  *InvertedAttr;
-
-// XML attributes of Folder and File
-extern NSString  *NameAttr;
-extern NSString  *FlagsAttr;
-extern NSString  *SizeAttr;
-extern NSString  *CreatedAttr;
-extern NSString  *ModifiedAttr;
-extern NSString  *AccessedAttr;
-
-// Formatting string used in XML
-extern NSString  *DateTimeFormat;
+NS_ASSUME_NONNULL_BEGIN
 
 @class AnnotatedTreeContext;
 @class ProgressTracker;
 
 @interface TreeWriter : NSObject {
-
-  FILE  *file;
-  
-  void  *dataBuffer;
-  NSUInteger  dataBufferPos;
-  
   BOOL  abort;
   NSError  *error;
-  
-  ProgressTracker  *progressTracker;
 
-  NSAutoreleasePool  *autoreleasePool;
+  ProgressTracker  *progressTracker;
 }
 
 /* Writes the tree to file (in XML format). Returns YES if the operation completed successfully.
@@ -60,7 +18,7 @@ extern NSString  *DateTimeFormat;
  */
 - (BOOL) writeTree:(AnnotatedTreeContext *)tree toFile:(NSString *)path;
 
-/* Aborts writing (when it is carried out in a different execution thread). 
+/* Aborts writing (when it is carried out in a different execution thread).
  */
 - (void) abort;
 
@@ -70,7 +28,7 @@ extern NSString  *DateTimeFormat;
 
 /* Returns details of the error iff there was an error when carrying out the writing task.
  */
-@property (nonatomic, readonly, copy) NSError *error;
+@property (nonatomic, readonly, copy, nullable) NSError *error;
 
 /* Returns a dictionary containing information about the progress of the ongoing tree-writing task.
  *
@@ -78,6 +36,10 @@ extern NSString  *DateTimeFormat;
  * (and not doing so would actually be quite silly).
  */
 @property (nonatomic, readonly, copy) NSDictionary *progressInfo;
+
+@end
+
+@interface TreeWriter (ProtectedMethods)
 
 /* Formatter used to create (locale-independent) string reprentations for time values.
  */
@@ -88,4 +50,8 @@ extern NSString  *DateTimeFormat;
  */
 + (NSDateFormatter *)nsTimeFormatter;
 
++ (NSString *)stringForTime:(CFAbsoluteTime)time;
+
 @end
+
+NS_ASSUME_NONNULL_END
