@@ -101,7 +101,7 @@
   // Get a filename for the image.
   NSSavePanel  *savePanel = [NSSavePanel savePanel]; 
   savePanel.allowedFileTypes = @[@"tiff"];
-  [savePanel setTitle: NSLocalizedString( @"Save image", @"Title of save panel") ];
+  [savePanel setTitle: NSLocalizedString( @"Export image", @"Title of save panel") ];
   
   if ([savePanel runModal] == NSModalResponseOK) {
     NSURL  *destURL = savePanel.URL;

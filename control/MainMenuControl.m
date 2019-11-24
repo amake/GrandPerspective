@@ -619,7 +619,7 @@ static MainMenuControl  *singletonInstance = nil;
 - (IBAction) saveScanDataAsText:(id)sender {
   NSSavePanel  *savePanel = [NSSavePanel savePanel];
   savePanel.allowedFileTypes = @[@"txt", @"text", @"tsv"];
-  [savePanel setTitle: NSLocalizedString(@"Save scan data as text", @"Title of save panel") ];
+  [savePanel setTitle: NSLocalizedString(@"Export scan data as text", @"Title of save panel") ];
 
   [self saveScanDataToFile: savePanel usingTaskManager: rawWriteTaskManager];
 }
