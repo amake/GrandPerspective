@@ -8,6 +8,7 @@ NS_ASSUME_NONNULL_BEGIN
  * First, the full path of the file. Second, its size in bytes.
  */
 @interface RawTreeWriter : TreeWriter {
+  NSAutoreleasePool  *autoreleasePool;
 }
 
 - (void) writeTree:(AnnotatedTreeContext *)tree;

@@ -1,5 +1,8 @@
 #import "TreeWriter.h"
 
+#import "DirectoryItem.h"
+#import "CompoundItem.h"
+
 #import "ApplicationError.h"
 
 #import "TreeVisitingProgressTracker.h"
@@ -180,6 +183,39 @@ NSLocalizedString(@"Failed to write entire buffer.", @"Error message")
       dataBufferPos = 0;
     }
   }
+}
+
+- (void) dumpItemContents:(Item *)item {
+  if (abort) {
+    return;
+  }
+
+  if ([item isVirtual]) {
+    [self dumpItemContents: ((CompoundItem *)item).first];
+    [self dumpItemContents: ((CompoundItem *)item).second];
+  }
+  else {
+    FileItem  *fileItem = (FileItem *)item;
+
+    if ([fileItem isPhysical]) {
+      // Only include actual files.
+
+      if ([fileItem isDirectory]) {
+        [self appendFolderElement: (DirectoryItem *)fileItem];
+      }
+      else {
+        [self appendFileElement: fileItem];
+      }
+    }
+  }
+}
+
+- (void) appendFolderElement:(DirectoryItem *)dirItem {
+  NSAssert(NO, @"This method should be overridden.");
+}
+
+- (void) appendFileElement:(FileItem *)fileItem {
+  NSAssert(NO, @"This method should be overridden.");
 }
 
 @end // @implementation TreeWriter (ProtectedMethods)

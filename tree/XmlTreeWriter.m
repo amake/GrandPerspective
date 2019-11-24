@@ -1,7 +1,6 @@
 #import "XmlTreeWriter.h"
 
 #import "DirectoryItem.h"
-#import "CompoundItem.h"
 
 #import "TreeContext.h"
 #import "AnnotatedTreeContext.h"
@@ -151,10 +150,6 @@ NSString *escapedXML(NSString *s, CharacterOptions escapeCharMask) {
 - (void) appendFilterSetElement:(FilterSet *)filterSet;
 - (void) appendFilterElement:(NamedFilter *)filter;
 - (void) appendFilterTestElement:(FilterTestRef *)filterTest;
-- (void) appendFolderElement:(DirectoryItem *)dirItem;
-- (void) appendFileElement:(FileItem *)fileItem;
-
-- (void) dumpItemContents:(Item *)item;
 
 @end
 
@@ -357,31 +352,4 @@ NSString *escapedXML(NSString *s, CharacterOptions escapeCharMask) {
   [self appendString: @"/>\n"];
 }
 
-
-- (void) dumpItemContents:(Item *)item {
-  if (abort) {
-    return;
-  }
-
-  if ([item isVirtual]) {
-    [self dumpItemContents: ((CompoundItem *)item).first];
-    [self dumpItemContents: ((CompoundItem *)item).second];
-  }
-  else {
-    FileItem  *fileItem = (FileItem *)item;
-
-    if ([fileItem isPhysical]) {
-      // Only include actual files.
-
-      if ([fileItem isDirectory]) {
-        [self appendFolderElement: (DirectoryItem *)fileItem];
-      }
-      else {
-        [self appendFileElement: fileItem];
-      }
-    }
-  }
-}
-
 @end // @implementation TreeWriter (PrivateMethods)
-

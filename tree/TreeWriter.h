@@ -5,6 +5,10 @@ NS_ASSUME_NONNULL_BEGIN
 @class AnnotatedTreeContext;
 @class ProgressTracker;
 
+@class Item;
+@class FileItem;
+@class DirectoryItem;
+
 // Formatting string used in XML
 extern NSString  *DateTimeFormat;
 
@@ -67,6 +71,20 @@ extern NSString  *DateTimeFormat;
 + (NSString *)stringForTime:(CFAbsoluteTime)time;
 
 - (void) appendString:(NSString *)s;
+
+/* Dumps the contents of the given item by invoking appendFileElement: and appendFolderElement: as
+ * needed on all its children.
+ */
+- (void) dumpItemContents:(Item *)item;
+
+/* Abstract method to append details of a given folder. It should invoke dumpItemContents to
+ * dump the contents.
+ */
+- (void) appendFolderElement:(DirectoryItem *)dirItem;
+
+/* Abstract method to append details of a given file.
+ */
+- (void) appendFileElement:(FileItem *)fileItem;
 
 @end
 
