@@ -168,6 +168,7 @@
 		AAF952CD0EE043C900844FD5 /* ZoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF952CB0EE043C900844FD5 /* ZoomOut.png */; };
 		AAF952CE0EE043C900844FD5 /* ZoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF952CC0EE043C900844FD5 /* ZoomIn.png */; };
 		AAFB1194238ABF3B00D616C3 /* TreeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFB1193238ABF3B00D616C3 /* TreeWriter.m */; };
+		AAFB1197238AD5E900D616C3 /* RawTreeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFB1196238AD5E900D616C3 /* RawTreeWriter.m */; };
 		AAFDC49C0A892AE200DB84D7 /* VisibleAsynchronousTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFDC49A0A892AE200DB84D7 /* VisibleAsynchronousTaskManager.m */; };
 /* End PBXBuildFile section */
 
@@ -558,6 +559,8 @@
 		AAF9F7D30B30118C00FA4C51 /* ControlConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ControlConstants.h; path = control/ControlConstants.h; sourceTree = "<group>"; };
 		AAFB1192238ABF3B00D616C3 /* TreeWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TreeWriter.h; path = tree/TreeWriter.h; sourceTree = "<group>"; };
 		AAFB1193238ABF3B00D616C3 /* TreeWriter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TreeWriter.m; path = tree/TreeWriter.m; sourceTree = "<group>"; };
+		AAFB1195238AD5E900D616C3 /* RawTreeWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RawTreeWriter.h; path = tree/RawTreeWriter.h; sourceTree = "<group>"; };
+		AAFB1196238AD5E900D616C3 /* RawTreeWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RawTreeWriter.m; path = tree/RawTreeWriter.m; sourceTree = "<group>"; };
 		AAFDC4990A892AE200DB84D7 /* VisibleAsynchronousTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleAsynchronousTaskManager.h; path = control/VisibleAsynchronousTaskManager.h; sourceTree = "<group>"; };
 		AAFDC49A0A892AE200DB84D7 /* VisibleAsynchronousTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VisibleAsynchronousTaskManager.m; path = control/VisibleAsynchronousTaskManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -748,6 +751,8 @@
 				AA6013220A5AFCC500DEBCB8 /* TreeBuilder.m */,
 				AAFB1192238ABF3B00D616C3 /* TreeWriter.h */,
 				AAFB1193238ABF3B00D616C3 /* TreeWriter.m */,
+				AAFB1195238AD5E900D616C3 /* RawTreeWriter.h */,
+				AAFB1196238AD5E900D616C3 /* RawTreeWriter.m */,
 				AA837DBD0E29ECE5005384E0 /* XmlTreeWriter.h */,
 				AA837DBE0E29ECE5005384E0 /* XmlTreeWriter.m */,
 				AA837E720E2D171D005384E0 /* TreeReader.h */,
@@ -1166,6 +1171,7 @@
 				AAC26BCD0A8CAF4800F2DA33 /* ScanTaskExecutor.m in Sources */,
 				AA16DABC0AF93C7D005052D1 /* NotifyingPanel.m in Sources */,
 				AAEF60510B028DD800C7134A /* ColorListCollection.m in Sources */,
+				AAFB1197238AD5E900D616C3 /* RawTreeWriter.m in Sources */,
 				AAD8DFB30B077ED20060DADA /* PreferencesPanelControl.m in Sources */,
 				AA5974CA0B31687600EF3248 /* FileItemPathStringCache.m in Sources */,
 				AA8FEB510B6CD0810049FF42 /* ScanTaskInput.m in Sources */,

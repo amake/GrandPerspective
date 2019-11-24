@@ -34,26 +34,17 @@ extern NSString  *CreatedAttr;
 extern NSString  *ModifiedAttr;
 extern NSString  *AccessedAttr;
 
-// Formatting string used in XML
-extern NSString  *DateTimeFormat;
-
-@class AnnotatedTreeContext;
-@class ProgressTracker;
-
+/* Writes a tree to portable XML format. The entire tree can be restored from this data.
+ */
 @interface XmlTreeWriter : TreeWriter {
-
-  FILE  *file;
-  
-  void  *dataBuffer;
-  NSUInteger  dataBufferPos;
-  
   NSAutoreleasePool  *autoreleasePool;
 }
+@end
 
-/* Writes the tree to file (in XML format). Returns YES if the operation completed successfully.
- * Returns NO if an error occurred, or if the operation has been aborted. In the latter case the
- * file will still be valid. It simply will not contain all files/folders in the tree.
+@interface XmlTreeWriter (ProtectedMethods)
+
+/* Writes the tree in XML format.
  */
-- (BOOL) writeTree:(AnnotatedTreeContext *)tree toFile:(NSString *)path;
+- (void) writeTree:(AnnotatedTreeContext *)tree;
 
 @end

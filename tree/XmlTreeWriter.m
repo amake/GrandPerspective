@@ -13,10 +13,7 @@
 
 #import "TreeVisitingProgressTracker.h"
 
-#import "ApplicationError.h"
 
-
-#define  BUFFER_SIZE  4096
 #define  AUTORELEASE_PERIOD  1024
 
 /* Changes
@@ -59,12 +56,6 @@ NSString  *AccessedAttr = @"accessed";
 // XML attribute values
 NSString  *TrueValue = @"true";
 NSString  *FalseValue = @"false";
-
-// Localized error messages
-#define WRITING_LAST_DATA_FAILED \
-NSLocalizedString(@"Failed to write last data to file.", @"Error message")
-#define WRITING_BUFFER_FAILED \
-NSLocalizedString(@"Failed to write entire buffer.", @"Error message")
 
 typedef NS_OPTIONS(NSUInteger, CharacterOptions) {
   CharAmpersand = 0x01,
@@ -165,8 +156,6 @@ NSString *escapedXML(NSString *s, CharacterOptions escapeCharMask) {
 
 - (void) dumpItemContents:(Item *)item;
 
-- (void) appendString:(NSString *)s;
-
 @end
 
 
@@ -174,8 +163,6 @@ NSString *escapedXML(NSString *s, CharacterOptions escapeCharMask) {
 
 - (instancetype) init {
   if (self = [super init]) {
-    dataBuffer = malloc(BUFFER_SIZE);
-
     autoreleasePool = nil;
   }
   return self;
@@ -184,52 +171,18 @@ NSString *escapedXML(NSString *s, CharacterOptions escapeCharMask) {
 - (void) dealloc {
   NSAssert(autoreleasePool == nil, @"autoreleasePool should be nil");
 
-  free(dataBuffer);
-
   [super dealloc];
 }
 
-
-- (BOOL) writeTree:(AnnotatedTreeContext *)tree toFile:(NSString *)filename {
-  NSAssert(file == NULL, @"File not NULL");
-
-  [progressTracker startingTask];
-
-  file = fopen( filename.UTF8String, "w");
-  if (file == NULL) {
-    return NO;
-  }
-
-  dataBufferPos = 0;
-
+- (void) writeTree:(AnnotatedTreeContext *)tree {
   [self appendString: @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"];
   [self appendScanDumpElement: tree];
 
-  if (error==nil && dataBufferPos > 0) {
-    // Write remaining characters in buffer
-    NSUInteger  numWritten = fwrite( dataBuffer, 1, dataBufferPos, file );
-
-    if (numWritten != dataBufferPos) {
-      NSLog(@"Failed to write last data: %lu bytes written out of %lu.",
-            (unsigned long)numWritten, (unsigned long)dataBufferPos);
-
-      error = [[ApplicationError alloc] initWithLocalizedDescription: WRITING_LAST_DATA_FAILED];
-    }
-  }
-
-  fclose(file);
-  file = NULL;
-
-  [progressTracker finishedTask];
-
   [autoreleasePool release];
   autoreleasePool = nil;
-
-  return (error==nil) && !abort;
 }
 
 @end
-
 
 @implementation XmlTreeWriter (PrivateMethods)
 
@@ -426,48 +379,6 @@ NSString *escapedXML(NSString *s, CharacterOptions escapeCharMask) {
       else {
         [self appendFileElement: fileItem];
       }
-    }
-  }
-}
-
-
-- (void) appendString:(NSString *)s {
-  if (error != nil) {
-    // Don't write anything when an error has occurred.
-    //
-    // Note: Still keep writing if "only" the abort flag is set. This way, an
-    // external "abort" of the write operation still results in valid XML.
-    return;
-  }
-
-  NSData  *newData = [s dataUsingEncoding: NSUTF8StringEncoding];
-  const void  *newDataBytes = newData.bytes;
-  NSUInteger  numToAppend = newData.length;
-  NSUInteger  newDataPos = 0;
-
-  while (numToAppend > 0) {
-    NSUInteger  numToCopy = ( (dataBufferPos + numToAppend <= BUFFER_SIZE)
-                             ? numToAppend
-                             : BUFFER_SIZE - dataBufferPos );
-
-    memcpy( dataBuffer + dataBufferPos, newDataBytes + newDataPos, numToCopy );
-    dataBufferPos += numToCopy;
-    newDataPos += numToCopy;
-    numToAppend -= numToCopy;
-
-    if (dataBufferPos == BUFFER_SIZE) {
-      NSUInteger  numWritten = fwrite( dataBuffer, 1, BUFFER_SIZE, file );
-
-      if (numWritten != BUFFER_SIZE) {
-        NSLog(@"Failed to write entire buffer, %lu bytes written", (unsigned long)numWritten);
-
-        error = [[ApplicationError alloc] initWithLocalizedDescription: WRITING_BUFFER_FAILED];
-        abort = YES;
-
-        return; // Do not attempt anymore writes to file.
-      }
-
-      dataBufferPos = 0;
     }
   }
 }

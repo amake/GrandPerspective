@@ -5,18 +5,32 @@ NS_ASSUME_NONNULL_BEGIN
 @class AnnotatedTreeContext;
 @class ProgressTracker;
 
+// Formatting string used in XML
+extern NSString  *DateTimeFormat;
+
+/* Abstract base class for writing a tree to file.
+ */
 @interface TreeWriter : NSObject {
   BOOL  abort;
   NSError  *error;
 
   ProgressTracker  *progressTracker;
+
+  FILE  *file;
+
+  void  *dataBuffer;
+  NSUInteger  dataBufferPos;
 }
 
-/* Writes the tree to file (in XML format). Returns YES if the operation completed successfully.
- * Returns NO if an error occurred, or if the operation has been aborted. In the latter case the
- * file will still be valid. It simply will not contain all files/folders in the tree.
+/* Writes the tree to file. Returns YES if the operation completed successfully. Returns NO if an
+ * error occurred, or if the operation has been aborted. In the latter case the file will still be
+ * valid. It simply will not contain all files/folders in the tree.
  */
 - (BOOL) writeTree:(AnnotatedTreeContext *)tree toFile:(NSString *)path;
+
+/* Abstract method that should write the tree via repeated invocations of appendString:.
+ */
+- (void) writeTree:(AnnotatedTreeContext *)tree;
 
 /* Aborts writing (when it is carried out in a different execution thread).
  */
@@ -51,6 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSDateFormatter *)nsTimeFormatter;
 
 + (NSString *)stringForTime:(CFAbsoluteTime)time;
+
+- (void) appendString:(NSString *)s;
 
 @end
 
