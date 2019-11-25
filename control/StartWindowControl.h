@@ -11,6 +11,8 @@
 
   int  numTagLines;
   int  tagLineIndex;
+
+  BOOL  forceReloadOnShow;
 }
 
 - (instancetype) initWithMainMenuControl:(MainMenuControl *)mainMenuControl NS_DESIGNATED_INITIALIZER;

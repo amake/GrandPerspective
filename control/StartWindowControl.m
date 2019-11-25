@@ -35,6 +35,8 @@ NSString*  TaglineFormat = @"tagline-%d";
 
     // Show a random tagline
     tagLineIndex = arc4random_uniform(numTagLines);
+
+    forceReloadOnShow = NO;
   }
   return self;
 }
@@ -115,6 +117,18 @@ NSString*  TaglineFormat = @"tagline-%d";
 
 - (void) cancelOperation:(id)sender {
   [self.window close];
+}
+
+- (void) showWindow:(id)sender {
+  // Except when the window is first shown, always reload the data as the number and order of recent
+  // documents may have changed.
+  if (forceReloadOnShow) {
+    [recentScansView reloadData];
+  } else {
+    forceReloadOnShow = YES;
+  }
+
+  [super showWindow: sender];
 }
 
 // Invoked because the controller is the delegate for the window.
