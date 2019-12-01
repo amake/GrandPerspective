@@ -11,6 +11,8 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		AA054A912393C439001A5826 /* RawTreeWriterOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = AA054A902393C439001A5826 /* RawTreeWriterOptions.m */; };
+		AA054A9523940BE4001A5826 /* ExportAsTextDialogControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA054A9323940BE4001A5826 /* ExportAsTextDialogControl.m */; };
+		AA054A9923942FE0001A5826 /* ExportAsTextDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA054A9723942FE0001A5826 /* ExportAsTextDialog.xib */; };
 		AA0CDE711544995C0018D583 /* TimeBasedMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0CDE701544995C0018D583 /* TimeBasedMapping.m */; };
 		AA0CDE7415487FF60018D583 /* CreationMappingScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0CDE7315487FF60018D583 /* CreationMappingScheme.m */; };
 		AA0CDE77154882BF0018D583 /* ModificationMappingScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0CDE76154882BE0018D583 /* ModificationMappingScheme.m */; };
@@ -193,6 +195,9 @@
 		AA04903F1CFB3A4500ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/SaveImageDialog.strings; sourceTree = "<group>"; };
 		AA054A8F2393C439001A5826 /* RawTreeWriterOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RawTreeWriterOptions.h; path = tree/RawTreeWriterOptions.h; sourceTree = "<group>"; };
 		AA054A902393C439001A5826 /* RawTreeWriterOptions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RawTreeWriterOptions.m; path = tree/RawTreeWriterOptions.m; sourceTree = "<group>"; };
+		AA054A9223940BE4001A5826 /* ExportAsTextDialogControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExportAsTextDialogControl.h; path = control/ExportAsTextDialogControl.h; sourceTree = "<group>"; };
+		AA054A9323940BE4001A5826 /* ExportAsTextDialogControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExportAsTextDialogControl.m; path = control/ExportAsTextDialogControl.m; sourceTree = "<group>"; };
+		AA054A9823942FE0001A5826 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExportAsTextDialog.xib; sourceTree = "<group>"; };
 		AA0CDE6F1544995C0018D583 /* TimeBasedMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeBasedMapping.h; sourceTree = "<group>"; };
 		AA0CDE701544995C0018D583 /* TimeBasedMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeBasedMapping.m; sourceTree = "<group>"; };
 		AA0CDE7215487FF60018D583 /* CreationMappingScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreationMappingScheme.h; sourceTree = "<group>"; };
@@ -668,6 +673,7 @@
 				AA83A79710F922B8002542E4 /* PreferencesPanel.xib */,
 				AA524611110201BA0018897B /* UniformTypeRankingWindow.xib */,
 				AA83A8DE10FA639B002542E4 /* SaveImageDialog.xib */,
+				AA054A9723942FE0001A5826 /* ExportAsTextDialog.xib */,
 				AAE4982F1CD15BAF003F0A29 /* StartWindow.xib */,
 				AA83A8E110FA63A9002542E4 /* ProgressPanel.xib */,
 				AA13BA8D0B8A5746000AEAA9 /* Palettes */,
@@ -948,6 +954,8 @@
 				AAE476C11D0D945E007CF42F /* RecentDocumentTableCellView.m */,
 				AAE476C31D0D946E007CF42F /* StartWindowControl.h */,
 				AAE476C41D0D947E007CF42F /* StartWindowControl.m */,
+				AA054A9223940BE4001A5826 /* ExportAsTextDialogControl.h */,
+				AA054A9323940BE4001A5826 /* ExportAsTextDialogControl.m */,
 			);
 			name = control;
 			sourceTree = "<group>";
@@ -1137,6 +1145,7 @@
 				AA524607110201520018897B /* FiltersWindow.xib in Resources */,
 				AA6FE2941CD6396500675955 /* Taglines.strings in Resources */,
 				AA52460B110201780018897B /* FilterWindow.xib in Resources */,
+				AA054A9923942FE0001A5826 /* ExportAsTextDialog.xib in Resources */,
 				AA52460F110201990018897B /* FilterTestWindow.xib in Resources */,
 				AA524613110201BA0018897B /* UniformTypeRankingWindow.xib in Resources */,
 				AA524617110202080018897B /* FilterSelectionPanel.xib in Resources */,
@@ -1180,6 +1189,7 @@
 				AAD8DFB30B077ED20060DADA /* PreferencesPanelControl.m in Sources */,
 				AA5974CA0B31687600EF3248 /* FileItemPathStringCache.m in Sources */,
 				AA8FEB510B6CD0810049FF42 /* ScanTaskInput.m in Sources */,
+				AA054A9523940BE4001A5826 /* ExportAsTextDialogControl.m in Sources */,
 				AA819B421D5F9A7D003C7139 /* ScanProgressTracker.m in Sources */,
 				AAE87FDA0CE10B9B00A99883 /* UniformTypeInventory.m in Sources */,
 				AA8877EB0D0C0E3500F52571 /* TreeContext.m in Sources */,
@@ -1294,6 +1304,14 @@
 				AAA857F822F7643200DB3BE5 /* pt */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AA054A9723942FE0001A5826 /* ExportAsTextDialog.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA054A9823942FE0001A5826 /* Base */,
+			);
+			name = ExportAsTextDialog.xib;
 			sourceTree = "<group>";
 		};
 		AA1222580EF2A822002A178F /* Toolbar.strings */ = {

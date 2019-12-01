@@ -13,6 +13,7 @@
 #import "UniformTypeRankingWindowControl.h"
 #import "FilterSelectionPanelControl.h"
 #import "StartWindowControl.h"
+#import "ExportAsTextDialogControl.h"
 
 #import "ItemPathModel.h"
 #import "ItemPathModelView.h"
@@ -288,6 +289,7 @@ static MainMenuControl  *singletonInstance = nil;
     filtersWindowControl = nil;
     uniformTypeWindowControl = nil;
     startWindowControl = nil;
+    exportAsTextDialogControl = nil;
 
     viewCount = 0;
     [[NSNotificationCenter defaultCenter] addObserver: self
@@ -331,7 +333,8 @@ static MainMenuControl  *singletonInstance = nil;
 
   [xmlReadTaskManager dispose];
   [xmlReadTaskManager release];
-  
+
+  [exportAsTextDialogControl release];
   [startWindowControl release];
   [preferencesPanelControl release];
   [filterSelectionPanelControl release];
@@ -619,13 +622,25 @@ static MainMenuControl  *singletonInstance = nil;
 
 
 - (IBAction) saveScanDataAsText:(id)sender {
+  if (exportAsTextDialogControl == nil) {
+    exportAsTextDialogControl = [[ExportAsTextDialogControl alloc] init];
+  }
+
+  NSWindow  *window = exportAsTextDialogControl.window;
+  NSInteger  status = [NSApp runModalForWindow: window];
+  [window close];
+
+  if (status != NSModalResponseStop) {
+    return;
+  }
+
   NSSavePanel  *savePanel = [NSSavePanel savePanel];
   savePanel.allowedFileTypes = @[@"txt", @"text", @"tsv"];
   [savePanel setTitle: NSLocalizedString(@"Export scan data as text", @"Title of save panel") ];
 
   [self saveScanDataToFile: savePanel
           usingTaskManager: rawWriteTaskManager
-                   options: [RawTreeWriterOptions defaultOptions]];
+                   options: [exportAsTextDialogControl rawTreeWriterOptions]];
 }
 
 

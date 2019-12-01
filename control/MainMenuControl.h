@@ -7,6 +7,7 @@
 @class FilterSelectionPanelControl;
 @class PreferencesPanelControl;
 @class StartWindowControl;
+@class ExportAsTextDialogControl;
 
 @interface MainMenuControl : NSObject {
   WindowManager  *windowManager;
@@ -22,6 +23,7 @@
   FilterSelectionPanelControl  *filterSelectionPanelControl;
   FiltersWindowControl  *filtersWindowControl;
   UniformTypeRankingWindowControl  *uniformTypeWindowControl;
+  ExportAsTextDialogControl  *exportAsTextDialogControl;
   
   BOOL  showWelcomeWindow;
   // The number of open directory view windows
