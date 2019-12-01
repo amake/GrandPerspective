@@ -116,7 +116,8 @@ NSLocalizedString(@"Failed to write entire buffer.", @"Error message")
   if (time == 0) {
     return nil;
   } else {
-    return [[self nsTimeFormatter] stringFromDate: [NSDate dateWithTimeIntervalSince1970: time]];
+    return [[self nsTimeFormatter] stringFromDate:
+            [NSDate dateWithTimeIntervalSinceReferenceDate: time]];
   }
 }
 
