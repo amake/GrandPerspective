@@ -14,6 +14,20 @@
 
 #define  AUTORELEASE_PERIOD  1024
 
+#define  HEADER_PATH NSLocalizedString( @"Path", @"Header in exported text file")
+#define  HEADER_FILENAME NSLocalizedString( @"Filename", @"Header in exported text file")
+#define  HEADER_SIZE NSLocalizedString( @"Size", @"Header in exported text file")
+#define  HEADER_TYPE NSLocalizedString( @"Type", @"Header in exported text file")
+#define  HEADER_CREATED NSLocalizedString( @"Created", @"Header in exported text file")
+#define  HEADER_MODIFIED NSLocalizedString( @"Modified", @"Header in exported text file")
+#define  HEADER_ACCESSED NSLocalizedString( @"Accessed", @"Header in exported text file")
+
+@interface RawTreeWriter (PrivateMethods)
+
+- (void) appendHeaders;
+
+@end
+
 @implementation RawTreeWriter
 
 - (instancetype) init {
@@ -33,13 +47,16 @@
   options = optionsVal;
 
   TreeContext  *tree = [annotatedTree treeContext];
+  if ([options headersEnabled]) {
+    [self appendHeaders];
+  }
   [self appendFolderElement: [tree scanTree]];
 
   [autoreleasePool release];
   autoreleasePool = nil;
 }
 
-@end
+@end // @implementation RawTreeWriter
 
 
 @implementation RawTreeWriter (ProtectedMethods)
@@ -100,4 +117,41 @@
   [self appendString: @"\n"];
 }
 
-@end
+@end // @implementation RawTreeWriter (ProtectedMethods)
+
+
+@implementation RawTreeWriter (PrivateMethods)
+
+- (void) appendHeaders {
+  RawTreeColumnFlags  columnFlag = 0x01;
+  BOOL  isFirst = YES;
+  NSString  *header = nil;
+
+  while (columnFlag <= ColumnAccessTime) {
+    if ([options isColumnShown: columnFlag]) {
+      if (!isFirst) {
+        [self appendString: @"\t"];
+      }
+
+      switch (columnFlag) {
+        case ColumnPath: header = HEADER_PATH; break;
+        case ColumnName: header = HEADER_FILENAME; break;
+        case ColumnSize: header = HEADER_SIZE; break;
+        case ColumnType: header = HEADER_TYPE; break;
+        case ColumnCreationTime: header = HEADER_CREATED; break;
+        case ColumnModificationTime: header = HEADER_MODIFIED; break;
+        case ColumnAccessTime: header = HEADER_ACCESSED; break;
+      }
+      [self appendString: header];
+
+      isFirst = NO;
+    }
+
+    columnFlag <<= 1;
+  }
+
+  [self appendString: @"\n"];
+
+}
+
+@end // @implementation RawTreeWriter (PrivateMethods)

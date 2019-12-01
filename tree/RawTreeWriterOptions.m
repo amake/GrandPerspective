@@ -7,6 +7,8 @@
   if (self = [super init]) {
     // By default, only show full path and size
     columnFlags = ColumnPath|ColumnSize;
+
+    _headersEnabled = YES;
   }
 
   return self;

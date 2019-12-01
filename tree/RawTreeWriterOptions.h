@@ -16,6 +16,8 @@ typedef NS_OPTIONS(UInt8, RawTreeColumnFlags) {
   RawTreeColumnFlags  columnFlags;
 }
 
+@property (nonatomic, readwrite) BOOL headersEnabled;
+
 // Constructs instance with default settings
 - (id)init;
 
