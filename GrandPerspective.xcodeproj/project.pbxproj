@@ -10,6 +10,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		AA054A912393C439001A5826 /* RawTreeWriterOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = AA054A902393C439001A5826 /* RawTreeWriterOptions.m */; };
 		AA0CDE711544995C0018D583 /* TimeBasedMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0CDE701544995C0018D583 /* TimeBasedMapping.m */; };
 		AA0CDE7415487FF60018D583 /* CreationMappingScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0CDE7315487FF60018D583 /* CreationMappingScheme.m */; };
 		AA0CDE77154882BF0018D583 /* ModificationMappingScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0CDE76154882BE0018D583 /* ModificationMappingScheme.m */; };
@@ -190,6 +191,8 @@
 		AA04903D1CFB3A4400ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/StartWindow.strings; sourceTree = "<group>"; };
 		AA04903E1CFB3A4500ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		AA04903F1CFB3A4500ADAA76 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/SaveImageDialog.strings; sourceTree = "<group>"; };
+		AA054A8F2393C439001A5826 /* RawTreeWriterOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RawTreeWriterOptions.h; path = tree/RawTreeWriterOptions.h; sourceTree = "<group>"; };
+		AA054A902393C439001A5826 /* RawTreeWriterOptions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RawTreeWriterOptions.m; path = tree/RawTreeWriterOptions.m; sourceTree = "<group>"; };
 		AA0CDE6F1544995C0018D583 /* TimeBasedMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeBasedMapping.h; sourceTree = "<group>"; };
 		AA0CDE701544995C0018D583 /* TimeBasedMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeBasedMapping.m; sourceTree = "<group>"; };
 		AA0CDE7215487FF60018D583 /* CreationMappingScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreationMappingScheme.h; sourceTree = "<group>"; };
@@ -751,6 +754,8 @@
 				AA6013220A5AFCC500DEBCB8 /* TreeBuilder.m */,
 				AAFB1192238ABF3B00D616C3 /* TreeWriter.h */,
 				AAFB1193238ABF3B00D616C3 /* TreeWriter.m */,
+				AA054A8F2393C439001A5826 /* RawTreeWriterOptions.h */,
+				AA054A902393C439001A5826 /* RawTreeWriterOptions.m */,
 				AAFB1195238AD5E900D616C3 /* RawTreeWriter.h */,
 				AAFB1196238AD5E900D616C3 /* RawTreeWriter.m */,
 				AA837DBD0E29ECE5005384E0 /* XmlTreeWriter.h */,
@@ -1264,6 +1269,7 @@
 				AA524628110203070018897B /* FilterWindowControl.m in Sources */,
 				AA52462F1102031D0018897B /* UniformTypeRankingWindowControl.m in Sources */,
 				AAFB1194238ABF3B00D616C3 /* TreeWriter.m in Sources */,
+				AA054A912393C439001A5826 /* RawTreeWriterOptions.m in Sources */,
 				AAA8724C111492E600ED5112 /* ScanTreeRoot.m in Sources */,
 				AA1A92651170579600217CF6 /* KBPopUpToolbarItem.m in Sources */,
 				AA0CDE711544995C0018D583 /* TimeBasedMapping.m in Sources */,

@@ -39,6 +39,7 @@
 #import "WriteProgressPanelControl.h"
 #import "WriteTaskInput.h"
 #import "WriteTaskExecutor.h"
+#import "RawTreeWriterOptions.h"
 
 #import "FilterRepository.h"
 #import "FilterTestRepository.h"
@@ -137,7 +138,8 @@ NSString  *AfterClosingLastViewDoNothing = @"do nothing";
 
 - (void) loadScanDataFromFile:(NSString *)path;
 - (void) saveScanDataToFile:(NSSavePanel *)savePanel
-           usingTaskManager:(VisibleAsynchronousTaskManager *)taskManager;
+           usingTaskManager:(VisibleAsynchronousTaskManager *)taskManager
+                    options:(id)options;
 
 - (void) duplicateCurrentWindowSharingPath:(BOOL)sharePathModel;
 
@@ -595,7 +597,7 @@ static MainMenuControl  *singletonInstance = nil;
   savePanel.allowedFileTypes = @[@"gpscan"];
   [savePanel setTitle: NSLocalizedString(@"Save scan data", @"Title of save panel") ];
 
-  [self saveScanDataToFile: savePanel usingTaskManager: xmlWriteTaskManager];
+  [self saveScanDataToFile: savePanel usingTaskManager: xmlWriteTaskManager options: nil];
 }
 
 
@@ -621,7 +623,9 @@ static MainMenuControl  *singletonInstance = nil;
   savePanel.allowedFileTypes = @[@"txt", @"text", @"tsv"];
   [savePanel setTitle: NSLocalizedString(@"Export scan data as text", @"Title of save panel") ];
 
-  [self saveScanDataToFile: savePanel usingTaskManager: rawWriteTaskManager];
+  [self saveScanDataToFile: savePanel
+          usingTaskManager: rawWriteTaskManager
+                   options: [RawTreeWriterOptions defaultOptions]];
 }
 
 
@@ -860,7 +864,8 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 - (void) saveScanDataToFile:(NSSavePanel *)savePanel
-           usingTaskManager:(VisibleAsynchronousTaskManager *)taskManager {
+           usingTaskManager:(VisibleAsynchronousTaskManager *)taskManager
+                    options:(id)options {
   DirectoryViewControl  *dirViewControl =
     [NSApplication sharedApplication].mainWindow.windowController;
 
@@ -870,7 +875,8 @@ static MainMenuControl  *singletonInstance = nil;
     if (destURL.fileURL) {
       WriteTaskInput  *input =
         [[[WriteTaskInput alloc] initWithAnnotatedTreeContext: [dirViewControl annotatedTreeContext]
-                                                         path: destURL.path]
+                                                         path: destURL.path
+                                                      options: options]
        autorelease];
 
       WriteTaskCallback  *callback =

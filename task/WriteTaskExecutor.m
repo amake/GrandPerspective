@@ -44,7 +44,9 @@
   [taskLock unlock];
 
   id  result = nil;
-  if ([treeWriter writeTree: [myInput annotatedTreeContext] toFile: [myInput path]]) {
+  if ([treeWriter writeTree: [myInput annotatedTreeContext]
+                     toFile: [myInput path]
+                    options: [myInput options]]) {
     result = SuccessfulVoidResult;
   }
   else {

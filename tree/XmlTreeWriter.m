@@ -1,5 +1,6 @@
 #import "XmlTreeWriter.h"
 
+#import "PlainFileItem.h"
 #import "DirectoryItem.h"
 
 #import "TreeContext.h"
@@ -169,7 +170,7 @@ NSString *escapedXML(NSString *s, CharacterOptions escapeCharMask) {
   [super dealloc];
 }
 
-- (void) writeTree:(AnnotatedTreeContext *)tree {
+- (void) writeTree:(AnnotatedTreeContext *)tree options:(id)options {
   [self appendString: @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"];
   [self appendScanDumpElement: tree];
 
@@ -325,7 +326,7 @@ NSString *escapedXML(NSString *s, CharacterOptions escapeCharMask) {
 }
 
 
-- (void) appendFileElement:(FileItem *)fileItem {
+- (void) appendFileElement:(PlainFileItem *)fileItem {
   NSString  *nameVal = escapedXML([fileItem systemPathComponent], ATTRIBUTE_ESCAPE_CHARS);
   FileItemOptions  flags = [fileItem fileItemFlags];
   NSString  *createdVal = [TreeWriter stringForTime: [fileItem creationTime]];

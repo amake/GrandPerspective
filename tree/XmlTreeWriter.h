@@ -45,6 +45,6 @@ extern NSString  *AccessedAttr;
 
 /* Writes the tree in XML format.
  */
-- (void) writeTree:(AnnotatedTreeContext *)tree;
+- (void) writeTree:(AnnotatedTreeContext *)tree options:(id)options;
 
 @end

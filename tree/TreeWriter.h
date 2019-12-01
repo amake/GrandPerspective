@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ProgressTracker;
 
 @class Item;
-@class FileItem;
+@class PlainFileItem;
 @class DirectoryItem;
 
 // Formatting string used in XML
@@ -30,11 +30,11 @@ extern NSString  *DateTimeFormat;
  * error occurred, or if the operation has been aborted. In the latter case the file will still be
  * valid. It simply will not contain all files/folders in the tree.
  */
-- (BOOL) writeTree:(AnnotatedTreeContext *)tree toFile:(NSString *)path;
+- (BOOL) writeTree:(AnnotatedTreeContext *)tree toFile:(NSString *)path options:(id)options;
 
 /* Abstract method that should write the tree via repeated invocations of appendString:.
  */
-- (void) writeTree:(AnnotatedTreeContext *)tree;
+- (void) writeTree:(AnnotatedTreeContext *)tree options:(id)options;
 
 /* Aborts writing (when it is carried out in a different execution thread).
  */
@@ -80,7 +80,7 @@ extern NSString  *DateTimeFormat;
 
 /* Abstract method to append details of a given file.
  */
-- (void) appendFileElement:(FileItem *)fileItem;
+- (void) appendFileElement:(PlainFileItem *)fileItem;
 
 @end
 

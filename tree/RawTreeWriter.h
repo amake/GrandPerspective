@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 
 #import "TreeWriter.h"
+#import "RawTreeWriterOptions.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -8,10 +9,12 @@ NS_ASSUME_NONNULL_BEGIN
  * First, the full path of the file. Second, its size in bytes.
  */
 @interface RawTreeWriter : TreeWriter {
+  RawTreeWriterOptions  *options;
+
   NSAutoreleasePool  *autoreleasePool;
 }
 
-- (void) writeTree:(AnnotatedTreeContext *)tree;
+- (void) writeTree:(AnnotatedTreeContext *)tree options:(id)options;
 
 @end
 

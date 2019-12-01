@@ -42,7 +42,7 @@ NSLocalizedString(@"Failed to write entire buffer.", @"Error message")
   [super dealloc];
 }
 
-- (BOOL) writeTree:(AnnotatedTreeContext *)tree toFile:(NSString *)filename {
+- (BOOL) writeTree:(AnnotatedTreeContext *)tree toFile:(NSString *)filename options:(id)options {
   NSAssert(file == NULL, @"File not NULL");
 
   [progressTracker startingTask];
@@ -54,7 +54,7 @@ NSLocalizedString(@"Failed to write entire buffer.", @"Error message")
 
   dataBufferPos = 0;
 
-  [self writeTree: tree];
+  [self writeTree: tree options: options];
 
   if (error==nil && dataBufferPos > 0) {
     // Write remaining characters in buffer
@@ -76,7 +76,7 @@ NSLocalizedString(@"Failed to write entire buffer.", @"Error message")
   return (error==nil) && !abort;
 }
 
-- (void) writeTree:(AnnotatedTreeContext *)tree {
+- (void) writeTree:(AnnotatedTreeContext *)tree options:(id)options {
   NSAssert(NO, @"This method should be overridden.");
 }
 
@@ -181,7 +181,7 @@ NSLocalizedString(@"Failed to write entire buffer.", @"Error message")
         [self appendFolderElement: (DirectoryItem *)fileItem];
       }
       else {
-        [self appendFileElement: fileItem];
+        [self appendFileElement: (PlainFileItem *)fileItem];
       }
     }
   }

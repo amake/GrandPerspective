@@ -1,11 +1,13 @@
 #import "RawTreeWriter.h"
 
+#import "PlainFileItem.h"
 #import "DirectoryItem.h"
 #import "CompoundItem.h"
 
+#import "UniformType.h"
+
 #import "TreeContext.h"
 #import "AnnotatedTreeContext.h"
-
 
 #import "TreeVisitingProgressTracker.h"
 
@@ -27,7 +29,9 @@
   [super dealloc];
 }
 
-- (void) writeTree:(AnnotatedTreeContext *)annotatedTree {
+- (void) writeTree:(AnnotatedTreeContext *)annotatedTree options:(id)optionsVal {
+  options = optionsVal;
+
   TreeContext  *tree = [annotatedTree treeContext];
   [self appendFolderElement: [tree scanTree]];
 
@@ -53,10 +57,47 @@
   }
 }
 
-- (void) appendFileElement:(FileItem *)fileItem {
-  [self appendString: [NSString stringWithFormat: @"%@\t%qu\n",
-                       [fileItem path],
-                       [fileItem itemSize]]];
+- (void) appendFileElement:(PlainFileItem *)fileItem {
+  RawTreeColumnFlags  columnFlag = 0x01;
+  BOOL  isFirst = YES;
+
+  while (columnFlag <= ColumnAccessTime) {
+    if ([options isColumnShown: columnFlag]) {
+      if (!isFirst) {
+        [self appendString: @"\t"];
+      }
+
+      switch (columnFlag) {
+        case ColumnPath:
+          [self appendString: [fileItem path]];
+          break;
+        case ColumnName:
+          [self appendString: [fileItem label]];
+          break;
+        case ColumnSize:
+          [self appendString: [NSString stringWithFormat: @"%qu", [fileItem itemSize]]];
+          break;
+        case ColumnType:
+          [self appendString: [[fileItem uniformType] uniformTypeIdentifier]];
+          break;
+        case ColumnCreationTime:
+          [self appendString: [TreeWriter stringForTime: [fileItem creationTime]]];
+          break;
+        case ColumnModificationTime:
+          [self appendString: [TreeWriter stringForTime: [fileItem modificationTime]]];
+          break;
+        case ColumnAccessTime:
+          [self appendString: [TreeWriter stringForTime: [fileItem accessTime]]];
+          break;
+      }
+
+      isFirst = NO;
+    }
+
+    columnFlag <<= 1;
+  }
+
+  [self appendString: @"\n"];
 }
 
 @end
