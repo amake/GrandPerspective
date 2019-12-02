@@ -1,162 +1,165 @@
-/* (No Comment) */
+/* Color mapping scheme */
 "access" = "Laatste gebruik";
 
-/* (No Comment) */
+/* Filter test */
 "Audio" = "Geluid";
 
-/* The names of the file size base types. */
+/* File size base type */
 "base-2" = "Binair";
 
-/* (No Comment) */
+/* File size base type */
 "base-10" = "Decimaal";
 
-/* (No Comment) */
+/* Color palette */
 "BlueSkyTulips" = "Tulpen veld";
 
-/* (No Comment) */
+/* Color palette */
 "Bujumbura" = "Bujumbura";
 
-/* The names of the supported rescan behaviours. */
+/* Rescan preference behaviour */
 "close old window" = "Oude venster sluiten";
 
-/* (No Comment) */
+/* Color palette */
 "CoffeeBeans" = "Koffie bonen";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "creation" = "Aanmaak";
 
-/* (No Comment) */
+/* Color palette */
 "Daytona" = "Daytona Beach";
 
-/* (No Comment) */
+/* File deletion preference option */
 "delete files and folders" = "Bestanden en mappen";
 
-/* The names of the supported file-deletion targets. */
+/* File deletion preference option */
 "delete nothing" = "Niets";
 
-/* (No Comment) */
+/* Preference option for what to do after last view is closed */
 "do nothing" = "Doe niets";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "extension" = "Extensie";
 
-/* (No Comment) */
+/* Color palette */
 "FengShui" = "Feng Shui";
 
-/* (No Comment) */
+/* Color palette */
 "FlyingGeese" = "Magenta magie";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "folder" = "Map";
 
-/* The names of the "special" files in the viewer. */
+/* Name of "special" file in the viewer */
 "free" = "Beschikbare ruimte";
 
-/* (No Comment) */
+/* Name of "special" file in the viewer */
 "freed" = "Vrijgekomen ruimte";
 
-/* (No Comment) */
+/* Color palette */
 "GreenEggs" = "Groene eieren";
 
-/* (No Comment) */
+/* Filter test */
 "Hard-linked items" = "Harde links";
 
-/* (No Comment) */
+/* Color palette */
 "Heatmap-12" = "Temperatuur 12";
 
-/* (No Comment) */
+/* Color palette */
 "Heatmap-23" = "Temperatuur 23";
 
-/* (No Comment) */
+/* Filter test */
 "Huge files" = "Kolossale bestanden";
 
-/* (No Comment) */
+/* Filter test */
 "Images" = "Plaatjes";
 
-/* (No Comment) */
+/* Rescan preference behaviour */
 "keep old window" = "Oude venster bewaren";
 
-/* (No Comment) */
+/* Color palette */
 "LagoonNebula" = "Lagune nevel";
 
-/* (No Comment) */
+/* Filter test */
 "Large files" = "Grote bestanden";
 
-/* The names of the various color mapping schemes. */
+/* Color mapping scheme */
 "level" = "Nivo";
 
-/* The names of the file size types. */
+/* File size type */
 "logical" = "Intrinsiek";
 
-/* (No Comment) */
+/* Filter test */
 "Medium files" = "Middelgrote bestanden";
 
-/* (No Comment) */
+/* Name of "special" file in the viewer */
 "misc used" = "Overige gebruikte ruimte";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "modification" = "Laatste wijziging";
 
-/* (No Comment) */
+/* Color palette */
 "Monaco" = "Monaco";
 
-/* (No Comment) */
+/* Color palette */
 "MossAndLichen" = "Mos en korstmos";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "name" = "Naam";
 
-/* The names of the various filters. */
+/* Filter name */
 "No hard-links" = "Geen harde links";
 
-/* (No Comment) */
+/* Filter name */
 "No version control" = "Geen versie beheer";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "nothing" = "Niets";
 
-/* The names of the various color palettes. */
+/* Color palette */
 "OliveSunset" = "Olijven in de zon";
 
-/* (No Comment) */
+/* File deletion preference option */
 "only delete files" = "Bestanden";
 
-/* (No Comment) */
+/* Color palette */
 "OrigamiMice" = "Origami muizen";
 
-/* (No Comment) */
+/* Filter test */
 "Packages" = "Pakketten";
 
-/* (No Comment) */
+/* File size type */
 "physical" = "Fysisch";
 
-/* The names of the supported behaviours after the last view is closed. */
+/* Preference option for what to do after last view is closed */
 "quit" = "Sluit programma";
 
-/* (No Comment) */
+/* Color palette */
 "Rainbow" = "Regenboog";
 
-/* The names of the supported rescan actions. */
+/* Rescan preference option */
 "rescan all" = "Alles herlezen";
 
-/* (No Comment) */
+/* Rescan preference option */
 "rescan visible" = "Map in venster herlezen";
 
-/* (No Comment) */
+/* Preference option for what to do after last view is closed */
 "show welcome" = "Toon Welkom venster";
 
-/* (No Comment) */
+/* Filter test */
 "Small files" = "Kleine bestanden";
 
-/* The names of the various filter tests. */
+/* File size type */
+"tally" = "Aantal";
+
+/* Filter test */
 "Tiny files" = "Minuscule bestanden";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "top folder" = "Buitenste map";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "uniform type" = "Bestandstype";
 
-/* (No Comment) */
+/* Filter test */
 "Version control" = "Versie beheer";
 

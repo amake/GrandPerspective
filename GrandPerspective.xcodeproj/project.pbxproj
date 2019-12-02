@@ -198,6 +198,7 @@
 		AA054A9223940BE4001A5826 /* ExportAsTextDialogControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExportAsTextDialogControl.h; path = control/ExportAsTextDialogControl.h; sourceTree = "<group>"; };
 		AA054A9323940BE4001A5826 /* ExportAsTextDialogControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ExportAsTextDialogControl.m; path = control/ExportAsTextDialogControl.m; sourceTree = "<group>"; };
 		AA054A9823942FE0001A5826 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ExportAsTextDialog.xib; sourceTree = "<group>"; };
+		AA054A9A2395CABC001A5826 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/ExportAsTextDialog.strings; sourceTree = "<group>"; };
 		AA0CDE6F1544995C0018D583 /* TimeBasedMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeBasedMapping.h; sourceTree = "<group>"; };
 		AA0CDE701544995C0018D583 /* TimeBasedMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeBasedMapping.m; sourceTree = "<group>"; };
 		AA0CDE7215487FF60018D583 /* CreationMappingScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreationMappingScheme.h; sourceTree = "<group>"; };
@@ -1310,6 +1311,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				AA054A9823942FE0001A5826 /* Base */,
+				AA054A9A2395CABC001A5826 /* nl */,
 			);
 			name = ExportAsTextDialog.xib;
 			sourceTree = "<group>";

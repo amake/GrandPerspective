@@ -64,8 +64,8 @@
 /* Class = "NSMenuItem"; title = "Twin"; ObjectID = "321"; */
 "321.title" = "Maak tweeling";
 
-/* Class = "NSMenuItem"; title = "Save Image of View..."; ObjectID = "324"; */
-"324.title" = "Afbeelding van venster opslaan...";
+/* Class = "NSMenuItem"; title = "Export As Image..."; ObjectID = "324"; */
+"324.title" = "Exporteer Afbeelding...";
 
 /* Class = "NSMenuItem"; title = "Rescan"; ObjectID = "326"; */
 "326.title" = "Map herlezen";
@@ -129,6 +129,9 @@
 
 /* Class = "NSMenu"; title = "Services"; ObjectID = "426"; */
 "426.title" = "Voorzieningen";
+
+/* Class = "NSMenuItem"; title = "Export As Text..."; ObjectID = "hJw-Fc-daG"; */
+"hJw-Fc-daG.title" = "Exporteer Als Tekst...";
 
 /* Class = "NSMenuItem"; title = "Scan Recent"; ObjectID = "hUr-J9-FbH"; */
 "hUr-J9-FbH.title" = "Recente map inlezen";

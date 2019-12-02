@@ -34,7 +34,7 @@
 /* Message in progress panel while scanning */
 "%d folders scanned" = "%d mappen ingelezen";
 
-/* Exact file size (in bytes). */
+/* Exact file size (in bytes) */
 "%qu bytes" = "%qu bytes";
 
 /* Alert message */
@@ -49,6 +49,9 @@
 /* Alert message (with filename arg) */
 "Aborted saving the scan data to \"%@\"" = "De opslag van de data naar \"%@\" is geannuleerd";
 
+/* Header in exported text file */
+"Accessed" = "Gebruikt";
+
 /* Label in Focus panel */
 "Area in view:" = "Getoond gebied:";
 
@@ -60,6 +63,9 @@
 
 /* Alert panel button */
 "Cancel" = "Annuleer";
+
+/* Header in exported text file */
+"Created" = "Aangemaakt";
 
 /* Alert panel button */
 "Delete" = "Verwijder";
@@ -112,6 +118,15 @@
 /* Parse error */
 "Expected unsigned integer value." = "Positief geheel getal verwacht.";
 
+/* Title of save panel */
+"Export image" = "Exporteer afbeelding";
+
+/* Title of save panel */
+"Export scan data as text" = "Exporteer als tekst";
+
+/* Alert message */
+"Failed to bind one or more filter tests:\n%@" = "Onbekende filtertesten:\n%@";
+
 /* Alert message */
 "Failed to delete the file \"%@\"" = "Het verwijderen van het bestand \"%@\" is mislukt";
 
@@ -148,6 +163,9 @@
 /* Alert message (with filename arg) */
 "Failed to save the scan data to \"%@\"" = "Het opslaan van de data naar \"%@\" is mislukt";
 
+/* Alert message */
+"Failed to update one or more filters:\n%@" = "De volgende filters konden niet bijgewerkt worden:\n%@";
+
 /* Error message */
 "Failed to write entire buffer." = "Het wegschrijven van de gehele buffer inhoud is mislukt.";
 
@@ -156,6 +174,9 @@
 
 /* Label in Focus panel */
 "File in view:" = "Getoond bestand:";
+
+/* Header in exported text file */
+"Filename" = "Bestandsnaam";
 
 /* Window title */
 "Filter - %@" = "Filter - %@";
@@ -196,6 +217,9 @@
 /* File size unit for megabytes. */
 "MB" = "MB";
 
+/* Header in exported text file */
+"Modified" = "Gewijzigd";
+
 /* Legend for Time-based mapping schemes. */
 "More recent" = "Recenter";
 
@@ -231,6 +255,9 @@
 
 /* Parse error */
 "Parsing aborted" = "Laden geannuleerd";
+
+/* Header in exported text file */
+"Path" = "Pad";
 
 /* Alert message */
 "Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "Dit kan gebeuren wanneer het bestand niet meer bestaat (omdat het verplaatst, hernoemd of anderszins verwijderd is) of omdat u de vereiste rechten niet heeft.";
@@ -289,6 +316,9 @@
 /* Label in Focus panel */
 "Selected package:" = "Geselecteerd pakket:";
 
+/* Header in exported text file */
+"Size" = "Grootte";
+
 /* Alert message (with filename arg) */
 "Successfully saved the scan data to \"%@\"" = "Opslag van data naar \"%@\" is voltooid";
 
@@ -339,6 +369,9 @@
 
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "Deze filters bestaan niet meer. Hun oorspronkelijke definitie zal daarom gebruikt worden.";
+
+/* Header in exported text file */
+"Type" = "Bestandstype";
 
 /* Description for 'unknown' UTI. */
 "unknown file type" = "onbekend bestandstype";
