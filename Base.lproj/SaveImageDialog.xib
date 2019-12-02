@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SaveImageDialogControl">
@@ -18,15 +18,15 @@
         <window title="Image configuration" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="6" userLabel="Panel" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="471" y="137" width="210" height="173"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1001"/>
+            <rect key="contentRect" x="471" y="137" width="234" height="173"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="209" height="107"/>
             <view key="contentView" id="5">
-                <rect key="frame" x="0.0" y="0.0" width="210" height="173"/>
+                <rect key="frame" x="0.0" y="0.0" width="234" height="174"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="10">
-                        <rect key="frame" x="137" y="12" width="59" height="32"/>
+                        <rect key="frame" x="161" y="12" width="59" height="32"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" inset="2" id="45">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -39,7 +39,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="11">
-                        <rect key="frame" x="55" y="12" width="82" height="32"/>
+                        <rect key="frame" x="79" y="12" width="82" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="46">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -52,13 +52,13 @@ Gw
                         </connections>
                     </button>
                     <box title="Image size" translatesAutoresizingMaskIntoConstraints="NO" id="25">
-                        <rect key="frame" x="17" y="56" width="176" height="97"/>
+                        <rect key="frame" x="17" y="56" width="200" height="98"/>
                         <view key="contentView" id="MJk-Yn-gSN">
-                            <rect key="frame" x="2" y="2" width="172" height="80"/>
+                            <rect key="frame" x="3" y="3" width="194" height="80"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6AL-kW-6Iw">
-                                    <rect key="frame" x="18" y="49" width="56" height="17"/>
+                                    <rect key="frame" x="18" y="49" width="78" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Width:" id="QVl-ub-0Uz">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -66,7 +66,7 @@ Gw
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H4H-19-1fD">
-                                    <rect key="frame" x="18" y="17" width="48" height="17"/>
+                                    <rect key="frame" x="18" y="17" width="70" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Height:" id="77K-Uw-OFb">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -74,13 +74,13 @@ Gw
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Rv-x4-wb6">
-                                    <rect key="frame" x="72" y="46" width="80" height="22"/>
+                                    <rect key="frame" x="94" y="46" width="80" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="80" id="QgV-K3-4Vv"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="L3m-zm-qHT">
                                         <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
@@ -88,13 +88,13 @@ Gw
                                     </connections>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cnS-Md-8Ef">
-                                    <rect key="frame" x="72" y="14" width="80" height="22"/>
+                                    <rect key="frame" x="94" y="14" width="80" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="80" id="ydN-ZT-kWx"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" drawsBackground="YES" id="M8w-MS-4hP">
                                         <font key="font" metaFont="system"/>
-                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                     <connections>
@@ -116,8 +116,6 @@ Gw
                                 <constraint firstItem="8Rv-x4-wb6" firstAttribute="leading" secondItem="6AL-kW-6Iw" secondAttribute="trailing" id="vmM-9H-zoV"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
                 <constraints>
@@ -132,6 +130,7 @@ Gw
                     <constraint firstAttribute="trailing" secondItem="25" secondAttribute="trailing" constant="20" id="rV3-l8-9KV"/>
                 </constraints>
             </view>
+            <point key="canvasLocation" x="152" y="147.5"/>
         </window>
     </objects>
 </document>
