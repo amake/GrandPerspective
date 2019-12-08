@@ -30,7 +30,6 @@
 
   addHeaders.state = [initialOptions headersEnabled] ? NSOnState : NSOffState;
 
-  [self.window center];
   [self.window makeKeyAndOrderFront: self];
 }
 
