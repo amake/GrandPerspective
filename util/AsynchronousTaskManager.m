@@ -158,7 +158,7 @@ enum {
       [executor prepareToRunTask];
 
       [settingsLock unlock]; // Don't lock settings while running the task.
-      id  taskOutput = [executor runTaskWithInput:taskInput];
+      id  taskOutput = [executor runTaskWithInput: taskInput];
       [settingsLock lock];
       
       [taskCallback performSelectorOnMainThread: taskCallbackSelector
