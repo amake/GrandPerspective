@@ -26,6 +26,7 @@
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="217" height="290"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <value key="minSize" type="size" width="217" height="290"/>
             <view key="contentView" id="se5-gp-TjO">
                 <rect key="frame" x="0.0" y="0.0" width="217" height="290"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -57,31 +58,28 @@ DQ
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="mis-Pd-GXT">
-                                    <rect key="frame" x="18" y="138" width="141" height="18"/>
+                                    <rect key="frame" x="18" y="137" width="141" height="18"/>
                                     <buttonCell key="cell" type="check" title="Path" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="0Yh-UN-zmZ">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                 </button>
                                 <button verticalHuggingPriority="750" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="3fg-PK-fxy">
-                                    <rect key="frame" x="18" y="118" width="141" height="18"/>
+                                    <rect key="frame" x="18" y="117" width="141" height="18"/>
                                     <buttonCell key="cell" type="check" title="Filename" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="w0D-i0-Hgy">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                 </button>
                                 <button verticalHuggingPriority="750" tag="4" translatesAutoresizingMaskIntoConstraints="NO" id="SDf-UC-BQr">
-                                    <rect key="frame" x="18" y="98" width="141" height="18"/>
+                                    <rect key="frame" x="18" y="97" width="141" height="18"/>
                                     <buttonCell key="cell" type="check" title="Size" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Hdn-NZ-wDs">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                 </button>
                                 <button verticalHuggingPriority="750" tag="8" translatesAutoresizingMaskIntoConstraints="NO" id="yWc-x9-gl4">
-                                    <rect key="frame" x="18" y="78" width="141" height="18"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="13" id="vgs-kG-Ah2"/>
-                                    </constraints>
+                                    <rect key="frame" x="18" y="78" width="141" height="17"/>
                                     <buttonCell key="cell" type="check" title="Type" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="rXh-ic-X4t">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" metaFont="system"/>
