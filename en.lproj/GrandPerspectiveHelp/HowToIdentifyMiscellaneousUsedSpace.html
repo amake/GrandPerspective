@@ -25,14 +25,14 @@ More specifically:
 <li>Scan your entire volume, not just one of its folders</li>
 <li>Use the <a href="FileSizes.html">physical file size measure</a></li>
 <li>Do not use a <a href="MasksAndFilters.html">filter</a>, i.e. do not use <b>Filtered Scan</b></li>
-<li>Scan as a user that has sufficient read permissions</li>
+<li>Ensure the application has Full Disk Access</li>
 </ul>
 </p>
 
-<h2>Run GrandPerspective with sufficient permissions</h2>
+<h2>Grant GrandPerspective Full Disk Access</h2>
 
 <p>
-First, grant the application Full Disk Access.
+You should grant the application Full Disk Access.
 This can be done via "System Preferences" &gt; "Security &amp; Privacy" &gt; "Privacy".
 In the permission pane at the left, find "Full Disk Access" and select it.
 (Note, this permission setting is only available in recent versions of OS X.)
@@ -40,36 +40,22 @@ Click the lock to make changes, and add GrandPerspective to the application pane
 you can do so via drag and drop.
 </p>
 
-<p>
-Second, try running the app as a user with admin rights.
-You can see which users have admin rights in the "Users &amp; Groups" System Preferences Panel.
-Log in as a user with admin rights and start GrandPerspective as normal.
-</p>
+<h2>Limitations</h2>
 
 <p>
-If that still leaves too much space unaccounted for, you can try running GrandPerspective as root user.
-Note, this is generally not recommended.
-The app is not specifically designed for running as root.
-It seems to work, but do so at your own risk.
-Be especially careful when deleting any files.
-Enough disclaimers, here is how to run the app as root user.
-From a Terminal window go to the folder where the app resides and execute the following:
-<br><br>
-<tt>sudo /bin/launchctl asuser 0 GrandPerspective.app/Contents/MacOS/GrandPerspective</tt>
+Even with Full Disk Access enabled, GrandPerspective cannot read all files.
+In particular, it is not able to scan the following:
 </p>
 
-<h2>If all else fails</h2>
+<ul>
+<li><em>Files owned by other users.</em>
+These can be scanned by letting their owners scan their home directory themselves
+</li>
 
-<p>
-If after following all the above, you still have a large amount of miscellaneous used space, you can resort to other tools.
-In particular, you can run the <tt>du</tt> command as root:
-<br><br>
-<tt>sudo du -xhd1 /</tt>
-<br><br>
-Here <tt>-x</tt> ensures only disk usage of the current volume is scanned,
-<tt>-h</tt> gives human readable output, and
-<tt>-d1</tt> only displays one level deep.
-</p>
+<li><em>Certain system files.</em>
+I suggest to simply accept this, as you cannot/should not delete these anyway
+</li>
+</ul>
 
 </body>
 </html>

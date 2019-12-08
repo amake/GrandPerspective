@@ -25,14 +25,14 @@ Specifieker gezegd:
 <li>Lees het gehele opslagmedium in, in plaats van één enkele map</li>
 <li>Gebruik de <a href="FileSizes.html">fysische bestandsgrootte maat</a></li>
 <li>Gebruik geen <a href="MasksAndFilters.html">filter</a>, d.w.z. gebruik niet de optie <b>Map inlezen met filter</b></li>
-<li>Draai GrandPerspective met voldoende lees-rechten</li>
+<li>Draai GrandPerspective met volledige schijftoegang</li>
 </ul>
 </p>
 
-<h2>Draai GrandPerspective met voldoende lees-rechten</h2>
+<h2>Volledige schijftoegang toekennen</h2>
 
 <p>
-Geef de applicatie volledige schijftoegang.
+Zorg ervoor dat GrandPerspective volledige schijftoegang heeft.
 Dit kunt u doen via "Systeemvoorkeuren"  &gt; "Beveiliging &amp; Privacy" &gt; "Privacy".
 Zoek in de lijst met rechten de optie "Volledige schijftoegang" en selecteer dit.
 (Deze optie is niet beschikbaar in oudere versies van OS X.)
@@ -40,36 +40,22 @@ Klik het hangslot om wijzigingen te maken, en voeg GrandPerspective toe aan het 
 u kunt dit doen door het applicatie icoon naar het paneel te slepen.
 </p>
 
-<p>
-Start GrandPerspective als een gebruiker met Beheerder rechten.
-U kunt in het "Gebruikers en groepen" Systeemvoorkeuren paneel zien welke gebruikers Beheerder rechten hebben.
-Log in als gebruiker met Beheerder rechten en start GrandPerspective zoals gebruikelijk.
-</p>
+<h2>Beperkingen</h2>
 
 <p>
-Als dit nog steeds teveel overige gebruikte ruimte oplevert, dan kunt u proberen de applicatie als rootgebruiker te draaien.
-Let wel, dit wordt in het algemeen afgeraden.
-De applicatie is niet specifiek ontworpen om met rootgebruiker rechten te draaien.
-Het lijkt echter te werken, maar het is op eigen risico.
-Wees vooral erg voorzichtig wanneer u bestanden verwijdert.
-Genoeg disclaimers, hier volgt hoe u de applicatie als rootgebruiker kan draaien.
-Ga binnen een Terminal scherm naar de map waar de applicatie zich bevindt en geef het volgende commando:
-<br><br>
-<tt>sudo /bin/launchctl asuser 0 GrandPerspective.app/Contents/MacOS/GrandPerspective</tt>
+Zelfs wanneer GrandPerspective volledige schijftoegang heeft kan het niet alle bestanden bekijken.
+Dit geldt bijvoorbeeld voor de volgende bestanden:
 </p>
 
-<h2>Als niks lijkt te helpen</h2>
+<ul>
+<li><em>Bestanden van andere gebruikers.</em>
+Deze kunnen ingelezen worden door de eigenaars van deze bestanden zelf hun Thuis folder in te laten lezen.
+</li>
 
-<p>
-Als u al het bovenstaande geprobeerd heeft en GrandPerspective desondanks nog veel overige gebruikte ruimte rapporteert, kunt u het volgende nog proberen.
-U kunt als rootgebruiker het <tt>du</tt> commando uitvoeren:
-<br><br>
-<tt>sudo du -xhd1 /</tt>
-<br><br>
-Hier zorgt <tt>-x</tt> ervoor dat enkel het huidige opslagmedium ingelezen wordt,
-<tt>-h</tt> zorgt voor een vriendelijk rapportage van het ruimtegebruik, en
-<tt>-d1</tt> zorgt dat slechts één nivo diep gerapporteerd wordt.
-</p>
+<li><em>Bepaalde systeembestanden.</em>
+Ik stel voor dit simpelweg te accepteren, want u kan en mag deze bestanden toch niet verwijderen
+</li>
+</ul>
 
 </body>
 </html>
