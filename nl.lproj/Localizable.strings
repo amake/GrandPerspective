@@ -37,6 +37,9 @@
 /* Exact file size (in bytes) */
 "%qu bytes" = "%qu bytes";
 
+/* Tally folder size (in number of files) */
+"%qu files" = "%qu bestanden";
+
 /* Alert message */
 "A filter named \"%@\" already exists." = "Een filter met naam \"%@\" bestaat al.";
 
