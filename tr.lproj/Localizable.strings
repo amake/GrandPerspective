@@ -14,7 +14,7 @@
 "%@, or %@" = "%1$@, veya %2$@";
 
 /* Legend for Time-based mapping schemes. */
-"%d - %d days ago" = "%1$@ - %2$@ gün önce";
+"%d - %d days ago" = "%1$d - %2$d gün önce";
 
 /* Legend for Time-based mapping schemes. */
 "%d days ago" = "%d gün önce";
@@ -34,7 +34,7 @@
 /* Message in progress panel while scanning */
 "%d folders scanned" = "%d klasör tarandı";
 
-/* Exact file size (in bytes). */
+/* Exact file size (in bytes) */
 "%qu bytes" = "%qu bytes";
 
 /* Alert message */

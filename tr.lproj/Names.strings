@@ -1,153 +1,153 @@
-/* (No Comment) */
+/* Color mapping scheme */
 "access" = "Son erişim";
 
-/* (No Comment) */
+/* Filter test */
 "Audio" = "Ses";
 
-/* The names of the file size base types. */
+/* File size base type */
 "base-2" = "İkilik";
 
-/* (No Comment) */
+/* File size base type */
 "base-10" = "Ondalık";
 
-/* (No Comment) */
+/* Color palette */
 "BlueSkyTulips" = "Mavi gökyüzü laleleri";
 
-/* (No Comment) */
+/* Color palette */
 "Bujumbura" = "Bujumbura";
 
-/* The names of the supported rescan behaviours. */
+/* Rescan preference behaviour */
 "close old window" = "Eski pencereyi kapat";
 
-/* (No Comment) */
+/* Color palette */
 "CoffeeBeans" = "Kahve taneleri";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "creation" = "Oluşturma";
 
-/* (No Comment) */
+/* Color palette */
 "Daytona" = "Daytona Sahili";
 
-/* (No Comment) */
+/* File deletion preference option */
 "delete files and folders" = "Dosyalar ve klasörler";
 
-/* The names of the supported file-deletion targets. */
+/* File deletion preference option */
 "delete nothing" = "Hiç bir şey";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "extension" = "Uzantı";
 
-/* (No Comment) */
+/* Color palette */
 "FengShui" = "Feng Shui";
 
-/* (No Comment) */
+/* Color palette */
 "FlyingGeese" = "Fuşya sihiri";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "folder" = "Klasör";
 
-/* The names of the "special" files in the viewer. */
+/* Name of "special" file in the viewer */
 "free" = "Boş alan";
 
-/* (No Comment) */
+/* Name of "special" file in the viewer */
 "freed" = "Boşaltılan alan";
 
-/* (No Comment) */
+/* Color palette */
 "GreenEggs" = "Yeşil yumurtalar";
 
-/* (No Comment) */
+/* Filter test */
 "Hard-linked items" = "Sabit bağlantılılar";
 
-/* (No Comment) */
+/* Color palette */
 "Heatmap-12" = "Sıcaklık haritası 12";
 
-/* (No Comment) */
+/* Color palette */
 "Heatmap-23" = "Sıcaklık haritası 23";
 
-/* (No Comment) */
+/* Filter test */
 "Huge files" = "Çok büyük dosyalar";
 
-/* (No Comment) */
+/* Filter test */
 "Images" = "Kopyalar";
 
-/* (No Comment) */
+/* Rescan preference behaviour */
 "keep old window" = "Eski pencereyi koru";
 
-/* (No Comment) */
+/* Color palette */
 "LagoonNebula" = "Deniz kulağı nebula";
 
-/* (No Comment) */
+/* Filter test */
 "Large files" = "Büyük dosyalar";
 
-/* The names of the various color mapping schemes. */
+/* Color mapping scheme */
 "level" = "Seviye";
 
-/* The names of the file size types. */
+/* File size type */
 "logical" = "Mantıksal";
 
-/* (No Comment) */
+/* Filter test */
 "Medium files" = "Orta büyüklükteki dosyalar";
 
-/* (No Comment) */
+/* Name of "special" file in the viewer */
 "misc used" = "Karışık kullanılan alan";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "modification" = "Son değişiklik";
 
-/* (No Comment) */
+/* Color palette */
 "Monaco" = "Monako";
 
-/* (No Comment) */
+/* Color palette */
 "MossAndLichen" = "Yosun ve liken";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "name" = "İsim";
 
-/* The names of the various filters. */
+/* Filter name */
 "No hard-links" = "Sabit bağlantı yok";
 
-/* (No Comment) */
+/* Filter name */
 "No version control" = "Versiyon denetimi yok ";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "nothing" = "Hiç bir şey";
 
-/* The names of the various color palettes. */
+/* Color palette */
 "OliveSunset" = "Akdeniz günbatımı";
 
-/* (No Comment) */
+/* File deletion preference option */
 "only delete files" = "Dosyalar";
 
-/* (No Comment) */
+/* Color palette */
 "OrigamiMice" = "Origami faresi";
 
-/* (No Comment) */
+/* Filter test */
 "Packages" = "Paketler";
 
-/* (No Comment) */
+/* File size type */
 "physical" = "Fiziksel";
 
-/* (No Comment) */
+/* Color palette */
 "Rainbow" = "Gökkuşağı";
 
-/* The names of the supported rescan actions. */
+/* Rescan preference option */
 "rescan all" = "Tam tekrar tarama";
 
-/* (No Comment) */
+/* Rescan preference option */
 "rescan visible" = "Görüntüdeki klasörü tekrar tara";
 
-/* (No Comment) */
+/* Filter test */
 "Small files" = "Küçük dosyalar";
 
-/* The names of the various filter tests. */
+/* Filter test */
 "Tiny files" = "Çok küçük dosyalar";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "top folder" = "En üst klasör";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "uniform type" = "Dosya türü";
 
-/* (No Comment) */
+/* Filter test */
 "Version control" = "Versiyon denetimi";
 

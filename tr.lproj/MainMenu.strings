@@ -64,9 +64,6 @@
 /* Class = "NSMenuItem"; title = "Twin"; ObjectID = "321"; */
 "321.title" = "Kopyala ve Bağdaştır";
 
-/* Class = "NSMenuItem"; title = "Save Image of View..."; ObjectID = "324"; */
-"324.title" = "Görüntünün Kopyasını Sakla...";
-
 /* Class = "NSMenuItem"; title = "Rescan"; ObjectID = "326"; */
 "326.title" = "Tekrar Tara";
 
