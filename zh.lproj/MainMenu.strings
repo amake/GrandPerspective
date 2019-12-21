@@ -64,7 +64,7 @@
 /* Class = "NSMenuItem"; title = "Twin"; ObjectID = "321"; */
 "321.title" = "双";
 
-/* Class = "NSMenuItem"; title = "Save Image of View..."; ObjectID = "324"; */
+/* Class = "NSMenuItem"; title = "Export As Image..."; ObjectID = "324"; */
 "324.title" = "保存视图的图片";
 
 /* Class = "NSMenuItem"; title = "Rescan"; ObjectID = "326"; */
@@ -129,6 +129,9 @@
 
 /* Class = "NSMenu"; title = "Services"; ObjectID = "426"; */
 "426.title" = "服务";
+
+/* Class = "NSMenuItem"; title = "Export As Text..."; ObjectID = "hJw-Fc-daG"; */
+"hJw-Fc-daG.title" = "输出为文本";
 
 /* Class = "NSMenuItem"; title = "Scan Recent"; ObjectID = "hUr-J9-FbH"; */
 "hUr-J9-FbH.title" = "扫描最近";

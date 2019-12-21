@@ -73,6 +73,9 @@
 /* Class = "NSMenuItem"; title = "is"; ObjectID = "184"; */
 "184.title" = "是";
 
+/* Class = "NSMenuItem"; title = "conforms to"; ObjectID = "387"; */
+"387.title" = "符合";
+
 /* Class = "NSMenuItem"; title = "equals"; ObjectID = "388"; */
 "388.title" = "等于";
 

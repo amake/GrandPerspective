@@ -1,153 +1,165 @@
-/* (No Comment) */
+/* Color mapping scheme */
 "access" = "最后访问";
 
-/* (No Comment) */
+/* Filter test */
 "Audio" = "音频";
 
-/* The names of the file size base types. */
+/* File size base type */
 "base-2" = "二进制";
 
-/* (No Comment) */
+/* File size base type */
 "base-10" = "十进制";
 
-/* (No Comment) */
+/* Color palette */
 "BlueSkyTulips" = "蓝天郁金香";
 
-/* (No Comment) */
+/* Color palette */
 "Bujumbura" = "布琼布拉";
 
-/* The names of the supported rescan behaviours. */
+/* Rescan preference behaviour */
 "close old window" = "关闭旧视窗";
 
-/* (No Comment) */
+/* Color palette */
 "CoffeeBeans" = "咖啡豆";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "creation" = "创建";
 
-/* (No Comment) */
+/* Color palette */
 "Daytona" = "代托纳海滩";
 
-/* (No Comment) */
+/* File deletion preference option */
 "delete files and folders" = "文件和文件夹";
 
-/* The names of the supported file-deletion targets. */
+/* File deletion preference option */
 "delete nothing" = "没有";
 
-/* (No Comment) */
+/* Preference option for what to do after last view is closed */
+"do nothing" = "不做任何事";
+
+/* Color mapping scheme */
 "extension" = "扩充";
 
-/* (No Comment) */
+/* Color palette */
 "FengShui" = "风水";
 
-/* (No Comment) */
+/* Color palette */
 "FlyingGeese" = "洋红魔法";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "folder" = "文件夹";
 
-/* The names of the "special" files in the viewer. */
+/* Name of "special" file in the viewer */
 "free" = "可用空间";
 
-/* (No Comment) */
+/* Name of "special" file in the viewer */
 "freed" = "释放空间";
 
-/* (No Comment) */
+/* Color palette */
 "GreenEggs" = "绿色的鸡蛋";
 
-/* (No Comment) */
+/* Filter test */
 "Hard-linked items" = "硬链接的项目";
 
-/* (No Comment) */
+/* Color palette */
 "Heatmap-12" = "热图12";
 
-/* (No Comment) */
+/* Color palette */
 "Heatmap-23" = "热图23";
 
-/* (No Comment) */
+/* Filter test */
 "Huge files" = "巨大的文件";
 
-/* (No Comment) */
+/* Filter test */
 "Images" = "图片";
 
-/* (No Comment) */
+/* Rescan preference behaviour */
 "keep old window" = "保留旧窗口";
 
-/* (No Comment) */
+/* Color palette */
 "LagoonNebula" = "泻湖星云";
 
-/* (No Comment) */
+/* Filter test */
 "Large files" = "大文件";
 
-/* The names of the various color mapping schemes. */
+/* Color mapping scheme */
 "level" = "阶段";
 
-/* The names of the file size types. */
+/* File size type */
 "logical" = "逻辑";
 
-/* (No Comment) */
+/* Filter test */
 "Medium files" = "中档文件";
 
-/* (No Comment) */
+/* Name of "special" file in the viewer */
 "misc used" = "杂项使用空间";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "modification" = "最后更改";
 
-/* (No Comment) */
+/* Color palette */
 "Monaco" = "摩纳哥";
 
-/* (No Comment) */
+/* Color palette */
 "MossAndLichen" = "苔藓与青苔";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "name" = "名字";
 
-/* The names of the various filters. */
+/* Filter name */
 "No hard-links" = "没有硬链接";
 
-/* (No Comment) */
+/* Filter name */
 "No version control" = "无版本控制";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "nothing" = "没有";
 
-/* The names of the various color palettes. */
+/* Color palette */
 "OliveSunset" = "橄榄日落";
 
-/* (No Comment) */
+/* File deletion preference option */
 "only delete files" = "文件";
 
-/* (No Comment) */
+/* Color palette */
 "OrigamiMice" = "折纸老鼠";
 
-/* (No Comment) */
+/* Filter test */
 "Packages" = "组件";
 
-/* (No Comment) */
+/* File size type */
 "physical" = "物质";
 
-/* (No Comment) */
+/* Preference option for what to do after last view is closed */
+"quit" = "终止应用程式";
+
+/* Color palette */
 "Rainbow" = "彩虹";
 
-/* The names of the supported rescan actions. */
+/* Rescan preference option */
 "rescan all" = "全部重新扫描";
 
-/* (No Comment) */
+/* Rescan preference option */
 "rescan visible" = "重新扫描视图里的文件夹";
 
-/* (No Comment) */
+/* Preference option for what to do after last view is closed */
+"show welcome" = "显示欢迎视窗";
+
+/* Filter test */
 "Small files" = "小文件";
 
-/* The names of the various filter tests. */
+/* File size type */
+"tally" = "相符";
+
+/* Filter test */
 "Tiny files" = "微小文件";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "top folder" = "顶部文件夹";
 
-/* (No Comment) */
+/* Color mapping scheme */
 "uniform type" = "文件类型";
 
-/* (No Comment) */
+/* Filter test */
 "Version control" = "版本控制";
 

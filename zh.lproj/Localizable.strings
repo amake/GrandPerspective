@@ -34,7 +34,7 @@
 /* Message in progress panel while scanning */
 "%d folders scanned" = "%d 文件夹被扫描";
 
-/* Exact file size (in bytes). */
+/* Exact file size (in bytes) */
 "%qu bytes" = "%qu bytes";
 
 /* Alert message */
@@ -49,6 +49,9 @@
 /* Alert message (with filename arg) */
 "Aborted saving the scan data to \"%@\"" = "终止保存扫描信息至\"%@\"";
 
+/* Header in exported text file */
+"Accessed" = "访问";
+
 /* Label in Focus panel */
 "Area in view:" = "视图里的区域:";
 
@@ -60,6 +63,9 @@
 
 /* Alert panel button */
 "Cancel" = "取消";
+
+/* Header in exported text file */
+"Created" = "创建";
 
 /* Alert panel button */
 "Delete" = "删除";
@@ -112,6 +118,15 @@
 /* Parse error */
 "Expected unsigned integer value." = "预期无符号整数值";
 
+/* Title of save panel */
+"Export image" = "输出图像";
+
+/* Title of save panel */
+"Export scan data as text" = "输出扫描数据为文本";
+
+/* Alert message */
+"Failed to bind one or more filter tests:\n%@" = "绑定至少一个过滤测试失败";
+
 /* Alert message */
 "Failed to delete the file \"%@\"" = "删除文件\"%@\"失败";
 
@@ -148,6 +163,9 @@
 /* Alert message (with filename arg) */
 "Failed to save the scan data to \"%@\"" = "保存扫描信息至\"%@\"失败";
 
+/* Alert message */
+"Failed to update one or more filters:\n%@" = "更新至少一个过滤器失败";
+
 /* Error message */
 "Failed to write entire buffer." = "写至整个缓冲失败。";
 
@@ -156,6 +174,9 @@
 
 /* Label in Focus panel */
 "File in view:" = "视图里的文件:";
+
+/* Header in exported text file */
+"Filename" = "文档名称";
 
 /* Window title */
 "Filter - %@" = "过滤-%@";
@@ -171,6 +192,9 @@
 
 /* Label in Focus panel */
 "Folder in view:" = "视图里的文件夹:";
+
+/* Alert message */
+"For %d files the reported (logical) size is larger than their actual (physical) size. Consider rescanning using the Physical file size measure" = "%d文档报告里（逻辑）大小大于它们的实质大小。请考虑重新用实质大小测量来扫描";
 
 /* File size unit for gigabytes. */
 "GB" = "GB";
@@ -192,6 +216,9 @@
 
 /* File size unit for megabytes. */
 "MB" = "MB";
+
+/* Header in exported text file */
+"Modified" = "改动";
 
 /* Legend for Time-based mapping schemes. */
 "More recent" = "比较最近";
@@ -228,6 +255,9 @@
 
 /* Parse error */
 "Parsing aborted" = "解析终止";
+
+/* Header in exported text file */
+"Path" = "路径";
 
 /* Alert message */
 "Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "有可能的原因是它已不存在(它可能已被迁移，重新命名，或用其它方式被删除)或你缺必要的权限.";
@@ -268,6 +298,12 @@
 /* Title of progress panel. */
 "Scanning in progress" = "扫描进行中";
 
+/* Solitairy entry in Start window */
+"Select Folder" = "选择文件夹";
+
+/* Entry in Start window, alongside other options */
+"Select Other Folder" = "选择其它文件夹";
+
 /* Label in Focus panel */
 "Selected area:" = "选择区域:";
 
@@ -280,11 +316,17 @@
 /* Label in Focus panel */
 "Selected package:" = "选择组件:";
 
+/* Header in exported text file */
+"Size" = "大小";
+
 /* Alert message (with filename arg) */
 "Successfully saved the scan data to \"%@\"" = "成功保存扫描数据至\"%@\"";
 
 /* File size unit for terabytes. */
 "TB" = "TB";
+
+/* Alert message */
+"The actual (physical) size is %.1f%% of the reported (logical) size. Consider rescanning using the Physical file size measure" = "实质大小是报告（逻辑）大小的%.1f%%.请考虑重新用实质文档大小衡量扫描";
 
 /* Alert message */
 "The filter must have a name." = "过滤一定要有名字";
@@ -294,6 +336,12 @@
 
 /* Alert informative text */
 "The filter will be replaced by the default filter with this name." = "过滤将会被此名字的预设过滤代替.";
+
+/* Alert message */
+"The reported size of some files is larger than their actual size on disk" = "有些文档的报告大小大于它们的实质大小";
+
+/* Alert message */
+"The reported total size is larger than the actual size on disk" = "报告大小大于实质大小";
 
 /* Alert informative text */
 "The resulting file is valid but incomplete." = "生成的文件有效但不完整。";
@@ -321,6 +369,9 @@
 
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "这些过滤不再存在。 旧的定义将会被使用。";
+
+/* Header in exported text file */
+"Type" = "种类";
 
 /* Description for 'unknown' UTI. */
 "unknown file type" = "未知文件类型";
