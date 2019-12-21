@@ -41,6 +41,9 @@
 "Rescan all" = "Re-Examinar tudo";
 
 /* Toolbar action */
+"Rescan folder in view" = "Re-Examinar pastas na visualização";
+
+/* Toolbar action */
 "Rescan selected" = "Re-Examinar selecionado";
 
 /* Tooltip */

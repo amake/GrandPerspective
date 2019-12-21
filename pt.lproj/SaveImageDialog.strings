@@ -1,5 +1,5 @@
-/* Class = "NSWindow"; title = "Image configuration"; ObjectID = "6"; */
-"6.title" = "Configuração da imagem";
+/* Class = "NSWindow"; title = "Export As Image"; ObjectID = "6"; */
+"6.title" = "Exportar como Imagem";
 
 /* Class = "NSBox"; title = "Image size"; ObjectID = "25"; */
 "25.title" = "Tamanho da imagem";

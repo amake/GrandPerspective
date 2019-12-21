@@ -13,6 +13,9 @@
 /* Class = "NSMenuItem"; title = "Files and folders"; ObjectID = "78"; */
 "78.title" = "Arquivos e pastas";
 
+/* Class = "NSMenuItem"; title = "Close old window"; ObjectID = "153"; */
+"153.title" = "Fecha a janela anterior";
+
 /* Class = "NSTextFieldCell"; title = "Palette:"; ObjectID = "167"; */
 "167.title" = "Paleta:";
 

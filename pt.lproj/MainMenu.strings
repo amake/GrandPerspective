@@ -64,8 +64,8 @@
 /* Class = "NSMenuItem"; title = "Twin"; ObjectID = "321"; */
 "321.title" = "Idênticos";
 
-/* Class = "NSMenuItem"; title = "Save Image of View..."; ObjectID = "324"; */
-"324.title" = "Save Image da Visão...";
+/* Class = "NSMenuItem"; title = "Export As Image..."; ObjectID = "324"; */
+"324.title" = "Exportar como Imagem...";
 
 /* Class = "NSMenuItem"; title = "Rescan"; ObjectID = "326"; */
 "326.title" = "Reexaminar";
@@ -129,6 +129,9 @@
 
 /* Class = "NSMenu"; title = "Services"; ObjectID = "426"; */
 "426.title" = "Serviços";
+
+/* Class = "NSMenuItem"; title = "Export As Text..."; ObjectID = "hJw-Fc-daG"; */
+"hJw-Fc-daG.title" = "Exportar como Texto...";
 
 /* Class = "NSMenuItem"; title = "Scan Recent"; ObjectID = "hUr-J9-FbH"; */
 "hUr-J9-FbH.title" = "Exame Recente";

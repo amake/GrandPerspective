@@ -52,6 +52,9 @@
 /* Alert message (with filename arg) */
 "Aborted saving the scan data to \"%@\"" = "Abortado o salvamento dos dados do exame em \"%@\" ";
 
+/* Header in exported text file */
+"Accessed" = "Acessado";
+
 /* Label in Focus panel */
 "Area in view:" = "Area visualizada:";
 
@@ -63,6 +66,9 @@
 
 /* Alert panel button */
 "Cancel" = "Cancelar";
+
+/* Header in exported text file */
+"Created" = "Criado";
 
 /* Alert panel button */
 "Delete" = "Apagar";
@@ -115,6 +121,15 @@
 /* Parse error */
 "Expected unsigned integer value." = "Esperado valor inteiro sem sinal.";
 
+/* Title of save panel */
+"Export image" = "Exportar imagem";
+
+/* Title of save panel */
+"Export scan data as text" = "Exportar varredura de dados como texto";
+
+/* Alert message */
+"Failed to bind one or more filter tests:\n%@" = "Falha em associar um ou mais dos filtros de teste:\n%@";
+
 /* Alert message */
 "Failed to delete the file \"%@\"" = "Falha em apagar o arquivo \"%@\" ";
 
@@ -151,6 +166,9 @@
 /* Alert message (with filename arg) */
 "Failed to save the scan data to \"%@\"" = "Falhou em salvar os dados do exame para \"%@\" ";
 
+/* Alert message */
+"Failed to update one or more filters:\n%@" = "Falha em atualizar um ou mais filtros:\n%@";
+
 /* Error message */
 "Failed to write entire buffer." = "Falha escrevendo todo o buffer.";
 
@@ -159,6 +177,9 @@
 
 /* Label in Focus panel */
 "File in view:" = "Mostrando arquivo";
+
+/* Header in exported text file */
+"Filename" = "Nome do arquivo";
 
 /* Window title */
 "Filter - %@" = "Filtro - %@";
@@ -199,6 +220,9 @@
 /* File size unit for megabytes. */
 "MB" = "MB";
 
+/* Header in exported text file */
+"Modified" = "Modificado";
+
 /* Legend for Time-based mapping schemes. */
 "More recent" = "Mais recente";
 
@@ -234,6 +258,9 @@
 
 /* Parse error */
 "Parsing aborted" = "Análise interrompida";
+
+/* Header in exported text file */
+"Path" = "Caminho";
 
 /* Alert message */
 "Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "Possíveis razões são que ele não existe mais (ele pode ter sido movido, renomeado ou apagado por outros meios) ou pode ser que você não tenha as permissões necessárias.";
@@ -292,6 +319,9 @@
 /* Label in Focus panel */
 "Selected package:" = "Pacote selecionado:";
 
+/* Header in exported text file */
+"Size" = "Tamanho";
+
 /* Alert message (with filename arg) */
 "Successfully saved the scan data to \"%@\"" = "Dados do exame salvos com sucesso para\"%@\" ";
 
@@ -342,6 +372,9 @@
 
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "Esses filtros não existem mais. Será usada a antiga definição.";
+
+/* Header in exported text file */
+"Type" = "Tipo";
 
 /* Description for 'unknown' UTI. */
 "unknown file type" = "tipo de arquivo desconhecido";
