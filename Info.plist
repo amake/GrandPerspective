@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSDesktopFolderUsageDescription</key>
+	<string>The app checks how much disk space your Desktop uses</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>The app checks how much disk space your Downloads use</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>The app checks how much disk space your Documents use</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>The app checks how much disk space your Reminders use</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.9.0</string>
 	<key>CFBundleDevelopmentRegion</key>
