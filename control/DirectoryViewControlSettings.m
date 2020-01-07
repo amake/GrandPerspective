@@ -1,5 +1,6 @@
 #import "DirectoryViewControlSettings.h"
 
+#import "DirectoryViewDisplaySettings.h"
 #import "PreferencesPanelControl.h"
 
 @implementation DirectoryViewControlSettings
@@ -8,30 +9,15 @@
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
 
   return 
-    [self initWithColorMappingKey: [userDefaults stringForKey: DefaultColorMappingKey]
-                  colorPaletteKey: [userDefaults stringForKey: DefaultColorPaletteKey]
-                         maskName: [userDefaults stringForKey: DefaultFilterName]
-                      maskEnabled: NO
-                 showEntireVolume: [[userDefaults objectForKey: ShowEntireVolumeByDefaultKey] boolValue]
-              showPackageContents: [[userDefaults objectForKey: ShowPackageContentsByDefaultKey] boolValue]
+    [self initWithDisplaySettings: [DirectoryViewDisplaySettings defaultSettings]
                  unzoomedViewSize: NSMakeSize([userDefaults floatForKey: DefaultViewWindowWidth],
                                               [userDefaults floatForKey: DefaultViewWindowHeight])];
 }
 
-- (instancetype) initWithColorMappingKey:(NSString *)colorMappingKey
-                         colorPaletteKey:(NSString *)colorPaletteKey
-                                maskName:(NSString *)maskName
-                             maskEnabled:(BOOL)maskEnabled
-                        showEntireVolume:(BOOL)showEntireVolume
-                     showPackageContents:(BOOL)showPackageContents
+- (instancetype) initWithDisplaySettings:(DirectoryViewDisplaySettings *)displaySettings
                         unzoomedViewSize:(NSSize)unzoomedViewSize {
   if (self = [super init]) {
-    _colorMappingKey = [colorMappingKey retain];
-    _colorPaletteKey = [colorPaletteKey retain];
-    _maskName = [maskName retain];
-    _fileItemMaskEnabled = maskEnabled;
-    _showEntireVolume = showEntireVolume;
-    _showPackageContents = showPackageContents;
+    _displaySettings = displaySettings;
     _unzoomedViewSize = unzoomedViewSize;
   }
   
@@ -39,9 +25,7 @@
 }
 
 - (void) dealloc {
-  [_colorMappingKey release];
-  [_colorPaletteKey release];
-  [_maskName release];
+  [_displaySettings release];
 
   [super dealloc];
 }

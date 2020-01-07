@@ -187,11 +187,11 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
     [drawTaskExecutor setTreeDrawerSettings: settings];
     
-    if ([settings colorPalette] != [oldSettings colorPalette]) {
+    if (settings.colorPalette != oldSettings.colorPalette) {
       [self postColorPaletteChanged]; 
     }
     
-    if ([settings colorMapper] != [oldSettings colorMapper]) {
+    if (settings.colorMapper != oldSettings.colorMapper) {
       [self postColorMappingChanged]; 
 
       // Observe the color mapping (for possible changes to its hashing
@@ -199,10 +199,10 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
       [self observeColorMapping];
     }
     
-    if ([settings showPackageContents] != [oldSettings showPackageContents]) {
-      [pathModelView setShowPackageContents: [settings showPackageContents]];
+    if (settings.showPackageContents != oldSettings.showPackageContents) {
+      pathModelView.showPackageContents = settings.showPackageContents;
     }
-    
+
     [oldSettings release];
 
     [self forceRedraw];

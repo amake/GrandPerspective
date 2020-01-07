@@ -7,6 +7,7 @@
 #import "LocalizableStrings.h"
 #import "DirectoryViewControl.h"
 #import "DirectoryViewControlSettings.h"
+#import "DirectoryViewDisplaySettings.h"
 #import "SaveImageDialogControl.h"
 #import "PreferencesPanelControl.h"
 #import "FiltersWindowControl.h"
@@ -144,10 +145,10 @@ NSString  *AfterClosingLastViewDoNothing = @"do nothing";
 
 - (void) duplicateCurrentWindowSharingPath:(BOOL)sharePathModel;
 
-/* Prompts the user to select a filter. The initialFilter, when set, specifies the initial/default
- * selection.
+/* Prompts the user to select a filter. The initialSelection, when set, specifies the name of the
+ * filter to initially select.
  */
-- (NamedFilter *)getSelectedNamedFilter:(NamedFilter *)initialFilter;
+- (NamedFilter *)selectFilter:(NSString *)initialSelection;
 
 + (NSString *)getPathFromPasteboard:(NSPasteboard *)pboard;
 
@@ -549,7 +550,7 @@ static MainMenuControl  *singletonInstance = nil;
   DirectoryViewControl  *oldControl = 
     [NSApplication sharedApplication].mainWindow.windowController;
 
-  NamedFilter  *namedFilter = [self getSelectedNamedFilter: [oldControl namedMask]];
+  NamedFilter  *namedFilter = [self selectFilter: oldControl.nameOfActiveMask];
   if (namedFilter == nil) {
     // User cancelled selection, so abort
     return;
@@ -563,11 +564,12 @@ static MainMenuControl  *singletonInstance = nil;
 
   ItemPathModel  *pathModel = [[oldControl pathModelView] pathModel];
   DirectoryViewControlSettings  *settings = [oldControl directoryViewControlSettings];
-  if ([[namedFilter name] isEqualToString: [settings maskName]]) {
+  DirectoryViewDisplaySettings  *displaySettings = settings.displaySettings;
+  if ([namedFilter.name isEqualToString: displaySettings.maskName]) {
     // Don't retain the mask if the filter has the same name. It is likely that the filter is the
     // same as the mask, or if not, is at least a modified version of it. It therefore does not make
     // sense to retain the mask. This is only confusing.
-    [settings setMaskName: nil];
+    displaySettings.maskName = nil;
   }
 
   DerivedDirViewWindowCreator  *windowCreator =
@@ -575,10 +577,10 @@ static MainMenuControl  *singletonInstance = nil;
                                                      targetPath: pathModel
                                                        settings: settings] autorelease];
 
-  FilterTaskInput  *input = 
-    [[[FilterTaskInput alloc] initWithTreeContext: [oldControl treeContext]
-                                        filterSet: filterSet
-                                  packagesAsFiles: ! [settings showPackageContents]] autorelease];
+  FilterTaskInput  *input = [FilterTaskInput alloc];
+  [[input initWithTreeContext: [oldControl treeContext]
+                    filterSet: filterSet
+              packagesAsFiles: !displaySettings.showPackageContents] autorelease];
 
   [filterTaskManager asynchronouslyRunTaskWithInput: input
                                            callback: windowCreator
@@ -780,7 +782,7 @@ static MainMenuControl  *singletonInstance = nil;
   }
   NamedFilter  *namedFilter = nil;
   if (useFilter) {
-    namedFilter = [self getSelectedNamedFilter: nil];
+    namedFilter = [self selectFilter: nil];
 
     if (namedFilter == nil) {
       // User cancelled filter selection. Abort scanning.
@@ -919,9 +921,9 @@ static MainMenuControl  *singletonInstance = nil;
   }
 
   DirectoryViewControl  *newControl = [DirectoryViewControl alloc];
-  [ newControl initWithAnnotatedTreeContext: [oldControl annotatedTreeContext]
-                                  pathModel: pathModel
-                                   settings: [oldControl directoryViewControlSettings]];
+  [newControl initWithAnnotatedTreeContext: oldControl.annotatedTreeContext
+                                 pathModel: pathModel
+                                  settings: oldControl.directoryViewControlSettings];
   // Note: The control should auto-release itself when its window closes
     
   // Force loading (and showing) of the window.
@@ -929,13 +931,13 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 
-- (NamedFilter *)getSelectedNamedFilter:(NamedFilter *)initialFilter {
+- (NamedFilter *)selectFilter:(NSString *)initialSelection {
   if (filterSelectionPanelControl == nil) {
     filterSelectionPanelControl = [[FilterSelectionPanelControl alloc] init];
   }
 
-  if (initialFilter != nil) {
-    [filterSelectionPanelControl selectFilterNamed: [initialFilter name]];
+  if (initialSelection != nil) {
+    [filterSelectionPanelControl selectFilterNamed: initialSelection];
   }
   
   NSWindow  *selectFilterWindow = filterSelectionPanelControl.window;

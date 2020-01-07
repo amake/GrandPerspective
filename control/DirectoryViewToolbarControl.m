@@ -14,7 +14,7 @@ NSString  *ToolbarPreviewItem = @"PreviewItem";
 NSString  *ToolbarRevealItem = @"RevealItem";
 NSString  *ToolbarDeleteItem = @"DeleteItem";
 NSString  *ToolbarRescan = @"Rescan";
-NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
+NSString  *ToolbarShowInfo = @"ShowInfo";
 
 
 // Tags for each of the segments in the Zoom and Focus controls, so that the 
@@ -41,7 +41,7 @@ NSString  *ToolbarToggleDrawer = @"ToggleDrawer";
 @property (nonatomic, readonly, copy) NSToolbarItem *revealItemToolbarItem;
 @property (nonatomic, readonly, copy) NSToolbarItem *deleteItemToolbarItem;
 @property (nonatomic, readonly, copy) NSToolbarItem *rescanToolbarItem;
-@property (nonatomic, readonly, copy) NSToolbarItem *toggleDrawerToolbarItem;
+@property (nonatomic, readonly, copy) NSToolbarItem *showInfoToolbarItem;
 
 - (id) validateZoomControls:(NSToolbarItem *)toolbarItem;
 - (id) validateFocusControls:(NSToolbarItem *)toolbarItem;
@@ -218,8 +218,8 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
               usingSelector: @selector(deleteItemToolbarItem)];
     [self createToolbarItem: ToolbarRescan 
               usingSelector: @selector(rescanToolbarItem)];
-    [self createToolbarItem: ToolbarToggleDrawer
-              usingSelector: @selector(toggleDrawerToolbarItem)];
+    [self createToolbarItem: ToolbarShowInfo
+              usingSelector: @selector(showInfoToolbarItem)];
   }
   
   SelectorObject  *selObj = createToolbarItemLookup[itemIdentifier];
@@ -240,7 +240,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
              NSToolbarSpaceItemIdentifier,
              ToolbarRescan,
              NSToolbarFlexibleSpaceItemIdentifier,
-             ToolbarToggleDrawer];
+             ToolbarShowInfo];
 }
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
@@ -248,7 +248,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
              ToolbarOpenItem, ToolbarPreviewItem,
              ToolbarRevealItem, ToolbarDeleteItem,
              ToolbarRescan,
-             ToolbarToggleDrawer,
+             ToolbarShowInfo,
              NSToolbarSeparatorItemIdentifier,
              NSToolbarSpaceItemIdentifier,
              NSToolbarFlexibleSpaceItemIdentifier];
@@ -463,15 +463,15 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   return item;
 }
 
-- (NSToolbarItem *)toggleDrawerToolbarItem {
+- (NSToolbarItem *)showInfoToolbarItem {
   NSToolbarItem  *item = 
-    [[[NSToolbarItem alloc] initWithItemIdentifier: ToolbarToggleDrawer] autorelease];
+    [[[NSToolbarItem alloc] initWithItemIdentifier: ToolbarShowInfo] autorelease];
 
-  [item setLabel: NSLocalizedStringFromTable(@"Drawer", @"Toolbar", @"Toolbar action")];
+  [item setLabel: NSLocalizedStringFromTable(@"Info", @"Toolbar", @"Toolbar action")];
   item.paletteLabel = item.label;
-  [item setToolTip: NSLocalizedStringFromTable(@"Open/close drawer", @"Toolbar", "Tooltip")];
-  item.image = [NSImage imageNamed: @"ToggleDrawer"];
-  item.action = @selector(toggleDrawer:);
+  [item setToolTip: NSLocalizedStringFromTable(@"Show info", @"Toolbar", "Tooltip")];
+  item.image = [NSImage imageNamed: @"ToggleDrawer"]; // TODO: Update image
+  item.action = @selector(showInfo:);
   item.target = dirViewControl;
 
   return item;

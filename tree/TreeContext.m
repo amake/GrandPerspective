@@ -8,6 +8,7 @@
 
 #import "FilterSet.h"
 
+extern NSString  *TallyFileSizeName;
 
 NSString  *FreeSpace = @"free";
 NSString  *UsedSpace = @"used";
@@ -224,6 +225,22 @@ typedef NS_ENUM(NSInteger, LockConditionEnum) {
   return [format stringFromDate: self.scanTime];
 }
 
+- (BOOL)usesTallyFileSize {
+  return [self.fileSizeMeasure isEqualToString: TallyFileSizeName];
+}
+
+- (NSString *)stringForFileItemSize:(ITEM_SIZE)size {
+  if ([self usesTallyFileSize]) {
+    if (size == 1) {
+      return @"";
+    }
+
+    NSString  *format = NSLocalizedString(@"%qu files", @"Tally folder size (in number of files)");
+    return [NSString stringWithFormat: format, size];
+  } else {
+    return [FileItem stringForFileItemSize: size];
+  }
+}
 
 - (void) deleteSelectedFileItem:(ItemPathModelView *)pathModelView {
   NSAssert(replacedItem == nil, @"Replaced item not nil.");

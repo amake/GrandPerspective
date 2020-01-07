@@ -7,28 +7,17 @@
 #import "DirectoryView.h"
 #import "ItemPathModel.h"
 #import "ItemPathModelView.h"
-#import "FileItemMappingScheme.h"
-#import "FileItemMappingCollection.h"
-#import "ColorListCollection.h"
-#import "DirectoryViewControlSettings.h"
-#import "NamedFilter.h"
-#import "Filter.h"
-#import "FilterSet.h"
-#import "FilterRepository.h"
-#import "FilterTestRepository.h"
-#import "FilterPopUpControl.h"
 #import "TreeContext.h"
 #import "AnnotatedTreeContext.h"
 
-#import "ColorLegendTableViewControl.h"
+#import "DirectoryViewControlSettings.h"
+#import "DirectoryViewDisplaySettings.h"
+#import "ControlPanelControl.h"
 #import "PreferencesPanelControl.h"
 #import "MainMenuControl.h"
 
 #import "TreeDrawerSettings.h"
 #import "ControlConstants.h"
-#import "UniformType.h"
-
-#import "UniqueTagsTransformer.h"
 
 
 NSString  *DeleteNothing = @"delete nothing";
@@ -38,8 +27,6 @@ NSString  *DeleteFilesAndFolders = @"delete files and folders";
 NSString  *ViewWillOpenEvent = @"viewWillOpen";
 NSString  *ViewWillCloseEvent = @"viewWillClose";
 
-
-extern NSString  *TallyFileSizeName;
 
 #define NOTE_IT_MAY_NOT_EXIST_ANYMORE \
   NSLocalizedString(\
@@ -70,94 +57,19 @@ extern NSString  *TallyFileSizeName;
                                    returnCode:(int)returnCode
                                   contextInfo:(void *)contextInfo;
 - (void) deleteSelectedFile;
-- (void) fileItemDeleted:(NSNotification *)notification;
 
 - (void) selectedItemChanged:(NSNotification *)notification;
 - (void) visibleTreeChanged:(NSNotification *)notification;
 - (void) visiblePathLockingChanged:(NSNotification *)notification;
 
-- (void) maskRemoved:(NSNotification *)notification;
-- (void) maskUpdated:(NSNotification *)notification;
+- (void) displaySettingsChanged:(NSNotification *)notification;
 
-- (NSString *)updateSelectionInStatusbar;
-- (void) updateSelectionInFocusPanel:(NSString *)itemSizeString;
+- (void) updateSelectionInStatusbar:(NSString *)itemSizeString;
 - (void) validateControls;
-
-- (void) updateMask;
 
 - (void) updateFileDeletionSupport;
 
 - (void) fileSizeUnitSystemChanged;
-- (void) updateInfoPanelValues;
-
-+ (NSString *)tallySizeStringForFileItem:(FileItem *)item;
-+ (NSString *)exactSizeStringForFileItem:(FileItem *)item;
-
-@end
-
-
-/* Manages a group of related controls in the Focus panel.
- */
-@interface ItemInFocusControls : NSObject {
-  NSTextView  *pathTextView;
-  NSTextField  *titleField;
-  NSTextField  *exactSizeField;
-  NSTextField  *sizeField;
-}
-
-@property (nonatomic) BOOL usesTallyFileSize;
-
-- (instancetype) initWithPathTextView:(NSTextView *)textView
-                           titleField:(NSTextField *)titleField
-                       exactSizeField:(NSTextField *)exactSizeField
-                            sizeField:(NSTextField *)sizeField NS_DESIGNATED_INITIALIZER;
-
-/* Clears the controls.
- */
-- (void) clear;
-
-/* Show the details of the given item.
- */
-- (void) showFileItem:(FileItem *)item;
-
-/* Show the details of the given item. The provided "pathString" and "sizeString" will be used (if
- * -showFileItem: is invoked instead, these will be constructed before invoking this method).
- * Invoking this method directly is useful in cases where these have been constructed already (to
- * avoid having to do so twice).
- */
-- (void) showFileItem:(FileItem *)item
-             itemPath:(NSString *)pathString
-           sizeString:(NSString *)sizeString;
-
-/* Abstract method. Override to return title for the given item.
- */
-- (NSString *)titleForFileItem:(FileItem *)item;
-
-@end
-
-
-/* Manages the "Item in view" controls in the Focus panel.
- */
-@interface FolderInViewFocusControls : ItemInFocusControls {
-}
-@end
-
-
-/* Manages the "Selected item" controls in the Focus panel.
- */
-@interface SelectedItemFocusControls : ItemInFocusControls {
-  NSTextField  *creationTimeField;
-  NSTextField  *modificationTimeField;
-  NSTextField  *accessTimeField;
-}
-
-- (instancetype) initWithPathTextView:(NSTextView *)textView
-                           titleField:(NSTextField *)titleField
-                       exactSizeField:(NSTextField *)exactSizeField
-                            sizeField:(NSTextField *)sizeField
-                    creationTimeField:(NSTextField *)creationTimeField
-                modificationTimeField:(NSTextField *)modificationTimeField
-                      accessTimeField:(NSTextField *)accessTimeField NS_DESIGNATED_INITIALIZER;
 
 @end
 
@@ -203,33 +115,18 @@ extern NSString  *TallyFileSizeName;
 - (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)annTreeContext
                                     pathModel:(ItemPathModel *)pathModel
                                      settings:(DirectoryViewControlSettings *)settings {
-  return [self initWithAnnotatedTreeContext: annTreeContext
-                                  pathModel: pathModel
-                                   settings: settings
-                           filterRepository: [FilterRepository defaultInstance]];
-}
-         
-- (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)annTreeContext
-                                    pathModel:(ItemPathModel *)pathModel
-                                     settings:(DirectoryViewControlSettings *)settings
-                             filterRepository:(FilterRepository *)filterRepositoryVal {
   if (self = [super initWithWindow: nil]) {
     treeContext = [[annTreeContext treeContext] retain];
     NSAssert([pathModel volumeTree] == [treeContext volumeTree], @"Tree mismatch");
-    initialComments = [[annTreeContext comments] retain];
-    usesTallyFileSize = [treeContext.fileSizeMeasure isEqualToString: TallyFileSizeName];
+    _comments = [annTreeContext comments];
     
     pathModelView = [[ItemPathModelView alloc] initWithPathModel: pathModel];
     initialSettings = [settings retain];
+    displaySettings = [initialSettings.displaySettings retain];
     
-    filterRepository = [filterRepositoryVal retain];
-
     scanPathName = [[[treeContext scanTree] path] retain];
     
     invisiblePathName = nil;
-       
-    colorMappings = [[FileItemMappingCollection defaultFileItemMappingCollection] retain];
-    colorPalettes = [[ColorListCollection defaultColorListCollection] retain];
   }
 
   return self;
@@ -244,19 +141,11 @@ extern NSString  *TallyFileSizeName;
   [userDefaults removeObserver: self forKeyPath: ConfirmFileDeletionKey];
   [userDefaults removeObserver: self forKeyPath: FileSizeUnitSystemKey];
   
-  [visibleFolderFocusControls release];
-  [selectedItemFocusControls release];
-  
   [treeContext release];
   [pathModelView release];
-  [initialSettings release];
-  [initialComments release];
+  [displaySettings release];
+  [_comments release];
   
-  [colorMappings release];
-  [colorPalettes release];
-  [colorLegendControl release];
-  [maskPopUpControl release];
-
   [scanPathName release];
   [invisiblePathName release];
   
@@ -268,25 +157,8 @@ extern NSString  *TallyFileSizeName;
   return @"DirectoryViewWindow";
 }
 
-
-- (Filter *)mask {
-  if (maskCheckBox.state==NSOnState) {
-    NSString  *maskName = [maskPopUpControl selectedFilterName];
-    return [filterRepository filtersByName][maskName];
-  }
-  else {
-    return nil;
-  }
-}
-
-- (NamedFilter *)namedMask {
-  Filter  *mask = [self mask];
-  if (mask == nil) {
-    return nil;
-  }
-  else {
-    return [NamedFilter namedFilter: mask name: [maskPopUpControl selectedFilterName]];
-  }
+- (NSString *)nameOfActiveMask {
+  return displaySettings.fileItemMaskEnabled ? displaySettings.maskName : nil;
 }
 
 - (ItemPathModelView *)pathModelView {
@@ -298,18 +170,9 @@ extern NSString  *TallyFileSizeName;
 }
 
 - (DirectoryViewControlSettings *)directoryViewControlSettings {
-  UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
-  NSString  *colorMappingKey = [tagMaker nameForTag: colorMappingPopUp.selectedItem.tag];
-  NSString  *colorPaletteKey = [tagMaker nameForTag: colorPalettePopUp.selectedItem.tag];
-  NSString  *maskName = [tagMaker nameForTag: maskPopUp.selectedItem.tag];
-
   DirectoryViewControlSettings  *dvcs = [DirectoryViewControlSettings alloc];
-  return [[dvcs initWithColorMappingKey: colorMappingKey
-                        colorPaletteKey: colorPaletteKey
-                               maskName: maskName
-                            maskEnabled: maskCheckBox.state==NSOnState
-                       showEntireVolume: showEntireVolumeCheckBox.state==NSOnState
-                    showPackageContents: showPackageContentsCheckBox.state==NSOnState
+
+  return [[dvcs initWithDisplaySettings: [displaySettings copy]
                        unzoomedViewSize: unzoomedViewSize] autorelease];
 }
 
@@ -318,8 +181,7 @@ extern NSString  *TallyFileSizeName;
 }
 
 - (AnnotatedTreeContext *)annotatedTreeContext {
-  return
-    [AnnotatedTreeContext annotatedTreeContext: treeContext comments: commentsTextView.string];
+  return [AnnotatedTreeContext annotatedTreeContext: treeContext comments: self.comments];
 }
 
 - (void) windowDidLoad {
@@ -329,86 +191,6 @@ extern NSString  *TallyFileSizeName;
 
   NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
   
-  //----------------------------------------------------------------
-  // Configure the "Display" panel
-  
-  UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
-  
-  [colorMappingPopUp removeAllItems]; 
-  [tagMaker addLocalisedNames: [colorMappings allKeys]
-                      toPopUp: colorMappingPopUp
-                       select: [initialSettings colorMappingKey]
-                        table: @"Names"];
-  [self colorMappingChanged: nil];
-  
-  [colorPalettePopUp removeAllItems];
-  [tagMaker addLocalisedNames: [colorPalettes allKeys]
-                      toPopUp: colorPalettePopUp
-                       select: [initialSettings colorPaletteKey]
-                        table: @"Names"];
-  [self colorPaletteChanged: nil];
-  
-  maskPopUpControl = 
-    [[FilterPopUpControl alloc] initWithPopUpButton: maskPopUp filterRepository: filterRepository];
-  [maskPopUpControl selectFilterNamed: [initialSettings maskName]];
-  NSNotificationCenter  *nc = [maskPopUpControl notificationCenter];
-  [nc addObserver: self 
-         selector: @selector(maskRemoved:) 
-             name: SelectedFilterRemoved 
-           object: maskPopUpControl];
-  [nc addObserver: self 
-         selector: @selector(maskUpdated:) 
-             name: SelectedFilterUpdated
-           object: maskPopUpControl];  
-  maskCheckBox.state = ( [initialSettings fileItemMaskEnabled] ? NSOnState : NSOffState ) ;
-  [self updateMask];
-  
-  // NSTableView apparently does not retain its data source, so keeping a reference here so that it
-  // can be released.
-  colorLegendControl = 
-    [[ColorLegendTableViewControl alloc] initWithDirectoryView: mainView 
-                                                     tableView: colorLegendTable];
-
-  if (usesTallyFileSize) {
-    // Never show the entire volume when using the tally file size measure. It does not make sense.
-    showEntireVolumeCheckBox.state = NSOffState;
-    showEntireVolumeCheckBox.enabled = NO;
-  } else {
-    showEntireVolumeCheckBox.state = [initialSettings showEntireVolume] ? NSOnState : NSOffState;
-  }
-  showPackageContentsCheckBox.state = [initialSettings showPackageContents] ? NSOnState : NSOffState;
-  
-  //---------------------------------------------------------------- 
-  // Configure the "Info" panel
-  
-  [scanPathTextView setDrawsBackground: NO];
-  [scanPathTextView.enclosingScrollView setDrawsBackground: NO];
-  commentsTextView.string = initialComments;
-
-  [self updateInfoPanelValues];
-
-  //---------------------------------------------------------------- 
-  // Configure the "Focus" panel
-  
-  visibleFolderFocusControls = 
-    [[FolderInViewFocusControls alloc]
-        initWithPathTextView: visibleFolderPathTextView 
-                  titleField: visibleFolderTitleField
-              exactSizeField: visibleFolderExactSizeField
-                   sizeField: visibleFolderSizeField];
-  visibleFolderFocusControls.usesTallyFileSize = usesTallyFileSize;
-
-  selectedItemFocusControls = 
-    [[SelectedItemFocusControls alloc]
-        initWithPathTextView: selectedItemPathTextView 
-                  titleField: selectedItemTitleField
-              exactSizeField: selectedItemExactSizeField
-                   sizeField: selectedItemSizeField
-           creationTimeField: selectedItemCreationTimeField
-       modificationTimeField: selectedItemModificationTimeField
-             accessTimeField: selectedItemAccessTimeField];
-  selectedItemFocusControls.usesTallyFileSize = usesTallyFileSize;
-
   //---------------------------------------------------------------- 
   // Miscellaneous initialisation
   
@@ -419,16 +201,13 @@ extern NSString  *TallyFileSizeName;
   NSAssert(invisiblePathName == nil, @"invisiblePathName unexpectedly set.");
   invisiblePathName = [[visibleTree path] retain];
 
-  [self showEntireVolumeCheckBoxChanged: nil];
-  [self showPackageContentsCheckBoxChanged: nil];
+  NSNotificationCenter  *nc = [NSNotificationCenter defaultCenter];
 
-  nc = [NSNotificationCenter defaultCenter];
-
-  [nc addObserver: self 
+  [nc addObserver: self
          selector: @selector(selectedItemChanged:)
-             name: SelectedItemChangedEvent 
+             name: SelectedItemChangedEvent
            object: pathModelView];
-  [nc addObserver: self 
+  [nc addObserver: self
          selector: @selector(visibleTreeChanged:)
              name: VisibleTreeChangedEvent
            object: pathModelView];
@@ -436,10 +215,6 @@ extern NSString  *TallyFileSizeName;
          selector: @selector(visiblePathLockingChanged:)
              name: VisiblePathLockingChangedEvent 
            object: [pathModelView pathModel]];
-  [nc addObserver: self 
-         selector: @selector(fileItemDeleted:)
-             name: FileItemDeletedEvent
-           object: treeContext];
 
   [userDefaults addObserver: self 
                  forKeyPath: FileDeletionTargetsKey
@@ -469,9 +244,6 @@ extern NSString  *TallyFileSizeName;
   
   [initialSettings release];
   initialSettings = nil;
-  
-  [initialComments release];
-  initialComments = nil;
 }
 
 
@@ -479,6 +251,8 @@ extern NSString  *TallyFileSizeName;
 - (void) windowDidBecomeMain:(NSNotification *)notification {
   [itemSizeField setTextColor: NSColor.labelColor];
   [itemPathField setTextColor: NSColor.labelColor];
+
+  // TODO: Update controlPanel
 }
 
 - (void) windowDidResignMain:(NSNotification *)notification {
@@ -711,59 +485,10 @@ extern NSString  *TallyFileSizeName;
 }
 
 
-- (IBAction) toggleDrawer:(id)sender {
-  [drawer toggle: sender];
-}
+- (IBAction) showInfo:(id)sender {
+  ControlPanelControl  *controlPanel = [ControlPanelControl singletonInstance];
 
-
-- (IBAction) colorMappingChanged:(id)sender {
-  UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
-
-  NSString  *name = [tagMaker nameForTag: colorMappingPopUp.selectedItem.tag];
-  NSObject <FileItemMappingScheme>  *mapping = [colorMappings fileItemMappingSchemeForKey: name];
-
-  if (mapping != nil) {
-    NSObject <FileItemMapping>  *mapper = [mapping fileItemMappingForTree: [treeContext scanTree]];
-  
-    [mainView setTreeDrawerSettings: [[mainView treeDrawerSettings] copyWithColorMapper: mapper]];
-  }
-}
-
-- (IBAction) colorPaletteChanged:(id)sender {
-  UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];
-  NSString  *name = [tagMaker nameForTag: colorPalettePopUp.selectedItem.tag];
-  NSColorList  *palette = [colorPalettes colorListForKey: name];
-
-  if (palette != nil) { 
-    [mainView setTreeDrawerSettings: [[mainView treeDrawerSettings] copyWithColorPalette: palette]];
-  }
-}
-
-- (IBAction) maskChanged:(id)sender {
-  // Automatically enable the mask
-  maskCheckBox.state = NSOnState;
-    
-  [self updateMask];
-}
-
-- (IBAction) maskCheckBoxChanged:(id)sender {
-  [self updateMask];
-}
-
-
-- (IBAction) showEntireVolumeCheckBoxChanged:(id)sender {
-  [mainView setShowEntireVolume: showEntireVolumeCheckBox.state==NSOnState];
-}
-
-- (IBAction) showPackageContentsCheckBoxChanged:(id)sender {
-  BOOL  showPackageContents = showPackageContentsCheckBox.state==NSOnState;
-  
-  [mainView setTreeDrawerSettings: 
-    [[mainView treeDrawerSettings] copyWithShowPackageContents: showPackageContents]];
-  [[mainView pathModelView] setShowPackageContents: showPackageContents];
-
-  // If the selected item is a package, its info will have changed.
-  [self selectedItemChanged: nil];
+  [controlPanel showInfoPanel];
 }
 
 
@@ -1000,11 +725,6 @@ extern NSString  *TallyFileSizeName;
                       contextInfo: nil];
 }
 
-- (void) fileItemDeleted:(NSNotification *)notification {
-  freedSpaceField.stringValue = [FileItem stringForFileItemSize: [treeContext freedSpace]];
-  numDeletedFilesField.stringValue = [NSString stringWithFormat: @"%qu", [treeContext freedFiles]];
-}
-
 
 - (void) visibleTreeChanged:(NSNotification *)notification {
   FileItem  *visibleTree = [pathModelView visibleTree];
@@ -1012,12 +732,10 @@ extern NSString  *TallyFileSizeName;
   [invisiblePathName release];
   invisiblePathName = [[visibleTree path] retain];
 
-  [visibleFolderFocusControls showFileItem: visibleTree];
-
   [self validateControls];
 
-  // Also update the status bar, as visible part is marked differently
-  [self updateSelectionInStatusbar];
+  // The status bar needs updating, as it shows the visible part
+  [self updateSelectionInStatusbar: nil];
 }
 
 - (void) visiblePathLockingChanged:(NSNotification *)notification {
@@ -1026,9 +744,8 @@ extern NSString  *TallyFileSizeName;
 
 
 - (void) selectedItemChanged:(NSNotification *)notification {
-  NSString  *itemSizeString = [self updateSelectionInStatusbar];
-  [self updateSelectionInFocusPanel: itemSizeString];
-  
+  [self updateSelectionInStatusbar: nil]; // TODO: Take from notification
+
   if ([[pathModelView pathModel] isVisiblePathLocked]) {
     // Only when the visible path is locked can a change of selected item
     // affect the state of the controls.
@@ -1037,34 +754,33 @@ extern NSString  *TallyFileSizeName;
 }
 
 
-- (void) maskRemoved:(NSNotification *)notification {
-  maskCheckBox.state = NSOffState;
-    
-  [self updateMask];
+- (void) displaySettingsChanged:(NSNotification *)notification {
+  // TODO: Check if the controlled window is the main window
+
+  ControlPanelControl  *controlPanel = [ControlPanelControl singletonInstance];
+
+  [displaySettings release];
+  displaySettings = [[controlPanel displaySettings] retain];
+
+  mainView.treeDrawerSettings = [controlPanel instantiateDisplaySettings: displaySettings
+                                                                 forTree: treeContext.scanTree];
+  [mainView setShowEntireVolume: displaySettings.showEntireVolume];
 }
 
-- (void) maskUpdated:(NSNotification *)notification {
-  [self updateMask];
-}
 
-
-- (NSString *)updateSelectionInStatusbar {
+- (void) updateSelectionInStatusbar:(NSString *)itemSizeString {
   FileItem  *selectedItem = [pathModelView selectedFileItem];
 
   if ( selectedItem == nil ) {
     itemSizeField.stringValue = @"";
     itemPathField.stringValue = @"";
   
-    return nil;
+    return;
   }
-  
-  NSString  *itemSizeString;
-  if (usesTallyFileSize) {
-    itemSizeString = [DirectoryViewControl tallySizeStringForFileItem: selectedItem];
-  } else {
-    itemSizeString = [FileItem stringForFileItemSize: selectedItem.itemSize];
+
+  if (itemSizeString == nil) {
+    itemSizeString = [treeContext stringForFileItemSize: selectedItem.itemSize];
   }
-  itemSizeField.stringValue = itemSizeString;
 
   NSString  *itemPath;
   NSString  *relativeItemPath;
@@ -1109,47 +825,6 @@ extern NSString  *TallyFileSizeName;
   }
 
   itemPathField.stringValue = relativeItemPath;
-  
-  return itemSizeString;
-}
-
-
-// Note: For efficiency taking already constructed itemSizeString from elsewhere, as opposed to
-// constructing it again.
-- (void) updateSelectionInFocusPanel:(NSString *)itemSizeString {
-  FileItem  *selectedItem = [pathModelView selectedFileItem];
-
-  if ( selectedItem != nil ) {
-    NSString  *itemPath;
-    
-    if (! [selectedItem isPhysical]) {
-      itemPath = [[NSBundle mainBundle] localizedStringForKey: [selectedItem label]
-                                                        value: nil table: @"Names"];
-    }
-    else {
-      itemPath = [selectedItem path];
-    }
-
-    [selectedItemFocusControls showFileItem: selectedItem itemPath: itemPath
-                                 sizeString: itemSizeString];
-  }
-  else {
-    [selectedItemFocusControls clear]; 
-  }
-
-  // Update the file type fields in the Focus panel
-  if ( selectedItem != nil &&
-       [selectedItem isPhysical] &&
-       ![selectedItem isDirectory] ) {
-    UniformType  *type = [ ((PlainFileItem *)selectedItem) uniformType];
-    
-    selectedItemTypeIdentifierField.stringValue = [type uniformTypeIdentifier];
-    selectedItemTypeIdentifierField.toolTip = [type description] != nil ? [type description] : [type uniformTypeIdentifier];
-  }
-  else {
-    selectedItemTypeIdentifierField.stringValue = @"";
-    [selectedItemTypeIdentifierField setToolTip: nil]; 
-  }
 }
 
 
@@ -1158,21 +833,6 @@ extern NSString  *TallyFileSizeName;
   // items (unnecessarily often it seems). Nevertheless, it's good to do so explicitly, in response
   // to relevant events.
   [self.window.toolbar validateVisibleItems];
-}
-
-
-- (void) updateMask {
-  Filter  *mask = [self mask];
-  
-  FileItemTest  *maskTest = nil;
-  if (mask != nil) {
-    NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
-    maskTest = [mask createFileItemTestUnboundTests: unboundTests];
-    [MainMenuControl reportUnboundTests: unboundTests];
-  }
-
-  [mainView setTreeDrawerSettings: 
-    [[mainView treeDrawerSettings] copyWithMaskTest: maskTest]];
 }
 
 
@@ -1200,251 +860,11 @@ extern NSString  *TallyFileSizeName;
   [self validateControls];
 }
 
-/* Update all fields that report file size values.
- */
 - (void) fileSizeUnitSystemChanged {
-  [self updateInfoPanelValues];
-  
-  NSString  *selectedItemSize = [self updateSelectionInStatusbar];
-  [self updateSelectionInFocusPanel:selectedItemSize];
-    
-  FileItem  *visibleTree = [pathModelView visibleTree];
-  [visibleFolderFocusControls showFileItem: visibleTree];  
-}
-
-- (void) updateInfoPanelValues {
-  NSBundle  *mainBundle = [NSBundle mainBundle];
-  NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
-  
-  FileItem  *volumeTree = [pathModelView volumeTree];
-  FileItem  *scanTree = [pathModelView scanTree];
-  
-  NSString  *volumeName = [volumeTree systemPath];
-  NSImage  *volumeIcon = [[NSWorkspace sharedWorkspace] iconForFile: volumeName];
-  volumeIconView.image = volumeIcon;
-  volumeNameField.stringValue = [[NSFileManager defaultManager] displayNameAtPath: volumeName];
-  
-  scanPathTextView.string = [scanTree path];
-  
-  FilterSet  *filterSet = [treeContext filterSet];
-  filterNameField.stringValue = ( ([filterSet fileItemTest] != nil)
-    ? filterSet.description
-    : NSLocalizedString(@"None", @"The filter name when there is no filter.") ) ;
-  
-  scanTimeField.stringValue = [treeContext stringForScanTime];
-  fileSizeMeasureField.stringValue = [NSString stringWithFormat: @"%@ (%@)",
-    [mainBundle localizedStringForKey: [treeContext fileSizeMeasure] 
-                                value: nil
-                                table: @"Names"],
-    [mainBundle localizedStringForKey: [userDefaults stringForKey: FileSizeUnitSystemKey]
-                                value: nil
-                                table: @"Names"]];
-
-  volumeSizeField.stringValue = [FileItem stringForFileItemSize: volumeTree.itemSize];
-  if (usesTallyFileSize) {
-    treeSizeField.stringValue = @"-";
-    miscUsedSpaceField.stringValue = @"-";
-    freeSpaceField.stringValue = @"-";
-    freedSpaceField.stringValue = @"-";
-  } else {
-    treeSizeField.stringValue = [FileItem stringForFileItemSize: scanTree.itemSize];
-    miscUsedSpaceField.stringValue = [FileItem stringForFileItemSize: treeContext.miscUsedSpace];
-    freeSpaceField.stringValue = [FileItem stringForFileItemSize: treeContext.freeSpace];
-    freedSpaceField.stringValue = [FileItem stringForFileItemSize: treeContext.freedSpace];
-  }
-  numScannedFilesField.stringValue = [NSString stringWithFormat: @"%qu", scanTree.numFiles];
-  numDeletedFilesField.stringValue = [NSString stringWithFormat: @"%qu", treeContext.freedFiles];
-}
-
-+ (NSString *)tallySizeStringForFileItem:(FileItem *)item {
-  if (item.itemSize == 1) {
-    return @"";
-  }
-
-  NSString  *format = NSLocalizedString(@"%qu files", @"Tally folder size (in number of files)");
-
-  return [NSString stringWithFormat: format, item.itemSize];
-}
-
-+ (NSString *)exactSizeStringForFileItem:(FileItem *)item {
-  NSString  *format = NSLocalizedString(@"%qu bytes", @"Exact file size (in bytes)");
-
-  return [NSString stringWithFormat: format, item.itemSize];
+  [self updateSelectionInStatusbar: nil];
 }
 
 @end // @implementation DirectoryViewControl (PrivateMethods)
-
-
-@implementation ItemInFocusControls
-
-// Overrides designated initialiser
-- (instancetype) init {
-  NSAssert(NO, @"Use initWithPathTextView:... instead");
-  return [self initWithPathTextView: nil titleField: nil exactSizeField: nil sizeField: nil];
-}
-
-- (instancetype) initWithPathTextView:(NSTextView *)pathTextViewVal
-                           titleField:(NSTextField *)titleFieldVal
-                       exactSizeField:(NSTextField *)exactSizeFieldVal
-                            sizeField:(NSTextField *)sizeFieldVal {
-  if (self = [super init]) {
-    pathTextView = [pathTextViewVal retain];
-    titleField = [titleFieldVal retain];
-    exactSizeField = [exactSizeFieldVal retain];
-    sizeField = [sizeFieldVal retain];
-  }
-
-  return self;
-}
-
-- (void) dealloc {
-  [titleField release];
-  [pathTextView release];
-  [exactSizeField release];
-  [sizeField release];
-  
-  [super dealloc];
-}
-
-
-- (void) clear {
-  titleField.stringValue = [self titleForFileItem: nil];
-  pathTextView.string = @"";
-  exactSizeField.stringValue = @"";
-  sizeField.stringValue = @"";
-}
-
-
-- (void) showFileItem:(FileItem *)item {
-  NSString  *sizeString = (self.usesTallyFileSize
-                           ? [DirectoryViewControl tallySizeStringForFileItem: item]
-                           : [FileItem stringForFileItemSize: item.itemSize]);
-
-  NSString  *itemPath = 
-    ( [item isPhysical]
-      ? [item path] 
-      : [[NSBundle mainBundle] localizedStringForKey: [item label] value: nil table: @"Names"] );
-    
-  [self showFileItem: item itemPath: itemPath sizeString: sizeString];
-}
-
-
-- (void) showFileItem:(FileItem *)item
-             itemPath:(NSString *)pathString
-           sizeString:(NSString *)sizeString {
-  titleField.stringValue = [self titleForFileItem: item];
-  
-  pathTextView.string = pathString;
-  if (self.usesTallyFileSize) {
-    exactSizeField.stringValue = @"";
-    sizeField.stringValue = sizeString;
-  } else {
-    exactSizeField.stringValue = [DirectoryViewControl exactSizeStringForFileItem: item];
-    sizeField.stringValue = [NSString stringWithFormat: @"(%@)", sizeString];
-  }
-
-  // Use the color of the size fields to show if the item is hard-linked.
-  NSColor *sizeFieldColor = [item isHardLinked] ? [NSColor darkGrayColor] : titleField.textColor;
-  exactSizeField.textColor = sizeFieldColor;
-  sizeField.textColor = sizeFieldColor;
-}
-
-
-- (NSString *) titleForFileItem: (FileItem *)item {
-  NSAssert(NO, @"Abstract method");
-  return nil;
-}
-
-@end // @implementation ItemInFocusControls
-
-
-@implementation FolderInViewFocusControls
-
-- (NSString *)titleForFileItem:(FileItem *)item {
-  if ( ! [item isPhysical] ) {
-    return NSLocalizedString(@"Area in view:", "Label in Focus panel");
-  }
-  else if ( [item isPackage] ) {
-    return NSLocalizedString(@"Package in view:", "Label in Focus panel");
-  }
-  else if ( [item isDirectory] ) {
-    return NSLocalizedString(@"Folder in view:", "Label in Focus panel");
-  }
-  else { // Default, also used when item == nil
-    return NSLocalizedString(@"File in view:", "Label in Focus panel");
-  }
-}
-
-@end // @implementation FolderInViewFocusControls
-
-
-@implementation SelectedItemFocusControls
-
-// Overrides designated initialiser
-- (instancetype) initWithPathTextView:(NSTextView *)textView
-                           titleField:(NSTextField *)titleField
-                       exactSizeField:(NSTextField *)exactSizeField
-                            sizeField:(NSTextField *)sizeField {
-  NSAssert(NO, @"Use other initialiser instead");
-  return [self initWithPathTextView: nil titleField: nil exactSizeField: nil sizeField: nil
-                  creationTimeField: nil modificationTimeField: nil accessTimeField: nil];
-}
-
-
-- (instancetype) initWithPathTextView:(NSTextView *)textViewVal
-                           titleField:(NSTextField *)titleFieldVal
-                       exactSizeField:(NSTextField *)exactSizeFieldVal
-                            sizeField:(NSTextField *)sizeFieldVal
-                    creationTimeField:(NSTextField *)creationTimeFieldVal
-                modificationTimeField:(NSTextField *)modificationTimeFieldVal
-                      accessTimeField:(NSTextField *)accessTimeFieldVal {
-  if (self = [super initWithPathTextView: textViewVal 
-                              titleField: titleFieldVal
-                          exactSizeField: exactSizeFieldVal
-                               sizeField: sizeFieldVal]) {
-    creationTimeField = [creationTimeFieldVal retain];
-    modificationTimeField = [modificationTimeFieldVal retain];
-    accessTimeField = [accessTimeFieldVal retain];
-  }
-  return self;
-}
-
-- (void) dealloc {
-  [creationTimeField release];
-  [modificationTimeField release];
-  [accessTimeField release];
-  
-  [super dealloc];
-}
-
-
-- (void) showFileItem:(FileItem *)item
-             itemPath:(NSString *)pathString
-           sizeString:(NSString *)sizeString {
-  [super showFileItem: item itemPath: pathString sizeString: sizeString];
-
-  creationTimeField.stringValue = [FileItem stringForTime: [item creationTime]];
-  modificationTimeField.stringValue = [FileItem stringForTime: [item modificationTime]];
-  accessTimeField.stringValue = [FileItem stringForTime: [item accessTime]];
-}
-
-
-- (NSString *)titleForFileItem:(FileItem *)item {
-  if ( ! [item isPhysical] ) {
-    return NSLocalizedString(@"Selected area:", "Label in Focus panel");
-  }
-  else if ( [item isPackage] ) {
-    return NSLocalizedString(@"Selected package:", "Label in Focus panel");
-  }
-  else if ( [item isDirectory] ) {
-    return NSLocalizedString(@"Selected folder:", "Label in Focus panel");
-  }
-  else { // Default, also used when item == nil
-    return NSLocalizedString(@"Selected file:", "Label in Focus panel");
-  }
-}
-
-@end // @implementation SelectedItemFocusControls
 
 
 @implementation DirectoryViewPreviewItem

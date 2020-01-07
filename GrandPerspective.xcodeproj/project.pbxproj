@@ -55,6 +55,8 @@
 		AA52462F1102031D0018897B /* UniformTypeRankingWindowControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA52462E1102031D0018897B /* UniformTypeRankingWindowControl.m */; };
 		AA5974CA0B31687600EF3248 /* FileItemPathStringCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5974C80B31687600EF3248 /* FileItemPathStringCache.m */; };
 		AA59E3AB23C32ED6006A5184 /* ControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA59E3A923C32ED6006A5184 /* ControlPanel.xib */; };
+		AA59E3AE23C334EB006A5184 /* ControlPanelControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E3AD23C334EB006A5184 /* ControlPanelControl.m */; };
+		AA59E3B123C3443F006A5184 /* DirectoryViewDisplaySettings.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E3B023C3443F006A5184 /* DirectoryViewDisplaySettings.m */; };
 		AA5FE4D8154D56DC0050856C /* AccessMappingScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5FE4D7154D56DC0050856C /* AccessMappingScheme.m */; };
 		AA6012570A5AF55400DEBCB8 /* AsynchronousTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6012550A5AF55400DEBCB8 /* AsynchronousTaskManager.m */; };
 		AA6012690A5AF5A600DEBCB8 /* PeekingEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6012670A5AF5A600DEBCB8 /* PeekingEnumerator.m */; };
@@ -291,6 +293,10 @@
 		AA5974C70B31687600EF3248 /* FileItemPathStringCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileItemPathStringCache.h; path = util/FileItemPathStringCache.h; sourceTree = "<group>"; };
 		AA5974C80B31687600EF3248 /* FileItemPathStringCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileItemPathStringCache.m; path = util/FileItemPathStringCache.m; sourceTree = "<group>"; };
 		AA59E3AA23C32ED6006A5184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ControlPanel.xib; sourceTree = "<group>"; };
+		AA59E3AC23C334EB006A5184 /* ControlPanelControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ControlPanelControl.h; path = control/ControlPanelControl.h; sourceTree = "<group>"; };
+		AA59E3AD23C334EB006A5184 /* ControlPanelControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ControlPanelControl.m; path = control/ControlPanelControl.m; sourceTree = "<group>"; };
+		AA59E3AF23C3443F006A5184 /* DirectoryViewDisplaySettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DirectoryViewDisplaySettings.h; path = control/DirectoryViewDisplaySettings.h; sourceTree = "<group>"; };
+		AA59E3B023C3443F006A5184 /* DirectoryViewDisplaySettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DirectoryViewDisplaySettings.m; path = control/DirectoryViewDisplaySettings.m; sourceTree = "<group>"; };
 		AA5ECB3423AE1D0400C68862 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/ExportAsTextDialog.strings; sourceTree = "<group>"; };
 		AA5ECB3523AE1E1100C68862 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/ExportAsTextDialog.strings; sourceTree = "<group>"; };
 		AA5FE4D6154D56DC0050856C /* AccessMappingScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessMappingScheme.h; sourceTree = "<group>"; };
@@ -925,8 +931,12 @@
 				AA402FF10A5B01A6004EAAF3 /* DirectoryViewControl.m */,
 				AA1115C10A84CA320023C5CD /* DirectoryViewControlSettings.h */,
 				AA1115C20A84CA320023C5CD /* DirectoryViewControlSettings.m */,
+				AA59E3AF23C3443F006A5184 /* DirectoryViewDisplaySettings.h */,
+				AA59E3B023C3443F006A5184 /* DirectoryViewDisplaySettings.m */,
 				AAF951AF0EDEE2E100844FD5 /* DirectoryViewToolbarControl.h */,
 				AAF951B00EDEE2E100844FD5 /* DirectoryViewToolbarControl.m */,
+				AA59E3AC23C334EB006A5184 /* ControlPanelControl.h */,
+				AA59E3AD23C334EB006A5184 /* ControlPanelControl.m */,
 				AA52461B110202F50018897B /* FiltersWindowControl.h */,
 				AA52461C110202F50018897B /* FiltersWindowControl.m */,
 				AA524625110203070018897B /* FilterWindowControl.h */,
@@ -1265,6 +1275,7 @@
 				AAA6E72D0EFD29CB00B4E71E /* ToolbarSegmentedCell.m in Sources */,
 				AA2B4A0A104B122900B10262 /* AnnotatedTreeContext.m in Sources */,
 				AAEF42831081136100468832 /* LocalizableStrings.m in Sources */,
+				AA59E3AE23C334EB006A5184 /* ControlPanelControl.m in Sources */,
 				AAEF43771081E0EE00468832 /* FilterTestRef.m in Sources */,
 				AAEF43A71081FC2E00468832 /* FilterTest.m in Sources */,
 				AAEF440C10821A3800468832 /* FilterTestRepository.m in Sources */,
@@ -1291,6 +1302,7 @@
 				AA1A92651170579600217CF6 /* KBPopUpToolbarItem.m in Sources */,
 				AA0CDE711544995C0018D583 /* TimeBasedMapping.m in Sources */,
 				AA0CDE7415487FF60018D583 /* CreationMappingScheme.m in Sources */,
+				AA59E3B123C3443F006A5184 /* DirectoryViewDisplaySettings.m in Sources */,
 				AA0CDE77154882BF0018D583 /* ModificationMappingScheme.m in Sources */,
 				AAAEEEA521AAE3C800B7C024 /* ScanTaskOutput.m in Sources */,
 				AA5FE4D8154D56DC0050856C /* AccessMappingScheme.m in Sources */,

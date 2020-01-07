@@ -1,5 +1,7 @@
 #import <Cocoa/Cocoa.h>
 
+#import "Item.h"
+
 extern NSString  *FreeSpace;
 extern NSString  *UsedSpace;
 extern NSString  *MiscUsedSpace;
@@ -98,9 +100,16 @@ extern NSString  *FileItemDeletedEvent;
 
 @property (nonatomic, readonly, strong) FilterSet *filterSet;
 
+- (BOOL)usesTallyFileSize;
+
+/* Returns a user-friendly representation for the given file size.
+ *
+ * It should only be used for item in its own tree, as the string representation depends on the
+ * measure that was used.
+ */
+- (NSString *)stringForFileItemSize:(ITEM_SIZE)size;
 
 - (void) deleteSelectedFileItem:(ItemPathModelView *)path;
-
 
 /* Returns the item that is being replaced.
  *
