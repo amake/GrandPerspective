@@ -288,6 +288,13 @@ static ControlPanelControl  *singletonInstance = nil;
   [self fireDisplaySettingsChanged];
 }
 
+- (IBAction) showPackageContentsCheckBoxChanged:(id)sender {
+  [self fireDisplaySettingsChanged];
+
+  // If the selected item is a package, its info will have changed.
+  [self selectedItemChanged: nil];
+}
+
 - (void) mainWindowChanged:(id)sender {
   if (!self.isWindowLoaded) {
     return;
@@ -306,14 +313,6 @@ static ControlPanelControl  *singletonInstance = nil;
   [self updateFocusPanel: dirViewControl];
 
   [self observeDirectoryView: dirViewControl];
-}
-
-
-- (IBAction) showPackageContentsCheckBoxChanged:(id)sender {
-  [self fireDisplaySettingsChanged];
-
-  // If the selected item is a package, its info will have changed.
-  [self selectedItemChanged: nil];
 }
 
 - (NSString *)comments {

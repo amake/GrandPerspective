@@ -78,10 +78,12 @@ extern NSString  *DisplaySettingsChangedEvent;
 
 + (ControlPanelControl *)singletonInstance;
 
-// Invoke when a display setting is changed that does not require special handling by the control
-- (IBAction) displaySettingChanged:(id)sender;
-
+// Changes to display settings that require special handling.
 - (IBAction) maskChanged:(id)sender;
+- (IBAction) showPackageContentsCheckBoxChanged:(id)sender;
+
+// Invoked when a display setting is changed that does not require special handling by the control
+- (IBAction) displaySettingChanged:(id)sender;
 
 - (void) mainWindowChanged:(nullable id)sender;
 
