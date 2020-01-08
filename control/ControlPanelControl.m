@@ -205,6 +205,11 @@ static ControlPanelControl  *singletonInstance = nil;
   [scanPathTextView setDrawsBackground: NO];
   [scanPathTextView.enclosingScrollView setDrawsBackground: NO];
 
+  // Workaround a bug in the appkit. When the text is empty, it apparently does not take the color
+  // as specified in Interface Builder.
+  // See also: https://stackoverflow.com/questions/3643020/changing-text-color-of-nstextview-in-interface-builder-wont-work
+  commentsTextView.textColor = NSColor.controlTextColor;
+
   //----------------------------------------------------------------
   // Configure the "Focus" panel
 
