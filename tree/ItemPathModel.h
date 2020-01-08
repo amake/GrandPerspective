@@ -5,6 +5,8 @@ extern NSString  *SelectedItemChangedEvent;
 extern NSString  *VisibleTreeChangedEvent;
 extern NSString  *VisiblePathLockingChangedEvent;
 
+// Key in userInfo for selectedItemChanged event
+extern NSString  *FriendlySizeKey;
 
 @class Item;
 @class FileItem;

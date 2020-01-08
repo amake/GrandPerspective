@@ -757,7 +757,9 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 
 
 - (void) selectedItemChanged:(NSNotification *)notification {
-  [self updateSelectionInStatusbar: nil]; // TODO: Take from notification
+  NSString  *itemSizeString = notification.userInfo[FriendlySizeKey];
+
+  [self updateSelectionInStatusbar: itemSizeString];
 
   if ([[pathModelView pathModel] isVisiblePathLocked]) {
     // Only when the visible path is locked can a change of selected item

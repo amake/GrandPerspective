@@ -9,6 +9,7 @@ NSString  *SelectedItemChangedEvent = @"selectedItemChanged";
 NSString  *VisibleTreeChangedEvent = @"visibleTreeChanged";
 NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
 
+NSString  *FriendlySizeKey = @"friendlySize";
 
 @interface ItemPathModel (PrivateMethods)
 
@@ -407,9 +408,12 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
     // Currently surpressing notifications
     return;
   }
-  
-  [[NSNotificationCenter defaultCenter]
-   postNotificationName: SelectedItemChangedEvent object: self];
+
+  NSString  *itemSize = [treeContext stringForFileItemSize: self.selectedFileItem.itemSize];
+
+  [[NSNotificationCenter defaultCenter] postNotificationName: SelectedItemChangedEvent
+                                                      object: self
+                                                    userInfo: @{FriendlySizeKey: itemSize}];
 }
 
 - (void) postVisibleTreeChanged {
@@ -418,13 +422,13 @@ NSString  *VisiblePathLockingChangedEvent = @"visiblePathLockingChanged";
     return;
   }
 
-  [[NSNotificationCenter defaultCenter]
-   postNotificationName: VisibleTreeChangedEvent object: self];
+  [[NSNotificationCenter defaultCenter] postNotificationName: VisibleTreeChangedEvent
+                                                      object: self];
 }
 
 - (void) postVisiblePathLockingChanged {
-  [[NSNotificationCenter defaultCenter]
-   postNotificationName: VisiblePathLockingChangedEvent object: self];
+  [[NSNotificationCenter defaultCenter] postNotificationName: VisiblePathLockingChangedEvent
+                                                      object: self];
 }
 
 

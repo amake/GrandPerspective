@@ -568,7 +568,9 @@ static ControlPanelControl  *singletonInstance = nil;
 }
 
 - (void) selectedItemChanged:(NSNotification *)notification {
-  [self updateSelectionInFocusPanel: nil]; // TODO: Take size from notification
+  NSString  *itemSizeString = notification.userInfo[FriendlySizeKey];
+
+  [self updateSelectionInFocusPanel: itemSizeString];
 }
 
 - (void) fileItemDeleted:(NSNotification *)notification {

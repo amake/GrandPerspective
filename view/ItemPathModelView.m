@@ -28,8 +28,7 @@
 /* Sends selection-changed events, which comprise selection-changes inside the path, as well as
  * selection of "invisible" items outside the path.
  */
-- (void) postSelectedItemChanged;
-
+- (void) postSelectedItemChanged:(NSNotification *)originalNotification;
 - (void) postVisibleTreeChanged;
 
 - (void) selectedItemChanged:(NSNotification *)notification;
@@ -155,7 +154,7 @@
   if (oldInvisibleSelectedItem != invisibleSelectedItem) {
     // Only post changes here to the invisible item. When the selected item in the path changed,
     // -selectedItemChanged will be notified and post the event in response.
-    [self postSelectedItemChanged];
+    [self postSelectedItemChanged: nil];
   }
 }
 
@@ -356,9 +355,10 @@
   return index;
 }
 
-- (void) postSelectedItemChanged {
+- (void) postSelectedItemChanged:(NSNotification *)origNotification {
   [[NSNotificationCenter defaultCenter] postNotificationName: SelectedItemChangedEvent
-                                                      object: self];
+                                                      object: self
+                                                    userInfo: origNotification.userInfo];
 }
 
 - (void) postVisibleTreeChanged {
@@ -378,7 +378,7 @@
   [self updatePath];
   
   // Propagate event to my listeners.
-  [self postSelectedItemChanged];
+  [self postSelectedItemChanged: notification];
 }
 
 - (void) visibleTreeChanged:(NSNotification *)notification {
