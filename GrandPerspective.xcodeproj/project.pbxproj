@@ -17,7 +17,6 @@
 		AA0CDE7415487FF60018D583 /* CreationMappingScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0CDE7315487FF60018D583 /* CreationMappingScheme.m */; };
 		AA0CDE77154882BF0018D583 /* ModificationMappingScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0CDE76154882BE0018D583 /* ModificationMappingScheme.m */; };
 		AA1115C40A84CA320023C5CD /* DirectoryViewControlSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = AA1115C20A84CA320023C5CD /* DirectoryViewControlSettings.m */; };
-		AA1221800EF17A41002A178F /* ToggleDrawer.png in Resources */ = {isa = PBXBuildFile; fileRef = AA12217F0EF17A41002A178F /* ToggleDrawer.png */; };
 		AA12225A0EF2A822002A178F /* Toolbar.strings in Resources */ = {isa = PBXBuildFile; fileRef = AA1222580EF2A822002A178F /* Toolbar.strings */; };
 		AA13BAD30B8A5747000AEAA9 /* Palettes in Resources */ = {isa = PBXBuildFile; fileRef = AA13BA8D0B8A5746000AEAA9 /* Palettes */; };
 		AA13FCE81077318700AE3B23 /* Cross.png in Resources */ = {isa = PBXBuildFile; fileRef = AA13FCE61077318700AE3B23 /* Cross.png */; };
@@ -57,6 +56,7 @@
 		AA59E3AB23C32ED6006A5184 /* ControlPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA59E3A923C32ED6006A5184 /* ControlPanel.xib */; };
 		AA59E3AE23C334EB006A5184 /* ControlPanelControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E3AD23C334EB006A5184 /* ControlPanelControl.m */; };
 		AA59E3B123C3443F006A5184 /* DirectoryViewDisplaySettings.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E3B023C3443F006A5184 /* DirectoryViewDisplaySettings.m */; };
+		AA59E3B323C5E714006A5184 /* Info.png in Resources */ = {isa = PBXBuildFile; fileRef = AA59E3B223C5E714006A5184 /* Info.png */; };
 		AA5FE4D8154D56DC0050856C /* AccessMappingScheme.m in Sources */ = {isa = PBXBuildFile; fileRef = AA5FE4D7154D56DC0050856C /* AccessMappingScheme.m */; };
 		AA6012570A5AF55400DEBCB8 /* AsynchronousTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6012550A5AF55400DEBCB8 /* AsynchronousTaskManager.m */; };
 		AA6012690A5AF5A600DEBCB8 /* PeekingEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6012670A5AF5A600DEBCB8 /* PeekingEnumerator.m */; };
@@ -219,7 +219,6 @@
 		AA1049BF1511582C003C041C /* Compatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Compatibility.h; path = util/Compatibility.h; sourceTree = "<group>"; };
 		AA1115C10A84CA320023C5CD /* DirectoryViewControlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectoryViewControlSettings.h; path = control/DirectoryViewControlSettings.h; sourceTree = "<group>"; };
 		AA1115C20A84CA320023C5CD /* DirectoryViewControlSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DirectoryViewControlSettings.m; path = control/DirectoryViewControlSettings.m; sourceTree = "<group>"; };
-		AA12217F0EF17A41002A178F /* ToggleDrawer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToggleDrawer.png; path = Images/ToggleDrawer.png; sourceTree = "<group>"; };
 		AA13BA8D0B8A5746000AEAA9 /* Palettes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Palettes; sourceTree = "<group>"; };
 		AA13FCE61077318700AE3B23 /* Cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cross.png; path = Images/Cross.png; sourceTree = "<group>"; };
 		AA13FCE71077318700AE3B23 /* Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Checkmark.png; path = Images/Checkmark.png; sourceTree = "<group>"; };
@@ -297,6 +296,7 @@
 		AA59E3AD23C334EB006A5184 /* ControlPanelControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ControlPanelControl.m; path = control/ControlPanelControl.m; sourceTree = "<group>"; };
 		AA59E3AF23C3443F006A5184 /* DirectoryViewDisplaySettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DirectoryViewDisplaySettings.h; path = control/DirectoryViewDisplaySettings.h; sourceTree = "<group>"; };
 		AA59E3B023C3443F006A5184 /* DirectoryViewDisplaySettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DirectoryViewDisplaySettings.m; path = control/DirectoryViewDisplaySettings.m; sourceTree = "<group>"; };
+		AA59E3B223C5E714006A5184 /* Info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Info.png; path = Images/Info.png; sourceTree = "<group>"; };
 		AA5ECB3423AE1D0400C68862 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/ExportAsTextDialog.strings; sourceTree = "<group>"; };
 		AA5ECB3523AE1E1100C68862 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/ExportAsTextDialog.strings; sourceTree = "<group>"; };
 		AA5FE4D6154D56DC0050856C /* AccessMappingScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccessMappingScheme.h; sourceTree = "<group>"; };
@@ -1002,6 +1002,7 @@
 		AAF952C50EE043A400844FD5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AA59E3B223C5E714006A5184 /* Info.png */,
 				AA85C3F81CD143BA00952C57 /* GrandPerspectiveScan.iconset */,
 				AA7BF5B41E5F5AB100A42F0F /* QuickLook.png */,
 				AAF952CB0EE043C900844FD5 /* ZoomOut.png */,
@@ -1013,7 +1014,6 @@
 				AAAB9A6F0EF3D38F00B3C482 /* OpenWithFinder.png */,
 				AAF3C75A0EF3FA42004CF446 /* Delete.png */,
 				AA2B48B510495BDB00B10262 /* Rescan.png */,
-				AA12217F0EF17A41002A178F /* ToggleDrawer.png */,
 				AA13FCE61077318700AE3B23 /* Cross.png */,
 				AA13FCE71077318700AE3B23 /* Checkmark.png */,
 			);
@@ -1144,9 +1144,9 @@
 				AA7BF5B51E5F5AB100A42F0F /* QuickLook.png in Resources */,
 				AAE4982E1CD158C6003F0A29 /* Images.xcassets in Resources */,
 				AA14A8630EE1401F009CBD3E /* FocusUp.png in Resources */,
-				AA1221800EF17A41002A178F /* ToggleDrawer.png in Resources */,
 				AA12225A0EF2A822002A178F /* Toolbar.strings in Resources */,
 				AAAB9A700EF3D38F00B3C482 /* RevealInFinder.png in Resources */,
+				AA59E3B323C5E714006A5184 /* Info.png in Resources */,
 				AAE498311CD15BAF003F0A29 /* StartWindow.xib in Resources */,
 				AAAB9A710EF3D38F00B3C482 /* OpenWithFinder.png in Resources */,
 				AAF3C75B0EF3FA42004CF446 /* Delete.png in Resources */,

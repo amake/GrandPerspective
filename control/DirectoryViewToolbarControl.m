@@ -470,7 +470,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   [item setLabel: NSLocalizedStringFromTable(@"Info", @"Toolbar", @"Toolbar action")];
   item.paletteLabel = item.label;
   [item setToolTip: NSLocalizedStringFromTable(@"Show info", @"Toolbar", "Tooltip")];
-  item.image = [NSImage imageNamed: @"ToggleDrawer"]; // TODO: Update image
+  item.image = [NSImage imageNamed: @"Info"];
   item.action = @selector(showInfo:);
   item.target = dirViewControl;
 
