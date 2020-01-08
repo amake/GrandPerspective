@@ -2,7 +2,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DirectoryViewDisplaySettings : NSObject
+@interface DirectoryViewDisplaySettings : NSObject<NSCopying>
 
 - (instancetype) initWithColorMappingKey:(NSString *)colorMappingKey
                          colorPaletteKey:(NSString *)colorPaletteKey

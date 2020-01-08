@@ -133,8 +133,6 @@ NSString  *DisplaySettingsChangedEvent = @"displaySettingsChanged";
     filterRepository = [[FilterRepository defaultInstance] retain];
   }
 
-  singletonInstance = self;
-
   return self;
 }
 
@@ -156,6 +154,10 @@ NSString  *DisplaySettingsChangedEvent = @"displaySettingsChanged";
 static ControlPanelControl  *singletonInstance = nil;
 
 + (ControlPanelControl *)singletonInstance {
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    singletonInstance = [[self alloc] init];
+  });
   return singletonInstance;
 }
 
@@ -345,6 +347,7 @@ static ControlPanelControl  *singletonInstance = nil;
 
   [self updateInfoPanel: dirViewControl];
   [self updateDisplayPanel: dirViewControl];
+  [self updateFocusPanel: dirViewControl];
 
   [self observeDirectoryView: dirViewControl];
 }
@@ -474,6 +477,9 @@ static ControlPanelControl  *singletonInstance = nil;
 
   visibleFolderFocusControls.usesTallyFileSize = usesTallyFileSize;
   selectedItemFocusControls.usesTallyFileSize = usesTallyFileSize;
+
+  [self visibleTreeChanged: nil];
+  [self selectedItemChanged: nil];
 }
 
 - (void) updateSelectionInFocusPanel:(NSString *)itemSizeString {

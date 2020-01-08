@@ -63,6 +63,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 - (void) visiblePathLockingChanged:(NSNotification *)notification;
 
 - (void) displaySettingsChanged:(NSNotification *)notification;
+- (void) propagateDisplaySettings;
 
 - (void) updateSelectionInStatusbar:(NSString *)itemSizeString;
 - (void) validateControls;
@@ -172,7 +173,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 - (DirectoryViewControlSettings *)directoryViewControlSettings {
   DirectoryViewControlSettings  *dvcs = [DirectoryViewControlSettings alloc];
 
-  return [[dvcs initWithDisplaySettings: [displaySettings copy]
+  return [[dvcs initWithDisplaySettings: [[displaySettings copy] autorelease]
                        unzoomedViewSize: unzoomedViewSize] autorelease];
 }
 
@@ -215,6 +216,10 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
          selector: @selector(visiblePathLockingChanged:)
              name: VisiblePathLockingChangedEvent 
            object: [pathModelView pathModel]];
+  [nc addObserver: self
+         selector: @selector(displaySettingsChanged:)
+             name: DisplaySettingsChangedEvent
+           object: [ControlPanelControl singletonInstance]];
 
   [userDefaults addObserver: self 
                  forKeyPath: FileDeletionTargetsKey
@@ -229,8 +234,9 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
                     options: 0 
                     context: nil];
 
+  [self propagateDisplaySettings];
   [self visibleTreeChanged: nil];
-  
+
   // Set the window's initial size
   unzoomedViewSize = [initialSettings unzoomedViewSize];
   NSRect  frame = self.window.frame;
@@ -762,6 +768,12 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   [displaySettings release];
   displaySettings = [[controlPanel displaySettings] retain];
 
+  [self propagateDisplaySettings];
+}
+
+- (void) propagateDisplaySettings {
+  ControlPanelControl  *controlPanel = [ControlPanelControl singletonInstance];
+
   mainView.treeDrawerSettings = [controlPanel instantiateDisplaySettings: displaySettings
                                                                  forTree: treeContext.scanTree];
   [mainView setShowEntireVolume: displaySettings.showEntireVolume];
@@ -781,6 +793,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   if (itemSizeString == nil) {
     itemSizeString = [treeContext stringForFileItemSize: selectedItem.itemSize];
   }
+  itemSizeField.stringValue = itemSizeString;
 
   NSString  *itemPath;
   NSString  *relativeItemPath;

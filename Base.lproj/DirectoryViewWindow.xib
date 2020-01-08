@@ -8,7 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="DirectoryViewControl">
             <connections>
-                <outlet property="drawer" destination="83" id="160"/>
                 <outlet property="itemPathField" destination="88" id="199"/>
                 <outlet property="itemSizeField" destination="91" id="198"/>
                 <outlet property="mainView" destination="86" id="152"/>
@@ -67,14 +66,6 @@
             </connections>
             <point key="canvasLocation" x="141" y="357"/>
         </window>
-        <drawer trailingOffset="15" id="83" userLabel="Drawer">
-            <size key="contentSize" width="280" height="380"/>
-            <size key="minContentSize" width="280" height="380"/>
-            <size key="maxContentSize" width="400" height="480"/>
-            <connections>
-                <outlet property="parentWindow" destination="82" id="84"/>
-            </connections>
-        </drawer>
         <customObject id="534" userLabel="ToolbarControl" customClass="DirectoryViewToolbarControl">
             <connections>
                 <outlet property="dirViewWindow" destination="82" id="540"/>

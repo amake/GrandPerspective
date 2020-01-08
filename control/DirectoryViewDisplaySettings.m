@@ -42,6 +42,15 @@
   [super dealloc];
 }
 
+- (id) copyWithZone:(NSZone *)zone {
+  return [[[self class] allocWithZone: zone] initWithColorMappingKey: _colorMappingKey
+                                                     colorPaletteKey: _colorPaletteKey
+                                                            maskName: _maskName
+                                                         maskEnabled: _fileItemMaskEnabled
+                                                    showEntireVolume: _showEntireVolume
+                                                 showPackageContents: _showPackageContents];
+}
+
 + (DirectoryViewDisplaySettings *)defaultSettings {
   return [[[DirectoryViewDisplaySettings alloc] init] autorelease];
 }

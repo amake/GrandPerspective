@@ -17,7 +17,7 @@
 - (instancetype) initWithDisplaySettings:(DirectoryViewDisplaySettings *)displaySettings
                         unzoomedViewSize:(NSSize)unzoomedViewSize {
   if (self = [super init]) {
-    _displaySettings = displaySettings;
+    _displaySettings = [displaySettings retain];
     _unzoomedViewSize = unzoomedViewSize;
   }
   
