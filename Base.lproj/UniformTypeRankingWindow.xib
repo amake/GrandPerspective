@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
-        <capability name="box content view" minToolsVersion="7.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="UniformTypeRankingWindowControl">
@@ -55,7 +55,7 @@
                 <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="71">
                     <rect key="frame" x="18" y="62" width="67" height="13"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="File type:" usesSingleLineMode="YES" id="86">
-                        <font key="font" metaFont="label"/>
+                        <font key="font" metaFont="system" size="10"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -63,7 +63,7 @@
                 <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="66">
                     <rect key="frame" x="18" y="20" width="67" height="13"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Conforms to:" usesSingleLineMode="YES" id="85">
-                        <font key="font" metaFont="label"/>
+                        <font key="font" metaFont="system" size="10"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -71,7 +71,7 @@
                 <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="63">
                     <rect key="frame" x="18" y="41" width="67" height="13"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Description:" usesSingleLineMode="YES" id="84">
-                        <font key="font" metaFont="label"/>
+                        <font key="font" metaFont="system" size="10"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -101,11 +101,11 @@
             </constraints>
             <point key="canvasLocation" x="147" y="161.5"/>
         </customView>
-        <window title="Uniform type ranking" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="9" userLabel="Parent Window">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+        <window title="Uniform type ranking" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="9" userLabel="Parent Window" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="128" y="425" width="425" height="445"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="1001"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="7">
                 <rect key="frame" x="0.0" y="0.0" width="425" height="445"/>
@@ -147,11 +147,11 @@ Gw
                     <box title="Ordered file types" translatesAutoresizingMaskIntoConstraints="NO" id="24">
                         <rect key="frame" x="17" y="57" width="391" height="382"/>
                         <view key="contentView" id="3W9-4p-tBG">
-                            <rect key="frame" x="2" y="2" width="387" height="365"/>
+                            <rect key="frame" x="3" y="3" width="385" height="364"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                                    <rect key="frame" x="237" y="317" width="136" height="32"/>
+                                    <rect key="frame" x="235" y="316" width="136" height="32"/>
                                     <buttonCell key="cell" type="push" title="Move to top" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="93">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -161,7 +161,7 @@ Gw
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="33">
-                                    <rect key="frame" x="237" y="284" width="136" height="32"/>
+                                    <rect key="frame" x="235" y="283" width="136" height="32"/>
                                     <buttonCell key="cell" type="push" title="Move to reveal" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="94">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -171,7 +171,7 @@ Gw
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="34">
-                                    <rect key="frame" x="237" y="251" width="136" height="32"/>
+                                    <rect key="frame" x="235" y="250" width="136" height="32"/>
                                     <buttonCell key="cell" type="push" title="Move up" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="95">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -181,7 +181,7 @@ Gw
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="35">
-                                    <rect key="frame" x="237" y="198" width="136" height="32"/>
+                                    <rect key="frame" x="235" y="197" width="136" height="32"/>
                                     <buttonCell key="cell" type="push" title="Move down" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="96">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -191,7 +191,7 @@ Gw
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="36">
-                                    <rect key="frame" x="237" y="165" width="136" height="32"/>
+                                    <rect key="frame" x="235" y="164" width="136" height="32"/>
                                     <buttonCell key="cell" type="push" title="Move to hide" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="97">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -201,7 +201,7 @@ Gw
                                     </connections>
                                 </button>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="37">
-                                    <rect key="frame" x="237" y="132" width="136" height="32"/>
+                                    <rect key="frame" x="235" y="131" width="136" height="32"/>
                                     <buttonCell key="cell" type="push" title="Move to bottom" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="98">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
@@ -211,21 +211,21 @@ Gw
                                     </connections>
                                 </button>
                                 <scrollView horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81">
-                                    <rect key="frame" x="20" y="84" width="215" height="261"/>
+                                    <rect key="frame" x="20" y="84" width="213" height="260"/>
                                     <clipView key="contentView" id="Dmh-oF-iL2">
-                                        <rect key="frame" x="1" y="1" width="198" height="244"/>
+                                        <rect key="frame" x="1" y="1" width="196" height="243"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" id="79">
-                                                <rect key="frame" x="0.0" y="0.0" width="198" height="244"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="196" height="243"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                 <tableColumns>
-                                                    <tableColumn width="195" minWidth="40" maxWidth="1000" id="78">
+                                                    <tableColumn width="193" minWidth="40" maxWidth="1000" id="78">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                            <font key="font" metaFont="smallSystem"/>
+                                                            <font key="font" metaFont="message" size="11"/>
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                                         </tableHeaderCell>
@@ -239,21 +239,20 @@ Gw
                                                 </tableColumns>
                                             </tableView>
                                         </subviews>
-                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </clipView>
                                     <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="101">
-                                        <rect key="frame" x="1" y="245" width="198" height="15"/>
+                                        <rect key="frame" x="1" y="244" width="196" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="100">
-                                        <rect key="frame" x="199" y="1" width="15" height="244"/>
+                                        <rect key="frame" x="197" y="1" width="15" height="243"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                 </scrollView>
                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="102">
-                                    <rect key="frame" x="18" y="20" width="351" height="56"/>
+                                    <rect key="frame" x="18" y="20" width="349" height="56"/>
                                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="103">
-                                        <font key="font" metaFont="smallSystem"/>
+                                        <font key="font" metaFont="message" size="11"/>
                                         <string key="title">Note: The order determines which file types have a unique color when coloring by "File type" is used. Colors are assigned from top to bottom to all types that are not hidden, until all colors in the active color palette have been used. </string>
                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -287,8 +286,6 @@ Gw
                                 <constraint firstAttribute="trailing" secondItem="35" secondAttribute="trailing" constant="20" symbolic="YES" id="y2r-cs-Ty9"/>
                             </constraints>
                         </view>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                 </subviews>
                 <constraints>
@@ -308,6 +305,7 @@ Gw
             <connections>
                 <outlet property="delegate" destination="-2" id="60"/>
             </connections>
+            <point key="canvasLocation" x="142" y="-192"/>
         </window>
         <drawer preferredEdge="minY" leadingOffset="15" trailingOffset="15" id="10" userLabel="Drawer">
             <size key="contentSize" width="394" height="110"/>
