@@ -289,6 +289,10 @@ static ControlPanelControl  *singletonInstance = nil;
 }
 
 - (void) mainWindowChanged:(id)sender {
+  if (!self.isWindowLoaded) {
+    return;
+  }
+
   DirectoryViewControl  *dirViewControl =
     [NSApplication sharedApplication].mainWindow.windowController;
   if (dirViewControl == nil) {
