@@ -171,10 +171,12 @@ NSString  *ColorDescriptionColumnIdentifier = @"colorDescription";
   NSTableColumn  *imageColumn = [tableView tableColumnWithIdentifier: ColorImageColumnIdentifier];
   NSRect  bounds = NSMakeRect(0, 0, imageColumn.width, tableView.rowHeight);
 
-  int  i = 0;
-  while (i < numColors) {
-    [colorImages addObject: [drawer drawImageOfGradientRectangleWithColor: i inRect: bounds]];
-    i++;
+  if (bounds.size.width > 0 && bounds.size.height > 0) {
+    int  i = 0;
+    while (i < numColors) {
+      [colorImages addObject: [drawer drawImageOfGradientRectangleWithColor: i inRect: bounds]];
+      i++;
+    }
   }
 }
 

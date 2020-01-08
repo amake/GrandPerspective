@@ -85,7 +85,6 @@
   NSAssert(drawBitmap == nil, @"Bitmap should be nil.");
 
   bitmapBounds = bounds;
-
   drawBitmap = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes: NULL
                                                        pixelsWide: (int) bitmapBounds.size.width
                                                        pixelsHigh: (int) bitmapBounds.size.height
