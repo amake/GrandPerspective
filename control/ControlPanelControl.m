@@ -232,6 +232,10 @@ static ControlPanelControl  *singletonInstance = nil;
                     options: 0
                     context: nil];
 
+  // Do not unnecessarily steal focus from the main window, as this prevents the latter from
+  // letting selected item follow the mouse.
+  ((NSPanel *)self.window).becomesKeyOnlyIfNeeded = YES;
+
   [self mainWindowChanged];
 }
 
