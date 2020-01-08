@@ -258,7 +258,8 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   [itemSizeField setTextColor: NSColor.labelColor];
   [itemPathField setTextColor: NSColor.labelColor];
 
-  // TODO: Update controlPanel
+  ControlPanelControl  *controlPanel = [ControlPanelControl singletonInstance];
+  [controlPanel mainWindowChanged: self];
 }
 
 - (void) windowDidResignMain:(NSNotification *)notification {

@@ -82,6 +82,8 @@ extern NSString  *DisplaySettingsChangedEvent;
 
 - (IBAction) maskChanged:(id)sender;
 
+- (void) mainWindowChanged:(nullable id)sender;
+
 // Ensures the window is shown (and in front) with the info panel visible.
 - (void) showInfoPanel;
 

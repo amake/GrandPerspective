@@ -106,8 +106,9 @@ NSString  *DisplaySettingsChangedEvent = @"displaySettingsChanged";
 
 - (void) fireDisplaySettingsChanged;
 
-- (void) mainWindowChanged;
 - (void) fileSizeUnitSystemChanged;
+
+- (void) observeDirectoryView:(DirectoryViewControl *)dirViewControl;
 
 - (void) updateDisplayPanel:(DirectoryViewControl *)dirViewControl;
 - (void) updateInfoPanel:(DirectoryViewControl *)dirViewControl;
@@ -236,7 +237,7 @@ static ControlPanelControl  *singletonInstance = nil;
   // letting selected item follow the mouse.
   ((NSPanel *)self.window).becomesKeyOnlyIfNeeded = YES;
 
-  [self mainWindowChanged];
+  [self mainWindowChanged: nil];
 }
 
 - (void) observeValueForKeyPath:(NSString *)keyPath
@@ -268,6 +269,23 @@ static ControlPanelControl  *singletonInstance = nil;
 
   [self fireDisplaySettingsChanged];
 }
+
+- (void)mainWindowChanged:(id)sender {
+  DirectoryViewControl  *dirViewControl =
+    [NSApplication sharedApplication].mainWindow.windowController;
+  if (dirViewControl == nil) {
+    [[self window] setIsVisible: NO];
+
+    return;
+  }
+
+  [self updateInfoPanel: dirViewControl];
+  [self updateDisplayPanel: dirViewControl];
+  [self updateFocusPanel: dirViewControl];
+
+  [self observeDirectoryView: dirViewControl];
+}
+
 
 - (IBAction) showPackageContentsCheckBoxChanged:(id)sender {
   [self fireDisplaySettingsChanged];
@@ -339,22 +357,6 @@ static ControlPanelControl  *singletonInstance = nil;
 - (void)fireDisplaySettingsChanged {
   [[NSNotificationCenter defaultCenter] postNotificationName: DisplaySettingsChangedEvent
                                                       object: self];
-}
-
-- (void)mainWindowChanged {
-  DirectoryViewControl  *dirViewControl =
-    [NSApplication sharedApplication].mainWindow.windowController;
-  if (dirViewControl == nil) {
-    [[self window] setIsVisible: NO];
-
-    return;
-  }
-
-  [self updateInfoPanel: dirViewControl];
-  [self updateDisplayPanel: dirViewControl];
-  [self updateFocusPanel: dirViewControl];
-
-  [self observeDirectoryView: dirViewControl];
 }
 
 /* Update all fields that report file size values.
