@@ -761,7 +761,9 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 
 
 - (void) displaySettingsChanged:(NSNotification *)notification {
-  // TODO: Check if the controlled window is the main window
+  if (! self.window.isMainWindow) {
+    return;
+  }
 
   ControlPanelControl  *controlPanel = [ControlPanelControl singletonInstance];
 
