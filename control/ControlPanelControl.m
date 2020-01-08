@@ -33,6 +33,7 @@
 #import "MainMenuControl.h"
 #import "PreferencesPanelControl.h"
 
+NSString  *CommentsChangedEvent = @"commentsChanged";
 NSString  *DisplaySettingsChangedEvent = @"displaySettingsChanged";
 
 /* Manages a group of related controls in the Focus panel.
@@ -261,6 +262,16 @@ static ControlPanelControl  *singletonInstance = nil;
   [self close];
 }
 
+// Invoked because the controller is the delegate for the window.
+- (void) windowDidResignKey:(NSNotification *)notification {
+  // Although it is not always the case that the comments changed when key focus was resigned,
+  // there's not really any gain in checking this before firing the event. In practise, key status
+  // is only obtained when the user clicks inside the comments text view to start editing. When
+  // it is resigned without making any changes, there's no harm in the event being fired.
+  [[NSNotificationCenter defaultCenter] postNotificationName: CommentsChangedEvent
+                                                      object: self];
+}
+
 - (IBAction) displaySettingChanged:(id)sender {
   [self fireDisplaySettingsChanged];
 }
@@ -296,6 +307,9 @@ static ControlPanelControl  *singletonInstance = nil;
   [self selectedItemChanged: nil];
 }
 
+- (NSString *)comments {
+  return commentsTextView.string;
+}
 
 - (DirectoryViewDisplaySettings *)displaySettings {
   UniqueTagsTransformer  *tagMaker = [UniqueTagsTransformer defaultUniqueTagsTransformer];

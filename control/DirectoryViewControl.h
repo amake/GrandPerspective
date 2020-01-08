@@ -59,7 +59,7 @@ extern NSString  *ViewWillCloseEvent;
                                     pathModel:(ItemPathModel *)itemPathModel
                                      settings:(DirectoryViewControlSettings *)settings NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, readwrite, copy) NSString *comments;
+@property (nonatomic, readonly, copy) NSString *comments;
 
 @property (nonatomic, readonly, strong) NSString *nameOfActiveMask;
 

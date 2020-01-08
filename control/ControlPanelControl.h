@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ItemInFocusControls;
 @class TreeDrawerSettings;
 
+extern NSString  *CommentsChangedEvent;
 extern NSString  *DisplaySettingsChangedEvent;
 
 @interface ControlPanelControl : NSWindowController {
@@ -91,6 +92,9 @@ extern NSString  *DisplaySettingsChangedEvent;
 
 // Returns the current display settings. This is always a new instance.
 - (DirectoryViewDisplaySettings *)displaySettings;
+
+// Returns the comments in the Info panel (which the user can modify)
+- (NSString *)comments;
 
 // Converts a description of the display settings to an object that realizes these.
 - (TreeDrawerSettings *)instantiateDisplaySettings:(DirectoryViewDisplaySettings *)displaySettings

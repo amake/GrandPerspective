@@ -62,6 +62,8 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 - (void) visibleTreeChanged:(NSNotification *)notification;
 - (void) visiblePathLockingChanged:(NSNotification *)notification;
 
+- (void) commentsChanged:(NSNotification *)notification;
+
 - (void) displaySettingsChanged:(NSNotification *)notification;
 - (void) propagateDisplaySettings;
 
@@ -119,7 +121,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   if (self = [super initWithWindow: nil]) {
     treeContext = [[annTreeContext treeContext] retain];
     NSAssert([pathModel volumeTree] == [treeContext volumeTree], @"Tree mismatch");
-    _comments = [annTreeContext comments];
+    _comments = [[annTreeContext comments] retain];
     
     pathModelView = [[ItemPathModelView alloc] initWithPathModel: pathModel];
     initialSettings = [settings retain];
@@ -216,6 +218,10 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
          selector: @selector(visiblePathLockingChanged:)
              name: VisiblePathLockingChangedEvent 
            object: [pathModelView pathModel]];
+  [nc addObserver: self
+         selector: @selector(commentsChanged:)
+             name: CommentsChangedEvent
+           object: [ControlPanelControl singletonInstance]];
   [nc addObserver: self
          selector: @selector(displaySettingsChanged:)
              name: DisplaySettingsChangedEvent
@@ -760,18 +766,22 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   }
 }
 
+- (void) commentsChanged:(NSNotification *)notification {
+  if (self.window.isMainWindow) {
+    _comments = [[[ControlPanelControl singletonInstance] comments] retain];
+  }
+}
+
 
 - (void) displaySettingsChanged:(NSNotification *)notification {
-  if (! self.window.isMainWindow) {
-    return;
+  if (self.window.isMainWindow) {
+    ControlPanelControl  *controlPanel = [ControlPanelControl singletonInstance];
+
+    [displaySettings release];
+    displaySettings = [[controlPanel displaySettings] retain];
+
+    [self propagateDisplaySettings];
   }
-
-  ControlPanelControl  *controlPanel = [ControlPanelControl singletonInstance];
-
-  [displaySettings release];
-  displaySettings = [[controlPanel displaySettings] retain];
-
-  [self propagateDisplaySettings];
 }
 
 - (void) propagateDisplaySettings {
