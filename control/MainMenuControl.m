@@ -8,6 +8,7 @@
 #import "DirectoryViewControl.h"
 #import "DirectoryViewControlSettings.h"
 #import "DirectoryViewDisplaySettings.h"
+#import "ControlPanelControl.h"
 #import "SaveImageDialogControl.h"
 #import "PreferencesPanelControl.h"
 #import "FiltersWindowControl.h"
@@ -1034,27 +1035,33 @@ static MainMenuControl  *singletonInstance = nil;
 
 // Note: This method may be called from another thead than the main one.
 - (void) checkShowWelcomeWindow:(BOOL)allowAutoQuit {
-  if (viewCount == 0) {
-    NSString  *action = [[NSUserDefaults standardUserDefaults] stringForKey: NoViewsBehaviourKey];
-    if ([action isEqualToString: AfterClosingLastViewQuit]) {
-      if (allowAutoQuit) {
-        NSLog(@"Auto-quitting application after last view has closed");
-        [[NSApplication sharedApplication] performSelectorOnMainThread: @selector(terminate:)
+  if (viewCount > 0) {
+    return;
+  }
+
+  [[ControlPanelControl singletonInstance] performSelectorOnMainThread: @selector(hidePanel)
                                                             withObject: nil
                                                          waitUntilDone: NO];
-      }
+
+  NSString  *action = [[NSUserDefaults standardUserDefaults] stringForKey: NoViewsBehaviourKey];
+  if ([action isEqualToString: AfterClosingLastViewQuit]) {
+    if (allowAutoQuit) {
+      NSLog(@"Auto-quitting application after last view has closed");
+      [[NSApplication sharedApplication] performSelectorOnMainThread: @selector(terminate:)
+                                                          withObject: nil
+                                                       waitUntilDone: NO];
     }
-    else if ([action isEqualToString: AfterClosingLastViewShowWelcome]) {
-      [self performSelectorOnMainThread: @selector(showWelcomeWindow)
-                             withObject: nil
-                          waitUntilDone: NO];
-    }
-    else if ([action isEqualToString: AfterClosingLastViewDoNothing]) {
-      // void
-    }
-    else {
-      NSLog(@"Unrecognized action: %@", action);
-    }
+  }
+  else if ([action isEqualToString: AfterClosingLastViewShowWelcome]) {
+    [self performSelectorOnMainThread: @selector(showWelcomeWindow)
+                           withObject: nil
+                        waitUntilDone: NO];
+  }
+  else if ([action isEqualToString: AfterClosingLastViewDoNothing]) {
+    // void
+  }
+  else {
+    NSLog(@"Unrecognized action: %@", action);
   }
 }
 

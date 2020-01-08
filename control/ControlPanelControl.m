@@ -255,8 +255,10 @@ static ControlPanelControl  *singletonInstance = nil;
   [self showWindow: self];
 
   [tabView selectFirstTabViewItem: self];
+}
 
-  // TODO: Connect to window?
+- (void) hidePanel {
+  [self close];
 }
 
 - (IBAction) displaySettingChanged:(id)sender {
@@ -270,7 +272,7 @@ static ControlPanelControl  *singletonInstance = nil;
   [self fireDisplaySettingsChanged];
 }
 
-- (void)mainWindowChanged:(id)sender {
+- (void) mainWindowChanged:(id)sender {
   DirectoryViewControl  *dirViewControl =
     [NSApplication sharedApplication].mainWindow.windowController;
   if (dirViewControl == nil) {
