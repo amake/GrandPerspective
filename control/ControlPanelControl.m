@@ -308,16 +308,17 @@ static ControlPanelControl  *singletonInstance = nil;
   NSColorList  *palette = [colorPalettes colorListForKey: displaySettings.colorPaletteKey];
   float  gradient = [userDefaults floatForKey: DefaultColorGradient];
 
-  Filter  *maskFilter = [filterRepository filterForName: displaySettings.maskName];
   FileItemTest  *maskTest = nil;
-  if (maskFilter != nil) {
-    NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
-    maskTest = [maskFilter createFileItemTestUnboundTests: unboundTests];
-    [MainMenuControl reportUnboundTests: unboundTests];
+  if (displaySettings.fileItemMaskEnabled) {
+    Filter  *maskFilter = [filterRepository filterForName: displaySettings.maskName];
+    if (maskFilter != nil) {
+      NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
+      maskTest = [maskFilter createFileItemTestUnboundTests: unboundTests];
+      [MainMenuControl reportUnboundTests: unboundTests];
+    }
   }
 
   TreeDrawerSettings *tds = [TreeDrawerSettings alloc];
-
   return [[tds initWithColorMapper: mapper
                       colorPalette: palette
                      colorGradient: gradient
