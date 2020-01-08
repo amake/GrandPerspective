@@ -780,6 +780,9 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   mainView.treeDrawerSettings = [controlPanel instantiateDisplaySettings: displaySettings
                                                                  forTree: treeContext.scanTree];
   [mainView setShowEntireVolume: displaySettings.showEntireVolume];
+
+  // How packages are shown may impact how the selected item is represented
+  [self updateSelectionInStatusbar: nil];
 }
 
 
