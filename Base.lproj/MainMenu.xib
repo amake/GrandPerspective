@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -199,6 +199,13 @@
                             <menuItem isSeparatorItem="YES" id="271">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
+                            <menuItem title="Show Control Panel" id="9Ho-ON-BCj">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleControlPanelShown:" target="-1" id="UOt-FM-Yoj"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="GD1-b0-wSy"/>
                             <menuItem title="Duplicate" id="272">
                                 <connections>
                                     <action selector="duplicateDirectoryView:" target="222" id="274"/>
@@ -248,6 +255,7 @@
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="132" y="260"/>
         </menu>
         <customObject id="222" userLabel="MainMenuControl" customClass="MainMenuControl"/>
     </objects>

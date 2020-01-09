@@ -257,14 +257,24 @@ static ControlPanelControl  *singletonInstance = nil;
   }
 }
 
-- (void) showInfoPanel {
+- (void) showPanel {
   [self showWindow: self];
+}
+
+- (void) showInfoPanel {
+  [self showPanel];
 
   [tabView selectFirstTabViewItem: self];
 }
 
 - (void) hidePanel {
   [self close];
+}
+
+- (BOOL) isPanelShown {
+  // Check if window is loaded before checking visibility to avoid showing the window as a
+  // side-effect
+  return self.isWindowLoaded && self.window.isVisible;
 }
 
 // Invoked because the controller is the delegate for the window.

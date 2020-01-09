@@ -468,16 +468,29 @@ static MainMenuControl  *singletonInstance = nil;
     return YES;
   }
 
-  if ( action == @selector(duplicateDirectoryView:) ||
-       action == @selector(twinDirectoryView:)  ||
+  if ( action == @selector(toggleControlPanelShown:) ) {
+    if (!mainWindowIsDirectoryView) {
+      return NO;
+    }
+    item.title = ControlPanelControl.singletonInstance.isPanelShown
+      ? NSLocalizedString(@"Hide Control Panel", @"Menu item")
+      : NSLocalizedString(@"Show Control Panel", @"Menu item");
 
-       action == @selector(customizeToolbar:) || 
+    return YES;
+  }
+
+  if (
+      action == @selector(duplicateDirectoryView:) ||
+      action == @selector(twinDirectoryView:)  ||
+
+      action == @selector(customizeToolbar:) ||
        
-       action == @selector(saveScanData:) ||
-       action == @selector(saveDirectoryViewImage:) ||
-       action == @selector(saveScanDataAsText:) ||
-       action == @selector(rescan:) ||
-       action == @selector(filterDirectoryView:) ) {
+      action == @selector(saveScanData:) ||
+      action == @selector(saveDirectoryViewImage:) ||
+      action == @selector(saveScanDataAsText:) ||
+      action == @selector(rescan:) ||
+      action == @selector(filterDirectoryView:)
+  ) {
     return mainWindowIsDirectoryView;
   }
   
@@ -697,6 +710,15 @@ static MainMenuControl  *singletonInstance = nil;
   [[NSApplication sharedApplication].mainWindow runToolbarCustomizationPalette: sender];
 }
 
+- (IBAction) toggleControlPanelShown:(id)sender {
+  ControlPanelControl  *cpc = ControlPanelControl.singletonInstance;
+
+  if (cpc.isPanelShown) {
+    [cpc hidePanel];
+  } else {
+    [cpc showPanel];
+  }
+}
 
 - (IBAction) openWebsite:(id)sender {
   NSBundle  *bundle = [NSBundle mainBundle];

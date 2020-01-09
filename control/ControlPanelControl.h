@@ -87,10 +87,14 @@ extern NSString  *DisplaySettingsChangedEvent;
 
 - (void) mainWindowChanged:(nullable id)sender;
 
-// Ensures the window is shown (and in front) with the info panel visible.
+@property (nonatomic, readonly) BOOL isPanelShown;
+
+- (void) showPanel;
+- (void) hidePanel;
+
+// Ensures the panel is shown (and in front) with the info panel visible.
 - (void) showInfoPanel;
 
-- (void) hidePanel;
 
 // Returns the current display settings. This is always a new instance.
 - (DirectoryViewDisplaySettings *)displaySettings;

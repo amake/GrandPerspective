@@ -74,6 +74,8 @@
 - (IBAction) toggleToolbarShown:(id)sender;
 - (IBAction) customizeToolbar:(id)sender;
 
+- (IBAction) toggleControlPanelShown:(id)sender;
+
 - (IBAction) openWebsite:(id)sender;
 
 - (void) scanFolder:(NSString *)path;
