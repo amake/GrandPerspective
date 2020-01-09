@@ -507,13 +507,8 @@ NSString  *TallyFileSizeName = @"tally";
 }
 
 - (BOOL) buildTreeForDirectory:(DirectoryItem *)dirItem atPath:(NSString *)path {
-  NSURL  *url = [NSURL fileURLWithPath: path];
-  
-  dirStackTopIndex = -1;
-  [self addToStack: dirItem URL: url];
-
   NSDirectoryEnumerator  *directoryEnumerator =
-    [[NSFileManager defaultManager] enumeratorAtURL: url
+    [[NSFileManager defaultManager] enumeratorAtURL: [NSURL fileURLWithPath: path]
                          includingPropertiesForKeys: @[
                                                        NSURLNameKey,
                                                        NSURLIsDirectoryKey,
@@ -528,13 +523,22 @@ NSString  *TallyFileSizeName = @"tally";
                                                       ]
                                             options: 0
                                        errorHandler: nil];
+
   NSAutoreleasePool  *autoreleasePool = nil;
   int  i = 0;
+  dirStackTopIndex = -1;
 
   @try {
     for (NSURL *fileURL in directoryEnumerator) {
       NSURL  *parentURL = nil;
       [fileURL getParentURL: &parentURL];
+
+      if (dirStackTopIndex == -1) {
+        // Init first element of stack using URL as returned by getParentURL. This is done instead
+        // constructing the URL from the path using NSURL fileURLWithPath: as the latter can
+        // generate a different URL (see Bug #80), which in turn will cause an unwind failure.
+        [self addToStack: dirItem URL: parentURL];
+      }
 
       ScanStackFrame  *parent = [self unwindStackToURL: parentURL];
       NSAssert1(parent != nil, @"Unwind failure at %@", fileURL);
