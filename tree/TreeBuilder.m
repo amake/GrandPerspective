@@ -371,7 +371,13 @@ NSString  *TallyFileSizeName = @"tally";
 
 - (ScanStackFrame *)unwindStackToURL:(NSURL *)url {
   ScanStackFrame  *topDir = (ScanStackFrame *)dirStack[dirStackTopIndex];
+  if (debugLogEnabled) {
+    NSLog(@"Unwind to %@", url);
+  }
   while (! [topDir->url isEqual: url]) {
+    if (debugLogEnabled) {
+      NSLog(@"Pop %@", topDir->url);
+    }
     // Pop directory from stack. Its contents have been fully scanned so finalize its contents.
     [topDir filterSubDirectories: treeGuide];
     
