@@ -2,41 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSDesktopFolderUsageDescription</key>
-	<string>The app checks how much disk space your Desktop uses</string>
-	<key>NSDownloadsFolderUsageDescription</key>
-	<string>The app checks how much disk space your Downloads use</string>
-	<key>NSDocumentsFolderUsageDescription</key>
-	<string>The app checks how much disk space your Documents use</string>
-	<key>NSRemindersUsageDescription</key>
-	<string>The app checks how much disk space your Reminders use</string>
-	<key>LSMinimumSystemVersion</key>
-	<string>10.9.0</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Folder to scan</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.folder</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>CFBundleTypeName</key>
-			<string>Folder to scan</string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
 		</dict>
 		<dict>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
 			<key>CFBundleTypeIconFile</key>
 			<string>GrandPerspectiveScan.icns</string>
 			<key>CFBundleTypeName</key>
 			<string>GrandPerspective scan results</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>net.sourceforge.grandperspectiv.scandump</string>
@@ -60,15 +50,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.3.2</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>GrPe</string>
 	<key>CFBundleVersion</key>
-	<string>2.3.2</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>GPApplicationDefaults</key>
 	<dict>
-		<key>noViewsBehaviour</key>
-		<string>show welcome</string>
 		<key>confirmFileDeletion</key>
 		<true/>
 		<key>confirmFolderDeletion</key>
@@ -101,8 +89,10 @@
 		<false/>
 		<key>minimumTimeBoundForColorMapping</key>
 		<string>01/01/2001 00:00</string>
+		<key>noViewsBehaviour</key>
+		<string>show welcome</string>
 		<key>progressPanelRefreshRate</key>
-		<real>0.2</real>
+		<real>0.20000000000000001</real>
 		<key>rescanBehaviour</key>
 		<string>keep old window</string>
 		<key>showEntireVolumeByDefault</key>
@@ -333,22 +323,23 @@
 	<string>public.app-category.utilities</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.9.0</string>
+	<key>NSDesktopFolderUsageDescription</key>
+	<string>The app checks how much disk space your Desktop uses</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>The app checks how much disk space your Documents use</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>The app checks how much disk space your Downloads use</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>The app checks how much disk space your Reminders use</string>
 	<key>NSServices</key>
 	<array>
 		<dict>
-			<key>NSSendFileTypes</key>
-			<array>
-				<string>public.directory</string>
-			</array>
-			<key>NSRequiredContext</key>
-			<dict>
-				<key>NSServiceCategory</key>
-				<string>public.directory</string>
-			</dict>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
@@ -358,17 +349,17 @@
 			<string>scanFolder</string>
 			<key>NSPortName</key>
 			<string>GrandPerspective</string>
-		</dict>
-		<dict>
-			<key>NSSendFileTypes</key>
-			<array>
-				<string>net.sourceforge.grandperspectiv.scandump</string>
-			</array>
 			<key>NSRequiredContext</key>
 			<dict>
 				<key>NSServiceCategory</key>
-				<string>public.item</string>
+				<string>public.directory</string>
 			</dict>
+			<key>NSSendFileTypes</key>
+			<array>
+				<string>public.directory</string>
+			</array>
+		</dict>
+		<dict>
 			<key>NSMenuItem</key>
 			<dict>
 				<key>default</key>
@@ -378,6 +369,15 @@
 			<string>loadScanData</string>
 			<key>NSPortName</key>
 			<string>GrandPerspective</string>
+			<key>NSRequiredContext</key>
+			<dict>
+				<key>NSServiceCategory</key>
+				<string>public.item</string>
+			</dict>
+			<key>NSSendFileTypes</key>
+			<array>
+				<string>net.sourceforge.grandperspectiv.scandump</string>
+			</array>
 		</dict>
 	</array>
 	<key>UTExportedTypeDeclarations</key>
