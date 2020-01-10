@@ -67,6 +67,9 @@
 /* Alert panel button */
 "Cancel" = "Annuleer";
 
+/* Part of tool tip for uniform types */
+"Conforms to:" = "Voldoet aan:";
+
 /* Header in exported text file */
 "Created" = "Aangemaakt";
 
@@ -202,6 +205,9 @@
 /* File size unit for gigabytes. */
 "GB" = "GB";
 
+/* Menu item */
+"Hide Control Panel" = "Verberg Besturingspaneel";
+
 /* File size unit for kilobytes. */
 "kB" = "kB";
 
@@ -319,6 +325,9 @@
 /* Label in Focus panel */
 "Selected package:" = "Geselecteerd pakket:";
 
+/* Menu item */
+"Show Control Panel" = "Toon Besturingspaneel";
+
 /* Header in exported text file */
 "Size" = "Grootte";
 
@@ -372,6 +381,9 @@
 
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "Deze filters bestaan niet meer. Hun oorspronkelijke definitie zal daarom gebruikt worden.";
+
+/* Part of tool tip for uniform types */
+"Top-level type" = "Basistype";
 
 /* Header in exported text file */
 "Type" = "Bestandstype";

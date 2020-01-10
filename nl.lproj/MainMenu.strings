@@ -4,6 +4,9 @@
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
 "5.title" = "Alles op voorgrond";
 
+/* Class = "NSMenuItem"; title = "Show/Hide Control Panel"; ObjectID = "9Ho-ON-BCj"; */
+"9Ho-ON-BCj.title" = "Toon/verberg Besturingspaneel";
+
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
 "19.title" = "Venster";
 

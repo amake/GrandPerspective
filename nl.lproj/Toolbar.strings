@@ -64,6 +64,9 @@
 /* Tooltip */
 "Reveal in Finder" = "Toon in Finder";
 
+/* Tooltip */
+"Show info" = "Toon info";
+
 /* Menu item */
 "Show Toolbar" = "Toon knoppenbalk";
 
