@@ -17,6 +17,7 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
 @property (nonatomic, readonly, strong) UniformType *uniformType;
 @property (nonatomic, getter=isDominated) BOOL dominated;
+@property (nonatomic, readonly) NSString *toolTip;
 
 @end // @interface TypeCell
 
@@ -172,17 +173,6 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 }
 
 
-- (IBAction) showTypeDescriptionChanged:(id)sender {
-  NSButton  *button = sender;
-  if (button.state == NSOffState) {
-    [typeDescriptionDrawer close];
-  }
-  else if (button.state == NSOnState) {
-    [typeDescriptionDrawer open];
-  }
-}
-
-
 //----------------------------------------------------------------------------
 // Delegate methods for NSWindow
 
@@ -297,6 +287,17 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
   [cell setAttributedStringValue: cellValue];
 }
 
+- (NSString *)tableView:(NSTableView *)tableView
+         toolTipForCell:(NSCell *)cell
+                   rect:(NSRectPointer)rect
+            tableColumn:(NSTableColumn *)tableColumn
+                    row:(NSInteger)row
+          mouseLocation:(NSPoint)mouseLocation {
+  TypeCell  *typeCell = typeCells[row];
+
+  return typeCell.toolTip;
+}
+
 - (void) tableViewSelectionDidChange: (NSNotification *)notification {
   [self updateWindowState];
 }
@@ -366,24 +367,6 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
   moveDownButton.enabled = i < numCells - 1;
   moveToBottomButton.enabled = i < numCells - 1;
-  
-  UniformType  *type = [typeCell uniformType];
-  
-  typeIdentifierField.stringValue = [type uniformTypeIdentifier];
-  
-  NSString  *descr = [type description];
-  typeDescriptionField.stringValue = (descr != nil) ? descr : @"";
-
-  NSMutableString  *conformsTo = [NSMutableString stringWithCapacity: 64];
-  NSEnumerator  *parentEnum = [[type parentTypes] objectEnumerator];
-  UniformType  *parentType;
-  while (parentType = [parentEnum nextObject]) {
-    if (conformsTo.length > 0) {
-      [conformsTo appendString: @", "];
-    }
-    [conformsTo appendString: [parentType uniformTypeIdentifier]];
-  }
-  typeConformsToField.stringValue = conformsTo;
 }
 
 
@@ -488,6 +471,41 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
 
 - (void) setDominated:(BOOL)flag {
   dominated = flag;
+}
+
+- (NSString *)toolTip {
+  NSMutableString  *toolTip = [NSMutableString stringWithCapacity: 64];
+
+  if ([type description]) {
+    [toolTip appendString: [type description]];
+  }
+
+  NSMutableString  *conformsTo = [NSMutableString stringWithCapacity: 64];
+  for (UniformType *parentType in [[type parentTypes] objectEnumerator]) {
+    if (conformsTo.length > 0) {
+      [conformsTo appendString: @", "];
+    } else {
+      [conformsTo appendString: NSLocalizedString(@"Conforms to: ",
+                                                  @"Part of tool tip for uniform types")];
+    }
+    [conformsTo appendString: [parentType uniformTypeIdentifier]];
+  }
+
+  if (conformsTo.length > 0) {
+    if (toolTip.length > 0) {
+      [toolTip appendString: @"\n"];
+    }
+    [toolTip appendString: conformsTo];
+  } else {
+    if (toolTip.length == 0) {
+      // Ensure each row has a tooltip, but do not unnecessarily add it. Amongst others, this
+      // avoids it from being added to "unknown type", where it does not make sense.
+      [toolTip appendString: NSLocalizedString(@"Top-level type",
+                                               @"Part of tool tip for uniform types")];
+    }
+  }
+
+  return toolTip;
 }
 
 @end // @implementation TypeCell

@@ -8,11 +8,6 @@
 
   IBOutlet NSTableView  *typesTable;
 
-  IBOutlet NSDrawer  *typeDescriptionDrawer;
-  IBOutlet NSTextField  *typeIdentifierField;
-  IBOutlet NSTextField  *typeDescriptionField;
-  IBOutlet NSTextField  *typeConformsToField;
-  
   IBOutlet NSButton  *moveToTopButton;
   IBOutlet NSButton  *moveToBottomButton;
 
@@ -38,8 +33,6 @@
 
 - (IBAction) moveUpAction:(id)sender;
 - (IBAction) moveDownAction:(id)sender;
-
-- (IBAction) showTypeDescriptionChanged:(id)sender;
 
 
 - (instancetype) initWithUniformTypeRanking:(UniformTypeRanking *)typeRanking NS_DESIGNATED_INITIALIZER;
