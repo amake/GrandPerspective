@@ -2,5 +2,5 @@
 
 CFBundleName = "GrandPerspective";
 CFBundleDisplayName = "GrandPerspective";
-NSHumanReadableCopyright = "Copyright © Eriban Software, 2005-2019";
-CFBundleGetInfoString = "22 Dec 2019";
+NSHumanReadableCopyright = "Copyright © Eriban Software, 2005-2020";
+CFBundleGetInfoString = "10 Jan 2020";
