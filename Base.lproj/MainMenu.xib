@@ -199,7 +199,7 @@
                             <menuItem isSeparatorItem="YES" id="271">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
-                            <menuItem title="Show Control Panel" id="9Ho-ON-BCj">
+                            <menuItem title="Show/Hide Control Panel" id="9Ho-ON-BCj">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="toggleControlPanelShown:" target="-1" id="UOt-FM-Yoj"/>
