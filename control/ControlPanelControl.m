@@ -17,7 +17,7 @@
 
 // From util
 #import "UniqueTagsTransformer.h"
-#import "ColorListCollection.h" // TODO: Move to util
+#import "ColorListCollection.h"
 #import "UniformType.h"
 
 // From mapping

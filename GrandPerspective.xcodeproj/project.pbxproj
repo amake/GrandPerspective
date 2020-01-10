@@ -38,7 +38,6 @@
 		AA3B38E60D17EEF60070E889 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B38DE0D17EEF60070E889 /* Item.m */; };
 		AA3B40E10D1AF2B70070E889 /* UniqueTagsTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3B40DF0D1AF2B70070E889 /* UniqueTagsTransformer.m */; };
 		AA402FFC0A5B01A6004EAAF3 /* SaveImageDialogControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA402FEC0A5B01A6004EAAF3 /* SaveImageDialogControl.m */; };
-		AA4030000A5B01A6004EAAF3 /* WindowManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA402FF00A5B01A6004EAAF3 /* WindowManager.m */; };
 		AA4030010A5B01A6004EAAF3 /* DirectoryViewControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA402FF10A5B01A6004EAAF3 /* DirectoryViewControl.m */; };
 		AA4030050A5B01A6004EAAF3 /* MainMenuControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AA402FF50A5B01A6004EAAF3 /* MainMenuControl.m */; };
 		AA4030330A5B02F1004EAAF3 /* ItemPathModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AA4030310A5B02F1004EAAF3 /* ItemPathModel.m */; };
@@ -141,6 +140,9 @@
 		AAA2800310822DB000229112 /* StringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA2800210822DB000229112 /* StringTest.m */; };
 		AAA2809C108252C900229112 /* Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA28099108252C900229112 /* Filter.m */; };
 		AAA2809D108252C900229112 /* FilterSet.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA2809B108252C900229112 /* FilterSet.m */; };
+		AAA4FF1123C8F7C300A51C97 /* ColorListCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA4FF1023C8F7C300A51C97 /* ColorListCollection.m */; };
+		AAA4FF1423C8F99000A51C97 /* VisibleAsynchronousTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA4FF1223C8F99000A51C97 /* VisibleAsynchronousTaskManager.m */; };
+		AAA4FF1723C8FA7200A51C97 /* WindowManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA4FF1623C8FA7200A51C97 /* WindowManager.m */; };
 		AAA6E72D0EFD29CB00B4E71E /* ToolbarSegmentedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA6E72C0EFD29CB00B4E71E /* ToolbarSegmentedCell.m */; };
 		AAA8724C111492E600ED5112 /* ScanTreeRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = AAA8724B111492E600ED5112 /* ScanTreeRoot.m */; };
 		AAAB9A700EF3D38F00B3C482 /* RevealInFinder.png in Resources */ = {isa = PBXBuildFile; fileRef = AAAB9A6E0EF3D38F00B3C482 /* RevealInFinder.png */; };
@@ -168,14 +170,12 @@
 		AAEF43A71081FC2E00468832 /* FilterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEF43A61081FC2E00468832 /* FilterTest.m */; };
 		AAEF440C10821A3800468832 /* FilterTestRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEF440B10821A3800468832 /* FilterTestRepository.m */; };
 		AAEF442510821EC800468832 /* FileItemTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEF442410821EC800468832 /* FileItemTest.m */; };
-		AAEF60510B028DD800C7134A /* ColorListCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = AAEF604F0B028DD800C7134A /* ColorListCollection.m */; };
 		AAF3C75B0EF3FA42004CF446 /* Delete.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF3C75A0EF3FA42004CF446 /* Delete.png */; };
 		AAF951B10EDEE2E100844FD5 /* DirectoryViewToolbarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF951B00EDEE2E100844FD5 /* DirectoryViewToolbarControl.m */; };
 		AAF952CD0EE043C900844FD5 /* ZoomOut.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF952CB0EE043C900844FD5 /* ZoomOut.png */; };
 		AAF952CE0EE043C900844FD5 /* ZoomIn.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF952CC0EE043C900844FD5 /* ZoomIn.png */; };
 		AAFB1194238ABF3B00D616C3 /* TreeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFB1193238ABF3B00D616C3 /* TreeWriter.m */; };
 		AAFB1197238AD5E900D616C3 /* RawTreeWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFB1196238AD5E900D616C3 /* RawTreeWriter.m */; };
-		AAFDC49C0A892AE200DB84D7 /* VisibleAsynchronousTaskManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFDC49A0A892AE200DB84D7 /* VisibleAsynchronousTaskManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -272,9 +272,7 @@
 		AA402FEA0A5B01A6004EAAF3 /* SaveImageDialogControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = SaveImageDialogControl.h; path = control/SaveImageDialogControl.h; sourceTree = "<group>"; };
 		AA402FEC0A5B01A6004EAAF3 /* SaveImageDialogControl.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = SaveImageDialogControl.m; path = control/SaveImageDialogControl.m; sourceTree = "<group>"; };
 		AA402FED0A5B01A6004EAAF3 /* MainMenuControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = MainMenuControl.h; path = control/MainMenuControl.h; sourceTree = "<group>"; };
-		AA402FF00A5B01A6004EAAF3 /* WindowManager.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = WindowManager.m; path = control/WindowManager.m; sourceTree = "<group>"; };
 		AA402FF10A5B01A6004EAAF3 /* DirectoryViewControl.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = DirectoryViewControl.m; path = control/DirectoryViewControl.m; sourceTree = "<group>"; };
-		AA402FF40A5B01A6004EAAF3 /* WindowManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = WindowManager.h; path = control/WindowManager.h; sourceTree = "<group>"; };
 		AA402FF50A5B01A6004EAAF3 /* MainMenuControl.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = MainMenuControl.m; path = control/MainMenuControl.m; sourceTree = "<group>"; };
 		AA402FF60A5B01A6004EAAF3 /* DirectoryViewControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = DirectoryViewControl.h; path = control/DirectoryViewControl.h; sourceTree = "<group>"; };
 		AA4030310A5B02F1004EAAF3 /* ItemPathModel.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ItemPathModel.m; path = tree/ItemPathModel.m; sourceTree = "<group>"; };
@@ -479,6 +477,12 @@
 		AAA4FF0C23C8C0DC00A51C97 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ControlPanel.strings; sourceTree = "<group>"; };
 		AAA4FF0D23C8C0DC00A51C97 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ExportAsTextDialog.strings; sourceTree = "<group>"; };
 		AAA4FF0E23C8C15B00A51C97 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/ControlPanel.strings; sourceTree = "<group>"; };
+		AAA4FF0F23C8F7C300A51C97 /* ColorListCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorListCollection.h; path = util/ColorListCollection.h; sourceTree = "<group>"; };
+		AAA4FF1023C8F7C300A51C97 /* ColorListCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColorListCollection.m; path = util/ColorListCollection.m; sourceTree = "<group>"; };
+		AAA4FF1223C8F99000A51C97 /* VisibleAsynchronousTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VisibleAsynchronousTaskManager.m; path = control/progress/VisibleAsynchronousTaskManager.m; sourceTree = "<group>"; };
+		AAA4FF1323C8F99000A51C97 /* VisibleAsynchronousTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleAsynchronousTaskManager.h; path = control/progress/VisibleAsynchronousTaskManager.h; sourceTree = "<group>"; };
+		AAA4FF1523C8FA7200A51C97 /* WindowManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindowManager.h; path = util/WindowManager.h; sourceTree = "<group>"; };
+		AAA4FF1623C8FA7200A51C97 /* WindowManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WindowManager.m; path = util/WindowManager.m; sourceTree = "<group>"; };
 		AAA6E72B0EFD29CB00B4E71E /* ToolbarSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToolbarSegmentedCell.h; path = util/ToolbarSegmentedCell.h; sourceTree = "<group>"; };
 		AAA6E72C0EFD29CB00B4E71E /* ToolbarSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToolbarSegmentedCell.m; path = util/ToolbarSegmentedCell.m; sourceTree = "<group>"; };
 		AAA857ED22F7643100DB3BE5 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/MainMenu.strings; sourceTree = "<group>"; };
@@ -574,8 +578,6 @@
 		AAEF440A10821A3800468832 /* FilterTestRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilterTestRepository.h; path = filter/FilterTestRepository.h; sourceTree = "<group>"; };
 		AAEF440B10821A3800468832 /* FilterTestRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilterTestRepository.m; path = filter/FilterTestRepository.m; sourceTree = "<group>"; };
 		AAEF442410821EC800468832 /* FileItemTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileItemTest.m; path = test/FileItemTest.m; sourceTree = "<group>"; };
-		AAEF604E0B028DD800C7134A /* ColorListCollection.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ColorListCollection.h; path = control/ColorListCollection.h; sourceTree = "<group>"; };
-		AAEF604F0B028DD800C7134A /* ColorListCollection.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ColorListCollection.m; path = control/ColorListCollection.m; sourceTree = "<group>"; };
 		AAF3C75A0EF3FA42004CF446 /* Delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Delete.png; path = Images/Delete.png; sourceTree = "<group>"; };
 		AAF56B1C097441C700A89601 /* GrandPerspective_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GrandPerspective_Prefix.pch; sourceTree = "<group>"; };
 		AAF951AF0EDEE2E100844FD5 /* DirectoryViewToolbarControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectoryViewToolbarControl.h; path = control/DirectoryViewToolbarControl.h; sourceTree = "<group>"; };
@@ -587,8 +589,6 @@
 		AAFB1193238ABF3B00D616C3 /* TreeWriter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TreeWriter.m; path = tree/TreeWriter.m; sourceTree = "<group>"; };
 		AAFB1195238AD5E900D616C3 /* RawTreeWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RawTreeWriter.h; path = tree/RawTreeWriter.h; sourceTree = "<group>"; };
 		AAFB1196238AD5E900D616C3 /* RawTreeWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RawTreeWriter.m; path = tree/RawTreeWriter.m; sourceTree = "<group>"; };
-		AAFDC4990A892AE200DB84D7 /* VisibleAsynchronousTaskManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleAsynchronousTaskManager.h; path = control/VisibleAsynchronousTaskManager.h; sourceTree = "<group>"; };
-		AAFDC49A0A892AE200DB84D7 /* VisibleAsynchronousTaskManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VisibleAsynchronousTaskManager.m; path = control/VisibleAsynchronousTaskManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -823,6 +823,10 @@
 		AA6178720A38B8E600B8AB16 /* util */ = {
 			isa = PBXGroup;
 			children = (
+				AAA4FF1523C8FA7200A51C97 /* WindowManager.h */,
+				AAA4FF1623C8FA7200A51C97 /* WindowManager.m */,
+				AAA4FF0F23C8F7C300A51C97 /* ColorListCollection.h */,
+				AAA4FF1023C8F7C300A51C97 /* ColorListCollection.m */,
 				AAD50FCC21BDB30F00784BBF /* AlertMessage.h */,
 				AAD50FCD21BDB30F00784BBF /* AlertMessage.m */,
 				AA1049BF1511582C003C041C /* Compatibility.h */,
@@ -875,6 +879,8 @@
 				AA7A7F090E4F326D00EB366E /* ReadProgressPanelControl.m */,
 				AA7A7EDD0E4F28D100EB366E /* WriteProgressPanelControl.h */,
 				AA7A7EDE0E4F28D100EB366E /* WriteProgressPanelControl.m */,
+				AAA4FF1323C8F99000A51C97 /* VisibleAsynchronousTaskManager.h */,
+				AAA4FF1223C8F99000A51C97 /* VisibleAsynchronousTaskManager.m */,
 			);
 			name = progress;
 			sourceTree = "<group>";
@@ -958,12 +964,6 @@
 				AA52462E1102031D0018897B /* UniformTypeRankingWindowControl.m */,
 				AA402FEA0A5B01A6004EAAF3 /* SaveImageDialogControl.h */,
 				AA402FEC0A5B01A6004EAAF3 /* SaveImageDialogControl.m */,
-				AAFDC4990A892AE200DB84D7 /* VisibleAsynchronousTaskManager.h */,
-				AAFDC49A0A892AE200DB84D7 /* VisibleAsynchronousTaskManager.m */,
-				AA402FF40A5B01A6004EAAF3 /* WindowManager.h */,
-				AA402FF00A5B01A6004EAAF3 /* WindowManager.m */,
-				AAEF604E0B028DD800C7134A /* ColorListCollection.h */,
-				AAEF604F0B028DD800C7134A /* ColorListCollection.m */,
 				AA7DEC8B0D6EDE820057F5F8 /* UniformTypeRanking.h */,
 				AA7DEC8C0D6EDE820057F5F8 /* UniformTypeRanking.m */,
 				AA2B4BAA10EFACB10088EA1C /* NameValidator.h */,
@@ -1196,19 +1196,16 @@
 				AA6013290A5AFCC500DEBCB8 /* TreeFilter.m in Sources */,
 				AA60132B0A5AFCC500DEBCB8 /* TreeBuilder.m in Sources */,
 				AA402FFC0A5B01A6004EAAF3 /* SaveImageDialogControl.m in Sources */,
-				AA4030000A5B01A6004EAAF3 /* WindowManager.m in Sources */,
 				AA4030010A5B01A6004EAAF3 /* DirectoryViewControl.m in Sources */,
 				AA4030050A5B01A6004EAAF3 /* MainMenuControl.m in Sources */,
 				AA4030330A5B02F1004EAAF3 /* ItemPathModel.m in Sources */,
 				AA1115C40A84CA320023C5CD /* DirectoryViewControlSettings.m in Sources */,
-				AAFDC49C0A892AE200DB84D7 /* VisibleAsynchronousTaskManager.m in Sources */,
 				AAC26BC10A8CAF4800F2DA33 /* DrawTaskExecutor.m in Sources */,
 				AAC26BC30A8CAF4800F2DA33 /* DrawTaskInput.m in Sources */,
 				AAC26BC50A8CAF4800F2DA33 /* FilterTaskExecutor.m in Sources */,
 				AAC26BC70A8CAF4800F2DA33 /* FilterTaskInput.m in Sources */,
 				AAC26BCD0A8CAF4800F2DA33 /* ScanTaskExecutor.m in Sources */,
 				AA16DABC0AF93C7D005052D1 /* NotifyingPanel.m in Sources */,
-				AAEF60510B028DD800C7134A /* ColorListCollection.m in Sources */,
 				AAFB1197238AD5E900D616C3 /* RawTreeWriter.m in Sources */,
 				AAD8DFB30B077ED20060DADA /* PreferencesPanelControl.m in Sources */,
 				AA5974CA0B31687600EF3248 /* FileItemPathStringCache.m in Sources */,
@@ -1269,6 +1266,7 @@
 				AA7A7EF00E4F2A1C00EB366E /* TaskExecutor.m in Sources */,
 				AA7A7EF60E4F2B5E00EB366E /* TreeDrawer.m in Sources */,
 				AA7A7EF70E4F2B5E00EB366E /* TreeDrawerSettings.m in Sources */,
+				AAA4FF1423C8F99000A51C97 /* VisibleAsynchronousTaskManager.m in Sources */,
 				AA7A7F0A0E4F326D00EB366E /* ReadProgressPanelControl.m in Sources */,
 				AA7A7F0D0E4F339D00EB366E /* ReadTaskInput.m in Sources */,
 				AA7A7F110E4F342100EB366E /* ReadTaskExecutor.m in Sources */,
@@ -1276,6 +1274,7 @@
 				AAE476C21D0D945E007CF42F /* RecentDocumentTableCellView.m in Sources */,
 				AAE476C51D0D947E007CF42F /* StartWindowControl.m in Sources */,
 				AAB52EBB0E4F8DFE00BF7B20 /* ObjectPool.m in Sources */,
+				AAA4FF1723C8FA7200A51C97 /* WindowManager.m in Sources */,
 				AAB52EC30E520E7A00BF7B20 /* MutableArrayPool.m in Sources */,
 				AAF951B10EDEE2E100844FD5 /* DirectoryViewToolbarControl.m in Sources */,
 				AA819B431D5F9A7D003C7139 /* TreeVisitingProgressTracker.m in Sources */,
@@ -1297,6 +1296,7 @@
 				AA83A46F10F14280002542E4 /* NamedFilter.m in Sources */,
 				AA83A5D710F52716002542E4 /* FilterEditor.m in Sources */,
 				AA83A65410F67A2E002542E4 /* FilterPopUpControl.m in Sources */,
+				AAA4FF1123C8F7C300A51C97 /* ColorListCollection.m in Sources */,
 				AA83A70F10F8AE5E002542E4 /* FilterTestEditor.m in Sources */,
 				AA52461D110202F50018897B /* FilterSelectionPanelControl.m in Sources */,
 				AA52461E110202F50018897B /* FiltersWindowControl.m in Sources */,
