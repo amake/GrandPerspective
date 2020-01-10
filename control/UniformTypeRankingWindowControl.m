@@ -485,8 +485,9 @@ NSString  *InternalTableDragType = @"EditUniformTypeRankingWindowInternalDrag";
     if (conformsTo.length > 0) {
       [conformsTo appendString: @", "];
     } else {
-      [conformsTo appendString: NSLocalizedString(@"Conforms to: ",
+      [conformsTo appendString: NSLocalizedString(@"Conforms to:",
                                                   @"Part of tool tip for uniform types")];
+      [conformsTo appendString: @" "]; // Don't make trailing space part of translation text
     }
     [conformsTo appendString: [parentType uniformTypeIdentifier]];
   }
