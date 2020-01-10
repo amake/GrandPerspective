@@ -11,6 +11,9 @@
 "Hide Toolbar" = "Toolbar ausblenden";
 
 /* Toolbar action */
+"Info" = "Info";
+
+/* Toolbar action */
 "Move focus down" = "Auswahl verkleinern";
 
 /* Toolbar action */

@@ -34,7 +34,7 @@
 /* Message in progress panel while scanning */
 "%d folders scanned" = "%d Verzeichnisse gescannt";
 
-/* Exact file size (in bytes). */
+/* Exact file size (in bytes) */
 "%qu bytes" = "%qu bytes";
 
 /* Alert message */
@@ -229,6 +229,9 @@
 /* Parse error */
 "Parsing aborted" = "Parsing abgebrochen";
 
+/* Header in exported text file */
+"Path" = "Pfad";
+
 /* Alert message */
 "Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "Mögliche Gründe sind, dass das Element nicht mehr existiert (Es ist möglicherweise verschoben, umbenannt oder gelöscht) oder Sie haben nicht die ausreichende Berechtigung.";
 
@@ -279,6 +282,9 @@
 
 /* Label in Focus panel */
 "Selected package:" = "Ausgewählte Packages:";
+
+/* Header in exported text file */
+"Size" = "Größe";
 
 /* Alert message (with filename arg) */
 "Successfully saved the scan data to \"%@\"" = "Erfolgreich Scan Datei gespeichert in \"%@\"";

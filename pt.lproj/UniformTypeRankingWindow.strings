@@ -4,26 +4,11 @@
 /* Class = "NSBox"; title = "Ordered file types"; ObjectID = "24"; */
 "24.title" = "Arquivos ordenados por tipo";
 
-/* Class = "NSTextFieldCell"; title = "Description:"; ObjectID = "84"; */
-"84.title" = "Descrição:";
-
-/* Class = "NSTextFieldCell"; title = "Conforms to:"; ObjectID = "85"; */
-"85.title" = "Coincide com:";
-
-/* Class = "NSTextFieldCell"; title = "File type:"; ObjectID = "86"; */
-"86.title" = "Tipo de arquivo:";
-
-/* Class = "NSTextFieldCell"; title = "Description of type"; ObjectID = "88"; */
-"88.title" = "Descrição do tipo";
-
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "90"; */
 "90.title" = "Cancelar";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "91"; */
 "91.title" = "OK";
-
-/* Class = "NSButtonCell"; title = "Show file type details"; ObjectID = "92"; */
-"92.title" = "Mostrar detalhes do tipo de arquivo";
 
 /* Class = "NSButtonCell"; title = "Move to top"; ObjectID = "93"; */
 "93.title" = "Mover para cima";

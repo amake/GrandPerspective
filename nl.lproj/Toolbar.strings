@@ -11,6 +11,9 @@
 "Hide Toolbar" = "Verberg knoppenbalk";
 
 /* Toolbar action */
+"Info" = "Info";
+
+/* Toolbar action */
 "Move focus down" = "Verplaats focus omlaag";
 
 /* Toolbar action */

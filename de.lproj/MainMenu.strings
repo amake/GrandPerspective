@@ -64,7 +64,7 @@
 /* Class = "NSMenuItem"; title = "Twin"; ObjectID = "321"; */
 "321.title" = "Klonen";
 
-/* Class = "NSMenuItem"; title = "Save Image of View..."; ObjectID = "324"; */
+/* Class = "NSMenuItem"; title = "Export As Image..."; ObjectID = "324"; */
 "324.title" = "Speichere eine Bilddatei der Ansicht...";
 
 /* Class = "NSMenuItem"; title = "Rescan"; ObjectID = "326"; */

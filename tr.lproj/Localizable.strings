@@ -229,6 +229,9 @@
 /* Parse error */
 "Parsing aborted" = "Ayrıştırma durduruldu";
 
+/* Header in exported text file */
+"Path" = "Yol";
+
 /* Alert message */
 "Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "Artık bulunmuyor olması neden olabilir (başka yollardan taşınmış, ismi değiştirilmiş ya da silinmiş olabilir) ya da gerekli izinleriniz yoktur.";
 
@@ -279,6 +282,9 @@
 
 /* Label in Focus panel */
 "Selected package:" = "Seçilen paket:";
+
+/* Header in exported text file */
+"Size" = "Boyut";
 
 /* Alert message (with filename arg) */
 "Successfully saved the scan data to \"%@\"" = "TArama verisini \"%@\" olarak başarıyla kaydedildi";

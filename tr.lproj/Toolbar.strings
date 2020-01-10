@@ -11,6 +11,9 @@
 "Hide Toolbar" = "Araç Çubuğunu Sakla";
 
 /* Toolbar action */
+"Info" = "Bilgi";
+
+/* Toolbar action */
 "Move focus down" = "Odağı aşağıya taşı";
 
 /* Toolbar action */

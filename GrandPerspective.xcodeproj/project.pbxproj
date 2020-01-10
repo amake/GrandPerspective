@@ -472,6 +472,13 @@
 		AAA28099108252C900229112 /* Filter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Filter.m; path = filter/Filter.m; sourceTree = "<group>"; };
 		AAA2809A108252C900229112 /* FilterSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FilterSet.h; path = filter/FilterSet.h; sourceTree = "<group>"; };
 		AAA2809B108252C900229112 /* FilterSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FilterSet.m; path = filter/FilterSet.m; sourceTree = "<group>"; };
+		AAA4FF0823C8BF0A00A51C97 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/ControlPanel.strings; sourceTree = "<group>"; };
+		AAA4FF0923C8BF9700A51C97 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ControlPanel.strings; sourceTree = "<group>"; };
+		AAA4FF0A23C8BF9700A51C97 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/ExportAsTextDialog.strings; sourceTree = "<group>"; };
+		AAA4FF0B23C8C07A00A51C97 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/ControlPanel.strings; sourceTree = "<group>"; };
+		AAA4FF0C23C8C0DC00A51C97 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ControlPanel.strings; sourceTree = "<group>"; };
+		AAA4FF0D23C8C0DC00A51C97 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ExportAsTextDialog.strings; sourceTree = "<group>"; };
+		AAA4FF0E23C8C15B00A51C97 /* zh */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh; path = zh.lproj/ControlPanel.strings; sourceTree = "<group>"; };
 		AAA6E72B0EFD29CB00B4E71E /* ToolbarSegmentedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToolbarSegmentedCell.h; path = util/ToolbarSegmentedCell.h; sourceTree = "<group>"; };
 		AAA6E72C0EFD29CB00B4E71E /* ToolbarSegmentedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToolbarSegmentedCell.m; path = util/ToolbarSegmentedCell.m; sourceTree = "<group>"; };
 		AAA857ED22F7643100DB3BE5 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/MainMenu.strings; sourceTree = "<group>"; };
@@ -1332,6 +1339,8 @@
 				AA054A9A2395CABC001A5826 /* nl */,
 				AA5ECB3423AE1D0400C68862 /* pt */,
 				AA5ECB3523AE1E1100C68862 /* zh */,
+				AAA4FF0A23C8BF9700A51C97 /* de */,
+				AAA4FF0D23C8C0DC00A51C97 /* tr */,
 			);
 			name = ExportAsTextDialog.xib;
 			sourceTree = "<group>";
@@ -1431,6 +1440,11 @@
 			isa = PBXVariantGroup;
 			children = (
 				AA59E3AA23C32ED6006A5184 /* Base */,
+				AAA4FF0823C8BF0A00A51C97 /* nl */,
+				AAA4FF0923C8BF9700A51C97 /* de */,
+				AAA4FF0B23C8C07A00A51C97 /* pt */,
+				AAA4FF0C23C8C0DC00A51C97 /* tr */,
+				AAA4FF0E23C8C15B00A51C97 /* zh */,
 			);
 			name = ControlPanel.xib;
 			sourceTree = "<group>";

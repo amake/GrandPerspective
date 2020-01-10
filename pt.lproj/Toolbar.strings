@@ -11,6 +11,9 @@
 "Hide Toolbar" = "Ocultar a Barra de Ferramentas";
 
 /* Toolbar action */
+"Info" = "Informação";
+
+/* Toolbar action */
 "Move focus down" = "Mover o foco para baixo";
 
 /* Toolbar action */

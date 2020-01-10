@@ -4,26 +4,11 @@
 /* Class = "NSBox"; title = "Ordered file types"; ObjectID = "24"; */
 "24.title" = "Sıralı dosya türleri";
 
-/* Class = "NSTextFieldCell"; title = "Description:"; ObjectID = "84"; */
-"84.title" = "Tanım:";
-
-/* Class = "NSTextFieldCell"; title = "Conforms to:"; ObjectID = "85"; */
-"85.title" = "İle uyumludur:";
-
-/* Class = "NSTextFieldCell"; title = "File type:"; ObjectID = "86"; */
-"86.title" = "Dosya Türü:";
-
-/* Class = "NSTextFieldCell"; title = "Description of type"; ObjectID = "88"; */
-"88.title" = "Türün tanımı";
-
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "90"; */
 "90.title" = "Vazgeç";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "91"; */
 "91.title" = "Tamam";
-
-/* Class = "NSButtonCell"; title = "Show file type details"; ObjectID = "92"; */
-"92.title" = "Dosya türü detaylarını göster";
 
 /* Class = "NSButtonCell"; title = "Move to top"; ObjectID = "93"; */
 "93.title" = "En üste taşı";

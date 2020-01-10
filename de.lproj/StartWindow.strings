@@ -1,7 +1,4 @@
-/* Class = "NSTextFieldCell"; title = "Repeat a recent scan"; ObjectID = "aI9-me-id8"; */
-"aI9-me-id8.title" = "Wiederhole einen vorhergehenden Scan";
-
-/* Class = "NSButtonCell"; title = "Scan Other Folder"; ObjectID = "Cd8-ae-UVZ"; */
+/* Class = "NSButtonCell"; title = "Scan"; ObjectID = "Cd8-ae-UVZ"; */
 "Cd8-ae-UVZ.title" = "Scanne anderes Verzeichnis";
 
 /* Class = "NSTextFieldCell"; placeholderString = "Foldername"; ObjectID = "duM-ug-7fu"; */
@@ -15,9 +12,6 @@
 
 /* Class = "NSTextFieldCell"; title = "graphically shows your disk usage"; ObjectID = "lT6-9A-q8Z"; */
 "lT6-9A-q8Z.title" = "Grafische Anzeige der Festplattennutzung";
-
-/* Class = "NSTextFieldCell"; title = "or"; ObjectID = "NMl-pA-jdd"; */
-"NMl-pA-jdd.title" = "oder";
 
 /* Class = "NSWindow"; title = "Welcome"; ObjectID = "QvC-M9-y7g"; */
 "QvC-M9-y7g.title" = "Willkommen";
