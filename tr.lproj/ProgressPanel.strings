@@ -1,9 +1,9 @@
 /* Class = "NSWindow"; title = "Task in progress"; ObjectID = "6"; */
-"6.title" = "Görev devam ediyor";
+"6.title" = "Görev sürüyor";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "29"; */
-"29.title" = "Vazgeç";
+"29.title" = "İptal";
 
 /* Class = "NSTextFieldCell"; title = "Execution summary"; ObjectID = "30"; */
-"30.title" = "Uygulama özeti";
+"30.title" = "Çalıştırma özeti";
 

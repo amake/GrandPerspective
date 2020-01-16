@@ -1,8 +1,11 @@
 /* Class = "NSMenuItem"; title = "Item"; ObjectID = "3LR-fJ-0Ck"; */
-"3LR-fJ-0Ck.title" = "Bileşen";
+"3LR-fJ-0Ck.title" = "Öge";
 
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
 "5.title" = "Hepsini Öne Getir";
+
+/* Class = "NSMenuItem"; title = "Show/Hide Control Panel"; ObjectID = "9Ho-ON-BCj"; */
+"9Ho-ON-BCj.title" = "Denetim Panelini Göster/Gizle";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
 "19.title" = "Pencere";
@@ -35,19 +38,19 @@
 "106.title" = "Yardım";
 
 /* Class = "NSMenuItem"; title = "GrandPerspective Help"; ObjectID = "111"; */
-"111.title" = "GrandPerspective Yardım";
+"111.title" = "GrandPerspective Yardımı";
 
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "129"; */
 "129.title" = "Tercihler...";
 
 /* Class = "NSMenuItem"; title = "Hide GrandPerspective"; ObjectID = "134"; */
-"134.title" = "GrandPerspective'i Sakla";
+"134.title" = "GrandPerspective'i Gizle";
 
 /* Class = "NSMenuItem"; title = "Quit GrandPerspective"; ObjectID = "136"; */
 "136.title" = "GrandPerspective'ten Çık";
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
-"145.title" = "Diğerlerini Sakla";
+"145.title" = "Diğerlerini Gizle";
 
 /* Class = "NSMenuItem"; title = "Show All"; ObjectID = "150"; */
 "150.title" = "Hepsini Göster";
@@ -56,7 +59,7 @@
 "197.title" = "Yakınlaştır";
 
 /* Class = "NSMenuItem"; title = "Duplicate"; ObjectID = "272"; */
-"272.title" = "Kopyala";
+"272.title" = "Çoğalt";
 
 /* Class = "NSMenuItem"; title = "Close"; ObjectID = "319"; */
 "319.title" = "Kapat";
@@ -64,23 +67,26 @@
 /* Class = "NSMenuItem"; title = "Twin"; ObjectID = "321"; */
 "321.title" = "Kopyala ve Bağdaştır";
 
+/* Class = "NSMenuItem"; title = "Export As Image..."; ObjectID = "324"; */
+"324.title" = "Görsel Olarak Dışarı Aktar...";
+
 /* Class = "NSMenuItem"; title = "Rescan"; ObjectID = "326"; */
-"326.title" = "Tekrar Tara";
+"326.title" = "Yeniden Tara";
 
 /* Class = "NSMenuItem"; title = "Filter..."; ObjectID = "331"; */
-"331.title" = "Filtrele...";
+"331.title" = "Süz...";
 
 /* Class = "NSMenuItem"; title = "Filtered Scan..."; ObjectID = "335"; */
-"335.title" = "Filtrelenmiş Tarama...";
+"335.title" = "Süzgeçli Tarama...";
 
 /* Class = "NSMenuItem"; title = "Save Scan Data..."; ObjectID = "339"; */
-"339.title" = "Tarama Verilerini Sakla...";
+"339.title" = "Tarama Verilerini Kaydet...";
 
 /* Class = "NSMenuItem"; title = "Load Scan Data..."; ObjectID = "340"; */
 "340.title" = "Tarama Verilerini Yükle...";
 
 /* Class = "NSMenuItem"; title = "GrandPerspective Website"; ObjectID = "345"; */
-"345.title" = "GrandPerspective Websitesi";
+"345.title" = "GrandPerspective Web Sitesi";
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "348"; */
 "348.title" = "Görüntü";
@@ -89,19 +95,19 @@
 "349.title" = "Görüntü";
 
 /* Class = "NSMenuItem"; title = "Show/Hide Toolbar"; ObjectID = "350"; */
-"350.title" = "Araç çubuğunu Sakla/Göster";
+"350.title" = "Araç Çubuğunu Göster/Gizle";
 
 /* Class = "NSMenuItem"; title = "Customize Toolbar..."; ObjectID = "351"; */
 "351.title" = "Araç Çubuğunu Özelleştir...";
 
 /* Class = "NSMenuItem"; title = "Filters..."; ObjectID = "357"; */
-"357.title" = "Filtreler...";
+"357.title" = "Süzgeçler...";
 
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "388"; */
-"388.title" = "Düzenle";
+"388.title" = "Düzen";
 
 /* Class = "NSMenu"; title = "Edit"; ObjectID = "389"; */
-"389.title" = "Düzenle";
+"389.title" = "Düzen";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "393"; */
 "393.title" = "Kes";
@@ -116,10 +122,10 @@
 "397.title" = "Sil";
 
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "398"; */
-"398.title" = "Hepsini Seç";
+"398.title" = "Tümünü Seç";
 
 /* Class = "NSMenuItem"; title = "Uniform type ranking..."; ObjectID = "421"; */
-"421.title" = "Tekdüze tür sıralaması...";
+"421.title" = "Tekdüze Tür Sıralaması...";
 
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "425"; */
 "425.title" = "Hizmetler";
@@ -127,9 +133,12 @@
 /* Class = "NSMenu"; title = "Services"; ObjectID = "426"; */
 "426.title" = "Hizmetler";
 
+/* Class = "NSMenuItem"; title = "Export As Text..."; ObjectID = "hJw-Fc-daG"; */
+"hJw-Fc-daG.title" = "Metin Olarak Dışa Aktar...";
+
 /* Class = "NSMenuItem"; title = "Scan Recent"; ObjectID = "hUr-J9-FbH"; */
-"hUr-J9-FbH.title" = "Son Günlerdekini Tara";
+"hUr-J9-FbH.title" = "Son Taramayı Yenile";
 
 /* Class = "NSMenu"; title = "Scan Recent"; ObjectID = "HXb-90-KwJ"; */
-"HXb-90-KwJ.title" = "Son Günlerdekini Tara";
+"HXb-90-KwJ.title" = "Son Taramalar";
 

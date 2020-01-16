@@ -1,5 +1,5 @@
 /* Class = "NSButtonCell"; title = "Scan"; ObjectID = "Cd8-ae-UVZ"; */
-"Cd8-ae-UVZ.title" = "Tarama";
+"Cd8-ae-UVZ.title" = "Tara";
 
 /* Class = "NSTextFieldCell"; placeholderString = "Foldername"; ObjectID = "duM-ug-7fu"; */
 "duM-ug-7fu.placeholderString" = "Klasör adı";
@@ -11,10 +11,10 @@
 "JEp-c0-ZgQ.title" = "Yardım";
 
 /* Class = "NSTextFieldCell"; title = "graphically shows your disk usage"; ObjectID = "lT6-9A-q8Z"; */
-"lT6-9A-q8Z.title" = "disk kullanımınızı grafik olarak gösterir";
+"lT6-9A-q8Z.title" = "disk kullanımınızı grafik biçiminde gösterir";
 
 /* Class = "NSWindow"; title = "Welcome"; ObjectID = "QvC-M9-y7g"; */
-"QvC-M9-y7g.title" = "Hoşgeldin";
+"QvC-M9-y7g.title" = "Hoş geldiniz";
 
 /* Class = "NSTextFieldCell"; title = "Path"; ObjectID = "UhX-F8-bW1"; */
 "UhX-F8-bW1.title" = "Yol";

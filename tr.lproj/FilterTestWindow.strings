@@ -1,8 +1,8 @@
 /* Class = "NSWindow"; title = "Filter test"; ObjectID = "5"; */
-"5.title" = "Filtre denemesi";
+"5.title" = "Süzgeç sınaması";
 
 /* Class = "NSBox"; title = "Subtests"; ObjectID = "10"; */
-"10.title" = "Alt denemeler";
+"10.title" = "Alt sınamalar";
 
 /* Class = "NSMenuItem"; title = "contains"; ObjectID = "18"; */
 "18.title" = "içerir";
@@ -23,7 +23,7 @@
 "42.title" = "gibidir";
 
 /* Class = "NSMenuItem"; title = "bytes"; ObjectID = "45"; */
-"45.title" = "bytes";
+"45.title" = "bayt";
 
 /* Class = "NSMenuItem"; title = "MB"; ObjectID = "46"; */
 "46.title" = "MB";
@@ -35,7 +35,7 @@
 "51.title" = "MB";
 
 /* Class = "NSMenuItem"; title = "bytes"; ObjectID = "53"; */
-"53.title" = "bytes";
+"53.title" = "bayt";
 
 /* Class = "NSMenuItem"; title = "kB"; ObjectID = "56"; */
 "56.title" = "kB";
@@ -95,10 +95,10 @@
 "495.title" = "boyut daha küçüktür";
 
 /* Class = "NSButtonCell"; title = "Ignore case"; ObjectID = "498"; */
-"498.title" = "Küçük-büyük harf ayrımı yapma";
+"498.title" = "BÜYÜK/küçük harf duyarsız";
 
 /* Class = "NSButtonCell"; title = "Ignore case"; ObjectID = "499"; */
-"499.title" = "Küçük-büyük harf ayrımı yapma";
+"499.title" = "BÜYÜK/küçük harf duyarsız";
 
 /* Class = "NSButtonCell"; title = "Remove"; ObjectID = "500"; */
 "500.title" = "Kaldır";
@@ -107,13 +107,13 @@
 "501.title" = "Ekle";
 
 /* Class = "NSButtonCell"; title = "item"; ObjectID = "502"; */
-"502.title" = "bileşen";
+"502.title" = "öge";
 
 /* Class = "NSTextFieldCell"; title = "hard-linked"; ObjectID = "504"; */
 "504.title" = "sabit bağlantılı";
 
 /* Class = "NSButtonCell"; title = "item"; ObjectID = "505"; */
-"505.title" = "bileşen";
+"505.title" = "öge";
 
 /* Class = "NSTextFieldCell"; title = "a package"; ObjectID = "506"; */
 "506.title" = "bir paket";
@@ -134,7 +134,7 @@
 "514.title" = "Tamam";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "515"; */
-"515.title" = "Vazgeç";
+"515.title" = "İptal";
 
 /* Class = "NSTextFieldCell"; title = "Apply to:"; ObjectID = "517"; */
 "517.title" = "Uygula:";

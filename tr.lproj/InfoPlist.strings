@@ -1,3 +1,15 @@
 /* (No Comment) */
-"NSHumanReadableCopyright" = "Telif Haklarι Eriban Software'e aittir, 2005-2020";
+"GrandPerspective scan results" = "GrandPerspective tarama sonuçları";
+
+/* Privacy - Desktop Folder Usage Description */
+"NSDesktopFolderUsageDescription" = "Bu uygulama Masaüstü klasörünüzün ne kadar disk alanı kullandığını denetler";
+
+/* Privacy - Documents Folder Usage Description */
+"NSDocumentsFolderUsageDescription" = "Bu uygulama Belgeler klasörünüzün ne kadar disk alanı kullandığını denetler";
+
+/* Privacy - Downloads Folder Usage Description */
+"NSDownloadsFolderUsageDescription" = "Bu uygulama İndirilenlen klasörünüzün ne kadar disk alanı kullandığını denetler";
+
+/* Privacy - Reminders Usage Description */
+"NSRemindersUsageDescription" = "Bu uygulama Anımsatıcılar'ın ne kadar disk alanı kullandığını denetler";
 

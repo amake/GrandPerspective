@@ -11,7 +11,7 @@
 "909.title" = "Tarama zamanı:";
 
 /* Class = "NSTextFieldCell"; title = "Size of scanned files:"; ObjectID = "910"; */
-"910.title" = "Taranan dosyalarin boyutu:";
+"910.title" = "Taranan dosyaların boyutu:";
 
 /* Class = "NSTextFieldCell"; title = "File sizes:"; ObjectID = "911"; */
 "911.title" = "Dosya boyutları:";
@@ -23,22 +23,22 @@
 "915.title" = "Fiziksel";
 
 /* Class = "NSTextFieldCell"; title = "Filter1"; ObjectID = "916"; */
-"916.title" = "Filtre1";
+"916.title" = "Süzgeç1";
 
 /* Class = "NSTextFieldCell"; title = "Volume size:"; ObjectID = "918"; */
-"918.title" = "Hacim boyutu:";
+"918.title" = "Disk boyutu:";
 
 /* Class = "NSTextFieldCell"; title = "Miscellaneous used space:"; ObjectID = "921"; */
-"921.title" = "Diğer kullanılmış alanlar:";
+"921.title" = "Diğer kullanılan alan:";
 
 /* Class = "NSTextFieldCell"; title = "Freed space:"; ObjectID = "923"; */
-"923.title" = "Serbest bırakılmış alan:";
+"923.title" = "Boşaltılan alan:";
 
 /* Class = "NSTextFieldCell"; title = "Volume name"; ObjectID = "925"; */
-"925.title" = "Hacim adı";
+"925.title" = "Disk adı";
 
 /* Class = "NSTextFieldCell"; title = "Filter:"; ObjectID = "926"; */
-"926.title" = "Filtre:";
+"926.title" = "Süzgeç:";
 
 /* Class = "NSTextFieldCell"; title = "Number of scanned files:"; ObjectID = "927"; */
 "927.title" = "Taranan dosya sayısı:";
@@ -59,23 +59,26 @@
 "937.title" = "Palet:";
 
 /* Class = "NSButtonCell"; title = "Show entire volume"; ObjectID = "938"; */
-"938.title" = "Tüm hacmi göster";
+"938.title" = "Tüm diski göster";
 
 /* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "939"; */
 "939.title" = "Tüm paket içeriğini göster";
 
 /* Class = "NSTextFieldCell"; title = "File type:"; ObjectID = "946"; */
-"946.title" = "Dosya Türü:";
+"946.title" = "Dosya türü:";
 
 /* Class = "NSTextFieldCell"; title = "File type identifier"; ObjectID = "947"; */
 "947.title" = "Dosya türü tanımlayıcısı";
 
 /* Class = "NSTextFieldCell"; title = "Created:"; ObjectID = "974"; */
-"974.title" = "Yaratıldı:";
+"974.title" = "Oluşturulma:";
 
 /* Class = "NSTextFieldCell"; title = "Modified:"; ObjectID = "976"; */
-"976.title" = "Değiştirildi:";
+"976.title" = "Değiştirilme:";
 
 /* Class = "NSTextFieldCell"; title = "Accessed:"; ObjectID = "984"; */
-"984.title" = "Erişildi:";
+"984.title" = "Erişilme:";
+
+/* Class = "NSWindow"; title = "Control"; ObjectID = "GHT-tk-zeb"; */
+"GHT-tk-zeb.title" = "Denetim";
 

@@ -8,67 +8,70 @@
 "Focus" = "Odak";
 
 /* Menu item */
-"Hide Toolbar" = "Araç Çubuğunu Sakla";
+"Hide Toolbar" = "Araç Çubuğunu Gizle";
 
 /* Toolbar action */
 "Info" = "Bilgi";
 
 /* Toolbar action */
-"Move focus down" = "Odağı aşağıya taşı";
+"Move focus down" = "Odağı aşağı al";
 
 /* Toolbar action */
-"Move focus up" = "Odağı yukarıya taşı";
+"Move focus up" = "Odağı yukarı al";
 
 /* Tooltip */
-"Move to trash" = "Çöp Kutusuna taşı";
+"Move to trash" = "Çöp Sepeti'ne taşı";
 
 /* Toolbar action */
 "Open" = "Aç";
 
 /* Tooltip */
-"Open with Finder" = "Finder ile Aç";
+"Open with Finder" = "Aç";
 
 /* Tooltip */
-"Open/close drawer" = "Çekmeceyi ac/kapat";
+"Open/close drawer" = "Çekmeceyi Aç/Kapat";
 
 /* Tooltip */
-"Preview item in Quick Look panel" = "Çabuk Görüntüleme panosunda önizle";
+"Preview item in Quick Look panel" = "Göz At Panelinde Önizle";
 
 /* Toolbar action */
-"Quick Look" = "Çabuk Gözat";
+"Quick Look" = "Göz At";
 
 /* Toolbar action */
-"Rescan" = "Tekrar tara";
+"Rescan" = "Yeniden Tara";
 
 /* Toolbar action */
-"Rescan all" = "Tümünü tekrar tara";
+"Rescan all" = "Tümünü Yeniden Tara";
 
 /* Toolbar action */
-"Rescan folder in view" = "Görüntüdeki klasörğ tekrar tara";
+"Rescan folder in view" = "Görünümdeki klasörü yeniden tara";
 
 /* Toolbar action */
-"Rescan selected" = "Seçileni tekrar tara";
+"Rescan selected" = "Seçileni yeniden tara";
 
 /* Tooltip */
-"Rescan view data" = "Görüntü verisini tekrar tara";
+"Rescan view data" = "Görünüm verisini yeniden tara";
 
 /* Toolbar action */
 "Reset focus" = "Odağı sıfırla";
 
 /* Toolbar action */
-"Reset zoom" = "Zoomu sıfırla";
+"Reset zoom" = "Yakınlaştırmayı sıfırla";
 
 /* Toolbar action */
 "Reveal" = "Göster";
 
 /* Tooltip */
-"Reveal in Finder" = "Finderda göster ";
+"Reveal in Finder" = "Finder'da Göster ";
+
+/* Tooltip */
+"Show info" = "Bilgi ver";
 
 /* Menu item */
 "Show Toolbar" = "Araç Çubuğunu Göster";
 
 /* Label for zooming controls */
-"Zoom" = "Zum";
+"Zoom" = "Yakınlaştırma";
 
 /* Toolbar action */
 "Zoom in" = "Yakınlaştır";

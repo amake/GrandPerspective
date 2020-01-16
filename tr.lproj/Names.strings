@@ -5,7 +5,7 @@
 "Audio" = "Ses";
 
 /* File size base type */
-"base-2" = "İkilik";
+"base-2" = "İkili";
 
 /* File size base type */
 "base-10" = "Ondalık";
@@ -32,10 +32,13 @@
 "delete files and folders" = "Dosyalar ve klasörler";
 
 /* File deletion preference option */
-"delete nothing" = "Hiç bir şey";
+"delete nothing" = "Hiçbir şey";
+
+/* Preference option for what to do after last view is closed */
+"do nothing" = "Hiçbir şey yapma";
 
 /* Color mapping scheme */
-"extension" = "Uzantı";
+"extension" = "Genişletme";
 
 /* Color palette */
 "FengShui" = "Feng Shui";
@@ -68,7 +71,7 @@
 "Huge files" = "Çok büyük dosyalar";
 
 /* Filter test */
-"Images" = "Kopyalar";
+"Images" = "Görseller";
 
 /* Rescan preference behaviour */
 "keep old window" = "Eski pencereyi koru";
@@ -80,7 +83,7 @@
 "Large files" = "Büyük dosyalar";
 
 /* Color mapping scheme */
-"level" = "Seviye";
+"level" = "Düzey";
 
 /* File size type */
 "logical" = "Mantıksal";
@@ -89,7 +92,7 @@
 "Medium files" = "Orta büyüklükteki dosyalar";
 
 /* Name of "special" file in the viewer */
-"misc used" = "Karışık kullanılan alan";
+"misc used" = "Diğer kullanılan alan";
 
 /* Color mapping scheme */
 "modification" = "Son değişiklik";
@@ -101,16 +104,16 @@
 "MossAndLichen" = "Yosun ve liken";
 
 /* Color mapping scheme */
-"name" = "İsim";
+"name" = "Ad";
 
 /* Filter name */
 "No hard-links" = "Sabit bağlantı yok";
 
 /* Filter name */
-"No version control" = "Versiyon denetimi yok ";
+"No version control" = "Sürüm denetimi yok ";
 
 /* Color mapping scheme */
-"nothing" = "Hiç bir şey";
+"nothing" = "Hiçbir şey";
 
 /* Color palette */
 "OliveSunset" = "Akdeniz günbatımı";
@@ -127,17 +130,26 @@
 /* File size type */
 "physical" = "Fiziksel";
 
+/* Preference option for what to do after last view is closed */
+"quit" = "Uygulamayı sonlandır";
+
 /* Color palette */
 "Rainbow" = "Gökkuşağı";
 
 /* Rescan preference option */
-"rescan all" = "Tam tekrar tarama";
+"rescan all" = "Tam yeniden tarama";
 
 /* Rescan preference option */
-"rescan visible" = "Görüntüdeki klasörü tekrar tara";
+"rescan visible" = "Görünümdeki klasörü yeniden tara";
+
+/* Preference option for what to do after last view is closed */
+"show welcome" = "Hoş Geldiniz penceresini göster";
 
 /* Filter test */
 "Small files" = "Küçük dosyalar";
+
+/* File size type */
+"tally" = "Çetele";
 
 /* Filter test */
 "Tiny files" = "Çok küçük dosyalar";
@@ -149,5 +161,5 @@
 "uniform type" = "Dosya türü";
 
 /* Filter test */
-"Version control" = "Versiyon denetimi";
+"Version control" = "Sürüm denetimi";
 

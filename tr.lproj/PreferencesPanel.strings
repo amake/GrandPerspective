@@ -2,7 +2,7 @@
 "6.title" = "Tercihler";
 
 /* Class = "NSBox"; title = "Display"; ObjectID = "29"; */
-"29.title" = "Ekran";
+"29.title" = "Görünüm";
 
 /* Class = "NSBox"; title = "Info"; ObjectID = "57"; */
 "57.title" = "Bilgi";
@@ -11,7 +11,7 @@
 "72.title" = "Eylemler";
 
 /* Class = "NSMenuItem"; title = "Files and folders"; ObjectID = "78"; */
-"78.title" = "Dosyalar ve Klasörler";
+"78.title" = "Dosyalar ve klasörler";
 
 /* Class = "NSMenuItem"; title = "Close old window"; ObjectID = "153"; */
 "153.title" = "Eski pencereyi kapat";
@@ -32,23 +32,29 @@
 "176.title" = "Daima onay gereksin";
 
 /* Class = "NSTextFieldCell"; title = "Enable deletion of:"; ObjectID = "177"; */
-"177.title" = "Silmeyi aktif et:";
+"177.title" = "Silmeyi etkinleştir:";
 
 /* Class = "NSTextFieldCell"; title = "After full rescan:"; ObjectID = "178"; */
-"178.title" = "Tam tekrar tarama ardından";
+"178.title" = "Tam yeniden tarama ardından:";
 
 /* Class = "NSTextFieldCell"; title = "Filter:"; ObjectID = "181"; */
-"181.title" = "Filtre:";
+"181.title" = "Süzgeç:";
 
 /* Class = "NSTextFieldCell"; title = "Rescan action:"; ObjectID = "189"; */
-"189.title" = "Tekrar tarama eylemi:";
+"189.title" = "Yeniden tarama eylemi:";
 
 /* Class = "NSMenuItem"; title = "Rescan folder in view"; ObjectID = "193"; */
-"193.title" = "Görüntüdeki klasörü tekrar tara";
+"193.title" = "Görüntüdeki klasörü yeniden tara";
 
 /* Class = "NSButtonCell"; title = "Show entire volume"; ObjectID = "199"; */
-"199.title" = "Tüm hacmi göster";
+"199.title" = "Tüm diski göster";
 
 /* Class = "NSTextFieldCell"; title = "File size unit system:"; ObjectID = "214"; */
 "214.title" = "Dosya büyüklüğü birim sistemi:";
+
+/* Class = "NSTextFieldCell"; title = "After closing last view:"; ObjectID = "KFu-2k-t7Z"; */
+"KFu-2k-t7Z.title" = "Son görünümü kapattıktan sonra:";
+
+/* Class = "NSMenuItem"; title = "Terminate application"; ObjectID = "Rrr-CG-7lo"; */
+"Rrr-CG-7lo.title" = "Uygulamayı sonlandır";
 

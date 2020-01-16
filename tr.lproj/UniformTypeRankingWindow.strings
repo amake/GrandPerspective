@@ -5,7 +5,7 @@
 "24.title" = "Sıralı dosya türleri";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "90"; */
-"90.title" = "Vazgeç";
+"90.title" = "İptal";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "91"; */
 "91.title" = "Tamam";
@@ -29,5 +29,5 @@
 "98.title" = "En alta taşı";
 
 /* Class = "NSTextFieldCell"; title = "Note: The order determines which file types have a unique color when coloring by \"File type\" is used. Colors are assigned from top to bottom to all types that are not hidden, until all colors in the active color palette have been used. "; ObjectID = "103"; */
-"103.title" = "Not: Sıralama, renklendirme kıstası olarak \"Dosya Türü\" seçildiğinde, dosya türünün özgün rengini belirler.Renkler, yukarıdan aşağıya şeklinde gizlenmemiş olan tüm türlere, etkin paletteki renklerin tamamı kullanılıncaya kadar atanır. ";
+"103.title" = "Not: Sıralama, renklendirme kıstası olarak \"Dosya Türü\" seçildiğinde, dosya türünün özgün rengini belirler. Renkler, yukarıdan aşağıya şeklinde gizlenmemiş olan tüm türlere, etkin paletteki renklerin tamamı kullanılıncaya kadar atanır. ";
 

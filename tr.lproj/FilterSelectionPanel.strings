@@ -1,8 +1,8 @@
 /* Class = "NSWindow"; title = "Select filter"; ObjectID = "1"; */
-"1.title" = "Filtre Seç";
+"1.title" = "Süzgeç seç";
 
 /* Class = "NSBox"; title = "Filter"; ObjectID = "11"; */
-"11.title" = "Filtre";
+"11.title" = "Süzgeç";
 
 /* Class = "NSButtonCell"; title = "New"; ObjectID = "19"; */
 "19.title" = "Yeni";
@@ -11,7 +11,7 @@
 "21.title" = "Tamam";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "23"; */
-"23.title" = "Vazgeç";
+"23.title" = "İptal";
 
 /* Class = "NSButtonCell"; title = "Edit"; ObjectID = "25"; */
 "25.title" = "Düzenle";

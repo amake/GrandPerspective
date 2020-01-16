@@ -53,19 +53,19 @@
 "folders: %@" = "klasörler: %@";
 
 /* File/folder flags sub test */
-"item is a package" = "bileşen bir pakettir";
+"item is a package" = "öge bir paket";
 
 /* File/folder flags sub test */
-"item is hard-linked" = "bileşen bir sabit bağlantıdır";
+"item is hard-linked" = "öge sabit bağlantılı";
 
 /* File/folder flags sub test */
-"item is not a package" = "bileşen bir paket değildir";
+"item is not a package" = "öge bir paket değil";
 
 /* File/folder flags sub test */
-"item is not hard-linked" = "bileşen sabit bir bağlantı değildir";
+"item is not hard-linked" = "öge sabit bağlantılı değil";
 
 /* A filename as the subject of a string test */
-"name" = "isim";
+"name" = "ad";
 
 /* NOT-test with 1: sub test */
 "not (%@)" = "()%@) değil";
@@ -74,17 +74,17 @@
 "path" = "yol";
 
 /* Size test with 1: lower bound, and 2: upper bound */
-"size is between %@ and %@" = "boyut %1$@ ve %2$@ arasında";
+"size is between %@ and %@" = "boyutu %1$@ ve %2$@ arasında";
 
 /* Size test with 1: lower bound */
-"size is larger than %@" = "boyut %@'tan büyüktür";
+"size is larger than %@" = "boyutu büyüktür %@";
 
 /* Size test with 1: upper bound */
-"size is smaller than %@" = "boyut %@'tan küçüktür";
+"size is smaller than %@" = "boyutu küçüktür %@";
 
 /* Filetype test with 1: match targets */
-"type conforms to %@" = "tür %@ ile uyumludur";
+"type conforms to %@" = "türü %@ ile uyumludur";
 
 /* Filetype test with 1: match targets */
-"type equals %@" = "tür %@'a eşittir";
+"type equals %@" = "türü eşittir %@";
 
