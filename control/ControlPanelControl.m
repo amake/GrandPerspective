@@ -361,6 +361,9 @@ static ControlPanelControl  *singletonInstance = nil;
   }
 
   NSColorList  *palette = [colorPalettes colorListForKey: displaySettings.colorPaletteKey];
+  if (palette == nil) {
+    palette = [colorPalettes fallbackColorList];
+  }
   float  gradient = [userDefaults floatForKey: DefaultColorGradient];
 
   FileItemTest  *maskTest = nil;
