@@ -151,8 +151,6 @@ NSString  *AfterClosingLastViewDoNothing = @"do nothing";
  */
 - (NamedFilter *)selectFilter:(NSString *)initialSelection;
 
-+ (NSString *)getPathFromPasteboard:(NSPasteboard *)pboard;
-
 /* Helper method for reporting the names of unbound filters or filter tests.
  */
 + (void) reportUnbound:(NSArray *)unboundNames
@@ -410,21 +408,20 @@ static MainMenuControl  *singletonInstance = nil;
   NSLog(@"scanFolder:userData:error:");
   showWelcomeWindow = NO; // Do not automatically show welcome window
 
-  NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
-  if (path == nil) {
+  NSURL  *fileUrl = [NSURL getFileURLFromPasteboard: pboard];
+  if (fileUrl == nil) {
     *error = NSLocalizedString(@"Failed to get path from pasteboard.", @"Error message");
     NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
   
-  NSURL  *url = [NSURL fileURLWithPath: path];
-  if (! [url isDirectory]) {
+  if (! [fileUrl isDirectory]) {
     *error = NSLocalizedString(@"Expected a folder.", @"Error message");
     NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
   
-  [self scanFolder: path namedFilter: nil];
+  [self scanFolder: fileUrl.path namedFilter: nil];
 }
 
 
@@ -433,20 +430,20 @@ static MainMenuControl  *singletonInstance = nil;
   NSLog(@"loadScanData:userData:error:");
   showWelcomeWindow = NO; // Do not automatically show welcome window
 
-  NSString  *path = [MainMenuControl getPathFromPasteboard: pboard];
-  if (path == nil) {
+  NSURL  *fileUrl = [NSURL getFileURLFromPasteboard: pboard];
+  if (fileUrl == nil) {
     *error = NSLocalizedString(@"Failed to get path from pasteboard.", @"Error message" );
     NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
   
-  if (! [path.pathExtension.lowercaseString isEqualToString: @"gpscan"]) {
+  if (! [fileUrl.pathExtension.lowercaseString isEqualToString: @"gpscan"]) {
     *error = NSLocalizedString(@"Expected scandata file.", @"Error message" );
     NSLog(@"%@", *error); // Also logging. Setting *error does not seem to work?
     return;
   }
   
-  [self loadScanDataFromFile: path];
+  [self loadScanDataFromFile: fileUrl.path];
 }
 
 
@@ -969,29 +966,6 @@ static MainMenuControl  *singletonInstance = nil;
   
   if (status == NSModalResponseStop) {
     return [filterSelectionPanelControl selectedNamedFilter];
-  }
-  return nil;
-}
-
-
-+ (NSString *)getPathFromPasteboard:(NSPasteboard *)pboard {
-  NSArray *supportedTypes =
-    @[NSFilenamesPboardType, NSStringPboardType];
-    
-  NSString  *bestType = [pboard availableTypeFromArray: supportedTypes];
-  if (bestType == nil) {
-    return nil;
-  }
-
-  if ([bestType isEqualToString: NSFilenamesPboardType]) {
-    NSArray  *files = [pboard propertyListForType: NSFilenamesPboardType];
-    if (files.count < 1) {
-      return nil;
-    }
-    return files[0];
-  }
-  else if ([bestType isEqualToString: NSStringPboardType]) {
-    return [pboard stringForType: NSStringPboardType];
   }
   return nil;
 }
