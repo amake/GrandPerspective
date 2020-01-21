@@ -11,7 +11,8 @@
 "NSDownloadsFolderUsageDescription" = "Bu uygulama İndirilenlen klasörünüzün ne kadar disk alanı kullandığını denetler";
 
 /* (No Comment) */
-"NSHumanReadableCopyright" = "Telif Hakkı © Eriban Software, 2005-2020"
+"NSHumanReadableCopyright" = "Telif Hakkı © Eriban Software, 2005-2020";
 
 /* Privacy - Reminders Usage Description */
 "NSRemindersUsageDescription" = "Bu uygulama Anımsatıcılar'ın ne kadar disk alanı kullandığını denetler";
+
