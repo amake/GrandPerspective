@@ -1,5 +1,6 @@
 #import "StartWindowControl.h"
 
+#import "NSURL.h"
 #import "RecentDocumentTableCellView.h"
 
 NSString*  TaglineTable = @"Taglines";
@@ -59,6 +60,8 @@ NSString*  TaglineFormat = @"tagline-%d";
   recentScansView.dataSource = self;
   recentScansView.doubleAction = @selector(scanActionAfterDoubleClick:);
 
+  [recentScansView registerForDraggedTypes: NSURL.supportedPasteboardTypes];
+
   [self setTagLineField];
 }
 
@@ -97,6 +100,34 @@ NSString*  TaglineFormat = @"tagline-%d";
   }
 
   return cellView;
+}
+
+- (NSDragOperation) tableView:(NSTableView *)tableView
+                 validateDrop:(id <NSDraggingInfo>)info
+                  proposedRow:(NSInteger)row
+        proposedDropOperation:(NSTableViewDropOperation)op {
+
+  NSURL *filePathURL = [NSURL getFileURLFromPasteboard: info.draggingPasteboard];
+  //NSLog(@"Drop request with %@", filePathURL);
+
+  if ([filePathURL isDirectory]) {
+    return NSDragOperationGeneric;
+  }
+
+  return NSDragOperationNone;
+}
+
+- (BOOL) tableView:(NSTableView *)tableView
+        acceptDrop:(id <NSDraggingInfo>)info
+               row:(NSInteger)row
+     dropOperation:(NSTableViewDropOperation)op {
+
+  NSURL *filePathURL = [NSURL getFileURLFromPasteboard: info.draggingPasteboard];
+  //NSLog(@"Accepting drop request with %@", filePathURL);
+
+  [mainMenuControl scanFolder: filePathURL.path];
+
+  return YES;
 }
 
 //----------------------------------------------------------------------------

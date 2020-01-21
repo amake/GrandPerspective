@@ -1,5 +1,6 @@
 #import "NSURL.h"
 
+
 @implementation NSURL (HelperMethods)
 
 - (BOOL) isDirectory {
@@ -101,6 +102,34 @@
 //    NSLog(@"Setting parent to %@", parent);
 //    *parentURL = parent;
 //  }
+}
+
++ (NSArray *_Nonnull)supportedPasteboardTypes {
+  return @[NSURLPboardType, NSFilenamesPboardType, NSStringPboardType];
+}
+
++ (NSURL *)getFileURLFromPasteboard:(NSPasteboard *)pboard {
+  NSString  *bestType = [pboard availableTypeFromArray: [NSURL supportedPasteboardTypes]];
+  if (bestType == nil) {
+    return nil;
+  }
+
+  if ([bestType isEqualToString: NSURLPboardType]) {
+    NSURL *fileURL = [NSURL URLFromPasteboard: pboard];
+
+    return [fileURL filePathURL];
+  }
+  else if ([bestType isEqualToString: NSFilenamesPboardType]) {
+    NSArray  *files = [pboard propertyListForType: NSFilenamesPboardType];
+    if (files.count >= 1) {
+      return [NSURL fileURLWithPath: files[0]];
+    }
+  }
+  else if ([bestType isEqualToString: NSStringPboardType]) {
+    return [NSURL fileURLWithPath: [pboard stringForType: NSStringPboardType]];
+  }
+
+  return nil;
 }
 
 @end
