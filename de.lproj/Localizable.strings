@@ -35,7 +35,10 @@
 "%d folders scanned" = "%d Verzeichnisse gescannt";
 
 /* Exact file size (in bytes) */
-"%qu bytes" = "%qu bytes";
+"%qu bytes" = "%qu Bytes";
+
+/* Tally folder size (in number of files) */
+"%qu files" = "%qu Dateien";
 
 /* Alert message */
 "A filter named \"%@\" already exists." = "Ein Filter mit dem Namen \"%@\" existiert schon.";
@@ -47,19 +50,28 @@
 "A test named \"%@\" already exists." = "Eine Prüfung mit dem Namen \"%@\" existiert schon.";
 
 /* Alert message (with filename arg) */
-"Aborted saving the scan data to \"%@\"" = "Abbruch Speicherung des Scans nach \"%@\"";
+"Aborted saving the scan data to \"%@\"" = "Speicherung der Scandaten in \"%@\" abgebrochen";
+
+/* Header in exported text file */
+"Accessed" = "Zugegriffen";
 
 /* Label in Focus panel */
 "Area in view:" = "Bereich in Ansicht:";
 
 /* Parse error */
-"Attribute not found." = "Attribute wurde nicht gefunden.";
+"Attribute not found." = "Attribut wurde nicht gefunden.";
 
 /* File size unit for bytes. */
 "B" = "B";
 
 /* Alert panel button */
 "Cancel" = "Abbrechen";
+
+/* Part of tool tip for uniform types */
+"Conforms to:" = "Gehört zu:";
+
+/* Header in exported text file */
+"Created" = "Erstellt";
 
 /* Alert panel button */
 "Delete" = "Löschen";
@@ -71,25 +83,25 @@
 "Do you want to delete the folder \"%@\"?" = "Wollen Sie das Verzeichnis \"%@\" löschen?";
 
 /* Alert message */
-"Do you want to delete the package \"%@\"?" = "Wollen Sie das Package \"%@\" löschen?";
+"Do you want to delete the package \"%@\"?" = "Wollen Sie das Paket \"%@\" löschen?";
 
 /* Parse error */
 "Encountered filter after folder." = "Vorgefundene Verzeichnisse nach Filterung.";
 
 /* Parse error */
-"Encountered more than one root element." = "Vorgefunden mehr als ein \"Root Element\". ";
+"Encountered more than one root element." = "Mehr als ein Wurzel-Element vorgefunden. ";
 
 /* Parse error */
-"Encountered more than one root folder." = "Vorgefunden mehr als ein Root Verzeichnis.";
+"Encountered more than one root folder." = "Mehr als ein Wurzel-Verzeichnis vorgefunden.";
 
 /* Parse error */
-"Encountered multiple %@ elements." = "Vorgefunden mehrere %@ Elemente.";
+"Encountered multiple %@ elements." = "Mehrere %@ Elemente vorgefunden.";
 
 /* Parse error */
-"Error parsing \"%@\" attribute: %@" = "Fehler beim parsen \"%1$@\", Attribute: %2$@";
+"Error parsing \"%@\" attribute: %@" = "Fehler beim Parsen von \"%1$@\", Attribut: %2$@";
 
 /* Parse error */
-"Expected %@ element." = "Erwartet %@ Element";
+"Expected %@ element." = "%@ Element erwartet";
 
 /* Error message */
 "Expected a folder." = "Verzeichnis erwartet.";
@@ -101,16 +113,22 @@
 "Expected date value." = "Datumswert erwartet.";
 
 /* Parse error */
-"Expected integer value." = "Fließkommawert erwartet.";
+"Expected integer value." = "Ganzzahliger Wert erwartet.";
 
 /* Error message */
-"Expected scandata file." = "Scandateiformat erwartet.";
+"Expected scandata file." = "Scandaten-Format erwartet.";
 
 /* Parse error */
 "Expected time value." = "Zeitformat erwartet.";
 
 /* Parse error */
-"Expected unsigned integer value." = "Fließkommawert unsigned erwartet.";
+"Expected unsigned integer value." = "Ganzzahliger Wert erwartet.";
+
+/* Title of save panel */
+"Export image" = "Bilddatei exportieren";
+
+/* Title of save panel */
+"Export scan data as text" = "Scandaten als Text exportieren";
 
 /* Alert message */
 "Failed to delete the file \"%@\"" = "Fehlgeschlagen: Löschen von Datei \"%@\"";
@@ -131,7 +149,7 @@
 "Failed to open the folder \"%@\"" = "Fehlgeschlagen: Öffnen des Verzeichnisses \"%@\"";
 
 /* Alert message */
-"Failed to open the package \"%@\"" = "Fehlgeschlagen: Öffnen der Package Datei  \"%@\"";
+"Failed to open the package \"%@\"" = "Fehlgeschlagen: Öffnen der Pakets \"%@\"";
 
 /* Alert message */
 "Failed to reveal the file \"%@\"" = "Fehlgeschlagen: Anzeigen der Datei \"%@\"";
@@ -140,22 +158,25 @@
 "Failed to reveal the folder \"%@\"" = "Fehlgeschlagen: Anzeigen des Verzeichnisses \"%@\"";
 
 /* Alert message */
-"Failed to reveal the package \"%@\"" = "Fehlgeschlagen: Anzeigen der Package Datei \"%@\"";
+"Failed to reveal the package \"%@\"" = "Fehlgeschlagen: Anzeigen des Pakets \"%@\"";
 
 /* Alert message */
 "Failed to save the image." = "Fehlgeschlagen: Speichern der Bild Datei.";
 
 /* Alert message (with filename arg) */
-"Failed to save the scan data to \"%@\"" = "Fehlgeschlagen: Speichern der Scan Datei in \"%@\"";
+"Failed to save the scan data to \"%@\"" = "Fehlgeschlagen: Speichern der Scandaten in \"%@\"";
 
 /* Error message */
-"Failed to write entire buffer." = "Fehlgeschlagen: Pufferspeicher schreiben";
+"Failed to write entire buffer." = "Fehlgeschlagen: gesamten Pufferspeicher schreiben";
 
 /* Error message */
-"Failed to write last data to file." = "Fehlgeschlagen: Speichern letzter Daten";
+"Failed to write last data to file." = "Fehlgeschlagen: Speichern letzter Daten in Datei";
 
 /* Label in Focus panel */
 "File in view:" = "Datei in Ansicht:";
+
+/* Header in exported text file */
+"Filename" = "Dateiname";
 
 /* Window title */
 "Filter - %@" = "Filter  - %@";
@@ -172,8 +193,14 @@
 /* Label in Focus panel */
 "Folder in view:" = "Verzeichnis in Ansicht: ";
 
+/* Alert message */
+"For %d files the reported (logical) size is larger than their actual (physical) size. Consider rescanning using the Physical file size measure" = "Bei %d Dateien übersteigt die ermittelte (logische) die tatsächliche (physikalische) Größe. Erwägen Sie, den Scan mit der physikalischen Dateigröße zu wiederholen";
+
 /* File size unit for gigabytes. */
 "GB" = "GB";
+
+/* Menu item */
+"Hide Control Panel" = "Steuerung verbergen";
 
 /* File size unit for kilobytes. */
 "kB" = "kB";
@@ -182,7 +209,7 @@
 "Level %d" = "Level %d";
 
 /* Title of load panel */
-"Load scan data" = "Lade Scan Daten";
+"Load scan data" = "Lade Scandaten";
 
 /* Title of progress panel. */
 "Loading in progress" = "Laden in Arbeit";
@@ -192,6 +219,9 @@
 
 /* File size unit for megabytes. */
 "MB" = "MB";
+
+/* Header in exported text file */
+"Modified" = "Geändert";
 
 /* Legend for Time-based mapping schemes. */
 "More recent" = "Letzte Einträge";
@@ -209,22 +239,22 @@
 "Note: The folder is hard-linked. It will take up space until all links to it are deleted." = "Achtung: Dieses Verzeichnis ist hardlinked. Dies wird Speicherplatz verbrauchen, es sei denn alle Links zu ihm werden gelöscht.";
 
 /* Alert additional informative text */
-"Note: The package is hard-linked. It will take up space until all links to it are deleted." = "Achtung: Diese Package Datei ist hardlinked. Dies wird Speicherplatz verbrauchen, es sei denn alle Links zu ihr werden gelöscht.";
+"Note: The package is hard-linked. It will take up space until all links to it are deleted." = "Achtung: Dieses Paket ist hardlinked. Dies wird Speicherplatz verbrauchen, es sei denn alle Links dazu werden gelöscht.";
 
 /* Alert panel button */
 "OK" = "OK";
 
 /* Misc. description for File type mapping scheme. */
-"other file types" = "Anderer Dateityp";
+"other file types" = "Andere Dateitypen";
 
 /* Legend for Level mapping scheme. */
 "Outermost level" = "Äußerster Level";
 
 /* Label in Focus panel */
-"Package in view:" = "Packages in aktueller Ansicht";
+"Package in view:" = "Pakete in aktueller Ansicht";
 
 /* Parse error */
-"Parse error (line %d): %@" = "Parse Error (line %1$d): %2$@";
+"Parse error (line %d): %@" = "Fehler beim Parsen (Zeile %1$d): %2$@";
 
 /* Parse error */
 "Parsing aborted" = "Parsing abgebrochen";
@@ -233,7 +263,7 @@
 "Path" = "Pfad";
 
 /* Alert message */
-"Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "Mögliche Gründe sind, dass das Element nicht mehr existiert (Es ist möglicherweise verschoben, umbenannt oder gelöscht) oder Sie haben nicht die ausreichende Berechtigung.";
+"Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "Mögliche Gründe sind, dass das Element nicht mehr existiert (möglicherweise verschoben, umbenannt oder gelöscht) oder Sie haben nicht die ausreichende Berechtigung.";
 
 /* Message in progress panel while loading data */
 "Reading %@" = "Lese %@";
@@ -242,16 +272,16 @@
 "Remove" = "Entferne";
 
 /* Alert message */
-"Remove the filter named \"%@\"?" = "Entferne den Filter mit dem Namen \"%@\"?";
+"Remove the filter named \"%@\"?" = "Den Filter mit dem Namen \"%@\" entfernen?";
 
 /* Alert message */
-"Remove the test named \"%@\"?" = "Entferne die Prüfung mit dem Namen \"%@\"?";
+"Remove the test named \"%@\"?" = "Die Prüfung mit dem Namen \"%@\" entfernen?";
 
 /* Title of save panel */
 "Save image" = "Speichere Bilddatei";
 
 /* Title of save panel */
-"Save scan data" = "Speichere Scan Datei";
+"Save scan data" = "Speichere Scandaten";
 
 /* Message in progress panel while saving data */
 "Saving %@" = "Speichere %@";
@@ -271,6 +301,12 @@
 /* Title of progress panel. */
 "Scanning in progress" = "Scan in Arbeit";
 
+/* Solitairy entry in Start window */
+"Select Folder" = "Verzeichnis auswählen";
+
+/* Entry in Start window, alongside other options */
+"Select Other Folder" = "Anderes Verzeichnis auswählen";
+
 /* Label in Focus panel */
 "Selected area:" = "Ausgewählter Bereich:";
 
@@ -281,16 +317,22 @@
 "Selected folder:" = "Ausgewählte Verzeichnisse:";
 
 /* Label in Focus panel */
-"Selected package:" = "Ausgewählte Packages:";
+"Selected package:" = "Ausgewählte Pakete:";
+
+/* Menu item */
+"Show Control Panel" = "Steuerung anzeigen";
 
 /* Header in exported text file */
 "Size" = "Größe";
 
 /* Alert message (with filename arg) */
-"Successfully saved the scan data to \"%@\"" = "Erfolgreich Scan Datei gespeichert in \"%@\"";
+"Successfully saved the scan data to \"%@\"" = "Scandaten erfolgreich in \"%@\" gespeichert";
 
 /* File size unit for terabytes. */
 "TB" = "TB";
+
+/* Alert message */
+"The actual (physical) size is %.1f%% of the reported (logical) size. Consider rescanning using the Physical file size measure" = "Die tatsächliche (physikalische) Größe ist %.1f%% der gemeldeten (logischen) Größe. Erwägen Sie, den Scan mit der physikalischen Dateigröße zu wiederholen";
 
 /* Alert message */
 "The filter must have a name." = "Der Filter muss einen Namen haben.";
@@ -299,7 +341,13 @@
 "The filter will be irrevocably removed from the filter repository." = "Dieser Filter wird nicht widerrufbar aus der Filterliste entfernt.";
 
 /* Alert informative text */
-"The filter will be replaced by the default filter with this name." = "Dieser Filter wird ersetzt durch den Default Filter dieses Namens";
+"The filter will be replaced by the default filter with this name." = "Dieser Filter wird durch den Standard-Filter dieses Namens ersetzt.";
+
+/* Alert message */
+"The reported size of some files is larger than their actual size on disk" = "Die gemeldete Größe einiger Dateien ist größer als die tatsächliche Größe auf dem Laufwerk";
+
+/* Alert message */
+"The reported total size is larger than the actual size on disk" = "Die gemeldete Gesamtgröße ist größer als die tatsächliche Größe auf dem Laufwerk";
 
 /* Alert informative text */
 "The resulting file is valid but incomplete." = "Die erstellte Datei ist gültig, aber unvollständig.";
@@ -311,7 +359,7 @@
 "The selected folder, with all its contents, will be moved to Trash. Beware, any files in the folder that are not shown in the view will also be deleted." = "Das ausgewählte Verzeichnis mit allen darin enthaltenden (auch in dieser Ansicht möglicherweise ausgeblendeten) Dateien wird gelöscht.";
 
 /* Alert informative text */
-"The selected package will be moved to Trash." = "Das Package wird in den Papierkorb verschoben.";
+"The selected package will be moved to Trash." = "Das Paket wird in den Papierkorb verschoben.";
 
 /* Alert message */
 "The test must have a name." = "Die Prüfung muss einen Namen erhalten.";
@@ -320,13 +368,19 @@
 "The test will be irrevocably removed from the test repository." = "Die Prüfung wird unwiderruflich von der Liste der Prüfungen entfernt.";
 
 /* Alert informative text */
-"The test will be replaced by the default test with this name." = "Diese Prüfung wird ersetzt durch die Default Prüfung dieses Namens";
+"The test will be replaced by the default test with this name." = "Diese Prüfung wird durch die Standard-Prüfung dieses Namens ersetzt.";
 
 /* Alert informative text */
 "The unbound tests have been omitted from the filter." = "Diese unverbundene Prüfung ist vom Filter entfernt worden.";
 
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "Dieser Filter existiert nicht mehr. Stattdessen wird dessen alte Definition verwendet.";
+
+/* Part of tool tip for uniform types */
+"Top-level type" = "Top-Level Typ";
+
+/* Header in exported text file */
+"Type" = "Typ";
 
 /* Description for 'unknown' UTI. */
 "unknown file type" = "Unbekannter Dateityp";

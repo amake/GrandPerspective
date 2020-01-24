@@ -1,6 +1,18 @@
 /* (No Comment) */
 "GrandPerspective scan results" = "GrandPerspective扫描结果";
 
+/* Privacy - Desktop Folder Usage Description */
+"NSDesktopFolderUsageDescription" = "程式检查您的桌面用多少磁盘空间";
+
+/* Privacy - Documents Folder Usage Description */
+"NSDocumentsFolderUsageDescription" = "程式检查您的文件用多少磁盘空间";
+
+/* Privacy - Downloads Folder Usage Description */
+"NSDownloadsFolderUsageDescription" = "程式检查您的下载用多少磁盘空间";
+
 /* (No Comment) */
 "NSHumanReadableCopyright" = "版权© Eriban Software, 2005-2020";
+
+/* Privacy - Reminders Usage Description */
+"NSRemindersUsageDescription" = "程式检查您的提醒用多少磁盘空间";
 

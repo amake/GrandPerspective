@@ -79,3 +79,6 @@
 /* Class = "NSTextFieldCell"; title = "Accessed:"; ObjectID = "984"; */
 "984.title" = "访问:";
 
+/* Class = "NSWindow"; title = "Control"; ObjectID = "GHT-tk-zeb"; */
+"GHT-tk-zeb.title" = "控制";
+

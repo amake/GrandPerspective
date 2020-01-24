@@ -23,7 +23,7 @@
 "42.title" = "ist";
 
 /* Class = "NSMenuItem"; title = "bytes"; ObjectID = "45"; */
-"45.title" = "bytes";
+"45.title" = "Bytes";
 
 /* Class = "NSMenuItem"; title = "MB"; ObjectID = "46"; */
 "46.title" = "MB";
@@ -35,7 +35,7 @@
 "51.title" = "MB";
 
 /* Class = "NSMenuItem"; title = "bytes"; ObjectID = "53"; */
-"53.title" = "bytes";
+"53.title" = "Bytes";
 
 /* Class = "NSMenuItem"; title = "kB"; ObjectID = "56"; */
 "56.title" = "kB";
@@ -116,10 +116,10 @@
 "505.title" = "Eintrag";
 
 /* Class = "NSTextFieldCell"; title = "a package"; ObjectID = "506"; */
-"506.title" = "Eine Package Datei";
+"506.title" = "Ein Paket";
 
 /* Class = "NSButtonCell"; title = "type"; ObjectID = "508"; */
-"508.title" = "Type";
+"508.title" = "Typ";
 
 /* Class = "NSButtonCell"; title = "Remove"; ObjectID = "509"; */
 "509.title" = "Entfernen";

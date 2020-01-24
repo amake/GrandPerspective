@@ -4,6 +4,9 @@
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
 "5.title" = "Alles nach vorne bringen";
 
+/* Class = "NSMenuItem"; title = "Show/Hide Control Panel"; ObjectID = "9Ho-ON-BCj"; */
+"9Ho-ON-BCj.title" = "Zeige/Verberge Steuerung";
+
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
 "19.title" = "Fenster";
 
@@ -65,7 +68,7 @@
 "321.title" = "Klonen";
 
 /* Class = "NSMenuItem"; title = "Export As Image..."; ObjectID = "324"; */
-"324.title" = "Speichere eine Bilddatei der Ansicht...";
+"324.title" = "Als Bilddatei exportieren...";
 
 /* Class = "NSMenuItem"; title = "Rescan"; ObjectID = "326"; */
 "326.title" = "Neu scannen";
@@ -77,10 +80,10 @@
 "335.title" = "Gefilterter Scan...";
 
 /* Class = "NSMenuItem"; title = "Save Scan Data..."; ObjectID = "339"; */
-"339.title" = "Speichere Scan in Datei...";
+"339.title" = "Speichere Scandaten...";
 
 /* Class = "NSMenuItem"; title = "Load Scan Data..."; ObjectID = "340"; */
-"340.title" = "Öffne Scan Datei...";
+"340.title" = "Öffne Scandaten...";
 
 /* Class = "NSMenuItem"; title = "GrandPerspective Website"; ObjectID = "345"; */
 "345.title" = "GrandPerspective Website";
@@ -92,10 +95,10 @@
 "349.title" = "Ansicht";
 
 /* Class = "NSMenuItem"; title = "Show/Hide Toolbar"; ObjectID = "350"; */
-"350.title" = "Zeige/Verberge Toolbar";
+"350.title" = "Zeige/Verberge Werkzeugleiste";
 
 /* Class = "NSMenuItem"; title = "Customize Toolbar..."; ObjectID = "351"; */
-"351.title" = "Toolbar anpassen...";
+"351.title" = "Werkzeugleiste anpassen...";
 
 /* Class = "NSMenuItem"; title = "Filters..."; ObjectID = "357"; */
 "357.title" = "Filter...";
@@ -129,6 +132,9 @@
 
 /* Class = "NSMenu"; title = "Services"; ObjectID = "426"; */
 "426.title" = "Services";
+
+/* Class = "NSMenuItem"; title = "Export As Text..."; ObjectID = "hJw-Fc-daG"; */
+"hJw-Fc-daG.title" = "Als Text exportieren...";
 
 /* Class = "NSMenuItem"; title = "Scan Recent"; ObjectID = "hUr-J9-FbH"; */
 "hUr-J9-FbH.title" = "Letzte ausgeführte Scans";

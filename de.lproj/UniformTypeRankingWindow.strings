@@ -17,10 +17,10 @@
 "94.title" = "Aufdecken";
 
 /* Class = "NSButtonCell"; title = "Move up"; ObjectID = "95"; */
-"95.title" = "Höher bewegen";
+"95.title" = "Nach oben bewegen";
 
 /* Class = "NSButtonCell"; title = "Move down"; ObjectID = "96"; */
-"96.title" = "Runter bewegen";
+"96.title" = "Nach unten bewegen";
 
 /* Class = "NSButtonCell"; title = "Move to hide"; ObjectID = "97"; */
 "97.title" = "Ausblenden";
@@ -29,5 +29,5 @@
 "98.title" = "Ganz nach unten";
 
 /* Class = "NSTextFieldCell"; title = "Note: The order determines which file types have a unique color when coloring by \"File type\" is used. Colors are assigned from top to bottom to all types that are not hidden, until all colors in the active color palette have been used. "; ObjectID = "103"; */
-"103.title" = "Anmerkung: Die Sortierung bestimmt, welche Dateitypen mit einer eigenen Farbe dargestellt werden. Farben werden von oben nach unten der Liste aller Typen, die nicht ausgeblendet sind, zugeordnet. Und zwar solange, wie es verfügbare Farben in der Palette gibt.";
+"103.title" = "Anmerkung: Die Sortierung bestimmt, welche Dateitypen mit einer eigenen Farbe dargestellt werden, wenn Färbung nach \"Dateityp\" verwendet wird. Die Farben werden von oben nach unten allen Typen, die nicht ausgeblendet sind, zugeordnet, bis alle Farben der aktuellen Farbpalette verwendet wurden.";
 

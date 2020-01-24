@@ -20,7 +20,7 @@
 "167.title" = "Farbpalette:";
 
 /* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "171"; */
-"171.title" = "Zeige Inhalt von Package Dateien";
+"171.title" = "Zeige Inhalt von Paket";
 
 /* Class = "NSTextFieldCell"; title = "Color by:"; ObjectID = "172"; */
 "172.title" = "Farbanzeige in Bezug zu:";
@@ -29,7 +29,7 @@
 "174.title" = "Dateigrößeneinheit:";
 
 /* Class = "NSButtonCell"; title = "Always require confirmation"; ObjectID = "176"; */
-"176.title" = "Immer um Erlaubnis fragen";
+"176.title" = "Immer Bestätigung abfragen";
 
 /* Class = "NSTextFieldCell"; title = "Enable deletion of:"; ObjectID = "177"; */
 "177.title" = "Erlaube löschen von:";
@@ -44,11 +44,17 @@
 "189.title" = "Rescan Aktion:";
 
 /* Class = "NSMenuItem"; title = "Rescan folder in view"; ObjectID = "193"; */
-"193.title" = "Neuer Scan im gleicher Ansicht";
+"193.title" = "Neuer Scan in gleicher Ansicht";
 
 /* Class = "NSButtonCell"; title = "Show entire volume"; ObjectID = "199"; */
-"199.title" = "Zeige verbleibendes Restgröße";
+"199.title" = "Zeige gesamtes Laufwerk";
 
 /* Class = "NSTextFieldCell"; title = "File size unit system:"; ObjectID = "214"; */
 "214.title" = "Datei Größeneinheit:";
+
+/* Class = "NSTextFieldCell"; title = "After closing last view:"; ObjectID = "KFu-2k-t7Z"; */
+"KFu-2k-t7Z.title" = "NAch dem Schließen der letzten Ansicht:";
+
+/* Class = "NSMenuItem"; title = "Terminate application"; ObjectID = "Rrr-CG-7lo"; */
+"Rrr-CG-7lo.title" = "Anwendung beenden";
 

@@ -1,8 +1,8 @@
 /* Class = "NSWindow"; title = "Export As Image"; ObjectID = "6"; */
-"6.title" = "Konfiguration Bilddatei";
+"6.title" = "Als Bilddatei exportieren";
 
 /* Class = "NSBox"; title = "Image size"; ObjectID = "25"; */
-"25.title" = "Größe Bild";
+"25.title" = "Bildgröße";
 
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "45"; */
 "45.title" = "OK";

@@ -34,6 +34,9 @@
 /* File deletion preference option */
 "delete nothing" = "Nichts";
 
+/* Preference option for what to do after last view is closed */
+"do nothing" = "Nichts tun";
+
 /* Color mapping scheme */
 "extension" = "Erweiterung";
 
@@ -127,6 +130,9 @@
 /* File size type */
 "physical" = "Physisch";
 
+/* Preference option for what to do after last view is closed */
+"quit" = "Anwendung beenden";
+
 /* Color palette */
 "Rainbow" = "Regenbogen";
 
@@ -134,10 +140,16 @@
 "rescan all" = "Voller Rescan";
 
 /* Rescan preference option */
-"rescan visible" = "Neu scannen des aktuellen Verzeichnisses";
+"rescan visible" = "Scan des aktuellen Verzeichnisses wiederholen";
+
+/* Preference option for what to do after last view is closed */
+"show welcome" = "Willkommens-Fenster anzeigen";
 
 /* Filter test */
 "Small files" = "Kleine Dateien";
+
+/* File size type */
+"tally" = "Zähler";
 
 /* Filter test */
 "Tiny files" = "Kleinste Dateien";
@@ -146,7 +158,7 @@
 "top folder" = "Oberstes Verzeichnis";
 
 /* Color mapping scheme */
-"uniform type" = "Datei Typ";
+"uniform type" = "Dateityp";
 
 /* Filter test */
 "Version control" = "Versionskontrolle";

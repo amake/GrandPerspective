@@ -11,6 +11,9 @@
 "Hide Toolbar" = "隐藏工具栏";
 
 /* Toolbar action */
+"Info" = "资讯";
+
+/* Toolbar action */
 "Move focus down" = "向下移动焦点";
 
 /* Toolbar action */
@@ -60,6 +63,9 @@
 
 /* Tooltip */
 "Reveal in Finder" = "在Finder揭示";
+
+/* Tooltip */
+"Show info" = "显示资讯";
 
 /* Menu item */
 "Show Toolbar" = "显示工具栏";

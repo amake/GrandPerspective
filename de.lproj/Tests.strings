@@ -29,7 +29,7 @@
 "%@ equals %@" = "%1$@ gleich %2$@";
 
 /* Case-sensitive string test with 1: subject, and 2: match targets */
-"%@ eQuals %@" = "%1$@ gleich (Groß/Kleinschreibung beachtet)%2$@";
+"%@ eQuals %@" = "%1$@ gleich (Groß/Kleinschreibung beachtet) %2$@";
 
 /* Pair of match targets with 1: a target match, and 2: another target match */
 "%@ or %@" = "%1$@ oder %2$@";
@@ -44,7 +44,7 @@
 "%@, %@" = "%1$@, %2$@";
 
 /* Size test without any bounds */
-"any size" = "Jedwede Größe";
+"any size" = "Jede Größe";
 
 /* Selective test with 1: sub test */
 "files: %@" = "Dateien: %@";
@@ -53,13 +53,13 @@
 "folders: %@" = "Verzeichnisse: %@";
 
 /* File/folder flags sub test */
-"item is a package" = "Ist ein Package";
+"item is a package" = "Ist ein Paket";
 
 /* File/folder flags sub test */
 "item is hard-linked" = "Ist hardlinked";
 
 /* File/folder flags sub test */
-"item is not a package" = "Ist kein Package";
+"item is not a package" = "Ist kein Paket";
 
 /* File/folder flags sub test */
 "item is not hard-linked" = "Ist nicht hardlinked";

@@ -67,6 +67,9 @@
 /* Alert panel button */
 "Cancel" = "取消";
 
+/* Part of tool tip for uniform types */
+"Conforms to:" = "符合:";
+
 /* Header in exported text file */
 "Created" = "创建";
 
@@ -202,6 +205,9 @@
 /* File size unit for gigabytes. */
 "GB" = "GB";
 
+/* Menu item */
+"Hide Control Panel" = "屏蔽控制面板";
+
 /* File size unit for kilobytes. */
 "kB" = "kB";
 
@@ -319,6 +325,9 @@
 /* Label in Focus panel */
 "Selected package:" = "选择组件:";
 
+/* Menu item */
+"Show Control Panel" = "显示控制面板";
+
 /* Header in exported text file */
 "Size" = "大小";
 
@@ -372,6 +381,9 @@
 
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "这些过滤不再存在。 旧的定义将会被使用。";
+
+/* Part of tool tip for uniform types */
+"Top-level type" = "顶层种类";
 
 /* Header in exported text file */
 "Type" = "种类";

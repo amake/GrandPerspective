@@ -62,7 +62,7 @@
 "938.title" = "Zeige gesamtes Laufwerk";
 
 /* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "939"; */
-"939.title" = "Zeige Inhalt gepackter Dateien";
+"939.title" = "Zeige Inhalt des Pakets";
 
 /* Class = "NSTextFieldCell"; title = "File type:"; ObjectID = "946"; */
 "946.title" = "Dateityp:";
@@ -78,4 +78,7 @@
 
 /* Class = "NSTextFieldCell"; title = "Accessed:"; ObjectID = "984"; */
 "984.title" = "Zugriffe:";
+
+/* Class = "NSWindow"; title = "Control"; ObjectID = "GHT-tk-zeb"; */
+"GHT-tk-zeb.title" = "Steuerung";
 

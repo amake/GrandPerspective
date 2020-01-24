@@ -4,6 +4,9 @@
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
 "5.title" = "把全部带到前面";
 
+/* Class = "NSMenuItem"; title = "Show/Hide Control Panel"; ObjectID = "9Ho-ON-BCj"; */
+"9Ho-ON-BCj.title" = "显示/屏蔽控制面板";
+
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
 "19.title" = "视窗";
 

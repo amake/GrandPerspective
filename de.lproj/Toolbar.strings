@@ -8,7 +8,7 @@
 "Focus" = "Auswahl";
 
 /* Menu item */
-"Hide Toolbar" = "Toolbar ausblenden";
+"Hide Toolbar" = "Werkzeugleiste ausblenden";
 
 /* Toolbar action */
 "Info" = "Info";
@@ -53,10 +53,10 @@
 "Rescan view data" = "Wiederhole Ansicht Datei";
 
 /* Toolbar action */
-"Reset focus" = "Resete Auswahl";
+"Reset focus" = "Auswahl zurücksetzen";
 
 /* Toolbar action */
-"Reset zoom" = "Resete Zoom";
+"Reset zoom" = "Zoom zurücksetzen";
 
 /* Toolbar action */
 "Reveal" = "Zeige";
@@ -64,8 +64,11 @@
 /* Tooltip */
 "Reveal in Finder" = "Zeige im Finder";
 
+/* Tooltip */
+"Show info" = "Zeige Info";
+
 /* Menu item */
-"Show Toolbar" = "Toolbar einblenden";
+"Show Toolbar" = "Werkzeugleiste einblenden";
 
 /* Label for zooming controls */
 "Zoom" = "Zoom";
