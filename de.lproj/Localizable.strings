@@ -131,6 +131,9 @@
 "Export scan data as text" = "Scandaten als Text exportieren";
 
 /* Alert message */
+"Failed to bind one or more filter tests:\n%@" = "Fehlgeschlagen: Binden einer oder mehrerer Filterprüfungen:\n%@";
+
+/* Alert message */
 "Failed to delete the file \"%@\"" = "Fehlgeschlagen: Löschen von Datei \"%@\"";
 
 /* Alert message */
@@ -165,6 +168,9 @@
 
 /* Alert message (with filename arg) */
 "Failed to save the scan data to \"%@\"" = "Fehlgeschlagen: Speichern der Scandaten in \"%@\"";
+
+/* Alert message */
+"Failed to update one or more filters:\n%@" = "Fehlgeschlagen: Aktualisieren eines oder mehrerer Filter:\n%@";
 
 /* Error message */
 "Failed to write entire buffer." = "Fehlgeschlagen: gesamten Pufferspeicher schreiben";
