@@ -1,188 +1,182 @@
 /* Enumeration of two items */
-"%@ and %@" = "%1$@ and %2$@";
+"%@ and %@" = "%1$@ e %2$@";
 
 /* Enumeration of two items */
-"%@ or %@" = "%1$@ or %2$@";
+"%@ or %@" = "%1$@ o %2$@";
 
 /* Enumeration of three or more items with 1: an item, 2: two or more items */
 "%@, %@" = "%1$@, %2$@";
 
 /* Enumeration of three or more items with 1: two or more items, 2: last item */
-"%@, and %@" = "%1$@, and %2$@";
+"%@, and %@" = "%1$@, e %2$@";
 
 /* Enumeration of three or more items with 1: two or more items, 2: last item */
-"%@, or %@" = "%1$@, or %2$@";
+"%@, or %@" = "%1$@, o %2$@";
 
 /* Legend for Time-based mapping schemes. */
-"%d - %d days ago" = "%1$d - %2$d days ago";
+"%d - %d days ago" = "%1$d - %2$d giorni fa";
 
 /* Legend for Time-based mapping schemes. */
-"%d days ago" = "%d days ago";
+"%d days ago" = "%d giorni fa";
 
 /* Legend for Time-based mapping schemes. */
-"%d days ago or more" = "%d days ago or more";
+"%d days ago or more" = "%d giorni fa o più";
 
 /* Message in progress panel while filtering */
-"%d folders filtered" = "%d folders filtered";
+"%d folders filtered" = "%d cartelle filtrate";
 
 /* Message in progress panel while loading data */
-"%d folders read" = "%d folders read";
+"%d folders read" = "%d cartelle lette";
 
 /* Message in progress panel while saving data */
-"%d folders saved" = "%d folders saved";
+"%d folders saved" = "%d cartelle salvate";
 
 /* Message in progress panel while scanning */
-"%d folders scanned" = "%d folders scanned";
+"%d folders scanned" = "%d cartelle scansionate";
 
 /* Exact file size (in bytes) */
 "%qu bytes" = "%qu bytes";
 
 /* Tally folder size (in number of files) */
-"%qu files" = "%qu files";
+"%qu files" = "%qu file";
 
 /* Alert message */
-"A filter named \"%@\" already exists." = "A filter named \"%@\" already exists.";
+"A filter named \"%@\" already exists." = "Esiste già un filtro denominato \"%@\".";
 
 /* Alert message (Note: 'it' can refer to a file or a folder) */
-"A possible reason is that it does not exist anymore." = "A possible reason is that it does not exist anymore.";
+"A possible reason is that it does not exist anymore." = "Una possibile ragione è che non esiste più.";
 
 /* Alert message */
-"A test named \"%@\" already exists." = "A test named \"%@\" already exists.";
+"A test named \"%@\" already exists." = "Esiste già un test chiamato \"%@\".";
 
 /* Alert message (with filename arg) */
-"Aborted saving the scan data to \"%@\"" = "Aborted saving the scan data to \"%@\"";
+"Aborted saving the scan data to \"%@\"" = "Salvataggio scansione verso \"%@\" abortito";
 
 /* Label in Focus panel */
-"Area in view:" = "Area in view:";
+"Area in view:" = "Area nella vista:";
 
 /* Parse error */
-"Attribute not found." = "Attribute not found.";
+"Attribute not found." = "Attributo non trovato.";
 
 /* File size unit for bytes. */
 "B" = "B";
 
 /* Alert panel button */
-"Cancel" = "Cancel";
+"Cancel" = "Annulla";
 
 /* Alert panel button */
-"Delete" = "Delete";
+"Delete" = "Cancella";
 
 /* Alert message */
-"Do you want to delete the file \"%@\"?" = "Do you want to delete the file \"%@\"?";
+"Do you want to delete the file \"%@\"?" = "Vuoi cancellare il file \"%@\"?";
 
 /* Alert message */
-"Do you want to delete the folder \"%@\"?" = "Do you want to delete the folder \"%@\"?";
+"Do you want to delete the folder \"%@\"?" = "Vuoi cancellare la cartella \"%@\"?";
 
 /* Alert message */
-"Do you want to delete the package \"%@\"?" = "Do you want to delete the package \"%@\"?";
+"Do you want to delete the package \"%@\"?" = "Vuoi cancellare il pacchetto \"%@\"?";
 
 /* Parse error */
-"Encountered filter after folder." = "Encountered filter after folder.";
+"Encountered filter after folder." = "Filtro incontrato dopo la cartella.";
 
 /* Parse error */
-"Encountered more than one root element." = "Encountered more than one root element.";
+"Encountered more than one root element." = "Incontrato più di un elemento radice.";
 
 /* Parse error */
-"Encountered more than one root folder." = "Encountered more than one root folder.";
+"Encountered more than one root folder." = "Incontrato più di una cartella principale.";
 
 /* Parse error */
-"Encountered multiple %@ elements." = "Encountered multiple %@ elements.";
+"Encountered multiple %@ elements." = "Incontri multipli %@ elementi.";
 
 /* Parse error */
-"Error parsing \"%@\" attribute: %@" = "Error parsing \"%1$@\" attribute: %2$@";
+"Error parsing \"%@\" attribute: %@" = "Errore di analisi \"%1$@\" dell'attributo: %2$@";
 
 /* Parse error */
-"Expected %@ element." = "Expected %@ element.";
+"Expected %@ element." = "Atteso elemento %@";
 
 /* Error message */
-"Expected a folder." = "Expected a folder.";
+"Expected a folder." = "Attesa cartella";
 
 /* Parse error */
-"Expected boolean value." = "Expected boolean value.";
+"Expected boolean value." = "Atteso valore booleano";
 
 /* Parse error */
-"Expected date value." = "Expected date value.";
+"Expected date value." = "Attesa data";
 
 /* Parse error */
-"Expected integer value." = "Expected integer value.";
+"Expected integer value." = "Atteso valore intero";
 
 /* Error message */
-"Expected scandata file." = "Expected scandata file.";
+"Expected scandata file." = "Atteso file di tipo scansione";
 
 /* Parse error */
-"Expected time value." = "Expected time value.";
+"Expected time value." = "Atteso valore orario";
 
 /* Parse error */
-"Expected unsigned integer value." = "Expected unsigned integer value.";
+"Expected unsigned integer value." = "Atteso valore intero senza segno (+/-)";
 
 /* Alert message */
-"Failed to bind one or more filter tests:\n%@" = "Failed to bind one or more filter tests:\n%@";
+"Failed to delete the file \"%@\"" = "Impossibile cancellare il file \"%@\".";
 
 /* Alert message */
-"Failed to delete the file \"%@\"" = "Failed to delete the file \"%@\"";
-
-/* Alert message */
-"Failed to delete the folder \"%@\"" = "Failed to delete the folder \"%@\"";
+"Failed to delete the folder \"%@\"" = "Impossibile cancellare la cartella \"%@\".";
 
 /* Error message */
-"Failed to get path from pasteboard." = "Failed to get path from pasteboard.";
+"Failed to get path from pasteboard." = "Impossibile ottenere il percorso dagli appunti";
 
 /* Alert message (with filename arg) */
-"Failed to load the scan data from \"%@\"" = "Failed to load the scan data from \"%@\"";
+"Failed to load the scan data from \"%@\"" = "Impossibile caricare i dati scansione dal file \"%@\"";
 
 /* Alert message */
-"Failed to open the file \"%@\"" = "Failed to open the file \"%@\"";
+"Failed to open the file \"%@\"" = "Impossibile aprire il file \"%@\"";
 
 /* Alert message */
-"Failed to open the folder \"%@\"" = "Failed to open the folder \"%@\"";
+"Failed to open the folder \"%@\"" = "Impossibile aprire la cartella \"%@\"";
 
 /* Alert message */
-"Failed to open the package \"%@\"" = "Failed to open the package \"%@\"";
+"Failed to open the package \"%@\"" = "Impossibile aprire il pacchetto \"%@\"";
 
 /* Alert message */
-"Failed to reveal the file \"%@\"" = "Failed to reveal the file \"%@\"";
+"Failed to reveal the file \"%@\"" = "Impossibile mostrare il file \"%@\"";
 
 /* Alert message */
-"Failed to reveal the folder \"%@\"" = "Failed to reveal the folder \"%@\"";
+"Failed to reveal the folder \"%@\"" = "Impossibile mostrare la cartella \"%@\".";
 
 /* Alert message */
-"Failed to reveal the package \"%@\"" = "Failed to reveal the package \"%@\"";
+"Failed to reveal the package \"%@\"" = "Impossibile mostrare il pacchetto \"%@\".";
 
 /* Alert message */
-"Failed to save the image." = "Failed to save the image.";
+"Failed to save the image." = "Salvataggio immagine fallito";
 
 /* Alert message (with filename arg) */
-"Failed to save the scan data to \"%@\"" = "Failed to save the scan data to \"%@\"";
-
-/* Alert message */
-"Failed to update one or more filters:\n%@" = "Failed to update one or more filters:\n%@";
+"Failed to save the scan data to \"%@\"" = "Salvataggio scansione non riuscito su \"%@\"";
 
 /* Error message */
-"Failed to write entire buffer." = "Failed to write entire buffer.";
+"Failed to write entire buffer." = "Scrittura dell'intero buffer fallito";
 
 /* Error message */
-"Failed to write last data to file." = "Failed to write last data to file.";
+"Failed to write last data to file." = "Scrittura degli ultimi dati su file fallita";
 
 /* Label in Focus panel */
-"File in view:" = "File in view:";
+"File in view:" = "File nella vista:";
 
 /* Window title */
-"Filter - %@" = "Filter - %@";
+"Filter - %@" = "Filtro - %@";
 
 /* Window title */
-"Filter test - %@" = "Filter test - %@";
+"Filter test - %@" = "Filtro test - %@";
 
 /* Message in progress panel while filtering */
-"Filtering %@" = "Filtering %@";
+"Filtering %@" = "Filtraggio %@";
 
 /* Title of progress panel. */
-"Filtering in progress" = "Filtering in progress";
+"Filtering in progress" = "Filtraggio in corso";
 
 /* Label in Focus panel */
-"Folder in view:" = "Folder in view:";
+"Folder in view:" = "Cartella nella vista:";
 
 /* Alert message */
-"For %d files the reported (logical) size is larger than their actual (physical) size. Consider rescanning using the Physical file size measure" = "For %d files the reported (logical) size is larger than their actual (physical) size. Consider rescanning using the Physical file size measure";
+"For %d files the reported (logical) size is larger than their actual (physical) size. Consider rescanning using the Physical file size measure" = "Per i file %d la dimensione riportata (logica) è più grande della loro dimensione reale (fisica). Considerare di ripetere la scansione utilizzando la dimensione fisica del file";
 
 /* File size unit for gigabytes. */
 "GB" = "GB";
@@ -191,167 +185,173 @@
 "kB" = "kB";
 
 /* Legend for Level mapping scheme. */
-"Level %d" = "Level %d";
+"Level %d" = "Livello %d";
 
 /* Title of load panel */
-"Load scan data" = "Load scan data";
+"Load scan data" = "Apri dati scansione";
 
 /* Title of progress panel. */
-"Loading in progress" = "Loading in progress";
+"Loading in progress" = "Caricamento in corso";
 
 /* Misc. description for Level mapping scheme. */
-"Lower levels" = "Lower levels";
+"Lower levels" = "Livello inferiore";
 
 /* File size unit for megabytes. */
 "MB" = "MB";
 
 /* Legend for Time-based mapping schemes. */
-"More recent" = "More recent";
+"More recent" = "Più recenti";
 
 /* Initial match value in FilterTestWindow */
-"New match" = "New match";
+"New match" = "Nuova corrispondenza";
 
 /* The filter name when there is no filter. */
-"None" = "None";
+"None" = "Nessuno";
 
 /* Alert additional informative text */
-"Note: The file is hard-linked. It will take up space until all links to it are deleted." = "Note: The file is hard-linked. It will take up space until all links to it are deleted.";
+"Note: The file is hard-linked. It will take up space until all links to it are deleted." = "Nota: Il file è collegato in modo rigido (hard-link). Occuperà spazio fino a quando tutti i link ad esso collegati non saranno cancellati.";
 
 /* Alert additional informative text */
-"Note: The folder is hard-linked. It will take up space until all links to it are deleted." = "Note: The folder is hard-linked. It will take up space until all links to it are deleted.";
+"Note: The folder is hard-linked. It will take up space until all links to it are deleted." = "Nota: La cartella è collegata in modo rigido (hard-link). Occuperà spazio fino a quando tutti i link ad esso collegati non saranno cancellati.";
 
 /* Alert additional informative text */
-"Note: The package is hard-linked. It will take up space until all links to it are deleted." = "Note: The package is hard-linked. It will take up space until all links to it are deleted.";
+"Note: The package is hard-linked. It will take up space until all links to it are deleted." = "Nota: Il pacchetto è collegato in modo rigido (hard-link). Occuperà spazio fino a quando tutti i link ad esso collegati non saranno cancellati.";
 
 /* Alert panel button */
 "OK" = "OK";
 
 /* Misc. description for File type mapping scheme. */
-"other file types" = "other file types";
+"other file types" = "altri tipi di file";
 
 /* Legend for Level mapping scheme. */
-"Outermost level" = "Outermost level";
+"Outermost level" = "Livello più esterno";
 
 /* Label in Focus panel */
-"Package in view:" = "Package in view:";
+"Package in view:" = "Pacchetti nella vista:";
 
 /* Parse error */
-"Parse error (line %d): %@" = "Parse error (line %1$d): %2$@";
+"Parse error (line %d): %@" = "Errore analisi (linea %1$d): %2$@";
 
 /* Parse error */
-"Parsing aborted" = "Parsing aborted";
+"Parsing aborted" = "Analisi interrotta";
 
 /* Alert message */
-"Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions.";
+"Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "Forse non esiste più (può essere stato spostato, rinominato o cancellato con altri mezzi) o non si dispone delle autorizzazioni necessarie.";
 
 /* Message in progress panel while loading data */
-"Reading %@" = "Reading %@";
+"Reading %@" = "Leggendo %@";
 
 /* Alert panel button */
-"Remove" = "Remove";
+"Remove" = "Rimuovi";
 
 /* Alert message */
-"Remove the filter named \"%@\"?" = "Remove the filter named \"%@\"?";
+"Remove the filter named \"%@\"?" = "Rimuovere il filtro chiamato \"%@\"?";
 
 /* Alert message */
-"Remove the test named \"%@\"?" = "Remove the test named \"%@\"?";
+"Remove the test named \"%@\"?" = "Rimuovere il test chiamato \"%@\"?";
 
 /* Title of save panel */
-"Save image" = "Save image";
+"Save image" = "Salva immagine";
 
 /* Title of save panel */
-"Save scan data" = "Save scan data";
+"Save scan data" = "Salva dati scansione";
 
 /* Message in progress panel while saving data */
-"Saving %@" = "Saving %@";
+"Saving %@" = "Salvando %@";
 
 /* Title of progress panel. */
-"Saving in progress" = "Saving in progress";
+"Saving in progress" = "Salvataggio in corso";
 
 /* Prompt in open panel */
-"Scan" = "Scan";
+"Scan" = "Scansione";
 
 /* Title of open panel */
-"Scan folder" = "Scan folder";
+"Scan folder" = "Scansione cartella";
 
 /* Message in progress panel while scanning */
-"Scanning %@" = "Scanning %@";
+"Scanning %@" = "Scansionando %@";
 
 /* Title of progress panel. */
-"Scanning in progress" = "Scanning in progress";
+"Scanning in progress" = "Scansione in corso";
+
+/* Solitairy entry in Start window */
+"Select Folder" = "Seleziona Cartella";
+
+/* Entry in Start window, alongside other options */
+"Select Other Folder" = "Seleziona Altra Cartella";
 
 /* Label in Focus panel */
-"Selected area:" = "Selected area:";
+"Selected area:" = "Selezionata area:";
 
 /* Label in Focus panel */
-"Selected file:" = "Selected file:";
+"Selected file:" = "Selezionato file:";
 
 /* Label in Focus panel */
-"Selected folder:" = "Selected folder:";
+"Selected folder:" = "Selezionata cartella:";
 
 /* Label in Focus panel */
-"Selected package:" = "Selected package:";
+"Selected package:" = "Selezionato pacchetto:";
 
 /* Alert message (with filename arg) */
-"Successfully saved the scan data to \"%@\"" = "Successfully saved the scan data to \"%@\"";
+"Successfully saved the scan data to \"%@\"" = "Salvataggio dati scansioni su \"%@\" terminato con successo";
 
 /* File size unit for terabytes. */
 "TB" = "TB";
 
 /* Alert message */
-"The actual (physical) size is %.1f%% of the reported (logical) size. Consider rescanning using the Physical file size measure" = "The actual (physical) size is %.1f%% of the reported (logical) size. Consider rescanning using the Physical file size measure";
+"The actual (physical) size is %.1f%% of the reported (logical) size. Consider rescanning using the Physical file size measure" = "La dimensione effettiva (fisica) è %.1f%% della dimensione (logica) riportata. Considerare di ripetere la scansione utilizzando la dimensione fisica del file";
 
 /* Alert message */
-"The filter must have a name." = "The filter must have a name.";
+"The filter must have a name." = "Il filtro deve avere un nome.";
 
 /* Alert informative text */
-"The filter will be irrevocably removed from the filter repository." = "The filter will be irrevocably removed from the filter repository.";
+"The filter will be irrevocably removed from the filter repository." = "Il filtro sarà irrevocabilmente rimosso dal repository dei filtri.";
 
 /* Alert informative text */
-"The filter will be replaced by the default filter with this name." = "The filter will be replaced by the default filter with this name.";
+"The filter will be replaced by the default filter with this name." = "Il filtro sarà sostituito dal quello di default con questo nome.";
 
 /* Alert message */
-"The reported size of some files is larger than their actual size on disk" = "The reported size of some files is larger than their actual size on disk";
+"The reported size of some files is larger than their actual size on disk" = "La dimensione riportata di alcuni file è più grande della loro effettiva dimensione su disco";
 
 /* Alert message */
-"The reported total size is larger than the actual size on disk" = "The reported total size is larger than the actual size on disk";
+"The reported total size is larger than the actual size on disk" = "La dimensione totale riportata è più grande della dimensione effettiva su disco";
 
 /* Alert informative text */
-"The resulting file is valid but incomplete." = "The resulting file is valid but incomplete.";
+"The resulting file is valid but incomplete." = "Il file risultante è valido ma incompleto.";
 
 /* Alert informative text */
-"The selected file will be moved to Trash." = "The selected file will be moved to Trash.";
+"The selected file will be moved to Trash." = "Il file selezionato sarà spostato nel Cesntino.";
 
 /* Alert informative text */
-"The selected folder, with all its contents, will be moved to Trash. Beware, any files in the folder that are not shown in the view will also be deleted." = "The selected folder, with all its contents, will be moved to Trash. Beware, any files in the folder that are not shown in the view will also be deleted.";
+"The selected folder, with all its contents, will be moved to Trash. Beware, any files in the folder that are not shown in the view will also be deleted." = "La cartella selezionata, con tutto il suo contenuto, verrà spostata nel Cestino. Attenzione, anche i file nella cartella che non sono mostrati nella vista saranno cancellati.";
 
 /* Alert informative text */
-"The selected package will be moved to Trash." = "The selected package will be moved to Trash.";
+"The selected package will be moved to Trash." = "Il pacchetto selezionato sarà spostato nel Cestino";
 
 /* Alert message */
-"The test must have a name." = "The test must have a name.";
+"The test must have a name." = "Il test deve avere un nome.";
 
 /* Alert informative text */
-"The test will be irrevocably removed from the test repository." = "The test will be irrevocably removed from the test repository.";
+"The test will be irrevocably removed from the test repository." = "Il test sarà irrevocabilmente rimosso dal repository dei test.";
 
 /* Alert informative text */
-"The test will be replaced by the default test with this name." = "The test will be replaced by the default test with this name.";
+"The test will be replaced by the default test with this name." = "Il test sarà sostituito dal test di default con questo nome.";
 
 /* Alert informative text */
-"The unbound tests have been omitted from the filter." = "The unbound tests have been omitted from the filter.";
+"The unbound tests have been omitted from the filter." = "I test non collegati sono stati omessi dal filtro.";
 
 /* Alert informative text */
-"These filters do not exist anymore. Their old definition is used instead." = "These filters do not exist anymore. Their old definition is used instead.";
+"These filters do not exist anymore. Their old definition is used instead." = "Questi filtri non esistono più. Al loro posto sarà utilizzata la loro vecchia definizione.";
 
 /* Description for 'unknown' UTI. */
-"unknown file type" = "unknown file type";
+"unknown file type" = "tipo di file sconosciuto";
 
 /* Window title */
-"Unnamed filter" = "Unnamed filter";
+"Unnamed filter" = "Filtro senza nome";
 
 /* Window title */
-"Unnamed filter test" = "Unnamed filter test";
+"Unnamed filter test" = "Filtro di test senza nome";
 
 /* Parse error */
-"Unrecognized value." = "Unrecognized value.";
+"Unrecognized value." = "Valore non riconosciuto.";
 

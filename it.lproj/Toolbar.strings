@@ -1,53 +1,53 @@
 /* Toolbar action */
-"Delete" = "Delete";
+"Delete" = "Elimina";
 
 /* Toolbar action */
-"Drawer" = "Drawer";
+"Drawer" = "Pannello laterale";
 
 /* Label for focus controls */
 "Focus" = "Focus";
 
 /* Menu item */
-"Hide Toolbar" = "Hide Toolbar";
+"Hide Toolbar" = "Nascondi Barra Strumenti";
 
 /* Toolbar action */
-"Move focus down" = "Move focus down";
+"Move focus down" = "Spsota il focus giù";
 
 /* Toolbar action */
-"Move focus up" = "Move focus up";
+"Move focus up" = "Sposta il focus su";
 
 /* Tooltip */
-"Move to trash" = "Move to trash";
+"Move to trash" = "Sposta nel cestino";
 
 /* Toolbar action */
-"Open" = "Open";
+"Open" = "Apri";
 
 /* Tooltip */
-"Open with Finder" = "Open with Finder";
+"Open with Finder" = "Apri nel Finder";
 
 /* Tooltip */
-"Open/close drawer" = "Open/close drawer";
+"Open/close drawer" = "Apri/chiudi pannello laterale";
 
 /* Tooltip */
-"Preview item in Quick Look panel" = "Preview item in Quick Look panel";
+"Preview item in Quick Look panel" = "Anteprima elemento in Quick Look";
 
 /* Toolbar action */
 "Quick Look" = "Quick Look";
 
 /* Toolbar action */
-"Rescan" = "Rescan";
+"Rescan" = "Riscansiona";
 
 /* Toolbar action */
-"Rescan all" = "Rescan all";
+"Rescan all" = "Riscansiona tutto";
 
 /* Toolbar action */
-"Rescan folder in view" = "Rescan folder in view";
+"Rescan folder in view" = "Riscansiona la cartella visualizzata";
 
 /* Toolbar action */
-"Rescan selected" = "Rescan selected";
+"Rescan selected" = "Riscansiona selezione";
 
 /* Tooltip */
-"Rescan view data" = "Rescan view data";
+"Rescan view data" = "Riscansiona dati visualizzati";
 
 /* Toolbar action */
 "Reset focus" = "Reset focus";
@@ -56,20 +56,20 @@
 "Reset zoom" = "Reset zoom";
 
 /* Toolbar action */
-"Reveal" = "Reveal";
+"Reveal" = "Mostra";
 
 /* Tooltip */
-"Reveal in Finder" = "Reveal in Finder";
+"Reveal in Finder" = "Mostra nel Finder";
 
 /* Menu item */
-"Show Toolbar" = "Show Toolbar";
+"Show Toolbar" = "Mostra Barra Strumenti";
 
 /* Label for zooming controls */
 "Zoom" = "Zoom";
 
 /* Toolbar action */
-"Zoom in" = "Zoom in";
+"Zoom in" = "Zoom +";
 
 /* Toolbar action */
-"Zoom out" = "Zoom out";
+"Zoom out" = "Zoom -";
 

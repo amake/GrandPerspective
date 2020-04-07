@@ -1,9 +1,9 @@
-
 /* Class = "NSWindow"; title = "Task in progress"; ObjectID = "6"; */
-"6.title" = "Task in progress";
+"6.title" = "Attività in corso";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "29"; */
-"29.title" = "Cancel";
+"29.title" = "Annulla";
 
 /* Class = "NSTextFieldCell"; title = "Execution summary"; ObjectID = "30"; */
-"30.title" = "Execution summary";
+"30.title" = "Riepilogo esecuzione";
+

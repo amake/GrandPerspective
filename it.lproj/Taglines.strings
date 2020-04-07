@@ -1,22 +1,21 @@
-"num-taglines" = "7";
+/* Tag line in Welcome window */
+"tagline-1" = "aiuta a recuperare spazio perso su disco";
 
 /* Tag line in Welcome window */
-"tagline-1" = "helps you recover lost disk space";
+"tagline-2" = "permette di trovare ed eliminare grandi sprechi si spazio";
 
 /* Tag line in Welcome window */
-"tagline-2" = "lets you track and hunt giant space wasters";
+"tagline-3" = "mostra come è consumato lo spazio libero";
 
 /* Tag line in Welcome window */
-"tagline-3" = "reveals where your free disk space went";
+"tagline-4" = "mostra graficamente l'uso del disco";
 
 /* Tag line in Welcome window */
-"tagline-4" = "graphically shows your disk usage";
+"tagline-5" = "produce delle belle immagini del tuo hard disk";
 
 /* Tag line in Welcome window */
-"tagline-5" = "makes pretty pictures of your harddrive";
+"tagline-6" = "trova i grossi file che occupano lo spazio del tuo disco";
 
 /* Tag line in Welcome window */
-"tagline-6" = "finds those giant files that suck up your disk space";
+"tagline-7" = "svela file e cartelle che occupano spazio";
 
-/* Tag line in Welcome window */
-"tagline-7" = "uncovers space-hogging files and folders";

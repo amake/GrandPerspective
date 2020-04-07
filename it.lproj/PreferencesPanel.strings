@@ -1,99 +1,60 @@
-
 /* Class = "NSWindow"; title = "Preferences"; ObjectID = "6"; */
-"6.title" = "Preferences";
+"6.title" = "Preferenze";
 
 /* Class = "NSBox"; title = "Display"; ObjectID = "29"; */
-"29.title" = "Display";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "45"; */
-"45.title" = "OtherViews";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "46"; */
-"46.title" = "Item1";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "51"; */
-"51.title" = "Item1";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "53"; */
-"53.title" = "OtherViews";
+"29.title" = "Visualizzazione";
 
 /* Class = "NSBox"; title = "Info"; ObjectID = "57"; */
 "57.title" = "Info";
 
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "61"; */
-"61.title" = "Item1";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "62"; */
-"62.title" = "OtherViews";
-
 /* Class = "NSBox"; title = "Actions"; ObjectID = "72"; */
-"72.title" = "Actions";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "74"; */
-"74.title" = "OtherViews";
+"72.title" = "Azioni";
 
 /* Class = "NSMenuItem"; title = "Files and folders"; ObjectID = "78"; */
-"78.title" = "Files and folders";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "152"; */
-"152.title" = "OtherViews";
+"78.title" = "File e cartelle";
 
 /* Class = "NSMenuItem"; title = "Close old window"; ObjectID = "153"; */
-"153.title" = "Close old window";
+"153.title" = "Chiudi vecchie finestre";
 
 /* Class = "NSTextFieldCell"; title = "Palette:"; ObjectID = "167"; */
-"167.title" = "Palette:";
+"167.title" = "Combinazione colori:";
 
 /* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "171"; */
-"171.title" = "Show package contents";
+"171.title" = "Visualizza contenuto pacchetto";
 
 /* Class = "NSTextFieldCell"; title = "Color by:"; ObjectID = "172"; */
-"172.title" = "Color by:";
+"172.title" = "Colora per:";
 
 /* Class = "NSTextFieldCell"; title = "File size measure:"; ObjectID = "174"; */
-"174.title" = "File size measure:";
+"174.title" = "Tipo dimensione file";
 
 /* Class = "NSButtonCell"; title = "Always require confirmation"; ObjectID = "176"; */
-"176.title" = "Always require confirmation";
+"176.title" = "Richiedi sempre conferma";
 
 /* Class = "NSTextFieldCell"; title = "Enable deletion of:"; ObjectID = "177"; */
-"177.title" = "Enable deletion of:";
+"177.title" = "Abilita rimozione di:";
 
 /* Class = "NSTextFieldCell"; title = "After full rescan:"; ObjectID = "178"; */
-"178.title" = "After full rescan:";
+"178.title" = "Dopo successo scansione:";
 
 /* Class = "NSTextFieldCell"; title = "Filter:"; ObjectID = "181"; */
-"181.title" = "Filter:";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "184"; */
-"184.title" = "OtherViews";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "185"; */
-"185.title" = "Item1";
+"181.title" = "Filtro:";
 
 /* Class = "NSTextFieldCell"; title = "Rescan action:"; ObjectID = "189"; */
-"189.title" = "Rescan action:";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "192"; */
-"192.title" = "OtherViews";
+"189.title" = "Azione di riscansione:";
 
 /* Class = "NSMenuItem"; title = "Rescan folder in view"; ObjectID = "193"; */
-"193.title" = "Rescan folder in view";
+"193.title" = "Riscansiona cartella nella vista";
 
 /* Class = "NSButtonCell"; title = "Show entire volume"; ObjectID = "199"; */
-"199.title" = "Show entire volume";
-
-/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "206"; */
-"206.title" = "OtherViews";
-
-/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "207"; */
-"207.title" = "Item1";
+"199.title" = "Visualizza volume intero";
 
 /* Class = "NSTextFieldCell"; title = "File size unit system:"; ObjectID = "214"; */
-"214.title" = "File size unit system:";
+"214.title" = "Sistema di unità di misura file:";
 
 /* Class = "NSTextFieldCell"; title = "After closing last view:"; ObjectID = "KFu-2k-t7Z"; */
-"KFu-2k-t7Z.title" = "After closing last view:";
+"KFu-2k-t7Z.title" = "Dopo chiusura ultima vista:";
 
 /* Class = "NSMenuItem"; title = "Terminate application"; ObjectID = "Rrr-CG-7lo"; */
-"Rrr-CG-7lo.title" = "Terminate application";
+"Rrr-CG-7lo.title" = "Termina applicazione";
+
