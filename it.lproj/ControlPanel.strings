@@ -1,0 +1,177 @@
+
+/* Class = "NSTabViewItem"; label = "Info"; ObjectID = "92"; */
+"92.label" = "Info";
+
+/* Class = "NSTabViewItem"; label = "Display"; ObjectID = "93"; */
+"93.label" = "Display";
+
+/* Class = "NSTabViewItem"; label = "Focus"; ObjectID = "97"; */
+"97.label" = "Focus";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "207"; */
+"207.title" = "Item2";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "208"; */
+"208.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "209"; */
+"209.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "210"; */
+"210.title" = "Item1";
+
+/* Class = "NSMenuItem"; title = "Item3"; ObjectID = "222"; */
+"222.title" = "Item3";
+
+/* Class = "NSMenuItem"; title = "Item2"; ObjectID = "223"; */
+"223.title" = "Item2";
+
+/* Class = "NSMenuItem"; title = "Item1"; ObjectID = "224"; */
+"224.title" = "Item1";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "225"; */
+"225.title" = "OtherViews";
+
+/* Class = "NSTextFieldCell"; title = "Time of scan:"; ObjectID = "909"; */
+"909.title" = "Time of scan:";
+
+/* Class = "NSTextFieldCell"; title = "Size of scanned files:"; ObjectID = "910"; */
+"910.title" = "Size of scanned files:";
+
+/* Class = "NSTextFieldCell"; title = "File sizes:"; ObjectID = "911"; */
+"911.title" = "File sizes:";
+
+/* Class = "NSTextFieldCell"; title = "Initial free space:"; ObjectID = "912"; */
+"912.title" = "Initial free space:";
+
+/* Class = "NSTextFieldCell"; title = "00:00:00 28-12-88"; ObjectID = "914"; */
+"914.title" = "00:00:00 28-12-88";
+
+/* Class = "NSTextFieldCell"; title = "Physical"; ObjectID = "915"; */
+"915.title" = "Physical";
+
+/* Class = "NSTextFieldCell"; title = "Filter1"; ObjectID = "916"; */
+"916.title" = "Filter1";
+
+/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "917"; */
+"917.title" = "888.8 MB";
+
+/* Class = "NSTextFieldCell"; title = "Volume size:"; ObjectID = "918"; */
+"918.title" = "Volume size:";
+
+/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "919"; */
+"919.title" = "888.8 MB";
+
+/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "920"; */
+"920.title" = "888.8 MB";
+
+/* Class = "NSTextFieldCell"; title = "Miscellaneous used space:"; ObjectID = "921"; */
+"921.title" = "Miscellaneous used space:";
+
+/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "922"; */
+"922.title" = "888.8 MB";
+
+/* Class = "NSTextFieldCell"; title = "Freed space:"; ObjectID = "923"; */
+"923.title" = "Freed space:";
+
+/* Class = "NSTextFieldCell"; title = "888.8 MB"; ObjectID = "924"; */
+"924.title" = "888.8 MB";
+
+/* Class = "NSTextFieldCell"; title = "Volume name"; ObjectID = "925"; */
+"925.title" = "Volume name";
+
+/* Class = "NSTextFieldCell"; title = "Filter:"; ObjectID = "926"; */
+"926.title" = "Filter:";
+
+/* Class = "NSTextFieldCell"; title = "Number of scanned files:"; ObjectID = "927"; */
+"927.title" = "Number of scanned files:";
+
+/* Class = "NSTextFieldCell"; title = "1234567890"; ObjectID = "928"; */
+"928.title" = "1234567890";
+
+/* Class = "NSTextFieldCell"; title = "1234567890"; ObjectID = "929"; */
+"929.title" = "1234567890";
+
+/* Class = "NSTextFieldCell"; title = "Number of deleted files:"; ObjectID = "930"; */
+"930.title" = "Number of deleted files:";
+
+/* Class = "NSTextFieldCell"; title = "Mask:"; ObjectID = "931"; */
+"931.title" = "Mask:";
+
+/* Class = "NSButtonCell"; title = "Enable mask"; ObjectID = "933"; */
+"933.title" = "Enable mask";
+
+/* Class = "NSTextFieldCell"; title = "Color by:"; ObjectID = "935"; */
+"935.title" = "Color by:";
+
+/* Class = "NSTextFieldCell"; title = "Palette:"; ObjectID = "937"; */
+"937.title" = "Palette:";
+
+/* Class = "NSButtonCell"; title = "Show entire volume"; ObjectID = "938"; */
+"938.title" = "Show entire volume";
+
+/* Class = "NSButtonCell"; title = "Show package contents"; ObjectID = "939"; */
+"939.title" = "Show package contents";
+
+/* Class = "NSTextFieldCell"; title = "XXXX in view:"; ObjectID = "940"; */
+"940.title" = "XXXX in view:";
+
+/* Class = "NSTextFieldCell"; title = "0 bytes"; ObjectID = "941"; */
+"941.title" = "0 bytes";
+
+/* Class = "NSTextFieldCell"; title = "0 bytes"; ObjectID = "942"; */
+"942.title" = "0 bytes";
+
+/* Class = "NSTextFieldCell"; title = "Selected XXXX:"; ObjectID = "943"; */
+"943.title" = "Selected XXXX:";
+
+/* Class = "NSTextFieldCell"; title = "(888.8 MB)"; ObjectID = "944"; */
+"944.title" = "(888.8 MB)";
+
+/* Class = "NSTextFieldCell"; title = "(888.8 MB)"; ObjectID = "945"; */
+"945.title" = "(888.8 MB)";
+
+/* Class = "NSTextFieldCell"; title = "File type:"; ObjectID = "946"; */
+"946.title" = "File type:";
+
+/* Class = "NSTextFieldCell"; title = "File type identifier"; ObjectID = "947"; */
+"947.title" = "File type identifier";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "952"; */
+"952.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "953"; */
+"953.title" = "Text Cell";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "966"; */
+"966.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Item 1"; ObjectID = "967"; */
+"967.title" = "Item 1";
+
+/* Class = "NSMenuItem"; title = "Item 2"; ObjectID = "968"; */
+"968.title" = "Item 2";
+
+/* Class = "NSMenuItem"; title = "Item 3"; ObjectID = "969"; */
+"969.title" = "Item 3";
+
+/* Class = "NSTextFieldCell"; title = "Created:"; ObjectID = "974"; */
+"974.title" = "Created:";
+
+/* Class = "NSTextFieldCell"; title = "Modified:"; ObjectID = "976"; */
+"976.title" = "Modified:";
+
+/* Class = "NSTextFieldCell"; title = "01/01/2001 12:00:00"; ObjectID = "978"; */
+"978.title" = "01/01/2001 12:00:00";
+
+/* Class = "NSTextFieldCell"; title = "01/01/2001 12:00:00"; ObjectID = "980"; */
+"980.title" = "01/01/2001 12:00:00";
+
+/* Class = "NSTextFieldCell"; title = "Accessed:"; ObjectID = "984"; */
+"984.title" = "Accessed:";
+
+/* Class = "NSTextFieldCell"; title = "01/01/2001 12:00:00"; ObjectID = "986"; */
+"986.title" = "01/01/2001 12:00:00";
+
+/* Class = "NSWindow"; title = "Control"; ObjectID = "GHT-tk-zeb"; */
+"GHT-tk-zeb.title" = "Control";
