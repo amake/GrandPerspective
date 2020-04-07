@@ -12,7 +12,7 @@
 }
 
 
-- (BOOL) testFileItem:(FileItem *)item context:(id)context {
+- (TestResult) testFileItem:(FileItem *)item context:(id)context {
   NSInteger  max = self.subItemTests.count;
   NSInteger  i = 0;
   BOOL  applicable = NO;
