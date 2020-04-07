@@ -64,6 +64,9 @@
 /* Alert panel button */
 "Cancel" = "Annulla";
 
+/* Part of tool tip for uniform types */
+"Conforms to:" = "E' conforme a:";
+
 /* Alert panel button */
 "Delete" = "Cancella";
 
@@ -235,6 +238,9 @@
 /* Parse error */
 "Parsing aborted" = "Analisi interrotta";
 
+/* Header in exported text file */
+"Path" = "Percorso";
+
 /* Alert message */
 "Possible reasons are that it does not exist anymore (it may have been moved, renamed, or deleted by other means) or that you lack the required permissions." = "Forse non esiste più (può essere stato spostato, rinominato o cancellato con altri mezzi) o non si dispone delle autorizzazioni necessarie.";
 
@@ -291,6 +297,9 @@
 
 /* Label in Focus panel */
 "Selected package:" = "Selezionato pacchetto:";
+
+/* Header in exported text file */
+"Size" = "Dimensione";
 
 /* Alert message (with filename arg) */
 "Successfully saved the scan data to \"%@\"" = "Salvataggio dati scansioni su \"%@\" terminato con successo";
