@@ -52,6 +52,9 @@
 /* Alert message (with filename arg) */
 "Aborted saving the scan data to \"%@\"" = "Salvataggio scansione verso \"%@\" abortito";
 
+/* Header in exported text file */
+"Accessed" = "Accesso";
+
 /* Label in Focus panel */
 "Area in view:" = "Area nella vista:";
 
@@ -66,6 +69,9 @@
 
 /* Part of tool tip for uniform types */
 "Conforms to:" = "E' conforme a:";
+
+/* Header in exported text file */
+"Created" = "Creazione";
 
 /* Alert panel button */
 "Delete" = "Cancella";
@@ -118,6 +124,15 @@
 /* Parse error */
 "Expected unsigned integer value." = "Atteso valore intero senza segno (+/-)";
 
+/* Title of save panel */
+"Export image" = "Esporta immagine";
+
+/* Title of save panel */
+"Export scan data as text" = "Esporta dati scansione come testo";
+
+/* Alert message */
+"Failed to bind one or more filter tests:\n%@" = "Impossibile collegare uno o più test di filtraggio:";
+
 /* Alert message */
 "Failed to delete the file \"%@\"" = "Impossibile cancellare il file \"%@\".";
 
@@ -154,6 +169,9 @@
 /* Alert message (with filename arg) */
 "Failed to save the scan data to \"%@\"" = "Salvataggio scansione non riuscito su \"%@\"";
 
+/* Alert message */
+"Failed to update one or more filters:\n%@" = "Impossibile aggiornare uno o più filtri:";
+
 /* Error message */
 "Failed to write entire buffer." = "Scrittura dell'intero buffer fallito";
 
@@ -162,6 +180,9 @@
 
 /* Label in Focus panel */
 "File in view:" = "File nella vista:";
+
+/* Header in exported text file */
+"Filename" = "Nome file";
 
 /* Window title */
 "Filter - %@" = "Filtro - %@";
@@ -184,6 +205,9 @@
 /* File size unit for gigabytes. */
 "GB" = "GB";
 
+/* Menu item */
+"Hide Control Panel" = "Nascondi Pannello Di Controllo";
+
 /* File size unit for kilobytes. */
 "kB" = "kB";
 
@@ -201,6 +225,9 @@
 
 /* File size unit for megabytes. */
 "MB" = "MB";
+
+/* Header in exported text file */
+"Modified" = "Modifica";
 
 /* Legend for Time-based mapping schemes. */
 "More recent" = "Più recenti";
@@ -287,16 +314,19 @@
 "Select Other Folder" = "Seleziona Altra Cartella";
 
 /* Label in Focus panel */
-"Selected area:" = "Selezionata area:";
+"Selected area:" = "Area selezionata:";
 
 /* Label in Focus panel */
-"Selected file:" = "Selezionato file:";
+"Selected file:" = "File selezionato:";
 
 /* Label in Focus panel */
-"Selected folder:" = "Selezionata cartella:";
+"Selected folder:" = "Cartella selezionata:";
 
 /* Label in Focus panel */
-"Selected package:" = "Selezionato pacchetto:";
+"Selected package:" = "Pacchetto selezionato:";
+
+/* Menu item */
+"Show Control Panel" = "Mostra Pannello Di Controllo";
 
 /* Header in exported text file */
 "Size" = "Dimensione";
@@ -351,6 +381,12 @@
 
 /* Alert informative text */
 "These filters do not exist anymore. Their old definition is used instead." = "Questi filtri non esistono più. Al loro posto sarà utilizzata la loro vecchia definizione.";
+
+/* Part of tool tip for uniform types */
+"Top-level type" = "Tipo di livello superiore";
+
+/* Header in exported text file */
+"Type" = "Tipo";
 
 /* Description for 'unknown' UTI. */
 "unknown file type" = "tipo di file sconosciuto";

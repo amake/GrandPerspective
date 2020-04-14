@@ -5,10 +5,10 @@
 "Audio" = "Audio";
 
 /* File size base type */
-"base-2" = "Binario";
+"base-2" = "Binario (1kB = 1024B)";
 
 /* File size base type */
-"base-10" = "Decimale";
+"base-10" = "Decimale (1kB = 1000B)";
 
 /* Color palette */
 "BlueSkyTulips" = "Tulipani e cielo blu";
@@ -122,7 +122,7 @@
 "only delete files" = "File";
 
 /* Color palette */
-"OrigamiMice" = "Topi di origami";
+"OrigamiMice" = "Topolini di origami";
 
 /* Filter test */
 "Packages" = "Pacchetti";

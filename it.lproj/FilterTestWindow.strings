@@ -89,7 +89,7 @@
 "490.title" = "percorso";
 
 /* Class = "NSButtonCell"; title = "size is larger than"; ObjectID = "492"; */
-"492.title" = "dimension è maggiore di";
+"492.title" = "dimensione è maggiore di";
 
 /* Class = "NSButtonCell"; title = "size is smaller than"; ObjectID = "495"; */
 "495.title" = "dimensione è minore di";
@@ -110,10 +110,10 @@
 "502.title" = "elemento";
 
 /* Class = "NSTextFieldCell"; title = "hard-linked"; ObjectID = "504"; */
-"504.title" = "collegamento fisico (hard-link)";
+"504.title" = "un collegamento fisico (hard-link)";
 
 /* Class = "NSButtonCell"; title = "item"; ObjectID = "505"; */
-"505.title" = "element";
+"505.title" = "elemento";
 
 /* Class = "NSTextFieldCell"; title = "a package"; ObjectID = "506"; */
 "506.title" = "un pacchetto";

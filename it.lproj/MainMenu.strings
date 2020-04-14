@@ -4,6 +4,9 @@
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
 "5.title" = "Porta Tutto in Primo Piano";
 
+/* Class = "NSMenuItem"; title = "Show/Hide Control Panel"; ObjectID = "9Ho-ON-BCj"; */
+"9Ho-ON-BCj.title" = "Mostra/Nascondi Pannello di Controllo";
+
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
 "19.title" = "Finestra";
 
@@ -63,6 +66,9 @@
 
 /* Class = "NSMenuItem"; title = "Twin"; ObjectID = "321"; */
 "321.title" = "Duplica in parallelo";
+
+/* Class = "NSMenuItem"; title = "Export As Image..."; ObjectID = "324"; */
+"324.title" = "Esporta Come Immagine...";
 
 /* Class = "NSMenuItem"; title = "Rescan"; ObjectID = "326"; */
 "326.title" = "Riscansiona";
@@ -126,6 +132,9 @@
 
 /* Class = "NSMenu"; title = "Services"; ObjectID = "426"; */
 "426.title" = "Servizi";
+
+/* Class = "NSMenuItem"; title = "Export As Text..."; ObjectID = "hJw-Fc-daG"; */
+"hJw-Fc-daG.title" = "Esporta Come Testo...";
 
 /* Class = "NSMenuItem"; title = "Scan Recent"; ObjectID = "hUr-J9-FbH"; */
 "hUr-J9-FbH.title" = "Scansioni Recenti";

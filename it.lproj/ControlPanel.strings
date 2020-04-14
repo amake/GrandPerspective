@@ -32,7 +32,7 @@
 "921.title" = "Spazio utilizzato generico:";
 
 /* Class = "NSTextFieldCell"; title = "Freed space:"; ObjectID = "923"; */
-"923.title" = "Spazio libero:";
+"923.title" = "Spazio liberato:";
 
 /* Class = "NSTextFieldCell"; title = "Volume name"; ObjectID = "925"; */
 "925.title" = "Nome volume";
@@ -78,4 +78,7 @@
 
 /* Class = "NSTextFieldCell"; title = "Accessed:"; ObjectID = "984"; */
 "984.title" = "Accesso:";
+
+/* Class = "NSWindow"; title = "Control"; ObjectID = "GHT-tk-zeb"; */
+"GHT-tk-zeb.title" = "Controllo";
 

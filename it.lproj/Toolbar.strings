@@ -5,7 +5,7 @@
 "Drawer" = "Pannello laterale";
 
 /* Label for focus controls */
-"Focus" = "Focus";
+"Focus" = "Focus livello";
 
 /* Menu item */
 "Hide Toolbar" = "Nascondi Barra Strumenti";
@@ -14,10 +14,10 @@
 "Info" = "Info";
 
 /* Toolbar action */
-"Move focus down" = "Spsota il focus giù";
+"Move focus down" = "Sposta focus livello inferiore";
 
 /* Toolbar action */
-"Move focus up" = "Sposta il focus su";
+"Move focus up" = "Sposta focus livello superiore";
 
 /* Tooltip */
 "Move to trash" = "Sposta nel cestino";
@@ -63,6 +63,9 @@
 
 /* Tooltip */
 "Reveal in Finder" = "Mostra nel Finder";
+
+/* Tooltip */
+"Show info" = "Vedi informazioni";
 
 /* Menu item */
 "Show Toolbar" = "Mostra Barra Strumenti";

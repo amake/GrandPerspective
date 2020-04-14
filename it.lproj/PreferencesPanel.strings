@@ -50,7 +50,7 @@
 "199.title" = "Visualizza volume intero";
 
 /* Class = "NSTextFieldCell"; title = "File size unit system:"; ObjectID = "214"; */
-"214.title" = "Sistema di unità di misura file:";
+"214.title" = "Sistema dimensione file:";
 
 /* Class = "NSTextFieldCell"; title = "After closing last view:"; ObjectID = "KFu-2k-t7Z"; */
 "KFu-2k-t7Z.title" = "Dopo chiusura ultima vista:";
