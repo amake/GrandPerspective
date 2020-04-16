@@ -5,10 +5,10 @@
 "Audio" = "Audio";
 
 /* File size base type */
-"base-2" = "Binario (1kB = 1024B)";
+"base-2" = "Binario (1k=1024)";
 
 /* File size base type */
-"base-10" = "Decimale (1kB = 1000B)";
+"base-10" = "Decimale (1k=1000)";
 
 /* Color palette */
 "BlueSkyTulips" = "Tulipani e cielo blu";

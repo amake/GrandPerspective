@@ -95,10 +95,10 @@
 "349.title" = "Vista";
 
 /* Class = "NSMenuItem"; title = "Show/Hide Toolbar"; ObjectID = "350"; */
-"350.title" = "Mostra/Nascondi la Barra Strumenti";
+"350.title" = "Mostra/Nascondi Barra Strumenti";
 
 /* Class = "NSMenuItem"; title = "Customize Toolbar..."; ObjectID = "351"; */
-"351.title" = "Personalizza la Barra Strumenti";
+"351.title" = "Personalizza Barra Strumenti";
 
 /* Class = "NSMenuItem"; title = "Filters..."; ObjectID = "357"; */
 "357.title" = "Filtri...";
