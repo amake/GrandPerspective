@@ -51,13 +51,7 @@ NSString  *MatchColumn = @"match";
 
 @property (nonatomic, getter=isNameKnownInvalid, readonly) BOOL nameKnownInvalid;
 
-- (void) confirmTestRemovalAlertDidEnd:(NSAlert *)alert 
-                            returnCode:(int)returnCode
-                           contextInfo:(void *)contextInfo;
-
-- (void) invalidNameAlertDidEnd:(NSAlert *)alert
-                     returnCode:(int)returnCode
-                    contextInfo:(void *)contextInfo;
+- (void) deleteTest:(NSString *)testName;
 
 @end // @interface FilterWindowControl (PrivateMethods)
 
@@ -224,11 +218,8 @@ NSString  *MatchColumn = @"match";
   
     [alert addButtonWithTitle: OK_BUTTON_TITLE];
     alert.messageText = errorMsg;
+    [alert beginSheetModalForWindow: self.window completionHandler: nil];
 
-    [alert beginSheetModalForWindow: self.window
-                      modalDelegate: self
-                     didEndSelector: @selector(invalidNameAlertDidEnd:returnCode:contextInfo:)
-                        contextInfo: nil];
     [invalidName release];
     invalidName = [[self filterName] retain];
   }
@@ -267,10 +258,11 @@ NSString  *MatchColumn = @"match";
   alert.messageText = [NSString stringWithFormat: fmt, localizedName];
   alert.informativeText = infoMsg;
 
-  [alert beginSheetModalForWindow: self.window
-                    modalDelegate: self
-                   didEndSelector: @selector(confirmTestRemovalAlertDidEnd:returnCode:contextInfo:)
-                      contextInfo: testName];
+  [alert beginSheetModalForWindow: self.window completionHandler:^(NSModalResponse returnCode) {
+    if (returnCode == NSAlertFirstButtonReturn) {
+      [self deleteTest: testName];
+    }
+  }];
 }
 
 
@@ -780,31 +772,19 @@ NSString  *MatchColumn = @"match";
 }
 
 
-- (void) confirmTestRemovalAlertDidEnd:(NSAlert *)alert 
-                            returnCode:(int)returnCode
-                           contextInfo:(void *)testName {
-  if (returnCode == NSAlertFirstButtonReturn) {
-    // Delete confirmed.
-    
-    FileItemTest  *defaultTest = [testRepository applicationProvidedTestForName: testName];
-    NotifyingDictionary  *repositoryTestsByName = [testRepository testsByNameAsNotifyingDictionary];
-    
-    if (defaultTest == nil) {
-      [repositoryTestsByName removeObjectForKey: testName];
-    }
-    else {
-      // Replace it by the application-provided test with the same name (this would happen anyway
-      // when the application is restarted).
-      [repositoryTestsByName updateObject: defaultTest forKey: testName];
-    }
+- (void) deleteTest:(NSString *)testName {
+  FileItemTest  *defaultTest = [testRepository applicationProvidedTestForName: testName];
+  NotifyingDictionary  *repositoryTestsByName = [testRepository testsByNameAsNotifyingDictionary];
 
-    // Rest of delete handled in response to notification event.
+  if (defaultTest == nil) {
+    [repositoryTestsByName removeObjectForKey: testName];
+  } else {
+    // Replace it by the application-provided test with the same name (this would happen anyway
+    // when the application is restarted).
+    [repositoryTestsByName updateObject: defaultTest forKey: testName];
   }
-}
 
-- (void) invalidNameAlertDidEnd:(NSAlert *)alert
-                     returnCode:(int)returnCode
-                    contextInfo:(void *)contextInfo {
+  // Rest of delete handled in response to notification event.
 }
 
 @end // @implementation FilterWindowControl (PrivateMethods)

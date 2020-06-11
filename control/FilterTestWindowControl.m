@@ -83,10 +83,6 @@
 
 @property (nonatomic, getter=isNameKnownInvalid, readonly) BOOL nameKnownInvalid;
 
-- (void) invalidNameAlertDidEnd:(NSAlert *)alert
-                     returnCode:(int)returnCode
-                    contextInfo:(void *)contextInfo;
-
 @end // @interface FilterTestWindowControl (PrivateMethods)
 
 
@@ -404,11 +400,8 @@
   
       [alert addButtonWithTitle: OK_BUTTON_TITLE];
       alert.messageText = errorMsg;
+      [alert beginSheetModalForWindow: self.window completionHandler: nil];
 
-      [alert beginSheetModalForWindow: self.window
-                        modalDelegate: self
-                       didEndSelector: @selector(invalidNameAlertDidEnd:returnCode:contextInfo:)
-                          contextInfo: nil];
       [invalidName release];
       invalidName = [[self fileItemTestName] retain];
     }
@@ -865,12 +858,7 @@
   return currentName.length == 0 || [currentName isEqualToString: invalidName];
 }
 
-- (void) invalidNameAlertDidEnd:(NSAlert *)alert
-                     returnCode:(int)returnCode
-                    contextInfo:(void *)contextInfo {
-}
-
-@end // @implementation FilterTestWindowControl (PrivateMethods) 
+@end // @implementation FilterTestWindowControl (PrivateMethods)
 
 
 @implementation MultiMatchControls

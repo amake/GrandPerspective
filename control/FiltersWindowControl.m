@@ -23,9 +23,7 @@
 - (void) filterUpdatedInRepository:(NSNotification *)notification;
 - (void) filterRenamedInRepository:(NSNotification *)notification;
 
-- (void) confirmFilterRemovalAlertDidEnd:(NSAlert *)alert 
-                              returnCode:(int)returnCode
-                             contextInfo:(void *)contextInfo;
+- (void) deleteFilter:(NSString *)filterName;
 
 @end // @interface FiltersWindowControl (PrivateMethods)
 
@@ -144,10 +142,11 @@
   alert.messageText = [NSString stringWithFormat: fmt, localizedName];
   alert.informativeText = infoMsg;
 
-  [alert beginSheetModalForWindow: self.window
-                    modalDelegate: self
-                   didEndSelector: @selector(confirmFilterRemovalAlertDidEnd:returnCode:contextInfo:)
-                      contextInfo: filterName];
+  [alert beginSheetModalForWindow: self.window completionHandler:^(NSModalResponse returnCode) {
+    if (returnCode == NSAlertFirstButtonReturn) {
+      [self deleteFilter: filterName];
+    }
+  }];
 }
 
 - (void) windowDidLoad {
@@ -284,28 +283,22 @@
 }
 
 
-- (void) confirmFilterRemovalAlertDidEnd:(NSAlert *)alert 
-                              returnCode:(int)returnCode
-                             contextInfo:(void *)filterName {
-  if (returnCode == NSAlertFirstButtonReturn) {
-    // Delete confirmed.
-    
-    Filter  *defaultFilter = 
-      [filterRepository applicationProvidedFilterForName: filterName];
-    NotifyingDictionary  *repositoryFiltersByName = 
-      [filterRepository filtersByNameAsNotifyingDictionary];
-    
-    if (defaultFilter == nil) {
-      [repositoryFiltersByName removeObjectForKey: filterName];
-    }
-    else {
-      // Replace it by the application-provided filter with the same name (this would happen anyway
-      // when the application is restarted).
-      [repositoryFiltersByName updateObject: defaultFilter forKey: filterName];
-    }
+- (void) deleteFilter:(NSString *)filterName {
+  Filter  *defaultFilter =
+  [filterRepository applicationProvidedFilterForName: filterName];
+  NotifyingDictionary  *repositoryFiltersByName =
+  [filterRepository filtersByNameAsNotifyingDictionary];
 
-    // Rest of delete handled in response to notification event.
+  if (defaultFilter == nil) {
+    [repositoryFiltersByName removeObjectForKey: filterName];
   }
+  else {
+    // Replace it by the application-provided filter with the same name (this would happen anyway
+    // when the application is restarted).
+    [repositoryFiltersByName updateObject: defaultFilter forKey: filterName];
+  }
+
+  // Rest of delete handled in response to notification event.
 }
 
 @end // @implementation FiltersWindowControl (PrivateMethods)

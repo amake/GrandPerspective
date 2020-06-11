@@ -49,13 +49,6 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 @property (nonatomic, readonly) BOOL canDeleteSelectedFile;
 @property (nonatomic, readonly) BOOL canCopySelectedPathToPasteboard;
 
-- (void) informativeAlertDidEnd:(NSAlert *)alert
-                     returnCode:(int)returnCode
-                    contextInfo:(void *)contextInfo;
-
-- (void) confirmDeleteSelectedFileAlertDidEnd:(NSAlert *)alert 
-                                   returnCode:(int)returnCode
-                                  contextInfo:(void *)contextInfo;
 - (void) deleteSelectedFile;
 
 - (void) selectedItemChanged:(NSNotification *)notification;
@@ -342,10 +335,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   alert.messageText = msg;
   [alert setInformativeText: NOTE_IT_MAY_NOT_EXIST_ANYMORE];
 
-  [alert beginSheetModalForWindow: self.window
-                    modalDelegate: self
-                   didEndSelector: @selector(informativeAlertDidEnd:returnCode:contextInfo:)
-                      contextInfo: nil];
+  [alert beginSheetModalForWindow: self.window completionHandler: nil];
 }
 
 - (IBAction) previewFile:(id)sender {
@@ -414,10 +404,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   alert.messageText = msg;
   [alert setInformativeText: NOTE_IT_MAY_NOT_EXIST_ANYMORE];
 
-  [alert beginSheetModalForWindow: self.window
-                    modalDelegate: self
-                   didEndSelector: @selector(informativeAlertDidEnd:returnCode:contextInfo:)
-                      contextInfo: nil];
+  [alert beginSheetModalForWindow: self.window completionHandler: nil];
 }
 
 
@@ -479,10 +466,17 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   alert.messageText = [NSString stringWithFormat: mainMsg, [selectedFile pathComponent]];
   alert.informativeText = infoMsg;
 
-  [alert beginSheetModalForWindow: self.window
-                    modalDelegate: self
-                   didEndSelector: @selector(confirmDeleteSelectedFileAlertDidEnd:returnCode:contextInfo:)
-                      contextInfo: nil];
+  [alert beginSheetModalForWindow: self.window completionHandler:^(NSModalResponse returnCode) {
+    // Let the alert disappear, so that it is gone before the file is being deleted as this can
+    // trigger another alert (namely when it fails).
+    [alert.window orderOut: self];
+
+    if (returnCode == NSAlertFirstButtonReturn) {
+      // Delete confirmed.
+
+      [self deleteSelectedFile];
+    }
+  }];
 }
 
 
@@ -544,11 +538,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 }
 
 - (void) showInformativeAlert:(NSAlert *)alert {
-  // TODO: Replace use of deprecated method
-  [alert beginSheetModalForWindow: self.window
-                    modalDelegate: self
-                   didEndSelector: @selector(informativeAlertDidEnd:returnCode:contextInfo:)
-                      contextInfo: nil];
+  [alert beginSheetModalForWindow: self.window completionHandler: nil];
 }
 
 #pragma mark - Quick Look panel support
@@ -678,27 +668,6 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 }
 
 
-- (void) informativeAlertDidEnd:(NSAlert *)alert 
-                     returnCode:(int)returnCode
-                    contextInfo:(void *)contextInfo {
-  [alert.window orderOut: self];
-}
-
-
-- (void) confirmDeleteSelectedFileAlertDidEnd:(NSAlert *)alert 
-                                   returnCode:(int)returnCode
-                                  contextInfo:(void *)contextInfo {
-  // Let the alert disappear, so that it is gone before the file is being
-  // deleted as this can trigger another alert (namely when it fails).
-  [alert.window orderOut: self];
-  
-  if (returnCode == NSAlertFirstButtonReturn) {
-    // Delete confirmed.
-    
-    [self deleteSelectedFile];
-  }
-}
-
 - (void) deleteSelectedFile {
   FileItem  *selectedFile = [pathModelView selectedFileItem];
 
@@ -733,10 +702,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   alert.messageText = msg;
   alert.informativeText = info;
 
-  [alert beginSheetModalForWindow: self.window
-                    modalDelegate: self
-                   didEndSelector: @selector(informativeAlertDidEnd:returnCode:contextInfo:)
-                      contextInfo: nil];
+  [alert beginSheetModalForWindow: self.window completionHandler: nil];
 }
 
 
