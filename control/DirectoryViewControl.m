@@ -544,6 +544,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 }
 
 - (void) showInformativeAlert:(NSAlert *)alert {
+  // TODO: Replace use of deprecated method
   [alert beginSheetModalForWindow: self.window
                     modalDelegate: self
                    didEndSelector: @selector(informativeAlertDidEnd:returnCode:contextInfo:)

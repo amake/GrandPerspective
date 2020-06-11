@@ -52,11 +52,17 @@ NSString  *ScanTaskAbortedEvent = @"scanTaskAborted";
             [[self progressInfo][NumFoldersProcessedKey] intValue],
             [[self progressInfo][NumFoldersSkippedKey] intValue],
             -startTime.timeIntervalSinceNow);
-    scanResult = [ScanTaskOutput scanTaskOutput: scanTree alert: [treeBuilder alertMessage]];
+    scanResult = [ScanTaskOutput scanTaskOutput: scanTree alert: treeBuilder.alertMessage];
   }
   else {
-    NSLog(@"Scanning aborted.");
-    [[NSNotificationCenter defaultCenter] postNotificationName: ScanTaskAbortedEvent object: self];
+    if (treeBuilder.alertMessage != nil) {
+      NSLog(@"Scanning failed.");
+      scanResult = [ScanTaskOutput failedScanTaskOutput: treeBuilder.alertMessage];
+    } else {
+      NSLog(@"Scanning aborted.");
+      [[NSNotificationCenter defaultCenter] postNotificationName: ScanTaskAbortedEvent
+                                                          object: self];
+    }
   }
 
   [taskLock lock];

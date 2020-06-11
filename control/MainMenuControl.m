@@ -1223,7 +1223,11 @@ static MainMenuControl  *singletonInstance = nil;
     alert.informativeText = scanResult.alert.informativeText;
     [alert addButtonWithTitle: OK_BUTTON_TITLE];
 
-    [control showInformativeAlert: alert];
+    if (control != nil) {
+      [control showInformativeAlert: alert];
+    } else {
+      [alert runModal];
+    }
   }
 
   return control;

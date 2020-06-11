@@ -242,6 +242,17 @@ NSString  *TallyFileSizeName = @"tally";
 
 - (TreeContext *)buildTreeForPath:(NSString *)path {
   TreeContext  *treeContext = [self treeContextForVolumeContaining: path];
+  if (treeContext == nil) {
+    [_alertMessage release];
+
+    _alertMessage = [[AlertMessage alloc] init];
+    _alertMessage.messageText = NSLocalizedString(@"Scanning failed", @"Alert message");
+    NSString *fmt = NSLocalizedString
+      (@"The path %@ does not exist or is not a directory", @"Alert message");
+    _alertMessage.informativeText = [NSString stringWithFormat: fmt, path];
+
+    return nil;
+  }
 
   // Determine relative path
   NSString  *volumePath = [[treeContext volumeTree] systemPathComponent];
