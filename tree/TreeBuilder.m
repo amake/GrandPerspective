@@ -251,7 +251,7 @@ NSString  *TallyFileSizeName = @"tally";
     _alertMessage = [[AlertMessage alloc] init];
     _alertMessage.messageText = NSLocalizedString(@"Scanning failed", @"Alert message");
     NSString *fmt = NSLocalizedString
-      (@"The path %@ does not exist or is not a directory", @"Alert message");
+      (@"The path %@ does not exist or is not a folder", @"Alert message");
     _alertMessage.informativeText = [NSString stringWithFormat: fmt, path];
 
     return nil;
