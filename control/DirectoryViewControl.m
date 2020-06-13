@@ -43,6 +43,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 
 @interface DirectoryViewControl (PrivateMethods)
 
+@property (class, nonatomic, readonly) NSColor *secondaryLabelColor;
 @property (nonatomic, readonly) BOOL canOpenSelectedFile;
 @property (nonatomic, readonly) BOOL canPreviewSelectedFile;
 @property (nonatomic, readonly) BOOL canRevealSelectedFile;
@@ -262,8 +263,8 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 }
 
 - (void) windowDidResignMain:(NSNotification *)notification {
-  [itemSizeField setTextColor: NSColor.secondaryLabelColor];
-  [itemPathField setTextColor: NSColor.secondaryLabelColor];
+  [itemSizeField setTextColor: DirectoryViewControl.secondaryLabelColor];
+  [itemPathField setTextColor: DirectoryViewControl.secondaryLabelColor];
 }
 
 
@@ -620,6 +621,14 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
 
 @implementation DirectoryViewControl (PrivateMethods)
 
++ (NSColor *)secondaryLabelColor {
+  // secondaryLabelColor is supported from macOS 10.10 onwards.
+  // TODO: Remove this helper method once macOS 10.9 support is dropped
+  return [NSColor respondsToSelector: @selector(secondaryLabelColor)]
+    ? NSColor.secondaryLabelColor
+    : NSColor.darkGrayColor;
+}
+
 - (BOOL) canOpenSelectedFile {
   FileItem  *selectedFile = [pathModelView selectedFileItem];
 
@@ -814,7 +823,7 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
         
       if (relativeItemPath.length > visibleLen) {
         [attributedPath addAttribute: NSForegroundColorAttributeName
-                               value: [NSColor secondaryLabelColor]
+                               value: DirectoryViewControl.secondaryLabelColor
                                range: NSMakeRange(0, relativeItemPath.length - visibleLen)];
       }
         
