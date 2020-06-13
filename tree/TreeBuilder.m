@@ -14,6 +14,7 @@
 #import "ControlConstants.h"
 
 #import "ScanProgressTracker.h"
+#import "UniformType.h"
 #import "UniformTypeInventory.h"
 
 
@@ -63,6 +64,8 @@ NSString  *TallyFileSizeName = @"tally";
 @end
 
 @interface TreeBuilder (PrivateMethods)
+
++ (ITEM_SIZE) getLogicalFileSize:(NSURL *)url withType:(UniformType *)fileType;
 
 - (TreeContext *)treeContextForVolumeContaining:(NSString *)path;
 - (void) addToStack:(DirectoryItem *)dirItem URL:(NSURL *)url;
@@ -326,6 +329,20 @@ NSString  *TallyFileSizeName = @"tally";
 
 @implementation TreeBuilder (PrivateMethods)
 
++ (ITEM_SIZE) getLogicalFileSize:(NSURL *)url withType:(UniformType *)fileType {
+  if ([fileType.uniformTypeIdentifier isEqualToString: @"com.apple.icloud-file-fault"]) {
+    NSDictionary  *dict = [NSDictionary dictionaryWithContentsOfURL: url];
+    NSNumber  *fileSize = [dict objectForKey: @"NSURLFileSizeKey"];
+
+    return fileSize.unsignedLongLongValue;
+  } else {
+    NSNumber  *logicalFileSize;
+    [url getResourceValue: &logicalFileSize forKey: NSURLTotalFileSizeKey error: nil];
+
+    return logicalFileSize.unsignedLongLongValue;
+  }
+}
+
 - (TreeContext *)treeContextForVolumeContaining:(NSString *)path {
   NSURL  *url = [NSURL fileURLWithPath: path];
 
@@ -463,12 +480,12 @@ NSString  *TallyFileSizeName = @"tally";
     [url getResourceValue: &physicalFileSize forKey: NSURLTotalFileAllocatedSizeKey error: nil];
     ITEM_SIZE  fileSize;
 
+    UniformType  *fileType =
+      [typeInventory uniformTypeForExtension: lastPathComponent.pathExtension];
+
     switch (fileSizeMeasure) {
       case LogicalFileSize: {
-        NSNumber  *logicalFileSize;
-        [url getResourceValue: &logicalFileSize forKey: NSURLTotalFileSizeKey error: nil];
-
-        fileSize = logicalFileSize.unsignedLongLongValue;
+        fileSize = [TreeBuilder getLogicalFileSize: url withType: fileType];
         totalPhysicalSize += physicalFileSize.unsignedLongLongValue;
 
         if (fileSize > physicalFileSize.unsignedLongLongValue) {
@@ -486,9 +503,6 @@ NSString  *TallyFileSizeName = @"tally";
       case TallyFileSize:
         fileSize = 1;
     }
-
-    UniformType  *fileType =
-      [typeInventory uniformTypeForExtension: lastPathComponent.pathExtension];
 
     PlainFileItem  *fileChildItem =
       [[PlainFileItem allocWithZone: [parent zone]] initWithLabel: lastPathComponent
