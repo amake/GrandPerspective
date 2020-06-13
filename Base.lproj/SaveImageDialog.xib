@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1080" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,7 +21,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="209" height="107"/>
             <view key="contentView" id="5">
-                <rect key="frame" x="0.0" y="0.0" width="234" height="174"/>
+                <rect key="frame" x="0.0" y="0.0" width="234" height="172"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="10">
@@ -51,13 +51,13 @@ Gw
                         </connections>
                     </button>
                     <box title="Image size" translatesAutoresizingMaskIntoConstraints="NO" id="25">
-                        <rect key="frame" x="17" y="56" width="200" height="98"/>
+                        <rect key="frame" x="17" y="56" width="200" height="96"/>
                         <view key="contentView" id="MJk-Yn-gSN">
-                            <rect key="frame" x="3" y="3" width="194" height="80"/>
+                            <rect key="frame" x="3" y="3" width="194" height="78"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6AL-kW-6Iw">
-                                    <rect key="frame" x="18" y="49" width="78" height="17"/>
+                                    <rect key="frame" x="18" y="48" width="78" height="16"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Width:" id="QVl-ub-0Uz">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -65,7 +65,7 @@ Gw
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="H4H-19-1fD">
-                                    <rect key="frame" x="18" y="17" width="70" height="17"/>
+                                    <rect key="frame" x="18" y="17" width="70" height="16"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Height:" id="77K-Uw-OFb">
                                         <font key="font" metaFont="system"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -73,7 +73,7 @@ Gw
                                     </textFieldCell>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Rv-x4-wb6">
-                                    <rect key="frame" x="94" y="46" width="80" height="22"/>
+                                    <rect key="frame" x="94" y="45" width="80" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="80" id="QgV-K3-4Vv"/>
                                     </constraints>
@@ -87,7 +87,7 @@ Gw
                                     </connections>
                                 </textField>
                                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cnS-Md-8Ef">
-                                    <rect key="frame" x="94" y="14" width="80" height="22"/>
+                                    <rect key="frame" x="94" y="14" width="80" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="80" id="ydN-ZT-kWx"/>
                                     </constraints>
