@@ -304,6 +304,9 @@
 /* Message in progress panel while scanning */
 "Scanning %@" = "Inlezen van %@";
 
+/* Alert message */
+"Scanning failed" = "Inlezen is mislukt";
+
 /* Title of progress panel. */
 "Scanning in progress" = "Bezig met inlezen";
 
@@ -348,6 +351,9 @@
 
 /* Alert informative text */
 "The filter will be replaced by the default filter with this name." = "De filter zal worden vervangen door de standaard filter met dezelfde naam.";
+
+/* Alert message */
+"The path %@ does not exist or is not a folder" = "De padnaam %@ bestaat niet of is geen map";
 
 /* Alert message */
 "The reported size of some files is larger than their actual size on disk" = "De geraporteerde grootte van sommige bestanden is groter dan de werkelijke benodigde opslagruimte";
