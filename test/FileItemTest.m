@@ -45,7 +45,7 @@
     return [SelectiveItemTest fileItemTestFromDictionary: dict];
   }
   
-  NSAssert1(NO, @"Unrecognized file item test class \"%@\".", classString);
+  NSLog(@"Unrecognized file item test class \"%@\".", classString);
   return nil;
 }
 
