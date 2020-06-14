@@ -150,6 +150,7 @@
 		AAAEEEA521AAE3C800B7C024 /* ScanTaskOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAEEEA421AAE3C800B7C024 /* ScanTaskOutput.m */; };
 		AAB52EBB0E4F8DFE00BF7B20 /* ObjectPool.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB52EBA0E4F8DFE00BF7B20 /* ObjectPool.m */; };
 		AAB52EC30E520E7A00BF7B20 /* MutableArrayPool.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB52EC20E520E7A00BF7B20 /* MutableArrayPool.m */; };
+		AAB907F92496749F00681E2E /* OverlayDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB907F82496749F00681E2E /* OverlayDrawer.m */; };
 		AAC26BC10A8CAF4800F2DA33 /* DrawTaskExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BB30A8CAF4800F2DA33 /* DrawTaskExecutor.m */; };
 		AAC26BC30A8CAF4800F2DA33 /* DrawTaskInput.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BB50A8CAF4800F2DA33 /* DrawTaskInput.m */; };
 		AAC26BC50A8CAF4800F2DA33 /* FilterTaskExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BB70A8CAF4800F2DA33 /* FilterTaskExecutor.m */; };
@@ -514,6 +515,8 @@
 		AAB52EBA0E4F8DFE00BF7B20 /* ObjectPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectPool.m; path = util/ObjectPool.m; sourceTree = "<group>"; };
 		AAB52EC10E520E7A00BF7B20 /* MutableArrayPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MutableArrayPool.h; path = util/MutableArrayPool.h; sourceTree = "<group>"; };
 		AAB52EC20E520E7A00BF7B20 /* MutableArrayPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MutableArrayPool.m; path = util/MutableArrayPool.m; sourceTree = "<group>"; };
+		AAB907F82496749F00681E2E /* OverlayDrawer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OverlayDrawer.m; path = view/OverlayDrawer.m; sourceTree = "<group>"; };
+		AAB907FA249674E100681E2E /* OverlayDrawer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OverlayDrawer.h; path = view/OverlayDrawer.h; sourceTree = "<group>"; };
 		AAB922110E200D29003FB89A /* TreeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeConstants.h; path = tree/TreeConstants.h; sourceTree = "<group>"; };
 		AAC14E31243889D000E132F2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		AAC14E32243889D000E132F2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ControlPanel.strings; sourceTree = "<group>"; };
@@ -832,6 +835,8 @@
 				AA6012F80A5AFC2500DEBCB8 /* ItemPathDrawer.m */,
 				AA6012FB0A5AFC2500DEBCB8 /* ItemPathBuilder.h */,
 				AA6012FA0A5AFC2500DEBCB8 /* ItemPathBuilder.m */,
+				AAB907FA249674E100681E2E /* OverlayDrawer.h */,
+				AAB907F82496749F00681E2E /* OverlayDrawer.m */,
 				AA7BF5B91E61E44000A42F0F /* SelectedItemLocator.h */,
 				AA7BF5BA1E61E44000A42F0F /* SelectedItemLocator.m */,
 				AA7BF5B61E61E28900A42F0F /* ItemPathModelView.h */,
@@ -1312,6 +1317,7 @@
 				AAA2809D108252C900229112 /* FilterSet.m in Sources */,
 				AA2B4B9410EF820D0088EA1C /* ControlConstants.m in Sources */,
 				AA2B4BAD10EFB0DA0088EA1C /* ModalityTerminator.m in Sources */,
+				AAB907F92496749F00681E2E /* OverlayDrawer.m in Sources */,
 				AA2B4C2E10F09A630088EA1C /* FilterRepository.m in Sources */,
 				AA83A34010F0D329002542E4 /* MutableFilterTestRef.m in Sources */,
 				AA83A46F10F14280002542E4 /* NamedFilter.m in Sources */,

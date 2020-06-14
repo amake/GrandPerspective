@@ -11,6 +11,8 @@
 #import "ItemPathModelView.h"
 #import "SelectedItemLocator.h"
 
+#import "OverlayDrawer.h"
+
 #import "TreeLayoutTraverser.h"
 
 #import "AsynchronousTaskManager.h"
@@ -20,6 +22,9 @@
 #import "FileItemMapping.h"
 #import "FileItemMappingScheme.h"
 
+#import "ItemNameTest.h"
+#import "StringContainmentTest.h"
+#import "SelectiveItemTest.h"
 
 #define SCROLL_WHEEL_SENSITIVITY  6.0
 
@@ -60,9 +65,20 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 - (instancetype) initWithFrame:(NSRect)frame {
   if (self = [super initWithFrame:frame]) {
     layoutBuilder = [[TreeLayoutBuilder alloc] init];
+    overlayDrawer = [[OverlayDrawer alloc] init];
     pathDrawer = [[ItemPathDrawer alloc] init];
     selectedItemLocator = [[SelectedItemLocator alloc] init];
-    
+
+    // TEMP: Hard-coded overlay test
+    // TODO: Let user specify search text. Only apply when user is searching
+    StringContainmentTest  *stringTest =
+      [[[StringContainmentTest alloc] initWithMatchTargets: [NSArray arrayWithObjects: @"tree", nil]
+                                             caseSensitive: NO] autorelease];
+    ItemNameTest  *subTest = [[[ItemNameTest alloc] initWithStringTest: stringTest] autorelease];
+    overlayTest = [[SelectiveItemTest alloc]
+                   initWithSubItemTest: subTest
+                             onlyFiles: YES];
+
     scrollWheelDelta = 0;
   }
 
@@ -76,6 +92,8 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   [drawTaskManager release];
 
   [layoutBuilder release];
+  [overlayDrawer release];
+  [overlayTest release];
   [pathDrawer release];
   [selectedItemLocator release];
   
@@ -292,8 +310,8 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
     // Create image in background thread.
     DrawTaskInput  *drawInput =
-      [[DrawTaskInput alloc] initWithVisibleTree: [pathModelView visibleTree]
-                                      treeInView: [self treeInView]
+      [[DrawTaskInput alloc] initWithVisibleTree: pathModelView.visibleTree
+                                      treeInView: self.treeInView
                                    layoutBuilder: layoutBuilder
                                           bounds: self.bounds];
     [drawTaskManager asynchronouslyRunTaskWithInput: drawInput
@@ -308,11 +326,21 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
                  operation: NSCompositeCopy
                   fraction: 1.0f];
 
-    if ([pathModelView isSelectedFileItemVisible] && !treeImageIsScaled) {
-      [pathDrawer drawVisiblePath: pathModelView
-                   startingAtTree: [self treeInView]
-               usingLayoutBuilder: layoutBuilder
-                           bounds: self.bounds];
+    if (!treeImageIsScaled) {
+      if (overlayTest != nil) {
+        // TODO: Apply on image. No need to redraw when only item path changes
+        [overlayDrawer drawOverlay: overlayTest
+                    startingAtTree: self.treeInView
+                usingLayoutBuilder: layoutBuilder
+                            bounds: self.bounds];
+      }
+
+      if ([pathModelView isSelectedFileItemVisible]) {
+        [pathDrawer drawVisiblePath: pathModelView
+                     startingAtTree: self.treeInView
+                 usingLayoutBuilder: layoutBuilder
+                             bounds: self.bounds];
+      }
     }
   }
 }

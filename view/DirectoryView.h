@@ -14,9 +14,11 @@ extern NSString  *ColorMappingChangedEvent;
 @class AsynchronousTaskManager;
 @class TreeLayoutBuilder;
 @class FileItem;
+@class FileItemTest;
 @class TreeDrawerSettings;
 @class ItemPathDrawer;
 @class ItemPathModelView;
+@class OverlayDrawer;
 @class SelectedItemLocator;
 @protocol FileItemMappingScheme;
 
@@ -26,7 +28,10 @@ extern NSString  *ColorMappingChangedEvent;
   // Even though layout builder could also be considered part of the itemTreeDrawerSettings, it is
   // maintained here, as it is also needed by the pathDrawer, and other objects.
   TreeLayoutBuilder  *layoutBuilder;
-  
+
+  FileItemTest  *overlayTest;
+  OverlayDrawer  *overlayDrawer;
+
   ItemPathDrawer  *pathDrawer;
   ItemPathModelView  *pathModelView;
   SelectedItemLocator  *selectedItemLocator;
