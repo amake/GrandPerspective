@@ -20,19 +20,23 @@
   [super dealloc];
 }
 
-- (void) drawOverlay:(FileItemTest *)selectedTest
-      startingAtTree:(FileItem *)treeRoot
-  usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
-              bounds:(NSRect)bounds {
-  [treeGuide setFileItemTest: selectedTest];
+- (NSImage *)drawOverlayImageOfVisibleTree:(FileItem *)visibleTree
+                            startingAtTree:(FileItem *)treeRoot
+                        usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
+                                   onTopOf:(NSImage *)sourceImage
+                               overlayTest:(FileItemTest *)overlayTest; {
+  [treeGuide setFileItemTest: overlayTest];
 
   cgContext = [NSGraphicsContext.currentContext graphicsPort];
   CGContextSaveGState(cgContext);
 
+  NSRect bounds = NSMakeRect(0, 0, sourceImage.size.width, sourceImage.size.height);
   [layoutBuilder layoutItemTree: treeRoot inRect: bounds traverser: self];
 
   CGContextRestoreGState(cgContext);
   cgContext = nil;
+
+  return nil;
 }
 
 - (BOOL) descendIntoItem:(Item *)item atRect:(NSRect)rect depth:(int)depth {

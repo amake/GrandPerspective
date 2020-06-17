@@ -18,10 +18,11 @@
 
 /* Draws the part of the overlay that is visible in the tree.
  */
-- (void) drawOverlay:(FileItemTest *)fileItemTest
-      startingAtTree:(FileItem *)treeRoot
-  usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
-              bounds:(NSRect)bounds;
+- (NSImage *)drawOverlayImageOfVisibleTree:(FileItem *)visibleTree
+                            startingAtTree:(FileItem *)treeRoot
+                        usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
+                                   onTopOf:(NSImage *)sourceImage
+                               overlayTest:(FileItemTest *)overlayTest;
 
 @end
 

@@ -151,6 +151,8 @@
 		AAB52EBB0E4F8DFE00BF7B20 /* ObjectPool.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB52EBA0E4F8DFE00BF7B20 /* ObjectPool.m */; };
 		AAB52EC30E520E7A00BF7B20 /* MutableArrayPool.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB52EC20E520E7A00BF7B20 /* MutableArrayPool.m */; };
 		AAB907F92496749F00681E2E /* OverlayDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB907F82496749F00681E2E /* OverlayDrawer.m */; };
+		AAB907FD24981BAC00681E2E /* OverlayDrawTaskInput.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB907FC24981BAC00681E2E /* OverlayDrawTaskInput.m */; };
+		AAB90800249A98C000681E2E /* OverlayDrawTaskExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB907FF249A98C000681E2E /* OverlayDrawTaskExecutor.m */; };
 		AAC26BC10A8CAF4800F2DA33 /* DrawTaskExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BB30A8CAF4800F2DA33 /* DrawTaskExecutor.m */; };
 		AAC26BC30A8CAF4800F2DA33 /* DrawTaskInput.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BB50A8CAF4800F2DA33 /* DrawTaskInput.m */; };
 		AAC26BC50A8CAF4800F2DA33 /* FilterTaskExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BB70A8CAF4800F2DA33 /* FilterTaskExecutor.m */; };
@@ -517,6 +519,10 @@
 		AAB52EC20E520E7A00BF7B20 /* MutableArrayPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MutableArrayPool.m; path = util/MutableArrayPool.m; sourceTree = "<group>"; };
 		AAB907F82496749F00681E2E /* OverlayDrawer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OverlayDrawer.m; path = view/OverlayDrawer.m; sourceTree = "<group>"; };
 		AAB907FA249674E100681E2E /* OverlayDrawer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OverlayDrawer.h; path = view/OverlayDrawer.h; sourceTree = "<group>"; };
+		AAB907FB24981BAC00681E2E /* OverlayDrawTaskInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OverlayDrawTaskInput.h; path = task/OverlayDrawTaskInput.h; sourceTree = "<group>"; };
+		AAB907FC24981BAC00681E2E /* OverlayDrawTaskInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OverlayDrawTaskInput.m; path = task/OverlayDrawTaskInput.m; sourceTree = "<group>"; };
+		AAB907FE249A98C000681E2E /* OverlayDrawTaskExecutor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OverlayDrawTaskExecutor.h; path = task/OverlayDrawTaskExecutor.h; sourceTree = "<group>"; };
+		AAB907FF249A98C000681E2E /* OverlayDrawTaskExecutor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OverlayDrawTaskExecutor.m; path = task/OverlayDrawTaskExecutor.m; sourceTree = "<group>"; };
 		AAB922110E200D29003FB89A /* TreeConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TreeConstants.h; path = tree/TreeConstants.h; sourceTree = "<group>"; };
 		AAC14E31243889D000E132F2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		AAC14E32243889D000E132F2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ControlPanel.strings; sourceTree = "<group>"; };
@@ -1061,6 +1067,10 @@
 				AAC26BB30A8CAF4800F2DA33 /* DrawTaskExecutor.m */,
 				AAC26BB40A8CAF4800F2DA33 /* DrawTaskInput.h */,
 				AAC26BB50A8CAF4800F2DA33 /* DrawTaskInput.m */,
+				AAB907FE249A98C000681E2E /* OverlayDrawTaskExecutor.h */,
+				AAB907FF249A98C000681E2E /* OverlayDrawTaskExecutor.m */,
+				AAB907FB24981BAC00681E2E /* OverlayDrawTaskInput.h */,
+				AAB907FC24981BAC00681E2E /* OverlayDrawTaskInput.m */,
 				AAC26BB60A8CAF4800F2DA33 /* FilterTaskExecutor.h */,
 				AAC26BB70A8CAF4800F2DA33 /* FilterTaskExecutor.m */,
 				AAC26BB80A8CAF4800F2DA33 /* FilterTaskInput.h */,
@@ -1267,6 +1277,7 @@
 				AA9881950DF57B2F00A6EA33 /* ItemFlagsTest.m in Sources */,
 				AA9881960DF57B2F00A6EA33 /* ItemNameTest.m in Sources */,
 				AA9881970DF57B2F00A6EA33 /* ItemPathTest.m in Sources */,
+				AAB907FD24981BAC00681E2E /* OverlayDrawTaskInput.m in Sources */,
 				AA9881980DF57B2F00A6EA33 /* ItemSizeTest.m in Sources */,
 				AA9881990DF57B2F00A6EA33 /* ItemStringTest.m in Sources */,
 				AA98819A0DF57B2F00A6EA33 /* ItemTypeTest.m in Sources */,
@@ -1303,6 +1314,7 @@
 				AAA4FF1723C8FA7200A51C97 /* WindowManager.m in Sources */,
 				AAB52EC30E520E7A00BF7B20 /* MutableArrayPool.m in Sources */,
 				AAF951B10EDEE2E100844FD5 /* DirectoryViewToolbarControl.m in Sources */,
+				AAB90800249A98C000681E2E /* OverlayDrawTaskExecutor.m in Sources */,
 				AA819B431D5F9A7D003C7139 /* TreeVisitingProgressTracker.m in Sources */,
 				AAA6E72D0EFD29CB00B4E71E /* ToolbarSegmentedCell.m in Sources */,
 				AA2B4A0A104B122900B10262 /* AnnotatedTreeContext.m in Sources */,

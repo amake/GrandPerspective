@@ -39,7 +39,11 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
 - (void) forceRedraw;
 
+- (void) startTreeDrawTask;
 - (void) itemTreeImageReady:(id)image;
+
+- (void) startOverlayDrawTask;
+- (void) overlayImageReady:(id)image;
 
 - (void) postColorPaletteChanged;
 - (void) postColorMappingChanged;
@@ -296,45 +300,34 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   }
   
   if (treeImage != nil && !NSEqualSizes(treeImage.size, self.bounds.size)) {
-    // Scale the existing image for the new size
+    // Scale the existing image(s) for the new size. It will be used until a redrawn image is
+    // available.
     treeImage.size = self.bounds.size;
+    if (overlayImage != nil) {
+      overlayImage.size = self.bounds.size;
+    }
     
     // Indicate that the scaling has taken place, so that a new image will be
     // created.
     treeImageIsScaled = YES;
   }
 
-  if (treeImage==nil || treeImageIsScaled) {
-    NSAssert([self bounds].origin.x == 0 &&
-             [self bounds].origin.y == 0, @"Bounds not at (0, 0)");
-
-    // Create image in background thread.
-    DrawTaskInput  *drawInput =
-      [[DrawTaskInput alloc] initWithVisibleTree: pathModelView.visibleTree
-                                      treeInView: self.treeInView
-                                   layoutBuilder: layoutBuilder
-                                          bounds: self.bounds];
-    [drawTaskManager asynchronouslyRunTaskWithInput: drawInput
-                                           callback: self
-                                           selector: @selector(itemTreeImageReady:)];
-    [drawInput release];
+  if (treeImage == nil || treeImageIsScaled) {
+    [self startTreeDrawTask];
+  } else if (overlayImage == nil && overlayTest != nil) {
+    [self startOverlayDrawTask];
   }
   
   if (treeImage != nil) {
-    [treeImage drawAtPoint: NSZeroPoint
-                  fromRect: NSZeroRect
-                 operation: NSCompositeCopy
-                  fraction: 1.0f];
+    NSLog(@"Drawing image");
+    NSImage  *imageToDraw = overlayImage != nil ? overlayImage : treeImage;
+    [imageToDraw drawAtPoint: NSZeroPoint
+                    fromRect: NSZeroRect
+                   operation: NSCompositeCopy
+                    fraction: 1.0f];
 
     if (!treeImageIsScaled) {
-      if (overlayTest != nil) {
-        // TODO: Apply on image. No need to redraw when only item path changes
-        [overlayDrawer drawOverlay: overlayTest
-                    startingAtTree: self.treeInView
-                usingLayoutBuilder: layoutBuilder
-                            bounds: self.bounds];
-      }
-
+      NSLog(@"Drawing path");
       if ([pathModelView isSelectedFileItemVisible]) {
         [pathDrawer drawVisiblePath: pathModelView
                      startingAtTree: self.treeInView
@@ -588,13 +581,33 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 }
 
 - (void) forceRedraw {
+  NSLog(@"Forcing redraw");
   [self setNeedsDisplay: YES];
 
-  // Discard the existing image.
+  // Discard the existing image(s)
   [treeImage release];
   treeImage = nil;
+
+  [overlayImage release];
+  overlayImage = nil;
 }
 
+- (void) startTreeDrawTask {
+  NSLog(@"Starting draw task");
+  NSAssert([self bounds].origin.x == 0 &&
+           [self bounds].origin.y == 0, @"Bounds not at (0, 0)");
+
+  // Create image in background thread.
+  DrawTaskInput  *drawInput =
+    [[DrawTaskInput alloc] initWithVisibleTree: pathModelView.visibleTree
+                                    treeInView: self.treeInView
+                                 layoutBuilder: layoutBuilder
+                                        bounds: self.bounds];
+  [drawTaskManager asynchronouslyRunTaskWithInput: drawInput
+                                         callback: self
+                                         selector: @selector(itemTreeImageReady:)];
+  [drawInput release];
+}
 
 /**
  * Callback method that signals that the drawing task has finished execution. It is also called when
@@ -614,6 +627,20 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
     treeImage = [image retain];
     treeImageIsScaled = NO;
   
+    [self setNeedsDisplay: YES];
+  }
+}
+
+- (void) startOverlayDrawTask {
+  NSLog(@"Starting overlay draw task");
+  // TODO
+}
+
+- (void) overlayImageReady:(id)image {
+  if (image != nil) {
+    [overlayImage release];
+    overlayImage = [image retain];
+
     [self setNeedsDisplay: YES];
   }
 }

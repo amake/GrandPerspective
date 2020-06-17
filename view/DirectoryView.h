@@ -42,6 +42,7 @@ extern NSString  *ColorMappingChangedEvent;
   BOOL  showEntireVolume;
 
   NSImage  *treeImage;
+  NSImage  *overlayImage;
   
   // Indicates if the image has been resized to fit inside the current view. This is only a
   // temporary measure. A new image is already being constructed for the new size, but as long as
