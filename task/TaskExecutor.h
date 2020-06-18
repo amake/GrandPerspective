@@ -28,8 +28,7 @@ extern NSString  *SuccessfulVoidResult;
  */
 - (id) runTaskWithInput: (id) input;
 
-/**
- * Aborts the task that is currently running. Invoking -abortTask multiple times for the same task
+/* Aborts the task that is currently running. Invoking -abortTask multiple times for the same task
  * is allowed, and should not cause problems.
  *
  * Invoked from the main thread.

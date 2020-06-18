@@ -48,7 +48,12 @@ extern NSString  *ColorMappingChangedEvent;
   // temporary measure. A new image is already being constructed for the new size, but as long as
   // that's not yet ready, the scaled image can be used.
   BOOL  treeImageIsScaled;
-  
+
+  // Indicates if a draw is in progress (which matches current settings). Once a redraw is forced,
+  // these flags are cleared to indicate that a new draw should be initiated.
+  BOOL  isTreeDrawInProgress;
+  BOOL  isOverlayDrawInProgress;
+
   float  scrollWheelDelta;
 }
 

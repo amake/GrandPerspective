@@ -307,14 +307,17 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
       overlayImage.size = self.bounds.size;
     }
     
-    // Indicate that the scaling has taken place, so that a new image will be
-    // created.
+    // Indicate that the scaling has taken place, so that a new image will be created.
     treeImageIsScaled = YES;
+
+    // Ensure any ongoing drawing tasks will be aborted
+    isTreeDrawInProgress = NO;
+    isOverlayDrawInProgress = NO;
   }
 
-  if (treeImage == nil || treeImageIsScaled) {
+  if ((treeImage == nil || treeImageIsScaled) && !isTreeDrawInProgress) {
     [self startTreeDrawTask];
-  } else if (overlayImage == nil && overlayTest != nil) {
+  } else if (overlayImage == nil && overlayTest != nil && !isOverlayDrawInProgress) {
     [self startOverlayDrawTask];
   }
   
@@ -587,9 +590,12 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   // Discard the existing image(s)
   [treeImage release];
   treeImage = nil;
-
   [overlayImage release];
   overlayImage = nil;
+
+  // Invalidate any ongoing draw tasks
+  isTreeDrawInProgress = NO;
+  isOverlayDrawInProgress = NO;
 }
 
 - (void) startTreeDrawTask {
@@ -606,11 +612,12 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   [drawTaskManager asynchronouslyRunTaskWithInput: drawInput
                                          callback: self
                                          selector: @selector(itemTreeImageReady:)];
+
+  isTreeDrawInProgress = YES;
   [drawInput release];
 }
 
-/**
- * Callback method that signals that the drawing task has finished execution. It is also called when
+/* Callback method that signals that the drawing task has finished execution. It is also called when
  * the drawing has been aborted, in which the image will be nil.
  */
 - (void) itemTreeImageReady: (id) image {
@@ -626,6 +633,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
     [treeImage release];
     treeImage = [image retain];
     treeImageIsScaled = NO;
+    isTreeDrawInProgress = NO;
   
     [self setNeedsDisplay: YES];
   }
@@ -634,12 +642,14 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 - (void) startOverlayDrawTask {
   NSLog(@"Starting overlay draw task");
   // TODO
+  isOverlayDrawInProgress = YES;
 }
 
 - (void) overlayImageReady:(id)image {
   if (image != nil) {
     [overlayImage release];
     overlayImage = [image retain];
+    isOverlayDrawInProgress = NO;
 
     [self setNeedsDisplay: YES];
   }
