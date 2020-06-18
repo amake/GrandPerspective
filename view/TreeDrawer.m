@@ -2,6 +2,7 @@
 
 #import "DirectoryItem.h"
 #import "FileItemMapping.h"
+#import "GradientRectangleDrawer.h"
 #import "TreeLayoutBuilder.h"
 #import "FilteredTreeGuide.h"
 #import "TreeDrawerSettings.h"
@@ -11,7 +12,7 @@
 @implementation TreeDrawer
 
 // Overrides designated initialiser
-- (instancetype) initWithColorPalette:(NSColorList *)colorPaletteVal {
+- (instancetype) init {
   NSAssert(NO, @"Use initWithScanTree: instead.");
   return [self initWithScanTree: nil];
 }
@@ -24,18 +25,19 @@
 
 - (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal
                treeDrawerSettings:(TreeDrawerSettings *)settings {
-  if (self = [super initWithColorPalette: [settings colorPalette]]) {
+  if (self = [super init]) {
     scanTree = [scanTreeVal retain];
-  
+
     // Make sure values are set before calling updateSettings. 
     colorMapper = nil;
     treeGuide = [[FilteredTreeGuide alloc] init];
     
     [self updateSettings: settings];
     
-    freeSpaceColor = [self intValueForColor: [NSColor blackColor]];
-    usedSpaceColor = [self intValueForColor: [NSColor darkGrayColor]];
-    visibleTreeBackgroundColor = [self intValueForColor: [NSColor grayColor]];
+    rectangleDrawer = [[GradientRectangleDrawer alloc] initWithColorPalette: settings.colorPalette];
+    freeSpaceColor = [rectangleDrawer intValueForColor: [NSColor blackColor]];
+    usedSpaceColor = [rectangleDrawer intValueForColor: [NSColor darkGrayColor]];
+    visibleTreeBackgroundColor = [rectangleDrawer intValueForColor: [NSColor grayColor]];
     
     abort = NO;
   }
@@ -45,6 +47,7 @@
 - (void) dealloc {
   [colorMapper release];
   [treeGuide release];
+  [rectangleDrawer release];
 
   [scanTree release];
 
@@ -89,8 +92,8 @@
 
 - (void) updateSettings:(TreeDrawerSettings *)settings {
   [self setColorMapper: [settings colorMapper]];
-  [self setColorPalette: [settings colorPalette]];
-  [self setColorGradient: [settings colorGradient]];
+  [rectangleDrawer setColorPalette: [settings colorPalette]];
+  [rectangleDrawer setColorGradient: [settings colorGradient]];
   [self setMaskTest: [settings maskTest]];
   [self setShowPackageContents: [settings showPackageContents]];
 }
@@ -100,7 +103,7 @@
                      startingAtTree:(FileItem *)treeRoot
                  usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
                              inRect:(NSRect)bounds {
-  [self setupBitmap: bounds];
+  [rectangleDrawer setupBitmap: bounds];
   
   insideVisibleTree = NO;
   NSAssert(visibleTree == nil, @"visibleTree should be nil.");
@@ -112,11 +115,10 @@
   visibleTree = nil;
 
   if ( !abort ) {
-    return [self createImageFromBitmap];
+    return [rectangleDrawer createImageFromBitmap];
   }
   else {
-    [drawBitmap release];
-    drawBitmap = nil;
+    [rectangleDrawer releaseBitmap];
     
     return nil;
   }
@@ -142,7 +144,7 @@
   if ( file == visibleTree ) {
     insideVisibleTree = YES;
       
-    [self drawBasicFilledRect: rect intColor: visibleTreeBackgroundColor];
+    [rectangleDrawer drawBasicFilledRect: rect intColor: visibleTreeBackgroundColor];
     
     // Check if any ancestors are masked
     FileItem  *ancestor = file;
@@ -160,7 +162,7 @@
   
     if ( [file isDirectory] ) {
       if ( ![file isPhysical] && [[file label] isEqualToString: UsedSpace] ) {
-        [self drawBasicFilledRect: rect intColor: usedSpaceColor];
+        [rectangleDrawer drawBasicFilledRect: rect intColor: usedSpaceColor];
       }
       
       if ( [file isAncestorOfFileItem: visibleTree] ) {
@@ -173,7 +175,7 @@
     }
     else {
       if ( ![file isPhysical] && [[file label] isEqualToString: FreeSpace] ) {
-        [self drawBasicFilledRect: rect intColor: freeSpaceColor];
+        [rectangleDrawer drawBasicFilledRect: rect intColor: freeSpaceColor];
       }
       
       return NO;
@@ -202,17 +204,17 @@
   if ( [file isPhysical] ) {
     NSUInteger  colorIndex = [colorMapper hashForFileItem: (PlainFileItem *)file atDepth: depth];
     if ( [colorMapper canProvideLegend] ) {
-      colorIndex = MIN(colorIndex, numGradientColors - 1);
+      colorIndex = MIN(colorIndex, rectangleDrawer.numGradientColors - 1);
     }
     else {
-      colorIndex = colorIndex % numGradientColors;
+      colorIndex = colorIndex % rectangleDrawer.numGradientColors;
     }
 
-    [self drawGradientFilledRect: rect colorIndex: colorIndex];
+    [rectangleDrawer drawGradientFilledRect: rect colorIndex: colorIndex];
   }
   else {
     if ( [[file label] isEqualToString: FreedSpace] ) {
-      [self drawBasicFilledRect: rect intColor: freeSpaceColor];
+      [rectangleDrawer drawBasicFilledRect: rect intColor: freeSpaceColor];
     }
   }
 
