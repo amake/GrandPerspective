@@ -76,11 +76,6 @@
   return colorGradient;
 }
 
-@end // @implementation GradientRectangleDrawer
-
-
-@implementation GradientRectangleDrawer (ProtectedMethods) 
-
 - (void) setupBitmap:(NSRect)bounds {
   NSAssert(drawBitmap == nil, @"Bitmap should be nil.");
 
@@ -102,6 +97,10 @@
   }
 }
 
+- (void)releaseBitmap {
+  [drawBitmap release];
+  drawBitmap = nil;
+}
 
 - (NSImage *)createImageFromBitmap {
   NSImage  *image = [[[NSImage alloc] initWithSize: bitmapBounds.size] autorelease];
@@ -112,7 +111,6 @@
 
   return image;
 }
-
 
 - (UInt32) intValueForColor: (NSColor *)color {
   color = [color colorUsingColorSpaceName: NSDeviceRGBColorSpace];
@@ -195,7 +193,7 @@
   }
 }
 
-@end // @implementation GradientRectangleDrawer (ProtectedMethods)
+@end // @implementation GradientRectangleDrawer
 
 
 @implementation GradientRectangleDrawer (PrivateMethods)
@@ -205,15 +203,15 @@
   free(gradientColors);
 
   NSArray  *colorKeys = colorPalette.allKeys;
-  numGradientColors = colorKeys.count;
-  gradientColors = malloc(sizeof(UInt32) * numGradientColors * 256);
+  _numGradientColors = colorKeys.count;
+  gradientColors = malloc(sizeof(UInt32) * self.numGradientColors * 256);
   NSAssert(gradientColors != NULL, @"Failed to malloc gradientColors."); 
   
   NSAutoreleasePool  *localAutoreleasePool = [[NSAutoreleasePool alloc] init];
   
   UInt32  *pos = gradientColors;
   
-  for (int i = 0; i < numGradientColors; i++) {
+  for (int i = 0; i < self.numGradientColors; i++) {
     NSColor  *color = [colorPalette colorWithKey: colorKeys[i]];
     
     // Maybe not needed, but there is no harm. It guarantees that getHue:saturation:brightness:alpha

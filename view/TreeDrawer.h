@@ -1,17 +1,18 @@
 #import <Cocoa/Cocoa.h>
 
 #import "TreeLayoutTraverser.h"
-#import "GradientRectangleDrawer.h"
 
 @class FileItem;
 @class DirectoryItem;
+@class GradientRectangleDrawer;
 @class TreeLayoutBuilder;
 @class TreeDrawerSettings;
 @class FilteredTreeGuide;
 @class FileItemTest;
 @protocol FileItemMapping;
 
-@interface TreeDrawer : GradientRectangleDrawer <TreeLayoutTraverser> {
+@interface TreeDrawer : NSObject <TreeLayoutTraverser> {
+  GradientRectangleDrawer  *rectangleDrawer;
   NSObject <FileItemMapping>  *colorMapper;
   FilteredTreeGuide  *treeGuide;
   

@@ -8,7 +8,6 @@
   
   BOOL  initGradientColors;
   UInt32  *gradientColors;
-  NSUInteger  numGradientColors;
 
   NSRect  bitmapBounds;
   NSBitmapImageRep  *drawBitmap;
@@ -24,26 +23,35 @@
  */
 @property (nonatomic) float colorGradient;
 
-- (NSImage *)drawImageOfGradientRectangleWithColor:(NSUInteger)colorIndex
-                                            inRect:(NSRect)bounds;
-                
-@end
-
-
-@interface GradientRectangleDrawer (ProtectedMethods) 
+@property (nonatomic, readonly) NSUInteger numGradientColors;
 
 /* Sets up a bitmap, to be used for drawing
  */
 - (void) setupBitmap:(NSRect)bounds;
 
+/* Disposes the bitmap without creating an image. Can be used when the overarching drawing task was
+ * cancelled before completing.
+ */
+- (void) releaseBitmap;
+
 /* Creates an image from the bitmap, and disposes of the bitmap.
  */
 - (NSImage *)createImageFromBitmap;
 
+
 - (UInt32) intValueForColor:(NSColor *)color;
 
+/* Convenience wrapper method, which sets up bitmap, draws a rectangle and creates an image from it
+ */
+- (NSImage *)drawImageOfGradientRectangleWithColor:(NSUInteger)colorIndex
+                            inRect:(NSRect)bounds;
+
+/* Draws on the bitmap, which must have been set up
+ */
 - (void) drawBasicFilledRect:(NSRect)rect intColor:(UInt32)intColor;
 
+/* Draws on the bitmap, which must have been set up
+ */
 - (void) drawGradientFilledRect:(NSRect)rect colorIndex:(NSUInteger)colorIndex;
 
 @end
