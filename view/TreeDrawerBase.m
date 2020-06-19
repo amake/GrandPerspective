@@ -11,10 +11,10 @@
 - (instancetype) init {
   NSAssert(NO, @"Use initWithScanTree: instead.");
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wnonnull"
+  #pragma clang diagnostic push
+  #pragma clang diagnostic ignored "-Wnonnull"
   return [self initWithScanTree: nil];
-#pragma clang diagnostic pop
+  #pragma clang diagnostic pop
 }
 
 - (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal {
@@ -31,7 +31,7 @@
   [treeGuide release];
   [scanTree release];
 
-  NSAssert(visibleTree==nil, @"visibleTree should be nil.");
+  NSAssert(visibleTree == nil, @"visibleTree should be nil.");
   [visibleTree release]; // For sake of completeness. Can be omitted.
 
   [super dealloc];
@@ -80,7 +80,7 @@
     // Check if any ancestors are masked
     FileItem  *ancestor = file;
     while (ancestor != scanTree) {
-      ancestor = [ancestor parentDirectory];
+      ancestor = ancestor.parentDirectory;
       if (! [treeGuide includeFileItem: ancestor]) {
         return NO;
       }
@@ -91,8 +91,8 @@
     // Not yet inside the visible tree (implying that the entire volume is shown). Ensure that the
     // special "volume" items are drawn, and only descend towards the visible tree.
 
-    if ( [file isDirectory] ) {
-      if ( ![file isPhysical] && [[file label] isEqualToString: UsedSpace] ) {
+    if ( file.isDirectory ) {
+      if ( !file.isPhysical && [file.label isEqualToString: UsedSpace] ) {
         [self drawUsedSpaceAtRect: rect];
       }
 
@@ -105,7 +105,7 @@
       }
     }
     else {
-      if ( ![file isPhysical] && [[file label] isEqualToString: FreeSpace] ) {
+      if ( !file.isPhysical && [file.label isEqualToString: FreeSpace] ) {
         [self drawFreeSpaceAtRect: rect];
       }
 
@@ -119,7 +119,7 @@
     return NO;
   }
 
-  if ( [file isDirectory] ) {
+  if ( file.isDirectory ) {
     // Descend unless drawing has been aborted
 
     if ( !abort ) {
@@ -132,11 +132,11 @@
   }
 
   // It's a plain file
-  if ( [file isPhysical] ) {
+  if ( file.isPhysical ) {
     [self drawFile:(PlainFileItem *)file atRect: rect depth: depth];
   }
   else {
-    if ( [[file label] isEqualToString: FreedSpace] ) {
+    if ( [file.label isEqualToString: FreedSpace] ) {
       [self drawFreedSpaceAtRect: rect];
     }
   }
@@ -155,12 +155,12 @@
 }
 
 - (void) emergedFromItem:(Item *)item {
-  if ( ! [item isVirtual] ) {
+  if ( !item.isVirtual ) {
     if (item == visibleTree) {
       insideVisibleTree = NO;
     }
 
-    if ( [((FileItem *)item) isDirectory] ) {
+    if ( ((FileItem *)item).isDirectory ) {
       [treeGuide emergedFromDirectory: (DirectoryItem *)item];
     }
   }
