@@ -2,58 +2,40 @@
 
 #import "DirectoryItem.h"
 #import "FileItemMapping.h"
-#import "GradientRectangleDrawer.h"
-#import "TreeLayoutBuilder.h"
 #import "FilteredTreeGuide.h"
+#import "GradientRectangleDrawer.h"
 #import "TreeDrawerSettings.h"
-#import "TreeContext.h"
 
 
 @implementation TreeDrawer
 
-// Overrides designated initialiser
-- (instancetype) init {
-  NSAssert(NO, @"Use initWithScanTree: instead.");
-  return [self initWithScanTree: nil];
-}
-
+// Overrides designated initialiser of base class
 - (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal {
   TreeDrawerSettings  *defaultSettings = [[[TreeDrawerSettings alloc] init] autorelease];
-    
+
   return [self initWithScanTree: scanTreeVal treeDrawerSettings: defaultSettings];
 }
 
 - (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal
                treeDrawerSettings:(TreeDrawerSettings *)settings {
-  if (self = [super init]) {
-    scanTree = [scanTreeVal retain];
-
-    // Make sure values are set before calling updateSettings. 
+  if (self = [super initWithScanTree: scanTreeVal]) {
+    // Make sure values are set before calling updateSettings.
     colorMapper = nil;
-    treeGuide = [[FilteredTreeGuide alloc] init];
-    
+
     [self updateSettings: settings];
     
     rectangleDrawer = [[GradientRectangleDrawer alloc] initWithColorPalette: settings.colorPalette];
     freeSpaceColor = [rectangleDrawer intValueForColor: [NSColor blackColor]];
     usedSpaceColor = [rectangleDrawer intValueForColor: [NSColor darkGrayColor]];
     visibleTreeBackgroundColor = [rectangleDrawer intValueForColor: [NSColor grayColor]];
-    
-    abort = NO;
   }
   return self;
 }
 
 - (void) dealloc {
   [colorMapper release];
-  [treeGuide release];
   [rectangleDrawer release];
 
-  [scanTree release];
-
-  NSAssert(visibleTree==nil, @"visibleTree should be nil.");
-  [visibleTree release]; // For sake of completeness. Can be omitted.
-  
   [super dealloc];
 }
 
@@ -104,15 +86,11 @@
                  usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
                              inRect:(NSRect)bounds {
   [rectangleDrawer setupBitmap: bounds];
-  
-  insideVisibleTree = NO;
-  NSAssert(visibleTree == nil, @"visibleTree should be nil.");
-  visibleTree = [visibleTreeVal retain]; 
 
-  [layoutBuilder layoutItemTree: treeRoot inRect: bounds traverser: self];
-
-  [visibleTree release];
-  visibleTree = nil;
+  [super drawImageOfVisibleTree: visibleTreeVal
+                 startingAtTree: treeRoot
+             usingLayoutBuilder: layoutBuilder
+                         inRect: bounds];
 
   if ( !abort ) {
     return [rectangleDrawer createImageFromBitmap];
@@ -125,122 +103,34 @@
 }
 
 
-- (void) clearAbortFlag {
-  abort = NO;
+// Overrides of protected methods
+
+- (void) drawVisibleTreeAtRect:(FileItem *)visibleTree rect:(NSRect) rect {
+  [rectangleDrawer drawBasicFilledRect: rect intColor: visibleTreeBackgroundColor];
 }
 
-- (void) abortDrawing {
-  abort = YES;
+- (void)drawUsedSpaceAtRect:(NSRect) rect {
+  [rectangleDrawer drawBasicFilledRect: rect intColor: usedSpaceColor];
 }
 
+- (void)drawFreeSpaceAtRect:(NSRect) rect {
+  [rectangleDrawer drawBasicFilledRect: rect intColor: freeSpaceColor];
+}
 
-- (BOOL) descendIntoItem:(Item *)item atRect:(NSRect)rect depth:(int)depth {
-  if ( [item isVirtual] ) {
-    return YES;
-  }
-  
-  FileItem  *file = (FileItem *)item;
-  
-  if ( file == visibleTree ) {
-    insideVisibleTree = YES;
-      
-    [rectangleDrawer drawBasicFilledRect: rect intColor: visibleTreeBackgroundColor];
-    
-    // Check if any ancestors are masked
-    FileItem  *ancestor = file;
-    while (ancestor != scanTree) {
-      ancestor = [ancestor parentDirectory];
-      if (! [treeGuide includeFileItem: ancestor]) {
-        return NO;
-      }
-    }
-  }
-    
-  if ( !insideVisibleTree ) {
-    // Not yet inside the visible tree (implying that the entire volume is shown). Ensure that the
-    // special "volume" items are drawn, and only descend towards the visible tree.
-  
-    if ( [file isDirectory] ) {
-      if ( ![file isPhysical] && [[file label] isEqualToString: UsedSpace] ) {
-        [rectangleDrawer drawBasicFilledRect: rect intColor: usedSpaceColor];
-      }
-      
-      if ( [file isAncestorOfFileItem: visibleTree] ) {
-        [treeGuide descendIntoDirectory: (DirectoryItem *)file];
-        return YES;
-      }
-      else {
-        return NO;
-      }
-    }
-    else {
-      if ( ![file isPhysical] && [[file label] isEqualToString: FreeSpace] ) {
-        [rectangleDrawer drawBasicFilledRect: rect intColor: freeSpaceColor];
-      }
-      
-      return NO;
-    }
-  }
-  
-  // Inside the visible tree. Check if the item is masked
-  file = [treeGuide includeFileItem: file];
-  if (file == nil) {
-    return NO;
-  }
-    
-  if ( [file isDirectory] ) {
-    // Descend unless drawing has been aborted
-    
-    if ( !abort ) {
-      [treeGuide descendIntoDirectory: (DirectoryItem *)file];
-      return YES;
-    }
-    else {
-      return NO;
-    }
-  }
+- (void)drawFreedSpaceAtRect:(NSRect) rect {
+  [rectangleDrawer drawBasicFilledRect: rect intColor: freeSpaceColor];
+}
 
-  // It's a plain file
-  if ( [file isPhysical] ) {
-    NSUInteger  colorIndex = [colorMapper hashForFileItem: (PlainFileItem *)file atDepth: depth];
-    if ( [colorMapper canProvideLegend] ) {
-      colorIndex = MIN(colorIndex, rectangleDrawer.numGradientColors - 1);
-    }
-    else {
-      colorIndex = colorIndex % rectangleDrawer.numGradientColors;
-    }
-
-    [rectangleDrawer drawGradientFilledRect: rect colorIndex: colorIndex];
+- (void)drawFile:(PlainFileItem *)fileItem atRect:(NSRect) rect depth:(int) depth {
+  NSUInteger  colorIndex = [colorMapper hashForFileItem: fileItem atDepth: depth];
+  if ( [colorMapper canProvideLegend] ) {
+    colorIndex = MIN(colorIndex, rectangleDrawer.numGradientColors - 1);
   }
   else {
-    if ( [[file label] isEqualToString: FreedSpace] ) {
-      [rectangleDrawer drawBasicFilledRect: rect intColor: freeSpaceColor];
-    }
+    colorIndex = colorIndex % rectangleDrawer.numGradientColors;
   }
 
-  if (item == visibleTree) {
-    // Note: emergedFromItem: will not be invoked, so unset the flag here.
-    insideVisibleTree = NO;
-  }
-
-  // Do not descend into the item. 
-  //
-  // Note: This is not just an optimisation but needs to be done. Even though the item is seen as a
-  // file by the TreeDrawer, it may actually be a package whose contents are hidden. The
-  // TreeLayoutBuilder should not descend into the directory in this case.
-  return NO;
-}
-
-- (void) emergedFromItem:(Item *)item {
-  if ( ! [item isVirtual] ) {
-    if (item == visibleTree) {
-      insideVisibleTree = NO;
-    }
-  
-    if ( [((FileItem *)item) isDirectory] ) {
-      [treeGuide emergedFromDirectory: (DirectoryItem *)item];
-    }
-  }
+  [rectangleDrawer drawGradientFilledRect: rect colorIndex: colorIndex];
 }
 
 @end // @implementation TreeDrawer

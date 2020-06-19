@@ -159,6 +159,7 @@
 		AAC26BC70A8CAF4800F2DA33 /* FilterTaskInput.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BB90A8CAF4800F2DA33 /* FilterTaskInput.m */; };
 		AAC26BCD0A8CAF4800F2DA33 /* ScanTaskExecutor.m in Sources */ = {isa = PBXBuildFile; fileRef = AAC26BBF0A8CAF4800F2DA33 /* ScanTaskExecutor.m */; };
 		AAC9B6490B7FA94A002B3ECE /* GrandPerspectiveHelp in Resources */ = {isa = PBXBuildFile; fileRef = AAC9B6340B7FA94A002B3ECE /* GrandPerspectiveHelp */; };
+		AAD1BC63249D39E900F749EB /* TreeDrawerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD1BC62249D39E900F749EB /* TreeDrawerBase.m */; };
 		AAD50FCE21BDB30F00784BBF /* AlertMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD50FCD21BDB30F00784BBF /* AlertMessage.m */; };
 		AAD85B9D1CD92FD300B3AF28 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAD85B9C1CD92FD300B3AF28 /* Security.framework */; };
 		AAD8DFB30B077ED20060DADA /* PreferencesPanelControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD8DFB20B077ED20060DADA /* PreferencesPanelControl.m */; };
@@ -554,6 +555,8 @@
 		AAC26BB90A8CAF4800F2DA33 /* FilterTaskInput.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = FilterTaskInput.m; path = task/FilterTaskInput.m; sourceTree = "<group>"; };
 		AAC26BBE0A8CAF4800F2DA33 /* ScanTaskExecutor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ScanTaskExecutor.h; path = task/ScanTaskExecutor.h; sourceTree = "<group>"; };
 		AAC26BBF0A8CAF4800F2DA33 /* ScanTaskExecutor.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ScanTaskExecutor.m; path = task/ScanTaskExecutor.m; sourceTree = "<group>"; };
+		AAD1BC61249D39E900F749EB /* TreeDrawerBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TreeDrawerBase.h; path = view/TreeDrawerBase.h; sourceTree = "<group>"; };
+		AAD1BC62249D39E900F749EB /* TreeDrawerBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TreeDrawerBase.m; path = view/TreeDrawerBase.m; sourceTree = "<group>"; };
 		AAD50FCC21BDB30F00784BBF /* AlertMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AlertMessage.h; path = util/AlertMessage.h; sourceTree = "<group>"; };
 		AAD50FCD21BDB30F00784BBF /* AlertMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AlertMessage.m; path = util/AlertMessage.m; sourceTree = "<group>"; };
 		AAD6855008D9FE600096C6C1 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
@@ -833,6 +836,8 @@
 				AA6012EA0A5AFB7F00DEBCB8 /* DirectoryView.m */,
 				AA7DF3210D79BEA80057F5F8 /* GradientRectangleDrawer.h */,
 				AA7DF3220D79BEA80057F5F8 /* GradientRectangleDrawer.m */,
+				AAD1BC61249D39E900F749EB /* TreeDrawerBase.h */,
+				AAD1BC62249D39E900F749EB /* TreeDrawerBase.m */,
 				AA7A7EF20E4F2B5E00EB366E /* TreeDrawer.h */,
 				AA7A7EF30E4F2B5E00EB366E /* TreeDrawer.m */,
 				AA7A7EF40E4F2B5E00EB366E /* TreeDrawerSettings.h */,
@@ -1235,6 +1240,7 @@
 				AA4030010A5B01A6004EAAF3 /* DirectoryViewControl.m in Sources */,
 				AA4030050A5B01A6004EAAF3 /* MainMenuControl.m in Sources */,
 				AA4030330A5B02F1004EAAF3 /* ItemPathModel.m in Sources */,
+				AAD1BC63249D39E900F749EB /* TreeDrawerBase.m in Sources */,
 				AA1115C40A84CA320023C5CD /* DirectoryViewControlSettings.m in Sources */,
 				AAC26BC10A8CAF4800F2DA33 /* DrawTaskExecutor.m in Sources */,
 				AAC26BC30A8CAF4800F2DA33 /* DrawTaskInput.m in Sources */,
