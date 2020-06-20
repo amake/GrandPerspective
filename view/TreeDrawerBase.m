@@ -115,7 +115,7 @@
 
   // Inside the visible tree. Check if the item is masked
   FileItem *fileToUse = [treeGuide includeFileItem: file];
-  if (file == nil) {
+  if (fileToUse == nil) {
     [self skippingFileItem: file atRect: rect];
     return NO;
   }
