@@ -792,7 +792,10 @@ static MainMenuControl  *singletonInstance = nil;
   [openPanel setPrompt: NSLocalizedString(@"Scan", @"Prompt in open panel")];
 
   if ([openPanel runModal] != NSModalResponseOK) {
-    return; // Abort
+    // User cancelled scan
+    [self checkShowWelcomeWindow: YES];
+
+    return;
   } 
 
   NSURL  *targetURL = openPanel.URL;
