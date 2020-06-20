@@ -574,7 +574,10 @@ NSString  *TallyFileSizeName = @"tally";
         return NO;
       }
     }
-    [self unwindStackToURL: nil]; // Force full unwind
+
+    if (dirStackTopIndex != -1) {
+      [self unwindStackToURL: nil]; // Force full unwind
+    }
   }
   @finally {
     [autoreleasePool release];
