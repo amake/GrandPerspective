@@ -15,6 +15,7 @@ NSString  *ToolbarRevealItem = @"RevealItem";
 NSString  *ToolbarDeleteItem = @"DeleteItem";
 NSString  *ToolbarRescan = @"Rescan";
 NSString  *ToolbarShowInfo = @"ShowInfo";
+NSString  *ToolbarSearch = @"Search";
 
 
 // Tags for each of the segments in the Zoom and Focus controls, so that the 
@@ -42,6 +43,7 @@ NSString  *ToolbarShowInfo = @"ShowInfo";
 @property (nonatomic, readonly, copy) NSToolbarItem *deleteItemToolbarItem;
 @property (nonatomic, readonly, copy) NSToolbarItem *rescanToolbarItem;
 @property (nonatomic, readonly, copy) NSToolbarItem *showInfoToolbarItem;
+@property (nonatomic, readonly, copy) NSToolbarItem *searchToolbarItem;
 
 - (id) validateZoomControls:(NSToolbarItem *)toolbarItem;
 - (id) validateFocusControls:(NSToolbarItem *)toolbarItem;
@@ -59,6 +61,8 @@ NSString  *ToolbarShowInfo = @"ShowInfo";
 - (void) moveFocusUp:(id)sender;
 - (void) moveFocusDown:(id)sender;
 - (void) resetFocus:(id)sender;
+
+- (void) search:(id)sender;
 
 // Methods corresponding to methods in DirectoryViewControl
 - (void) openFile:(id)sender;
@@ -220,6 +224,8 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
               usingSelector: @selector(rescanToolbarItem)];
     [self createToolbarItem: ToolbarShowInfo
               usingSelector: @selector(showInfoToolbarItem)];
+    [self createToolbarItem: ToolbarSearch
+              usingSelector: @selector(searchToolbarItem)];
   }
   
   SelectorObject  *selObj = createToolbarItemLookup[itemIdentifier];
@@ -240,6 +246,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
              NSToolbarSpaceItemIdentifier,
              ToolbarRescan,
              NSToolbarFlexibleSpaceItemIdentifier,
+             ToolbarSearch,
              ToolbarShowInfo];
 }
 
@@ -249,6 +256,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
              ToolbarRevealItem, ToolbarDeleteItem,
              ToolbarRescan,
              ToolbarShowInfo,
+             ToolbarSearch,
              NSToolbarSeparatorItemIdentifier,
              NSToolbarSpaceItemIdentifier,
              NSToolbarFlexibleSpaceItemIdentifier];
@@ -477,6 +485,21 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   return item;
 }
 
+- (NSToolbarItem *)searchToolbarItem {
+  NSToolbarItem  *item =
+    [[[NSToolbarItem alloc] initWithItemIdentifier: ToolbarSearch] autorelease];
+
+  NSSearchField  *searchField = [[[NSSearchField alloc] init] autorelease];
+  searchField.sendsWholeSearchString = NO;
+
+  [item setToolTip: NSLocalizedStringFromTable(@"Search files", @"Toolbar", "Tooltip")];
+
+  item.view = searchField;
+  item.action = @selector(search:);
+  item.target = self;
+
+  return item;
+}
 
 - (id) validateZoomControls:(NSToolbarItem *)toolbarItem {
   NSSegmentedControl  *control = (NSSegmentedControl *)toolbarItem.view;
@@ -545,6 +568,9 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
             action == @selector(rescanAll:) ||
             action == @selector(rescanVisible:) ) {
     return [NSApplication sharedApplication].mainWindow.windowController == dirViewControl;
+  }
+  else if ( action == @selector(search:) ) {
+    return YES;
   }
   else {
     NSLog(@"Unrecognized action %@", NSStringFromSelector(action));
@@ -627,6 +653,10 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   while ([directoryView canMoveFocusDown]) {
     [directoryView moveFocusDown];
   }
+}
+
+- (void) search:(id)sender {
+  [dirViewControl searchForFiles: ((NSSearchField *)sender).stringValue];
 }
 
 

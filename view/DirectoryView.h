@@ -69,6 +69,7 @@ extern NSString  *ColorMappingChangedEvent;
 - (NSImage *)imageInViewForItemAtEndOfPath:(NSArray *)itemPath;
 
 @property (nonatomic, strong) TreeDrawerSettings *treeDrawerSettings;
+@property (nonatomic, strong) FileItemTest *overlayTest;
 
 @property (nonatomic) BOOL showEntireVolume;
 

@@ -19,6 +19,10 @@
 #import "TreeDrawerSettings.h"
 #import "ControlConstants.h"
 
+#import "ItemNameTest.h"
+#import "StringContainmentTest.h"
+#import "SelectiveItemTest.h"
+
 
 NSString  *DeleteNothing = @"delete nothing";
 NSString  *OnlyDeleteFiles = @"only delete files";
@@ -497,6 +501,23 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
   ControlPanelControl  *controlPanel = [ControlPanelControl singletonInstance];
 
   [controlPanel showInfoPanel];
+}
+
+
+- (void) searchForFiles:(NSString *)spec {
+  FileItemTest  *overlayTest = nil;
+
+  if (spec.length > 0) {
+    StringContainmentTest  *stringTest =
+      [[[StringContainmentTest alloc] initWithMatchTargets: [NSArray arrayWithObjects: spec, nil]
+                                             caseSensitive: NO] autorelease];
+    ItemNameTest  *subTest = [[[ItemNameTest alloc] initWithStringTest: stringTest] autorelease];
+
+    overlayTest = [[[SelectiveItemTest alloc] initWithSubItemTest: subTest
+                                                        onlyFiles: YES] autorelease];
+  }
+
+  mainView.overlayTest = overlayTest;
 }
 
 

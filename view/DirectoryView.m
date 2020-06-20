@@ -26,10 +26,6 @@
 #import "FileItemMapping.h"
 #import "FileItemMappingScheme.h"
 
-#import "ItemNameTest.h"
-#import "StringContainmentTest.h"
-#import "SelectiveItemTest.h"
-
 #define SCROLL_WHEEL_SENSITIVITY  6.0
 
 
@@ -75,16 +71,6 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
     layoutBuilder = [[TreeLayoutBuilder alloc] init];
     pathDrawer = [[ItemPathDrawer alloc] init];
     selectedItemLocator = [[SelectedItemLocator alloc] init];
-
-    // TEMP: Hard-coded overlay test
-    // TODO: Let user specify search text. Only apply when user is searching
-    StringContainmentTest  *stringTest =
-      [[[StringContainmentTest alloc] initWithMatchTargets: [NSArray arrayWithObjects: @"tree", nil]
-                                             caseSensitive: NO] autorelease];
-    ItemNameTest  *subTest = [[[ItemNameTest alloc] initWithStringTest: stringTest] autorelease];
-    overlayTest = [[SelectiveItemTest alloc]
-                   initWithSubItemTest: subTest
-                             onlyFiles: YES];
 
     scrollWheelDelta = 0;
   }
@@ -237,6 +223,20 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
     }
 
     [oldSettings release];
+
+    [self forceRedraw];
+  }
+}
+
+
+- (FileItemTest *)overlayTest {
+  return overlayTest;
+}
+
+- (void)setOverlayTest:(FileItemTest *)overlayTestVal {
+  if (overlayTestVal != overlayTest) {
+    [overlayTest release];
+    overlayTest = [overlayTestVal retain];
 
     [self forceRedraw];
   }

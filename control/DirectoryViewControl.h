@@ -54,6 +54,8 @@ extern NSString  *ViewWillCloseEvent;
 - (IBAction) deleteFile:(id)sender;
 - (IBAction) showInfo:(id)sender;
 
+- (void) searchForFiles:(NSString *)searchSpec;
+
 - (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)treeContext;
 - (instancetype) initWithAnnotatedTreeContext:(AnnotatedTreeContext *)treeContext
                                     pathModel:(ItemPathModel *)itemPathModel
