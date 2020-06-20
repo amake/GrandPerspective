@@ -28,7 +28,7 @@
                          inRect: bounds];
 
   CGImageRef cgImage = CGBitmapContextCreateImage(cgContext);
-  NSImage *image = [[NSImage alloc] initWithCGImage: cgImage size: NSZeroSize];
+  NSImage *image = [[[NSImage alloc] initWithCGImage: cgImage size: NSZeroSize] autorelease];
   CGImageRelease(cgImage);
 
   CGContextRelease(cgContext);
@@ -70,7 +70,6 @@
   CGRect cgImageRect = CGRectMake(0, 0, image.size.width, image.size.height);
   CGImageRef cgImage = [image CGImageForProposedRect: nil context: nil hints: nil];
   CGContextDrawImage(context, cgImageRect, cgImage);
-  //CGImageRelease(cgImage); // TODO: Confirm not needed.
 
   return context;
 }
