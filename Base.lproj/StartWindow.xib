@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="StartWindowControl">
             <connections>
+                <outlet property="clearHistoryButton" destination="E5k-bP-5eO" id="sxH-dn-Ra0"/>
                 <outlet property="recentScansView" destination="H1C-Ro-5cg" id="TPa-zZ-Lj0"/>
                 <outlet property="tagLine" destination="qlT-To-E7S" id="IwN-jr-NZQ"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="KaZ-Cu-CMq"/>
@@ -106,7 +107,7 @@
                                                         <textField horizontalHuggingPriority="249" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cs2-bm-ufr">
                                                             <rect key="frame" x="41" y="6" width="195" height="14"/>
                                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Path" id="UhX-F8-bW1">
-                                                                <font key="font" metaFont="message" size="11"/>
+                                                                <font key="font" metaFont="menu" size="11"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
@@ -157,13 +158,24 @@
                             <action selector="scanAction:" target="-2" id="TBq-x8-Fhb"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="E5k-bP-5eO">
+                        <rect key="frame" x="281" y="19" width="93" height="23"/>
+                        <buttonCell key="cell" type="roundTextured" title="Clear History" bezelStyle="texturedRounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9nG-ap-dHC">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="clearRecentScans:" target="-2" id="Hsa-v9-ixa"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="E5c-vr-Arx" firstAttribute="width" secondItem="PB6-1S-j7A" secondAttribute="width" id="01J-fj-Iql"/>
-                    <constraint firstItem="3I0-jG-MbN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="C8h-tH-Ynb" secondAttribute="trailing" constant="8" symbolic="YES" id="2aI-7o-sQV"/>
+                    <constraint firstItem="3I0-jG-MbN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="E5k-bP-5eO" secondAttribute="trailing" constant="8" symbolic="YES" id="2aI-7o-sQV"/>
                     <constraint firstItem="dOt-rX-XVz" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="5Ko-rh-QCa"/>
                     <constraint firstAttribute="trailing" secondItem="3I0-jG-MbN" secondAttribute="trailing" constant="20" symbolic="YES" id="7UY-ZC-Xg8"/>
                     <constraint firstItem="dOt-rX-XVz" firstAttribute="leading" secondItem="PB6-1S-j7A" secondAttribute="trailing" constant="8" symbolic="YES" id="JLu-VZ-7XI"/>
+                    <constraint firstAttribute="bottom" secondItem="E5k-bP-5eO" secondAttribute="bottom" constant="20" symbolic="YES" id="K41-pX-GYE"/>
                     <constraint firstItem="C8h-tH-Ynb" firstAttribute="leading" secondItem="dOt-rX-XVz" secondAttribute="leading" id="NBW-uG-ENB"/>
                     <constraint firstItem="3I0-jG-MbN" firstAttribute="top" secondItem="dOt-rX-XVz" secondAttribute="bottom" constant="8" symbolic="YES" id="RgZ-pE-y45"/>
                     <constraint firstItem="E5c-vr-Arx" firstAttribute="centerX" secondItem="qlT-To-E7S" secondAttribute="centerX" id="S4I-io-f6u"/>
@@ -173,6 +185,7 @@
                     <constraint firstItem="PB6-1S-j7A" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="oeQ-AC-FJV"/>
                     <constraint firstItem="E5c-vr-Arx" firstAttribute="top" secondItem="PB6-1S-j7A" secondAttribute="bottom" constant="8" symbolic="YES" id="qaX-lz-fHf"/>
                     <constraint firstAttribute="trailing" secondItem="dOt-rX-XVz" secondAttribute="trailing" constant="20" symbolic="YES" id="rXO-iE-THX"/>
+                    <constraint firstItem="E5k-bP-5eO" firstAttribute="leading" secondItem="C8h-tH-Ynb" secondAttribute="trailing" constant="8" symbolic="YES" id="sn9-Of-QIb"/>
                     <constraint firstItem="PB6-1S-j7A" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="wRd-SK-439"/>
                     <constraint firstAttribute="bottom" secondItem="qlT-To-E7S" secondAttribute="bottom" constant="20" symbolic="YES" id="wio-ZZ-v0g"/>
                     <constraint firstItem="qlT-To-E7S" firstAttribute="top" secondItem="E5c-vr-Arx" secondAttribute="bottom" constant="8" symbolic="YES" id="zcw-3B-IzD"/>

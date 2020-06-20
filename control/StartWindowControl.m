@@ -140,6 +140,13 @@ NSString*  TaglineFormat = @"tagline-%d";
   [self startScan: recentScansView.clickedRow sender: sender];
 }
 
+- (IBAction) clearRecentScans:(id)sender {
+  [[NSDocumentController sharedDocumentController] clearRecentDocuments: sender];
+
+  [recentScansView reloadData];
+  clearHistoryButton.enabled = false;
+}
+
 - (IBAction) helpAction:(id)sender {
   [self.window close];
 
@@ -158,6 +165,9 @@ NSString*  TaglineFormat = @"tagline-%d";
   } else {
     forceReloadOnShow = YES;
   }
+
+  clearHistoryButton.enabled =
+    [NSDocumentController sharedDocumentController].recentDocumentURLs.count > 0;
 
   [super showWindow: sender];
 }

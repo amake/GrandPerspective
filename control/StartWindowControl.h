@@ -6,6 +6,7 @@
 
   IBOutlet NSTableView  *recentScansView;
   IBOutlet NSTextField  *tagLine;
+  IBOutlet NSButton  *clearHistoryButton;
 
   MainMenuControl  *mainMenuControl;
 
@@ -20,6 +21,7 @@
 - (IBAction) scanAction:(id)sender;
 - (IBAction) helpAction:(id)sender;
 - (IBAction) scanActionAfterDoubleClick:(id)sender;
+- (IBAction) clearRecentScans:(id)sender;
 
 - (void) changeTagLine;
 
