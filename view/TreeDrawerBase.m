@@ -129,17 +129,16 @@
   }
 
   // Inside the visible tree. Check if the item is masked
-  FileItem *fileToUse = [treeGuide includeFileItem: file];
-  if (fileToUse == nil) {
-    [self skippingFileItem: file atRect: rect];
+  file = [treeGuide includeFileItem: file];
+  if (file == nil) {
     return NO;
   }
 
-  if ( fileToUse.isDirectory ) {
+  if ( file.isDirectory ) {
     // Descend unless drawing has been aborted
 
     if ( !abort ) {
-      [treeGuide descendIntoDirectory: (DirectoryItem *)fileToUse];
+      [treeGuide descendIntoDirectory: (DirectoryItem *)file];
       return YES;
     }
     else {
@@ -148,11 +147,11 @@
   }
 
   // It's a plain file
-  if ( fileToUse.isPhysical ) {
-    [self drawFile:(PlainFileItem *)fileToUse atRect: rect depth: depth];
+  if ( file.isPhysical ) {
+    [self drawFile:(PlainFileItem *)file atRect: rect depth: depth];
   }
   else {
-    if ( [fileToUse.label isEqualToString: FreedSpace] ) {
+    if ( [file.label isEqualToString: FreedSpace] ) {
       [self drawFreedSpaceAtRect: rect];
     }
   }
@@ -192,6 +191,5 @@
 - (void)drawFreeSpaceAtRect:(NSRect) rect {}
 - (void)drawFreedSpaceAtRect:(NSRect) rect {}
 - (void)drawFile:(PlainFileItem *)fileItem atRect:(NSRect) rect depth:(int) depth {}
-- (void)skippingFileItem:(FileItem *)fileItem atRect:(NSRect) rect {}
 
 @end
