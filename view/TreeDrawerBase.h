@@ -8,9 +8,11 @@ NS_ASSUME_NONNULL_BEGIN
 @class FileItem;
 @class PlainFileItem;
 @class FilteredTreeGuide;
+@class GradientRectangleDrawer;
 @class TreeLayoutBuilder;
 
 @interface TreeDrawerBase : NSObject <TreeLayoutTraverser> {
+  GradientRectangleDrawer  *rectangleDrawer;
   FilteredTreeGuide  *treeGuide;
 
   DirectoryItem  *scanTree;
@@ -21,7 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
   BOOL  abort;
 }
 
-- (instancetype) initWithScanTree:(DirectoryItem *)scanTree NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithScanTree:(DirectoryItem *)scanTree;
+
+- (instancetype) initWithScanTree:(DirectoryItem *)scanTree
+                     colorPalette:(nullable NSColorList *)colorPalette NS_DESIGNATED_INITIALIZER;
 
 /* Draws the visible tree. Drawing typically also starts there, but can start at the volume tree
  * root when the entire volume is drawn.

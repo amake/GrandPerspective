@@ -2,13 +2,11 @@
 
 #include "TreeDrawerBase.h"
 
-@class GradientRectangleDrawer;
 @class TreeDrawerSettings;
 @class FileItemTest;
 @protocol FileItemMapping;
 
 @interface TreeDrawer : TreeDrawerBase {
-  GradientRectangleDrawer  *rectangleDrawer;
   NSObject <FileItemMapping>  *colorMapper;
   
   UInt32  freeSpaceColor;

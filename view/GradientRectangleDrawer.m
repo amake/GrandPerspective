@@ -46,14 +46,14 @@
 
 
 - (void) setColorPalette:(NSColorList *)colorPaletteVal {
-  NSAssert(colorPaletteVal != nil && [[colorPaletteVal allKeys] count] > 0,
-           @"Cannot set an invalid color palette.");
-
   if (colorPaletteVal != colorPalette) {
     [colorPalette release];
     colorPalette = [colorPaletteVal retain];
 
-    initGradientColors = YES;
+    if (colorPalette != nil) {
+      NSAssert(colorPalette.allKeys.count > 0, @"Cannot set an invalid color palette.");
+      initGradientColors = YES;
+    }
   }
 }
 
@@ -68,7 +68,9 @@
   if (gradient != colorGradient) {
     colorGradient = gradient;
 
-    initGradientColors = YES;
+    if (colorPalette != nil) {
+      initGradientColors = YES;
+    }
   }
 }
 

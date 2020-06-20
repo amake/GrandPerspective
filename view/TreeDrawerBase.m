@@ -2,6 +2,7 @@
 
 #import "DirectoryItem.h"
 #import "FilteredTreeGuide.h"
+#import "GradientRectangleDrawer.h"
 #import "TreeLayoutBuilder.h"
 #import "TreeContext.h"
 
@@ -13,13 +14,20 @@
 
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wnonnull"
-  return [self initWithScanTree: nil];
+  return [self initWithScanTree: nil colorPalette: nil];
   #pragma clang diagnostic pop
 }
 
 - (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal {
+  return [self initWithScanTree: scanTreeVal colorPalette: nil];
+}
+
+- (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal
+                     colorPalette: (NSColorList *)colorPalette {
   if (self = [super init]) {
     scanTree = [scanTreeVal retain];
+    rectangleDrawer = [[GradientRectangleDrawer alloc] initWithColorPalette: colorPalette];
+
     treeGuide = [[FilteredTreeGuide alloc] init];
 
     abort = NO;
@@ -30,6 +38,7 @@
 - (void) dealloc {
   [treeGuide release];
   [scanTree release];
+  [rectangleDrawer release];
 
   NSAssert(visibleTree == nil, @"visibleTree should be nil.");
   [visibleTree release]; // For sake of completeness. Can be omitted.
@@ -37,11 +46,12 @@
   [super dealloc];
 }
 
-
 - (NSImage *)drawImageOfVisibleTree:(FileItem *)visibleTreeVal
                      startingAtTree:(FileItem *)treeRoot
                  usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
                              inRect:(NSRect)bounds {
+  [rectangleDrawer setupBitmap: bounds];
+
   insideVisibleTree = NO;
   NSAssert(visibleTree == nil, @"visibleTree should be nil.");
   visibleTree = [visibleTreeVal retain];
@@ -51,9 +61,14 @@
   [visibleTree release];
   visibleTree = nil;
 
-  // It is the responsibility of the subclass to wrap this invocation and ensure that an image is
-  // created.
-  return nil;
+  if ( !abort ) {
+    return [rectangleDrawer createImageFromBitmap];
+  }
+  else {
+    [rectangleDrawer releaseBitmap];
+
+    return nil;
+  }
 }
 
 - (void) clearAbortFlag {

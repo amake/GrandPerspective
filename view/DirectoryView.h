@@ -43,6 +43,7 @@ extern NSString  *ColorMappingChangedEvent;
 
   NSImage  *treeImage;
   NSImage  *overlayImage;
+  NSTimer  *redrawTimer;
   
   // Indicates if the image has been resized to fit inside the current view. This is only a
   // temporary measure. A new image is already being constructed for the new size, but as long as

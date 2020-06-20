@@ -35,17 +35,15 @@
 - (id) runTaskWithInput:(id)input {
   OverlayDrawTaskInput  *overlayInput = input;
 
-  NSImage  *image = [overlayDrawer drawOverlayImageOfVisibleTree: [overlayInput visibleTree]
-                                                  startingAtTree: [overlayInput treeInView]
-                                              usingLayoutBuilder: [overlayInput layoutBuilder]
-                                                         onTopOf: [overlayInput sourceImage]
-                                                     overlayTest: [overlayInput overlayTest]];
-
-  return image;
+  return [overlayDrawer drawOverlayImageOfVisibleTree: overlayInput.visibleTree
+                                       startingAtTree: overlayInput.treeInView
+                                   usingLayoutBuilder: overlayInput.layoutBuilder
+                                               inRect: overlayInput.bounds
+                                          overlayTest: overlayInput.overlayTest];
 }
 
 - (void) abortTask {
-  // TODO: set abort flag
+  [overlayDrawer abortDrawing];
 }
 
 @end

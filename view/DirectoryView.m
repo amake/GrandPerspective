@@ -38,12 +38,17 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 - (BOOL) validateAction:(SEL)action;
 
 - (void) forceRedraw;
+- (void) forceOverlayRedraw;
 
 - (void) startTreeDrawTask;
 - (void) itemTreeImageReady:(id)image;
 
 - (void) startOverlayDrawTask;
 - (void) overlayImageReady:(id)image;
+
+@property (nonatomic, readonly) float animatedOverlayStrength;
+- (void) refreshDisplay;
+- (void) enablePeriodicRedraw:(BOOL) enable;
 
 - (void) postColorPaletteChanged;
 - (void) postColorMappingChanged;
@@ -87,6 +92,8 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   [overlayDrawTaskManager dispose];
   [overlayDrawTaskManager release];
 
+  [redrawTimer invalidate];
+
   [layoutBuilder release];
   [overlayTest release];
   [pathDrawer release];
@@ -104,7 +111,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
 
 - (void) postInitWithPathModelView:(ItemPathModelView *)pathModelViewVal {
-  NSAssert(pathModelView==nil, @"The path model view should only be set once.");
+  NSAssert(pathModelView == nil, @"The path model view should only be set once.");
 
   pathModelView = [pathModelViewVal retain];
   TreeContext *treeContext = pathModelView.pathModel.treeContext;
@@ -238,7 +245,10 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
     [overlayTest release];
     overlayTest = [overlayTestVal retain];
 
-    [self forceRedraw];
+    [self forceOverlayRedraw];
+
+    // Assumption is that this method is only invoked when the window is the main one.
+    [self enablePeriodicRedraw: (overlayTest != nil)];
   }
 }
 
@@ -335,11 +345,17 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   
   if (treeImage != nil) {
     //NSLog(@"Drawing image");
-    NSImage  *imageToDraw = overlayImage != nil ? overlayImage : treeImage;
-    [imageToDraw drawAtPoint: NSZeroPoint
-                    fromRect: NSZeroRect
-                   operation: NSCompositeCopy
-                    fraction: 1.0f];
+    [treeImage drawAtPoint: NSZeroPoint
+                  fromRect: NSZeroRect
+                 operation: NSCompositeCopy
+                  fraction: 1.0f];
+
+    if (overlayImage != nil) {
+      [overlayImage drawAtPoint: NSZeroPoint
+                       fromRect: NSZeroRect
+                      operation: NSCompositingOperationColorDodge
+                       fraction: self.animatedOverlayStrength];
+    }
 
     if (!treeImageIsScaled) {
       //NSLog(@"Drawing path");
@@ -598,21 +614,29 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   NSLog(@"Forcing redraw");
   [self setNeedsDisplay: YES];
 
-  // Discard the existing image(s)
+  // Discard the existing image
   [treeImage release];
   treeImage = nil;
+
+  // Invalidate any ongoing draw task
+  isTreeDrawInProgress = NO;
+
+  [self forceOverlayRedraw];
+}
+
+- (void) forceOverlayRedraw {
+  NSLog(@"Forcing overlay redraw");
+  [self setNeedsDisplay: YES];
+
   [overlayImage release];
   overlayImage = nil;
 
-  // Invalidate any ongoing draw tasks
-  isTreeDrawInProgress = NO;
   isOverlayDrawInProgress = NO;
 }
 
 - (void) startTreeDrawTask {
   NSLog(@"Starting draw task");
-  NSAssert([self bounds].origin.x == 0 &&
-           [self bounds].origin.y == 0, @"Bounds not at (0, 0)");
+  NSAssert(self.bounds.origin.x == 0 && self.bounds.origin.y == 0, @"Bounds not at (0, 0)");
 
   // Create image in background thread.
   DrawTaskInput  *drawInput =
@@ -653,15 +677,14 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
 - (void) startOverlayDrawTask {
   NSLog(@"Starting overlay draw task");
-  NSAssert([self bounds].origin.x == 0 &&
-           [self bounds].origin.y == 0, @"Bounds not at (0, 0)");
+  NSAssert(self.bounds.origin.x == 0 && self.bounds.origin.y == 0, @"Bounds not at (0, 0)");
 
   // Create image in background thread.
   OverlayDrawTaskInput  *overlayDrawInput =
       [[OverlayDrawTaskInput alloc] initWithVisibleTree: pathModelView.visibleTree
                                              treeInView: self.treeInView
                                           layoutBuilder: layoutBuilder
-                                            sourceImage: treeImage
+                                                 bounds: self.bounds
                                             overlayTest: overlayTest];
   [overlayDrawTaskManager asynchronouslyRunTaskWithInput: overlayDrawInput
                                                 callback: self
@@ -683,6 +706,33 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   }
 }
 
+- (float) animatedOverlayStrength {
+  return (self.window.mainWindow
+          ? 0.7 + 0.3 * sin([[NSDate date] timeIntervalSinceReferenceDate] * 3.1415)
+          : 0.7);
+}
+
+- (void) refreshDisplay {
+  [self setNeedsDisplay: YES];
+}
+
+- (void) enablePeriodicRedraw:(BOOL) enable {
+  if (enable) {
+    if (redrawTimer == nil) {
+      redrawTimer = [NSTimer scheduledTimerWithTimeInterval: 0.2f
+                                                     target: self
+                                                   selector: @selector(refreshDisplay)
+                                                   userInfo: nil
+                                                    repeats: YES];
+      redrawTimer.tolerance = 0.04f;
+    }
+  } else {
+    if (redrawTimer != nil) {
+      [redrawTimer invalidate];
+      redrawTimer = nil;
+    }
+  }
+}
 
 - (void) postColorPaletteChanged {
   [[NSNotificationCenter defaultCenter]
@@ -721,6 +771,9 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
 - (void) windowMainStatusChanged:(NSNotification *)notification {
   [self updateAcceptMouseMovedEvents];
+
+  // Only when the window is the main one and there is an overlay active, animate the overlay.
+  [self enablePeriodicRedraw: (self.window.mainWindow && overlayTest != nil)];
 }
 
 - (void) windowKeyStatusChanged:(NSNotification *)notification {

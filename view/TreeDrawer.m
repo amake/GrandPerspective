@@ -10,31 +10,34 @@
 @implementation TreeDrawer
 
 // Overrides designated initialiser of base class
-- (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal {
+- (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal
+                     colorPalette:(NSColorList *)colorPalette {
   TreeDrawerSettings  *defaultSettings = [[[TreeDrawerSettings alloc] init] autorelease];
+  if (colorPalette) {
+    defaultSettings = [defaultSettings copyWithColorPalette: colorPalette];
+  }
 
   return [self initWithScanTree: scanTreeVal treeDrawerSettings: defaultSettings];
 }
 
 - (instancetype) initWithScanTree:(DirectoryItem *)scanTreeVal
                treeDrawerSettings:(TreeDrawerSettings *)settings {
-  if (self = [super initWithScanTree: scanTreeVal]) {
+  if (self = [super initWithScanTree: scanTreeVal
+                        colorPalette: settings.colorPalette]) {
     // Make sure values are set before calling updateSettings.
     colorMapper = nil;
 
     [self updateSettings: settings];
     
-    rectangleDrawer = [[GradientRectangleDrawer alloc] initWithColorPalette: settings.colorPalette];
-    freeSpaceColor = [rectangleDrawer intValueForColor: [NSColor blackColor]];
-    usedSpaceColor = [rectangleDrawer intValueForColor: [NSColor darkGrayColor]];
-    visibleTreeBackgroundColor = [rectangleDrawer intValueForColor: [NSColor grayColor]];
+    freeSpaceColor = [rectangleDrawer intValueForColor: NSColor.blackColor];
+    usedSpaceColor = [rectangleDrawer intValueForColor: NSColor.darkGrayColor];
+    visibleTreeBackgroundColor = [rectangleDrawer intValueForColor: NSColor.grayColor];
   }
   return self;
 }
 
 - (void) dealloc {
   [colorMapper release];
-  [rectangleDrawer release];
 
   [super dealloc];
 }
@@ -73,33 +76,11 @@
 
 
 - (void) updateSettings:(TreeDrawerSettings *)settings {
-  [self setColorMapper: [settings colorMapper]];
-  [rectangleDrawer setColorPalette: [settings colorPalette]];
-  [rectangleDrawer setColorGradient: [settings colorGradient]];
-  [self setMaskTest: [settings maskTest]];
-  [self setShowPackageContents: [settings showPackageContents]];
-}
-
-
-- (NSImage *)drawImageOfVisibleTree:(FileItem *)visibleTreeVal
-                     startingAtTree:(FileItem *)treeRoot
-                 usingLayoutBuilder:(TreeLayoutBuilder *)layoutBuilder
-                             inRect:(NSRect)bounds {
-  [rectangleDrawer setupBitmap: bounds];
-
-  [super drawImageOfVisibleTree: visibleTreeVal
-                 startingAtTree: treeRoot
-             usingLayoutBuilder: layoutBuilder
-                         inRect: bounds];
-
-  if ( !abort ) {
-    return [rectangleDrawer createImageFromBitmap];
-  }
-  else {
-    [rectangleDrawer releaseBitmap];
-    
-    return nil;
-  }
+  [self setColorMapper: settings.colorMapper];
+  [rectangleDrawer setColorPalette: settings.colorPalette];
+  [rectangleDrawer setColorGradient: settings.colorGradient];
+  [self setMaskTest: settings.maskTest];
+  [self setShowPackageContents: settings.showPackageContents];
 }
 
 
