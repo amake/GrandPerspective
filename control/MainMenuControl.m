@@ -134,6 +134,8 @@ NSString  *AfterClosingLastViewDoNothing = @"do nothing";
 - (void) showWelcomeWindow;
 - (void) hideWelcomeWindow;
 
+- (void) hideControlPanel;
+
 - (void) scanFolderUsingFilter:(BOOL)useFilter;
 - (void) scanFolder:(NSString *)path namedFilter:(NamedFilter *)filter;
 - (void) scanFolder:(NSString *)path filterSet:(FilterSet *)filterSet;
@@ -779,6 +781,10 @@ static MainMenuControl  *singletonInstance = nil;
   }
 }
 
+- (void) hideControlPanel {
+  [[ControlPanelControl singletonInstance] hidePanel];
+}
+
 - (void) scanFolderUsingFilter:(BOOL)useFilter {
   NSOpenPanel  *openPanel = [NSOpenPanel openPanel];
   [openPanel setCanChooseFiles: NO];
@@ -1038,9 +1044,11 @@ static MainMenuControl  *singletonInstance = nil;
     return;
   }
 
-  [[ControlPanelControl singletonInstance] performSelectorOnMainThread: @selector(hidePanel)
-                                                            withObject: nil
-                                                         waitUntilDone: NO];
+  // A private helper method is used instead of invoking hidePanel directly on the ControlPanel
+  // singleton. The latter results in a crash when the singleton instance did not yet exist.
+  [self performSelectorOnMainThread: @selector(hideControlPanel)
+                         withObject: nil
+                      waitUntilDone: NO];
 
   NSString  *action = [[NSUserDefaults standardUserDefaults] stringForKey: NoViewsBehaviourKey];
   if ([action isEqualToString: AfterClosingLastViewQuit]) {
