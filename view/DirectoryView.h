@@ -24,13 +24,13 @@ extern NSString  *ColorMappingChangedEvent;
 
 @interface DirectoryView : NSView {
   AsynchronousTaskManager  *drawTaskManager;
+  AsynchronousTaskManager  *overlayDrawTaskManager;
 
   // Even though layout builder could also be considered part of the itemTreeDrawerSettings, it is
   // maintained here, as it is also needed by the pathDrawer, and other objects.
   TreeLayoutBuilder  *layoutBuilder;
 
   FileItemTest  *overlayTest;
-  OverlayDrawer  *overlayDrawer;
 
   ItemPathDrawer  *pathDrawer;
   ItemPathModelView  *pathModelView;
@@ -48,6 +48,7 @@ extern NSString  *ColorMappingChangedEvent;
   // temporary measure. A new image is already being constructed for the new size, but as long as
   // that's not yet ready, the scaled image can be used.
   BOOL  treeImageIsScaled;
+  BOOL  overlayImageIsScaled;
 
   // Indicates if a draw is in progress (which matches current settings). Once a redraw is forced,
   // these flags are cleared to indicate that a new draw should be initiated.

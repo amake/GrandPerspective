@@ -1,7 +1,9 @@
 #import "DirectoryView.h"
 
 #import "DirectoryViewControl.h"
+
 #import "DirectoryItem.h"
+#import "TreeContext.h"
 
 #import "TreeLayoutBuilder.h"
 #import "TreeDrawer.h"
@@ -18,6 +20,8 @@
 #import "AsynchronousTaskManager.h"
 #import "DrawTaskExecutor.h"
 #import "DrawTaskInput.h"
+#import "OverlayDrawTaskExecutor.h"
+#import "OverlayDrawTaskInput.h"
 
 #import "FileItemMapping.h"
 #import "FileItemMappingScheme.h"
@@ -69,7 +73,6 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 - (instancetype) initWithFrame:(NSRect)frame {
   if (self = [super initWithFrame:frame]) {
     layoutBuilder = [[TreeLayoutBuilder alloc] init];
-    overlayDrawer = [[OverlayDrawer alloc] init];
     pathDrawer = [[ItemPathDrawer alloc] init];
     selectedItemLocator = [[SelectedItemLocator alloc] init];
 
@@ -95,8 +98,10 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   [drawTaskManager dispose];
   [drawTaskManager release];
 
+  [overlayDrawTaskManager dispose];
+  [overlayDrawTaskManager release];
+
   [layoutBuilder release];
-  [overlayDrawer release];
   [overlayTest release];
   [pathDrawer release];
   [selectedItemLocator release];
@@ -106,6 +111,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   [pathModelView release];
   
   [treeImage release];
+  [overlayImage release];
   
   [super dealloc];
 }
@@ -115,11 +121,16 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
   NSAssert(pathModelView==nil, @"The path model view should only be set once.");
 
   pathModelView = [pathModelViewVal retain];
+  TreeContext *treeContext = pathModelView.pathModel.treeContext;
   
   DrawTaskExecutor  *drawTaskExecutor =
-    [[[DrawTaskExecutor alloc] initWithTreeContext: [[pathModelView pathModel] treeContext]]
-     autorelease];
+    [[[DrawTaskExecutor alloc] initWithTreeContext: treeContext] autorelease];
   drawTaskManager = [[AsynchronousTaskManager alloc] initWithTaskExecutor: drawTaskExecutor];
+
+  OverlayDrawTaskExecutor  *overlayDrawTaskExecutor =
+    [[[OverlayDrawTaskExecutor alloc] initWithScanTree: treeContext.scanTree] autorelease];
+  overlayDrawTaskManager =
+    [[AsynchronousTaskManager alloc] initWithTaskExecutor: overlayDrawTaskExecutor];
 
   [self observeColorMapping];
   
@@ -303,12 +314,12 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
     // Scale the existing image(s) for the new size. It will be used until a redrawn image is
     // available.
     treeImage.size = self.bounds.size;
+    treeImageIsScaled = YES;
+
     if (overlayImage != nil) {
       overlayImage.size = self.bounds.size;
+      overlayImageIsScaled = YES;
     }
-    
-    // Indicate that the scaling has taken place, so that a new image will be created.
-    treeImageIsScaled = YES;
 
     // Ensure any ongoing drawing tasks will be aborted
     isTreeDrawInProgress = NO;
@@ -317,12 +328,13 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
   if ((treeImage == nil || treeImageIsScaled) && !isTreeDrawInProgress) {
     [self startTreeDrawTask];
-  } else if (overlayImage == nil && overlayTest != nil && !isOverlayDrawInProgress) {
+  } else if ((overlayImage == nil || overlayImageIsScaled) &&
+             overlayTest != nil && !isOverlayDrawInProgress) {
     [self startOverlayDrawTask];
   }
   
   if (treeImage != nil) {
-    NSLog(@"Drawing image");
+    //NSLog(@"Drawing image");
     NSImage  *imageToDraw = overlayImage != nil ? overlayImage : treeImage;
     [imageToDraw drawAtPoint: NSZeroPoint
                     fromRect: NSZeroRect
@@ -330,7 +342,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
                     fraction: 1.0f];
 
     if (!treeImageIsScaled) {
-      NSLog(@"Drawing path");
+      //NSLog(@"Drawing path");
       if ([pathModelView isSelectedFileItemVisible]) {
         [pathDrawer drawVisiblePath: pathModelView
                      startingAtTree: self.treeInView
@@ -572,8 +584,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
 @implementation DirectoryView (PrivateMethods)
 
-/**
- * Checks with the target that will execute the action if it should be enabled. It assumes that the
+/* Checks with the target that will execute the action if it should be enabled. It assumes that the
  * target has implemented validateAction:, which is the case when the target is
  * DirectoryViewControl.
  */
@@ -622,6 +633,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
  */
 - (void) itemTreeImageReady: (id) image {
   if (image != nil) {
+    NSLog(@"Completed draw task");
     // Only take action when the drawing task has completed succesfully. 
     //
     // Without this check, a race condition can occur. When a new drawing task aborts the execution
@@ -641,14 +653,30 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
 - (void) startOverlayDrawTask {
   NSLog(@"Starting overlay draw task");
-  // TODO
+  NSAssert([self bounds].origin.x == 0 &&
+           [self bounds].origin.y == 0, @"Bounds not at (0, 0)");
+
+  // Create image in background thread.
+  OverlayDrawTaskInput  *overlayDrawInput =
+      [[OverlayDrawTaskInput alloc] initWithVisibleTree: pathModelView.visibleTree
+                                             treeInView: self.treeInView
+                                          layoutBuilder: layoutBuilder
+                                            sourceImage: treeImage
+                                            overlayTest: overlayTest];
+  [overlayDrawTaskManager asynchronouslyRunTaskWithInput: overlayDrawInput
+                                                callback: self
+                                                selector: @selector(overlayImageReady:)];
+
   isOverlayDrawInProgress = YES;
+  [overlayDrawInput release];
 }
 
 - (void) overlayImageReady:(id)image {
   if (image != nil) {
+    NSLog(@"Completed overlay draw task");
     [overlayImage release];
     overlayImage = [image retain];
+    overlayImageIsScaled = NO;
     isOverlayDrawInProgress = NO;
 
     [self setNeedsDisplay: YES];

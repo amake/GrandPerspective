@@ -1,24 +1,16 @@
 #import "OverlayDrawer.h"
 
-#import "Item.h"
 #import "FileItem.h"
 #import "FilteredTreeGuide.h"
 #import "TreeLayoutBuilder.h"
 
+@interface OverlayDrawer (PrivateMethods)
+
+- (CGContextRef) createContextWithImage:(NSImage *)image;
+
+@end
+
 @implementation OverlayDrawer
-
-- (instancetype) init {
-  if (self = [super init]) {
-    treeGuide = [[FilteredTreeGuide alloc] init];
-  }
-  return self;
-}
-
-- (void) dealloc {
-  [treeGuide release];
-
-  [super dealloc];
-}
 
 - (NSImage *)drawOverlayImageOfVisibleTree:(FileItem *)visibleTree
                             startingAtTree:(FileItem *)treeRoot
@@ -27,18 +19,22 @@
                                overlayTest:(FileItemTest *)overlayTest; {
   [treeGuide setFileItemTest: overlayTest];
 
-  cgContext = [NSGraphicsContext.currentContext graphicsPort];
-  CGContextSaveGState(cgContext);
+  cgContext = [self createContextWithImage: sourceImage];
 
   NSRect bounds = NSMakeRect(0, 0, sourceImage.size.width, sourceImage.size.height);
   [layoutBuilder layoutItemTree: treeRoot inRect: bounds traverser: self];
 
-  CGContextRestoreGState(cgContext);
+  CGImageRef cgImage = CGBitmapContextCreateImage(cgContext);
+  NSImage *image = [[NSImage alloc] initWithCGImage: cgImage size: NSZeroSize];
+  CGImageRelease(cgImage);
+
+  CGContextRelease(cgContext);
   cgContext = nil;
 
-  return nil;
+  return image;
 }
 
+// TODO: Remove. Use implementation of base class instead.
 - (BOOL) descendIntoItem:(Item *)item atRect:(NSRect)rect depth:(int)depth {
   if ( [item isVirtual] ) {
     return YES;
@@ -79,3 +75,27 @@
 }
 
 @end
+
+
+@implementation OverlayDrawer (PrivateMethods)
+
+- (CGContextRef) createContextWithImage:(NSImage *)image {
+  CGContextRef context = CGBitmapContextCreate
+    (nil, // Data: nil -> allocated automatically
+     (int)image.size.width,
+     (int)image.size.height,
+     8, // Bits per component
+     0, // Bytes per row: 0 -> calculated automatically
+     CGColorSpaceCreateDeviceRGB(),
+     // Should be 32-bits. Unclear if SkipFirst or SkipLast is better
+     kCGImageAlphaNoneSkipFirst);
+
+  CGRect cgImageRect = CGRectMake(0, 0, image.size.width, image.size.height);
+  CGImageRef cgImage = [image CGImageForProposedRect: nil context: nil hints: nil];
+  CGContextDrawImage(context, cgImageRect, cgImage);
+  //CGImageRelease(cgImage); // TODO: Confirm not needed.
+
+  return context;
+}
+
+@end // OverlayDrawer (PrivateMethods)
