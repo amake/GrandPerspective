@@ -22,7 +22,10 @@
   cgContext = [self createContextWithImage: sourceImage];
 
   NSRect bounds = NSMakeRect(0, 0, sourceImage.size.width, sourceImage.size.height);
-  [layoutBuilder layoutItemTree: treeRoot inRect: bounds traverser: self];
+  [super drawImageOfVisibleTree: visibleTree
+                 startingAtTree: treeRoot
+             usingLayoutBuilder: layoutBuilder
+                         inRect: bounds];
 
   CGImageRef cgImage = CGBitmapContextCreateImage(cgContext);
   NSImage *image = [[NSImage alloc] initWithCGImage: cgImage size: NSZeroSize];
@@ -34,44 +37,18 @@
   return image;
 }
 
-// TODO: Remove. Use implementation of base class instead.
-- (BOOL) descendIntoItem:(Item *)item atRect:(NSRect)rect depth:(int)depth {
-  if ( [item isVirtual] ) {
-    return YES;
-  }
-
-  FileItem  *itemToUse = [treeGuide includeFileItem: (FileItem *)item];
-
-  if (itemToUse != nil) {
-    // The file item passed the test
-
-    if ([itemToUse isDirectory]) {
-      [treeGuide descendIntoDirectory: (DirectoryItem *)itemToUse];
-
-      // Recurse over dir contents
-      return YES;
-    } else {
-      // Plain file that passed the test. Highlight it
-      CGContextSetBlendMode(cgContext, kCGBlendModeColorDodge);
-      CGContextSetRGBFillColor(cgContext, 0.5, 0.5, 0.5, 1.0);
-      CGContextFillRect(cgContext, rect);
-    }
-  } else {
-    // File item that failed the test. Darken it
-    CGContextSetBlendMode(cgContext, kCGBlendModeColorBurn);
-    CGContextSetRGBFillColor(cgContext, 0.9, 0.9, 0.9, 1.0);
-    CGContextFillRect(cgContext, rect);
-  }
-
-  return NO;
+- (void)drawFile:(PlainFileItem *)fileItem atRect:(NSRect) rect depth:(int) depth {
+  // Plain file that passed the test. Highlight it
+  CGContextSetBlendMode(cgContext, kCGBlendModeColorDodge);
+  CGContextSetRGBFillColor(cgContext, 0.5, 0.5, 0.5, 1.0);
+  CGContextFillRect(cgContext, rect);
 }
 
-- (void) emergedFromItem:(Item *)item {
-  if ( ! [item isVirtual] ) {
-    if ( [((FileItem *)item) isDirectory] ) {
-      [treeGuide emergedFromDirectory: (DirectoryItem *)item];
-    }
-  }
+- (void)skippingFileItem:(FileItem *)fileItem atRect:(NSRect) rect {
+  // File item that failed the test. Darken it
+  CGContextSetBlendMode(cgContext, kCGBlendModeColorBurn);
+  CGContextSetRGBFillColor(cgContext, 0.9, 0.9, 0.9, 1.0);
+  CGContextFillRect(cgContext, rect);
 }
 
 @end
