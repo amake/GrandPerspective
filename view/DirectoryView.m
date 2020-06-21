@@ -611,7 +611,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 }
 
 - (void) forceRedraw {
-  NSLog(@"Forcing redraw");
+  //NSLog(@"Forcing redraw");
   [self setNeedsDisplay: YES];
 
   // Discard the existing image
@@ -625,7 +625,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 }
 
 - (void) forceOverlayRedraw {
-  NSLog(@"Forcing overlay redraw");
+  //NSLog(@"Forcing overlay redraw");
   [self setNeedsDisplay: YES];
 
   [overlayImage release];
@@ -635,7 +635,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 }
 
 - (void) startTreeDrawTask {
-  NSLog(@"Starting draw task");
+  //NSLog(@"Starting draw task");
   NSAssert(self.bounds.origin.x == 0 && self.bounds.origin.y == 0, @"Bounds not at (0, 0)");
 
   // Create image in background thread.
@@ -657,8 +657,9 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
  */
 - (void) itemTreeImageReady: (id) image {
   if (image != nil) {
-    NSLog(@"Completed draw task");
-    // Only take action when the drawing task has completed succesfully. 
+    //NSLog(@"Completed draw task");
+
+    // Only take action when the drawing task has completed succesfully.
     //
     // Without this check, a race condition can occur. When a new drawing task aborts the execution
     // of an ongoing task, the completion of the latter and subsequent invocation of -drawRect:
@@ -676,7 +677,7 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 }
 
 - (void) startOverlayDrawTask {
-  NSLog(@"Starting overlay draw task");
+  //NSLog(@"Starting overlay draw task");
   NSAssert(self.bounds.origin.x == 0 && self.bounds.origin.y == 0, @"Bounds not at (0, 0)");
 
   // Create image in background thread.
@@ -696,7 +697,8 @@ NSString  *ColorMappingChangedEvent = @"colorMappingChanged";
 
 - (void) overlayImageReady:(id)image {
   if (image != nil) {
-    NSLog(@"Completed overlay draw task");
+    //NSLog(@"Completed overlay draw task");
+
     [overlayImage release];
     overlayImage = [image retain];
     overlayImageIsScaled = NO;
