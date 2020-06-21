@@ -54,6 +54,9 @@
 // Rescan selected item (file or directory)
 - (IBAction) rescanSelected:(id)sender;
 
+// Rescan the entire scan tree, with the current mask as a filter
+- (IBAction) rescanWithMaskAsFilter:(id)sender;
+
 - (IBAction) filterDirectoryView:(id)sender;
 - (IBAction) duplicateDirectoryView:(id)sender;
 - (IBAction) twinDirectoryView:(id)sender;

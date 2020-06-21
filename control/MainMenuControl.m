@@ -139,7 +139,10 @@ NSString  *AfterClosingLastViewDoNothing = @"do nothing";
 - (void) scanFolderUsingFilter:(BOOL)useFilter;
 - (void) scanFolder:(NSString *)path namedFilter:(NamedFilter *)filter;
 - (void) scanFolder:(NSString *)path filterSet:(FilterSet *)filterSet;
+
 - (void) rescanItem:(FileItem *)item deriveFrom:(DirectoryViewControl *)oldControl;
+- (void) rescanItem:(FileItem *)item deriveFrom:(DirectoryViewControl *)oldControl
+          filterSet:(FilterSet *)filterSet;
 
 - (void) loadScanDataFromFile:(NSString *)path;
 - (void) saveScanDataToFile:(NSSavePanel *)savePanel
@@ -520,42 +523,68 @@ static MainMenuControl  *singletonInstance = nil;
 }
 
 - (IBAction) rescanAll:(id)sender {
-  DirectoryViewControl  *oldControl =
-    [NSApplication sharedApplication].mainWindow.windowController;
+  DirectoryViewControl  *oldControl = NSApplication.sharedApplication.mainWindow.windowController;
   if (oldControl == nil) {
     return;
   }
 
-  NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults  *userDefaults = NSUserDefaults.standardUserDefaults;
   NSString  *rescanBehaviour = [userDefaults stringForKey: RescanBehaviourKey];
   if ([rescanBehaviour isEqualToString: RescanClosesOldWindow]) {
     [oldControl.window close];
   }
   
   TreeContext  *oldContext = [oldControl treeContext];
-  [self rescanItem: [oldContext scanTree] deriveFrom: oldControl];
+  [self rescanItem: oldContext.scanTree deriveFrom: oldControl];
 }
 
 - (IBAction) rescanVisible:(id)sender {
-  DirectoryViewControl  *oldControl = 
-    [NSApplication sharedApplication].mainWindow.windowController;
+  DirectoryViewControl  *oldControl = NSApplication.sharedApplication.mainWindow.windowController;
   if (oldControl == nil) {
     return;
   }
   
   ItemPathModelView  *pathModelView = [oldControl pathModelView];
-  [self rescanItem: [pathModelView visibleTree] deriveFrom: oldControl];
+  [self rescanItem: pathModelView.visibleTree deriveFrom: oldControl];
 }
 
 - (IBAction) rescanSelected:(id)sender {
-  DirectoryViewControl  *oldControl = 
-    [NSApplication sharedApplication].mainWindow.windowController;
+  DirectoryViewControl  *oldControl = NSApplication.sharedApplication.mainWindow.windowController;
   if (oldControl == nil) {
     return;
   }
   
   ItemPathModelView  *pathModelView = [oldControl pathModelView];
-  [self rescanItem: [pathModelView selectedFileItem] deriveFrom: oldControl];  
+  [self rescanItem: pathModelView.selectedFileItem deriveFrom: oldControl];
+}
+
+- (IBAction) rescanWithMaskAsFilter:(id)sender {
+  DirectoryViewControl  *oldControl = NSApplication.sharedApplication.mainWindow.windowController;
+  if (oldControl == nil) {
+    return;
+  }
+
+  NSUserDefaults  *userDefaults = NSUserDefaults.standardUserDefaults;
+  NSString  *rescanBehaviour = [userDefaults stringForKey: RescanBehaviourKey];
+  if ([rescanBehaviour isEqualToString: RescanClosesOldWindow]) {
+    [oldControl.window close];
+  }
+
+  DirectoryViewControlSettings  *settings = oldControl.directoryViewControlSettings;
+  DirectoryViewDisplaySettings  *displaySettings = settings.displaySettings;
+
+  NSString  *maskName = displaySettings.maskName;
+  Filter  *filterForMask = [FilterRepository.defaultInstance filterForName: maskName];
+  NamedFilter  *namedFilter = [NamedFilter namedFilter: filterForMask name: maskName];
+
+  NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
+  FilterSet  *filterSet =
+    [oldControl.treeContext.filterSet filterSetWithAddedNamedFilter: namedFilter
+                                                       unboundTests: unboundTests];
+  [MainMenuControl reportUnboundTests: unboundTests];
+
+  TreeContext  *oldContext = [oldControl treeContext];
+  [self rescanItem: oldContext.scanTree deriveFrom: oldControl filterSet: filterSet];
 }
 
 
@@ -571,8 +600,8 @@ static MainMenuControl  *singletonInstance = nil;
 
   NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
   FilterSet  *filterSet =
-    [[[oldControl treeContext] filterSet] filterSetWithAddedNamedFilter: namedFilter
-                                                           unboundTests: unboundTests];
+    [oldControl.treeContext.filterSet filterSetWithAddedNamedFilter: namedFilter
+                                                       unboundTests: unboundTests];
   [MainMenuControl reportUnboundTests: unboundTests];
 
   ItemPathModel  *pathModel = [[oldControl pathModelView] pathModel];
@@ -861,21 +890,26 @@ static MainMenuControl  *singletonInstance = nil;
  */
 - (void) rescanItem:(FileItem *)item 
          deriveFrom:(DirectoryViewControl *)oldControl {
+  [self rescanItem: item deriveFrom: oldControl filterSet: oldControl.treeContext.filterSet];
+}
+
+- (void) rescanItem:(FileItem *)item
+         deriveFrom:(DirectoryViewControl *)oldControl
+          filterSet:(FilterSet *)filterSet {
   // Make sure to always scan a directory.
-  if (![item isDirectory]) {
-    item = [item parentDirectory];
+  if (!item.isDirectory) {
+    item = item.parentDirectory;
   }
            
-  TreeContext  *oldContext = [oldControl treeContext];
-  ItemPathModel  *pathModel = [[oldControl pathModelView] pathModel];
+  TreeContext  *oldContext = oldControl.treeContext;
+  ItemPathModel  *pathModel = oldControl.pathModelView.pathModel;
     
   DerivedDirViewWindowCreator  *windowCreator = [DerivedDirViewWindowCreator alloc];
   [[windowCreator initWithWindowManager: windowManager
                              targetPath: pathModel
-                               settings: [oldControl directoryViewControlSettings]] autorelease];
+                               settings: oldControl.directoryViewControlSettings] autorelease];
 
-  FilterSet  *filterSet = [oldContext filterSet];
-  NSUserDefaults  *userDefaults = [NSUserDefaults standardUserDefaults];
+  NSUserDefaults  *userDefaults = NSUserDefaults.standardUserDefaults;
   if ([userDefaults boolForKey: UpdateFiltersBeforeUse]) {
     NSMutableArray  *unboundFilters = [NSMutableArray arrayWithCapacity: 8];
     NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
@@ -885,8 +919,8 @@ static MainMenuControl  *singletonInstance = nil;
     [MainMenuControl reportUnboundTests: unboundTests];
   }
   
-  ScanTaskInput  *input = [[[ScanTaskInput alloc] initWithPath: [item systemPath]
-                                               fileSizeMeasure: [oldContext fileSizeMeasure]
+  ScanTaskInput  *input = [[[ScanTaskInput alloc] initWithPath: item.systemPath
+                                               fileSizeMeasure: oldContext.fileSizeMeasure
                                                      filterSet: filterSet] autorelease];
     
   [scanTaskManager asynchronouslyRunTaskWithInput: input

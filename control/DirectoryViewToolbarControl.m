@@ -2,6 +2,9 @@
 
 #import "DirectoryViewControl.h"
 #import "DirectoryView.h"
+#import "DirectoryViewControlSettings.h"
+#import "DirectoryViewDisplaySettings.h"
+
 #import "ToolbarSegmentedCell.h"
 #import "MainMenuControl.h"
 #import "KBPopUpToolbarItem.h"
@@ -75,6 +78,7 @@ NSString  *ToolbarSearch = @"Search";
 - (void) rescanAll:(id)sender;
 - (void) rescanVisible:(id)sender;
 - (void) rescanSelected:(id)sender;
+- (void) rescanWithMaskAsFilter:(id)sender;
 
 @end
 
@@ -443,6 +447,8 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
     NSLocalizedStringFromTable(@"Rescan folder in view", @"Toolbar", @"Toolbar action");
   NSString  *rescanSelectedTitle =
     NSLocalizedStringFromTable(@"Rescan selected", @"Toolbar", @"Toolbar action");
+  NSString  *rescanMaskAsFilterTitle =
+    NSLocalizedStringFromTable(@"Rescan with mask as filter", @"Toolbar", @"Toolbar action");
 
   NSMenu  *menu = [[NSMenu alloc] initWithTitle: @"Rescan actions"];
   int  itemCount = 0;
@@ -464,6 +470,13 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
                                                 keyEquivalent: @""
                                                       atIndex: itemCount++];
   rescanSelectedItem.target = self;
+
+  NSMenuItem  *rescanMaskAsFilterItem =
+    [menu insertItemWithTitle: rescanMaskAsFilterTitle
+                       action: @selector(rescanWithMaskAsFilter:)
+                keyEquivalent: @""
+                      atIndex: itemCount++];
+  rescanMaskAsFilterItem.target = self;
 
   [menu setAutoenablesItems: YES];
   [item setMenu: menu];
@@ -563,6 +576,12 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
     
              // Selection must be locked (see above)
              [dirViewControl isSelectedFileLocked] );
+  }
+  else if ( action == @selector(rescanWithMaskAsFilter:) ) {
+    return ( [NSApplication sharedApplication].mainWindow.windowController == dirViewControl &&
+
+             // There should be a mask
+             dirViewControl.directoryViewControlSettings.displaySettings.fileItemMaskEnabled );
   }
   else if ( action == @selector(rescan:) ||
             action == @selector(rescanAll:) ||
@@ -677,19 +696,23 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
 }
 
 - (void) rescan:(id)sender {
-  [[MainMenuControl singletonInstance] rescan: sender];
+  [MainMenuControl.singletonInstance rescan: sender];
 }
 
 - (void) rescanAll:(id)sender {
-  [[MainMenuControl singletonInstance] rescanAll: sender];
+  [MainMenuControl.singletonInstance rescanAll: sender];
 }
 
 - (void) rescanVisible:(id)sender {
-  [[MainMenuControl singletonInstance] rescanVisible: sender];
+  [MainMenuControl.singletonInstance rescanVisible: sender];
 }
 
 - (void) rescanSelected:(id)sender {
-  [[MainMenuControl singletonInstance] rescanSelected: sender];
+  [MainMenuControl.singletonInstance rescanSelected: sender];
+}
+
+- (void) rescanWithMaskAsFilter:(id)sender {
+  [MainMenuControl.singletonInstance rescanWithMaskAsFilter: sender];
 }
 
 @end // @implementation DirectoryViewToolbarControl (PrivateMethods)
