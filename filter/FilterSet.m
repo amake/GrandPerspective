@@ -36,8 +36,8 @@
 + (instancetype) filterSetWithNamedFilters:(NSArray *)namedFilters
                             unboundFilters:(NSMutableArray *)unboundFilters
                               unboundTests:(NSMutableArray *)unboundTests {
-  FilterRepository  *filterRepo = [FilterRepository defaultInstance];
-  FilterTestRepository  *testRepo = [FilterTestRepository defaultInstance];
+  FilterRepository  *filterRepo = FilterRepository.defaultInstance;
+  FilterTestRepository  *testRepo = FilterTestRepository.defaultInstance;
   return [FilterSet filterSetWithNamedFilters: namedFilters
                              filterRepository: filterRepo
                                testRepository: testRepo
@@ -86,8 +86,8 @@
 
 - (FilterSet *)updatedFilterSetUnboundFilters:(NSMutableArray *)unboundFilters
                                  unboundTests:(NSMutableArray *)unboundTests {
-  return [self updatedFilterSetUsingFilterRepository: [FilterRepository defaultInstance]
-                                      testRepository: [FilterTestRepository defaultInstance]
+  return [self updatedFilterSetUsingFilterRepository: FilterRepository.defaultInstance
+                                      testRepository: FilterTestRepository.defaultInstance
                                       unboundFilters: unboundFilters
                                         unboundTests: unboundTests];
 }
@@ -110,7 +110,7 @@
   [newFilters addObjectsFromArray: self.filters];
   [newFilters addObject: filter];
 
-  FileItemTest  *testForNewFilter = [[filter filter] createFileItemTestUnboundTests: unboundTests];
+  FileItemTest  *testForNewFilter = [filter.filter createFileItemTestUnboundTests: unboundTests];
 
   // Construct new file item test by combining test for new filter with existing file item test.
   FileItemTest  *newFileItemTest;
@@ -135,7 +135,7 @@
 - (NSString *)description {
   NSMutableString  *descr = [NSMutableString stringWithCapacity: 32];
   
-  NSEnumerator  *filterEnum = [self.filters objectEnumerator];
+  NSEnumerator  *filterEnum = self.filters.objectEnumerator;
   NamedFilter  *namedFilter;
 
   while (namedFilter = [filterEnum nextObject]) {
@@ -161,23 +161,23 @@
   // Create the file item test for the set of filters.
   NSMutableArray  *filterTests = [NSMutableArray arrayWithCapacity: namedFilters.count];
 
-  NSEnumerator  *filterEnum = [namedFilters objectEnumerator];
+  NSEnumerator  *filterEnum = namedFilters.objectEnumerator;
   NamedFilter  *namedFilter;
   while (namedFilter = [filterEnum nextObject]) {
     Filter  *filter;
 
     if (filterRepository == nil) {
       // Preserve old filter
-      filter = [namedFilter filter];
+      filter = namedFilter.filter;
     } else {
       // Look-up current filter definition
-      filter = [filterRepository filtersByName][[namedFilter name]];
+      filter = filterRepository.filtersByName[namedFilter.name];
       if (filter == nil) {
         // The filter with this name does not exist anymore in the repository
-        [unboundFilters addObject: [namedFilter name]];
+        [unboundFilters addObject: namedFilter.name];
 
         // So resort to the original filter
-        filter = [namedFilter filter];
+        filter = namedFilter.filter;
       }
     }
 
@@ -187,7 +187,7 @@
       [filterTests addObject: filterTest];
     } else {
       // Apparently the filter or its item test(s) do not exist anymore.
-      NSLog(@"Could not instantiate test for filter %@", [namedFilter name]);
+      NSLog(@"Could not instantiate test for filter %@", namedFilter.name);
     }
   }
 
