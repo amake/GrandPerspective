@@ -65,6 +65,9 @@
 "Reveal in Finder" = "Toon in Finder";
 
 /* Tooltip */
+"Search files by name" = "Zoek bestanden op naam";
+
+/* Tooltip */
 "Show info" = "Toon info";
 
 /* Menu item */
