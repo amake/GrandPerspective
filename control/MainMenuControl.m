@@ -141,7 +141,9 @@ NSString  *AfterClosingLastViewDoNothing = @"do nothing";
 - (void) scanFolder:(NSString *)path filterSet:(FilterSet *)filterSet;
 
 - (void) rescanItem:(FileItem *)item deriveFrom:(DirectoryViewControl *)oldControl;
-- (void) rescanItem:(FileItem *)item deriveFrom:(DirectoryViewControl *)oldControl
+- (void) rescanItem:(FileItem *)item
+         deriveFrom:(DirectoryViewControl *)oldControl
+           settings:(DirectoryViewControlSettings *)controlSettings
           filterSet:(FilterSet *)filterSet;
 
 - (void) loadScanDataFromFile:(NSString *)path;
@@ -570,12 +572,16 @@ static MainMenuControl  *singletonInstance = nil;
     [oldControl.window close];
   }
 
-  DirectoryViewControlSettings  *settings = oldControl.directoryViewControlSettings;
-  DirectoryViewDisplaySettings  *displaySettings = settings.displaySettings;
+  DirectoryViewControlSettings  *controlSettings = oldControl.directoryViewControlSettings;
+  DirectoryViewDisplaySettings  *displaySettings = controlSettings.displaySettings;
 
   NSString  *maskName = displaySettings.maskName;
   Filter  *filterForMask = [FilterRepository.defaultInstance filterForName: maskName];
   NamedFilter  *namedFilter = [NamedFilter namedFilter: filterForMask name: maskName];
+
+  // Unset the mask
+  displaySettings.maskName = nil;
+  displaySettings.fileItemMaskEnabled = false;
 
   NSMutableArray  *unboundTests = [NSMutableArray arrayWithCapacity: 8];
   FilterSet  *filterSet =
@@ -584,13 +590,15 @@ static MainMenuControl  *singletonInstance = nil;
   [MainMenuControl reportUnboundTests: unboundTests];
 
   TreeContext  *oldContext = [oldControl treeContext];
-  [self rescanItem: oldContext.scanTree deriveFrom: oldControl filterSet: filterSet];
+  [self rescanItem: oldContext.scanTree
+        deriveFrom: oldControl
+          settings: controlSettings
+         filterSet: filterSet];
 }
 
 
 - (IBAction) filterDirectoryView:(id)sender {
-  DirectoryViewControl  *oldControl = 
-    [NSApplication sharedApplication].mainWindow.windowController;
+  DirectoryViewControl  *oldControl = NSApplication.sharedApplication.mainWindow.windowController;
 
   NamedFilter  *namedFilter = [self selectFilter: oldControl.nameOfActiveMask];
   if (namedFilter == nil) {
@@ -604,8 +612,8 @@ static MainMenuControl  *singletonInstance = nil;
                                                        unboundTests: unboundTests];
   [MainMenuControl reportUnboundTests: unboundTests];
 
-  ItemPathModel  *pathModel = [[oldControl pathModelView] pathModel];
-  DirectoryViewControlSettings  *settings = [oldControl directoryViewControlSettings];
+  ItemPathModel  *pathModel = oldControl.pathModelView.pathModel;
+  DirectoryViewControlSettings  *settings = oldControl.directoryViewControlSettings;
   DirectoryViewDisplaySettings  *displaySettings = settings.displaySettings;
   if ([namedFilter.name isEqualToString: displaySettings.maskName]) {
     // Don't retain the mask if the filter has the same name. It is likely that the filter is the
@@ -890,11 +898,15 @@ static MainMenuControl  *singletonInstance = nil;
  */
 - (void) rescanItem:(FileItem *)item 
          deriveFrom:(DirectoryViewControl *)oldControl {
-  [self rescanItem: item deriveFrom: oldControl filterSet: oldControl.treeContext.filterSet];
+  [self rescanItem: item
+        deriveFrom: oldControl
+          settings: oldControl.directoryViewControlSettings
+         filterSet: oldControl.treeContext.filterSet];
 }
 
 - (void) rescanItem:(FileItem *)item
          deriveFrom:(DirectoryViewControl *)oldControl
+           settings:(DirectoryViewControlSettings *)controlSettings
           filterSet:(FilterSet *)filterSet {
   // Make sure to always scan a directory.
   if (!item.isDirectory) {
@@ -907,7 +919,7 @@ static MainMenuControl  *singletonInstance = nil;
   DerivedDirViewWindowCreator  *windowCreator = [DerivedDirViewWindowCreator alloc];
   [[windowCreator initWithWindowManager: windowManager
                              targetPath: pathModel
-                               settings: oldControl.directoryViewControlSettings] autorelease];
+                               settings: controlSettings] autorelease];
 
   NSUserDefaults  *userDefaults = NSUserDefaults.standardUserDefaults;
   if ([userDefaults boolForKey: UpdateFiltersBeforeUse]) {
