@@ -492,7 +492,7 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   NSSearchField  *searchField = [[[NSSearchField alloc] init] autorelease];
   searchField.sendsWholeSearchString = NO;
 
-  [item setToolTip: NSLocalizedStringFromTable(@"Search files", @"Toolbar", "Tooltip")];
+  [item setToolTip: NSLocalizedStringFromTable(@"Search files by name", @"Toolbar", "Tooltip")];
 
   item.view = searchField;
   item.action = @selector(search:);
