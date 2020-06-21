@@ -4,9 +4,15 @@
 #import "FilterTestRepository.h"
 #import "FilterTestRef.h"
 
+#import "CompoundAndItemTest.h"
 #import "CompoundOrItemTest.h"
 #import "NotItemTest.h"
 
+@interface Filter (PrivateMethods)
+
+- (FileItemTest *)combineTests:(NSArray *)fileItemTests;
+
+@end
 
 @implementation Filter
 
@@ -27,7 +33,7 @@
   NSArray  *storedFilterTests = dict[@"tests"];
   NSMutableArray  *testRefs = [NSMutableArray arrayWithCapacity: storedFilterTests.count];
     
-  NSEnumerator  *testEnum = [storedFilterTests objectEnumerator];
+  NSEnumerator  *testEnum = storedFilterTests.objectEnumerator;
   NSDictionary  *storedFilterTest;
   while (storedFilterTest = [testEnum nextObject]) {
     FilterTestRef  *testRef = [FilterTestRef filterTestRefFromDictionary: storedFilterTest];
@@ -43,7 +49,7 @@
 }
 
 - (instancetype) initWithFilter:(Filter *)filter {
-  return [self initWithFilterTests: [filter filterTests]];
+  return [self initWithFilterTests: filter.filterTests];
 }
 
 - (instancetype) initWithFilterTests:(NSArray *)filterTests {
@@ -72,11 +78,11 @@
 }
 
 - (FilterTestRef *)filterTestWithName:(NSString *)testName {
-  NSEnumerator  *filterTestEnum = [self.filterTests objectEnumerator];
+  NSEnumerator  *filterTestEnum = self.filterTests.objectEnumerator;
   FilterTestRef  *filterTest;
 
   while (filterTest = [filterTestEnum nextObject]) {
-    if ([[filterTest name] isEqualToString: testName]) {
+    if ([filterTest.name isEqualToString: testName]) {
       return filterTest;
     }
   }
@@ -89,41 +95,44 @@
 
 
 - (FileItemTest *)createFileItemTestUnboundTests:(NSMutableArray *)unboundTests {
-  FilterTestRepository  *testRepo = [FilterTestRepository defaultInstance];
-  return [self createFileItemTestFromRepository: testRepo
+  return [self createFileItemTestFromRepository: FilterTestRepository.defaultInstance
                                    unboundTests: unboundTests];
 }
 
 - (FileItemTest *)createFileItemTestFromRepository:(FilterTestRepository *)repository
                                       unboundTests:(NSMutableArray *)unboundTests {
-  NSMutableArray  *subTests = [NSMutableArray arrayWithCapacity: self.numFilterTests];
+  NSMutableArray  *positiveTests = [NSMutableArray arrayWithCapacity: self.numFilterTests];
+  NSMutableArray  *negativeTests = [NSMutableArray arrayWithCapacity: self.numFilterTests];
 
-  NSEnumerator  *filterTestEnum = [self.filterTests objectEnumerator];
+  NSEnumerator  *filterTestEnum = self.filterTests.objectEnumerator;
   FilterTestRef  *filterTest;
 
   while (filterTest = [filterTestEnum nextObject]) {
-    FileItemTest  *subTest = [repository fileItemTestForName: [filterTest name]];
+    FileItemTest  *subTest = [repository fileItemTestForName: filterTest.name];
 
     if (subTest != nil) {
-      if ([filterTest isInverted]) {
-        subTest = [[[NotItemTest alloc] initWithSubItemTest: subTest] autorelease];
+      if (filterTest.isInverted) {
+        [negativeTests addObject: subTest];
+      } else {
+        [positiveTests addObject: subTest];
       }
-      
-      [subTests addObject: subTest];
     }
     else {
-      [unboundTests addObject: [filterTest name]];
+      [unboundTests addObject: filterTest.name];
     }
   }
 
-  if (subTests.count == 0) {
-    return nil;
+  FileItemTest  *positiveClause = [self combineTests: positiveTests];
+  FileItemTest  *negativeClause = [self combineTests: negativeTests];
+  if (negativeClause != nil) {
+    negativeClause = [[[NotItemTest alloc] initWithSubItemTest: negativeClause] autorelease];
   }
-  else if (subTests.count == 1) {
-    return subTests[0];
-  }
-  else {
-    return [[[CompoundOrItemTest alloc] initWithSubItemTests: subTests] autorelease];
+
+  if (positiveClause != nil && negativeClause != nil) {
+    return [[[CompoundAndItemTest alloc] initWithSubItemTests: @[positiveClause, negativeClause]]
+            autorelease];
+  } else {
+    return (positiveClause != nil) ? positiveClause : negativeClause;
   }
 }
 
@@ -139,3 +148,19 @@
 }
 
 @end // @implementation Filter
+
+@implementation Filter (PrivateMethods)
+
+- (FileItemTest *)combineTests:(NSArray *)fileItemTests {
+  if (fileItemTests.count == 0) {
+    return nil;
+  }
+  else if (fileItemTests.count == 1) {
+    return fileItemTests[0];
+  }
+  else {
+    return [[[CompoundOrItemTest alloc] initWithSubItemTests: fileItemTests] autorelease];
+  }
+}
+
+@end // @implementation Filter (PrivateMethods)
