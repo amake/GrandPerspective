@@ -1,9 +1,6 @@
 /* Class = "NSWindow"; title = "Filter"; ObjectID = "5"; */
 "5.title" = "Filter";
 
-/* Class = "NSBox"; title = "Match any of:"; ObjectID = "18"; */
-"18.title" = "Entspricht einem der Einträge:";
-
 /* Class = "NSBox"; title = "Available tests"; ObjectID = "24"; */
 "24.title" = "Verfügbare Prüfungen";
 

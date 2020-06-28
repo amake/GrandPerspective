@@ -65,6 +65,9 @@
 "Reveal in Finder" = "在Finder揭示";
 
 /* Tooltip */
+"Search files by name" = "按名称搜索文件";
+
+/* Tooltip */
 "Show info" = "显示资讯";
 
 /* Menu item */

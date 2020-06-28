@@ -65,6 +65,9 @@
 "Reveal in Finder" = "Finder'da Göster ";
 
 /* Tooltip */
+"Search files by name" = "Dosyaları ada göre ara";
+
+/* Tooltip */
 "Show info" = "Bilgi ver";
 
 /* Menu item */

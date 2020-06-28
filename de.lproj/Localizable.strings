@@ -304,6 +304,9 @@
 /* Message in progress panel while scanning */
 "Scanning %@" = "Scanne %@";
 
+/* Alert message */
+"Scanning failed" = "Scannen fehlgeschlagen";
+
 /* Title of progress panel. */
 "Scanning in progress" = "Scan in Arbeit";
 
@@ -348,6 +351,9 @@
 
 /* Alert informative text */
 "The filter will be replaced by the default filter with this name." = "Dieser Filter wird durch den Standard-Filter dieses Namens ersetzt.";
+
+/* Alert message */
+"The path %@ does not exist or is not a folder" = "Der Pfad %@ existiert nicht oder ist kein Verzeichnis";
 
 /* Alert message */
 "The reported size of some files is larger than their actual size on disk" = "Die gemeldete Größe einiger Dateien ist größer als die tatsächliche Größe auf dem Laufwerk";

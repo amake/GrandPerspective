@@ -304,6 +304,9 @@
 /* Message in progress panel while scanning */
 "Scanning %@" = "扫描%@";
 
+/* Alert message */
+"Scanning failed" = "扫描失败";
+
 /* Title of progress panel. */
 "Scanning in progress" = "扫描进行中";
 
@@ -348,6 +351,9 @@
 
 /* Alert informative text */
 "The filter will be replaced by the default filter with this name." = "过滤将会被此名字的预设过滤代替.";
+
+/* Alert message */
+"The path %@ does not exist or is not a folder" = "路径％@不存在或不是文件夹";
 
 /* Alert message */
 "The reported size of some files is larger than their actual size on disk" = "有些文档的报告大小大于它们的实质大小";

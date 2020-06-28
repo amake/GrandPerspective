@@ -1,9 +1,6 @@
 /* Class = "NSWindow"; title = "Filter"; ObjectID = "5"; */
 "5.title" = "过滤";
 
-/* Class = "NSBox"; title = "Match any of:"; ObjectID = "18"; */
-"18.title" = "匹配任何一个:";
-
 /* Class = "NSBox"; title = "Available tests"; ObjectID = "24"; */
 "24.title" = "可用的测试";
 

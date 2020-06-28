@@ -304,6 +304,9 @@
 /* Message in progress panel while scanning */
 "Scanning %@" = "%@ taranıyor";
 
+/* Alert message */
+"Scanning failed" = "Tarama başarısız oldu";
+
 /* Title of progress panel. */
 "Scanning in progress" = "Taranıyor";
 
@@ -348,6 +351,9 @@
 
 /* Alert informative text */
 "The filter will be replaced by the default filter with this name." = "Süzgeç bu ada sahip varsayılan süzgeç ile değiştirilecektir.";
+
+/* Alert message */
+"The path %@ does not exist or is not a folder" = "%@ yolu yok veya bir klasör değil";
 
 /* Alert message */
 "The reported size of some files is larger than their actual size on disk" = "Bazı dosyaların raporlanan boyutu, onların kendi geçreç boyutlarından daha büyüktür.";
