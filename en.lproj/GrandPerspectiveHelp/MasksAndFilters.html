@@ -20,21 +20,33 @@ You can hide files in a view by applying a filter or mask:
 
 <ul>
 <li>
-A filter entirely omits files from the view.
+A filter omits files from the view entirely.
 Files that do not pass a filter are excluded from the view.
 A filter always <a href="CreatingViews.html">creates a new view</a>.
-You apply a filter to an existing view using the <b>Filter</b> command from the "Window" menu.
-Alternatively, you can apply a filter when scanning a new folder using the <b>Filtered scan</b> command from the "File" menu.
 </li>
 
 <li>
-A mask is also a filter but it is used differently.
-A mask is always applied to an existing view.
-When you use a mask, hidden files are not shown, but still take up space in the view.
-You can apply a mask from the <a href="ViewDisplayPanel.html">Display tab</a>.
+A mask is a filter that is always applied to an existing view.
+A mask hides items that do not pass its filter.
+The hidden files are not shown but still take up space in the view.
 </li>
-
 </ul>
+</p>
+
+<p>
+You can apply a mask from the <a href="ViewDisplayPanel.html">Display tab</a>.
+You can use a mask amongst others to quickly check if a new filter that you are creating behaves as intended.
+</p>
+
+<p>
+From a view with a mask you can use the "Rescan with mask as filter" option from the  toolbar to create a new window with the mask used as filter.
+You can also use the <b>Filter</b> command from the "Window" menu to apply a filter to an existing view.
+It is similar except that it does not rescan your disk and lets you select a different filter if you want.
+</p>
+
+<p>
+Use the <b>Filtered scan</b> command from the "File" menu if you want to apply a filter when scanning new data.
+A filter used this way can greatly speed up scans by skipping folders that you are not interested in.
 </p>
 
 <h2>Find out more</h2>

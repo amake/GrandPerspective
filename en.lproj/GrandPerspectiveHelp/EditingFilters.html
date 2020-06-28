@@ -44,21 +44,31 @@ You can select tests that should be used by moving them from the right to the le
 </p>
 
 <p>
-When there is more than one test in the filter, a file or folder only needs to match one for the filter to apply.
-In other words, the tests are combined using "OR" as opposed to "AND".
+An icon to the left of each test in the filter indicates if the test is inverted or not:
+</p>
+<dl>
+<dt><img src="images/Checkmark.png" alt="green checkmark" width=11 height=10></dt>
+<dd>items that pass the test are selected</dd>
+<dt><img src="images/Cross.png" alt="red cross" width=11 height=10></dt>
+<dd>items that pass the text are excluded</dd>
+</dl>
+
+<p>
+You can toggle between both states by double-clicking on the test.
+Some tests cannot be toggled.
+This holds for tests for which there is only one sensible state.
+Tests that apply to folders are always inverted.
+If they were not, a file would only pass the test when <em>all folders in its path</em> (starting from the folder that was scanned) pass the test.
+In practice, this is not what you want, as typically no files will pass the test.
 </p>
 
 <p>
-An icon to the left of each test in the filter indicates if the test is inverted or not.
-A <b>green checkmark</b> indicates that the filter applies to items that pass the test.
-A <b>red cross</b> indicates that the filter applies to items that do not pass the test.
-You can toggle between both states by double-clicking on the test.
-Some tests cannot be toggled, however.
-This holds for tests for which there is only one sensible state.
-An example are tests that apply to folders; these tests are always inverted.
-If they were not, a file would only be shown when <em>all folders in its path</em> (starting from the folder that was scanned) match one or more of these folder-tests.
-In practice, this will never (or very rarely) be the case, resulting in empty views.
+When there is more than one test in the filter, the selection logic is as follows:
 </p>
+<ul>
+<li>If there are one or more tests with a green checkmark, a file only needs to match one of these</li>
+<li>If there are one or more tests with a red cross, a file should not match any of these</li>
+</ul>
 
 <p>
 GrandPerspective comes with a few default filter tests.

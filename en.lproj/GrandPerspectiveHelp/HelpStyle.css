@@ -6,7 +6,7 @@ body	{
 	margin: 2px 12px 12px
 	}
 	
-h1 {
+h1	{
 	font-size: 11pt;
 	font-family: "Lucida Grande", Arial, sans-serif;
 	margin-right: 20px;
@@ -49,12 +49,12 @@ ol	{
 ol li	{
 	margin-top: 6px;
 	margin-bottom: 6px
-	   }
+	}
 
 ol p	{
 	margin-top: 6px;
 	margin-bottom: 6px
-	   }
+	}
 
 ul	{
 	font-size: 9pt;
@@ -66,12 +66,12 @@ ul	{
 	margin-bottom: 12px;
 	margin-left: -24px;
 	padding-left: 40px
-	   }
+	}
 
 ul li	{
 	margin-top: 6px;
 	margin-bottom: 6px
-	   }
+	}
 
 ul p	{
 	margin-top: 6px;
@@ -99,8 +99,38 @@ hr	{
 
 td	{
 	padding: 6px
-	   }
-	   
+	}
+
+dl	{
+	width: 100%;
+	overflow: hidden;
+	/* background: #ff0; */
+	padding: 0;
+	margin: 0
+	}
+
+dt	{
+	float: left;
+	width: 5%;
+	/* background: #cc0; */
+	padding: 0;
+	margin: 0
+	}
+
+dd	{
+	float: left;
+	width: 95%;
+	/* background: #dd0 */
+	padding: 0;
+	margin: 0;
+
+
+	font-size: 9pt;
+	font-family: "Lucida Grande", Arial, sans-serif;
+	line-height: 12pt;
+	text-decoration: none
+	}
+
 code	{
 	color: black;
 	font-size: 9pt;
@@ -124,7 +154,7 @@ code	{
 #caticon	{
 	margin-bottom: -3px;
 	float: left
-	   }
+	}
 
 #pagetitle	{
 	margin-top: 12px;
@@ -132,7 +162,7 @@ code	{
 	margin-left: 40px;
 	width: 85%;
 	border: solid 1px #fff
-	   }
+	}
 
 #mainbox	{
 	margin-top: 36px;
@@ -146,7 +176,7 @@ code	{
 	margin: 12px 0;
 	padding: 2px 12px;
 	border: solid 1px #bfbfbf
-	   }
+	}
 
 #taskbox  h2	{
 	margin-top: 8px;
@@ -192,7 +222,7 @@ code	{
 	border-bottom: 1px solid #bfbfbf
 	}
 	
-#terms   {
+#terms	{
 	margin-left: -6px;
 	position: absolute;
 	top: 3em;
@@ -217,12 +247,13 @@ code	{
 	color: #666;
 	font-family: "Lucida Grande", Arial, sans-serif;
 	font-weight: bold;
-	margin-top: 48px; }
+	margin-top: 48px;
+	}
 	
 	
 #feedback a {	
 	font-weight: normal;
-}
+	}
 
 #feedback img	{
 	vertical-align: top;
@@ -232,7 +263,7 @@ code	{
 	margin-top: -6px
 	}
 
-.blue    {
+.blue	{
 	background-color: #e6edff;
 	margin-top: -3px;
 	margin-bottom: -3px;
@@ -240,7 +271,7 @@ code	{
 	padding-bottom: -3px
 	}
 
-.rules   {
+.rules	{
 	border-bottom: 1px dotted #ccc
 	}
 
@@ -248,7 +279,7 @@ code	{
 	border: dotted 1px #ccc
 	}
 
-.seealso  {
+.seealso	{
 	margin-top: 4px;
 	margin-bottom: 4px
 	}

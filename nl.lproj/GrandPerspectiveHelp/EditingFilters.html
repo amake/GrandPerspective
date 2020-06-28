@@ -44,21 +44,31 @@ U kunt testen toevoegen aan het filter door deze van rechts naar links te verpla
 </p>
 
 <p>
-Wanneer een filter uit meer dan n test bestaat, dan is het filter actief zodra een bestand of map aan n van deze testen voldoet.
-Anders gezegd, de testen worden via "OF" gecombineerd in plaats van "EN".
+Een icoontje links van elke test in het filter geeft aan of de test ge•nverteerd is of niet:
+</p>
+<dl>
+<dt><img src="images/Checkmark.png" alt="groen vinkje" width=11 height=10></dt>
+<dd>items die aan de test voldoen worden geselecteerd</dd>
+<dt><img src="images/Cross.png" alt="rood kruisje" width=11 height=10></dt>
+<dd>items die aan de test voldoen worden buitengesloten</dd>
+</dl>
+
+<p>
+U kunt tussen beide standen schakelen door te dubbelklikken op de test.
+Sommige testen kunnen niet omgeschakeld worden.
+Dit geldt voor testen waarvoor maar n stand praktisch is.
+Testen die van toepassing zijn op mappen zijn altijd ge•nverteerd.
+Als dit niet het geval zou zijn dan zou een bestand enkel geselecteerd worden wanneer <em>alle mappen in het pad naar het bestand</em> (vanaf de map die ingelezen was) voldoen aan de test.
+Dit is in de praktijk niet wat u wilt, omdat typisch geen enkel bestand voldoet aan de test.
 </p>
 
 <p>
-Een icoontje links van elke test in het filter geeft aan of de test ge•nverteerd is of niet.
-Een <b>groen vinkje</b> geeft aan dat het filter geldt voor items die aan de test voldoen.
-Een <b>rood kruisje</b> geeft aan dat het filter geldt voor items die niet aan de test voldoen.
-U kunt tussen beide standen schakelen door te dubbelklikken op de test.
-Sommige testen kunnen echter niet omgeschakeld worden.
-Dit geldt voor testen waarvoor maar n stand praktisch is.
-Een voorbeeld hiervan zijn testen die van toepassing zijn op mappen; deze zijn altijd ge•nverteerd.
-Als dit niet het geval zou zijn dan zou een bestand enkel getoond worden wanneer <em>alle mappen in het pad naar het bestand</em> (vanaf de map die ingelezen was) voldoen n van de map testen.
-Dit is in de praktijk nooit (of zelden) het geval, wat tot lege vensters zou leiden.
+Wanneer een filter uit meer dan n test bestaat, dan is de logica als volgt:
 </p>
+<ul>
+<li>Wanneer er n of meer testen met een groen vinkje zijn, dan moet een bestand aan n (of meer) van deze testen voldoen</li>
+<li>Wanneer er n of meer testen met een rood kruisje zijn, dan mag een bestand aan geen van deze testen voldoen</li>
+</ul>
 
 <p>
 GrandPerspective bevat enkele standaard filtertesten.
