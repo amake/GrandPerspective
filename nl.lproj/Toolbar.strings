@@ -53,6 +53,9 @@
 "Rescan view data" = "Ingelezen data herlezen";
 
 /* Toolbar action */
+"Rescan with mask as filter" = "Data herlezen met masker als filter";
+
+/* Toolbar action */
 "Reset focus" = "Herstel standaard focus";
 
 /* Toolbar action */

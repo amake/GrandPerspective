@@ -2,7 +2,7 @@
 "5.title" = "Filter test";
 
 /* Class = "NSBox"; title = "Subtests"; ObjectID = "10"; */
-"10.title" = "Subtests";
+"10.title" = "Subtesten";
 
 /* Class = "NSMenuItem"; title = "contains"; ObjectID = "18"; */
 "18.title" = "bevat";
