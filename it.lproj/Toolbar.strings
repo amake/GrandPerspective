@@ -53,6 +53,9 @@
 "Rescan view data" = "Riscansiona dati visualizzati";
 
 /* Toolbar action */
+"Rescan with mask as filter" = "Riscansiona con la maschera come filtro";
+
+/* Toolbar action */
 "Reset focus" = "Reset focus";
 
 /* Toolbar action */

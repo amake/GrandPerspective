@@ -1,6 +1,9 @@
 /* Class = "NSWindow"; title = "Filter"; ObjectID = "5"; */
 "5.title" = "过滤";
 
+/* Class = "NSBox"; title = "Selected tests"; ObjectID = "18"; */
+"18.title" = "选定的测试";
+
 /* Class = "NSBox"; title = "Available tests"; ObjectID = "24"; */
 "24.title" = "可用的测试";
 
@@ -30,4 +33,10 @@
 
 /* Class = "NSTextFieldCell"; title = "Name:"; ObjectID = "183"; */
 "183.title" = "名:";
+
+/* Class = "NSTextFieldCell"; title = "Match none"; ObjectID = "IC9-7o-Jmg"; */
+"IC9-7o-Jmg.title" = "没有匹配";
+
+/* Class = "NSTextFieldCell"; title = "Match any"; ObjectID = "K2j-w8-a6Z"; */
+"K2j-w8-a6Z.title" = "任何都匹配";
 

@@ -53,6 +53,9 @@
 "Rescan view data" = "重新扫描视图里的数据";
 
 /* Toolbar action */
+"Rescan with mask as filter" = "以掩码作为过滤器重新扫描";
+
+/* Toolbar action */
 "Reset focus" = "复位焦点";
 
 /* Toolbar action */

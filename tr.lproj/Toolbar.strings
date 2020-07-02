@@ -53,6 +53,9 @@
 "Rescan view data" = "Görünüm verisini yeniden tara";
 
 /* Toolbar action */
+"Rescan with mask as filter" = "Maskeyi süzgeç yaparak yeniden tara";
+
+/* Toolbar action */
 "Reset focus" = "Odağı sıfırla";
 
 /* Toolbar action */

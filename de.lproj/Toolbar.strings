@@ -53,6 +53,9 @@
 "Rescan view data" = "Wiederhole Ansicht Datei";
 
 /* Toolbar action */
+"Rescan with mask as filter" = "Wiederhole mit Maskierung als Filter";
+
+/* Toolbar action */
 "Reset focus" = "Auswahl zurücksetzen";
 
 /* Toolbar action */
