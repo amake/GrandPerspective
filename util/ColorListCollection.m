@@ -28,12 +28,8 @@ NSColor* colorForHexString(NSString* hexColor) {
   return [NSColor colorWithDeviceRed:r green:g blue:b alpha:0];
 }
 
-NSColorList* createFallbackPalette() {
+NSColorList* createPalette(NSArray *colors) {
   NSColorList  *colorList = [[[NSColorList alloc] initWithName: fallbackColorListName] autorelease];
-
-  // Hardcoded CoffeeBeans palette
-  NSArray  *colors = [NSArray arrayWithObjects: @"CC3333", @"CC9933", @"FFCC66", @"CC6633",
-                                                @"CC6666", @"993300", @"666600", nil];
 
   int count = 0;
   for (id colorString in colors) {
@@ -42,6 +38,23 @@ NSColorList* createFallbackPalette() {
 
   return colorList;
 }
+
+NSColorList* createFallbackPalette() {
+  // Hardcoded CoffeeBeans palette
+  NSArray  *colors = [NSArray arrayWithObjects: @"CC3333", @"CC9933", @"FFCC66", @"CC6633",
+                                                @"CC6666", @"993300", @"666600", nil];
+
+  return createPalette(colors);
+}
+
+#ifdef ENABLE_PALETTE_GRANDPERSPECTIVE
+NSColorList* createGrandPerspectivePalette() {
+  // Hardcoded "GrandPerspective" palette
+  NSArray  *colors = [NSArray arrayWithObjects: @"35B7DA", @"61D7D7", @"679DB4", @"538CA7", nil];
+
+  return createPalette(colors);
+}
+#endif
 
 @interface ColorListCollection (PrivateMethods)
 - (bool) isEmpty;
@@ -73,7 +86,11 @@ NSColorList* createFallbackPalette() {
       NSLog(@"Failed to load any palette. Adding fallback palette");
       [instance addColorList: createFallbackPalette() key: fallbackColorListKey];
     }
-    
+
+#ifdef ENABLE_PALETTE_GRANDPERSPECTIVE
+    [instance addColorList: createGrandPerspectivePalette() key: @"GrandPerspective"];
+#endif
+
     defaultColorListCollectionInstance = [instance retain];
   }
   
