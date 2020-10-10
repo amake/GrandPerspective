@@ -537,7 +537,7 @@ didStartElement:(NSString *)elementName
     error = 
       [[ApplicationError alloc] initWithLocalizedDescription:
           [NSString stringWithFormat: PARSE_ERROR_MSG,
-                      parser.lineNumber,
+                      (int)parser.lineNumber,
                       parseError.localizedDescription]];
   }
 }
