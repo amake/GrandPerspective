@@ -837,9 +837,12 @@ NSString  *ViewWillCloseEvent = @"viewWillClose";
         [[[NSMutableAttributedString alloc] initWithString: relativeItemPath] autorelease];
 
       NSUInteger  visibleLen = itemPath.length - invisiblePathName.length;
-      if (visibleLen > 0 && invisiblePathName.length > 0) {
-        // Let the path separator also be part of the invisible path.
-        visibleLen--;
+      if (visibleLen > 0 && visibleLen < relativeItemPath.length) {
+        NSUInteger  firstVisibleCharIndex = relativeItemPath.length - visibleLen;
+        if ([relativeItemPath characterAtIndex: firstVisibleCharIndex] == '/') {
+          // Move the path separator also to the invisible path.
+          visibleLen--;
+        }
       }
         
       if (relativeItemPath.length > visibleLen) {
