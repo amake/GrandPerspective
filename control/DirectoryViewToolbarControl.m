@@ -294,8 +294,6 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   item.label = title;
   item.paletteLabel = item.label;
   item.view = zoomControls;
-  item.minSize = zoomControls.bounds.size;
-  item.maxSize = zoomControls.bounds.size;
   
   // Tool tips set here (as opposed to Interface Builder) so that all toolbar-related text is in the
   // same file, to facilitate localization.
@@ -341,8 +339,6 @@ NSMutableDictionary  *createToolbarItemLookup = nil;
   item.label = title;
   item.paletteLabel = item.label;
   item.view = focusControls;
-  item.minSize = focusControls.bounds.size;
-  item.maxSize = focusControls.bounds.size;
 
   // Tool tips set here (as opposed to Interface Builder) so that all toolbar-related text is in the
   // same file, to facilitate localization.

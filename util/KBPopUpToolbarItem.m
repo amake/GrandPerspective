@@ -153,8 +153,6 @@
 		[button setButtonType:NSMomentaryChangeButton];
 		[button setBordered:NO];
 		self.view = button;
-		self.minSize = NSMakeSize(32,32);
-		self.maxSize = NSMakeSize(32,32);
 	}
 	return self;
 }
