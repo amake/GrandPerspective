@@ -1,9 +1,6 @@
-
 /* Class = "NSWindow"; title = "Window"; ObjectID = "82"; */
-"82.title" = "Window";
-
-/* Class = "NSTextFieldCell"; title = "System/Font/Text"; ObjectID = "948"; */
-"948.title" = "System/Font/Text";
+"82.title" = "Fenêtre";
 
 /* Class = "NSTextFieldCell"; title = "Size"; ObjectID = "949"; */
-"949.title" = "Size";
+"949.title" = "Taille";
+

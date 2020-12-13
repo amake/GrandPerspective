@@ -1,30 +1,24 @@
-
 /* Class = "NSButtonCell"; title = "Clear History"; ObjectID = "9nG-ap-dHC"; */
-"9nG-ap-dHC.title" = "Clear History";
+"9nG-ap-dHC.title" = "Vider l'historique";
 
 /* Class = "NSButtonCell"; title = "Scan"; ObjectID = "Cd8-ae-UVZ"; */
-"Cd8-ae-UVZ.title" = "Scan";
-
-/* Class = "NSButtonCell"; title = "Help"; ObjectID = "JEp-c0-ZgQ"; */
-"JEp-c0-ZgQ.title" = "Help";
-
-/* Class = "NSWindow"; title = "Welcome"; ObjectID = "QvC-M9-y7g"; */
-"QvC-M9-y7g.title" = "Welcome";
-
-/* Class = "NSTextFieldCell"; title = "Path"; ObjectID = "UhX-F8-bW1"; */
-"UhX-F8-bW1.title" = "Path";
+"Cd8-ae-UVZ.title" = "Analyser";
 
 /* Class = "NSTextFieldCell"; placeholderString = "Foldername"; ObjectID = "duM-ug-7fu"; */
-"duM-ug-7fu.placeholderString" = "Foldername";
+"duM-ug-7fu.placeholderString" = "Nom de dossier";
 
 /* Class = "NSTextFieldCell"; title = "Folder"; ObjectID = "duM-ug-7fu"; */
-"duM-ug-7fu.title" = "Folder";
+"duM-ug-7fu.title" = "Dossier";
+
+/* Class = "NSButtonCell"; title = "Help"; ObjectID = "JEp-c0-ZgQ"; */
+"JEp-c0-ZgQ.title" = "Aide";
 
 /* Class = "NSTextFieldCell"; title = "graphically shows your disk usage"; ObjectID = "lT6-9A-q8Z"; */
-"lT6-9A-q8Z.title" = "graphically shows your disk usage";
+"lT6-9A-q8Z.title" = "affiche graphiquement l'utilisation du disque";
 
-/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "xvh-L4-J3V"; */
-"xvh-L4-J3V.title" = "Text Cell";
+/* Class = "NSWindow"; title = "Welcome"; ObjectID = "QvC-M9-y7g"; */
+"QvC-M9-y7g.title" = "Bienvenue";
 
-/* Class = "NSTextFieldCell"; title = "GrandPerspective"; ObjectID = "zcR-VQ-ffQ"; */
-"zcR-VQ-ffQ.title" = "GrandPerspective";
+/* Class = "NSTextFieldCell"; title = "Path"; ObjectID = "UhX-F8-bW1"; */
+"UhX-F8-bW1.title" = "Chemin";
+

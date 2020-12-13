@@ -1,132 +1,131 @@
+/* Class = "NSMenuItem"; title = "Item"; ObjectID = "3LR-fJ-0Ck"; */
+"3LR-fJ-0Ck.title" = "Element";
 
 /* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5"; */
-"5.title" = "Bring All to Front";
+"5.title" = "Mettre tout au premier plan";
+
+/* Class = "NSMenuItem"; title = "Show/Hide Control Panel"; ObjectID = "9Ho-ON-BCj"; */
+"9Ho-ON-BCj.title" = "Afficher/Cacher le panneau de contrôle";
 
 /* Class = "NSMenuItem"; title = "Window"; ObjectID = "19"; */
-"19.title" = "Window";
+"19.title" = "Fenêtre";
 
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "23"; */
-"23.title" = "Minimize";
+"23.title" = "Minimiser";
 
 /* Class = "NSMenu"; title = "Window"; ObjectID = "24"; */
-"24.title" = "Window";
+"24.title" = "Fenêtre";
 
 /* Class = "NSMenu"; title = "MainMenu"; ObjectID = "29"; */
-"29.title" = "MainMenu";
-
-/* Class = "NSMenuItem"; title = "GrandPerspective"; ObjectID = "56"; */
-"56.title" = "GrandPerspective";
-
-/* Class = "NSMenu"; title = "GrandPerspective"; ObjectID = "57"; */
-"57.title" = "GrandPerspective";
+"29.title" = "Menu principal";
 
 /* Class = "NSMenuItem"; title = "About GrandPerspective"; ObjectID = "58"; */
-"58.title" = "About GrandPerspective";
+"58.title" = "A propos de GrandPerspective";
 
 /* Class = "NSMenuItem"; title = "Scan Folder..."; ObjectID = "72"; */
-"72.title" = "Scan Folder...";
+"72.title" = "Analyser le dossier...";
 
 /* Class = "NSMenu"; title = "File"; ObjectID = "81"; */
-"81.title" = "File";
+"81.title" = "Fichier";
 
 /* Class = "NSMenuItem"; title = "File"; ObjectID = "83"; */
-"83.title" = "File";
+"83.title" = "Fichier";
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "103"; */
-"103.title" = "Help";
+"103.title" = "Aide";
 
 /* Class = "NSMenu"; title = "Help"; ObjectID = "106"; */
-"106.title" = "Help";
+"106.title" = "Aide";
 
 /* Class = "NSMenuItem"; title = "GrandPerspective Help"; ObjectID = "111"; */
-"111.title" = "GrandPerspective Help";
+"111.title" = "Aide de GrandPerspective";
 
 /* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "129"; */
-"129.title" = "Preferences…";
+"129.title" = "Préférences…";
 
 /* Class = "NSMenuItem"; title = "Hide GrandPerspective"; ObjectID = "134"; */
-"134.title" = "Hide GrandPerspective";
+"134.title" = "Cacher GrandPerspective";
 
 /* Class = "NSMenuItem"; title = "Quit GrandPerspective"; ObjectID = "136"; */
-"136.title" = "Quit GrandPerspective";
+"136.title" = "Quitter GrandPerspective";
 
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "145"; */
-"145.title" = "Hide Others";
+"145.title" = "Cacher les autres";
 
 /* Class = "NSMenuItem"; title = "Show All"; ObjectID = "150"; */
-"150.title" = "Show All";
+"150.title" = "Afficher tout";
 
 /* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "197"; */
 "197.title" = "Zoom";
 
 /* Class = "NSMenuItem"; title = "Duplicate"; ObjectID = "272"; */
-"272.title" = "Duplicate";
+"272.title" = "Dupliquer";
 
 /* Class = "NSMenuItem"; title = "Close"; ObjectID = "319"; */
-"319.title" = "Close";
+"319.title" = "Fermer";
 
 /* Class = "NSMenuItem"; title = "Twin"; ObjectID = "321"; */
-"321.title" = "Twin";
+"321.title" = "Dupliquer en parallèle";
 
 /* Class = "NSMenuItem"; title = "Export As Image..."; ObjectID = "324"; */
-"324.title" = "Export As Image...";
+"324.title" = "Exporter comme image...";
 
 /* Class = "NSMenuItem"; title = "Rescan"; ObjectID = "326"; */
-"326.title" = "Rescan";
+"326.title" = "Réanalyser";
 
 /* Class = "NSMenuItem"; title = "Filter..."; ObjectID = "331"; */
-"331.title" = "Filter...";
+"331.title" = "Filtre...";
 
 /* Class = "NSMenuItem"; title = "Filtered Scan..."; ObjectID = "335"; */
-"335.title" = "Filtered Scan...";
+"335.title" = "Analyse filtrée...";
 
 /* Class = "NSMenuItem"; title = "Save Scan Data..."; ObjectID = "339"; */
-"339.title" = "Save Scan Data...";
+"339.title" = "Enregistrer les données de l'analyse...";
 
 /* Class = "NSMenuItem"; title = "Load Scan Data..."; ObjectID = "340"; */
-"340.title" = "Load Scan Data...";
+"340.title" = "Charger les données de l'analyse...";
 
 /* Class = "NSMenuItem"; title = "GrandPerspective Website"; ObjectID = "345"; */
-"345.title" = "GrandPerspective Website";
+"345.title" = "Site GrandPerspective";
 
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "348"; */
-"348.title" = "View";
+"348.title" = "Affichage";
 
 /* Class = "NSMenu"; title = "View"; ObjectID = "349"; */
-"349.title" = "View";
+"349.title" = "Affichage";
 
 /* Class = "NSMenuItem"; title = "Show/Hide Toolbar"; ObjectID = "350"; */
-"350.title" = "Show/Hide Toolbar";
+"350.title" = "Afficher/Cacher la barre d'outils";
 
 /* Class = "NSMenuItem"; title = "Customize Toolbar..."; ObjectID = "351"; */
-"351.title" = "Customize Toolbar...";
+"351.title" = "Personaliser la barre d'outils";
 
 /* Class = "NSMenuItem"; title = "Filters..."; ObjectID = "357"; */
-"357.title" = "Filters...";
+"357.title" = "Filtres...";
 
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "388"; */
-"388.title" = "Edit";
+"388.title" = "Modifier";
 
 /* Class = "NSMenu"; title = "Edit"; ObjectID = "389"; */
-"389.title" = "Edit";
+"389.title" = "Modifier";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "393"; */
-"393.title" = "Cut";
+"393.title" = "Couper";
 
 /* Class = "NSMenuItem"; title = "Copy"; ObjectID = "394"; */
-"394.title" = "Copy";
+"394.title" = "Copier";
 
 /* Class = "NSMenuItem"; title = "Paste"; ObjectID = "395"; */
-"395.title" = "Paste";
+"395.title" = "Coller";
 
 /* Class = "NSMenuItem"; title = "Delete"; ObjectID = "397"; */
-"397.title" = "Delete";
+"397.title" = "Supprimer";
 
 /* Class = "NSMenuItem"; title = "Select All"; ObjectID = "398"; */
-"398.title" = "Select All";
+"398.title" = "Selectionner tout";
 
 /* Class = "NSMenuItem"; title = "Uniform type ranking..."; ObjectID = "421"; */
-"421.title" = "Uniform type ranking...";
+"421.title" = "Classement de type uniforme";
 
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "425"; */
 "425.title" = "Services";
@@ -134,17 +133,12 @@
 /* Class = "NSMenu"; title = "Services"; ObjectID = "426"; */
 "426.title" = "Services";
 
-/* Class = "NSMenuItem"; title = "Item"; ObjectID = "3LR-fJ-0Ck"; */
-"3LR-fJ-0Ck.title" = "Item";
-
-/* Class = "NSMenuItem"; title = "Show/Hide Control Panel"; ObjectID = "9Ho-ON-BCj"; */
-"9Ho-ON-BCj.title" = "Show/Hide Control Panel";
-
-/* Class = "NSMenu"; title = "Scan Recent"; ObjectID = "HXb-90-KwJ"; */
-"HXb-90-KwJ.title" = "Scan Recent";
-
 /* Class = "NSMenuItem"; title = "Export As Text..."; ObjectID = "hJw-Fc-daG"; */
-"hJw-Fc-daG.title" = "Export As Text...";
+"hJw-Fc-daG.title" = "Exporter comme texte...";
 
 /* Class = "NSMenuItem"; title = "Scan Recent"; ObjectID = "hUr-J9-FbH"; */
-"hUr-J9-FbH.title" = "Scan Recent";
+"hUr-J9-FbH.title" = "Analyse récente";
+
+/* Class = "NSMenu"; title = "Scan Recent"; ObjectID = "HXb-90-KwJ"; */
+"HXb-90-KwJ.title" = "Analyse récente";
+
