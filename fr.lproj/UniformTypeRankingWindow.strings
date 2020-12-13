@@ -29,5 +29,5 @@
 "98.title" = "Déplacer en bas";
 
 /* Class = "NSTextFieldCell"; title = "Note: The order determines which file types have a unique color when coloring by \"File type\" is used. Colors are assigned from top to bottom to all types that are not hidden, until all colors in the active color palette have been used. "; ObjectID = "103"; */
-"103.title" = "Note: L'ordre détermine quels types de fichiers ont une couleur unique lorsque la coloration par \"Type de fichier\" est utilisée. Les couleurs sont attribuées de haut en bas à tous les types qui ne sont pas masqués, jusqu'à ce que toutes les couleurs de la palette de couleurs active aient été utilisées.";
+"103.title" = "Note: L'ordre détermine quels types de fichiers ont une couleur unique lorsque la coloration par \"Type de fichier\" est utilisée. Les couleurs sont attribuées de haut en bas à tous les types qui ne sont pas masqués, jusqu'à ce que toutes les couleurs de la palette de couleurs active aient été utilisées. ";
 

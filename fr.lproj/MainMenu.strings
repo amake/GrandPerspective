@@ -98,7 +98,7 @@
 "350.title" = "Afficher/Cacher la barre d'outils";
 
 /* Class = "NSMenuItem"; title = "Customize Toolbar..."; ObjectID = "351"; */
-"351.title" = "Personaliser la barre d'outils";
+"351.title" = "Personnaliser la barre d'outils…";
 
 /* Class = "NSMenuItem"; title = "Filters..."; ObjectID = "357"; */
 "357.title" = "Filtres...";
@@ -125,7 +125,7 @@
 "398.title" = "Selectionner tout";
 
 /* Class = "NSMenuItem"; title = "Uniform type ranking..."; ObjectID = "421"; */
-"421.title" = "Classement de type uniforme";
+"421.title" = "Classement de type uniforme…";
 
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "425"; */
 "425.title" = "Services";
