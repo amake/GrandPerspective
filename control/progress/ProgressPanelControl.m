@@ -140,7 +140,7 @@ extern NSString  *EstimatedProgressKey;
 
 - (void) updateProgressSummary:(int)numProcessed {
   progressSummary.stringValue =
-    [NSString stringWithFormat: self.progressSummaryFormat, numProcessed];
+    [NSString localizedStringWithFormat: self.progressSummaryFormat, numProcessed];
 }
 
 - (void) updateProgressEstimate:(float)progressEstimate {
